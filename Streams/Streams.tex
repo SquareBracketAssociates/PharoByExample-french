@@ -1,0 +1,751 @@
+% $Author: oscar $
+% $Date: 2007-09-23 11:56:47 +0200 (Sun, 23 Sep 2007) $
+% $Revision: 12130 $
+% traduit par Martial 
+% relecture par Rene (Fri, 21 Dec 2007)
+% relecture par Rene (Sun, 13 Jan 2008)
+% update: Tue Dec 25 12:52:59 CET 2007
+% adaptation pour PBE: martial - Wed Sep  9 22:33:36 CEST 2009 from
+% $Author: oscar $ % $Date: 2009-08-16 16:37:09 +0200 (Sun, 16 Aug 2009) $ % $Revision: 28477 $
+%=================================================================
+\ifx\wholebook\relax\else
+% --------------------------------------------
+% Lulu:
+	\documentclass[a4paper,10pt,twoside]{book}
+	\usepackage[
+		papersize={6.13in,9.21in},
+		hmargin={.75in,.75in},
+		vmargin={.75in,1in},
+		ignoreheadfoot
+	]{geometry}
+	\input{../common.tex}
+	\pagestyle{headings}
+	\setboolean{lulu}{true}
+% --------------------------------------------
+% A4:
+%	\documentclass[a4paper,11pt,twoside]{book}
+%	\input{../common.tex}
+%	\usepackage{a4wide}
+% --------------------------------------------
+    \graphicspath{{figures/} {../figures/}}
+	\begin{document}
+	\renewcommand{\nnbb}[2]{} % Disable editorial comments
+	\sloppy
+\fi
+%=================================================================
+\newcommand{\stream}{\emph{stream}\xspace}
+\newcommand{\streams}{\emph{streams}\xspace}
+% remarque generale: beaucoup de commentaires et de chaines de caracteres dans les codes ont ete traduites dans ce chapitre
+\chapter{Stream: les flux de donn\'ees}\chalabel{streams}
+
+Les flux de donn\'ees ou \streams sont utilis\'es pour it\'erer dans
+une s\'equence d'\'el\'ements comme des
+% sequenced
+collections, des fichiers ou des flux r\'eseau.
+Les \streams peuvent \^etre en lecture ou en écriture ou les deux.
+La lecture et l'\'ecriture est toujours relative \`a la position actuelle
+dans le \stream. Les \streams peuvent \^etre facilement convertis en
+collections 
+%ajout d'apres la remarque de lukas
+(enfin presque toujours)
+et les collections en \streams.
+\lr{"Streams can easily be converted into collections." I wouldn't say it like this, because it is not true for all streams (infinite streams). According to Kent Beck we should only talk about conversion when the same protocol is supported. Collections and Streams do not support the same protocol. (p. 249)}
+
+%=============================================================
+\section{Deux s\'equences d'\'el\'ements}
+Voici une bonne m\'etaphore pour comprendre ce qu'est un flux de donn\'ees:
+un flux de donn\'ees ou \stream peut \^etre repr\'esent\'e comme deux
+s\'equences d'\'el\'ements: une s\'equence d'\'el\'ements pass\'ee 
+et une s\'equence d'\'el\'ements future.
+Le \stream est positionn\'e entre les deux s\'equences.
+Comprendre ce mod\`ele est important car toutes les op\'erations
+sur les \streams en \st en d\'ependent.
+C'est pour cette raison que la plupart des
+% Attention \clsindmain n'est pas au tout debut 
+classes \clsindmain{Stream} sont des sous-classes de \clsind{PositionableStream}.
+\Figref{_abcde} pr\'esente un flux de donn\'ees contenant cinq caract\`eres.
+Ce \stream est dans sa position originale \ie qu'il n'y a aucun \'el\'ement
+dans le pass\'e. Vous pouvez revenir \`a cette position en envoyant le 
+message 
+\mthind{PositionableStream}{reset}.
+
+\begin{figure}[ht]
+\centerline{\includegraphics[scale=0.5]{_abcdeStef}}
+\caption{Un flux de donn\'ees positionn\'e \`a son origine.}
+\figlabel{_abcde}
+\vspace{.2in}
+\end{figure}
+
+Lire un \'el\'ement revient conceptuellement \`a effacer le premier \'el\'ement de la s\'equence d'\'el\'ements future et le mettre apr\`es le dernier \'el\'ement dans la s\'equence d'\'el\'ements pass\'ee.
+Apr\'es avoir lu un \'el\'ement avec le message \ct{next}, l'\'etat de votre \stream est celui de \figref{a_bcde}.
+
+\begin{figure}[ht]
+\centerline{\includegraphics[scale=0.5]{a_bcdeStef}}
+\caption{Le m\^eme flux de donn\'ees apr\`es l'ex\'ecution de la m\'ethode \ct{next}: le caract\`ere \ct{a} est ``dans le pass\'e'' alors que \ct{b}, \ct{c}, \ct{d} and \ct{e} sont ``dans le futur''.}
+\figlabel{a_bcde}
+\vspace{.2in}
+\end{figure}
+
+\'Ecrire un \'el\'ement revient \`a remplacer le premier \'el\'ement de la s\'equence future par le nouveau et le d\'eplacer dans le pass\'e. \Figref{ax_cde} montre l'\'etat du m\^eme \stream apr\`es avoir \'ecrit un \ct{x} via le message \mthind{Stream}{nextPut:} \ct{anElement}.
+
+\begin{figure}[h!t]
+\centerline{\includegraphics[scale=0.5]{ax_cdeStef}}
+\caption{Le m\^eme flux de donn\'ees apr\`es avoir \'ecrit un \ct{x}.}
+\figlabel{ax_cde}
+\vspace{.2in}
+\end{figure}
+
+%=============================================================
+\section{Streams contre Collections}
+
+Le protocole des collections supporte le stockage, l'effacement et l'\'enum\'eration
+des \'el\'ements d'une collection mais il ne permet pas que ces op\'erations
+soient combin\'ees ensemble. Par exemple, si les \'el\'ements d'une 
+\clsind{OrderedCollection} sont trait\'es par une m\'ethode \mthind{OrderedCollection}{do:}, il n'est pas possible d'ajouter ou d'enlever des \'el\'ements
+\`a l'int\'erieur du bloc \ct{do:}.
+Ce protocole ne permet pas non plus d'it\'erer dans deux collections
+en m\^eme temps en choisissant quelle collection on itère, laquelle on n'itère pas.
+% ?choosing which collection goes forward
+% Serge : oui la phrase n'est pas très claire ... Précision à demander sur la liste sbe
+De telles proc\'edures requi\`erent qu'un index de parcours ou une r\'ef\'erence
+de position soit maintenu hors de la collection elle-m\^eme:
+c'est exactement le r\^ole de  
+%traversal index or
+\clsind{ReadStream} (pour la lecture), \clsind{WriteStream} (pour l'\'ecriture) et \clsind{ReadWriteStream} (pour les deux).
+
+Ces trois classes sont d\'efinies pour \emph{glisser à travers}~\footnote{En anglais, nous dirions ``stream over''.} une collection.
+Par exemple, le code suivant cr\'ee un \stream sur un intervalle puis y lit deux \'el\'ements.
+\needlines{5}
+\begin{code}{@TEST |r|}
+r := ReadStream on: (1 to: 1000).
+r next.   --> 1
+r next.   --> 2
+r atEnd.--> false
+\end{code}
+
+Les \ct{WriteStream}{}s peuvent \'ecrire des donn\'ees dans la collection:
+\begin{code}{@TEST |w|}
+w := WriteStream on: (String new: 5).
+w nextPut: $a.
+w nextPut: $b.
+w contents. -->  'ab'
+\end{code}
+
+Il est aussi possible de cr\'eer des \ct{ReadWriteStream}{}s qui supportent
+les protocoles de lecture et d'\'ecriture.
+
+\arevoir{Le principal probl\`eme de \ct{WriteStream} et de \ct{ReadWriteStream}
+est que, dans \pharo, ils ne supportent que les tableaux et les 
+cha\^{\i}nes de caract\`eres. Cette limitation est en cours de
+disparition gr\^ace au d\'eveloppement d'une nouvelle librairie
+nomm\'ee \emph{Nile}}~\footnote{Disponible \`a \url{www.squeaksource.com/Nile.html}}. mais en attendant, vous obtiendrez une erreur
+si vous essayez d'utiliser les \streams avec un autre type de collection:
+% REVOIR 
+
+\needlines{3}
+\begin{code}{}
+w := WriteStream on: (OrderedCollection new: 20).
+w nextPut: 12. -->  !\normcomment{l\`eve une erreur}!
+\end{code}
+
+Les \streams ne sont pas seulement destin\'es aux collections mais
+aussi aux fichiers et aux \emph{sockets}.
+L'exemple suivant cr\'ee un fichier appel\'e \ct{test.txt}, 
+y \'ecrit deux cha\^{\i}nes de caract\`eres, s\'epar\'ees par un retour-chariot et enfin ferme le fichier.
+
+\needlines{3}
+\begin{code}{}
+StandardFileStream
+  fileNamed: 'test.txt'
+  do: [:str | str
+                nextPutAll: '123';
+                cr;
+                nextPutAll: 'abcd'].
+\end{code}
+\cmindex{FileStream class}{fileNamed:do:}
+
+Les sections suivantes s'attardent sur les protocoles.
+
+%=============================================================
+\section{Utiliser les streams avec les collections}
+
+Les \streams sont vraiment utiles pour traiter des collections d'\'el\'ements.
+Ils peuvent \^etre utilis\'es pour la lecture et l'\'ecriture d'\'el\'ements
+dans des collections. Nous allons explorer maintenant les caract\'eristiques
+des \streams dans le cadre des collections.
+
+%-----------------------------------------------------------------
+\subsection{Lire les collections}
+
+Cette section pr\'esente les propri\'et\'es utilis\'ees pour lire des collections. Utiliser les flux de donn\'ees pour lire une collection 
+repose essentiellement sur le fait de disposer d'un pointeur sur le contenu de la collection.
+Vous pouvez placer o\`u vous voulez ce pointeur qui avancera dans le contenu pour lire.
+La classe \clsindmain{ReadStream} devrait \^etre utilis\'ee pour lire les \'el\'ements dans les collections.
+
+Les m\'ethodes \mthind{ReadStream}{next} et \mthind{ReadStream}{next:} 
+sont utilis\'ees pour r\'ecup\'erer un ou plusieurs \'el\'ements dans
+la collection.
+
+\begin{code}{@TEST |stream|}
+stream := ReadStream on: #(1 (a b c) false).
+stream next. -->   1
+stream next. -->   #(#a #b #c)
+stream next. -->   false
+\end{code}
+\cmindex{PositionableStream class}{on:}
+
+\begin{code}{@TEST |stream|}
+stream := ReadStream on: 'abcdef'.
+stream next: 0. -->   ''
+stream next: 1. -->   'a'
+stream next: 3. -->   'bcd'
+stream next: 2. -->   'ef'
+\end{code}
+
+Le message \mthind{PositionableStream}{peek} est utilis\'e quand vous voulez
+conna\^{\i}tre l'\'el\'ement suivant dans le \stream sans avancer dans le flux.
+
+\begin{code}{@TEST |stream negative number|}
+stream := ReadStream on: '-143'.
+negative := (stream peek = $-).    "regardez le premier !\'el\'ement! sans le lire"
+negative. --> true
+negative ifTrue: [stream next].       "ignore le !caract\`ere! moins"
+number := stream upToEnd.
+number. --> '143'
+\end{code}
+\noindent
+Ce code affecte la variable bool\'eenne \ct{negative} en fonction du signe du nombre dans le \stream et \ct{number} est assign\'e \`a sa valeur absolue. 
+La m\'ethode \mthind{ReadStream}{upToEnd} (qui en fran\c{c}ais se traduirait par ``jusqu'\`a la fin'') renvoie tout depuis la position courante jusqu'\`a
+la fin du flux de donn\'ees et positionne ce dernier \`a sa fin.
+Ce code peut \^etre simplifi\'e gr\^ace \`a \mthind{PositionableStream}{peekFor:} qui d\'eplace le pointeur si et seulement si l'\'el\'ement est \'egal au param\`etre pass\'e en argument.
+
+\begin{code}{@TEST |stream negative number|}
+stream := '-143' readStream.
+(stream peekFor: $-) --> true
+stream upToEnd         --> '143'
+\end{code}
+\noindent
+\ct{peekFor:} retourne aussi un bool\'een indiquant si le param\`etre est \'egal \`a l'\'el\'ement courant.
+
+Vous avez d\^u remarquer une nouvelle fa\c{c}on de construire un \stream dans l'exemple pr\'ec\'edent: vous pouvez simplement envoyer  
+\mthind{SequenceableCollection}{readStream} \`a une collection s\'equentielle pour avoir un flux de donn\'ees en lecture seule sur une collection.
+
+\paragraph{Positionner.} Il existe des m\'ethodes pour positionner le pointeur du \stream. Si vous connaissez l'emplacement, vous pouvez vous y rendre directement en utilisant \mthind{PositionableStream}{position:}. Vous pouvez demander la position actuelle avec \mthind{PositionableStream}{position}. Souvenez-vous bien 
+qu'un \stream n'est pas positionn\'e sur un \'el\'ement, mais entre deux \'el\'ements. L'index 0 correspond au d\'ebut du flux.
+
+Vous pouvez obtenir l'\'etat du \stream montr\'e dans 
+\figref{ab_cde} avec le code suivant:
+
+\begin{code}{@TEST |stream|}
+stream := 'abcde' readStream.
+stream position: 2.
+stream peek --> $c
+\end{code}%$
+
+\begin{figure}[h!t]
+\centerline{\includegraphics[scale=0.5]{ab_cdeStef}}
+\caption{Un flux de donn\'ees \`a la position 2.}
+\figlabel{ab_cde}
+\vspace{.2in}
+\end{figure}
+
+Si vous voulez aller au d\'ebut ou \`a la fin, vous pouvez utiliser
+   %martial: signaler la tournure lourde dans la VO: If you want to go to the beginning or at the end is what you want, you can use
+\mthind{PositionableStream}{reset} ou \mthind{PositionableStream}{setToEnd}.
+Les messages \mthind{PositionableStream}{skip:} et \mthind{PositionableStream}{skipTo:} sont utilis\'es pour avancer d'une position relative \`a la
+position actuelle: la m\'ethode \ct{skip:} accepte un nombre comme
+argument et saute sur une distance de ce nombre d'\'el\'ements alors que
+\ct{skipTo:} saute tous les \'el\'ements dans le flux jusqu'\`a trouver
+un \'el\'ement \'egal \`a son argument. Notez que cette m\'ethode positionne
+le \stream apr\`es l'\'el\'ement identifi\'e.
+
+\begin{code}{@TEST |stream|}
+stream := 'abcdef' readStream.
+stream next.        --> $a    "!le flux est \`a la position juste apr\`es a!"
+stream skip: 3.                           "le flux est !apr\`es! d"
+stream position.  -->   4
+stream skip: -2.                          "le flux est !apr\`es! b"
+stream position.  --> 2
+stream reset.
+stream position.  --> 0
+stream skipTo: $e.                      "le flux est !apr\`es! e"
+stream next.        --> $f
+stream contents. --> 'abcdef'
+\end{code}
+
+Comme vous pouvez le voir, la lettre \ct{e} a \'et\'e saut\'ee.
+
+La m\'ethode \mthind{PositionableStream}{contents} retourne toujours une copie de l'int\'egralit\'e du flux de donn\'ees.
+
+\paragraph{Tester.} Certaines m\'ethodes vous permettent de tester l'\'etat d'un \stream courant: 
+la m\'ethode \mthind{PositionableStream}{atEnd} renvoie \emph{true} si et seulement si aucun \'el\'ement ne peut \^etre trouv\'e apr\'es la position actuelle alors que \mthind{PositionableStream}{isEmpty} renvoie \emph{true} si et seulement si aucun \'el\'ement ne se trouve dans la collection.
+
+Voici une impl\'ementation possible d'un algorithme utilisant \ct{atEnd} et prenant deux collections tri\'ees comme param\`etres puis les fusionnant dans une autre collection tri\'ee:
+
+\needlines{4}
+\begin{code}{@TEST |stream1 stream2 result|}
+stream1 := #(1 4 9 11 12 13) readStream.
+stream2 := #(1 2 3 4 5 10 13 14 15) readStream.
+
+"!La variable r\'esultante contiendra la collection tri\'ee.!"
+result := OrderedCollection new.
+[stream1 atEnd not & stream2 atEnd not]
+  whileTrue: [stream1 peek < stream2 peek
+    "!Enl\`eve le plus petit \'el\'ement de chaque flux et l'ajoute au r\'esultat!"
+    ifTrue: [result add: stream1 next]
+    ifFalse: [result add: stream2 next]].
+
+"!Un des deux flux peut ne pas \^etre \`a la position finale. Copie ce qu'il reste!"
+result
+  addAll: stream1 upToEnd;
+  addAll: stream2 upToEnd.
+
+result. -->   an OrderedCollection(1 1 2 3 4 4 5 9 10 11 12 13 13 14 15)
+\end{code}
+%	from either stream and add it to the result."
+
+%-----------------------------------------------------------------
+\subsection{\'Ecrire dans les collections}
+
+Nous avons d\'ej\`a vu comment lire une collection en it\'erant sur ses
+\'el\'ements via un objet \ct{ReadStream}. Apprenons maintenant \`a cr\'eer
+des collections avec la classe \clsindmain{WriteStream}.
+
+Les flux de donn\'ees \ct{WriteStream} sont utiles pour adjoindre des donn\'ees en plusieurs endroits dans une collection. Ils sont souvent utilis\'es pour construire des cha\^{\i}nes de caract\`eres bas\'ees sur des parties \`a la fois statiques et dynamiques comme dans l'exemple suivant:
+
+\begin{code}{NB: can't be tested due to the changing number of classes}
+stream := String new writeStream.
+stream
+  nextPutAll: 'Cette image Smalltalk contient: ';
+  print: Smalltalk allClasses size;
+  nextPutAll: ' classes.';
+  cr;
+  nextPutAll: 'C'est vraiment beaucoup.'.
+
+stream contents. --> 'Cette image Smalltalk contient: 2322 classes.
+C'est vraiment beaucoup.'
+\end{code}
+
+Par exemple, cette technique est utilis\'ee dans diff\'erentes 
+impl\'ementations de la m\'ethode \ct{printOn:}. Il existe une mani\`ere
+plus simple et plus efficace de cr\'eer des flux de donn\'ees si vous \^etes
+seulement interess\'e au contenu du \stream:
+
+\begin{code}{@TEST |string|}
+string := String streamContents:
+		[:stream |
+			stream
+                 print: #(1 2 3);
+                 space;
+                 nextPutAll: 'size';
+                 space;
+                 nextPut: $=;
+                 space;
+                 print: 3.	].
+string. -->   '#(1 2 3) size = 3'
+\end{code}%$
+
+La m\'ethode \mthind{SequenceableCollection class}{streamContents:} \seclabel{streamContents} cr\'ee une collection et un \stream sur cette collection.
+Elle ex\'ecute ensuite le bloc que vous lui donn\'e en passant le \stream comme argument de bloc. Quand le bloc se termine, \ct{streamContents:}
+renvoie le contenu de la collection.
+
+Les m\'ethodes de \ct{WriteStream} suivantes sont sp\'ecialement utiles dans ce contexte:
+
+\begin{description}
+\item[\lct{nextPut:}] ajoute le param\`etre au flux de donn\'ees;
+\item[\lct{nextPutAll:}] ajoute chaque \'el\'ement de la collection pass\'e en argument au flux;
+\item[\lct{print:}] ajoute la repr\'esentation textuelle du param\`etre au flux.
+	\cmindex{Stream}{print:}
+\end{description}
+
+Il existe aussi des m\'ethodes utiles pour imprimer diff\'erentes sortes
+de caract\`eres au \stream comme \mthind{WriteStream}{space} (pour un espace), 
+   \mthind{WriteStream}{tab} (pour une tabulation) et
+\mthind{WriteStream}{cr} (pour \emph{Carriage Return} \cad le retour-chariot).
+Une autre m\'ethode s'av\`ere utile pour s'assurer que le dernier caract\`ere
+dans le flux de donn\'ees est un espace: il s'agit de \mthind{WriteStream}{ensureASpace}; si le dernier caract\`ere n'est pas un espace, il en ajoute un.
+
+\paragraph{Au sujet de la concat\'enation.}
+L'emploi de \mthind{WriteStream}{nextPut:} et de \mthind{WriteStream}{nextPutAll:} sur un \ct{WriteStream} est souvent le meilleur moyen pour concat\'ener 
+les caract\`eres.
+L'utilisation de l'op\'erateur virgule (\ct{,}) est beaucoup moins efficace:
+\index{Collection!opérateur virgule}
+
+\begin{code}{}
+[| temp |
+  temp := String new.
+  (1 to: 100000)
+    do: [:i | temp := temp, i asString, ' ']] timeToRun --> 115176 "(ms)"
+
+[| temp |
+  temp := WriteStream on: String new.
+  (1 to: 100000)
+    do: [:i | temp nextPutAll: i asString; space].
+  temp contents] timeToRun --> 1262 "(milliseconds)"
+\end{code}
+
+La raison pour laquelle l'usage d'un \stream est plus efficace provient
+du fait que l'op\'erateur virgule cr\'ee une nouvelle cha\^{\i}ne de caract\`eres
+contenant la concat\'enation du receveur et de l'argument, donc il doit
+les copier tous les deux.
+Quand vous concat\'enez de mani\`ere r\'ep\'et\'ee sur le m\^eme receveur,
+	  \c{c}a prend de plus en plus de temps \`a chaque fois; le nombre
+	  de caract\`eres copi\'es s'accro\^{\i}t de fa\c{c}on exponentielle.
+Cet op\'erateur implique aussi une surcharge de travail pour le ramasse-miettes qui collecte ces cha\^{\i}nes. 
+% ajout de 'Pour ce cas' pour suggerer que ca ne concerne specialement les gros travaux sur les chaines, pour les petites accumulations, je suis assez d'accord avec lukas (a discuter dans la sbe-discussion)
+Pour ce cas, utiliser un \stream plut\^ot qu'une concat\'enation de cha\^{\i}nes est une optimisation bien connue.
+\lr{About Concatenation. This is not true for real world examples (the example benchmark is unrealistic). Most of the time concatenation is simpler, cleaner and much faster, for example when being used on a small number of longer strings. (p. 257)}
+En fait, vous pouvez utiliser la m\'ethode de classe \mthind{SequenceableCollection class}{streamContents:} (mentionn\'ee \`a la page \pageref{sec:streamContents}) pour parvenir \`a ceci:
+
+\begin{code}{}
+String streamContents: [ :tempStream |
+  (1 to: 100000)
+       do: [:i | tempStream nextPutAll: i asString; space]] 
+\end{code}
+
+%-----------------------------------------------------------------
+\subsection{Lire et \'ecrire en m\^eme temps}
+
+Vous pouvez utiliser un flux de donn\'ees pour acc\'eder \`a une collection
+en lecture et en \'ecriture en m\^eme temps.
+Imaginez que vous voulez cr\'eer une classe d'historique que nous appelerons \ct{History} et qui g\'erera
+les boutons ``Retour'' (\emph{Back}) et ``Avant'' (\emph{Forward}) d'un
+navigateur web.
+Un historique r\'eagirait comme le montrent les illustrations depuis \ref{fig:emptyStream} jusqu'\`a \ref{fig:page4}.
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[scale=0.5]{emptyStef}}
+\caption{Un nouvel historique est vide. Rien n'est affich\'e dans le navigateur web.}
+\figlabel{emptyStream}
+\vspace{.2in}
+\end{figure}
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[scale=0.5]{page1Stef}}
+\caption{L'utilisateur ouvre la page 1.}
+\figlabel{page1}
+\vspace{.2in}
+\end{figure}
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[scale=0.5]{page2Stef}}
+\caption{L'utilisateur clique sur un lien vers la page 2.}
+\figlabel{page2}
+\vspace{.2in}
+\end{figure}
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[scale=0.5]{page3Stef}}
+\caption{L'utilisateur clique sur un lien vers la page 3.}
+\figlabel{page3}
+\vspace{.2in}
+\end{figure}
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[scale=0.5]{page2_Stef}}
+\caption{L'utilisateur clique sur le bouton ``Retour'' (Back). Il visite d\'esormais la page 2 \`a nouveau.}
+\figlabel{page2_}
+\vspace{.2in}
+\end{figure}
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[scale=0.5]{page1_Stef}}
+\caption{L'utilisateur clique sur le bouton ``Retour'' (Back). La page 1 est affich\'ee maintenant.}
+\figlabel{page1_}
+\vspace{.2in}
+\end{figure}
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[scale=0.5]{page4Stef}}
+\caption{Depuis la page 1, l'utilisateur clique sur un lien vers la page 4. L'historique oublie les pages 2 et 3.}
+\figlabel{page4}
+\vspace{.2in}
+\end{figure}
+
+Ce comportement peut \^etre programm\'e avec un \clsind{ReadWriteStream}.
+
+\needlines{6}
+\begin{code}{}
+Object subclass: #History
+  instanceVariableNames: 'stream'
+  classVariableNames: ''
+  poolDictionaries: ''
+  category: 'PBE-Streams'
+
+History>>initialize
+    super initialize.
+    stream := ReadWriteStream on: Array new.
+\end{code}
+
+Nous n'avons rien de compliqu\'e ici; nous d\'efinissons une nouvelle classe
+qui contient un \stream. Ce \stream est cr\'eé dans la m\'ethode \ct{initialize} 
+%ajout
+depuis un tableau.
+
+Nous avons besoin d'ajouter les m\'ethodes \ct{goBackward} et \ct{goForward} pour aller respectivement en arri\`ere (``Retour'') et en avant:
+
+\begin{code}{}
+History>>goBackward
+  self canGoBackward ifFalse: [self error: '!\normcode{D\'ej\`a sur le premier \'el\'ement}!'].
+  ^ stream back
+
+History>>goForward
+  self canGoForward ifFalse: [self error: '!\normcode{D\'ej\`a sur le dernier \'el\'ement}!'].
+  ^ stream next
+\end{code}
+
+Jusqu'ici le code est assez simple. Maintenant, nous devons nous occuper
+de la m\'ethode \ct{goTo:} (que nous pouvons traduire en fran\c{c}ais par ``aller \`a'') qui devrait \^etre activ\'ee quand l'utilisateur
+clique sur un lien. Une solution possible est la suivante:
+
+\begin{code}{}
+History>>goTo: aPage
+    stream nextPut: aPage.
+\end{code}
+
+Cette version est cependant incompl\`ete. Ceci vient du fait que lorsque l'utilisateur clique sur un lien, il ne devrait plus y avoir de pages futurs \ie
+que le bouton ``Avant'' devrait \^etre d\'esactiv\'e.
+Pour ce faire, la solution la plus simple est d'\'ecrire \ct{nil}
+juste apr\`es la position courante pour indiquer la fin de l'historique:
+
+\begin{code}{}
+History>>goTo: anObject
+  stream nextPut: anObject.
+  stream nextPut: nil.
+  stream back.
+\end{code}
+
+Maintenant, seules les m\'ethodes \ct{canGoBackward} (pour dire si oui ou non nous pouvons aller en arri\`ere) et \ct{canGoForward} (pour dire si oui ou non nous pouvons aller en avant) sont \`a coder.
+
+Un flux de donn\'ees est toujours positionn\'e entre deux \'el\'ements.
+Pour aller en arri\`ere, il doit y avoir deux pages avant la position courante:
+une est la page actuelle et l'autre est la page que nous voulons atteindre.
+
+\begin{code}{}
+History>>canGoBackward
+  ^ stream position > 1
+
+History>>canGoForward
+  ^ stream atEnd not and: [stream peek notNil]
+\end{code}
+
+Ajoutons pour finir une m\'ethode pour acc\'eder au contenu du \stream:
+\begin{code}{}
+History>>contents
+  ^ stream contents
+\end{code}
+
+Faisons fonctionner maintenant notre historique 
+%ajout (plus claire)
+comme dans la s\'equence illustr\'ee plus haut:
+\begin{code}{}
+History new
+	goTo: #page1;
+	goTo: #page2;
+	goTo: #page3;
+	goBackward;
+	goBackward;
+	goTo: #page4;
+	contents --> #(#page1 #page4 nil nil)
+\end{code}
+
+%=============================================================
+\section{Utiliser les streams pour acc\'eder aux fichiers}
+
+Vous avez d\'ej\`a vu comment glisser sur une collection d'\'el\'ements via
+un \stream. Il est aussi possible d'en faire de m\^eme avec un flux 
+sur des fichiers de votre disque dur.
+Une fois cr\'e\'e, un \stream sur un fichier est comme un \stream sur
+une collection: vous pourrez utiliser le m\^eme protocole pour lire, \'ecrire
+ou positionner le flux.
+La principale diff\'erence appara\^{\i}t \`a la cr\'eation du flux de donn\'ees.
+Nous allons voir qu'il existe plusieurs mani\`eres de cr\'eer un \stream sur un fichier.
+
+%-----------------------------------------------------------------
+\subsection{Cr\'eer un flux pour fichier}
+\seclabel{creat-file-stre}
+
+Cr\'eer un \stream sur un fichier consiste \`a utiliser une des m\'ethodes
+de cr\'eation d'instance suivantes mises \`a disposition par la classe
+\clsindmain{FileStream}:
+
+\begin{description}
+
+\item[\lct{fileNamed:}] ouvre en lecture et en \'ecriture un fichier 
+  avec le nom donn\'e. Si le fichier existe d\'ej\`a, son contenu pourra
+  \^etre modifi\'e ou remplac\'e mais le fichier ne sera pas tronqu\'e
+  \`a la fermeture. Si le nom n'a pas de chemin sp\'ecifi\'e pour r\'epertoire,
+  le fichier sera cr\'e\'e dans le r\'epertoire par d\'efaut.
+  \cmindex{FileStream class}{fileNamed:}
+  
+\item[\lct{newFileNamed:}] cr\'ee un nouveau fichier avec le nom donn\'e
+	et retourne un \stream ouvert en \'ecriture pour ce fichier.
+	Si le fichier existe d\'ej\`a, il est demand\'e \`a l'utilisateur
+	de choisir la marche \`a suivre.
+  \cmindex{FileStream class}{newFileNamed:}
+  
+\item[\lct{forceNewFileNamed:}] cr\'ee un nouveau fichier avec le nom donn\'e
+	et r\'epond un \stream ouvert en \'ecriture sur ce fichier.
+	Si le fichier existe d\'ej\`a, il sera effac\'e avant qu'un nouveau
+	ne soit cr\'e\'e.
+  \cmindex{FileStream class}{forceNewFileNamed:}
+
+\item[\lct{oldFileNamed:}] ouvre en lecture et en \'ecriture un fichier 
+	existant avec le nom donn\'e. Si le fichier existe d\'ej\`a, son 
+	contenu pourra \^etre modifi\'e ou remplac\'e mais le fichier ne sera
+	pas tronqu\'e \`a la fermeture. Si le nom n'a pas de chemin sp\'ecifi\'e
+	pour r\'epertoire, le fichier sera cr\'e\'e dans le r\'epertoire par
+	d\'efaut.
+  \cmindex{FileStream class}{oldFileNamed:}
+
+\item[\lct{readOnlyFileNamed:}] ouvre en lecture seule un fichier 
+	existant avec le nom donn\'e.
+  \cmindex{FileStream class}{readOnlyFileNamed:}
+
+\end{description}
+
+Vous devez vous rem\'emorer de fermer le \stream sur le fichier que vous avez ouvert. Ceci se fait gr\^ace \`a la m\'ethode \mthind{FileStream}{close}.
+
+\begin{code}{@TEST |stream|}
+stream := FileStream forceNewFileNamed: 'test.txt'.
+stream
+    nextPutAll: '!\normcode{Ce texte est \'ecrit dans un fichier nomm\'e}! ';
+    print: stream localName.
+stream close.
+
+stream := FileStream readOnlyFileNamed: 'test.txt'.
+stream contents. --> '!\normcode{Ce fichier est \'ecrit dans un fichier nomm\'e}! ''test.txt'''
+stream close.
+\end{code}
+
+% \on{need way to clean up test files afterwards}
+
+%[:fileName | (FileDirectory forFileName: fileName)
+%	deleteFileNamed: fileName
+%	ifAbsent: [ 'Could not delete ', fileName ] ]
+%	value: 'test.txt'
+
+La m\'ethode \mthind{FileStream}{localName} retourne le dernier composant du nom du fichier. Vous pouvez acc\'eder au chemin entier en utilisant la m\'ethode
+\mthind{StandardFileStream}{fullName}.
+
+Vous remarquerez bient\^ot que la fermeture manuelle de \stream de fichier
+est p\'enible et source d'erreurs. C'est pourquoi \ct{FileStream}
+offre un message appel\'e \mthind{FileStream class}{forceNewFileNamed:do:} 
+pour fermer automatiquement un nouveau flux de donn\'ees apr\`es
+avoir \'evalu\'e un bloc qui modifie son contenu.
+
+\begin{code}{@TEST |string|}
+FileStream
+    forceNewFileNamed: 'test.txt'
+    do: [:stream |
+        stream
+            nextPutAll: '!\normcode{Ce texte est \'ecrit dans un fichier nomm\'e}! ';
+            print: stream localName].
+string := FileStream
+            readOnlyFileNamed: 'test.txt'
+            do: [:stream | stream contents].
+string --> '!\normcode{Ce fichier est \'ecrit dans un fichier nomm\'e}! ''test.txt'''
+\end{code}
+
+Les m\'ethodes de cr\'eation de flux de donn\'ees prenant un bloc comme
+argument cr\'eent d'abord un \stream sur un fichier, puis ex\'ecute
+un argument et enfin ferme le \stream. Ces m\'ethodes retournent ce qui est retourn\'e par le bloc, \ie la valeur de la derni\`ere
+expression dans le bloc. C'est ce que nous avons utilis\'e dans
+l'exemple pr\'ec\'edent pour r\'ecup\'erer le contenu d'un fichier
+et le mettre dans la variable \ct{string}.
+
+%-----------------------------------------------------------------
+\subsection{Les flux binaires}
+\seclabel{binary-streams}
+
+Par d\'efaut, les \streams cr\'e\'es sont \`a base textuelle ce qui signifie
+que vous lirez et \'ecrirez des caract\`eres.
+Si votre flux doit \^etre binaire, vous devez lui envoyer le message 
+\mthind{FileStream}{binary}.
+
+Quand votre \stream est en mode binaire, vous pouvez seulement \'ecrire
+des nombres de 0 \`a 255 (ce qui correspond \`a un octet). Si
+vous voulez utiliser \ct{nextPutAll:} pour \'ecrire plus d'un
+nombre \`a la fois, vous devez passer comme
+argument un tableau d'octets de la classe \clsind{ByteArray}.
+
+\begin{code}{@TEST}
+FileStream
+  forceNewFileNamed: 'test.bin'
+  do: [:stream |
+          stream
+            binary;
+            nextPutAll: #(145 250 139 98) asByteArray].
+
+FileStream
+  readOnlyFileNamed: 'test.bin'
+  do: [:stream |
+          stream binary.
+          stream size.         --> 4
+          stream next.         --> 145
+          stream upToEnd. --> #[250 139 98]
+      ].
+\end{code}
+
+Voici un autre exemple cr\'eant une image dans un fichier nomm\'e
+``test.pgm''. Vous pouvez ouvrir ce fichier avec votre programme de
+dessin pr\'ef\'er\'e.
+
+% The following does not assert anything, but @TEST is used to ensure
+% that no error is thrown.
+\begin{code}{@TEST}
+FileStream
+  forceNewFileNamed: 'test.pgm' 
+  do: [:stream |
+	stream
+		nextPutAll: 'P5'; cr;
+		nextPutAll: '4 4'; cr;
+		nextPutAll: '255'; cr;
+		binary;
+		nextPutAll: #(255 0 255 0) asByteArray;
+		nextPutAll: #(0 255 0 255) asByteArray;
+		nextPutAll: #(255 0 255 0) asByteArray;
+		nextPutAll: #(0 255 0 255) asByteArray
+	]
+\end{code}
+
+Cela cr\'ee un \'echiquier 4 par 4 comme nous montre \figref{checkerboard4x4}.
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[width=0.25\textwidth]{checkerboard4x4}}
+\caption{Un \'echiquier 4 par 4 que vous pouvez dessiner en utilisant des \streams binaires.}
+\figlabel{checkerboard4x4}
+\vspace{.2in}
+\end{figure}
+
+%=============================================================
+\section{R\'esum\'e du chapitre}
+
+Par rapport aux collections, les flux de donn\'ees ou \streams offrent
+un bien meilleur moyen de lire et d'\'ecrire de mani\`ere
+incr\'ementale dans une s\'equence d'\'el\'ements.
+Il est tr\`es facile de passer par conversion de \streams \`a collections et vice-versa.
+
+\begin{itemize}
+  \item Les flux peuvent \^etre soit en lecture, soit en écriture, soit \`a la fois en lecture-écriture.
+  \item Pour convertir une collection en un \stream, d\'efinissez un \stream
+sur une collection gr\^ace au message \ct{on:}, \eg \ct{ReadStream on: (1 to: 1000)}, ou via les messages \ct{readStream}, \etc sur la collection.
+  \item Pour convertir un \stream en collection, envoyer le message \ct{contents}.
+  \item Pour concat\'ener des grandes collections, il est plus efficace d'abandonner l'emploi de l'op\'erateur virgule \ct{,} et de cr\'eer un \stream et y adjoindre les collections avec le message \ct{nextPutAll:} puis extraire enfin le r\'esultat en lui envoyant \ct{contents}.
+  \item Par d\'efaut, les \streams de fichiers sont \`a base de caract\`eres.
+Envoyer le message \ct{binary} en fait explicitement des \streams binaires.
+\end{itemize}
+
+%=================================================================
+\ifx\wholebook\relax\else\end{document}\fi
+%=================================================================
+
+%-----------------------------------------------------------------
+
+%%% Local Variables: 
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-PDF-mode: t
+%%% ispell-local-dictionary: "english"
+%%% End:

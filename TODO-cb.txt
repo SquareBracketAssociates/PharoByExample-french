@@ -1,0 +1,67 @@
+TODO PROVISOIRE [auteur: martial]
+cb = callback pour le retour vers la version originale (si vous avez
+des commentaires qui ne sont pas encore postés sur la mailing list,
+ajouter ici)
+
+*** Comment by chapters
+**TODO:
+* Model:
+- remove words about MVC in Model.tex / I did it in
+Morph>>openInWorld
+* Monticello:
+- in PBE, it would be nice to define the package from the start with
+OB. The section is made for Squeak w/o package browser
+- 'You should now be able to verify that the only the original (red)
+tests are loaded.' tyo before 'Branching' subsection
+- in Branching subsection: 'Once again the tests should be green,
+though our implementation of perfect numbers is slightly different.'
+but there is only one test now so: 'The current test should be green...'
+- (replace the merge tool by the current one in Pharo / add explanation)
+- In Change subsection: the Patch Browser is mentionned in the figure
+not in the text. At the end of the first paragraph, we should add 'via
+the Patch Browser.'
+
+**SENT/DONE:
+* BasicClasses:
+- A comment about something in Squeak 3.9; there is 'In 3.9...', it's
+unclear
+* Environment:
+- Navigating the code space > Senders and implementors
+of a message (112)
+"If you look at the senders of drawOn: in AtomMorph»drawOn:, you will 
+see that it is a super send. So we know that the method that will be 
+executed will be in AtomMorph's superclass. What class is that? Action- 
+click browse ◃ hierarchy implementors and you will see that it is
+EllipseMorph."
+What's EllipseMorph? Is there someone in charge of the
+QuickTour/FirstApp/Environment corrections?
+* Streams:
+- At the end of the 4.2 section, there is a remark about 'Nile is
+better...' but Pharo got Nile now!?
+(previous sent on sbe@iam.unibe.ch)
+* SUnit:
+- Running a single test:
+'If you don't want to launch the Test Runner from the
+\menu{open\,\ldots} menu, you can execute \ct{TestRunner open} as a
+\menu{print it}.' What's 'open...'? It should be 'You can also run the
+Test Runner by \menu{doit} the text \ct{TestRunner open}.' (what I did
+for the french version)
+* Model:
+- reference to squeak 3.9, the sentence should be without: 'since
+version 3.9'.
+- besoin de Color-Buttons.graffle et fooNotFound.graffle
+(done)
+
+*** Global advices
+** refactor the  PBE1/PBE2/PBE-Omnibus (ugly copy/paste; harder to
+maintain by translators)
+** [brainstorming] If the PBE2 title looks like 'More...', the
+'More...' should be reuse in the parts' titles:
+More Software Dev, More Frameworks, More language details...
+
+*** Version française
+(SBE dans FrenchBook)
+** FAQ:
+* réactualisation d'une FAQ (image-dev de damien) + ajout de 2 FAQs (which
+squeak image should I use with this book; the browser does not look
+like the one described...)

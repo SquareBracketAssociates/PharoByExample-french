@@ -1,0 +1,71 @@
+(pour les infos/callback sur la VO, TODO-cb.txt)
+->initié par Martial Boniou
+
+Général:
+- les boutons jaune, rouge et bleu disparaissent, on parle de clic,
+action-clic, meta-clic; SE METTRE D'ACCORD sur les termes:
+?hypothese1 série: cliquer, cliquer avec le bouton d'action, méta-cliquer
+?hypothese2 serie: cliquer, action-cliquer, méta-cliquer
+(les définitions sont dans common.tex indexé à ==BOUTONS== )
+- trouver un mot français pour 'flagged green or red' (utilisé dans
+SUnit): pour l'instant: 'signalé d'une puce verte ou rouge'
+(wordreference forum)
+
+Les parties I,II,III,IV sont en cours de modifications (martial)
+
+Répartition des taches:
+
+- Seaside: 
+
+- Regex: 
+
+- Reflection:
+
+- Exceptions:  
+  + ATTENDRE
+
+- Omnibrowser:
+  + ATTENDRE pourrait être obsolète avant de sortir dans
+
+- Environment: MARTIAL
+  + retirer les references + index dans boutons de souris (bleu, rouge
+  et jaune sont remplacés par clic, meta-clic et clic-action) 
+  + ATTENDRE la finalisation de la correction de PBE
+  + retirer les allusions aux boutons du Browser
+
+- FirstApp: MARTIAL
+  + merger
+  + Lights Out game 
+  + figures PBE
+  + ajout de AddPackage.png : martial
+
+- Morphic: MARTIAL 
+  + prévoir un refactoring massif
+  + eliminer eToys/turningInViewer
+
+- Monticello: MARTIAL
+  + ATTENDRE changement de 'merge tool' dans la version actuelle de
+  Pharo
+
+- QuickTour: MARTIAL
+  + merger 
+  + a faire ClassBrowser1-flat/annotatedDownload dans figures/
+  + beaucoup de changements a prevoir
+  + figures encore (nettoyer: viewerHandle/rotateHandle en fonction du
+  chapitre Morphic; puisque les eToys ne sont plus)
+
+Corrections/notes:
+- l'artiste de couverture change sur la VO: veiller à la cohérence
+dans le futur entre PBE*.tex, Preface.tex et Preface-Omnibus.tex ainsi
+que la couverture
+
+Futur:
+- Announcements
+- Block
+- Magma
+- Glamour (pour remplacer un chapitre sur OmniBrowser?)
+- RewriteRules
+- Traits
+- Debugging
+- Concurrency
+- Profiling

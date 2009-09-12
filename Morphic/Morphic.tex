@@ -1,0 +1,1520 @@
+%%% Morphic.tex --- 
+%% 
+%% Filename: Morphic.tex
+%% Description: Traduction de la page Morphic.tex de Squeak By Example
+%% + copier coller de l'article originale + ajout du maintainer
+%% Author: Andrew Black
+%% Maintainer: Martial Boniou
+%% Created: 2007-11-09 08:07:45 +0100 (Fri, 09 Nov 2007)
+%% Version: 13642
+%% Last-Updated: Sat Sep 12 20:31:51 2009 (+0200)
+%%           By: Martial Boniou
+%%     Update #: 763
+%% URL:
+%% https://www.iam.unibe.ch/scg/svn_repos/SqueakByExample/FrenchBook/Morphic/Morphic.tex
+%% Review: Rene Mages - Fri Dec 21 22:18:36 2007 (3600 CET)
+%% Review: Rene Mages - Sat Jan 12 18:55:44 2008 (3600 CET)
+%% Keywords: 
+%% Compatibility: 
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%%% Commentary:
+%%             - passage de premier paragraphe sur l'histoire de
+%%             Morphic dans l'introduction 
+%%             - changement de titre du premier chapitre 'premiere
+%%             immersion...' +  ajouts de trois sous-sections pour
+%%             aerer le document   
+%%             - ajout dans la sous-section 'un monde de morphs' de
+%%             deux paragraphes sur le caractere introspectif du
+%%             Viewer + l'image du StringMorph qui pivote
+%%             - ajout d'un tableau avec les commandes les plus
+%%             communes des morphs
+%%             - Dans le chapitre 'Interaction et animation', nous
+%%             avons les sous-sections 'evenements souris' 'evenements
+%%             clavier' 'animations Morphic'; j'ai donc ajoute pour la
+%%             coherence avec le titre du chapitre l'ancien chapitre
+%%             'interacteurs' comme sous-section.
+%%             - redecoupe du 'resume du chapitre'; les *item*
+%%             commencent tous par un verbe infinitif. Par rapport a
+%%             la version d'Andrew Black, j'ai inserer dans la liste
+%%             le fait de pouvoir trouver des morphs predefinis (avant-
+%%             dernier *item*) et j'ai ajoute un *item* sur les
+%%             methodes graphiques des canevas (derniere chapitre)
+%%             
+%%             D'une maniere generale tres peu de copier-coller du
+%%             texte d'Hilaire Fernandes; Andrew a deja fait beaucoup
+%%             de corrections. Reste la structure centrale des
+%%             chapitres, les exemples et les graphiques associes.
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%%% Change log: 
+%%             - Traduction et figures par Martial
+%%             - Premiere et deuxième relecture par Rene 
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%=================================================================
+\ifx\wholebook\relax\else
+% --------------------------------------------
+% Lulu:
+	\documentclass[a4paper,10pt,twoside]{book}
+	\usepackage[
+		papersize={6.13in,9.21in},
+		hmargin={.75in,.75in},
+		vmargin={.75in,1in},
+		ignoreheadfoot
+	]{geometry}
+	\input{../common.tex}
+	\pagestyle{headings}
+	\setboolean{lulu}{true}
+% --------------------------------------------
+% A4:
+%	\documentclass[a4paper,11pt,twoside]{book}
+%	\input{../common.tex}
+%	\usepackage{a4wide}
+% --------------------------------------------
+    \graphicspath{{figures/} {../figures/}}
+	\begin{document}
+	\renewcommand{\nnbb}[2]{} % Disable editorial comments
+	\sloppy
+\fi
+%=================================================================
+\chapter{L'interface Morphic}
+
+\tradalert{martial}{le reste du texte est encore du SBE}
+
+%\sd{We should first give a conceptual overview.
+%Then we need a cookbook of how to do simple things in Morphic.
+%The observer pattern and its implementation with changed:  and update: messages could go here.  Or in ``Idiomatic design patterns'' later.}
+
+%
+\indmain{Morphic} est le nom de l'interface graphique de \pharo.
+Elle est \'ecrite en \st, donc elle est pleinement portable entre
+diff\'erents syst\`emes d'exploitation; en cons\'equence de quoi, \pharo
+a le m\^eme aspect sur Unix, \macosx et Windows.
+L'absence de distingo entre \emph{composition} et \emph{ex\'ecution}
+de l'interface est la principale divergence de Morphic avec la plupart
+des autres bo\^{\i}tes \`a outils graphiques: tous ses \'el\'ements
+graphiques peuvent \^etre assembl\'es et d\'esassembl\'es \`a tout
+moment par l'utilisateur.
+%note de martial: il faudra remettre cette note lorsque nous serons
+%fixes sur les droits. Je pense qu'il vaudrait mieux le remercier
+%plus precisement dans le chapitre Preface (cad en precisant que c'est
+%lui qui est a l'origine de ce chapitre.
+%\footnote{We thank Hilaire Fernandes for permission to base this chapter on his original article in French.}
+
+\ab{After the first printing, I took an editing pass, correcting some errors and grammatical infelicities.}
+
+\on{I have commented out the LabelstickerMorph and PyramidMorph examples, as they do not really add much over the other examples we have already. The source code is now available in the example subdirectory, in case someone would like to try and use them after all.}
+
+%martial: je prefere mettre la partie historique en intro car elle est
+%trop courte; de plus le paragraphe porte mal son nom
+Morphic a \'et\'e d\'evelopp\'ee par John Maloney et Randy Smith pour
+le langage de programmation orient\'e objet \ind{Self} d\'evelopp\'e
+chez Sun Microsystems:
+%ajout
+l'interface de ce langage bas\'e sur le concept de prototypes (comme
+JavaScript) est apparue en 1993.
+Maloney r\'e\'ecrivit ensuite une nouvelle version de Morphic pour
+\pharo tout en conservant de la version originale son aspect 
+%directness = franchise
+\emph{direct} et 
+%live(li)ness = vivacite
+\emph{vivant}.
+%ajout
+Dans ce chapitre, nous ferons une immersion dans cet univers d'objets
+graphiques, les \emph{morphs} et nous apprendrons \`a les modeler (\`a la
+souris ou en programmation), \`a leur ajouter des fonctionnalit\'es (pour
+accro\^{\i}tre leur capacit\'e d'interaction) et enfin, en pr\'eambule
+d'un exemple complet, nous verrons comment il s'int\`egre non seulement
+dans l'espace mais aussi dans le temps.
+
+%=================================================================
+\section{Premi\`ere immersion dans Morphic}
+
+\subsection{R\'eponse au doigt et \`a l'\oe il}
+Le caract\`ere direct de l'interface Morphic se traduit par le fait
+que toutes les formes graphiques sont des objets 
+%examined or chapnged directly
+inspectables et modifiables directement par la souris.
+%l'interactivit\'e offerte
+
+De plus, le fait que toute action faite par l'utilisateur donne lieu
+\`a une r\'eponse de la part de Morphic d\'efinit son caract\`ere
+vivant: les informations affich\'ees sont constamment mise \`a jour
+au fur et \`a mesure des changements du ``monde'' que l'interface
+d\'ecrit. 
+Comme preuve de cette vie et de toute la dynamique qui en r\'esulte,
+nous vous proposons d'isoler un \'el\'ement du menu World et de vous
+en faire un bouton hors du menu.
+
+\dothis{Afficher le menu World. Cliquez une premi\`ere fois avec le
+  \ind{bouton bleu} de la souris de mani\`ere \`a afficher le
+  \emph{halo} Morphic. Recliquez \`a nouveau avec le bouton bleu mais
+  cette fois-ci, placez le pointeur de la souris au-dessus de l'option
+  de menu que vous voulez d\'etacher, disons \menu{new
+    morph\ldots}. Le halo est donc affich\'e pour cet \'el\'ement du
+  menu. D\'eplacez celui-ci n'importe o\`u sur l'\'ecran en glissant
+  la poign\'ee noire \grabHandle{},
+ comme le montre \figref{detachingMenu}.}
+\index{Morphic!halo}
+
+\begin{figure}[ht]
+	\ifluluelse
+		{\centerline{\includegraphics[width=0.6\textwidth]{detachingMenu}}}
+		{\centerline{\includegraphics[width=0.4\textwidth]{detachingMenu}}}
+	\caption{D\'etacher l'option de menu \menu{new morph\ldots} pour
+      en faire un bouton ind\'ependant.\label{fig:detachingMenu}}
+\end{figure}
+
+\subsection{Un monde de morphs}
+Tous les objets que vous voyez \`a l'\'ecran dans \pharo sont des
+\emph{morphs}; tous sont des instances des sous-classes de \ct{Morph}.
+\mbox{\ct{Morph}} est une grande classe avec de nombreuses m\'ethodes
+qui permettent d'impl\'ementer des sous-classes avec un comportement
+original avec tr\`es peu de code.
+Vous pouvez cr\'eer un morph pour repr\'esenter n'importe quel objet. 
+%, although how good a representation you get depends on the object!
+
+\dothis{Pour cr\'eer un morph repr\'esentant une cha\^{\i}ne de
+  caract\`eres, \'evaluer le code suivant dans un espace de travail,
+  une ligne \`a la fois.}
+
+\begin{code}{}
+s := 'Morph' asMorph openInWorld.
+s openViewerForArgument
+\end{code}
+\cmindex{Morph}{openInWorld}
+
+La premi\`ere ligne cr\'ee un morph pour repr\'esenter la cha\^{\i}ne
+de caract\`eres \ct{'Morph'} et l'affiche dans
+l'\'ecran principal, le ``world'' (en fran\c{c}ais, nous dirions
+``monde'' puisque la fen\^etre \pharo est un \emph{monde de morphs}).
+Vous pouvez manipuler cet objet graphique gr\^ace au \ind{bouton rouge}
+de la souris.
+La seconde ligne ouvre un \ind{visualiseur de commandes} (ou
+\emph{Viewer}) sous la forme d'un onglet
+permettant la manipulation graphique de ce morph. Vous pouvez y voir
+ses attributs tels que ses coordonn\'ees \ct{x} et \ct{y} dans
+l'espace du \emph{world} dans lequel le morph est apparu.
+Cliquer sur une ic\^one de point d'exclamation jaune sur noir envoie un
+message au morph qui r\'epond promptement.
+\seeindex{Viewer}{visualiseur de commandes}
+\index{world}
+
+%ajout massif
+Par exemple, vous pouvez s\'electionner dans le menu de la bo\^{\i}te de
+contr\^oles inf\'erieure de ce visualiseur de commandes l'option de
+mouvement nomm\'ee \ct{motion} comme le montre \figref{turningInViewer}.
+Remarquez que le titre du visualiseur n'est pas le nom de la classe
+(ici \mbox{\ct{StringMorph})} mais le nom du morph; comme notre morph n'a pas
+de nom, le visualiseur lui trouve un nom de morph en fonction de son
+origine: \ct{String}. Si vous aviez l'id\'ee de cr\'eer un second
+morph en reprenant le code plus haut et en repla\c{c}ant, par exemple,
+le \ct{s} par un \ct{t}, vous obtiendrez certainement \ct{String1} comme nom
+temporairement attribu\'e.
+
+Nous partons ici du principe que le nom du morph est \ct{String}.
+
+\dothis{Cliquez le point d'exclamation de la commande \ct{String turn
+    by 5} dans la bo\^{\i}te de contr\^ole inf\'erieure du visualiseur
+  de commandes. Vous pouvez voir le morph tourner sur son axe d'un
+  angle de 5 degr\'es. Cliquez plusieurs fois pour faire faire un tour
+  complet au Morph. Observez les valeurs de coordonn\'ees se mettre
+  \`a jour \`a chaque clic.}
+
+Vous pouvez vous amuser avec diff\'erentes commandes. Changez l'angle
+avec les fl\`eches haut et bas. Cliquez sur \ct{String forward by 5}
+pour faire avancer votre morph de 5 pixels. Faites appara\^{\i}tre le halo
+Morphic via le \ind{bouton jaune} de la souris et manipuler votre
+morph en cliquant sur les poign\'ees \grabHandle{} et \rotateHandle{}.
+Remarquez les coordonn\'ees \'evoluer dans le visualiseur de commandes.
+
+\begin{figure}[ht]
+	\ifluluelse
+		{\centerline{\includegraphics[width=0.6\textwidth]{turningInViewer}}}
+		{\centerline{\includegraphics[width=0.4\textwidth]{turningInViewer}}}
+	\caption{Tourner le morph gr\^ace au visualiseur de commandes.\label{fig:turningInViewer}}
+\end{figure}
+
+Pour fermer le visualiseur, cliquez sur le bouton en forme de cercle
+en haut \`a gauche. Pour faire appara\^{\i}tre ce visualiseur de
+commandes, vous pouvez aussi utiliser le halo Morphic et cliquer sur
+la poign\'ee nomm\'ee Viewer \viewerHandle{}.
+   
+Notez que vous pouvez ranger le visualiseur au m\^eme titre que les
+fen\^etres; pour ce faire, cliquez sur l'ic\^one miniature coll\'ee \`a
+gauche du visualiseur. Pour rappeler le visualiseur, vous n'aurez
+qu'\`a cliquer sur son ic\^one plac\'ee sur le bord droit du \emph{world}.
+
+\subsection{Personnaliser sa repr\'esentation}
+
+Revenons maintenant au code qui a cr\'e\'e ce morph.% 
+%fin ajout massif
+%ces deux lignes ne sont pas traduites!
+%%%%Il est possible de d\'efinir des morphs plus int\'eressants en tant
+%%%%%que repr\'esentation graphique. 
+%ajout et transformation (plus clair) (j'ai mis aussi orange a la
+%place de tan, comme ca il n'y a pas a traduire)
+Tout repose sur la m\'ethode qui fabrique un morph \`a partir d'une
+cha\^{\i}ne de caract\`eres:
+cette m\'ethode \mthind{String}{asMorph} impl\'ement\'ee dans
+\ct{String} cr\'ee un \ct{StringMorph}. \mthind{Object}{asMorph} est
+impl\'ement\'ee par d\'efaut dans \ct{Object} donc tout objet peut
+\^etre repr\'esent\'e par un morph. En r\'ealit\'e, la m\'ethode
+\ct{asMorph} dans \ct{Object} fait appel \`a sa m\'ethode d\'eriv\'ee
+dans \ct{String}. Ainsi, tant qu'une classe n'a pas surcharg\'ee cette
+m\'ethode, elle sera repr\'esent\'ee par un \ct{StringMorph}.
+Par exemple, \'evaluer \ct{Color orange asMorph openInWorld} ouvrira un
+\ct{StringMorph} dont le label sera le r\'esultat de \clsind{Color}
+\ct{orange printString} (comme en faisant un \short{p} sur \ct{Color orange}
+dans un Workspace).
+Voyons comment obtenir un rectangle de couleur plut\^ot que ce
+\ct{StringMorph}.
+%The method \mthind{Object}{asMorph} has a default implementation in class \ct{Object} class that just creates a StringMorph.
+%So, for example, \ct{Color tan asMorph} returns a StringMorph labeled with the result of \clsind{Color} \ct{tan printString}.
+%Let's change this so that we get a coloured rectangle instead.
+
+\dothis{Ouvrez un navigateur de classes sur la classe \ct{Color} et
+  ajoute la m\'ethode suivante
+%ajout
+dans le protocole \ct{creation}:}
+\begin{method}{Obtenir un morph d'une instance de \ct{Color}}
+Color>>>asMorph
+	^ Morph new color: self
+\end{method}
+\noindent
+Ex\'ecutez \ct{Color blue asMorph} \mthind{Morph}{openInWorld} dans un
+espace de travail. Fini le texte d'affichage \ct{printString}! Vous
+obtenez un joli rectangle bleu.
+
+
+%=================================================================
+\section{Manipuler les morphs}
+
+Puisque les morphs sont des objets, nous pouvons les manipuler comme
+n'importe quel autre objet dans \st \cad par envoi de messages. D\`es
+lors nous pouvons entre autre changer leurs propri\'et\'es ou cr\'eer
+de nouvelles sous-classes de \ct{Morph}.
+
+Qu'il soit affich\'e \`a l'\'ecran ou non, tout morph a une position
+et une taille. Tous les morphs sont inclus, par commodit\'e, dans une
+bo\^{\i}te englobante, \cad une r\'egion rectangulaire occupant un
+certain espace de l'\'ecran. Dans le cas des formes irr\'eguli\`eres,
+leur position et leur taille correspondent \`a celles du plus petit
+rectangle qui englobe la forme. Cette bo\^{\i}te englobante d\'efinit
+les limites (ou \emph{bounds}) du morph. % ou frontiere?
+La m\'ethode \mthind{Morph}{position} retourne un \ct{Point} qui
+d\'ecrit la position du coin sup\'erieur gauche du morph (\cad le coin
+sup\'erieur gauche de sa bo\^{\i}te englobante).
+L'origine des coordonn\'ees du syst\`eme est le coin sup\'erieur
+gauche de l'\'ecran: la valeur de la coordonn\'ee $y$ augmente
+\emph{en descendant} l'\'ecran et la valeur de $x$ augmente en allant
+de gauche \`a droite.
+La m\'ethode \ct{extent} renvoie aussi un point, mais ce point
+d\'efinit la largeur et la hauteur du morph plut\^ot qu'une position.
+
+\dothis{Entrez le code suivant dans un espace de travail et
+  \'evaluez-le (\menu{do it}):}
+%%% futur?
+%%%bill etait rouge (red); il devient vert (green) pour les raisons
+%%%evoquees plus loin (contraste)
+\begin{code}{}
+joe := Morph new color: Color blue.
+joe openInWorld.
+bill := Morph new color: Color red.
+bill openInWorld.
+\end{code}
+\noindent
+
+%ajout
+Ce code affiche deux nouveaux morphs r\'epondant aux noms de joe et
+bill: par d\'efaut, un morph appara\^{\i}t comme  un rectangle de
+position (0@0) et de taille (50@40).
+Saisissez ensuite \ct{joe position} et affichez son r\'esultat par \menu{print it}.
+Pour d\'eplacer joe, ex\'ecutez \ct{joe position: (joe position + (10@3))} plusieurs fois.
+Vous pouvez modifier la taille aussi. Pour avoir la taille de joe,
+vous pouvez \'evaluer par \menu{print it} l'expression \ct{joe}
+\mthind{Morph}{extent}. Pour le faire grandir, ex\'ecutez \ct{joe extent: (joe extent * 1.1)}.
+Pour changer la couleur d'un morph, envoyez-lui le message
+\mthind{Morph}{color:} avec en argument un objet de classe \ct{Color},
+correspondant \`a la couleur d\'esir\'ee. Par exemple,
+\ct{joe color: Color orange}.
+Pour ajouter la transparence, essayez
+\ct{joe color: (Color blue alpha: 0.5)}.
+%martial: a l'origine, c'est orange et pas blue (voir figure)
+%%%martial: dans la version d'Andrew (SBE), joe est orange transparent ici et
+%%%bleu transparent sur la figure: donc je prefere que joe soit orange
+%%%transparent sur la figure; c'est pour le contraste que bill devient
+%%%vert
+
+\dothis{Pour faire en sorte que bill suive joe, vous pouvez ex\'ecuter
+  ce code de mani\`ere r\'ep\'et\'ee:}
+\begin{code}{}
+bill position: (joe position + (100@0))
+\end{code}
+\noindent
+
+Si vous d\'eplacez joe avec la souris et que vous ex\'ecutez ce code,
+bill se d\'eplacera pour se positionner \`a 100 pixels \`a droite de joe.
+\ab{It would seem that this would be a good place to introduce the \ct{step} method}
+
+%=================================================================
+\section{Composer des morphs}
+
+Cr\'eer de nouvelles repr\'esentations graphiques peut se faire en
+pla\c{c}ant un morph \`a l'int\'erieur d'un autre. C'est ce que nous
+appelons la \emph{composition}; les morphs peuvent \^etre compos\'es
+\`a l'infini. % to any depth
+Pour ce faire, vous pouvez envoyer au morph contenant le message
+\mthind{Morph}{addMorph:}. %container
+\index{morph!composer}
+\seeindex{morph!sous-morph}{sous-morph}
+%
+%To create new morphs, there are two main techniques that you can combine:
+%\begin{enumerate}
+%	\item by composing morphs one into another,
+%	\item by subclassing \ct{Morph} and overriding \mthind{Morph}{drawOn:} to draw original morph shapes.
+%\end{enumerate}
+%}
+
+\dothis{Ajoutez un morph \`a un autre avec le code suivant:}
+\begin{code}{}
+star := StarMorph new color: Color yellow.
+joe addMorph: star.
+star position: joe position.
+\end{code}
+
+\noindent
+La derni\`ere ligne place l'\'etoile nomm\'ee star aux m\^emes
+coordonn\'ees que joe. Notez que les coordonn\'ees du morph
+contenu sont toujours \`a la position absolue d\'efinie par rapport
+\`a l'\'ecran, et non \`a la position relative d\'efinie par rapport
+au morph contenant.
+Plusieurs m\'ethodes sont disponibles pour positionner un morph;
+naviguez dans les m\'ethodes du protocole \protind{geometry} de la
+classe \ct{Morph} pour le constater vous-m\^eme.
+Par exemple, centrer l'\'etoile dans joe revient \`a ex\'ecuter
+\ct{Star} \mthind{Morph}{center:} \ct{joe center}.
+
+\begin{figure}[ht]
+	\centerline{\includegraphics{joeStar}}
+	\caption{L'\'etoile de classe StarMorph est contenue dans joe, le
+      morph bleu translucide.\label{fig:joeStar}}
+\end{figure}
+%%%orange
+
+Si vous attrapez l'\'etoile avec la souris, vous constaterez que vous
+prenez en r\'ealit\'e joe et que les deux morphs sont ensemble:
+l'\'etoile est \emph{incluse} %embedded inside a traduit par inclus dans
+\`a l'int\'erieur de joe.
+Il est possible d'inclure plus de morphs dans joe. %
+%ajout
+Les morphs inclus sont appel\'es des \ind{sous-morph}{}s (en anglais,
+\emph{submorphs}). %
+%la phrase est tourne differement dans SBE
+Comme l'interface Morphic propose une interactivit\'e directe pour
+tout morph, nous pouvons aussi faire notre inclusion de morphs en
+rempla\c{c}ant la programmation par une simple manipulation \`a la souris.
+%In addition to doing this programatically, you can also embed morphs by direct manipulation.
+\seeindex{submorph}{sous-morph}
+
+%martial: L'etoile est dite blanche mais elle est bleu claire en
+%fait. De plus, il faut dire que certaines images n'ont plus du tout
+%de supplies; donc j'ajoute le fait que ces morphs sont aussi dans Objects.
+\dothis{Si vous n'avez pas d'onglet \menu{Supplies} (ou \menu{Accessoires})
+  en bas d'\'ecran, ex\'ecutez la ligne \ct{Flaps enableGlobalFlaps}
+  pour en cr\'eer un. %
+Si vous n'obtenez rien, vous pouvez aussi cliquer sur \menu{World
+  \go{} objects (o)} et vous rendre dans la cat\'egorie
+\menu{Graphics} de cette fen\^etre rose d'objets. %
+Depuis cette fen\^etre ou depuis l'onglet \menu{Supplies}, 
+d\'eplacez une ellipse jaune nomm\'ee ``Ellipse'' et une \'etoile
+  bleu p\^ale nomm\'ee ``Star''. Placez l'\'etoile sur l'ellipse et 
+cliquez avec le bouton rouge de la souris en maintenant la touche
+\texttt{Control} enfonc\'ee. Vous obtenez ainsi un menu~\footnote{Vous
+  pouvez aussi cliquer avec le bouton bleu de la souris pour afficher
+  le halo Morphic et cliquer sur la poign\'ee rouge de
+  menu.}. S\'electionnez \menu{embed into \go Ellipse}. Maintenant
+votre \'etoile et votre ellipse bougent ensemble.}
+
+Pour d\'eplacer le sous-morph \emph{star}, \'evaluez \ct{joe}
+\mthind{Morph}{removeMorph:} \ct{star} ou \ct{star}
+\mthind{Morph}{delete}. L\`a encore, une manipulation directe est
+possible: 
+
+\dothis{Cliquez avec le \ind{bouton bleu} de la souris deux fois sur
+  l'\'etoile bleu p\^ale. Glisser l'\'etoile hors de l'ellipse en
+  utilisant la poign\'ee \grabHandle{}.}
+
+\noindent
+Le premier clic affiche le halo Morphic de l'ellipse; le second clic
+affiche celui de l'\'etoile. Chaque clic change la mise au point en
+descendant la hi\'erarchie des inclusions.
+%The first click brings up the morphic halo on the ellipse; the second click the halo on the star.   Each click moves the focus down one level of embedding.
+
+
+%=================================================================
+\section{Dessiner ses propres morphs}
+
+Bien qu'il soit possible de faire des repr\'esentations graphiques
+utiles et int\'eressantes par composition de morphs, vous aurez
+parfois besoin de cr\'eer quelque chose de compl\`etement diff\'erent.
+\index{morph!sous-classer}
+Pour ce faire, vous d\'efinissez une sous-classe de \ct{Morph} et
+surchargez la m\'ethode \mthind{Morph}{drawOn:} pour personnaliser son
+apparence.
+
+L'interface Morphic envoie un message \ct{drawOn:} \`a un morph \`a
+chaque fois qu'il est n\'ecessaire de rafra\^{\i}chir l'affichage du
+morph \`a l'\'ecran. Le param\`etre pass\'e \`a \ct{drawOn:} est un
+type de canevas de classe \clsind{Canvas}; le morph s'affichera alors
+lui-m\^eme sur ce canevas dans ses limites. %
+%the expected behaviour is that the morph will draw itself on that canvas, inside its bounds.
+Utilisons cette connaissance pour cr\'eer un morph en forme de croix.
+\index{morph!sous-classer}
+
+\dothis{Utilisez le navigateur de classes, d\'efinissez une nouvelle
+  classe \clsind{CrossMorph} h\'erit\'ee de \ct{Morph}:}
+\begin{classdef}{D\'efinir la classe \ct{CrossMorph}}
+Morph subclass: #CrossMorph
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'PBE-Morphic'
+\end{classdef}
+
+Nous pouvons d\'efinir la m\'ethode \ct{drawOn:} ainsi:
+%ajout du commentaire
+\begin{method}[firstDrawOn]{Dessiner un \ct{CrossMorph}}
+drawOn: aCanvas 
+	"crossHeight est la hauteur de la barre horizontale horizontalBar
+    et crossWidth est la largeur de la barre verticale verticalBar"
+    | crossHeight crossWidth horizontalBar verticalBar |
+	crossHeight := self height / 3.0 .
+	crossWidth := self width / 3.0 .
+	horizontalBar := self bounds insetBy: 0 @ crossHeight.
+	verticalBar := self bounds insetBy: crossWidth @ 0.
+	aCanvas fillRectangle: horizontalBar color: self color.
+	aCanvas fillRectangle: verticalBar color: self color
+\end{method}
+
+
+\begin{figure}[hbt]
+	\ifluluelse
+		{\centerline{\includegraphics[width=0.3\textwidth]{NewCross}}}
+		{\centerline{\includegraphics{NewCross}}}
+	\caption{Un nouveau morph en forme de croix de classe
+      \ct{CrossMorph} avec son halo. Vous pouvez redimensionner cette
+      croix gr\^ace \`a la poign\'ee inf\'erieure droite
+      de couleur jaune.\label{fig:cross}}
+\end{figure}
+
+Envoyer le message \mthind{Morph}{bounds} \`a un morph renvoie sa
+bo\^{\i}te englobante, instance de la classe \clsind{Rectangle}.  Les
+rectangles comprennent plusieurs messages qui cr\'eent d'autres
+rectangles de m\^eme g\'eom\'etrie; % related geometry; 
+dans notre m\'ethode, nous utilisons le message \ct{insetBy:} avec un
+point comme argument pour cr\'eer une premi\`ere fois un rectangle de
+hauteur (en anglais, \emph{height}) r\'eduite, puis pour cr\'eer un
+autre rectangle de largeur (en anglais, \emph{width}) r\'eduite.
+
+\dothis{Pour tester votre nouveau morph, \'evaluer l'expression \ct{CrossMorph new} \mthind{Morph}{openInWorld}.}
+Le r\'esultat devrait \^etre semblable \`a celui de \figref{cross}.
+Cependant, vous remarquerez que toute la bo\^{\i}te englobante est
+sensible \`a la souris (vous pouvez cliquer en dehors de la croix et
+interagir ou d\'eplacer celle-ci). Corrigeons ceci en rendant la seule
+surface de la croix sensible \`a la souris.
+%However, you will notice that the sensitive zone\,---\,where you can click to grab the morph\,---\,is still the whole bounding box.  Let's fix this.
+
+Lorsque la librairie Morphic a besoin de trouver quels morphs se
+trouvent sous le curseur, elle envoie le message \ct{containsPoint:}
+ \`a tous les morphs qui ont leur bo\^{\i}te englobante sous le
+pointeur de la souris. 
+%ajout
+Cette m\'ethode r\'epond vrai lorsque le point-argument est contenu dans la
+forme d\'efinie.
+Pour limiter la zone sensible du morph \`a la forme de la croix, vous
+devez surcharger la m\'ethode \ct{containsPoint:}.
+
+\dothis{D\'efinissez la m\'ethode \ct{containsPoint:} dans la classe \ct{CrossMorph}:}
+
+\needlines{4}
+\begin{method}[firstContains]{Modeler la zone sensible \`a la souris des instances de \ct{CrossMorph}}
+containsPoint: aPoint
+	| crossHeight crossWidth horizontalBar verticalBar |
+	crossHeight := self height / 3.0.
+	crossWidth := self width / 3.0.
+	horizontalBar := self bounds insetBy: 0 @ crossHeight.
+	verticalBar := self bounds insetBy: crossWidth @ 0.
+	^ (horizontalBar containsPoint: aPoint)
+		or: [verticalBar containsPoint: aPoint]
+\end{method}
+
+Cette m\'ethode suit la m\^eme logique que la m\'ethode \ct{drawOn:}, 
+nous sommes donc s\^urs que les points pour lesquels
+\ct{containsPoint:} retourne \ct{true} sont les m\^emes points qui
+seront color\'es par \ct{drawOn:}.
+Notez qu'\`a 
+%ajout
+la derni\`ere ligne
+nous avons profit\'e de la m\'ethode
+\mthind{Rectangle}{containsPoint:} 
+de la classe \ct{Rectangle} pour faire l'essentiel du travail.
+%Notice how we leverage the \mthind{Rectangle}{containsPoint:} method in class \ct{Rectangle} to do the hard work.
+
+Il reste tout de m\^eme deux probl\`emes avec ce code dans les 
+\mthsref{firstDrawOn} et \ref{mth:firstContains}.
+Le plus remarquable est que nous avons du code dupliqu\'e.
+C'est une erreur fondamentale: si vous avez besoin de modifier la
+fa\c{c}on dont \ct{horizontalBar} ou \ct{verticalBar} sont
+calcul\'ees, vous risquez d'oublier de reporter les changements
+effectu\'es d'une m\'ethode \`a l'autre.
+%reformulation
+La solution consiste \`a \'eliminer la redondance en refactorisant ces
+calculs dans deux nouvelles m\'ethodes que nous pla\c{c}ons dans le
+protocole \ct{private}:
+
+\needlines{4}
+\begin{method}{\ct{horizontalBar}}
+horizontalBar
+	| crossHeight |
+	crossHeight := self height / 3.0.
+	^ self bounds insetBy: 0 @ crossHeight
+\end{method}
+
+\needlines{4}
+\begin{method}{\ct{verticalBar}}
+verticalBar
+	| crossWidth |
+	crossWidth := self width / 3.0.
+	^ self bounds insetBy: crossWidth @ 0
+\end{method}
+
+\noindent
+Nous pouvons ensuite d\'efinir les m\'ethodes \ct{drawOn:} et
+\ct{containsPoint:} ainsi:
+
+\needlines{4}
+\begin{method}{Refactoriser \ct{CrossMorph>>>drawOn:}}
+drawOn: aCanvas 
+	aCanvas fillRectangle: self horizontalBar color: self color.
+	aCanvas fillRectangle: self verticalBar color: self color
+\end{method}
+
+\needlines{4}
+\begin{method}{Refactoriser \ct{CrossMorph>>>containsPoint:}}
+containsPoint: aPoint
+	^ (self horizontalBar containsPoint: aPoint)
+		or: [self verticalBar containsPoint: aPoint]
+\end{method}
+
+Ce code est plus simple \`a comprendre principalement parce que nous
+avons donn\'e des noms parlants \`a ces m\'ethodes priv\'ees. En fait,
+notre simplification a mis en avant notre second probl\`eme: 
+% it is so simple that you may have noticed the second problem:
+la zone centrale de notre croix, \`a la crois\'ee des barres
+horizontales et verticales, est dessin\'ee deux fois. Ce n'est pas
+tr\`es probl\'ematique tant que notre croix est de couleur opaque,
+mais l'erreur devient clairement apparente si nous dessinons une croix
+semi-transparente, comme nous pouvons le voir sur \figref{overdrawBug}.
+
+\begin{figure}[t]
+\begin{minipage}{0.48\textwidth}
+	\ifluluelse
+		{\centerline{\includegraphics[scale=0.6]{overdrawBug}}}
+		{\centerline{\includegraphics{overdrawBug}}}
+	\caption{Le centre de la croix est rempli deux fois avec la
+      couleur.	\label{fig:overdrawBug}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+	\ifluluelse
+		{\centerline{\includegraphics[scale=0.6]{hairlineBug}}}
+		{\centerline{\includegraphics{bug}}}
+	\caption{Le morph en forme de croix pr\'esente une ligne de pixels
+      non remplis.	\label{fig:bug}}
+\end{minipage}
+\end{figure}
+
+\needlines{4}
+\dothis{\'Evaluez ligne par ligne le code suivant dans un espace de travail:}
+
+\begin{code}{}
+m := CrossMorph new bounds: (0@0 corner: 300@300).
+m openInWorld.
+m color: (Color blue alpha: 0.3).
+
+\end{code}
+
+\noindent
+La correction repose sur la division de la barre verticale en trois
+morceaux et sur le remplissage uniquement des deux morceaux
+sup\'erieurs et inf\'erieurs.
+Encore une fois, nous trouvons une m\'ethode dans la classe
+\ct{Rectangle} qui va bien nous aider: \ct{r1 areasOutside: r2} 
+retourne un tableau de rectangles comprenant les parties de \ct{r1}
+exclus de \ct{r2}. 
+
+Le code revisit\'e de la m\'ethode \ct{drawOn:} peut s'\'ecrire comme suit:
+
+%ajout du commentaire
+\begin{method}{La m\'ethode \ct{drawOn:} revisit\'ee pour ne remplir le centre qu'une seule fois}
+drawOn: aCanvas 
+    "topAndBottom est un tableau des parties de verticalBar !tronqu\'e!"
+	| topAndBottom |
+	aCanvas fillRectangle: self horizontalBar color: self color.
+	topAndBottom := self verticalBar areasOutside: self horizontalBar. 
+	topAndBottom do: [ :each | aCanvas fillRectangle: each color: self color]
+\end{method}
+
+Ce code semble fonctionner mais, suivant la taille des croix 
+%ajout
+(que vous pouvez obtenir en les dupliquant et en les redimensionnant
+avec le halo Morphic), vous pouvez constater qu'une ligne d'un pixel
+de haut peut s\'eparer la base de la croix du reste, comme le montre
+\figref{bug}.
+Ceci est du \`a un probl\`eme de troncature: %temporaire  
+lorsque la taille d'un rectangle \`a remplir n'est pas un entier,
+\ct{fillRectangle: color:} semble mal arrondir et laisse donc une
+ligne de pixels non remplis.
+Nous pouvons r\'esoudre ce probl\`eme en arrondissant explicitement
+lors du calcul des tailles des barres.
+
+\needlines{5}
+\begin{method}{\ct{CrossMorph>>>horizontalBar} avec troncature explicite}
+horizontalBar
+	| crossHeight |
+	crossHeight := (self height / 3.0) rounded.
+	^ self bounds insetBy: 0 @ crossHeight
+\end{method}
+
+\needlines{5}
+\begin{method}{\ct{CrossMorph>>>verticalBar} avec troncature explicite}
+verticalBar
+	| crossWidth |
+	crossWidth := (self width / 3.0) rounded.
+	^ self bounds insetBy: crossWidth @ 0
+\end{method}
+
+
+
+%=================================================================
+%\section{Composing Morphs}
+
+%\on{The source code is in the examples directory.
+%For the moment I prefer to leave out the examples, as they do not add much.}
+
+%Below, we present a few morphs that were designed for a course project.
+
+%\paragraph{An adhesive Label} The \ct{LabelStickerMorph} is a metaphor for an adhesive label with a colored border and three lines of text (\figref{labeler}, \egref{labeler}).
+
+%\begin{figure}[ht]
+%	\centerline{\includegraphics[width=0.25\textwidth]{labeler}}
+%	\caption{The sticker label morph.
+%		\label{fig:labeler}}
+%\end{figure}
+
+%\begin{example}[labeler]{Creating a sticker label}{}
+%label := LabelstickerMorph new openInWorld.
+%label text1: 'Confiture sans sucre';
+%	text2: 'Fraises du jardin';
+%	text3: '9 mai 2006'.
+%label lineColor: Color blue
+%\end{example}
+
+%\paragraph{A Number Pyramid}
+%The previous morph is designed by overriding the \ct{drawOn:} method.
+%We built \ct{PyramidMorph} by composing morphs: we used \ct{TextMorph}s to make the blocks and added them to a base morph (\figref{pyramid}, \egref{pyramid}). \damien{figure does not match text... no numbers? Where is the code?}
+%\begin{figure}[ht]
+%	\centerline{\includegraphics{pyramid}}
+%	\caption{The number pyramid morph.
+%		\label{fig:pyramid}}
+%\end{figure}
+
+%\begin{example}[pyramid]{Manipulating the number pyramid}{}
+%pyramid := (PyramidMorph base: 4) openInWorld.
+%pyramid block: 8 value: 2
+%\end{example}
+
+
+%=================================================================
+\section{Int\'eraction et animation}
+
+Pour construire des interfaces utilisateur vivantes avec les morphs,
+nous avons besoin de pouvoir interagir avec elles en utilisant la
+souris et le clavier.
+En outre, les morphs doivent \^etre capable de r\'epondre aux
+int\'eractions de l'utilisateur en changeant leur apparence et leur
+position, autrement dit, en s'animant eux-m\^emes.
+
+\subsection{Les \'ev\'enements souris}
+
+Quand un bouton de la souris est press\'e, Morphic envoie \`a chaque
+morph sous le pointeur de la souris le message
+\ct{handlesMouseDown:}. Si un morph r\'epond \ct{true}, Morphic lui
+envoie imm\'ediatemment le message \mthind{Morph}{mouseDown:}. Lorsque
+le bouton de la souris est rel\^ach\'e, Morphic envoie
+\mthind{Morph}{mouseUp:}  \`a ces m\^eme morphs qui avaient r\'epondus
+positivement. Si tous les morphs retournent \ct{false}, Morphic entame
+une op\'eration de
+%saisissement dans la version d'Hilaire (c'est en fait une emotion
+%vive et soudaine
+saisie en pr\'evision du glisser-d\'eposer.
+Comme nous allons le voir, les messages \ct{mouseDown:} et \ct{mouseUp}
+sont envoy\'es avec un argument\,---\,un objet de classe
+\clsind{MouseEvent}\,---\,qui contient les d\'etails de l'action de la souris.
+%that encodes the details of the mouse action.
+
+Ajoutons la gestion des \'ev\'enements souris \`a notre classe
+\ct{CrossMorph} en commen\c{c}ant par nous assurer que toutes nos
+croix r\'epondent \ct{true} au message \mthind{Morph}{handlesMouseDown:}.
+
+\dothis{Ajoutez la m\'ethode suivante \`a la classe \ct{CrossMorph}:}
+\begin{method}{D\'eclarer que \ct{CrossMorph} r\'eagit aux clics de souris}
+CrossMorph>>>handlesMouseDown: anEvent
+	^true
+\end{method}
+
+Supposons que vous voulez que la couleur de la croix passe au rouge
+(\ct{Color red})
+\`a chaque clic du bouton rouge de la souris et qu'elle passe au jaune
+(\ct{Color yellow})
+lorsque le bouton enfonc\'e est le bouton jaune. 
+Nous devons cr\'eer la \mthref{mouseDown}.
+
+\begin{method}[mouseDown]{R\'eagir aux clics de la souris en changeant la couleur de la croix}
+CrossMorph>>>mouseDown: anEvent
+	anEvent redButtonPressed
+		ifTrue: [self color: Color red].
+	anEvent yellowButtonPressed
+		ifTrue: [self color: Color yellow].
+	self changed
+\end{method}
+
+\ab{I added this note:}
+Remarquez que non seulement cette m\'ethode change la couleur de notre
+morph, mais qu'elle envoie aussi le message \ct{self changed}.
+Ce message assure que Morphic envoie \ct{drawOn:}
+%in a timely fashion
+de fa\c{c}on assez rapide.
+\ab{However, the \ct{self changed} message seems to be entirely unnecessary; the colour changes instantly without it.}
+Notez aussi qu'une fois qu'un morph g\`ere les événements \subind{événement}{souris}, vous ne pouvez plus l'attraper avec la souris pour le d\'eplacer.
+D\`es lors, vous devez utiliser le halo Morphic en cliquant dessus avec le
+bouton bleu: les poign\'ees sup\'erieurs noir \grabHandle{}
+et marron \moveHandle{} 
+vous permettent respectivement de prendre et d\'eplacer ce morph.
+\seeindex{souris!événement}{événement, souris}
+
+L'argument \ct{anEvent} de \ct{mouseDown:} est une instance de
+\mbox{\clsind{MouseEvent},} sous-classe de \ct{MorphicEvent}.
+%\lct{Mor\-phic\-Event}{.} 
+\ct{MouseEvent} d\'efinit les m\'ethodes
+\mthind{MouseEvent}{redButtonPressed} pour la gestion du clic au
+bouton rouge de la souris et \mthind{MouseEvent}{yellowButtonPressed}
+pour celle du clic au bouton jaune. Parcourez cette classe pour
+en savoir plus sur les autres m\'ethodes disponibles pour la gestion
+des \'ev\'enements souris.
+
+\subsection{Les \'ev\'enements clavier}
+
+La capture des événements \subind{événement}{clavier} se d\'eroule en trois
+\'etapes. Morphic devra:
+
+%modification
+%``keyboard focus'' to a specific morph: for instance we can give focus to our morph when the mouse is over it.
+
+\begin{enumerate}
+	\item activer votre morph pour la gestion du clavier par la ``mise
+      au point'' sous une certaine condition, disons, lorsque la souris est au-dessus du morph; 
+	\item g\'erer l'\'ev\'enement proprement dit avec la m\'ethode
+      \mthind{Morph}{handleKeystroke:} --- ce message est envoy\'e au
+      morph quand vous pressez une touche et qu'il a d\'ej\`a re\c{c}u
+      la mise au point  (en anglais, \emph{keyboard focus});
+	\item lib\'erer la mise au point lorsque la condition de la
+      premi\`ere \'etape n'est plus remplie, disons, quand la souris
+      n'est plus au-dessus du morph.
+\end{enumerate}
+
+Occupons-nous de \ct{CrossMorph} pour que nos croix r\'eagissent \`a
+certaines touches du clavier. Tout d'abord, nous avons besoin d'\^etre
+inform\'e que la souris est au-dessus de la surface de notre morph:
+dans ce cas, le morph doit r\'epondre \ct{true} au message
+\mthind{Morph}{handlesMouseOver:}.
+
+\dothis{D\'eclarez que \ct{CrossMorph} r\'eagit lorsque il est sous le
+  pointeur de la souris.}
+
+\begin{method}{G\'erer les \'ev\'enements souris ``mouse over''} 
+CrossMorph>>>handlesMouseOver: anEvent
+	^true
+\end{method}
+
+\noindent
+Ce message est \'equivalent \`a \mthind{Morph}{handlesMouseDown:}
+utilis\'e pour la position de la souris.
+Les messages \mthind{Morph}{mouseEnter:} et
+\mthind{Morph}{mouseLeave:} sont envoy\'es respectivement lorsque le
+pointeur de la souris entre dans l'espace du morph ou sort de celui-ci.
+
+\dothis{D\'efinissez deux m\'ethodes gr\^ace auxquelles un morph
+  \ct{CrossMorph} peut activer et lib\'erer la mise au point sur le
+  clavier. Cr\'eez ensuite une troisi\`eme m\'ethode pour g\'erer
+  l'interaction via la saisie des touches.}
+\begin{method}{Activer la mise au point sur le clavier lorsque la souris entre dans l'espace du morph}
+CrossMorph>>>mouseEnter: anEvent
+	anEvent hand newKeyboardFocus: self
+\end{method}
+
+\begin{method}{Lib\'erer la mise au point sur le clavier lorsque la souris sort de l'espace du morph}
+CrossMorph>>>mouseLeave: anEvent
+	anEvent hand newKeyboardFocus: nil
+\end{method}
+
+\begin{method}[handleKeystroke]{Capturer et g\'erer les \'ev\'enements clavier}
+CrossMorph>>>handleKeystroke: anEvent
+	| keyValue |
+	keyValue := anEvent keyValue.
+	keyValue = 30	 "!fl\`eche du haut!"
+		ifTrue: [self position: self position - (0 @ 1)].
+	keyValue = 31	 "!fl\`eche du bas!"
+		ifTrue: [self position: self position + (0 @ 1)].
+	keyValue = 29	 "!fl\`eche de droite!"
+		ifTrue: [self position: self position + (1 @ 0)].
+	keyValue = 28	 "!fl\`eche de gauche!"
+		ifTrue: [self position: self position - (1 @ 0)]
+\end{method}
+
+La m\'ethode que nous venons d'\'ecrire vous permet de d\'eplacer
+notre croix avec les touches fl\'ech\'ees. Remarquez que quand la
+souris n'est pas sur la croix, le message
+\mthind{Morph}{handleKeystroke:} n'est pas envoy\'e: dans ce cas, la croix
+ne r\'epond pas aux commandes clavier.
+Vous pouvez conna\^{\i}tre la valeur des touches saisies au clavier en
+ouvrant une fen\^etre Transcript et en ajoutant \`a 
+\mthref{handleKeystroke} la ligne 
+\glbind{Transcript} \ct{show: anEvent keyValue}.
+L'\'ev\'enement-argument \ct{anEvent} de \ct{handleKeystroke} est une
+instance de la classe \clsind{KeyboardEvent}, sous-classe de
+\clsind{MorphicEvent}. Naviguez dans cette classe pour conna\^itre les
+m\'ethodes de gestion des \'ev\'enements clavier.
+
+% dans le document original, on parle avant de
+% MorphicEvent mais pas dans la version d'andrew
+
+\subsection{Les animations Morphic}
+
+%martial: j'ai chang\'e deux methodes + 3 en quatre + 1
+Pour l'essentiel, Morphic permet de composer et d'automatiser de
+simples animations gr\^ace \`a quatre m\'ethodes:
+\begin{itemize}
+\item \mthind{Morphic}{step} qui est envoy\'e au morph \`a un
+  \emph{tempo} r\'egulier pour construire le comportement de l'animation;
+\item \mthind{Morphic}{stepTime} qui d\'efinit l'intervalle de temps en
+  millisecondes entre chaque envoi du message \ct{step}~\footnote{\ct{stepTime} est
+    en r\'ealit\'e le temps \emph{minimum} entre les envois du message
+    \ct{step}. Si vous demandez un \emph{tempo} \ct{stepTime} de
+    1\,ms, ne soyez pas \'etonn\'e si \pharo est trop occup\'e pour que
+    le rythme de l'animation de votre morph tienne cette cadence.};
+\item \mthind{Morphic}{startStepping} d\'emarre l'animation au rythme
+  du m\'etronome \ct{stepTime};
+\item \mthind{Morphic}{stopStepping} arr\^ete l'animation.
+\end{itemize}
+
+\`A ces m\'ethodes s'ajoutent une m\'ethode de test
+\mthind{Morphic}{isStepping} pour savoir si le morph est en cours
+d'animation.% currently being stepped.
+\index{Morphic!animation}
+
+\dothis{Faites clignoter le \ct{CrossMorph} en d\'efinissant les
+  m\'ethodes suivantes:}
+\begin{method}{D\'efinir la p\'eriodicit\'e de l'animation}
+CrossMorph>>>stepTime
+	^ 100
+\end{method}
+\begin{method}{Construire le comportement de l'animation}
+CrossMorph>>>step
+	(self color diff: Color black) < 0.1
+		ifTrue: [self color: Color red]
+		ifFalse: [self color: self color darker]
+\end{method}
+\noindent
+Pour d\'emarrer l'animation, vous pouvez ouvrir un inspecteur sur
+votre objet \ct{CrossMorph}: cliquez sur la poign\'ee de d\'ebogage 
+\debugHandle{} du halo Morphic de votre croix (activ\'e avec le
+bouton bleu de la souris) puis choisissez \menu{inspect morph} dans le
+menu flottant. Entrez l'expression \ct{self startStepping} dans le
+mini-espace de travail situ\'e dans le bas de l'inspecteur et faites
+un \menu{do it}.
+%ajout
+Pour arr\^eter l'animation, vous n'avez qu'\`a \'evaluer \ct{self stopStepping} dans l'inspecteur. 
+Pour d\'emarrer et arr\^eter l'animation de fa\c{c} plus efficace, vous pouvez
+ajouter des contr\^oles suppl\'ementaires au clavier. Par exemple,
+vous pouvez modifier la m\'ethode \ct{handleKeystroke:} pour que la
+touche $+$ d\'emarre le clignotement de la croix et que la touche $-$
+le stoppe.
+
+\dothis{Ajoutez le code suivant \`a \mthref{handleKeystroke}:}
+
+\begin{code}{}
+	keyValue = $+ asciiValue 
+		ifTrue: [self startStepping].
+	keyValue = $- asciiValue
+		ifTrue: [self stopStepping].
+\end{code}
+
+% \on{You can also \menu{debug \go inspect morph} and evaluate: \ct{self currentWorld startStepping: self}.}
+
+%=================================================================
+%martial: passage de cette section en sous-section
+\subsection{Les interacteurs} %interactors
+
+%ajout
+Morphic dispose de morphs commodes pour cr\'eer en quelques lignes de
+code des interactions avec l'utilisateur. Parmi eux, nous avons la
+classe \clsind{FillInTheBank} offre quelques bo\^{\i}tes de dialogue
+pr\^etes \`a l'emploi pour fournir \`a l'utilisateur une zone de saisie.
+La m\'ethode \mthind{FillInTheBlank}{request:initialAnswer:} renvoie
+une cha\^{\i}ne de caract\`eres entr\'ee par l'utilisateur (voir
+\figref{dialogName}).
+
+\begin{figure}[htb]
+\begin{minipage}{0.55\textwidth}
+	\ifluluelse
+		{\centerline{\includegraphics[scale=0.65]{dialog}}}
+		{\centerline{\includegraphics[width=5cm]{dialog}}}
+	\caption{Une bo\^{\i}te de dialogue affich\'ee par
+      \ct{FillInTheBlank request: 'Quel est votre nom?' initialAnswer: 'sans nom'}.
+		\label{fig:dialogName}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.38\textwidth}
+	\vfill
+	\ifluluelse
+		{\centerline{\includegraphics [scale=0.65]{popup}}}
+		{\centerline{\includegraphics[width=3cm]{popup}}}
+	\vfill
+	\vspace{4ex}
+	\caption{Un menu flottant affich\'e gr\^ace \`a \ct{PopUpMenu>>>startUpWithCaption:}.}
+\end{minipage}
+\end{figure}
+
+%\begin{figure}[ht]
+%	\centerline{\includegraphics[width=5cm]{dialog}}
+%	\caption{Dialog displayed by \ct{FillInTheBlank request: 'What''s your name?' initialAnswer: 'no name'}.
+%		\label{fig:dialogName}}
+%\end{figure}
+
+Pour afficher le menu flottant (en anglais, \emph{pop-up menu}), vous
+devez faire appel \`a la classe \clsind{PopupMenu}:
+\begin{code}{}
+menu := PopUpMenu
+	labelArray: #('cercle' 'ovale' '!\normcode{carr\'e}!' 'rectangle' 'triangle')
+	lines: #(2 4).
+menu startUpWithCaption: 'Choisissez une forme'
+\end{code}
+
+%\begin{figure}[ht]
+%	\centerline{\includegraphics[width=3cm]{popup}}
+%	\caption{PopUp displayed by \ct{PopUpMenu>>>startUpWithCaption:}.}
+%\end{figure}
+
+%=================================================================
+\section{Le glisser-d\'eposer}
+
+Morphic supporte aussi le glisser-d\'eposer. \'Etudions l'exemple
+suivant. Cr\'eons tout d'abord un morph receveur qui n'acceptera un
+morph que si le d\'ep\^ot de ce morph se fait dans une certaine
+condition. Cr\'eons ensuite un second morph que nous appelons morph
+d\'epos\'e. Le fait que le morph soit bleu (\ct{Color blue}) sera
+notre condition pour que le glisser-d\'epos\'e se fasse ici.
+
+\dothis{D\'efinissez la classe pour le morph receveur et cr\'eez une
+  m\'ethode d'initialisation comme suit:}
+\begin{classdef}{D\'efinir un morph sur lequel un autre morph pourra \^etre d\'epos\'e}
+Morph subclass: #ReceiverMorph
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'PBE-Morphic'
+\end{classdef}
+
+%\dothis{Now define the initialization method in the usual way:}
+\begin{method}{Initialiser un objet \ct{ReceiverMorph}}
+ReceiverMorph>>>initialize
+	super initialize.
+	color := Color red.
+	bounds := 0 @ 0 extent: 200 @ 200
+\end{method}
+
+Comment d\'ecidons-nous si le receveur va accepter ou refuser le morph
+d\'epos\'e? En g\'en\'eral, ces deux morphs devront s'accorder sur
+leur interaction. Le receveur fait cela en r\'epondant au message
+ \mthind{Morph}{wantsDroppedMorph:event:}; le premier argument est le
+ morph que nous voulons d\'eposer et le second est l'\'ev\'enement
+ souris. Ce dernier argument permet, par exemple, au receveur de
+ savoir si une (ou plusieurs) touche de modification a \'et\'e
+ maintenue enfonc\'ee durant la phase de d\'ep\^ot de l'autre morph.
+Le morph d\'epos\'e, quant \`a lui, se doit de v\'erifier s'il est
+compatible avec le morph sur lequel il est d\'epos\'e; le message
+\ct{wantsToBeDroppedInto:} doit r\'epondre \ct{true} si le morph
+receveur 
+%ajout
+pass\'e en argument est d\'efini comme compatible. L'impl\'ementation
+de cette m\'ethode dans la classe m\`ere des morphs \ct{Morph} renvoie
+toujours \ct{true} 
+donc, par d\'efaut, tous les morphs sont accept\'es en tant que
+receveur.
+
+\begin{method}{Accepter les morphs d\'epos\'es selon leur couleur}
+ReceiverMorph>>>wantsDroppedMorph: aMorph event: anEvent
+	^ aMorph color = Color blue
+\end{method}
+
+Qu'arrive-t-il au morph d\'epos\'e si le morph receveur ne veut pas de lui?
+Le comportement par d\'efaut de l'interface Morphic est de ne rien
+%reformule
+faire, \cad de laisser le morph d\'epos\'e au-dessus du morph receveur
+sans aucune interaction avec celui-ci. 
+Le morph d\'epos\'e aurait un comportement plus intuitif s'il
+retournait \`a sa position d'origine en cas de refus.
+Nous pouvons faire cela en disant au receveur de r\'epondre \ct{true}
+au message  \mthind{Morph}{repelsMorph:event:} lorsque celui-ci ne
+veut pas du morph d\'epos\'e:
+
+\needlines{4}
+\begin{method}{Changer le comportement du morph d\'epos\'e lorsqu'il est rejet\'e}
+ReceiverMorph>>>repelsMorph: aMorph event: anEvent
+	^ (self wantsDroppedMorph: aMorph event: anEvent) not
+\end{method}
+
+C'est tout ce dont nous avons besoin.
+%That's all we need as far as the receiver is concerned.
+
+\dothis{Cr\'eez des instances de \clsind{ReceiverMorph} et de
+  \clsind{EllipseMorph} dans un espace de travail:}
+\begin{code}{}
+ReceiverMorph new openInWorld.
+EllipseMorph new openInWorld.
+\end{code}
+\noindent
+Essayez de faire un glisser-d\'eposer de l'ellipse jaune
+\ct{EllipseMorph} sur le morph receveur rouge. Il sera rejet\'e et
+retournera \`a sa position initiale.
+
+%martial: j'ai ajoute le texte entre parentheses
+\dothis{Changez la couleur de l'ellipse pour du bleu via l'inspecteur
+  (que vous pouvez activer avec le menu de la poign\'ee du d\'ebogage
+  du halo Morphic en cliquant sur \menu{inspect morph}): \'evaluez
+  \ct{self color: Color blue}.  Les morphs bleus \'etant accept\'es par
+  le \ct{ReceiverMorph}: essayez \`a nouveau le glisser-d\'eposer.}
+
+%ajout (encouragement)
+Bravo! Vous venez de faire un glisser-d\'eposer.
+
+Continuons \`a explorer le glisser-d\'eposer en cr\'eant un morph
+d\'epos\'e sp\'ecifique nomm\'e \ct{DroppedMorph},
+sous-classe de \ct{Morph}:
+
+\begin{classdef}{D\'efinir un morph que nous pouvons glisser-d\'eposer sur un \ct{ReceiverMorph}}
+Morph subclass: #DroppedMorph
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'PBE-Morphic'
+\end{classdef}
+
+\begin{method}{Initialiser \ct{DroppedMorph}}
+DroppedMorph>>>initialize
+	super initialize.
+	color := Color blue.
+	self position: 250@100
+\end{method}
+
+% reformulation
+Nous voulons que le morph d\'epos\'e ait un nouveau comportement 
+lorsqu'il est rejet\'e par le receveur; cette fois-ci, il restera
+attach\'e au pointeur de la souris:
+\begin{method}{R\'eagir lorsque le morph est rejet\'e lors du d\'ep\^ot}
+DroppedMorph>>>rejectDropMorphEvent: anEvent
+	| h |
+	h := anEvent hand.
+	WorldState
+		addDeferredUIMessage: [h grabMorph: self].
+	anEvent wasHandled: true
+\end{method}
+
+L'envoi du message \mthind{MorphicEvent}{hand} \`a un \'ev\'enement
+r\'epond la ``main'' (en anglais, \emph{hand}), instance de
+\ct{HandMorph} qui repr\'esente le pointeur de la souris et tout ce
+qu'il tient.
+Dans notre m\'ethode, nous disons \`a l'\'ecran \pharo, \ct{World}, que
+la main 
+%ajout
+(stock\'ee dans la variable temporaire \ct{h}) doit capturer
+le morph rejet\'e 
+%ajout + l'index de la m\'ethode
+\ct{self} gr\^ace au message \mthind{HandMorph}{grabMorph:}.
+%ajout (commentaire de la methode dans MorphicEvent et non dans DropEvent)
+La m\'ethode \ct{wasHandled:} d\'etermine si l'\'ev\'enement \'etait captur\'e.
+
+\dothis{Cr\'eer deux instances de \ct{DroppedMorph} et faites un
+  glisser-d\'eposer pour chacune sur le receveur.}
+\begin{code}{}
+ReceiverMorph new openInWorld.
+(DroppedMorph new color: Color blue) openInWorld.
+(DroppedMorph new color: Color green) openInWorld.
+\end{code}
+\noindent
+Le morph vert (\ct{Color green}) est rejet\'e et reste ainsi attach\'e
+au pointeur de la souris.
+
+%=================================================================
+%\section{Un exemple complet}
+\section{Le jeu du d\'e}
+
+Lan\c{c}ons-nous maintenant dans la cr\'eation d'un jeu
+du d\'e complet. Nous voulons faire d\'efiler toutes les faces d'un
+d\'e dans une boucle rapide suite \`a un premier clic de
+souris sur la surface de ce d\'e puis, lors
+d'un second clic, arr\^eter l'animation sur une face.
+
+\begin{figure}[ht]
+	\centerline{\includegraphics[scale=0.65]{die}}
+	\caption{Le d\'e dans Morphic.\label{fig:dialogDie}}
+\end{figure}
+
+\dothis{D\'efinissez un d\'e comme une sous-classe de
+  \clsind{BorderedMorph} d\'efinissant un \ct{Morph} avec un bord:
+  appelez-le \ct{DieMorph} (d\'e se dit \emph{die} en anglais).}
+
+\needlines{6}
+\begin{classdef}{D\'efinir le d\'e DieMorph}
+BorderedMorph subclass: #DieMorph
+	instanceVariableNames: 'faces dieValue isStopped'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'PBE-Morphic'
+\end{classdef}
+
+La variable d'instance \ct{faces} stocke le nombre de faces de notre
+d\'e; nous nous autorisons \`a avoir des d\'es jusqu'\`a neuf faces!
+\ct{dieValue} contient la valeur de la face affich\'ee en ce moment et
+\ct{isStopped} est un bool\'een que est \ct{true} si et seulement si
+l'animation est \`a l'arr\^et.
+Nous allons d\'efinir la \emph{m\'ethode de classe} \ct{faces: n} dans
+le c\^ot\'e classe de \clsind{DieMorph} pour pouvoir cr\'eer un
+nouveau d\'e \`a \ct{n} faces.
+
+\begin{method}{Cr\'eer un nouveau d\'e avec un nombre de faces d\'etermin\'e}
+DieMorph class>>>faces: aNumber
+	^ self new faces: aNumber
+\end{method}
+
+La m\'ethode \ct{initialize} est d\'efinie dans le c\^ot\'e instance
+de la classe; souvenez-vous que \ct{new} envoie \ct{initialize} \`a
+toute instance nouvellement cr\'e\'ee.
+
+\begin{method}{Initialiser les instances de \ct{DieMorph}}
+DieMorph>>>initialize
+	super initialize.
+	self extent: 50 @ 50.
+	self useGradientFill; borderWidth: 2; useRoundedCorners.
+	self setBorderStyle: #complexRaised.
+	self fillStyle direction: self extent.
+	self color: Color green.
+	dieValue := 1.
+	faces := 6.
+	isStopped := false
+\end{method}
+
+Nous utilisons quelques m\'ethodes de la classe \ct{BorderedMorph}
+pour donner un aspect sympathique \`a notre d\'e: bordure \'epaisse
+avec un effet de relief, coins arrondis et d\'egrad\'e de couleur sur
+la face visible.
+%ajout
+Nous d\'efinissons ensuite la m\'ethode d'instance \ct{faces:} pour
+affecter la variable d'instance\,---\,il s'agit d'une m\'ethode
+d'acc\`es de type mutateur\,---\, en v\'erifiant que le param\`etre est
+bien valide:
+\begin{method}{Affecter le nombre correspondant \`a la face visible de d\'e}
+DieMorph>>>faces: aNumber
+	"Affecter le num\'ero de la face"
+	(aNumber isInteger
+			and: [aNumber > 0]
+			and: [aNumber <= 9])
+		ifTrue: [faces := aNumber]
+\end{method}
+\on{Why not make this a pre-condition, \ie an assertion?}
+
+Comprenez bien l'ordre dans lequel les messages sont envoy\'es lors de
+la cr\'eation d'un d\'e. Si nous \'evaluons \ct{DieMorph faces: 9}:
+\begin{enumerate}
+	\item la m\'ethode de classe \ct{DieMorph class>>>faces:} envoie
+      \ct{new} \`a \ct{DieMorph class};
+	\item la m\'ethode pour \ct{new} (h\'erit\'ee par \ct{DieMorph class} de \ct{Behavior}) cr\'ee la nouvelle instance et lui envoie
+       le message \ct{initialize};
+	\item la m\'ethode \ct{initialize} de \ct{DieMorph} affecte la
+      valeur initiale 6 \`a \ct{faces};
+	\item \ct{DieMorph class>>>new} retourne \`a la m\'ethode de
+      classe \ct{DieMorph class>>>faces:} qui envoie ensuite le
+      message \ct{faces: 9} \`a la nouvelle instance;
+	\item la m\'ethode d'instance \ct{DieMorph>>>faces:} s'ex\'ecute
+      maintenant en affectant \`a la valeur 9 la variable d'instance
+      \ct{faces}.
+\end{enumerate}
+
+%Avant de passer \`a la d\'efinition de la m\'ethode \ct{drawOn:}
+Pour positionner les points noirs sur la face du d\'e, nous devons
+besoin de d\'efinir autant de m\'ethodes qu'il y a de faces possibles:
+
+\begin{methods}{Neuf m\'ethodes pour placer les points noirs sur la face visible du d\'e}
+DieMorph>>>face1
+	^{0.5@0.5}
+DieMorph>>>face2
+	^{0.25@0.25 . 0.75@0.75}
+DieMorph>>>face3
+	^{0.25@0.25 . 0.75@0.75 . 0.5@0.5}
+DieMorph>>>face4
+	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75}
+DieMorph>>>face5
+	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.5@0.5}
+DieMorph>>>face6
+	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5}
+DieMorph>>>face7
+	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5}
+DieMorph >>>face8
+	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5 . 0.5@0.25}
+DieMorph >>>face9
+	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5 . 0.5@0.25 . 0.5@0.75}
+\end{methods}
+\on{kind of ugly boilerplate code -- should be a nice way to map these more elegantly to coordinates.}
+
+Ces m\'ethodes d\'efinissent des collections de coordonn\'ees de
+points pour chaque configuration de faces possible. Les coordonn\'ees
+sont dans un carr\'e de dimension $1\times1$. Pour placer nos points,
+nous effectuons simplement un changement d'\'echelle.
+
+%reformulation
+Enfin, pour dessiner la face du d\'e, nous d\'efinissons la m\'ethode
+\ct{drawOn:} qui fera d'abord un envoi sur \ct{super}, utilisant la m\'ethode
+d\'efinie dans une classe-m\`ere pour dessiner le fond de la face, et
+qui exploitera, dans un deuxi\`eme temps, les m\'ethodes cr\'e\'ees
+pr\'ec\'edemment pour dessiner les points noirs.
+
+\begin{method}{Dessiner le d\'e}
+DieMorph>>>drawOn: aCanvas
+	super drawOn: aCanvas.
+	(self perform: ('face' , dieValue asString) asSymbol)
+		do: [:aPoint | self drawDotOn: aCanvas at: aPoint]
+\end{method}
+
+Les capacit\'es r\'eflexives de \st sont utilis\'ees dans la
+derni\`ere expression de cette m\'ethode. Dessiner les points noirs
+d'une face revient \`a it\'erer sur la collection 
+%ajout
+de coordonn\'ees retourn\'ee par la m\'ethode \ct{faceX} 
+%ajout
+(\ct{X} est issu de la variable d'instance \ct{dieValue}
+correspondant au num\'ero de la face en cours),
+en envoyant le message \ct{drawDotOn:at:} pour chacune de ces
+coordonn\'ees. Pour joindre la bonne m\'ethode %martial: joindre plutot qu'appeler
+\ct{faceX}, nous utilisons la m\'ethode \mthind{Object}{perform:} qui
+envoie le message construit \`a partir d'une cha\^{\i}ne de
+caract\`eres \ct{('face', dieValue asString) asSymbol}.
+Cet usage de la m\'ethode \ct{perform:} est tr\`es fr\'equent.
+
+\index{réfléctivité}
+\begin{method}{Dessiner un simple point noir sur une face}
+DieMorph>>>drawDotOn: aCanvas at: aPoint
+	aCanvas
+		fillOval: (Rectangle
+			center: self position + (self extent * aPoint)
+			extent: self extent / 6)
+		color: Color black
+\end{method}
+
+Puisque les coordonn\'ees sont norm\'ees dans l'intervalle $[0{:}1]$,
+elles sont mises \`a l'\'echelle des dimensions du d\'e avec 
+\ct{self extent * aPoint}.
+
+\dothis{Cr\'eez une instance de d\'e dans un espace de travail:}
+\begin{code}{}
+(DieMorph faces: 6) openInWorld.
+\end{code}
+
+Pour pouvoir modifier la valeur de la face visible, nous devons
+cr\'eer un mutateur aussi pour \ct{dieValue}. 
+%modification
+Gr\^ace \`a elle, nous pourrions, par exemple, afficher la face \`a 4
+points depuis une nouvelle m\'ethode de la classe en y \'ecrivant
+\ct{self dieValue: 4}.
+%To change the displayed face, we create an accessor that we can use as \ct{myDie dieValue: 4}:
+
+\begin{method}{Affecter un nombre \`a la valeur courante du d\'e}
+DieMorph>>>dieValue: aNumber
+	(aNumber isInteger
+			and: [aNumber > 0]
+			and: [aNumber <= faces])
+		ifTrue:
+			[dieValue := aNumber.
+			self changed]
+\end{method}
+
+Nous allons utiliser le syst\`eme d'animation pour faire d\'efiler rapidement 
+%ajout
+et al\'eatoirement (avec le message \ct{atRandom}) toutes les faces du d\'e:
+\index{Morphic!animation}
+\begin{methods}{Animer le d\'e}
+DieMorph>>>stepTime
+	^ 100
+
+DieMorph>>>step
+	isStopped ifFalse: [self dieValue: (1 to: faces) atRandom]
+\end{methods}
+D\'esormais, notre d\'e ``roule''!
+
+Pour d\'emarrer ou arr\^eter  l'animation par un clic de souris, nous
+utiliserons ce que nous avons pr\'ealablement appris sur les
+\'ev\'enements souris.
+Nous activons la r\'eception des \'ev\'enements de la souris et nous
+d\'ecrivons notre gestion du bouton rouge de la souris dans la
+m\'ethode \ct{mouseDown:}.       
+%ou \mthind{Morph}{mouseDown:}
+
+\begin{methods}{G\'erer les clics de souris pour d\'emarrer et arr\^eter l'animation}
+DieMorph>>>handlesMouseDown: anEvent
+	^ true
+
+DieMorph>>>mouseDown: anEvent
+	anEvent redButtonPressed
+		ifTrue: [isStopped := isStopped not]
+\end{methods}
+
+%ajout
+Maintenant notre d\'e ``roule'' ou se fige quand nous cliquons dessus.
+
+% That's all for the essentials of Morphic!
+
+% Most of the work on \ct{DieMorph} was done with an instance of it living in the environment; this is quite nice when to tweak programs.
+
+%=================================================================
+%\section{More about the canvas}
+%\section{Encore quelques mots sur le canevas}
+\section{Gros plan sur le canevas}
+
+La m\'ethode \ct{drawOn:} a un canevas, instance de
+\clsindmain{Canvas}, comme unique argument;
+le canevas est l'espace dans lequel le morph se dessine.
+En utilisant les m\'ethodes graphiques du canevas, vous \^etes libre
+de donner l'apparence que vous voulez \`a votre morph.
+Si vous parcourez la hi\'erarchie d'h\'eritage de la classe
+\ct{Canvas}, vous constaterez plusieurs variantes. Par d\'efaut, nous
+utilisons \clsind{FormCanvas}. Cette classe et sa classe-m\`ere
+\ct{Canvas} contiennent les m\'ethodes graphiques essentielles pour
+dessiner des points, des lignes, des polygones, des rectangles, des
+ellipses, du texte et des images avec rotation et changement d'\'echelle. 
+
+%ajout de la note de bas de page
+Vous pouvez aussi utiliser d'autres types de canevas pour obtenir, par
+exemple, des m\'ethodes suppl\'ementaires ou encore, ajouter la
+transparence ou l'anti-cr\'enelage (ou
+\emph{anti-aliasing}~\footnote{Ce rendu est utilis\'e pour att\'enuer
+  ou \'eliminer l'effet escalier du aux pixels.}) aux morphs.  
+Vous aurez besoin dans ces cas-l\`a de canevas tels que
+\clsind{AlphaBlendingCanvas} ou \clsind{BalloonCanvas}.
+Pour obtenir un canevas diff\'erent dans la m\'ethode \ct{drawOn:}
+alors que son argument est une instance de \ct{FormCanvas}, vous devrez
+court-circuiter le canevas courant par un autre. 
+%martial: ou transformer un type de canevas en un autre.
+%comme dans:
+%But how can you obtain such a canvas in a \ct{drawOn:} method, when \ct{drawOn:} receives an instance of \ct{FormCanvas} as its argument?
+%Fortunately, you can transform one kind of canvas into another.
+
+\dothis{Red\'efinissez \ct{drawOn:} de la classe \ct{DieMorph} pour
+  utiliser un canevas semi-transparent:}
+
+%martial: je force la nouvelle page tant que le titre est sur l'autre page
+%\newpage
+\begin{method}{Dessiner un d\'e semi-transparent}
+DieMorph>>>drawOn: aCanvas
+	| theCanvas |
+	theCanvas := aCanvas asAlphaBlendingCanvas: 0.5.
+	super drawOn: theCanvas.
+	(self perform: ('face' , dieValue asString) asSymbol)
+		do: [:aPoint | self drawDotOn: theCanvas at: aPoint]
+\end{method}
+\noindent
+
+C'est tout ce dont nous avons besoin! 
+
+Vous pouvez parcourir la m\'ethode
+\mthind{Canvas}{asAlphaBlendingCanvas:} par curiosit\'e.
+Pour profiter de l'anti-cr\'enelage, vous pouvez aussi utiliser
+\clsind{BalloonCanvas} et changer la m\'ethode d'affichage des points
+noirs de notre d\'e comme dans \mthsref{aadie}.
+
+\begin{figure}[ht]
+	\centerline{\includegraphics[scale=0.7]{multiMorphs}}
+	\caption{Le d\'e semi-transparent.\label{fig:multiMorphs}}
+\end{figure}
+
+\needlines{6}
+\begin{methods}[aadie]{Dessiner un d\'e avec anti-cr\'enelage}
+DieMorph>>>drawOn: aCanvas
+	| theCanvas |
+	theCanvas := aCanvas asBalloonCanvas aaLevel: 3.
+	super drawOn: aCanvas.
+	(self perform: ('face' , dieValue asString) asSymbol)
+		do: [:aPoint | self drawDotOn: theCanvas at: aPoint]
+
+DieMorph>>>drawDotOn: aCanvas at: aPoint
+	aCanvas
+		drawOval: (Rectangle
+			center: self position + (self extent * aPoint)
+			extent: self extent / 6)
+		color: Color black
+		borderWidth: 0
+		borderColor: Color transparent
+\end{methods}
+
+%=================================================================
+\section{R\'esum\'e du chapitre}
+
+Morphic est une librairie graphique dans laquelle les \'el\'ements de
+l'interface graphique peuvent \^etre compos\'es dynamiquement.
+Vous pouvez:
+\begin{itemize}
+  \item convertir un objet en \emph{morph} et l'afficher
+    sur l'\'ecran de \pharo, le \emph{world}, en lui envoyant le message
+    \ct{asMorph openInWorld};
+  \item faire appara\^{\i}tre le halo Morphic en cliquant avec le
+    bouton bleu de la souris sur un morph et manipuler ce morph
+    gr\^ace aux poign\'ees du halo. Ces poign\'ees ont des ballons
+    d'aide (ou \emph{help balloons}) qui d\'etaillent leur action;
+  \item composer des morphs en les embo\^{\i}tant les uns dans les autres,
+    soit par glisser-d\'eposer, soit par envoi du message \ct{addMorph:};
+  \item d\'eriver la classe d'un morph et red\'efinir ses
+    m\'ethodes-cl\'es telles que \ct{initialize} et \ct{drawOn:};
+  \item contr\^oler la fa\c{c}on dont r\'eagit un morph avec les
+    \'ev\'enements issus de la souris et du clavier en red\'efinissant les
+    m\'ethodes comme, par exemple, \ct{handlesMouseDown:} et
+    \ct{handlesMouseOver:};
+  \item animer un morph en d\'efinissant les m\'ethodes \ct{step}
+    (ce que fait le morph) et \ct{stepTime} (le nombre de
+    millisecondes entre les pas);
+  \item trouver diff\'erents morphs pr\'e-d\'efinis pour
+    l'interactivit\'e de l'utilisateur comme
+    \ct{PopUpMenu} ou \ct{FillInTheBlank};
+%martial: ajout a signaler a andrew
+  \item explorer les m\'ethodes graphiques des diff\'erents canevas,
+    instances de \ct{Canvas} ou de sous-classes,
+    pour exploiter leurs ressources pour le dessin des morphs.
+\end{itemize}
+
+%=================================================================
+\ifx\wholebook\relax\else\end{document}\fi
+%=================================================================
+
+%-----------------------------------------------------------------

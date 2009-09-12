@@ -1,0 +1,766 @@
+% $Author$
+% $Date$
+% $Revision: 14633$
+% $Id$
+% %=================================================================
+% translated by Rene Mages squeak@rmages.com start: (Fri, 5 Oct 2007)
+% relecture par Rene Mages et Martial Boniou: (Fri, 20 Dec 2007)
+% relecture par Rene Mages : (Sun, 13 Jan 2008) de la version #14938
+% adaptation pour PBE - martial - Thu Sep 10 22:45:08 CEST 2009 from
+% $Id: Syntax.tex 28624 2009-08-27 10:59:05Z oscar $
+%=================================================================
+\ifx\wholebook\relax\else
+% --------------------------------------------
+% Lulu:
+	\documentclass[a4paper,10pt,twoside]{book}
+	\usepackage[
+		papersize={6.13in,9.21in},
+		hmargin={.75in,.75in},
+		vmargin={.75in,1in},
+		ignoreheadfoot
+	]{geometry}
+	\input{../common.tex}
+	\pagestyle{headings}
+	\setboolean{lulu}{true}
+% --------------------------------------------
+% A4:
+%	\documentclass[a4paper,11pt,twoside]{book}
+%	\input{../common.tex}
+%	\usepackage{a4wide}
+% --------------------------------------------
+    \graphicspath{{figures/} {../figures/}}
+	\begin{document}
+	\renewcommand{\nnbb}[2]{} % Disable editorial comments
+	\sloppy
+\fi
+%=================================================================
+\chapter{Un r\'esum\'e de la syntaxe}
+\chalabel{syntax}
+
+\sd{We should add pragmas.}
+\on{Please do so.}
+
+% \sd{It would be good to add link to the chapter where the reader can learn about conditional, exceptions and loops.}
+% \on{There are links already.}
+
+\pharo, comme la plupart des dialectes modernes de \st, adopte une syntaxe proche de celle de \st-80.
+La \ind{syntaxe} est con\c{c}ue de telle sorte que le texte d'un
+programme lu \`{a} haute voix ressemble \`{a} de l'\emph{English pidgin} ou ``anglais simplifié'':
+
+\begin{code}{}
+(Smalltalk includes: Class) ifTrue: [ Transcript show: Class superclass ]
+\end{code}
+
+\noindent
+La syntaxe de \pharo (\ie les expressions) est minimaliste; pour l'essentiel, con\c{c}ue uniquement pour \emph{envoyer des messages}.
+%% et  \emph{des d\'{e}clarations de m\'{e}thodes}.
+Les expressions sont construites \`{a} partir d'un nombre tr\`{e}s r\'{e}duit de primitives.
+\st dispose seulement de 6 mots-cl\'{e}s et d'aucune syntaxe pour les structures de contr\^{o}le, ni pour les d\'{e}clarations de nouvelles classes.
+En revanche, tout ou presque est r\'{e}alisable en envoyant des messages \`{a} des objets.
+Par exemple, \`{a} la place de la structure de contr\^{o}le conditionnelle \emph{si-alors-sinon}, \st envoie des messages comme \ct{ifTrue:} \`{a} des \arevoir{objets bool\'eens}.
+% rene propose la suppresion de :  de la classe \clsind{Boolean} (ne figure pas dans le texte original).
+Les nouvelles \mbox{(sous-)classes} sont cr\'{e}\'{e}es en envoyant un message \`{a} leur super-classe.
+
+%=================================================================
+\section{Les \'{e}l\'{e}ments syntaxiques }
+
+Les expressions sont compos\'{e}es des blocs constructeurs suivants:
+\begin{enumerate}[label=(\small\itshape\roman{*}), ref=(\small\itshape\roman{*})]
+\item six mots-cl\'{e}s r\'{e}serv\'{e}s ou \emph{pseudo-variables}:
+\pvind{self}, \pvind{super}, \pvind{nil}, \pvind{true}, \pvind{false}, and \pvind{thisContext};
+\item des expressions constantes pour des \emph{objets littéraux} comprenant les nombres, les caract\`{e}res, les chaînes de caract\`{e}res, les symboles et les tableaux;
+\item des d\'{e}clarations de variables;
+\item des affectations;
+\item des \ind{bloc}{}s ou fermetures lexicales -- \emph{block closures} en anglais -- et;
+\item des messages.
+\end{enumerate}
+\index{littéral!objet}
+\seeindex{pseudo-variable}{variable, pseudo}
+\seeindex{objet!littéral}{littéral, objet}
+
+\begin{table}\centering
+	\begin{tabular}{ll}
+		\toprule
+		Syntaxe & ce qu'elle repr\'{e}sente \\
+		\midrule
+		\lct{startPoint}			&	un nom de variable\\
+		\lct{Transcript}			&	un nom de variable globale\\
+		\lct{self}				&	une pseudo-variable \\
+		\midrule
+		\lct{1}				 	&	un entier decimal \\
+		\lct{2r101}				&	un entier binaire \\
+		\lct{1.5}					& un nombre flottant \\
+		\lct{2.4e7}				&	une notation exponentielle \\
+		\lct{\$a}					& le caract\`{e}re `a' \\
+		\lct{'Bonjour'}				&	la cha\^{\i}ne ``Bonjour'' \\
+		\lct{\#Bonjour}				&	le symbole \lct{\#Bonjour} \\
+		\lct{\#(1 2 3)}			&	un tableau de litt\'{e}raux \\
+		\lct{\{1. 2. 1+2\}}		&	un tableau dynamique \\
+		\midrule
+		\lct{"c'est mon commentaire"} 		&	un commentaire  \\
+		\midrule
+		\lct{| x y |}				&	une d\'eclaration de 2 variables \lct{x} et \lct{y}	\\
+		\lct{x := 1}				&	affectation de 1 \`a \lct{x} \\
+		\lct{[ x + y ]}			&	un bloc qui \'evalue \lct{x+y} \\
+		\lct{<primitive: 1>}		&	une primitive de la VM~\footnote{Machine Virtuelle.} ou annotation\\
+		\midrule
+		\lct{3 factorial}			&	un message unaire \\
+		\lct{3 + 4}					&	un message binaire \\
+		\lct{2 raisedTo: 6 modulo: 10}		&	un message \`a mots-cl\'es \\
+		\midrule
+		\lct{$\uparrow$ true}
+ 			&	retourne la valeur \lct{true} pour vrai \\
+		\lct{Transcript show: 'bonjour'. Transcript cr }		& un
+        s\'eparateur d'expression (\lct{.})	\\ 
+		\lct{Transcript show: 'bonjour'; cr}	& un message en cascade (\lct{;}) \\
+		\bottomrule
+	\end{tabular}
+\caption{R\'esum\'e de la syntaxe de \pharo \tablabel{syntax}}
+\end{table}
+
+
+Dans \tabref{syntax}, nous pouvons voir des exemples divers d'\'{e}l\'{e}ments syntaxiques.
+\begin{description}
+\item[Les variables locales.] \ct{startPoint} est un nom de variable ou identifiant.
+Par convention, les identifiants sont compos\'{e}s de mots au format
+d'écriture \emph{casse chameau} (``\ind{camelCase}''): chaque mot
+except\'{e} le premier d\'{e}bute par une lettre majuscule.
+La premi\`{e}re lettre d'une variable d'instance, d'une m\'{e}thode ou d'un bloc argument ou d'une variable temporaire doit \^{e}tre en minuscule.
+Ce qui indique au lecteur que la port\'{e}e de la variable est priv\'{e}e .
+
+\item[Les variables partag\'{e}es.]	Les identifiants qui d\'{e}butent par
+  une lettre majuscule sont des  variables
+  \subind{variable}{globale}{s}, des  \subind{classe}{variable}{s} de
+  classes, des dictionnaires de \subind{variable}{pool} ou des noms de classes.
+\ct{Transcript} est une variable globale, une instance de la classe \ct{TranscriptStream}.
+\seeindex{variable globale}{variable, globale}
+\seeindex{dictionnaire de pool}{variable, pool}
+\seeindex{variable!classe}{classe, variable}
+
+\item[Le receveur.] \pvind{self} est un mot-cl\'{e} qui pointe vers l'objet sur lequel la m\'{e}thode courante s'ex\'{e}cute. Nous le nommons  ``le receveur'' car cet objet devra normalement re\c{c}evoir le message qui provoque l'ex\'{e}cution de la m\'{e}thode.
+\self est appel\'{e} une ``\subind{variable}{pseudo-variable}'' puisque nous ne pouvons rien lui affecter.
+
+\item[Les entiers.] En plus des entiers d\'{e}cimaux habituels comme
+  \ct{42}, \pharo propose aussi une \ind{notation en base num\'{e}rique}
+  ou \emph{radix}.
+\ct{2r101} est \ct{101} en base 2 (\ie en binaire), qui est \'{e}gal \`{a} l'entier d\'{e}cimal 5.
+\index{littéral}
+\index{littéral!nombre}
+
+\item[Les nombres flottants.] Ils peuvent \^{e}tre sp\'{e}cifi\'{e}s avec leur \ind{exposant} en base dix: \mbox{\ct{2.4e7}} est $2.4 \times 10^7$.
+\index{nombres flottants}
+
+\item[Les caract\`{e}res.] Un signe dollar d\'{e}finit un \subind{littéral}{caractère}: \ct{$a}\ignoredollar$ est le litt\'{e}ral pour `a'.
+Des instances de caract\`{e}res non-imprimables peuvent \^{e}tre
+obtenues en envoyant des messages ad hoc \`{a} la classe
+\clsind{Character}, tel que \ct{Character space} \cmindex{Character class}{space} et \ct{Character tab}\cmindex{Character class}{tab}.
+		
+\item[Les chaînes de caract\`{e}res.] Les apostrophes sont utilis\'{e}es pour d\'{e}finir un  litt\'{e}ral \subind{littéral}{chaîne}.
+Si vous d\'{e}sirez une chaine comportant une apostrophe, il suffira de doubler l'apostrophe, comme dans \ct{'aujourd''hui'}.
+
+\item[Les symboles.] Ils ressemblent \`a des chaînes de caract\`{e}res, en ce sens qu'ils comportent une suite de caract\`{e}res.  
+Mais contrairement \`{a} une chaîne, un \subind{littéral}{symbole} doit \^{e}tre globalement unique.
+Il y a seulement un objet symbole \ct{#Bonjour} mais il peut y avoir plusieurs objets chaînes de caract\`{e}res ayant la valeur \ct{'Bonjour'}.
+\seeindex{\#@{\textsf{\#}}}{littéral, symbole}
+\seeindex{symbole!littéral}{littéral, symbole}
+
+% martial (25 dec 2007): nous avons dit 'tableaux \`a la compilation'
+% dans d'autres chapitres? 
+\item[Les tableaux définis \`{a} la compilation.] Ils sont d\'{e}finis par \ct{#( )}, les objets litt\'{e}raux sont s\'{e}par\'{e}s par des espaces.
+À l'int\'{e}rieur des parenth\`{e}ses, tout doit \^{e}tre constant durant la compilation.
+Par exemple,  \ct{#(27 #(true false) abc)} est un
+\subind{littéral}{tableau} litt\'{e}ral de trois \'{e}l\'{e}ments: l'entier \ct{27}, le tableau \`{a} la compilation contenant deux bool\'{e}ens et le symbole \ct{#abc}.
+\seeindex{tableau!littéral}{littéral, tableau}
+
+\item[Les tableaux définis \`{a} l'ex\'{e}cution.] Les accolades \ct|{ }|
+  d\'{e}finissent un tableau (\subind{tableau}{dynamique}) \`{a} l'ex\'{e}cution.
+Ses \'{e}l\'{e}ments sont des expressions s\'epar\'{e}es par des points.
+Ainsi \ct|{ 1. 2. 1+2 }| d\'{e}finit un tableau dont les \'{e}l\'{e}ments sont 1, 2 et le r\'{e}sultat de l'\'{e}valuation de 1+2
+(la notation entre accolades est \arelire{particuli\`{e}re \`{a} \pharo et à
+\squeak}. % CHANGE
+Dans d'autres \st{}s vous devez explicitement construire des tableaux dynamiques).
+
+\item[Les commentaires.] Ils sont encadr\'{e}s par des guillemets.
+\ct{"Bonjour le commentaire"} est un \ind{commentaire} et non une
+chaîne; donc il est ignor\'{e} par le compilateur de \pharo.
+Les commentaires peuvent se r\'{e}partir sur plusieurs lignes.
+		
+\item[Les d\'{e}finitions des variables locales.] Des barres
+  verticales \ct{| |} limitent les
+  \subind{variable}{déclaration}{}s d'une ou plusieurs variables
+  locales dans une m\'{e}thode (ainsi que dans un bloc).
+% \seeindex{\|@{\textsf{\|\|}}}{assignment}
+% Can't seem to index or-bars! (special char for index macro)
+\seeindex{déclaration de variable}{variable!déclaration}
+
+\item[L'affectation.]	\ct{:=} affecte un objet \`{a} une variable.
+%Quelquefois vous verrez \`{a} la place une $\leftarrow$ .
+%Malheureusement, tant qu'elle ne sera pas un caract\`{e}re
+%\textsc{ASCII}, elle apparaîtra sous la forme d'un signe souligné (en
+%anglais, \emph{underscore} \`{a} moins que vous n'utilisiez une fonte 
+%sp\'{e}ciale.
+%Ainsi, \ct{x := 1} est identique \`{a} \ct{x _ 1} ou \ct{x UNDERSCORE
+%1}. Il est préférable d'utiliser  \ct{:=} puisque les autres
+%repr\'{e}sentations ont \'{e}t\'{e} déclarées comme obsolètes depuis
+%la version 3.9 de \squeak. % CHANGE
+\index{affectation}
+\seeindex{:=@{\textsf{:=}}}{affectation}
+\seeindex{\_@{\textsf{\_}}}{affectation}
+%\seeindex{<-@{$\leftarrow$}}{affectation}
+
+\item[Les blocs.] Des crochets \ct{[ ]} définissent un \ind{bloc},
+  aussi connu sous le nom de \emph{block closure} ou fermeture lexicale, laquelle est un objet \`{a} part enti\`{e}re repr\'{e}sentant une fonction.
+Comme nous le verrons, les blocs peuvent avoir des arguments et des variables locales.
+\seeindex{[ ]@{\textsf{[ ]}}}{bloc}
+\seeindex{block closure}{bloc}
+\seeindex{fermeture lexicale}{bloc}
+
+\item[Les primitives.]	\ct{<primitive: ...>} marque l'invocation
+  d'une \ind{primitive} de la VM ou \ind{machine virtuelle}
+(\ct{<primitive: 1>} est la primitive de \ct{SmallInteger>>>+}).
+Tout code suivant la primitive est ex\'{e}cut\'{e} seulement si la
+primitive \'{e}choue.
+La m\^{e}me syntaxe est aussi employ\'{e}e pour des annotations de
+m\'{e}thode. % CHANGE
+
+\item[Les messages unaires.] Ce sont des simples mots (comme \ct{factorial}) envoy\'{e}s \`{a} un receveur (comme \ct{3}).
+\index{message!unaire}
+%\seeindex{message unaire}{message, unaire}
+
+\item[Les messages binaires.] Ce sont des op\'{e}rateurs (comme \ct{+}) envoy\'{e}s \`{a} un receveur et ayant un seul argument. Dans \ct{3+4}, le receveur est \ct{3} et l'argument est \ct{4}.
+\index{message!binaire}
+%\seeindex{message binaire}{message, binaire}
+
+\item[Les messages \`{a} mots-cl\'{e}s.] Ce sont des mots-cl\'{e}s multiples (comme \ct{raisedTo:modulo:}), chacun se terminant par un deux-points (:) et ayant un seul argument. 
+Dans l'expression \ct{2 raisedTo: 6 modulo: 10}, le \emph{sélecteur de message} \ct{raisedTo:modulo:} prend les deux arguments \ct{6} et \ct{10}, chacun suivant le \lct{:}. Nous envoyons le message au receveur \ct{2}.
+\index{message!sélecteur}
+\index{message!à mots-clés}
+%\seeindex{message de mot-cl\'{e}}{message, mot-cl\'{e}}
+
+\item[Le retour d'une m\'{e}thode.] \ct{^} est employ\'{e} pour
+  obtenir le \emphind{retour} ou \emph{renvoi} d'une m\'{e}thode.  Il
+  vous faut taper \verb|^| pour obtenir le caract\`{e}re \ct{^}.
+\md{\ct{^} donne toujours un retour de la m\'{e}thode, m\^{e}me s'il est utilis\'{e} dans un bloc, il donnera le retour de la m\'{e}thode inser\'{e}e dans le bloc.}
+
+\item[Les séquences d'instructions.]	Un point (\ct{.}) est le
+  \emphsubind{instruction}{séparateur} \emph{d'instructions}. Placer un point entre deux expressions les transforme en deux instructions ind\'{e}pendantes.	
+\index{instruction!séquence}
+\seeindex{instruction!séparateur}{expression, séparateur}
+\seeindex{point}{expression, séparateur}
+\seeindex{\ct{.}}{expression, séparateur}
+
+\item[Les cascades.] un point virgule peut \^{e}tre utilis\'{e} pour
+  envoyer une \emphind{cascade} de messages \`{a} un receveur
+  unique. Dans \ct{Transcript show: 'bonjour'; cr}, nous envoyons
+  d'abord le message à mots-cl\'{e}s \ct{show: 'bonjour'} au receveur  \ct{Transcript}, puis nous envoyons au m\^{e}me receveur le message unaire \ct{cr}.
+	\seeindex{;}{cascade}
+
+\end{description}
+
+Les classes \ct{Number}, \ct{Character}, \ct{String} et \ct{Boolean} sont d\'{e}crites avec plus de d\'{e}tails dans \charef{basic}.
+\on{Blocks are described in \charef{blocks}. (Control flow and Iterators).}
+
+%=================================================================
+\section{Les pseudo-variables}
+
+Dans \st, il y a 6 mots-cl\'{e}s r\'{e}serv\'{e}s ou  \emph{pseudo-variables}:
+\pvind{nil}, \pvind{true},  \pvind{false},  \pvind{self},
+\pvind{super} et \pvind{thisContext}.
+Ils sont appel\'{e}s \subind{variable}{pseudo-variable}{s} car ils sont pr\'{e}d\'{e}finis et ne peuvent pas \^{e}tre l'objet d'une affectation.
+\ct{true}, \ct{false} et \ct{nil} sont des constantes tandis que les valeurs de \ct{self}, \ct{super} et de \ct{thisContext} varient de fa\c{c}on dynamique lorsque le code est ex\'{e}cut\'{e}. 
+
+\ct{true} et \ct{false} sont les uniques instances des classes
+\clsind{Boolean}: \clsind{True} et \clsind{False} (voir \charef{basic} 
+pour plus de d\'{e}tails).
+
+\pvind{self} se r\'{e}f\`{e}re toujours au receveur de la m\'{e}thode en cours d'ex\'{e}cution.
+\ct{super} se r\'{e}f\`{e}re aussi au receveur de la m\'{e}thode en
+cours, mais quand vous envoyez un message \`{a} \super, la recherche
+de m\'{e}thode change en d\'{e}marrant de la super-classe relative \`{a} la classe contenant la m\'{e}thode qui utilise \ct{super}
+(pour plus de d\'{e}tails, voyez \charef{model}).
+
+\ct{nil} est l'objet non d\'{e}fini.
+C'est l'unique instance de la classe \clsind{UndefinedObject}. 
+Les variables d'instance, les variables de classe et les variables locales  sont initialis\'{e}es \`{a} \ct{nil}.
+
+\ct{thisContext} est une pseudo-variable qui repr\'{e}sente la structure du sommet de la pile d'ex\'{e}cution.
+En d'autres termes, il repr\'{e}sente le \clsind{MethodContext} ou le \clsind{BlockClosure} en cours d'ex\'{e}cution.
+En temps normal, \ct{thisContext} ne doit pas intéresser la plupart
+des programmeurs, mais il est essentiel pour impl\'{e}menter des
+outils de d\'{e}veloppement tels que le débogueur et il est aussi utilis\'{e} pour g\'{e}rer exceptions et continuations.
+
+%=================================================================
+\section{Les envois de messages}
+
+Il y a trois types de messages dans \pharo.
+\begin{enumerate}
+  \item Les messages \emph{unaires}: messages sans argument.
+  \ct{1 factorial} envoie le message  \ct{factorial} \`{a} l'objet \ct{1}.
+  \item Les messages \emph{binaires}: messages avec un seul argument.
+  	\ct{1 + 2} envoie le message \ct{+} avec l'argument \ct{2} \`{a} l'objet \ct{1}.
+  \item Les messages \`{a} \emph{mots-cl\'{e}s}: messages qui comportent un nombre arbitraire d'arguments.
+  	\ct{2 raisedTo: 6 modulo: 10} envoie le message comprenant le s\'{e}lecteur 	\ct{raisedTo: modulo:} et les arguments \ct{6} et \ct{10} vers l'objet \ct{2}.
+\end{enumerate}
+
+Les s\'{e}lecteurs des messages unaires sont constitu\'{e}s de caract\`{e}res alphanum\'{e}riques et d\'{e}butent par une lettre minuscule. 
+\index{message!unaire}
+
+Les s\'{e}lecteurs des messages binaires sont constitu\'{e}s par un ou plusieurs caract\`{e}res de l'ensemble suivant:
+\index{message!binaire}
+\begin{code}{}
++ - / \ * ~ < > = @ % | & ! ? ,
+\end{code}
+\noindent
+% [\~\!\@\%\&\*\-\+\=\\\|\?\/\>\<\,]
+\on{Il semble que 3 caract\`{e}res ou plus fonctionnent bien, mais il n'est pas possible d'avoir plus d'un ``-'' dans un s\'{e}lecteur binaire. Sans doute \`{a} cause d'un conflit avec l'analyseur (parser) des nombres n\'{e}gatifs?}
+\ab{Bon; $-$ est \'{e}trange .}
+
+Les s\'{e}lecteurs des messages \`{a} mots-cl\'{e}s sont form\'{e}s d'une suite de mots-cl\'{e}s alphanum\'{e}riques qui commencent par une lettre minuscule et se terminent par \lct{:}.
+\index{message!à mots-clés}
+
+Les messages unaires ont la plus haute priorit\'{e}, puis viennent les messages binaires et, pour finir, les messages \`{a} mots-cl\'{e}s; ainsi:
+\begin{code}{@TEST}
+2 raisedTo: 1 + 3 factorial --> 128
+\end{code}
+D'abord nous envoyons \ct{factorial} \`{a} \ct{3}, puis nous envoyons \ct{+ 6} \`{a} \ct{1}, et pour finir, nous envoyons \ct{raisedTo: 7} \`{a} \ct{2}.  
+Rappelons que nous utilisons la notation \lct{\emph{expression}}\ct{-->}\lct{\emph{result}} pour montrer le r\'{e}sultat de l'\'{e}valuation d'une expression. 
+
+Priorit\'{e} mise \`{a} part, l'\'{e}valuation s'effectue strictement de la gauche vers la droite, donc: 
+\begin{code}{@TEST}
+1 + 2 * 3 --> 9
+\end{code}
+et non \ct{7}.
+Les parenth\`{e}ses permettent de modifier l'ordre d'une \'{e}valuation:
+\begin{code}{@TEST}
+1 + (2 * 3) --> 7
+\end{code}
+Les envois de message peuvent \^{e}tre compos\'{e}s gr\^{a}ce \`{a} des points et des points-virgules. Une suite d'expressions s\'{e}par\'{e}es par des points provoque  l'\'{e}valuation de chaque expression dans la suite comme une \emphind{instruction}, une apr\`{e}s l'autre. 
+%\index{s\'{e}parateur!instruction}
+\index{expression!séparateur}
+
+\begin{code}{}
+Transcript cr.
+Transcript show: 'Bonjour le monde'.
+Transcript cr
+\end{code}
+
+\noindent
+Ce code enverra \ct{cr} \`{a} l'objet \glbind{Transcript}, puis
+enverra  \ct{show: 'Bonjour le monde'}, et enfin enverra un nouveau \ct{cr}.
+
+Quand une succession de messages doit \^{e}tre envoy\'{e}e \`{a} un \emph{m\^{e}me} receveur, 
+ou pour dire les choses plus succinctement en \emphind{cascade}, le receveur est sp\'{e}cifi\'{e} une seule fois et la suite des messages est s\'{e}par\'{e}e par des points-virgules:
+
+\begin{code}{}
+Transcript cr;
+    show: 'Bonjour le monde';
+    cr
+\end{code}
+Ce code a pr\'{e}cis\'{e}ment le m\^{e}me effet que celui de l'exemple pr\'{e}c\'{e}dent.
+
+
+%=================================================================
+\section{Syntaxe relative aux m\'{e}thodes}
+Bien que les expressions peuvent \^{e}tre \'{e}valu\'{e}es n'importe
+o\`{u} dans \pharo (par exemple, dans un espace de travail (Workspace),
+dans un d\'{e}bogueur (Debugger) ou dans un navigateur de classes), 
+les m\'{e}thodes sont en principe d\'{e}finies dans une fen\^{e}tre du
+Browser ou du d\'{e}bogueur
+% (Methods can also be filed in from an external medium, but this is not the usual way to program in \pharo.)
+(\arelire{les m\'{e}thodes peuvent aussi \^{e}tre rentrées} % CHANGE - retrait
+                                % de  (par \menu{file in})
+depuis une source externe, mais ce n'est pas une fa\c{c}on habituelle de programmer en \pharo).
+
+Les programmes sont d\'{e}velopp\'{e}s, une m\'{e}thode \`{a} la fois,
+dans l'environnement d'une classe pr\'{e}cise (une classe est d\'{e}finie en envoyant un message \`{a} une classe existante, en demandant de cr\'{e}er une sous-classe, de sorte qu'il n'y ait pas de syntaxe sp\'{e}cifique pour cr\'{e}er une classe).
+
+Voil\`{a} la m\'{e}thode \mthind{String}{lineCount} (pour compter le
+nombre de lignes) dans la classe  \clsind{String}.
+La convention habituelle consiste à se ref\'{e}rer aux m\'{e}thodes
+comme suit: \ct{ClassName>>>methodName}; ainsi nous nommerons cette
+m\'{e}thode \ct{String>>>lineCount}~\footnote{Le commentaire de la
+  m\'ethode dit: 
+``Retourne le nombre de lignes représentées par le receveur, dans
+    lequel chaque cr ajoute une ligne''}.
+
+\needlines{9}
+\begin{method}[lineCount]{Compteur de lignes}
+String>>>lineCount
+   "Answer the number of lines represented by the receiver,
+   where every cr adds one line."
+   | cr count |
+   cr := Character cr.
+   count := 1  min: self size.
+   self do:
+      [:c | c == cr ifTrue: [count := count + 1]].
+   ^ count
+\end{method}
+
+Sur le plan de la syntaxe, une m\'{e}thode comporte:
+\begin{enumerate}
+  \item la structure de la m\'{e}thode avec le nom (\ie \ct{lineCount}) et tous les arguments (aucun dans cet exemple);
+  \item les commentaires (qui peuvent \^{e}tre plac\'{e}s n'importe
+    o\`{u}, mais conventionnellement, un commentaire doit \^{e}tre plac\'{e} au d\'{e}but afin d'expliquer le but de la m\'{e}thode);
+  \item les d\'{e}clarations des variables locales (\ie \ct{cr} et
+    \ct{count}); 
+  \item un nombre quelconque d'expressions separ\'{e}es par des points; dans notre exemple, il y en a quatre.
+\end{enumerate}
+
+L'\'{e}valuation de n'importe quelle expression pr\'{e}c\'{e}d\'{e}e
+par un \ct{^} (saisi en tapant \verb|^|) provoquera l'arr\^{e}t de la m\'{e}thode \`{a} cet endroit, donnant en retour la valeur de cette expression.
+Une m\'{e}thode qui se termine sans retourner explicitement une expression retournera de fa\c{c}on implicite \pvind{self}.
+\index{retour!implicite}
+
+
+Les arguments et les variables locales doivent toujours d\'{e}buter par une lettre minuscule.
+Les noms d\'{e}butant par une majuscule sont r\'{e}servés aux variables globales.
+Les noms des classes, comme par exemple \ct{Character}, sont tout
+simplement des variables globales qui se réfèrent à l'objet repr\'{e}sentant cette classe.
+
+%=================================================================
+\section{La syntaxe des blocs}
+
+Les blocs apportent un moyen de diff\'{e}rer l'\'{e}valuation d'une expression.
+Un \ind{bloc} est essentiellement une fonction anonyme. Un bloc est \'{e}valu\'{e} en lui envoyant le message \mthind{BlockClosure}{value}.
+Le bloc retourne la valeur de la derni\`{e}re expression de son corps,
+\`{a} moins qu'il y ait un retour explicite (avec \ct{^}) auquel cas il ne retourne aucune valeur.
+\seeindex{value}{BlockClosure}
+% Serge : je ne comprends pas pourquoi cela ne retourne rien ...
+% Martial : j'ai traduit tel quel et je ne comprends pas non plus
+
+\begin{code}{@TEST}
+[ 1 + 2 ] value --> 3
+\end{code}
+
+Les blocs peuvent prendre des param\`etres, chacun doit \^etre
+d\'eclar\'e en le précédant d'un deux-points.
+Une barre verticale s\'{e}pare les d\'{e}clarations des param\`{e}tres
+et le corps du bloc.
+Pour \'evaluer un bloc avec un param\`{e}tre, vous devez lui envoyer le message 
+ \mthind{BlockClosure}{value:} avec un argument.
+Un bloc \`{a} deux param\`etres doit recevoir  \mthind{BlockClosure}{value:value:}; et ainsi de suite, jusqu'\`a 4 arguments.
+
+\begin{code}{@TEST}
+[ :x | 1 + x ] value: 2 --> 3
+[ :x :y | x + y ] value: 1 value: 2 --> 3
+\end{code}
+
+Si vous avez un bloc comportant plus de quatre param\`{e}tres, vous devez utiliser
+\mthind{BlockClosure}{valueWithArguments:} et passer les arguments à
+l'aide d'un tableau (un bloc comportant un grand nombre de param\`{e}tres étant souvent r\'{e}v\'{e}lateur d'un probl\`{e}me au niveau de sa conception).
+
+Des blocs peuvent aussi d\'{e}clarer des variables locales, lesquelles seront entour\'{e}es par des barres verticales, tout comme des d\'{e}clarations de variables locales dans une m\'{e}thode.
+Les variables locales sont d\'{e}clar\'{e}es apr\`{e}s les éventuels
+arguments:
+\index{variable!déclaration}
+
+\begin{code}{@TEST}
+[ :x :y | | z | z := x+ y. z ] value: 1 value: 2 --> 3
+\end{code}
+
+% Rene : la traduction de ces deux phrases est à controler (merci).
+Les blocs sont en fait des \emph{fermetures} lexicales, puisqu'ils
+peuvent faire r\'ef\'erence \`a des variables de leur environnement
+imm\'ediat. Le bloc suivant fait r\'ef\'erence \`a la variable \ct{x} voisine:
+%Les blocs sont en fait des \emph{fermetures} lexicales, d\`{e}s lors
+%qu'ils peuvent se r\'{e}f\'{e}rer \`{a} des variables de
+%l'environnement qui l'entoure.
+%Le bloc suivant concerne la variable \ct{x} de son environnement englobant:
+\newpage
+\begin{code}{@TEST}
+| x |
+x := 1.
+[ :y | x + y ] value: 2 --> 3
+\end{code}
+
+Les blocs sont des instances de la classe \clsind{BlockClosure}; ce
+sont donc des objets, de sorte qu'ils peuvent \^{e}tre affect\'{e}s
+\`{a} des variables et \^{e}tre pass\'{e}s comme arguments \`{a}
+l'instar de tout autre objet.
+
+% CHANGE - retrait de la note de Mise en garde sur squeak 3.9 et les
+% fermetures lexicales
+
+%\paragraph{Really important.} \^\ acts as an escaping mechanism. 
+%Return expressions inside a nested block expression will terminate the enclosing method.
+%In the example 
+
+%\begin{script}[detect]{...} when the expression \ct{^\ x@y} is executed, the method \ct{detect:}
+% escapes the current iteration and returns it. 
+
+%TwoLevelSet>>detect: aBlock
+
+%   firstLevel keysAndValuesDo: [ :x :v |
+%      v do: [ :y | (aBlock value: x@y) ifTrue: [^x@y]]
+%   ].
+%   ^nil
+%\end{script}
+
+
+%=================================================================
+\section{Conditions et it\'{e}rations}
+
+\st n'offre aucune syntaxe sp\'{e}cifique pour les structures de contr\^{o}le.
+Typiquement celles-ci sont obtenues par l'envoi de messages \`{a} des bool\'{e}ens, des nombres ou des collections, avec pour arguments des blocs.
+
+Les clauses conditionnelles sont obtenues par l'envoi des messages
+\mthind{Boolean}{ifTrue:}, \mthind{Boolean}{ifFalse:} ou
+\mthind{Boolean}{ifTrue:ifFalse:} au r\'{e}sultat d'une expression
+bool\'{e}enne. Pour plus de détails sur les booléens, lisez \charef{basic}.
+
+\begin{code}{}
+(17 * 13 > 220)
+   ifTrue: [ 'plus grand' ]
+   ifFalse: [ 'plus petit' ] --> 'plus grand'
+\end{code}
+% ON: Not a test.
+% My regex approach cannot handle multi-line expressions :-(
+
+Les boucles (ou it\'{e}rations) sont obtenues typiquement par l'envoi de messages \`{a} des blocs, des entiers ou des collections.
+Comme la condition de sortie d'une boucle peut \^{e}tre \'{e}valu\'{e}e de fa\c{c}on r\'{e}p\'{e}titive, elle se pr\'{e}sentera sous la forme d'un bloc plut\^{o}t que de celle d'une valeur bool\'{e}enne.
+Voici pr\'{e}cis\'{e}ment un exemple d'une boucle proc\'{e}durale:
+\index{itération}
+%\index{itération|voir{Collection, itération}}
+\seeindex{Collection, itération}{itération}
+%seealso
+\seeindex{boucle}{itération}
+\seeindex{énumération}{itération}
+\index{clause conditionnelle}
+
+\begin{code}{@TEST | n |}
+n := 1.
+[ n < 1000 ] whileTrue: [ n := n*2 ].
+n --> 1024
+\end{code}
+\cmindex{BlockClosure}{whileTrue:}
+
+\noindent
+\mthind{BlockClosure}{whileFalse:} inverse la condition de sortie.
+
+\begin{code}{@TEST | n |}
+n := 1.
+[ n > 1000 ] whileFalse: [ n := n*2 ].
+n --> 1024
+\end{code}
+
+\noindent
+\mthind{Integer}{timesRepeat:} offre un moyen simple pour impl\'{e}menter un nombre donn\'{e} d'it\'{e}rations:
+\begin{code}{@TEST | n |}
+n := 1.
+10 timesRepeat: [ n := n*2 ].
+n --> 1024
+\end{code}
+% mark
+Nous pouvons aussi envoyer le message \mthind{Number}{to:do:} \`{a} un
+nombre qui deviendra alors la valeur initiale d'un compteur de boucle.
+Le premier argument est la borne sup\'{e}rieure; le second est un bloc qui prend la valeur courante du compteur de boucle comme argument:
+
+\needlines{4}
+\begin{code}{@TEST | n |}
+n := 0.
+1 to: 10 do: [ :counter | n := n + counter ].
+n --> 55
+\end{code}
+
+\paragraph{It\'erateurs d'ordre sup\'erieur.}
+
+Les collections comprennent un grand nombre de classes diff\'{e}rentes
+dont beaucoup acceptent le m\^{e}me protocole.
+Les messages les plus importants pour it\'{e}rer sur des collections 
+sont 
+\mthind{Collection}{do:}, \mthind{Collection}{collect:}, \mthind{Collection}{select:}, \mthind{Collection}{reject:}, \mthind{Collection}{detect:} ainsi que  \mthind{Collection}{inject:into:}.
+Ces messages d\'{e}finissent des it\'{e}rateurs d'ordre sup\'erieur qui nous permettent d'\'{e}crire du code tr\`{e}s compact.
+
+Une instance \clsind{Interval} (\ie un intervalle) est une collection qui d\'{e}finit un it\'{e}rateur sur une suite de nombres depuis un d\'{e}but jusqu'\`{a} une fin.
+\ct{1 to: 10} repr\'{e}sente l'intervalle de 1 \`{a} 10.
+Comme il s'agit d'une collection, nous pouvons lui envoyer le message \ct{do:}.
+L'argument est un bloc qui est \'{e}valu\'{e} pour chaque \'{e}l\'{e}ment de la collection.
+
+\begin{code}{@TEST | n |}
+n := 0.
+(1 to: 10) do: [ :element | n := n + element ].
+n --> 55
+\end{code}
+
+\ct{collect:} construit une nouvelle collection de la m\^{e}me taille, en transformant chaque \'{e}l\'{e}ment.
+\begin{code}{@TEST}
+(1 to: 10) collect: [ :each | each * each ] --> #(1 4 9 16 25 36 49 64 81 100)
+\end{code}
+
+\ct{select:} et \ct{reject:} construisent des collections nouvelles, contenant un sous-ensemble d'\'{e}l\'{e}ments satisfaisant (ou non) la condition du bloc bool\'{e}en.
+\ct{detect:} retourne le premier \'{e}l\'{e}ment satisfaisant la condition.
+Ne perdez pas de vue que les chaînes sont aussi des collections, ainsi
+vous pouvez it\'{e}rer aussi sur tous les caract\`{e}res.
+%Martial: ajout par rapport a l'original (a completer et surement a
+%changer de place):
+La m\'ethode \mthind{Character}{isVowel} renvoie \ct{true} (\ie vrai)
+lorsque le receveur-caract\`ere est une \label{def:isVowel}
+voyelle~\footnote{Note du traducteur: les voyelles accentu\'ees ne sont
+  pas consid\'er\'ees par d\'efaut comme des voyelles; \st-80 a le
+  m\^eme d\'efaut que la plupart des langages de programmation n\'es
+  dans la culture anglo-saxonne.}.
+%note de martial: cette remarque ne concerne que moi. Elle pourrait
+%etre enlevee si elle pose probleme; par contre il est bon de dire les
+%limites des manipulations de string en ST. Je l'avais mise dans le
+%chapitre Collections.tex
+
+\begin{code}{@TEST}
+'bonjour Squeak' select: [ :char | char isVowel ] --> 'oouuea'
+'bonjour Squeak' reject: [ :char | char isVowel ] --> 'bnjr Sqk'
+'bonjour Squeak' detect: [ :char | char isVowel ] --> $o 
+\end{code}
+%%%$
+
+Finalement, vous devez garder \`{a} l'esprit que les collections
+acceptent aussi l'\'equivalent de l'op\'erateur \emph{fold}
+issu de la programmation fonctionnelle au travers de 
+la m\'{e}thode \ct{inject:into:}.
+Cela vous am\`{e}ne \`{a} g\'{e}n\'{e}rer un r\'{e}sultat cumulatif
+utilisant une expression qui accepte une valeur initiale puis 
+injecte chaque \'{e}l\'{e}ment de la collection.
+Les sommes et les produits sont des exemples typiques.
+\seeindex{fold}{\ct{Collection>>>inject:into}}
+
+\begin{code}{@TEST}
+(1 to: 10) inject: 0 into: [ :sum :each | sum + each ] --> 55
+\end{code}
+
+\noindent
+Ce code est \'{e}quivalent \`{a} \ct{0+1+2+3+4+5+6+7+8+9+10}.
+
+Pour plus de d\'{e}tails sur les collections et les flux de donn\'ees,
+rendez-vous dans \charefs{collections}{streams}.
+
+%=================================================================
+\section{Primitives et Pragmas}
+
+En \st, \mantra et tout se passe par l'envoi de messages.
+N\'{e}anmoins, \`{a} certains niveaux, ce mod\`ele a ses limites;
+%%points nous ``touchons le fond``.
+le fonctionnement de certains objets ne peut \^{e}tre achev\'e qu'en
+invoquant la \ind{machine virtuelle} et les \ind{primitive}{}s.
+
+Par exemple, les comportements suivantes sont tous impl\'{e}ment\'{e}s 
+sous la forme de primitives:
+l'allocation de la m\'{e}moire (\mthind{Behavior}{new} et \mthind{Behavior}{new:}),
+la manipulation de bits (\mthind{Integer}{bitAnd:},
+\mthind{Integer}{bitOr:} et \mthind{Integer}{bitShift:}),
+l'arithm\'{e}tique des pointeurs et des entiers (\ct{+}, \ct{-},  \ct{<},  \ct{>}, \ct{*}, \ct{/ }, \ct{=}, \ct{==}\ldots)
+et l'acc\`{e}s des tableaux (\mthind{Object}{at:}, \mthind{Object}{at:put:}).
+\seeindex{new@{\ct{new}}}{\ct{Behavior>>>new}}
+
+Les primitives sont invoqu\'{e}es avec la syntaxe  \ct{<primitive: aNumber>} (aNumber \'etant un nombre).
+Une m\'{e}thode qui invoque une telle primitive peut aussi embarquer
+du code \st qui sera \'{e}valu\'{e}  \emph{seulement} en cas d'\'echec
+de la primitive.
+
+Examinons le code pour \cmind{SmallInteger}{+}.
+Si la primitive \'{e}choue, l'expression \ct{super + aNumber} sera
+\'{e}valu\'{e}e et retourn\'{e}e~\footnote{Le commentaire de la
+  m\'ethode dit: ``Ajoute le receveur \`a l'argument et r\'epond le
+  r\'esultat s'il s'agit d'un entier de classe SmallInteger. \'Echoue
+  si l'argument ou le r\'esultat n'est pas un
+  SmallInteger. Essentiel Aucune recherche. Voir la documentation de
+  la classe Object: \emph{whatIsPrimitive} (qu'est-ce qu'une primitive).''}.
+
+\needlines{6}
+\begin{method}[primitive]{Une m\'ethode primitive}
++ aNumber 
+  "Primitive. Add the receiver to the argument and answer with the result
+  if it is a SmallInteger. Fail if the argument or the result is not a
+  SmallInteger  Essential  No Lookup. See Object documentation whatIsAPrimitive."
+
+  <primitive: 1>
+  ^ super + aNumber
+\end{method}
+
+%The other use of primitives is to optimize some crucial methods. The idea is that the system could work 
+%without the primitive but it would be slow. The following method shows that the method \ct{@} is calling the primitive 18. Here the point creation is clearly expressible in \st therefore the code after the primitive is just the creation of a point illustrating what the primitive is actually doing. Note that such a code will be never called except if the primitive would failed which is extremely rare.  
+
+%\begin{method}[xxx]{xxx}
+%Integer>>@ y 
+%   "Primitive. Answer a Point whose x value is the receiver and whose y 
+%   value is the argument. Optional. No Lookup. See Object documentation 
+%   whatIsAPrimitive."
+
+%   <primitive: 18>
+%   ^Point x: self y: y
+%\end{method}
+
+
+\arelire{Dans \pharo,} la syntaxe avec <....> est aussi utilis\'{e}e
+pour les annotations de m\'{e}thode que l'on appelle des
+\emph{pragmas}. % REVOIR dans PBE, il y a toujours 'Since \pharo 3.9' 2009-09-10
+
+\sd{we should give an example}\ab{Please do!  Is don't know about these.}
+
+%=================================================================
+\section{R\'{e}sum\'{e} du chapitre}
+
+\begin{itemize}
+
+\item	\pharo a (seulement) six mots r\'{e}serv\'{e}s aussi appel\'{e}s
+  \textit{pseudo-variables}: \ct{true}, \ct{false}, \ct{nil},
+  \ct{self}, \ct{super} et  \ct{thisContext}.
+
+\item	Il y a cinq types d'objets litt\'{e}raux: les nombres (\ct{5},
+  \ct{2.5}, \mbox{\ct{1.9e15},} \ct{2r111}), les caract\`{e}res
+  (\ct{$a}), %$
+les chaînes (\ct{'bonjour'}), les symboles (\ct{#bonjour}) et les tableaux (\ct{#('bonjour' #bonjour)})
+
+\item	Les chaînes sont d\'{e}limit\'{e}es par des apostrophes et les commentaires par des guillemets. Pour obtenir une apostrophe dans une chaîne, il suffit de la doubler.
+
+\item	Contrairement aux chaînes, les symboles sont par essence globalement uniques.
+
+\item	Employez \ct{#( ... )} pour d\'{e}finir un tableau litt\'{e}ral.
+		Employez \ct|{ ... }| pour d\'{e}finir un tableau dynamique.
+		Sachez que
+		\ct{#( 1 + 2 ) size --> 3}, mais que 
+		\ct|{ 1 + 2 } size --> 1|
+
+\item	Il y a trois types de messages:
+		%martial: c'est plus propre en sous-itemizant:
+  \begin{itemize}
+\item \emph{unaire}: \eg \ct{1 asString}, \ct{Array new};
+\item 		\emph{binaire}: \eg \ct{3 + 4}, \ct{'salut' , ' Squeak'};
+\item 		\emph{\`{a} mots-cl\'{e}s}: \eg \ct{'salue' at: 5 put: $t}%$
+      \end{itemize}
+\item	Un envoi de messages \emph{en cascade}  est une suite de messages envoy\'{e}s \`{a} la m\^{e}me cible, tous s\'{e}par\'{e}s par des \ct{;}:
+\ct{OrderedCollection new add: #albert; add: #einstein; size --> 2}
+
+\item	Les variables locales sont d\'{e}clar\'{e}es à l'aide de barres verticales.
+		\arelire{Employez} \ct{:=} \arelire{pour les affectations.} %; \ct{_} ou
+   %     \ct{UNDERSCORE} marche aussi; tous deux sont abandonnées
+   %     depuis la version 3.9 de \squeak. % CHANGE - martial
+		\ct{|x| x:=1}
+
+\item	Les expressions sont les messages envoy\'{e}s, les cascades et
+  les affectations; parfois regroup\'{e}es avec des parenth\`{e}ses.
+		\emph{Les instructions} sont des expressions s\'{e}par\'{e}es par des points.
+
+\item	Les blocs ou fermetures lexicales sont des expressions limit\'{e}es par des crochets.
+		Les blocs peuvent prendre des arguments et peuvent contenir
+        des variables locales dites aussi \emph{variables temporaires}.
+		Les expressions du bloc ne sont \'{e}valu\'{e}es que lorsque
+        vous envoyez un message de la forme \ct{value...} avec le bon nombre d'arguments.\\
+		\ct{[:x | x + 2] value: 4 --> 6}.
+
+\item	Il n'y a pas de syntaxe particuli\`{e}re pour les structures
+  de contr\^{o}le; ce ne sont que des messages qui, sous certaines conditions, \'{e}valuent des blocs.\\
+		\ct{(\st includes: Class) ifTrue: [ Transcript show: Class superclass ]}
+
+\end{itemize}
+
+%=================================================================
+\ifx\wholebook\relax\else
+\end{document}\fi
+%=================================================================
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-PDF-mode: t
+%%% ispell-local-dictionary: "english"
+%%% End:
+
+

@@ -1,0 +1,215 @@
+% $Author$
+% $Date$
+% $Revision$
+% relecture: martial + rene Tue Dec 25 12:46:57 CET 2007
+% relecture: martial + rene Sun Jan 13 12:46:57 CET 2008
+% relecture; martial Mon Feb 11 11:39:32 CET 2008 (ajout: titre
+% revision pour Pharo (SBE.tex devient PBE1.tex) Mon Sep  7 17:40:49
+% CEST 2009
+% $Author: oscar $
+% $Date: 2009-06-30 15:08:59 +0200 (Tue, 30 Jun 2009) $
+% $Revision: 27772 $
+
+%=================================================================
+% This is the main file for the Squeak By Example book.
+% The individual chapters can also be latexed by themselves.
+%=================================================================
+\documentclass[a4paper,10pt,twoside]{book}
+\usepackage[
+	papersize={6.13in,9.21in},
+	hmargin={.75in,.75in},
+	vmargin={.75in,1in},
+	ignoreheadfoot
+]{geometry}
+\input{common.tex}
+\setboolean{lulu}{true}
+
+%=================================================================
+% A4
+%\documentclass[a4paper,11pt,twoside]{book}
+%\input{common.tex}
+%\usepackage{a4wide}
+%=================================================================
+% Add the path for the figures of each chapter here:
+\graphicspath{
+	{figures/}
+% BOOK 1
+	{BasicClasses/figures/}
+	{Collections/figures/}
+	{Environment/figures/}
+	{FirstApp/figures/}
+	{Messages/figures/}
+	{Metaclasses/figures/}
+	{Metaprogramming/figures/}
+	{Model/figures/}
+	{Morphic/figures/}
+	{Preface/figures/}
+	{Profiling/figures/}
+	{QuickTour/figures/}
+	{SUnit/figures/}
+	{Streams/figures/}
+	{Syntax/figures/}
+   {Reflection/figures/}
+   {Seaside/figures/}
+}
+%=================================================================
+\let\wholebook=\relax
+\makeindex
+\makeglossary
+%=================================================================
+\renewcommand{\nnbb}[2]{} % Disable editorial comments
+%=================================================================
+\begin{document}
+\frontmatter
+%=================================================================
+\setcounter{page}{1}
+\pagestyle{headings}
+%=================================================================
+%:Inside cover
+\author{
+	Andrew Black\quad
+	St\'ephane Ducasse\\[1ex]
+	Oscar Nierstrasz\quad
+	Damien Pollet
+	\\[4ex]
+	avec l'aide de Damien Cassou et Marcus Denker
+%Ajout des traducteurs
+	\\[4ex]
+Traduit en fran\c{c}ais par :\\[2ex]
+	\arelire{A VENIR} % REVOIR
+    %	Martial Boniou\quad
+	%	Mathieu Chappuis\\[1ex]
+	%	Luc Fabresse\quad
+	%	Ren\'e Mages\\[1ex]
+	%	Nicolas Petton\quad
+	%	Alain Plantec\\[1ex]
+	%	Serge Stinckwich\quad
+    %    Beno\^it Tuduri\\[1ex]
+	}
+% (to be updated at the end)
+\title{\Huge\bf Pharo par l'Exemple}
+%\isodate
+\numdate
+\selectlanguage{french}
+\date{\emph{Version du \today}}
+\maketitle
+%=================================================================
+%:Copyright notice
+~ % force the vfill
+\vfill
+\begin{footnotesize}
+\setlength{\parindent}{0pt}
+Ce livre est disponible en libre t\'el\'echargement depuis
+\ppe sous le titre
+\emph{Pharo par l'exemple}, \arelire{ISBN XXX-X-XXXXXXX-X-X. La première édition
+a été publié en Décembre 2009. Couverture par Samuel Morello.} % REVOIR
+                                % ou bien Nierstrasz selon la version
+                                % final ( % ATTENDRE )
+%par \emph{Square Bracket Associates}, Suisse
+% (\sba).
+Vous pouvez vous procurer une
+copie à l'adresse: \ppe.
+\\[1cm]
+
+Copyright \copyright~2007, 2008, 2009 by Andrew P.~Black, St\'ephane
+Ducasse, Oscar Nierstrasz and Damien Pollet.\\[1cm] % REVOIR
+
+Le contenu de ce livre est prot\'eg\'e par la licence Creative Commons
+Paternit\'e Version 3.0 de la licence g\'en\'erique - Partage des Conditions Initiales \`a l'Identique.
+
+\emph{Vous \^etes libres :}
+\begin{description}
+  \item de reproduire, distribuer et communiquer cette cr\'eation au public
+  \item de modifier cette cr\'eation
+\end{description}
+\emph{Selon les conditions suivantes :}
+\begin{description}
+  \item[Paternit\'e.] Vous devez citer le nom de l'auteur original de la mani\`ere indiqu\'ee par l'auteur de l'\oe{}uvre ou le titulaire des droits qui vous conf\`ere cette autorisation (mais pas d'une mani\`ere qui sugg\'ererait qu'ils vous soutiennent ou approuvent votre utilisation de l'\oe{}uvre).
+  \item[Partage des Conditions Initiales \`a l'Identique.] Si vous transformez ou modifiez cette \oe{}uvre pour en cr\'eer une nouvelle, vous devez la distribuer selon les termes du m\^eme contrat ou avec une licence similaire ou compatible.
+\end{description}
+\begin{itemize}
+  \item \`A chaque r\'eutilisation ou distribution de cette cr\'eation, vous devez faire appara\^itre clairement au public les conditions contractuelles de sa mise \`a disposition. La meilleure mani\`ere de les indiquer est un lien vers cette page web:\\
+  \url{http://creativecommons.org/licenses/by-sa/3.0/deed.fr}
+  \item Chacune de ces conditions peut \^etre lev\'ee si vous obtenez l'autorisation du titulaire des droits sur cette \oe{}uvre.
+  \item Rien dans ce contrat ne diminue ou ne restreint le droit moral de l'auteur ou des auteurs.
+\end{itemize}
+\raisebox{-0.25cm}{\includegraphics[width=2cm]{CreativeCommons-BY-SA}}\quad
+\parbox{\textwidth-2cm-1em}{
+	Ce qui pr\'ec\`ede n'affecte en rien vos droits en tant qu'utilisateur (exceptions au droit d'auteur: copies r\'eserv\'ees \`a l'usage priv\'e du copiste, courtes citations, parodie, \ldots).
+	Ceci est le R\'esum\'e Explicatif du Code Juridique (la version int\'egrale du contrat):\\
+\url{http://creativecommons.org/licenses/by-sa/3.0/legalcode}}
+\end{footnotesize}
+\vfill
+%=================================================================
+%:TOC
+\pagestyle{newheadings}
+\tableofcontents
+% \listoffigures
+% \listoftables
+% \lstlistoflistings
+\sloppy % To avoid LaTeX's annoying habit of letting lines stick over the margins!
+%=================================================================
+%:Preface
+\input{Preface/Preface.tex}
+\mainmatter
+%=================================================================
+%:PART 1 -- Getting Started
+\part{Comment démarrer}
+\pagestyle{headings}
+%:Quick Tour
+\input{QuickTour/QuickTour.tex}
+%:First Application
+\input{FirstApp/FirstApp.tex}
+%:Syntax
+\input{Syntax/Syntax.tex}
+%:Messages
+\input{Messages/Messages.tex}
+%=================================================================
+%:PART 2 -- Developing in Pharo
+\part{D\'evelopper avec Pharo}
+%:Model
+\input{Model/Model.tex}
+%:Environment
+\input{Environment/Environment.tex}
+%:SUnit
+\input{SUnit/SUnit.tex}
+%:Basic Classes
+\input{BasicClasses/BasicClasses.tex}
+%:Collections
+\input{Collections/Collections.tex}
+%:Streams
+\input{Streams/Streams.tex}
+%:Morphic
+\input{Morphic/Morphic.tex}
+%=================================================================
+%:PART 3 -- Advanced Pharo
+\part{Pharo avanc\'e}
+%:Metaclasses
+\input{Metaclasses/Metaclasses.tex}
+%:Reflectivité
+\input{Reflection/Reflection.tex}
+\appendix
+\part{Annexes}
+%:FAQ
+\input{FAQ/FAQ.tex}
+%=================================================================
+%:BIBLIOGRAPHY
+% \printglossary
+\pagestyle{newheadings}
+\bibliographystyle{jurabib}
+\bibliography{scg}
+\cleardoublepage
+%=================================================================
+%:INDEX
+{\small\raggedright\printindex}
+%\printindex
+%=================================================================
+% Round out to multiple of 4 pages
+\newcommand{\pagefinale}{\cleardoublepage\thispagestyle{empty}
+~ % Force some space
+}
+\pagefinale % une seule feuille blanche
+%\pagefinale
+\cleardoublepage
+%=================================================================
+\end{document}

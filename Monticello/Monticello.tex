@@ -1,0 +1,1730 @@
+% $Author $
+% $Date: 2009-09-07 22:47:08 +0200 (Mon, 07 Sep 2009) $
+% $Revision: 28982 $
+
+% HISTORY:
+% 2007-10-29 - Alex first draft
+% 2007-12-18 - Andrew review pass
+% 2008-05-30 - Stef review pass
+% 2009-04-22 - Oscar revised
+% 2009-04-23 - Alex revised (noted Squeak vs Pharo)
+% 2009-06-17 - Oscar migrated to Pharo
+% 2009-07-15 - Oscar indexing
+
+% french adaptation (merge with SBE chapter startup) - martial
+% Thu Sep 10 23:16:50 CEST 2009
+
+%=================================================================
+\ifx\wholebook\relax\else
+% --------------------------------------------
+% Lulu:
+	\documentclass[a4paper,10pt,twoside]{book}
+	\usepackage[
+		papersize={6.13in,9.21in},
+		hmargin={.75in,.75in},
+		vmargin={.75in,1in},
+		ignoreheadfoot
+	]{geometry}
+	\input{../common.tex}
+	\pagestyle{headings}
+	\setboolean{lulu}{true}
+% --------------------------------------------
+% A4:
+%	\documentclass[a4paper,11pt,twoside]{book}
+%	\input{../common.tex}
+%	\usepackage{a4wide}
+% --------------------------------------------
+    \graphicspath{{figures/} {../figures/}}
+	\begin{document}
+	% \renewcommand{\nnbb}[2]{} % Disable editorial comments
+	\sloppy
+\fi
+
+\newcommand{\MC}{Monticello\xspace}
+\newcommand{\MCB}{\MC Browser\xspace} % 
+\newcommand{\RI}{Repository Inspector\xspace} %
+\newcommand{\Manny}{Michel\xspace} % GARS
+\newcommand{\Conny}{Carole\xspace} % FILLE
+
+%=================================================================
+%\chapter{Versioning your code with \MC}
+\chapter{\arelire{Organiser votre code avec Monticello}}
+%ou \chapter{Archiver votre code avec Monticello}
+
+\alex{Maybe a section on MC Configuration maps may be given}
+\on{what are they?}
+
+\on{Instead of a chapter on Installer, wouldn't a short section on Scripting Monticello suffice?}
+
+
+\lr{
+Subject: Re: [Pharo-project] Create a changeset for an entire package?\\
+Reply-To: Pharo-project@lists.gforge.inria.fr\\
+a) I don't wan't to include everything I changed from the package.
+There are some things that I changed for debugging. So, I can't
+fileout everything and I don't know if monticello will let me do
+what I want.\\
+It is possible, but it requires some manual work to get a custom
+change-set from A to B:\\
+1. Make sure that both versions A and B are stored as Monticello
+Packages (probably to a local directory).\\
+2. Load version A.\\
+3. Load version B.\\
+4. In the changes-browser there is now a new change-set named A->B.\\
+5. Open a change browser on it and edit it as you like.\\
+6. File-out the change-set.\\
+What I usually do is different and I think goes better with the whole
+workflow of Monticello:\\
+1. In an image where I have the modified code I display the changes
+between the previous version (A) and the current image (B).\\
+2. Then I selectively revert the changes that I don't want to go into B.\\
+3. And commit the package B.\\
+b) Supose the change includes 3 separate packages, that should be
+seen as a one. Loading only one package only would break things, so
+I'd like the change to include all 3 in one operation.\\
+It is possible to create custom PackageInfo subclasses (Seaside <= 2.8
+did this), but I have rarely seen this and don't find it particularly
+useful. I would stick to the original packages to make merging for the
+maintainers easy.\\
+Lukas
+}
+
+Un système de versionnage vous aide à stocker et journaliser plusieurs
+versions de votre code. En plus, cet outil vous aide à gérer les accès
+concourants à un dépôt commun de code source. Il conserve les traces
+de toutes les modifications \arevoir{dans} un ensemble de documents et
+permet à plusieurs développeurs de collaborer. \`A partir du moment o\`u la taille de
+votre logiciel d\'epasse le cadre de quelques classes, vous aurez
+probablement besoin d'un syst\`eme de versionnage.
+
+Plusieurs outils de versionnage sont
+disponibles. \ind{CVS}~\footnote{\url{http://www.nongnu.org/cvs}} et
+\ind{Subversion}~\footnote{\url{http://subversion.tigris.org}} sont
+probablement les plus populaires.
+% En principe, vous pouvez les utiliser pour g\'erer le d\'eveloppement
+% de projets de logiciels en \sq mais, \sq en sera r\'eduit \`a un
+% langage sans \^ame bas\'e sur des fichiers.
+En principe, vous pouvez les utiliser pour g\'erer le d\'eveloppement
+de projets de logiciels de \pharo mais, une telle pratique
+\arevoir{déconnecterait} le système de versionnage de l'environnement
+de \pharo. % CHANGE
+De plus, les outils de type CVS versionnent seulement les fichiers
+texte et non les paquetages indépendants, les classes ou les
+méthodes. Nous perderions ainsi la possibilité de suivre les
+changements à un niveau de granulité approprié.
+Si les outils de versionnage sont informés que vous stockez des
+classes et des méthodes au lieu de simple texte, ils peuvent \arevoir{mieux
+travailler dans le processus de développement.}
+
+%\ab{It would be better to say concretely why this would be a bad idea, rather than resorting to name-calling.  Many people think that files are good.  Let's tell the reader about the disadvantages!}
+
+%\indmain{Monticello}
+\index{SqueakSource}
+\emph{\indmain{\MC{}}} est un système de versionnage de \pharo
+dans lequel les classes et les méthodes sont les \arevoir{unités du
+  changement}, plutôt que des lignes de texte.
+ \emph{\sqsrc{}} est le dépôt central en ligne dans lequel vous pouvez
+ stocker les versions de vos applications en utilisant \MC. \sqsrc est
+ l'équivalent de \ind{GForge} et \MC l'équivalent de CVS.
+
+Dans ce chapitre, vous apprendrez \`a utiliser \MC et
+\sqsrc pour g\'erer votre code durant votre \arelire{programmation
+  journali\`ere}. % REVOIR dans PBE 'your software' simplement.
+Nous avons déjà rencontré de façon brève \MC dans les chapitres
+antérieurs~\footnote{``\titreFirstapp'' et  ``\titreEnvironment''.}.
+% These chapters are in book1, so we can't cross-reference them!
+% (\charef{firstApp} and \charef{env}).
+Ce chapitre plonge dans les détails de 
+ \MC{} et décrit certaines fonctionnalités complémentaires qui sont
+ utiles pour le versionnage de grosses applications.
+
+%=================================================================
+\section{Premier pas} % basic usage
+
+Nous commencerons par passer en revue les bases de la création et
+de l'archivage (en anglais, \emph{to commit}) des modifications dans
+le code puis, nous verrons comment les actualiser (\emph{to
+  update}) et les fusionner (\emph{to merge}).
+
+%-----------------------------------------------------------------
+\subsection{Un exemple --- les nombres parfaits} % Running example --- perfect numbers
+
+Nous allons utiliser un petit exemple de nombres
+parfaits\footnote{Les nombres parfaits ont été découverts
+  par \ind{Euclide}. Un nombre parfait est un entier positif qui se
+présente comme la somme de ces diviseurs propres. $6 = 1 + 2 + 3$ est
+le premier nombre parfait.} (en anglais, \emph{perfect numbers}) dans
+ce chapitre pour illustrer les fonctionnalités de \MC. Nous commençons
+notre projet en définissant de simple tests.
+
+\dothis{Définissez une sous-classe de \clsind{TestCase} appelée
+  \ct{PerfectTest} dans la catégorie \ct{Perfect} et définissez les
+  méthodes de tests à suivre dans le protocole
+\ct{running}:}
+\begin{code}{}
+PerfectTest>>>testPerfect
+	self assert: 6 isPerfect.
+	self assert: 7 isPerfect not.
+	self assert: 28 isPerfect.
+\end{code}
+
+Bien sûr, ces tests échoueront puisque nous n'avons pas encore écrit
+la méthode \ct{isPerfect} pour les entiers. Nous aimerions mettre ce
+code \arevoir{sous le contrôle} de \MC de manière à le reviser et
+l'étendre.
+
+%-----------------------------------------------------------------
+\subsection{Lancer \MC}
+
+\MC est inclus dans la distribution standard de \pharo.
+Nous assumerons donc que \MC est déjà installé dans votre image.
+Vous pouvez sélectionner 
+\menu{\MC Browser} dans le menu \emph{World}.
+\index{Monticello!Browser}
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=\textwidth]{monticelloBrowser}
+	\caption{Le \MC Browser.\figlabel{monticelloMain}}
+\end{figure}
+
+Dans \figref{monticelloMain}, nous voyons que le \MC Browser 
+comprend deux panneaux de liste et un panneau de boutons. Le panneau
+de gauche affiche la liste des paquetages ou \emphind{package}{\emph{s}} installés
+et celui de droite montre les dépôts.
+\arelire{Diverses commandes} peuvent être exécutées via le panneau de
+boutons et les menus des deux panneaux de listes. % dans PBE various operations
+
+%-----------------------------------------------------------------
+\subsection{Créer un paquetage}
+
+\index{Monticello!créer des paquetages}
+\MC gère les versions des\emph{paquetages}.  Un \ind{paquetage} est
+essentiellement un ensemble nommé de classes et de méthodes.
+En fait, un paquetage est un objet\,---\,une instance de
+\clsind{PackageInfo}\,---\,qui sait comment identifier les classes et
+méthodes qui \arevoir{lui sont incluses}.
+%identify the classes and methods that belong to it.
+
+Nous voudrions versionner notre classe \ct{PerfectTest}.
+
+La bonne manière de le faire consiste à définir un
+paquetage\,---\,nommé \ct{Perfect}\,---\,contenant
+\ct{PerfectTest} et toutes les classes et méthodes à venir. Pour le
+moment, il n'y a pas de tel paquetage. Nous n'avons qu'une
+\emph{catégorie} nommé \arevoir{justement}% (not coincidentally)
+\ct{Perfect}. %This is perfect (ugh!), since \MC will map categories
+              %to packages for us.
+C'est suffisant: \MC va \arevoir{transformer} les catégories en
+paquetages pour nous.
+% REVOIR - martial - dans PBE se serait bien de définir un paquetage dès le début avec OB
+
+\dothis{Appuyez sur \button{+Package} dans le \MCB et saisissez \scat{Perfect}.}
+
+\emph{Voil\`a!} Vous venez simplement de créer le paquetage \MC nommé \pkg{Perfect}. 
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=\textwidth]{perfectPackage}
+	\caption{Créer le paquetage Perfect.\figlabel{perfect}}
+\end{figure}
+
+Les paquetages \MC suivent un nombre important de conventions pour les
+catégories de classes et \arevoir{de méthodes (protocoles)}. % REVOIR -
+                                % martial: j'ai ajouté protocoles
+Notre nouveau paquetage \pkg{Perfect} contient:
+
+\begin{itemize}
+
+\item Toutes les classes dans la catégorie \scat{Perfect} ou dans les
+  catégories dont le nom commence par \scat{Perfect-}. 
+Pour l'instant, ceci inclut seulement la classe
+\ct{PerfectTest}; \sd{Ask lukas because I do not see why Perfect- would be any different from PerfectZork - is not a special character.}
+
+\item Toutes les méthodes appartenant à \emph{n'importe quelle} classe
+  (dans n'importe quelle catégorie) qui sont définies dans un
+  protocole nommé \prot{*perfect} ou \prot{*Perfect}; ou encore dans
+  les protocoles dont le nom commence par  \prot{*perfect-} ou
+  \prot{*Perfect-}.
+De telles méthodes sont connues en tant qu'\emph{extensions}. 
+Nous n'en avons pas encore mais nous en définirons bientôt;
+
+\item Toutes les méthodes appartenant à n'importe quelle classe dans
+  la catégorie \scat{Perfect} ou dans les catégories dont le nom
+  commence par \scat{Perfect-}, \emph{à l'exception} de celles 
+qui sont dans un protocole dont le nom commence par un astérisque 
+ \prot{*} (\ie celles qui appartiennent à un \emph{autre} paquetage).
+Ceci comprend notre méthode \ct{testPerfect} puisqu'elle appartient au
+protocole \ct{running}.
+
+\end{itemize}
+
+%-----------------------------------------------------------------
+\subsection{Archiver les changements}
+
+%\index{Monticello!committing changes}
+\index{Monticello!archiver}
+
+Notez que, dans 
+\figref{perfect}, le bouton \button{Save} est \arelire{hors service (puisque grisé).}
+
+Avant de sauvegarder notre paquetage
+ \ct{Perfect} package, nous avons besoin de spécifier \emph{où} nous
+ voulons le sauver. Un \emph{dépot} (en anglais \emph{repository}) est
+ un conteneur de paquetages qui peut être local (sur votre machine) ou
+ distant (accessible via le réseau).
+Divers protocoles peuvent être utilisés pour établir une connexion
+entre votre image \pharo et un dépôt. Comme nous allons le voir plus
+tard (\secref{monti:repositories}), \MC supporte un large panel de
+\arevoir{protocoles pour les dépôts}. Le plus commun est HTTP, utilisé
+notamment par \sqsrc. 
+
+\index{package-cache}
+Au moins un dépôt, nommé \ct{package-cache}, est installé par défaut.
+Il est visible comme première entrée de la liste des dépôts dans le
+panneau de droite de votre \MCB (voir \figref{monticelloMain}).
+Le package-cache\footnote{Traduisible par ``mémoire des paquetages''.}
+% REVOIR ajout de VF
+est créé automatiquement dans le répertoire local où
+se trouve votre image \pharo.
+Il contiendra une copie de tous les paquetages que vous télécharchez
+depuis des dépôts distants.
+Par défaut, les copies de vos paquetages sont aussi sauvegardées dans
+le package-cache quand vous les sauvez sur un serveur distant.
+
+Chaque paquetage sait dans quels dépôts il peut être sauvegardé.
+Pour ajouter un nouveau dépôt pour le paquetage sélectionné, appuyez
+sur le bouton \button{+Repository}. Vous serez invité à choisir parmi
+des variétés de dépôts dont le HTTP. Pour le reste de ce chapitre,
+nous travaillerons avec le dépôt \ct{package-cache}; c'est tout ce
+dont nous avons besoin pour explorer les fonctionnalités de \MC.
+
+\dothis{Sélectionnez le répertoire de dépôt 
+ \lct{package cache}, pressez sur le bouton \button{Save} et entrez
+ un message approprié pour le journal (\emph{log}) puis, sauver les
+ changements en appuyant sur \button{Accept}.}
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=.6\textwidth]{saving}
+	\caption{\arelire{Éditer le nom et le message d'archivage de
+        la nouvelle version durant la phase de sauvegarde d'une
+        version de votre paquetage.}\figlabel{saving}}
+	%\caption{You may set a new version name and a commit message when you save a version of a package.\figlabel{saving}}
+\end{figure}
+
+Le paquetage \ct{Perfect} est désormais sauvegardé dans
+\ct{package-cache} \arevoir{qui n'est rien de plus qu'un repértoire
+  contenu dans le même répertoire que l'image \pharo.}% REVOIR - martial - redondance
+Notez cependant que si vous utilisez un autre type de dépôt
+  (\eg{} HTTP, FTP, un autre répertoire local), une copie de votre
+  paquetage sera aussi sauvée dans le package-cache. 
+
+\dothis{Utilisez vous navigateur de fichiers favori
+ (\eg explorateur Windows, Finder ou XTerm) pour confirmer qu'un
+ fichier \ct{Perfect-XX.1.mcz} a été créé dans votre
+ package-cache. \ct{XX} correspond à votre propre nom ou
+ initiales~\footnote{Par le passé, la convention des développeurs
+   était de \arevoir{journaliser} leurs changements en utilisant leurs
+   initiales. Maintenant, nous utilisons un identifiant basé sur le
+   nom complet, tel que  ``apblack'' ou ``AndrewBlack'', afin de
+   résoudre les conflits entre ceux, de plus en plus nombreux, qui
+   partagent des initiales semblables.}.}
+
+%In the past, the convention was for developers to log their changes using only their initials. Now, with many developers sharing identical initials, the convention is to use an identifier based on the full name, such as...
+
+%You may change the version name and add a comment.
+%\ab{Experience with my students is that changing the version name is a really bad idea, since it can easily break \MC.}
+%\alex{I was not able to find a satisfying explanation, So I prefer to leave this point out}
+
+Une \emphind{version} est une \arevoir{capture immuable} d'un
+paquetage (en anglais, \emph{snapshot}) % REVOIR
+qui a été écrite dans un dépôt. Chaque version a un numéro de version
+unique pour l'identifier dans un dépôt.
+Prenez garde cependant que ce nombre n'est \emph{pas} globalement
+unique\,---\,dans un autre dépôt vous pourriez avoir le même
+identifiant de fichiers pour un \emph{capture différente}.
+Par exemple, \ct{Perfect-onierstrasz.1.mcz} dans un autre dépôt peut
+être la \arelire{version \emph{finale} pour le déploiement} de notre
+projet!
+Au moment de sauver une version dans un dépôt, le prochain numéro est
+automatiquement affecté à la version mais vous pouvez à loisir le
+changer.
+Remarquez que les branches de versions n'interfère pas avec le schéma
+de numérotations (tout comme avec CVS ou Subversion). Comme nous
+allons le voir plus tard, les versions sont ordonnées par défaut selon
+leur numéro de version lorsque nous visitons un dépôt.
+
+%-----------------------------------------------------------------
+\subsection{Les extensions de classe}
+
+Implémentons maintenant les méthodes de manière à passer nos tests au
+vert.
+
+\dothis{Définissez les deux méthodes suivantes dans la classe
+  \ct{Integer} et associez chacune de ces méthodes à un protocole
+  appelé \ct{*perfect}. Profitez-en pour ajouter un test aux limites
+  (\emph{boundary}). Vérifiez que les tests passent au vert.}
+
+\begin{code}{}
+Integer>>>isPerfect
+	^ self > 1 and: [self divisors sum = self]
+
+Integer>>>divisors
+	^ (1 to: self - 1 ) select: [ :each | (self rem: each) = 0 ]
+
+PerfectTest>>>testPerfectBoundary
+	self assert: 0 isPerfect not.
+	self assert: 1 isPerfect not.
+\end{code}
+
+Bien que les nouvelles méthodes ajoutées à  \ct{Integer}
+n'appartiennent pas à la catégorie \scat{Perfect}, elles appartiennent
+\emph{véritablement} au paquetage  \ct{Perfect} puisqu'elles sont \arelire{dans
+un protocole} % catégorie de méthodes? - martial
+dont le nom débute par \ct{*} et correspond au nom du paquetage. De
+telles méthodes sont connues sous le nom d'\emphind{extensions de
+  classes}, puisqu'elles étendent les classes existantes. Ces méthodes
+sont disponibles \emph{seulement} à ceux qui chargent le paquetage
+\ct{Perfect}.
+\alex{We could give a reference to the Cmd-p command in the OB browser. This keystroke is used to turn a method into a class-extension.}
+\on{you mean it moves a method to an extension package}
+
+%-----------------------------------------------------------------
+\subsection{Les paquetages \emph{``Clean''} and \emph{``Dirty''}}
+
+\index{package!clean et dirty}
+Modifier le code dans un paquetage dans n'importe quels outils de
+développement rend ce paquetage \emph{dirty} (en français, ``sale'').
+Cela signifie que la version de paquetage dans l'image est différente
+de la version qui a été archivée ou chargée.
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=\textwidth]{dirty}
+	\caption{Modifier notre paquetage Perfect le rend \emph{``dirty''}.\figlabel{dirty}}
+\end{figure}
+
+Dans le \MCB, un paquetage \emph{dirty} peut être identifié par un astérisque
+ (\ct{*}) précédant son nom. Ceci indique quels paquetages ont des
+ changements non-archivés et ainsi, lesquels auraient besoin d'être
+ sauvegardés dans un dépôt si ces changements ne sont destinés à être
+ perdus. Sauver un paquetage \emph{dirty} le nettoie: il devient
+ \emph{clean} (en français, ``propre'').
+ \ab{Why is it that when I click \button{Changes} on a birty package, I sometimes get a dialog back that says ``no changes''?  I found this very confusing.  How can I see \emph{why} \MC thinks a package is dirty?  How can I see \emph{which} repository it was originally loaded from or saved to?}
+
+\dothis{Essayez les boutons \button{Browse} (naviguer),
+  \button{History} (historique) et \button{Changes} (changement) pour
+  voir ce qu'ils font\footnote{\arevoir{Au moment où nous écrivons ces
+      lignes, le bouton  \button{Scripts} ne fonctionne pas.}}.
+Via le bouton \button{Save}, sauvegardez les changements du paquetage
+\ct{Perfect}.
+Observez que ce paquetage est bien \emph{``clean''} désormais.} 
+%Confirm that the package is now ``clean'' again.
+
+%\on{What does \button{Scripts} do?!}
+%\subsection{Scripts}
+% Script do not work!
+
+%-----------------------------------------------------------------
+\subsection{Le Repository Inspector} 
+
+\index{Repository Inspector|see{Monticello, Repository Inspector}}
+\index{Monticello!Repository Inspector}
+\seeindex{Monticello!inspecteur des dépôts}{Monticello, Repository
+  Inspector} % ajout - martial
+Les contenus d'un dépôt peuvent être inspectés grâce au \RI (ou
+inspecteur des dépôts). Celui-ci se lance en appuyant sur le bouton
+\button{Open}  de \MC (voir \figref{repositoryinspector}).
+
+\index{package-cache}
+\dothis{Sélectionnez le dépôt \ct{package-cache} et ouvrez-le avec
+  \button{Open}. Vous devriez voir quelque chose comme sur 
+ \figref{repositoryinspector}.}
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=\textwidth]{{repositoryinspector}}
+	\caption{Le \RI.\figlabel{repositoryinspector}}
+\end{figure}
+
+Tous les paquetages contenus dans le dépôt sont listés sur le panneau
+gauche de cet inspecteur:
+
+\begin{itemize}
+\item un nom de paquetage \underline{souligné} indique que ce
+  paquetage est installé dans l'image;
+\item un nom de paquetage \underline{\bf en gras et souligné} indique
+  que le paquetage est installé mais qu'il y a une version plus
+  récente dans le dépôt;
+\item un nom de paquetage \arelire{de typographie normale} indique que le
+  paquetage n'est pas installé dans l'image.
+\end{itemize}
+
+\noindent
+Une fois qu'un paquetage est sélectionné, le panneau de droite liste
+les versions du paquetage sélectionné. % REVOIR
+
+\begin{itemize}
+\item un nom de version \underline{souligné} indique que la version
+  est installée dans l'image;
+\item un nom de version {\bf en gras} indique que cette version n'est
+  pas un ancêtre de la version installée. Ça peut signifier que c'est
+  une nouvelle version ou qu'elle appartient à une branche différente
+  de celle de la version installée;
+\item un nom de version \arelire{typographie normale} indique une
+  version plus ancienne que la version actuelle installée.
+\end{itemize}
+
+{\Actclick} dans le panneau droit de l'inspecteur \RI ouvre un menu
+avec différentes options de tri. % sorting options
+L'entrée \menu{unchanged} dans le menu annule tout type de tri
+particulier. Il utilise \arelire{l'ordre proposé par le dépôt.}
+
+%-----------------------------------------------------------------
+\subsection{Charger, décharger et actualiser les paquetages}
+%Loading, unloading and updating packages
+
+\index{package-cache}
+\index{Monticello!charger, décharger, actualiser}
+Nous avons désormais deux versions du paquetage 
+\ct{Perfect} stocké de manière sûre % safely
+dans notre dépôt  \ct{package-cache}. Nous verrons maintenant comment
+décharger ce paquetage, charger une version antérieure et finalement
+l'actualiser.
+
+\dothis{Sélectionnez le paquetage \ct{Perfect} et son dépôt dans le
+  \MCB. \Actclickz sur le nom du paquetage et sélectionnez
+  \menu{unload package} (\ie décharger le paquetage).}
+
+\begin{figure}[th]\centering
+	\includegraphics[width=\textwidth]{{unload}}
+	\caption{Décharger un paquetage.\figlabel{unload}}
+\end{figure}
+
+Vous devriez être capable d'observer la disparition du paquetage
+\ct{Perfect} de votre image!
+
+\dothis{Dans le \MCB, sans rien sélectionner dans le panneau des
+  paquetages, sélectionnez le \ct{package-cache} dans le
+  panneau des dépôts
+ puis appuyez sur le bouton \button{Open} pour ouvrir le \RI.
+Descendez l'ascenseur jusqu'à ce que vous voyez le paquetage
+\ct{Perfect}: sélectionnez-le. Il devrait apparaître \arelire{avec une
+typographie normale} indiquant qu'il n'est pas
+installé. Maintenant sélectionnez la version 1 du paquetage et
+chargez-la via le bouton \button{Load}.}
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=\textwidth]{{loading}}
+	\caption{Charger une version antérieure.\figlabel{loading}}
+\end{figure}
+
+Vous devriez être capable de vérifier maintenant que la première
+version avec les tests au rouge est chargée.
+
+\dothis{Sélectionnez la seconde version du paquetage \ct{Perfect} dans
+  le \RI et chargez-la via le bouton \button{Load}.
+Vous venez d'\emph{actualiser} le paquetage avec la dernière version.}
+
+Maintenant les tests devraient passer au vert.
+
+%-----------------------------------------------------------------
+\subsection{Créer des branches} % {Branching}
+
+\index{Monticello!créer une branche}
+\seeindex{Monticello!branching}{Monticello, créer une branche} % ajout - martial
+Une \emphind{branch} est une ligne de versions de développement qui
+existe indépendamment d'une autre ligne et partageant toujours une
+version-ancêtre commune si vous recherchez assez loi dans le temps.
+
+Vous pourriez créer une nouvelle branche de versions quand vous
+sauvegardez votre paquetage. Créer une branche (en anglais,
+\emph{branching}) est utile lorsque vous voulez avoir un nouveau
+développement en parallèle. Par exemple, votre travail consiste à
+maintenir un logiciel pour votre companie. Un jour, une division
+différente vous demande le même logiciel mais avec quelques parties
+spécialisées pour leur usage qui en est différent. La façon de gérer
+cette situation passe par la création d'une seconde branche de votre
+programme pour y incorporer les spécificités exigées tout en laissant
+la première branche inchangée.
+ 
+\dothis{Depuis le \RI, sélectionnez la version 1 du paquetage
+  \ct{Perfect} et chargez-la via le bouton \button{Load}. La version 2
+  devrait être affichée en gras, indiquant ainsi qu'elle n'est plus
+  chargée (puisqu'elle n'est pas un ancêtre de la version 1).
+Implémentez maintenant les deux méthodes \ct{Integer} et placez-les
+dans le protocole  \ct{*perfect}. Modifiez aussi la méthode de test
+existante \ct{PerfectTest} comme suit:}
+
+\begin{code}{}
+Integer>>>isPerfect
+	self < 2 ifTrue: [ ^ false ].
+	^ self divisors sum = self
+
+Integer>>>divisors
+	^ (1 to: self - 1 ) select: [ :each | (self \\ each) = 0]
+
+PerfectTest>>>testPerfect
+	self assert: 2 isPerfect not.
+	self assert: 6 isPerfect.
+	self assert: 7 isPerfect not.
+	self assert: 28 isPerfect.
+\end{code}
+
+\arelire{L'unique test devrait être au vert bien que notre
+  implémentation des nombres parfaits est légèrement différente}. % CHANGE pbe said 'Once again the tests should be green...'
+
+\dothis{Essayez de charger la version 2 du paquetage \ct{Perfect}.}
+
+Vous devriez avoir une fenêtre d'alerte comme quoi vous avez des
+changements non-sauvegardés.
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=.8\textwidth]{{unsavedWarning}}
+	\caption{Fenêtre d'alerte en raison de changements
+      non-sauvegardés.\figlabel{unsavedWarning}}
+\end{figure}
+
+\dothis{Sélectionnez \button{Abandon} pour éviter d'écraser vos
+  nouvelles méthodes.
+Maintenant archivez vos changements en appuyant sur le bouton 
+\button{Save}. Vous verrez une autre fenêtre d'alerte disant qu'il
+pourrait y avoir des versions plus récentes. Sélectionnez \menu{Yes},
+saisissez \arelire{votre message de journalisation} et acceptez cette
+nouvelle version en \clickant sur le bouton \button{Accept}.
+}
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=\textwidth]{{newerWarning}}
+	\caption{Fenêtre d'alerte en raison de l'existence de nouvelles versions.\figlabel{newerWarning}}
+\end{figure}
+
+Bravo! Vous avez créé une nouvelle branche du paquetage
+ \ct{Perfect}.
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=\textwidth]{{branch}}
+	\caption{Les versions 2 et 3 sont des branches séparées de la version 1.\figlabel{branch}}
+\end{figure}
+
+\dothis{Si vous avez toujours le \RI ouvert, \arelire{rafraîchissez}
+  via le bouton \button{Refresh} pour voir la nouvelle version (voir \figref{branch}).}
+
+%-----------------------------------------------------------------
+\subsection{Fusionner}
+
+\on{Should we be describing the new strategy instead?}
+
+\index{Monticello!fusionner}
+\index{Monticello!outil de fusion}
+Cette section décrit \arevoir{la possibilé usuelle offerte par \MC de fusion}.
+Pour l'utiliser, assurez-vous que la préférence
+\ct{useNewDiffToolsForMC} est désactivée. 
+Pour ce faire, vous pouvez soit utiliser le Preference Browser, soit
+évaluer l'expression suivante:
+\begin{code}{}
+Preferences disable: #useNewDiffToolsForMC
+\end{code}
+
+% \alex{This subsection will need a major overhaul when turning the chapter for Pharo. The merging tool is radically different}\sd{Is it not. There is a preference to get the one shown in this section. We should just say useDiff....}
+Vous pouvez fusionner une version d'un paquetage avec une autre en
+utilisant le bouton \button{Merge} dans le \MCB.
+Vous voudrez normalement faire cela 
+ (i) quand vous découvrez que vous étiez en train de travailler sur une
+ version périmée ou (ii) quand les branches qui étaient précédemment
+ indépendantes doivent être re-intégrées. Ces deux scénarios sont
+ communs lorsque plusieurs développeurs travaillent sur le même
+ paquetage.
+
+%\ap{Here I stopped} +++++++++++++++++++++++++++++++++++++ 
+\tradalert{martial}{la version de l'outil de fusion a changé.} % IMPORTANT
+
+Considérez la situation actuelle avec notre paquetage \ct{Perfect}
+comme illustré sur le côté gauche de \figref{branching-merging}. Nous
+avons publié une nouvelle version 3 qui est basée sur la version 1.
+Puisque la version la version 2 est aussi basée sur la version 1, les
+versions 2 et 3 constituent des branches indépendantes.
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=\textwidth]{branching-merging}
+	\caption{Créer une branche (côté gauche) et fusionner (côté droit).\figlabel{branching-merging}}
+\end{figure}
+
+À ce stade, \arelire{nous réalisons qu'il y a des changements dans la version 2
+que nous voudrions fusionner avec nos changements de la version
+3. Puisque nous avons la version 3 actuallement chargée, nous
+aimerions fusionner les changements de la version 2 et archiver une
+nouvelle version 4 comme le montre la côté droit de} \figref{branching-merging}.
+
+%\begin{figure}[ht]\centering
+%	\includegraphics[width=.5\textwidth]{branching}
+%	\caption{Version 3 is the current branch of version 1.\figlabel{branching}}
+%\end{figure}
+
+
+%\begin{figure}[ht]\centering
+%	\includegraphics[width=.5\textwidth]{merging}
+%	\caption{Version 4 merges changes from versions 2 and 3.\figlabel{merging}}
+%\end{figure}
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=\textwidth]{mergeButton}
+	\caption{Sélectionnez une branche séparée (en gras) à être fusionnée.\figlabel{mergeButton}}
+\end{figure}
+
+\dothis{Sélectionnez la version 2 dans le \RI, comme vous pouvez le
+  voir sur \figref{mergeButton} et \clickz sur le bouton
+  \button{Merge} (fusionner).}
+
+Le outil de fusion est un outil qui permet d'\arelire{assurer un contrôle de
+fine granularité sur la fusion de versions}. Les élements contenus
+dans le paquetage à être fusionné sont listés dans le panneau de texte
+supérieur. Le panneau inférieur montre la définition de l'élément.
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=.8\textwidth]{mergeTool}
+	\caption{Fusion de la version 2 du paquetage \ct{Perfect} avec la
+      version 3 actuelle chargée.
+	\on{This is a major fail! The old merge tool used to show deleted text striked through.
+	Now, colour blind people will see no difference at all!}
+	\figlabel{mergeTool}}
+\end{figure}
+
+Nous voyons sur \figref{mergeTool} les trois différences entre les
+versions 2 et 3 du paquetage  \ct{Perfect}. La méthode
+\ct{PerfectTest>>>testPerfectBoundary} est nouvelle et les deux méthodes
+marquées de \ct{Integer} ont été changées. Dans le panneau inférieur,
+nous voyons que l'ancienne et la nouvelle version du code source de la
+méthode  \ct{Integer>>>isPerfect}.
+
+% ATTENDRE
+\tradalert{martial}{désynchro avec l'image Pharo et l'état actuel de
+  l'outil de fusion}
+% ATTENDRE
+
+Le nouveau code s'affiche en rouge, celui qui est retiré est barré et
+affiché en bleu et enfin, le code inchangé est affiché en noir.
+
+Une méthode ou une classe est en conflit si sa définition a été
+changée. \Figref{mergeTool} nous montre deux méthodes en conflit dans
+la classe \ct{Integer}: \ct{isPerfect} et \ct{divisors}. 
+Un élément de paquetage en conflit est indiqué en étant
+\underline{souligné}, \sout{barré} ou {\bf en gras}. La \arevoir{convention
+typographique} est comme suit:
+% ATTENDRE
+\tradalert{martial}{faux!}
+% ATTENDRE
+
+\begin{description}
+\item[Normal=Aucun conflit.] une \arelire{typographie normale} indique
+  l'absence de conflit. Par exemple, la méthode
+  \ct{PerfectTest>>>testPerfectBoundary} n'est pas en conflit avec une
+  méthode existante et peut être installé.
+\item[Gras=Un méthode est en conflit.] Une décision doit être prise
+  pour garder ou rejeter le changement. La méthode proposée
+\ct{Integer>>>>isPerfect} est en conflit avec une définition existante
+dans l'image. Le conflit peut être résolu en \clickant{} sur le bouton 
+ \button{Keep} ou le bouton \button{Reject}.
+\item[Souligné=L'élément du dépôt remplace l'élément actuel.] Un
+  élément \underline{souligné} sera gardé et remplacera l'élément
+  actuel dans l'image. Dans \figref{keepReject}, vous voyons que la
+  méthode  \ct{Integer>>>isPerfect} de la version 2 a été gardée.
+\item[Barré=L'élément du dépôt est rejeté.] Un élément \sout{barré} a
+  été rejeté et la définition locale ne sera pas remplacée.
+ Dans \figref{keepReject}, la méthode \ct{Integer>>>divisors} de la
+ version 2 est rejetée. Ainsi la définition de la version 3 sera
+ maintenue.
+\on{This appears to no longer be true! -- a rejected element is simply shown in plain font! -- should be fixed.}
+\end{description}
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=.8\textwidth]{keepReject}
+	\caption{Garder et rejeter les changement.
+	\figlabel{keepReject}}
+\end{figure}
+
+Remarquez que l'outil de fusion offre des boutons pour sélectionner
+tous les nouveaux changements ou tous les anciens, ou encore pour
+sélectionner tous les changements locaux ou tous ceux distants qui
+sont toujours en conflit.
+
+\dothis{Gardez la méthode \ct{Integer>>>>isPerfect} et rejetez la
+  méthode \ct{Integer>>>divisors}. \Clickz sur le bouton
+  \button{Merge}. 
+Confirmez que les tests passent tous au vert. Archivez la nouvelle
+version fusionnée de \ct{Perfect} comme la version 4.}
+
+\on{Something is wrong here -- it complains that version 3 might be newer. When I saved it however everything seems fine.}
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=0.8\textwidth]{merged}
+	\caption{Toutes les anciennes versions sont désormais ancêtres de
+      la version fusionnée numéro 4.
+	\figlabel{merged}}
+\end{figure}
+
+Si vous rafraîchissez le \RI, vous verrez qu'il n'y a plus de versions
+en caractères gras, \ie{} toutes les versions sont ancêtres de la
+version 4 actuallement chargée (voir \figref{merged}).
+
+%=================================================================
+\section{Explorer les dépôts de \MC}% {Exploring \MC repositories}
+\seclabel{monti:exploring}
+
+\MC a de nombreuses autres fonctionnalités. Comme nous pouvons le voir
+dans  \figref{monticelloMain}, 
+la fenêtre \MCB a neuf boutons. 
+Nous avons déjà utilisé quatre d'entre eux\,---\,\button{+Package},
+\button{Save}, \button{+Repository} et \button{Open}.
+Nous allons voir maintenant les boutons
+\button{Browse}, \button{Changes} et \button{History}. Ils sont
+utilisés pour explorer l'état et l'histoire des dépôts.
+
+%-----------------------------------------------------------------
+\subsection{Browse}
+
+\index{Monticello!Snapshot Browser}
+Le bouton \button{Browse} ouvre un ``Snapshot Browser'' \arevoir{(ou navigateur
+de captures)} pour afficher le contenu % REVOIR
+d'un paquetage.
+L'avantage du Snapshot Browser sur le Browser est sa capacité à
+afficher les extensions de classe.
+
+\dothis{Sélectionnez le paquetage \ct{Perfect} et \clickz{} sur le
+  bouton \button{Browse}.}
+
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=\textwidth]{{packageviewer}}
+	\caption{Le Snapshot Browser montre que le paquetage  \ct{Perfect}
+      étend la classe \ct{Integer} avec deux méthodes.\figlabel{packageviewer}}
+\end{figure}
+
+\index{extension de classe}
+Par exemple, \figref{packageviewer} affiche les extensions de classe
+définies dans le paquetage \pkg{Perfect}. \arelire{Notez que le code ne peut
+pas être édité ici en  \actclickant, si votre environnement a bien été
+configuré.} % ATTENDRE
+% though by {\actclick}ing, if your environment has been set up accordingly) on a class or a method name you can open a regular browser.
+
+La bonne pratique consiste à toujours naviguer dans le code de votre
+paquetage avant de le publier pour vous assurer qu'il contient bien ce
+que vous pensez.
+\alex{David's browser shows class extensions. Although it does not supersede the snapshot browser, it should be mentioned here}
+
+
+% \sd{could we get rid of this yellow and red clicking. it makes no sense. I remember that I propose a good naming convention for the mouse button -- it was also in one of the freebooks - select = left = you select a window to move it around, operate you want to get the menus and act on something and  meta is for the rest}
+
+%-----------------------------------------------------------------
+\subsection{Changes} 
+
+\index{Monticello!Patch Browser}
+Le bouton \button{Changes} calcule la différence entre le code dans
+l'image et la plus récente version du paquetage dans le dépôt
+% ajout - martial CHANGES
+via le Patch Browser (que nous pourrions traduire ``navigateur de correctifs'').
+
+\dothis{Faites les changements suivants dans \ct{PerfectTest} puis,
+  \clickz sur le bouton \button{Changes} dans le  \MCB.}
+
+\begin{code}{}
+PerfectTest>>>testPerfect
+	self assert: 2 isPerfect not.
+	self assert: 6 isPerfect.
+	self assert: 7 isPerfect not.
+	self assert: 496 isPerfect.
+
+PerfectTest>>>testPerfectTo1000
+	self assert: ((1 to: 1000) select: [:each | each isPerfect]) = #(6 28 496)
+\end{code}
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=\textwidth]{{patchbrowser}}
+	\caption{Le Patch Browser montre la différence entre le code dans
+      l'image et la version la plus récemment archivée.\figlabel{patchbrowser}}
+\end{figure}
+
+\Figref{patchbrowser} montre que le paquetage \ct{Perfect} a été
+modifié avec une méthode changée et une nouvelle méthode. Comme
+d'habitude, \actclick sur un changement vous propose un choix
+d'opérations contextuelles.
+
+%-----------------------------------------------------------------
+\subsection{History} 
+
+\index{Monticello!History Browser}
+Le bouton 
+ \button{History} 
+ouvre un History Browser; c'est \arelire{visualiseur sur l'historique des versions qui
+affiche les messages de journalisation} % plutôt que commentaires
+archivés avec chaque version du paquetage sélectionné.
+ (voir \figref{historyviewer}).
+Les versions du paquetage, dans le cas de 
+ \ct{Perfect}, sont listés sur le panneau de gauche alors que l'information à
+ propos de la  version sélectionnée est affichée sur le panneau de droite.
+
+\dothis{Sélectionnez le paquetage \ct{Perfect} et \clickz{} sur le bouton  \button{History}.}
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=\textwidth]{{historyviewer}}
+	\caption{L'History Browser fournit \arelire{l'information
+        journalisée} des différentes versions d'un paquetage.\figlabel{historyviewer}}
+\end{figure}
+
+En {\actclickant} sur une version particulière, vous pouvez explorer
+les changements par rapport à la version actuelle % current working
+                                % copy
+du paquetage chargé dans l'image ou lancer un nouveau History Browser
+pour une version sélectionnée. % REVOIR
+
+%=================================================================
+\section{Sujets avancés} % {Advanced topics}
+\seclabel{monti:advanced}
+
+Nous allons voir plusieurs sujets avancés dont le \emph{backporting},
+la gestion des dépendances et l'initialisation de classe.
+
+%-----------------------------------------------------------------
+\subsection{le \emph{backporting}}
+
+\alex{I am wondering how useful this is. I personally never used it}
+
+\index{Monticello!backporting}
+Nous voulons parfois porter des changements d'une branche à une autre,
+sans être forcé à fusionner ces branches.
+\arelire{Le \emph{backporting} (ou ``rétro-portage'') est un
+  traitement qui
+consiste à appliquer des changements choisis d'une version d'un
+paquetage \emph{sur une ancienne} de manière à ce que ces
+changements puissent être fusionnées dans les branches de cette
+dernière.} % REVOIR
+C'est utile, spécialement quand des corrections d'un logiciel
+défectueux doivent être fusionnées dans de multiples branches.
+
+Ce procédé est illustré dans \figref{backport}.
+Supposons que la branche principale de notre logiciel comprend des
+versions A et B maintenu par \Manny.
+\Conny, une \arevoir{contributrice}, % REVOIR
+a développé une branche distincte expérimentale C avec les changements
+X et Y.
+Le changement X corrige un vilain problème dans les versions A et B,
+ainsi \Manny{} demande à \Conny de préparer une branche D pour le
+\emph{backporting} ne contenant \emph{que} le changement X.
+Maintenant \Manny{} peut fusionner B et D pour produire une nouvelle
+version E qui corrige le défaut. \Conny{} peut continuer de développer
+sa branche indépendante C.
+
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=\textwidth]{{backport}}
+	\caption{\emph{Backporting} ou rétro-portage du changement X
+      depuis la version C vers la  version A pour produire une
+      nouvelle branche  D.  D peut être fusionnée dans 
+       B ensuite, sans affecter C.\figlabel{backport}}
+\end{figure}
+
+Le système enregistre le fait que cette nouvelle version est insu
+d'un \emph{backporting} d'une version ultérieure et utilisera cette
+information au moment de la fusion.
+
+Pour utiliser le bouton \button{Backport}, vous devez simplement avoir
+sauvegardé votre paquetage\,---\,si votre paquetage est marqué avec
+\ct{*} (sceau de la modification), le bouton \button{Backport} est
+désactivé.
+Quand vous pressez sur le bouton \button{Backport}, vous \arevoir{serez tout
+d'abord questionné sur l'ancêtre que vous voulez rétro-porter.}
+%you must have just saved your package\,---\,if your package is marked with the modified *, \button{Backport} is disabled.  When you press \button{Backport}, you will first be asked to pick the ancestor version you want to backport to. 
+Une liste à sélections multiples de tous les changements entre l'ancêtre
+et la version actuelle vous sera présentée. Choisissez seulement les
+changements que vous voulez porter par \emph{backporting} et pressez
+ensuite sur le bouton \button{Select}.
+
+Voyons comment cela fonctionne en pratique. Rappellez-vous que nous
+avons préalablement rejeté l'implémentation de \ct{isPerfect} lorsque 
+nous avons fusionné les versions 2 et 3 du paquetage  \ct{Perfect}.
+Nous allons récupérer ce changement en tant qu'élément de
+\emph{backporting} pour la version 1: les versions 1, 2 et 3 jouent le
+rôle de version A, B et C respectivement dans \figref{backport}.
+
+\dothis{%
+Déchargez le paquetage 
+ \ct{Perfect}. Ouvrez maintenant un \RI sur votre \ct{package-cache}
+ et chargez la version 3 de  \ct{Perfect}. Dans le \MCB, sélectionnez 
+ \ct{Perfect} et \clickz sur le bouton \button{Backport}. Sélectionnez
+ la version 1 en tant qu'ancêtre. Vous devrez pouvoir naviguer dans
+ les changements entre les versions 3 et 1 comme vous pouvez le voir
+ sur  \figref{changes}. Sélectionnez la méthode
+ \ct{Integer>>>isPerfect} et \clickz{} sur le bouton \button{Select}.}
+
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=0.8\textwidth]{{changes}}
+	\caption{Backporting changes from version 3 to version 1 of the \ct{Perfect} package.\figlabel{changes}}
+\end{figure}
+
+Bravo! Vous avez fait un \emph{backporting} de la méthode
+\ct{isPerfect} de la version 3 à la version 1 du paquetage
+\ct{Perfect}.
+Tout changement que vous n'avez pas sélectionné ont \arelire{subi une
+  révision}; votre image ne contient que le code de la version-ancêtre
+1, plus les changements que vous avez choisis.
+Vous devriez voir, dans  \MCB, que la version actuellement chargée de
+\ct{Perfect} est désormais la version 1 (en non plus la version 3). Si
+vous \clickz sur le bouton \button{Changes}, vous verrez que le seul
+changement est la méthode  \ct{isPerfect}.
+\arelire{Vous pouvez sauvegarder maintenant cette version de
+\emph{backporting} et, par exemple, le fusionner dans quelque chose d'autre.}
+%You can now save this backported version, merge it into something else, or whatever you like.
+
+%-----------------------------------------------------------------
+\subsection{Les dépendances}% {Dependencies}
+
+\index{Monticello!dépendance}
+\index{paquetage!requis|see{Monticello, dépendance}}
+La plupart des applications ne peuvent pas vivre seules et exigent
+typiquement  la présence d'autres paquetages pour pouvoir
+fonctionner normalement. Par exemple, jetons un \oe il
+à l'application
+Pier\footnote{\url{http://source.lukas-renggli.ch/pier}}, 
+\arelire{un système de gestion de contenus à méta-descriptions}.
+ Pier est un logiciel grand taille avec plusieurs facettes (outils,
+ documentations, \emph{blog}, \arevoir{assistance dynamique ou
+   \emph{catch strategy}}, sécurité, \ldots). Chaque facette est
+ implémenté dans un paquetage séparé. La plupart des paquetages Pier
+ ne peuvent pas être utilisés de façon isolée puisqu'ils se réfèrent à
+ des méthodes et des classes définies dans d'autres paquetages. \MC{}
+fournit un mécanisme de dépendances pour déclarer les \emph{paquetages
+  requis}\footnote{En anglais, \emph{required packages.}} % REVOIR
+d'un paquetage donné pour s'assurer qu'il sera correctement chargé.
+
+\arevoir{L'essentiel de ce mécanisme assure que tous les paquetages
+requis d'un paquetage soient chargés avant que le paquetage à charger
+le soit.} Puisque les paquetages requis peuvent, eux aussi, exiger
+d'autres paquetages, le processus est appliqué de façon récursive à un
+arbre de dépendances, assurant que les feuilles de l'arbre sont
+chargées avant les branches qui dépendent d'elles. 
+\arelire{À chaque fois que de nouvelles versions de paquetages requis sont
+vérifiées, les nouvelles versions des paquetages qui dépendent d'elles
+dépenderont automatiquement des nouvelles versions.}
+%Whenever new versions of required packages are checked in, then new versions of the packages that depend on them will automatically depend on the new versions.
+
+\important{\emph{Les dépendances ne peuvent s'exprimer de
+    \arevoir{manière transversale} entre les dépôts}. Tous les
+  paquetages requis et \arelire{exigeants} doivent se trouver dans le
+  même dépôt.}
+
+
+\Figref{dependencies} illustre comment cela fonctionne dans 
+ \ind{Pier}.
+Le paquetage \ct{Pier-All} est un \emph{paquetage vide} qui agit comme
+une \aretirer{sorte d'écran}. %that acts as a kind of umbrella.
+Il exige \ct{Pier-Blog}, \ct{Pier-Caching} et d'autres paquetages Pier.
+
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=\textwidth]{{dependencies}}
+	\caption{Les dépendances dans Pier.\figlabel{dependencies}}
+\end{figure}
+
+En raison de ces dépendences, installer \ct{Pier-All} entraîne
+l'installation de tous les autres paquetages Pier. Plus tard, en
+développant Pier, le seul paquetage qu'il sera nécessaire de
+sauvegarder est \ct{Pier-All}; tous les paquetages dépendants dans
+l'état \emph{dirty} seront sauvégardés automatiquement.
+
+Voyons comment cela fonctionne en pratique. Notre paquetage
+\ct{Perfect} lie actuellement les tests et l'implémentation. Supposons
+que nous aimerions plutôt les séparer en plusieurs paquetages; ainsi,
+l'implémentation peut être chargée sans les tests. \arelire{Par défaut,
+cependant, nous voudrions tout charger.}
+
+
+\dothis{Suivez les étapes suivantes:
+\begin{itemize}\setlength{\itemsep}{0pt}
+\item Chargez la version 4 du paquetage  \ct{Perfect} depuis le package-cache;
+\item Créez un nouveau paquetage dans le Browser nommé
+  \ct{NewPerfect-Tests} et glissez-déposez la classe 
+ \ct{PerfectTest} dans ce paquetage;
+% \item \sout{Rename the \ct{Perfect} category to \ct{Perfect-Tests} ({\actclick} on the category in the browser to rename it)} \on{There is no menu item to rename a package!}
+\item Renommez le protocole \ct{*perfect} de la classe \ct{Integer} en
+   \ct{*newperfect-extensions} (\actclickz pour la renommer);
+\item Dans le  \MCB, ajoutez les paquetages  \ct{NewPerfect-All} et \ct{NewPerfect-Extensions};
+\item Ajoutez \ct{NewPerfect-Extensions} et \ct{NewPerfect-Tests}
+  comme paquetages requis (\emph{required packages}) à 
+ \ct{NewPerfect-All} en \actclickant sur \ct{NewPerfect-All};
+\item Sauvegardez le paquetage \ct{NewPerfect-All} dans le dépôt  package-cache;
+remarquez que \MC propose une saisie de \arelire{messages journalisés}
+aussi durant la sauvegarde des paquetages requis;
+\item Vérifiez que tous les trois paquetages ont bien été sauvegardé
+  dans le  package-cache;
+\item \MC pensent que \ct{Perfect} est toujours chargé donc,
+  déchargez-le et chargez le paquetage \ct{NewPerfect-All} depuis le
+  \RI. De ce fait, les paquetages 
+ \ct{NewPerfect-Extensions} et \ct{NewPerfect-Tests} seront chargés en
+ tant que paquetages requis;
+\item Vérifiez que tous les tests sont au vert.
+\end{itemize}
+}
+\index{package-cache}
+
+Remarquez que les paquetages indépendants sont affichés en gras quand 
+\ct{NewPerfect-All} est sélectionné dans le  \MCB (voir \figref{perfectDependencies}).
+
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=\textwidth]{{perfectDependencies}}
+	\caption{\ct{NewPerfect-All} exige la présence des paquetages  \ct{NewPerfect-Extensions} et \ct{NewPerfect-Tests}.\figlabel{perfectDependencies}}
+\end{figure}
+
+\important{Si vous continuez à développer le paquetage 
+\ct{Perfect}, vous devriez uniquement charger ou sauvegarder
+\ct{NewPerfect-All} plutôt que ses paquetages requis.}
+
+En voici les raisons:
+%Here is the reason why:
+
+\begin{itemize}
+\item Si vous chargez \ct{NewPerfect-All} depuis le dépôt (package-cache ou n'importe quel autre dépôt), les packages  \ct{NewPerfect-Extensions} et \ct{NewPerfect-Tests} seront alors chargés depuis le même dépôt;
+\item Si vous changez la classe  \ct{PerfectTest}, les paquetages \ct{NewPerfect-Tests} et \ct{NewPerfect-All} deviendront dès lors \emph{dirty} tous les deux (mais pas le paquetage \ct{NewPerfect-Extensions});
+\item Si vous archivez les changements, vous devriez sauvegarder \ct{NewPerfect-All}. \arevoir{Ceci archivera une nouvelle version de \ct{NewPerfect-All} qui exigera alors la nouvelle version de \ct{NewPerfect-Tests} (elle dépendra aussi de la version déjà existante et non-modifiée de \ct{NewPerfect-Extensions}).} Charger la dernière version de \ct{NewPerfect-All} vous assurera du chargement de la dernière version des paquetages requis;
+\item Si vous sauvegardez plutôt le paquetage \ct{NewPerfect-Tests},
+  ceci n'entraînera \emph{pas} la sauvegarde du paquetage 
+ \ct{NewPerfect-All}. C'est mauvais parce que vous créez un
+ \arelire{cassure avec les dépendances}. Si vous chargez ensuite la
+ dernière version de \ct{NewPerfect-All}, vous n'obtiendrez pas les
+ dernières versions des paquetages requis. Ne le faites pas!
+\end{itemize}
+
+\important{%
+N'appelez pas votre paquetage \arevoir{exigeant} avec un \aretirer{suffixe} 
+ (\eg \ct{Perfect}) qui pourrait \arevoir{correspondre au nom de vos
+   sous-paquetages requis}.
+% that could match your subpackages. % REVOIR CHANGE
+Ne définissez pas  \ct{Perfect} comme paquetage requis de
+\ct{Perfect-Extensions} ou de \ct{PerfectTest}. 
+Vous risqueriez d'avoir des problèmes puisque 
+\arelire{\MC devra sauvegarder toutes les classes des trois paquetages là où
+ vous voulons seulement deux paquetages archivés et un paquetage vide
+ au sommet de cet arbre de dépendances; ce dernier exigeant la
+ présence de deux précédents paquetages.}} % CHANGE - martial -
+                                % j'espère plus clair que l'original
+% would save all the classes for three packages while you only want
+% two packages and an empty one at the top level.
+
+%-----------------------------------------------------------------
+\subsection{Initialisation de classe}
+
+\alex{Where are the two emph\{\} for?}
+\emph{classe!initialisation}
+\emph{Monticello!initialisation de classe}
+Lorsque \MC charge un paquetage dans une image, toute classe
+définissant la méthode  \ct{initialize} dans le côté classe se verra
+envoyer le message  \ct{initialize}. 
+Le message est envoyé \emph{uniquement} aux classes qui définissent
+cette méthode dans le côté classe. Une classe qui ne définit
+  pas cette méthode ne sera pas initialisée, même si  \ct{initialize}
+  est définipar une de ses super-classes.
+Notez que la message \ct{initialize} n'est pas envoyé quand vous
+rechargez simplement un paquetage!
+% NB: the initialize method is not invoked when you merely reload a package!
+% martial: invoked method?? -> better with 'message \ct{initialize} is not sent??
+
+%\on{OK, I confirmed this with a simple test}
+
+L'initialisation de classe peut être utilisée pour réaliser un certain
+nombre de vérifications ou d'actions spéciales. Une application
+particulièrement utile consiste à ajouter de nouvelles variables
+d'instance à une classe.
+
+Les extensions de classes sont strictement limitées à l'ajout de
+méthodes pour une classe. Cependant, des méthodes d'extension auraient
+parfois besoin que de nouvelles variables d'instance existent.
+
+Supposons, par exemple, que nous voulions étendre la classe 
+\ct{TestCase} de  SUnit avec des méthodes pour garder une trace de
+l'historique de la dernière fois qu'un test était au rouge. Nous
+aurions besoin de stocker l'information quelque part mais,
+malheureusement nous ne pouvons pas définir des variables d'instance
+comme élément de notre extension.
+
+Définir une méthode 
+ \ct{initialize} dans le côté classe d'une des classes est une
+ solution:
+
+\begin{code}{}
+TestCaseExtension class>>initialize
+	(TestCase instVarNames includes: 'lastRedRun') 
+		ifFalse: [TestCase addInstVarName: 'lastRedRun']
+\end{code}
+
+\arelire{Quand notre paquetage est chargé, le code sera éxecuté et la variable
+d'instance lastRedRun (pour \emph{``dernier-lancement-au-rouge''})
+sera ajoutée si elle n'existait pas.}
+
+%As an illustration, let us suppose an extension of the Lights Out game to support unchangeable cells. Those cells are located randomly on the board. Generate numbers need to be generated. This can be done by adding a variable \ct{randomNumber} to the class \ct{LOGame}. This kind of extension is not well supported by \MC. A package cannot define the variable \ct{randomNumber} as an extension of \ct{LOGame}. \MC supports method extension only.
+%\ab{Tell us what the problem is, before telling us the solution.  With an Example!}
+
+
+%One way to circumvent this limitation is to define an initialize method on the class side, and manually add this variable. We could then define the following \ct{initialize} method on a class \ct{GameExtension} contained in the extending package:
+
+%\begin{code}{}
+%GameExtension class>>initialize
+%	(LOGame instVarNames includes: 'randomNumber') 
+%		ifFalse: [LOGame addInstVarName: 'randomNumber']
+%\end{code}
+
+%In the case that \ct{randomNumber} is not defined in \ct{LOGame}, this variable is added to this class.
+
+%\ab{Isn't this more appropriate for a post-load \emph{do-it} than an \ct{initialize} method?  Do such things not exist (they did with change sets \ldots}
+%\alex{Probably, but this seems to be broken with \MC}
+
+%=================================================================
+\section{Les variétés de dépôts}%{Kinds of repositories}
+\seclabel{monti:repositories}
+
+\index{Monticello!dépôt}
+Plusieurs sortes de dépôts sont supportées par
+\MC, chacune ayant différentes caractéristiques et usages. Les dépôts
+(ou \emph{repositories}) peut être en lecture seule
+(\emph{read-only}), en écriture seule (\emph{write-only}) ou en
+lecture\/écriture (\emph{read-write}). Les droits d'accès peuvent être
+définis de manière globale ou peuvent être liés à un utilisateur
+particulier (comme dans  \sqsrc, par exemple).
+% and are related to the way of storing data used.
+
+\index{Monticello!dépôt HTTP}
+\paragraph{HTTP} Le dépôt HTTP (ou \emph{HTTP repository}) est
+probablement le plus populaire des dépôts puisqu'il est supporté par 
+ \sqsrc. % (Such servers can also be configured for read-only access. Saving versions via HTTP uses the PUT method \ab{Is ``put'' the right word}, which must be enabled on the server.)
+
+\arelire{Le bon côté des dépôts HTTP est qu'il est facile à lier 
+directement à des versions spécifiques de sites web.
+Avec un peu de travail pour la configuration d'un serveur HTTP, les
+dépôts HTTP peuvent être rendus navigables par un navigateur web
+ordinaire, des clients WebDAV ou plein d'autres choses.}
+
+Les dépôts HTTP peuvent être utilisés avec un serveur HTTP autre que 
+ \ind{\sqsrc}. Par exemple, une simple
+ configuration~\footnote{\url{http://www.visoracle.com/squeak/faq/monticello-1.html}}
+ transforme \ind{Apache} en un dépôt \MC repository avec des droits
+ d'accès restreint:
+
+% \begin{code}{}
+% "My apache2 install worked as a Monticello repository right out of the box on my
+% RedHat 7.2 server.  For posterity's sake, here's all I had to add to my apache2 config:"
+% Alias /monticello/ /var/monticello/
+% <Directory /var/monticello>
+%   DAV on
+%   Options indexes
+%   Order allow,deny
+%   Allow from all
+%   AllowOverride None
+%   # Limit write permission to list of valid users.
+%   <LimitExcept GET PROPFIND OPTIONS REPORT>
+%     AuthName "Authorization Realm"
+%     AuthUserFile /etc/monticello-auth
+%     AuthType Basic
+%     Require valid-user
+%   </LimitExcept>
+% </Directory>
+% "This gives a world-readable, authorized-user-writable Monticello repository in
+% /var/monticello.  I created /etc/monticello-auth with htpasswd and off I went.
+% I love Monticello and look forward to future improvements."
+% \end{code} % CHANGE - martial - j'ai pris le parti de traduire les
+% commentaires directement.
+
+\begin{code}{} % REVOIR - martial - les 'je' à changer ?
+"Mon installation Apache2 fonctionne directement comme un !dépôt! Monticello sur mon
+serveur RedHat 7.2. Pour la !postérité!, voici ce que j'ai !dû! ajouter !à! ma configuration
+Apache2:"
+Alias /monticello/ /var/monticello/
+<Directory /var/monticello>
+  DAV on
+  Options indexes
+  Order allow,deny
+  Allow from all
+  AllowOverride None
+  # Limite la permission en !écriture! !à! une liste 
+  # d'utilisateurs valides.
+  <LimitExcept GET PROPFIND OPTIONS REPORT>
+    AuthName "Authorization Realm"
+    AuthUserFile /etc/monticello-auth
+    AuthType Basic
+    Require valid-user
+  </LimitExcept>
+</Directory>
+"Ceci !crée! un !dépôt! Monticello lisible par tout le monde et sur lequel seuls les utilisateurs 
+!autorisés! peuvent !écrire! dans le !répertoire! /var/monticello. J'ai !créé! les comptes dans
+/etc/monticello-auth avec htpasswd. C'est tout.
+J'adore Monticello et j'attends les !évolutions! futures." \end{code} % REVOIR le dernier
+                                % commentaire?
+ 
+\index{Monticello!dépôt FTP}
+\paragraph{FTP} C'est un dépôt similaire au dépôt HTTP à l'exception
+qu'il utilise un serveur FTP. Ce dernier peut aussi offrir un accès
+restreint et différents clients FTP peuvent être utilisés pour
+naviguer le dépôt \MC.
+
+\index{Monticello!dépôt GOODS}
+\paragraph{GOODS}
+Ce type de dépôt stocke les versions dans une base de données objet GOODS.
+GOODS est un système de gestion de base de données distribuée orientée
+objet qui fait appel à un \arevoir{modèle de client
+  actif}~\footnote{\url{http://www.garret.ru/goods.html}}.
+C'est une dépôt accessible en lecture et en écriture; c'est donc un
+\arevoir{bon dépôt de travail} % good ``working'' repository
+où les versions peuvent être archivées et recupérer. Grâce au \arelire{support
+des transactions et à ses possibilités de journalisation et de
+\emph{replicats}}, GOODS convient bien aux gros dépôts partagés par
+plusieurs clients.
+
+\index{Monticello!dépôt-répertoire}
+\index{package-cache}
+\paragraph{Le répertoire} Un dépôt-répertoire stocke les versions dans
+un répertoire sur le système de fichiers local. Puisqu'il réquiert
+très peu de préparation pour le configurer, c'est une solution
+pratique pour les projets privés ou déconnectés (puisqu'il n'y a pas
+de connexion réseau).
+Le \ct{package-cache} que nous avons utilisé dans les exercices de ce
+chapitre est une exemple de ce type de dépôt. Les versions dans un
+dépôt-répertoire peuvent être copiées par la suite vers un dépôt
+public ou partagé  \sqsrc supporte cette possibilité
+en permettant l'import des versions de paquetages pour un projet donné
+via les \arelire{fichiers \texttt{.mcz}}.  
+\arevoir{Loggez}-vous dans 
+ \sqsrc, naviguez dans le projet qui vous intéresse et
+\clickz sur le lien \menu{Import Versions}.
+
+\paragraph{\arelire{Le répertoire avec dossiers}}  Un répertoire avec
+dossiers (ou \emph{``directory with subdirectories''}) est similaire
+au dépôt-répertoire à l'exception du fait qu'il inspecte les
+sous-répertoires pour récuperer la liste les paquetages
+disponibles. Plutôt que d'avoir un \arelire{répertoire \emph{plat}}
+contenant toutes les versions de paquetages, ce type de dépôt peut
+être structuré de façon hiérarchique avec les dossiers qu'il contient.
+
+\index{Monticello!SMTP}
+\paragraph{SMTP} Les dépôts SMTP sont utiles pour envoyer les versions
+par email. Quand vous crée un dépôt SMTP, vous spécifiez une adresse
+email de destination: ce peut être l'adresse d'un autre
+développeur\,---\,le mainteneur du paquetage, par exemple\,---\,ou une
+liste de diffusion telle que pharo-project.
+Toutes versions sauvegardées dans un tel dépôt sera envoyées à cette
+adresse email. Les dépôts SMTP sont en écriture seule.
+
+%\paragraph{\sqmap Release} This is a write-only repository used for publishing releases of a package to \sqmap. To configure the repository enter the name of the package on \sqmap, your \sqmap initials and your \sqmap password. Now any versions saved to the repository will be uploaded to your \sqmap account, and registered as a new release with \sqmap.  
+
+%You need an account on \sqmap to add packages. New accounts may be created online\footnote{\url{http://map.squeak.org}}. The list of packages you add will appear on the \sqmap package list displayed when \sqmap is open.
+
+%\alex{I added few sentences about adding package on squeakmap. But not many people are using it now. It is progressively being replaced by universe.}
+%\ab{We havn't talked bout how to put stuff on \sqmap, only about how to load it.  So, we should add that material, either here, or in a subsequent subsection.}
+
+%\paragraph{\sqmap Cache} When packages are installed via \sqmap, downloaded files are stored in a dedicated subdirectory in your working directory that acts as a cache. In order to make these files available to \MC for loading, merging, \etc, a \sqmap Cache repository is created when these files are loaded for the first time.
+
+%\on{why don't you first talk about the package cache?  I see you commented it out.}
+%\alex{Because it does not appear in \pharo anymore. Maybe it was buggy or simply obsolete}
+
+%\ab{One thing to say is how to get to versions in some \emph{other} package cache}
+%\alex{I am not sure about what you mean.}. 
+
+%\paragraph{package-cache}
+
+%The package cache is a special repository that \MC creates automatically. Like a directory repository, the package cache stores files in a directory on your local filesystem. See Elements of \MC for more information.
+
+%\ab{what about ``Directory with Subdirectories''?} 
+%\alex{I added a new paragraph on it above}
+
+%-----------------------------------------------------------------
+\subsection{Utiliser \sqsrc}
+
+\indmain{\sqsrc} est une dépôt en ligne que vous pouvez utiliser pour
+stocker vos paquetages \MC. Une instance est accessible sur
+\url{http://www.squeaksource.com}.
+Au moment où ce chapitre est traduit, plus de 1500 projets sont
+enregistrés sur \sqsrc et près de 2000 personnes ont un compte.
+\Figref{squeaksource} montre la page web principale.
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=\textwidth]{squeaksource2}
+	\caption{\sqsrc, le dépôt de code \MC en ligne.\figlabel{squeaksource}}
+\end{figure}
+
+\dothis{%
+Utilisez votre navigateur web pour visiter le projet \pbe{} à
+l'adresse \url{http://www.squeaksource.com/PharoByExample.html}.
+Ce projet contient le \arevoir{projet Lights Out du
+  \charef{firstApp}.} % REVOIR - martial - si PBE2, \charef ne
+                      % marchera pas
+Dans la section d'inscription de la page web, vous devriez voir
+\arelire{l'expression (dite \emph{repository expression}) suivante:}}
+
+\begin{code}{}
+MCHttpRepository
+    location: 'http://www.squeaksource.com/PharoByExample'
+    user: ''
+    password: ''
+\end{code}
+\noindent
+\emph{Ajoutez ce dépôt à \MC en \clickant{} sur le bouton
+  \button{+Repository} puis en sélectionnant \menu{HTTP}. 
+Remplissez le \arelire{patron proposé dans la fenêtre de saisie}
+avec l'URL correspondante au le projet Lights Out\,---\,vous
+pouvez copier la \emph{repository expression} ci-dessus depuis la
+page web et la coller sur le patron dans l'espace de saisie.
+Puisque vous n'allez pas archiver de nouvelles versions de ce
+paquetage, vous n'avez pas besoin de remplir les parties \emph{user}
+(utilisateur) et \emph{password} (mot de passe).
+Ouvrez le dépôt avec le bouton
+\button{Open}. Sélectionnez la dernière version et \clickz{} sur le
+bouton \button{Load} pour charger cette dernière.}
+
+Cliquez % REMARQUE - martial - et pas \Clickz{} car hors de Pharo
+sur le lien \link{Register Member} sur la page d'accueil 
+de \sqsrc sera probablement votre première étape si vous n'avez pas de
+compte utilisateur  \sqsrc.
+Une fois que vous êtes membre, le lien
+\link{Register Project} vous permet de créer un nouveau projet.
+
+\begin{figure}[ht]\centering
+	\includegraphics[width=\textwidth]{squeaksourcesetting}
+	\caption{Les dépôts sous \sqsrc sont hautement configurables.\figlabel{squeaksourcesetting}}
+\end{figure}
+
+\MC offre un large éventail d'options  (voir
+\figref{squeaksourcesetting}) pour configurer un dépôt de projet:
+des \arevoir{balises (ou \emph{tags})} peuvent être affectées, une
+licence peut être choisie, l'accès des personnes ne faisant pas partie
+du projet peuvent voir leur accès restreint (lecture/écriture, lecture
+seule, accès refusé), des emails peuvent être envoyés à chaque
+archivage, des listes de diffusion peuvent être administrées et des
+utilisateurs peuvent être définis comme membres du projet (en tant
+qu'administrateur, développeur ou invité).
+% tags may be assigned, a license may be chosen, access for people who are not part of the project may be restricted (read/write, read, no access), emails may be sent upon commits, mailing list, and users may be defined to be members of the project (as administrator, developer, or guest).
+
+% \on{This section seems too painfully obvious to include.}
+%\paragraph{Troubleshooting} Not being able to remotely save your package may be due to a large range of causes. You will have to run through the usually network debugging routine:
+
+%\begin{enumerate}
+%\item Is your computer turned on?
+%\item Is your network cable plugged in?
+%\item Can you reach \url{http://squeaksource.com/} with a web browser from the same host as the image?
+%\item Are people on IRC (or any other forum) ranting about \sqsrc being down again?
+%\item Is \sqsrc accessible from other sites?\footnote{A handy link to check this is: \url{http://downforeveryoneorjustme.com/squeaksource.com}}
+%\item Can you ping \url{http://squeaksource.com/} from Pharo?:\\
+%   \ct{Socket pingPorts: #(80) on: 'squeaksource.com' timeOutSecs: 30}.
+%\item Can you load packages using \MC from \\\url{http://squeaksource.com/}?
+%\end{enumerate}
+
+
+
+%=================================================================
+\section{Le format de fichiers .mcz}
+
+\index{Monticello!version}
+\index{Monticello!format mcz}
+\index{format mcz|see{Monticello, format mcz}}
+Les versions sont stockées dans des dépôts sous la forme de fichiers
+binaires. Ces fichiers sont communément appelés ``fichiers mcz'' car
+il \arelire{porte l'extension  \texttt{.mcz}}. % REVOIR
+Ils sont l'acronyme de 
+ ``\MC zip'' puisque les fichiers mcz sont simplement des \arelire{fichiers
+ \emph{zippés} (\ie{} compressé)} contenant le code source et divers
+méta-données.
+
+\important{%
+Un fichier mcz peut être copié-collé vers \arevoir{une image ouverte},
+% REVOIR - martial - open image file,
+comme un \changeset. \pharo vous demandera si vous voulez charger le
+paquetage qu'il contient. Cependant \MC ne connaît pas le dépôt d'origine du
+paquetage, donc n'utilisez pas cette technique durant le
+développement.}
+
+% \sd{but you lose the fact that this is a package so don't do that.}
+
+Vous pouvez essayer de décompresser ce fichier pour voir, par exemple,
+le code source directement mais, l'utilisateur final n'a normalement
+pas besoin de le faire lui-même.
+Si vous le décompressez, vous y trouverez les éléments suivants.
+
+\paragraph{Les fichiers contenus}% {File contents}
+
+Les fichier mcz sont en fait des archives ZIP qui suivent certaines
+conventions.
+Conceptuellement une version contient quatre éléments:
+
+\begin{itemize}
+\index{Monticello!Package}
+\index{Monticello!paquetage}
+\item \emph{Package}. Une version est rattachée à un paquetage
+  particulier. Chaque fichier mcz contient un fichier nommé
+  ``package'' (pour paquetage, en anglais) contenant le nom du
+  paquetage.
+\index{Monticello!VersionInfo}
+\index{Monticello!version}
+\item \emph{\arevoir{VersionInfo}}. % VersionInfo 
+Il s'agit de la méta-donnée relative à la capture (ou
+\emph{snapshot}). Il contient les noms (ou initiales) de l'auteur, la
+date et l'heure à laquelle la capture a été faite et l'ancêtre de la
+capture.
+Chaque fichier mcz contient un fichier ``version'' qui contient cette
+information.\\
+Une version ne contient pas un historique complet du code
+source. C'est une capture du code à un instant t, avec un identifiant
+UUID associé à cette capture et un registre des UUIDs de toutes les
+précédentes captures dont elle est issue.
+\index{Monticello!Snapshot}
+\item \emph{Snapshot}. le \emph{Snapshot} ou capture est un
+  enregistrement de l'état du paquetage à un instant t.
+Chaque fichier mcz contient un répertoire
+  ``snapshot/''. Tous les \arelire{fichiers} de ce répertoire
+  contiennent les % REVOIR fichiers <- members
+  définitions d'éléments de programme qui, une fois combinés, forment
+  le \emph{Snapshot}. Les versions actuelles de \MC ne créent qu'un
+  \arelire{fichier} dans ce répertoire; ce \arelire{fichier} s'appelle
+``source.st''.
+\index{Monticello!Dependencies}
+\index{Monticello!dépendances}
+\item \emph{Dependencies}. Une version peut \arelire{dépendre d'une version
+  spécifique d'autres paquetages.} Un fichier mcz peut contenir un
+répertoire ``dependencies/'' avec un \arelire{fichier}
+pour chaque dépendance. Ces \arelire{fichiers} seront \arevoir{nommés d'après
+chaque paquetage auquel le paquetage \MC dépend}. Par exemple, un
+fichier mcz \ct{Pier-All} contiendra les fichiers nommés
+\ct{Pier-Blog} et \ct{Pier-Caching} dans le répertoire dependencies..
+\end{itemize} % REVOIR
+
+\paragraph{L'encodage du code source}%{Source code encoding}
+
+Le fichier appelé ``snapshot/source.st'' est un fichier d'exportation standard
+ou \emph{fileout} du code qui appartient au paquetage.
+%contains a standard fileout of the code that belongs to the package.
+
+\paragraph{L'encodage des méta-données}
+
+Les autres fichiers de la archive ZIP sont codés sous la forme
+%ajout
+d'\arelire{expressions symboliques connues aussi sous le nom de
+  \emph{s-expressions}}.
+Conceptuellement l'expression représente des dictionnaires
+imbricables. Chaque paire d'éléments dans une liste représente une clé
+et une valeur. Par exemple, le morceau de code suivant est un extrait
+du fichier ``version'' d'un paquetage nommé \ct{AA}:
+
+\ct{(name 'AA-ab.3' message 'empty log message' date '10 January 2008' time '10:31:06 am' author 'ab' ancestors ((name 'AA-ab.2' message...)))}
+
+Ce qui simplement dit que la version \ct{AA-ab.3} a un \arevoir{message de
+journalisation} vide (en anglais, \emph{empty log message}), a été
+créé le 10 Janvier 2008 (\ct{January 10, 2008}) par \ct{ab} et a pour
+ancêtre la version \ct{AA-ab.2}, ...
+
+%\ab{butif it does?}
+
+%\paragraph{Distributing mcz files}
+
+%The metadata for a version ends up being fairly compact, so it's not unreasonable to distribute it with a release. \ab{What's a release?} It's also important that it be present if somebody decides to start hacking on your package \on{?}. Then they can create a mcz with their version of your package and it will have the correct ancestry information, enabling you to easily and correctly merge it back into your work.
+
+%Stated another way,  So it's a perfect thing to distribute. \ab{This paragraph I understand.  Maybe just delete the previous one?  What is the connection with the paragraph title?}
+
+%=================================================================
+\section{Résumé du chapitre}
+
+%This chapter explained how to use \MC and \sqsrc to manage the source code of your application.
+
+Ce chapitre vous a présenté les fonctionnalités de \MC de façon
+détaillée.
+Les points suivants ont été explorés:
+
+\begin{itemize}
+\item \MC \arevoir{exploite les catégories et protocoles de méthode de
+  \st}.
+%are mapped to Smalltalk categories and method protocols.
+Si vous avez un paquetage appelé \ct{Foo} dans \MC, il incluera toutes
+les classes dans les catégories nommées  \ct{Foo} et\/ou commençant
+par  \ct{Foo-}. Il comprendra aussi toutes les méthodes dans ces
+catégories à l'exception de celles dont les protocoles commencent par
+un astérisque \ct{*}. 
+Finalement, le paquetage incluera toutes les méthodes
+d'\emphind{extension de classe} des protocoles de la forme  \ct{*foo}
+ou commençant par  \ct{*foo-};  qu'importe où se trouvent ces
+protocoles dans le système.
+
+\item Quand vous modifiez une méthode ou une classe d'un paquetage, il
+  sera marqué en tant que paquetage ``dirty'' (\ie{} sale) dans \MC et
+  pourra être sauvegardé dans un dépôt ou \emph{repository}.
+
+\item Il y a une grande variété de dépôts; les plus populaires sont
+  basés sur le protocole HTTP comme le sont les dépôts hébergés sur
+ \sqsrc.
+
+\index{package-cache}
+\item Les paquetages sauvegardés sont mémorisés localement dans un
+  répertoire appelé \ct{package-cache}.
+
+\item Le \MC \RI peut être utilisé pour naviguer dans un dépôt. Vous
+  pouvez sélectionner quelle version des paquetages vous voulez
+  charger ou décharger.
+
+\item Vous pouvez créer une nouvelle \emph{branche} d'un paquetage
+  en basant un nouvelle version sur une autre version plus récente que
+  la dernière version. Le \RI garde une trace de la version ancêtre des
+  paquetages et peut vous dire quelles versions appartiennent à une
+  branche distincte.
+
+\item Les branches peuvent être  \emph{fusionnées}. \MC offre un
+  \arelire{contrôle en finesse sur la résolution des conflits entre
+    les versions fusionnées}. % REVOIR
+%offers a fine degree of control over the resolution of conflicts
+%between merged versions.
+La version fusionnée aura pour ancêtre les deux versions depuis
+lesquelles elle a été fusionnée.
+
+\item Sinon, les changements sélectionnés dans une branche peuvent
+  être \arelire{rétro-portée via la fonction de \emph{backporting}
+% to an arbitrary earlier version
+pour une certaine version plus récente.} Le \emph{backporting} % REVOIR
+créera une nouvelle version qui peut être fusionnée avec n'importe
+quelle autre version qui aurait besoin de ces changements: la branche
+originale d'où provient le \emph{backporting} restant indépendante de
+la branche dans laquelle se produit la fusion.
+
+\item \MC peut garder une trace des dépendances entre les
+  paquetages. Lorsque un paquetage ayant des dépendances avec des
+  paquetages requis est archivé, une nouvelle version de ce paquetage
+  est créée: cette version dépend des dernières versions de tous les
+  paquetages requis. 
+
+\item Si des classes dans vos paquetages ont une méthode
+  \ct{initialize} côté classe, \ct{initialize} sera alors envoyé à ces
+  classes durant le chargement du paquetage qui l'inclut.
+Ce mécanisme peut être utilisé pour effectuer diverses vérifications
+ou actions initiales. % start-up actions
+Une application particulièrement utile consiste à ajouter une nouvelle
+variable d'instance aux classes pour lesquelles vous définissez des
+méthodes d'extension.
+
+\item \MC stocke les versions de paquetage dans un fichier compressé
+  ZIP avec l'extension \ct{.mcz}. Ce fichier mcz contient une capture
+  du code source complet de cette version de votre paquetage ainsi que
+  des fichiers contenant entre autres d'importantes méta-données
+  telles que les dépendances de paquetage.
+
+\item Une technique rapide pour charger une version d'un paquetage est de
+  glisser-déposer son fichier mcz dans votre image.
+
+%\item \MC is used to manage your packages. \MC is part of the Pharo standard distribution.
+
+%\item \sqsrc is a remote online central repository in which you can store your code.
+
+%\item \MC packages are mapped to categories. 
+
+%\item After having created a package in \MC, you may store it in a remote repository such as that offered by \sqsrc.
+
+%\item Merging and backporting are feature provided by \MC that allow changes to cross different version line and to move along a same package version line.
+
+%\item \MC allows a package version different from the local version to be merged, creating a new branch and changing the local version of your package.
+%\on{confusing sentence --- not sure what you want to say}
+%\ab{ditto}
+\end{itemize}
+
+%=================================================================
+
+%\section{Packages in \MC: PackageInfo}
+
+%The PackageInfo system is a simple, lightweight way of organizing Smalltalk source: it is nothing more than a naming convention, which uses (or abuses) the existing categorization mechanisms to group related code. Let me give you an example: say that you are developing a framework named PharoLink to facilitate using relational databases from Pharo. You will probably have a series of categories to contain all of your classes (e.g., category \cat{PharoLink-Connections} containing the classes \ct{OracleConnection}, \ct{MySQLConnection} and \ct{PostgresConnection})
+%(\cat{PharoLink-Model} containing \ct{DBTable}, \ct{DBRow}  and \ct{DBQuery}) and so on. But not all of your code will reside in these classes\,---\,you may also have, for example, a series of methods to convert objects into an SQL friendly format: \mthind{Object}{asSQL},  \mthind{String}{asSQL} and \mthind{Date}{asSQL}.
+
+%These methods belong in the same package as the classes in \cat{PharoLink-Connections} and \cat{PharoLink-Model}. You mark this by placing those methods in a method category (of \ct{Object}, \ct{String}, \ct{Date}, and so on) named \cat{*squeaklink} (note the initial star). The combination of the \cat{PharoLink-...} categories and the \cat{*squeaklink} method categories forms a package named "PharoLink".
+
+%
+%\section{Getting Started}
+
+%\paragraph{Installing}
+
+%
+
+%\paragraph{Creating a Working Copy}
+
+%The first thing you need to do is tell \MC about the package you are interested in versioning. You do this by creating a Working Copy.
+
+%\paragraph{From an .mcz version file}
+%Open a FileList and navigate to the version file. Click on the 'Load' button to load the package into your image.
+
+%\paragraph{From scratch}
+
+%Click on the '+Package' button, and enter the name of a PackageInfo package. It doesn't matter whether or not the code for the package already exists.
+
+%Once the Working Copy has been created, the name of the package will appear in the package list on the left side of the \MCB. If you loaded an existing version, the version name will be displayed in parenthesis after the package name, otherwise the parenthesis will be empty, indicating that your working copy has no ancestors.
+
+%\paragraph{Connecting to a Repository}
+
+%If you've already got a Working Copy, click on the package name on the left side of the \MCB, so that your repository will be associated with your package. To connect to a repository, click on the '+Repository' button in the \MCB. A pop-up menu will appear, allowing you to select the type of repository you want to connect to.
+
+%The simplest repository type is 'directory.' When you select this type of repository, \MC will open a FileList2 to allow you to select an existing directory in which to store versions. Other types of repositories typically require more configuration, and will open a text pane to allow you to enter it.
+
+%\paragraph{Saving Changes}
+
+%Changes to your working copy are automatically logged in your changes file, so you only need to create a new version of your package when you want to share the changes with others. Select the package on the left side of the \MCB and the repository to save to on the right, then click the 'Save' button. See Repositories for discussion of how to publish to shared repositories.
+
+%\paragraph{Merging Changes}
+
+%If you or some other developer have made changes to the same version of a package, load one version as your working set and then select the repository containing the other version in the \MCB, open a Repository Inspector and select the other version. Clicking the 'Merge' button will automatically load all non-conflicting changes from the other version. If you need to control which changes to accept, you may instead click 'Changes' to browse every difference.
+
+%
+
+%\section{Elements of \MC}
+
+%\paragraph{Packages}
+
+%Packages are the units of versioning used by \MC; the classes and methods they contain are recorded and versioned together. \MC uses the packages defined by PackageInfo.
+
+%\paragraph{Snapshots}
+
+%A Snapshot is the state of a Package at a particular point in time
+
+%\paragraph{Versions}
+
+%A Version is a Snapshot of a Package and it's associated metadata\,---\,author initials, the date and time the snapshot was taken, and the Version's ancestry\,---\,the list of Versions from which it is derived.
+
+%A Version is the standard currency of the system. You save them, load them, give them to others, merge them, delete... you get the picture. Versions are often stored in mcz files\,---\,see File Format
+
+%\paragraph{Working Copies}
+
+%Each package in an image that is being versioned with \MC has a Working Copy. The Working Copy represents the Version of the package that is currently active in the image, and which may be modified by the Smalltalk development tools.
+
+%\paragraph{Repositories}
+
+%These are places to store your Versions. Unlike CVS, in which a Package is associated with one Repository, a \MC Package can have Versions in many repositories. When adding a new Repository to use, you can choose from \sqmap Cache, FTP, HTTP (webdav), \sqmap Release, SMTP, or a directory somewhere on your hard drive (or network drive).
+
+%For example, if I have six versions of package Foo, I could have Foo versions 1-4 being on my local harddrive, and 5-6 being on an ftp server. You could download version 5, make some changes and commit a new version (7) to your WebDAV repository. I can download and merge that version with my own work to produce version 8, which I save to my ftp repository.
+
+%This is a key element of \MC's distributed development model.
+
+%\paragraph{Package cache}
+
+%The package-cache is a local repository the \MC uses to cache any package that is loaded into a particular image in a directory. That means it is filled with .mcz files, whether it is a package you create in your image, or one you download from somewhere else.
+
+%When you use images in different directories you will have multiple package-caches, and may hold many of the same packages. If \MC is loaded into an image which is subsequently moved, \MC will continue to use the package-cache in the directory the image was moved from. Otherwise \MC creates a new package-cache in the local directory. This can become a real mess and so some have used symlinks on unix systems to centralize it.
+
+%\paragraph{Why cache packages at all?}
+
+%When a Version is loaded into the image, it is likely to become the ancestor of new versions that are created as part of the development process. During merges, \MC needs to examine the Snapshots of these ancestors in order to detect conflicts. By caching these ancestors as it loads them, \MC reduces the chance that the necessary version will be unavailable\,---\,either because the repository it's in is no longer available or because it was loaded directly from a file and isn't in any repository.
+
+%\section{The Snapshot Browser}
+
+%The Snapshot browser is much like the standard Smalltalk Browser except that it displays the contents of a Snapshot, rather than the code that is active in the image. Since Snapshots are immutable, the Snapshot browser does not allow editiing.
+
+%One difference between the Snapshot Browser and the familiar browsers is that the Snapshot browser uses the special category '*Extensions' to categorize classes that do not belong to the package, but which have extension methods that do.
+%
+%\section{More on PackageInfo}
+%To get a feel for this, try filing the Refactoring Browser. The Refactoring Browser code uses PackageInfo's naming conventions, using "Refactory" as the package name. In a workspace, create a model of this package with  \ct{refactory := PackageInfo named: 'Refactory'}. 
+
+%It is now possible to introspect on this package; for example, refactory classes will return the long list of classes that make up the Refactoring Browser. refactory coreMethods will return a list of MethodReferences for all of the methods in those classes. refactory extensionMethods is perhaps one of the most interesting queries: it will return a list of all methods contained in the Refactory package but not contained within a Refactory class. This includes, for example, \mthind{String}{expandMacrosWithArguments:} and \mthind{Behavior}{parseTreeFor:}.
+
+%Since the PackageInfo naming conventions are based on those used already by \pharo, it is possible to use it to perform analysis even of code that has not explicitly adapted to work with it. For example, (PackageInfo named: 'Collections') externalSubclasses will return a list of all Collection subclasses outside the Collections categories.
+
+%You can send fileOut to an instance of PackageInfo to get a changeset of the entire package. For more sophisticated versioning of packages, see the \MC project.
+
+%=========================================================
+\ifx\wholebook\relax\else
+   \bibliographystyle{jurabib}
+   \nobibliography{scg}
+   \end{document}
+\fi
+%=========================================================
+

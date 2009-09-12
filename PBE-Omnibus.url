@@ -1,0 +1,3 @@
+%%% jurabib url repository
+\expandafter\urldef\csname jburl@Inga97a\endcsname\url{http://www.cosc.canterbury.ac.nz/~wolfgang/cosc205/squeak.html}
+\expandafter\urldef\csname jburl@Shar97a\endcsname\url{http://stephane.ducasse.free.fr/FreeBooks/ByExample/}

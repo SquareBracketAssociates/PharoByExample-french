@@ -1,0 +1,93 @@
+% $Author: oscar $
+% traduction Martial
+% $Date: 2009-07-06 10:21:47 +0200 (Mon, 06 Jul 2009) $
+% $Revision: 27886 $
+
+% HISTORY:
+% 2009-07-06 - Oscar opened new template (no contents)
+
+%=================================================================
+\ifx\wholebook\relax\else
+% --------------------------------------------
+% Lulu:
+	\documentclass[a4paper,10pt,twoside]{book}
+	\usepackage[
+		papersize={6.13in,9.21in},
+		hmargin={.75in,.75in},
+		vmargin={.75in,1in},
+		ignoreheadfoot
+	]{geometry}
+	\input{../common.tex}
+	\pagestyle{headings}
+	\setboolean{lulu}{true}
+% --------------------------------------------
+% A4:
+%	\documentclass[a4paper,11pt,twoside]{book}
+%	\input{../common.tex}
+%	\usepackage{a4wide}
+% --------------------------------------------
+    \graphicspath{{figures/} {../figures/}}
+	\begin{document}
+	% \renewcommand{\nnbb}[2]{} % Disable editorial comments
+	\sloppy
+	\frontmatter
+\fi
+%=================================================================
+\chapter{\arelire{Préface à l'Édition Omnibus}}\chalabel{omnibus}
+\newcommand{\web}{web\xspace}
+\newcommand{\framework}{\emph{framework}\xspace}
+
+Cette édition spéciale de \emph{Pharo par l'Exemple} comprend de
+nombreux chapitres sur des sujets plus avancés
+dont l'édition pour un second volume est prévue pour la fin de l'année
+2009 ou le début de l'année 2010.
+Cette édition a été spécialement préparée pour le 
+\emph{Masters course} intitulé \emph{Dynamic Object-Oriented
+  Programming with
+  Smalltalk}\footnote{\url{http://scg.unibe.ch/teaching/smalltalk}}
+donné à l'Université de Berne au second semestre 2009.
+Les chapitres complémentaires couvrent des sujets tels que le système
+de dépôt pour le versionage de projets Smalltalk partagés sur le \web
+nommé Monticello,
+l'environnement de développement \web avancé Seaside,
+les expressions régulières (\emph{Regex})en Smalltalk,
+le \framework Omnibrowser destiné aux développement de navigateurs
+(\emph{browsers}),
+la gestion des exceptions en Smalltalk ainsi que le support de
+l'introspection et de la refléctivité en Smalltalk.
+
+%=================================================================
+\section*{Remerciements}
+
+Nous remercions Vassili Bykov pour sa permission d'adapter librement
+la documentation \emph{Regex} dans le chapitre sur les expressions
+régulières en Smalltalk.
+
+Nous tenons à remercier aussi
+Orla Greevy,
+Fabrizio Perin,
+Lukas Renggli,
+Jorge Ressia,
+et
+David Roethlisberger
+pour 
+for leurs corrections détaillées sur ce matériel additionnel
+ainsi que Frederica Nierstrasz pour sa contribution 
+artistique à la couverture.
+
+%\on{Add ACKs for new chapters!}
+%\on{pharo cover art: Samuel Morello}
+
+%Thanks to the following reviewers:
+%Orla Greevy,
+%Lukas Renggli.
+
+%Thanks to Vassili Bykov for permission to adapt his Regex documentation.
+
+%=============================================================
+\ifx\wholebook\relax\else
+   \bibliographystyle{jurabib}
+   \nobibliography{scg}
+   \end{document}
+\fi
+%=============================================================
