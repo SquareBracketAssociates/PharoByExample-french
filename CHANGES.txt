@@ -1,0 +1,100 @@
+La balise % CHANGE marque les évolutions importantes entre SBE et PBE
+(donc entre SPE et PPE)
+
+IMPORTANT: les changements mineurs (reformulation, Pharo remplaçant
+Squeak, changement de design (retrait/changement de figures, position
+de figures, aération de paragraphes), les alias de commandes LaTeX
+(label{fig: devenant figlabel{)... ne sont pas signalés dans ce
+document. 
+
+*** GLOBAL
+** common.tex
+* mouse clicks: clic, clic-action, meta-clic
+balises: \click = cliquer, \Click = cliquer, \clickz = cliquez,
+\clickant \ cliquant... et \actclick, \meta-click respectivement pour
+les autres actions de la souris
+* \sender(s) et \implementors(s) à utiliser pour les termes senders et
+implementors [masculins]
+
+*** CHAPITRES PRESENTS DANS SQUEAK BY EXAMPLE
+Les parties I,II,III,IV de la version PBE-Omnibus:
+** Preface Omnibus:
+* écrite
+
+** Préface:
+* correction sommaire (en attente de la finalisation)
+
+** BasicClasses:
+* merger
+* remplacement de l'exemple TTCFont par un exemple avec Color dans
+Objet>impression
+* ajout de 'Color red --> Color red' dans le paragraphe suivant 'Un
+mot à propos...'
+* section Caractères; correction Character value: 1 --> Character home
+
+** Collections:
+* Introduction: dans Pharo... nombre de (sous-)classes changent
+* avant quelques essais avec les ch... on annonce explicitement le
+paquetage Regex
+* figures verifiées: pas de changement mais FrameMaker remplace
+OpenOffice dans la génération des tableaux (ByImpl, BySeq)
+* dans l'exemple de #inject:into:, rappeller Gauss (je ne sais pas
+pourquoi c'est parti dans SPE)
+
+** Environment:
+* dans vue générale, retrait des allusions au Tools Flap de Squeak
+(donc pas de \toolsflap)
+* System Browser devient Browser
+* Plus de catégories, mais des paquetages
+* Bcp de changements/ajouts dans 'Navigating the code space'
+* ajout des balises \sender(s) et \implementors(s); on les utilisera,
+les senders seront définis comme des méthodes émettrices et les
+implementors comme des classes contenantes. On utilisera le terme
+anglais le reste du temps via ces balises.
+
+** Streams
+* adapté pour Pharo / pas de gros changement notable
+
+** Metaclasses
+* pas grand chose: 'by message sends' devient 'by sending messages'
+dans PBE mais je n'ai rien changé dans la VF: 'par envoi de
+messages'.
+
+** Model
+* même remarque que dans Metaclasses à propos de 'by sending messages'
+* quelques graffles (manque 2)
+
+** FAQ
+* remplacement de 'FAQ2. Image Dev' par 'Quelle image Pharo' / nouveau
+paragraphe
+* changement de faq:omnibrowser en faq:packagebrowser / nouveau
+paragraphe
+* ajout de 2 figures pour 'A.3 Naviguer dans le système FAQ5 > Le
+navigateur de classes ne ressemble pas...'
+
+** SUnit
+- ajout du lancement des tests depuis le Browser comme méthode la plus
+simple
+
+** Messages
+- correction des balises d'échappements (!) pour que les caractères
+accentués fonctionnent dans les commentaires de code.
+- actualisation de Morph>>openInWorld; retrait des allusions à MVC
+
+** Syntax
+- retrait de la note de Mise en garde sur squeak 3.9 et les fermetures
+lexicales
+
+*** NOUVEAUX CHAPITRES
+** Monticello
+- ajout des balises latex \titre-firstapp et \titre-environment pour
+les titres des chapitres (cf common.tex TITRES)
+- package-cache n'est pas traduit
+- repository -> dépôt, snapshot -> capture, patch -> correctif,
+backporting n'est pas traduit (italique; défini comme "rétro-portage")
+- francisation de Manny / Conny
+- traduction de figures/backport.pdf / figures/branching-merging.pdf /
+figures/dependencies.pdf
+- multi-select list -> liste à sélections multiples
+- fileout -> fichier d'exportation ou \emph{fileout}
+

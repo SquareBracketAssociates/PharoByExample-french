@@ -1,0 +1,1084 @@
+% $Author: oscar $
+% $Date: 2007-09-23 11:56:47 +0200 (dim, 23 sep 2007) $
+% $Revision: 12130 $
+% traduction : Nicolas Petton 
+% relecture : Alain Plantec 
+% relecture: Martial Boniou (sun, 23 dec 2007) de la version #14626 
+% relecture : Rene Mages (sat, 9 jan 2008) de la version #14856
+% export Pharo : Martial Boniou à partir de la revision 28661 - oscar
+% 2009-08-28 11:31:14 +0200 (Fri, 28 Aug 2009) $
+%=================================================================
+\ifx\wholebook\relax\else
+% --------------------------------------------
+% Lulu:
+	\documentclass[a4paper,10pt,twoside]{book}
+	\usepackage[
+		papersize={6.13in,9.21in},
+		hmargin={.75in,.75in},
+		vmargin={.75in,1in},
+		ignoreheadfoot
+	]{geometry}
+	\input{../common.tex}
+	\pagestyle{headings}
+	\setboolean{lulu}{true}
+% --------------------------------------------
+% A4:
+%	\documentclass[a4paper,11pt,twoside]{book}
+%	\input{../common.tex}
+%	\usepackage{a4wide}
+% --------------------------------------------
+    \graphicspath{{figures/} {../figures/}}
+	\begin{document}
+	\renewcommand{\nnbb}[2]{} % Disable editorial comments
+	\sloppy
+\fi
+%=================================================================
+\chapter{Les classes de base}
+\chalabel{basic}
+Une grande partie de la magie de \st ne r\'eside pas dans son langage mais dans ses biblioth\`eques de classes. Pour programmer efficacement en \st, vous devez apprendre comment les biblioth\`eques de classes servent le langage et l'environnement. Les biblioth\`eques de classes sont enti\`erement \'ecrites en \st et peuvent facilement \^etre \'etendues, puisqu'un paquetage peut ajouter une nouvelle fonctionnalit\'e \`a une classe m\^eme s'il ne d\'efinit pas cette classe. 
+
+%martial: typo: 'methodes-cle' et 'classes-cle' mais bien 'classes et
+%methodes cles' (cles est ici adjectifs)
+Notre but ici n'est pas de pr\'esenter en d\'etail l'int\'egralit\'e
+des biblioth\`eques de classes de \pharo, mais plut\^ot d'indiquer
+quelles classes et m\'ethodes cl\'es vous devrez utiliser ou surcharger pour programmer efficacement. Ce chapitre couvre les classes de base qui vous seront utiles dans la plupart de vos applications: \ct{Object}, \ct{Number} et ses sous-classes, \ct{Character}, \ct{String}, \ct{Symbol} et \ct{Boolean}.
+
+\md{Here are some comments:\\
+- copying: Good question... the copying in Pharo is much too complicated... there is for one the "old" smalltalk way of
+  overrifing postCopy, and then the "automatic" deepCopy... which is quite complex and (I think) was no good idea...
+ (see class comment in  DeepCopier)\\
+- Debugging: Yes, needs its own chapter. We should talk about haltIf, haltOnce...\\
+- assert: Object>>>assert: can take both a block and a boolean, because boleen implements \#value.
+  (I will fix SUnit to allow both, too).\\
+- Characters and Strings: we should talk about Unicode stuff... but I don't know too much myself.}
+
+%=================================================================
+\section{Object}
+
+Dans tous les cas, \clsindmain{Object} est la racine de la hi\'erarchie d'h\'eritage. En r\'ealit\'e, dans \pharo , la vraie racine de la hi\'erarchie est \clsind{ProtoObject} qui est utilis\'ee pour d\'efinir les entit\'es minimales qui se font passer pour des objets, mais nous pouvons ignorer ce point pour l'instant.
+% (more on this later in the chapter on reflection).
+
+La classe \ct{Object} peut \^etre trouv\'ee dans la cat\'egorie
+\scatind{Kernel-Objects}. \'Etonnamment, nous y trouvons plus de 400
+m\'ethodes (avec les extensions). En d'autres termes, toutes les
+classes que vous d\'efinirez seront automatiquement munies de ces 400
+m\'ethodes, que vous sachiez ou non ce qu'elles font.
+%martial: changement a la relecture 
+Notez que certaines de ces m\'ethodes devraient \^etre supprim\'ees et
+que dans les nouvelles versions de \pharo certaines m\'ethodes superflues
+pourraient l'\^etre.
+
+\sd{I do not like to quote something that can change and that people can find simply in the image but let us keep it for now.}
+Le commentaire de la classe \ct{Object} indique:
+\needlines{4}
+\begin{quote}
+\textit{\ct{Object} est la classe racine de la plupart des autres classes dans la hi\'erarchie des classes. Les exceptions sont \ct{ProtoObject} (super-classe de \ct{Object}) et ses sous-classes.
+La classe \ct{Object} fournit le comportement par d\'efaut, commun \`a tous les objets classiques, comme l'acc\`es, la copie, la comparaison, le traitement des erreurs, l'envoi de messages et la \ind{r\'eflexion}. Les messages utiles auxquels tous les objets devraient r\'epondre sont \'egalement d\'efinis ici.
+\ct{Object} n'a pas de variable d'instance, aucune ne devrait \^etre
+cr\'e\'ee. Ceci est d\^u aux nombreuses classes d'objets qui
+h\'eritent de \ct{Object} et qui ont des impl\'ementations
+particuli\`eres (\ct{SmallInteger} et \ct{UndefinedObject} par
+exemple) ou \`a certaines classes standards que la VM conna\^it et
+pour lesquelles leur structure et leur organisation sont importantes.}
+\end{quote}
+
+Si nous naviguons dans les cat\'egories des m\'ethodes d'instance de \ct{Object}, nous commen\c{c}ons \`a voir quelques-uns des comportements-cl\'e qu'elle offre.
+
+%-----------------------------------------------------------------
+%titre de sous-section = mot-cle sans article
+\subsection{Impression}
+Tout objet en \st peut renvoyer une forme imprim\'ee de lui-m\^eme. Vous pouvez s\'electionner n'importe quelle expression dans un Workspace et s\'electionner le menu \menu{print it}: ceci ex\'ecute l'expression et demande \`a l'objet renvoy\'e de s'imprimer. En r\'ealit\'e le message \ct{printString} est envoy\'e \`a l'objet retourn\'e. La m\'ethode \mthind{Object}{printString}, qui est une \ind{méthode générique}, envoie le message \mthind{Object}{printOn:} \`a son receveur. Le message \ct{printOn:} est un point d'entr\'ee qui peut \^etre sp\'ecialis\'e. 
+
+%martial: il faudra peut-etre ajouter une remarque et un lien pour
+%expliquer pourquoi 'a' ou 'an' (article indefini). Dans le chapitre
+%Syntax, nous devrions mettre une note de traducteurs. 
+\ct{Object>>>printOn:} est une des m\'ethodes que vous surchargerez le
+plus souvent. Cette m\'ethode prend comme argument un flux
+(\clsind{Stream}) dans lequel une repr\'esentation en cha\^{\i}ne de
+caract\`eres (\clsind{String}) de l'objet sera
+\'ecrite. L'impl\'ementation par d\'efaut \'ecrit simplement le nom de
+la classe pr\'ec\'ed\'ee par ``\ct{a}'' ou
+``\ct{an}''. \ct{Object>>>printString} retourne la cha\^{\i}ne de
+caract\`eres (\ct{String}) qui est \'ecrite.
+
+Par exemple, la classe \clsind{Browser} ne red\'efinit pas la
+m\'ethode \ct{printOn:} et, envoyer le message \ct{printString} \`a
+une %
+%ajout
+de ces instances %
+ex\'ecute les m\'ethodes d\'efinies dans \ct{Object}. 
+\begin{code}{@TEST}
+Browser new printString --> 'a Browser'
+\end{code}
+
+\arelire{La classe \ct{Color} montre un exemple de spécialisation de 
+\mthind{Color}{printOn:}. Elle imprime le nom de la classe suivi par
+le nom de la méthode de classe utilisée pour générer cette couleur,
+comme le montre le code ci-dessous qui imprime une instance de cette
+classe.} % CHANGE
+
+% \needlines{7}
+%martial: caption plus coherent que 'printOn: redefinition.'
+\begin{method}[zork]{Red\'efinir printOn:}
+Color>>>printOn: aStream
+	| name |
+	(name := self name) ifNotNil: 
+		[ ^ aStream
+			nextPutAll: 'Color ';
+			nextPutAll: name ].
+	self storeOn: aStream
+\end{method}\ignoredollar$ % CHANGE $
+
+\begin{code}{@TEST}
+Color red printString --> 'Color red'
+\end{code} % CHANGE
+
+Notez que le message \ct{printOn:} n'est pas le m\^eme que \mthind{Object}{storeOn:}. Le message \ct{storeOn:} ajoute au flux pass\'e en argument une expression pouvant \^etre utilis\'ee pour recr\'eer le receveur. Cette expression est \'evalu\'ee quand le flux est lu avec le message \ct{readFrom:}. \ct{printOn:} retourne simplement une version textuelle du receveur. Bien s\^ur, il peut arriver que cette repr\'esentation textuelle puisse repr\'esenter le receveur sous la forme d'une expression auto-\'evalu\'ee.
+
+\paragraph{Un mot \`a propos de la repr\'esentation et de la repr\'esentation auto-\'evalu\'ee.}
+En programmation fonctionnelle, les expressions retournent des valeurs
+quand elles sont \'evalu\'ees. En \st, les messages (expressions)
+retournent des objets (valeurs). Certains objets ont la propri\'et\'e
+sympathique d'\^etre eux-m\^emes leur propre valeur. Par exemple, la
+valeur de l'objet \ct{true} est lui-m\^eme, \ie l'objet
+\ct{true}. Nous appelons de tels objets des \emph{objets}
+\emphsubind{objet}{auto-évalué}{}\emph{s}. 
+Vous pouvez voir une version  \emph{imprimée} de la valeur d'un objet quand vous imprimez l'objet dans un \ct{Workspace}. Voici quelques exemples de telles expressions auto-\'evalu\'ees. 
+
+\begin{code}{@TEST}
+true      --> true
+3@4       --> 3@4
+$a        --> $a
+#(1 2 3)  --> #(1 2 3)
+Color red --> Color red
+\end{code} % CHANGE
+
+Notez que certains objets comme les tableaux sont auto-\'evalu\'es ou
+non suivant les objets qu'ils contiennent. Par exemple, un tableau de
+bool\'eens est auto-\'evalu\'e alors qu'un tableau de personnes ne
+l'est pas.
+%Dans \squeak 3.9, un m\'ecanisme a \'et\'e introduit (via le % CHANGE
+%message \mthind{Object}{isSelfEvaluating}) pour imprimer autant que
+%possible des collections dans leur forme auto-\'evalu\'ee. Ceci est
+%particuli\`erement vrai pour les tableaux dynamiques.
+L'exemple suivant montre qu'un tableau \subind{tableau}{dynamique} est
+auto-\'evalu\'e seulement si ses \'el\'ements le sont:
+\begin{code}{@TEST}
+{10@10. 100@100}          --> {10@10. 100@100}
+{Browser new . 100@100}    --> an Array(a Browser 100@100)
+\end{code}
+
+Rappelez-vous que les tableaux littéraux ne peuvent contenir que des litt\'eraux. Ainsi le tableau suivant ne contient pas deux \'el\'ements mais six \'el\'ements litt\'eraux.
+\index{littéral!tableau}
+\seeindex{tableau!littéral}{littéral, tableau}
+\begin{code}{@TEST}
+#(10@10 100@100) --> #(10 #@ 10 100 #@ 100)
+\end{code}
+
+Beaucoup de sp\'ecialisations de la m\'ethode \ct{printOn:} impl\'ementent le comportement d'auto-\'evaluation. Les impl\'ementations de \cmind{Point}{printOn:} et \cmind{Interval}{printOn:} sont auto-\'evalu\'ees.
+
+\begin{method}[Self-evaluating points]{Auto-\'evaluation de \ct{Point}}
+Point>>>printOn: aStream 
+    "The receiver prints on aStream in terms of infix notation."
+    x printOn: aStream.
+    aStream nextPut: $@.
+    y printOn: aStream
+\end{method}\ignoredollar$
+
+%martial: ajout de la traduction du commentaire
+Le commentaire de cette m\'ethode dit que le receveur imprime sur le
+flux \ct{aStream} avec une insertion dans la notation. %infixe
+
+\begin{method}[Self-evaluating intervals]{Auto-\'evaluation de \ct{Interval}}
+Interval>>>printOn: aStream
+    aStream nextPut: $(;
+        print: start;
+        nextPutAll: ' to: ';
+        print: stop.
+    step ~= 1 ifTrue: [aStream nextPutAll: ' by: '; print: step].
+    aStream nextPut: $)
+\end{method}
+
+\begin{code}{@TEST}
+1 to: 10 --> (1 to: 10)    "!les intervalles sont auto-\'evalu\'es!"
+\end{code}
+
+%-----------------------------------------------------------------
+\subsection{Identit\'e et \'egalit\'e}
+
+En \st, le message \ct{=} teste l'\emphsubindmain{Object}{\'egalit\'e} d'objets (\ie si deux objets repr\'esentent la m\^eme valeur) alors que \ct{==} teste l'\emphsubindmain{Object}{identit\'e} (\ie si deux expressions repr\'esentent le m\^eme objet).
+\seeindex{\ct{=}}{Object, \'egalit\'e}
+\seeindex{\ct{==}}{Object, identit\'e}
+\seeindex{\'egalit\'e}{Object, \'egalit\'e}
+\seeindex{identit\'e}{Object, identit\'e}
+
+L'impl\'ementation par d\'efaut de l'\'egalit\'e entre objets teste l'identit\'e d'objets:
+%martial: j'ai prefere mettre un titre a la methode
+\begin{method}{\'Egalit\'e par d\'efaut}
+Object>>>= anObject
+    "Answer whether the receiver and the argument represent the same object.
+    If = is redefined in any subclass, consider also redefining the message hash."
+    ^ self == anObject
+\end{method}
+\cmindex{Object}{=}
+
+C'est une m\'ethode que vous voudrez souvent surcharger. Consid\'erez le cas de la classe des nombres complexes \ct{Complex}:
+
+\begin{code}{@TEST}
+(1 + 2 i) = (1 + 2 i)   --> true     !"m\^eme valeur"!
+(1 + 2 i) == (1 + 2 i)  --> false    !"mais objets diff\'erents"!
+\end{code}
+
+Ceci fonctionne parce que \ct{Complex} surcharge \ct{=} comme suit:
+
+\needlines{5}
+\begin{method}{\'Egalit\'e des nombres complexes}
+Complex>>>= anObject
+    anObject isComplex
+        ifTrue: [^ (real = anObject real) & (imaginary = anObject imaginary)]
+        ifFalse: [^ anObject adaptToComplex: self andSend: #=]
+\end{method}
+\cmindex{Complex}{=}
+
+L'impl\'ementation par d\'efaut de \ct{Object>>>~=} renvoie simplement l'inverse de \ct{Object>>>=} et ne devrait normalement pas \^etre modifi\'ee.
+%\cmindex{Object}{\~=}
+\index{Object!~=@\ct{~=}} % needs special treatment due to ~
+
+\begin{code}{@TEST}
+(1 + 2 i) ~= (1 + 4 i) --> true
+\end{code}
+
+Si vous surchargez \ct{=}, vous devriez envisager de surcharger
+\mthind{Object}{hash}. Si des instances de votre classe sont
+utilis\'ees comme cl\'es dans un dictionnaire (\clsind{Dictionary}),
+vous devrez alors vous assurer que les instances qui sont
+consid\'er\'ees \'egales ont la m\^eme valeur de hachage (\ct{hash}):
+
+\begin{method}{\ct{hash} doit \^etre r\'e-impl\'ement\'ee pour les nombres complexes}
+Complex>>>hash
+    "Hash is reimplemented because = is implemented."
+    ^ real hash bitXor: imaginary hash.
+\end{method}
+\cmindex{Complex}{hash}
+
+%martial: j'ai retire la phrase sur l'identite des objets des
+%parentheses parce que c'est important.
+Alors que vous devez surcharger \`a la fois \ct{=} et \ct{hash}, vous
+ne devriez \emph{jamais} surcharger \ct{==} puisque la s\'emantique de l'identit\'e d'objets est la m\^eme pour toutes les classes.  \ct{==} est une m\'ethode primitive de \clsind{ProtoObject}.
+
+Notez que \pharo a certains comportements \'etranges compar\'e \`a d'autres \st{}s: par exemple, un symbole et une cha\^{\i}ne de caract\`eres peuvent \^etre \'egaux si la cha\^{\i}ne de caract\`eres associ\'ee au symbole est \'egale \`a la cha\^{\i}ne de caract\`eres (nous consid\'erons ce comportement comme un bug, pas comme une fonctionnalit\'e).
+
+\begin{code}{@TEST}
+#'lulu' = 'lulu' --> true
+'lulu' = #'lulu' --> true
+\end{code}
+
+
+%-----------------------------------------------------------------
+\subsection{Appartenance \`a une classe}
+Plusieurs m\'ethodes vous permettent de conna\^itre la classe d'un objet.
+%martial: exceptionnellement, il ne faut pas mettre de point dans
+%paragraph parce que ce sont des noms de methodes (de plus, le
+%changement de fonte est assez explicite (mthind))
+
+\paragraph{\mthind{Object}{class}} Vous pouvez demander \`a tout objet sa classe en utilisant le message \ct{class}.
+\begin{code}{@TEST}
+1 class --> SmallInteger
+\end{code}
+
+Inversement, vous pouvez demander si un objet est une instance 
+%ajout
+(\ct{isMemberOf:})
+d'une classe sp\'ecifique:
+\cmindex{Object}{isMemberOf:}
+\begin{code}{@TEST}
+1 isMemberOf: SmallInteger --> true    "doit !\^etre pr\'ecis\'ement cette classe!"
+1 isMemberOf: Integer      --> false
+1 isMemberOf: Number       --> false
+1 isMemberOf: Object       --> false
+\end{code}
+
+Puisque \st est \'ecrit en lui-m\^eme, vous pouvez vraiment naviguer au travers de sa structure en utilisant la bonne combinaison de messages \ct{superclass} et \ct{class} (voir \charef{metaclasses}). 
+
+\paragraph{\ct{isKindOf:}}
+\cmind{Object}{isKindOf:} r\'epond \ct{true} si la classe du receveur est la m\^eme ou une des sous-classes de la classe de l'argument.
+
+\begin{code}{@TEST}
+1 isKindOf: SmallInteger --> true
+1 isKindOf: Integer          --> true
+1 isKindOf: Number         --> true
+1 isKindOf: Object           --> true
+1 isKindOf: String            --> false
+
+1/3 isKindOf: Number      --> true
+1/3 isKindOf: Integer        --> false
+\end{code}
+
+\ct{1/3}, qui est une \clsind{Fraction}, est aussi une sorte de nombre (\clsind{Number}), puisque la classe \ct{Number} est une super-classe de la classe \ct{Fraction}, mais \ct{1/3} n'est pas un entier (\ct{Integer}).
+
+\paragraph{\ct{respondsTo:}}
+\cmind{Object}{respondsTo:} r\'epond \ct{true} si le receveur comprend le message dont le s\'electeur est pass\'e en argument.
+
+\begin{code}{@TEST}
+1 respondsTo: #, --> false
+\end{code}
+
+C'est normalement une mauvaise id\'ee de demander sa classe \`a un
+objet ou de lui demander quels messages il comprend.
+Au lieu de prendre des d\'ecisions bas\'ees sur la classe d'un objet, vous devriez simplement envoyer un message \`a cet objet et le laisser d\'ecider (\ie sur la base de sa classe) comment il doit se comporter.
+
+%-----------------------------------------------------------------
+\subsection{Copie}
+
+Copier des objets introduit quelques probl\`emes subtils. Puisque les variables d'instance sont accessibles par r\'ef\'erence, une \emphsubind{Object}{copie superficielle}, les r\'ef\'erences port\'ees par les variables d'instance devraient \^etre partag\'ees entre l'objet produit par la copie et l'objet original:
+\seeindex{copie}{Object, \ct{copy}}
+\seeindex{copie superficielle}{Object, \ct{shallowCopy}}
+\seeindex{copie profonde}{Object, \ct{deepCopy}}
+
+\begin{code}{@TEST | a1 a2 |}
+a1 := { { 'harry' } }.
+a1 --> #(#('harry'))
+a2 := a1 shallowCopy.
+a2 --> #(#('harry'))
+(a1 at: 1) at: 1 put: 'sally'.
+a1 --> #(#('sally'))
+a2 --> #(#('sally'))    "!le tableau contenu est partag\'e!"
+\end{code}
+
+\cmind{Object}{shallowCopy} est une m\'ethode primitive qui cr\'ee une copie superficielle d'un objet. Puisque \ct{a2} est seulement une copie superficielle de \ct{a1}, les deux tableaux partagent une r\'ef\'erence au tableau (\ct{Array}) qu'ils contiennent.
+
+\ct{Object>>>shallowCopy} est une ``interface publique'' pour \cmind{Object}{copy} et devrait \^etre surcharg\'ee si les instances sont uniques. C'est le cas, par exemple, avec les classes \clsind{Boolean}, \clsind{Character}, \clsind{SmallInteger}, \clsind{Symbol} et \clsind{UndefinedObject}.
+
+\cmind{Object}{copyTwoLevel} est utilis\'ee quand une simple copie superficielle ne suffit pas:
+%does the obvious thing when a simple shallow copy does not suffice:
+
+\begin{code}{@TEST | a1 a2 |}
+a1 := { { 'harry' } } .
+a2 := a1 copyTwoLevel.
+(a1 at: 1) at: 1 put: 'sally'.
+a1 --> #(#('sally'))
+a2 --> #(#('harry'))    "!\'etat compl\`etement ind\'ependant!"
+\end{code}
+
+\cmind{Object}{deepCopy} effectue une copie profonde et arbitraire d'un objet.
+
+\begin{code}{@TEST | a1 a2 |}
+a1 := { { { 'harry' } } } .
+a2 := a1 deepCopy.
+(a1 at: 1) at: 1 put: 'sally'.
+a1 --> #(#('sally'))
+a2 --> #(#(#('harry')))
+\end{code}
+
+Le probl\`eme avec \ct{deepCopy} est qu'elle ne se termine pas si elle est appliqu\'ee \`a une structure mutuellement r\'ecursive:
+
+\begin{code}{NB: CANNOT TEST}
+a1 := { 'harry' }.
+a2 := { a1 }.
+a1 at: 1 put: a2.
+a1 deepCopy --> !\emph{... ne se termine jamais}!
+\end{code}
+% NB: Not a test!
+
+M\^eme s'il est possible de surcharger \ct{deepCopy} pour qu'elle fonctionne mieux, \cmind{Object}{copy} offre une meilleure solution:
+
+\begin{method}{Mod\`ele de m\'ethode pour la copie d'objets}
+Object>>>copy
+    "Answer another instance just like the receiver.
+    Subclasses typically override postCopy;
+    they typically do not override shallowCopy."
+    ^self shallowCopy postCopy
+\end{method}
+
+%ajout
+Comme le dit le commentaire de la m\'ethode,
+vous pouvez surcharger \mthind{Object}{postCopy} pour copier une variable d'instance qui ne devrait pas \^etre partag\'ee. \ct{postCopy} doit toujours ex\'ecuter \ct{super postCopy}.
+
+\on{I looked, but did not find a good example in the system.}
+
+%-----------------------------------------------------------------
+\subsection{D\'ebogage}
+
+La m\'ethode la plus importante ici est \mthind{Object}{halt}. Pour
+placer un point d'arr\^et dans une m\'ethode, il suffit d'ins\'erer
+l'envoi de message \ct{self halt} \`a une certaine position dans le
+corps de la m\'ethode.  Quand ce message est envoy\'e, l'ex\'ecution
+est interrompue et un \ind{débogueur} s'ouvre \`a cet endroit de votre programme
+(voir \charef{env} pour plus de d\'etails sur le d\'ebogueur).
+
+\sd{in another chapter haltIf:, haltOnce, inspectOnce, flagging: isThisEverCalled, }
+
+Un autre message important est \mthind{Object}{assert:}, qui prend un
+\ind{bloc} comme argument. Si le bloc renvoie \ct{true}, l'ex\'ecution
+se poursuit. Autrement une exception sera lev\'ee. Si  cette exception
+n'est pas intercept\'ee, le d\'ebogueur s'ouvrira \`a ce point pendant
+l'ex\'ecution. \ct{assert:} est particuli\`erement utile pour la
+\emphind{programmation par contrat}. L'utilisation la plus typique
+consiste \`a v\'erifier des pr\'e-conditions non triviales pour des
+m\'ethodes publiques. \cmind{Stack}{pop} 
+%ajout
+(\ct{Stack} est la classe des piles)
+aurait pu ais\'ement \^etre implement\'ee de la fa\c{c}on suivante
+%martial: ajout
+(en commentaire de la m\'ethode: ``renvoie le premier \'el\'ement et
+l'enl\`eve de la pile''):
+
+\begin{method}{V\'erifier une pr\'e-condition}
+Stack>>>pop
+    "Return the first element and remove it from the stack."
+    self assert: [ self isEmpty not ].
+    ^self linkedList removeFirst element
+\end{method}
+
+Il ne faut pas confondre \ct{Object>>>assert:} avec \cmind{TestCase}{assert:}, m\'ethode de l'environnement de test SUnit (voir \charef{SUnit}). Alors que la premi\`ere attend un bloc en argument~\footnote{En fait, elle peut prendre n'importe quel argument qui comprend \ct{value}, dont un \ct{Boolean}.}, la deuxi\`eme attend un \clsind{Boolean}. M\^eme si les deux sont utiles pour d\'eboguer, elles ont chacune un but tr\`es diff\'erent.
+
+%-----------------------------------------------------------------
+\subsection{Gestion des erreurs}
+
+Ce protocole contient plusieurs m\'ethodes utiles pour signaler les erreurs d'ex\'ecution.
+
+Envoyer \lct{self deprecated: \emph{unCha\^{\i}neExplicative}} indique que la m\'ethode courante ne devrait plus \^etre utilis\'ee si le param\`etre \ct{deprecation} a \'et\'e activ\'e dans le protocole \protind{debug} du navigateur des pr\'ef\'erences (\ind{Preference Browser}).
+L'argument \ct{String} devrait proposer une alternative.
+\cmindex{Object}{deprecated:}
+\index{deprecation} %martial: pas d\'epr\'ecation
+
+% pas de \emph{} entre les ! depuis le changement de ! dans la version francaise
+\begin{code}{NB: CANNOT TEST}
+1 doIfNotNil: [ :arg | arg printString, ' n''est pas nil' ]
+	--> !SmallInteger(Object)>>doIfNotNil: has been deprecated. use ifNotNilDo:!
+\end{code}
+
+%martial: IMPORTANT: ajout pour definir le terme 'deprecation' en francais
+%ajout deprecated
+L'impression via \menu{print it} de la m\'ethode pr\'ec\'edente
+r\'epond que l'usage de la m\'ethode \mthind{Object}{doIfNotNil:} a
+\'et\'e consid\'er\'e comme d\'esapprouv\'e (en anglais,
+\emph{deprecated}; \emph{deprecation} signifiant d\'esapprobation). Il
+est dit que nous devons plut\^ot utiliser \mthind{Object}{ifNotNilDo:}.
+\seeindex{d\'esapprobation}{deprecation}
+%fin de l'ajout deprecated
+
+\ct{doesNotUnderstand:} est envoy\'e \`a chaque fois que la recherche d'un message \'echoue. L'impl\'ementation par d\'efaut, \ie \cmind{Object}{doesNotUnderstand:} d\'eclenchera l'ouverture d'un d\'ebogueur \`a cet endroit. Il peut \^etre utile de surcharger \lct{does\-Not\-Un\-der\-stand:} pour introduire un autre comportement.
+
+\on{Add a chapter ref when we write the chapter on exceptions.}
+
+\cmind{Object}{error} et \cmind{Object}{error:} sont des m\'ethodes g\'en\'eriques qui peuvent \^etre utilis\'ees pour lever des exceptions
+(il est g\'en\'eralement pr\'ef\'erable de lever vos propres exceptions, pour que vous puissiez distinguer les erreurs lev\'ees par votre code de celles lev\'ees par les classes du syst\`eme).
+\lr{Maybe mention that it is preferred to create your own custom exception class. (p. 208)}
+
+Les m\'ethodes abstraites en \st sont impl\'ement\'ees par convention
+avec le corps \lct{self sub\-class\-Res\-pon\-si\-bi\-li\-ty}. Si une
+classe abstraite est instanci\'ee par accident, alors l'appel \`a une
+m\'ethode abstraite provoquera l'\'evaluation de
+\cmind{Object}{subclassResponsibility}.
+
+\begin{method}{Indiquer qu'une m\'ethode est abstraite}
+Object>>>subclassResponsibility
+    "This message sets up a framework for the behavior of the class' subclasses.
+    Announce that the subclass should have implemented this message."
+    self error: 'My subclass should have overridden ', thisContext sender selector printString
+\end{method}
+
+%martial: traduction de commentaire
+%ajout d'une explication pour la methode suivante
+Son commentaire dit que ``ce message installe un cadre pour le
+comportement des sous-classes de la classe. Il affirme que la sous-classe
+devrait avoir impl\'ement\'e ce message''. La phrase-argument de
+l'envoi du message d'erreur \ct{error:} vous pr\'evient que la
+m\'ethode devra \^etre surcharg\'ee dans une sous-classe concr\`ete.
+%fin de l'ajout d'une explication pour la methode suivante
+
+\clsind{Magnitude}, \clsind{Number} et \clsind{Boolean} sont des exemples classiques de  classes \subind{classe}{abstraite}{}s que nous verrons rapidement dans ce chapitre.
+
+\begin{code}{NB: CANNOT TEST}
+Number new + 1 --> !\emph{Error: My subclass should have overridden \#+}!
+\end{code}
+
+\ct{self shouldNotImplement} est envoy\'ee par convention pour signaler qu'une m\'ethode h\'erit\'ee est inappropri\'ee pour cette sous-classe. C'est g\'en\'eralement le signe que quelque chose ne va pas dans la conception de la hi\'erarchie de classes. \`A cause des limitations de l'h\'eritage simple, malgr\'e tout, il est des fois tr\`es difficile d'\'eviter de telles solutions.
+\cmindex{Object}{shouldNotImplement}
+%\apl:jenesaispastraduire\index{inheritance!canceling}
+
+Un exemple classique est la m\'ethode \cmind{Collection}{remove:} qui est h\'erit\'ee de \clsind{Dictionary} mais marqu\'ee comme non impl\'ement\'ee (\ct{Dictionary} fournit la m\'ethode \mthind{Dictionary}{removeKey:} \`a la place).
+
+%-----------------------------------------------------------------
+\sd{ subsection{Deprecation} }
+\sd{to be done}
+
+\on{There already is some text above!  See second paragraph on Error handling.}
+
+%-----------------------------------------------------------------
+\subsection{Test}
+
+Les m\'ethodes de \protind{test} n'ont aucun rapport avec SUnit! Une m\'ethode de test vous permet de poser une question sur l'\'etat du receveur et retourne un bool\'een (\clsind{Boolean}).
+
+De nombreuses m\'ethodes de test sont fournies par \ct{Object}. Nous
+avons d\'ej\`a vu \mthind{Object}{isComplex}. Il existe \'egalement
+\mthind{Object}{isArray}, \mthind{Object}{isBoolean},
+\mthind{Object}{isBlock}, \mthind{Object}{isCollection}, parmi
+d'autres. G\'en\'eralement ces m\'ethodes sont \`a \'eviter car
+demander sa classe \`a un objet est une forme de violation de
+l'encapsulation. Au lieu de tester la classe d'un objet, nous devrions
+simplement envoyer un message et laisser l'objet d\'ecider de sa propre r\'eaction.
+
+Cependant certaines de ces m\'ethodes de test sont ind\'eniablement utiles. Les plus utiles sont probablement \cmind{ProtoObject}{isNil} et \cmind{Object}{notNil} (bien que le patron de conception \patind{Null Object}\cite{Wool98a} permet d'\'eviter le besoin de ces m\'ethodes \'egalement).
+
+% \footnote{However the \emph{Null Object} design pattern can obviate the need for even these methods. See, Bobby Woolf, ``Null Object,'' Pattern Languages of Program Design 3, Robert Martin, Dirk Riehle and Frank Buschmann (Eds.), pp. 5-18, Addison Wesley, 1998.}.
+
+%-----------------------------------------------------------------
+\subsection{Initialisation}
+%Initialize release
+\mthind{ProtoObject}{initialize} est une m\'ethode-cl\'e qui ne se
+trouve pas dans \ct{Object} mais dans \ct{ProtoObject}.
+%martial: ajout d'une traduction de commentaire
+Comme le texte de commentaire de la m\'ethode l'indique, vos sous-classes
+devront red\'efinir cette m\'ethode pour faire des initialisations
+dans la phase de cr\'eation d'instance.
+
+%FIXME ``as an empty hook method``
+\begin{method}{La m\'ethode g\'en\'erique \lct{initialize}}
+ProtoObject>>>initialize
+   "Subclasses should redefine this method to perform initializations on instance creation"
+\end{method}
+
+\arelire{Ceci est important parce que, dans \pharo, 
+ la m\'ethode \mthind{Behavior}{new}, d\'efinie pour chaque classe du
+syst\`eme, envoie \ct{initialize} aux instances nouvellement
+cr\'e\'ees.}
+
+\begin{method}{Mod\`ele pour la m\'ethode de classe \lct{new}. Le commentaire dit: ``R\'epond une nouvelle instance initialis\'ee du receveur (qui est une classe) sans aucune variables index\'ees. \'Echoue si la classe est index\'ee''}
+Behavior>>>new
+    "Answer a new initialized instance of the receiver (which is a class) with no indexable variables. Fail if the class is indexable."
+    ^ self basicNew initialize
+\end{method}
+\cmindex{Behavior}{new}
+
+Ceci signifie qu'en surchargeant simplement la méthode \subind{méthode}{générique} \ct{initialize}, les nouvelles instances de votre classe seront automatiquement initialis\'ees. La m\'ethode \ct{initialize} devrait normalement ex\'ecuter \ct{super initialize} pour \'etablir les \subind{classe}{invariant}{}s de la classe pour toutes les variables d'instance h\'erit\'ees.
+Notons que ceci n'est \emph{pas} le comportement standard dans les autres \st{}s.
+
+%=================================================================
+\section{Les nombres}
+\seclabel{Number}
+Il faut remarquer que les nombres en \st ne sont pas des donn\'ees primitives mais de vrais objets. Bien s\^ur les nombres sont impl\'ement\'es efficacement dans la machine virtuelle, mais la hi\'erarchie de la classe \clsindmain{Number} est aussi accessible et extensible que n'importe quelle autre portion de la hi\'erarchie de classe de \st.
+
+\begin{figure}[ht]
+\centerline {\includegraphics[width=8cm]{NumberHierarchy}}
+\caption{La hi\'erarchie de la classe Number.\figlabel{numbers}}
+\end{figure}
+
+On trouve les nombres dans la cat\'egorie \scatind{Kernel-Numbers}. La racine abstraite de cette cat\'egorie est \clsind{Magnitude}, qui repr\'esente toutes les sortes de classes qui supportent les op\'erateurs de comparaison. La classe \ct{Number} ajoute plusieurs op\'erateurs arithm\'etiques et autres, principalement des m\'ethodes abstraites. \clsind{Float} et \clsind{Fraction} repr\'esentent, respectivement, les nombres \`a virgule flottante et les valeurs fractionnaires.  \clsind{Integer} est \'egalement une classe abstraite et contient trois sous-classes \clsind{SmallInteger}, \clsind{LargePositiveInteger} et \clsind{LargeNegativeInteger}. Le plus souvent les utilisateurs n'ont pas \`a conna\^itre la diff\'erence entre les trois classes d'entiers, car les valeurs sont automatiquement converties si besoin est.
+
+%-----------------------------------------------------------------
+\subsection{Magnitude}
+
+\clsindmain{Magnitude} n'est pas seulement la classe parente des classes de nombres, mais \'egalement des autres classes supportant les op\'erateurs de comparaison, comme \clsind{Character}, \clsind{Duration} et \clsind{Timespan} (les nombres complexes (classe \clsind{Complex}) ne sont pas comparables et n'h\'eritent pas de la classe \clsind{Number}).
+
+Les m\'ethodes \mthind{Magnitude}{<} et \mthind{Magnitude}{=} sont abstraites. Les autres op\'erateurs sont d\'efinis de mani\`ere g\'en\'erique. Par exemple:
+
+%martial: je n'ai pas traduit les commentaires ici (ils n'apprennent rien)
+\begin{method}{M\'ethodes de comparaison abstraites}
+Magnitude>>> < aMagnitude 
+    "Answer whether the receiver is less than the argument."
+    ^self subclassResponsibility
+
+Magnitude>>> > aMagnitude 
+    "Answer whether the receiver is greater than the argument."
+    ^aMagnitude < self
+\end{method}
+\cmindex{Magnitude}{>}
+
+%-----------------------------------------------------------------
+\subsection{Number}
+
+De la m\^eme mani\`ere, la classe \clsindmain{Number} d\'efinit \mthind{Number}{+}, \mthind{Number}{-}, \mthind{Number}{*} et \mthind{Number}{/} comme des m\'ethodes abstraites, mais tous les autres op\'erateurs arithm\'etiques sont d\'efinis de mani\`ere g\'en\'erique.
+
+Tous les nombres supportent plusieurs op\'erateurs de  \emph{conversion}, comme \mthind{Number}{asFloat} et \mthind{Number}{asInteger}. Il existe \'egalement des \emphind{constructeurs} num\'eriques,
+%\emphind{shortcut constructor methods}
+comme \mthind{Number}{i}, qui convertit une instance de \ct{Number} en
+une instance de \clsind{Complex} avec une partie r\'eelle nulle, ainsi
+que d'autres m\'ethodes qui g\'en\`erent des dur\'ees, instances de
+\clsind{Duration}, comme \mthind{Number}{hour}, \mthind{Number}{day}
+et \mthind{Number}{week}
+%ajout
+(respectivement: heure, jour et semaine).
+
+Les nombres supportent directement les \emph{fonctions
+  math\'ematiques} telles que \mthind{Number}{sin},
+\mthind{Number}{log}, \mthind{Number}{raiseTo:} 
+%ajout
+(puissance),
+\mthind{Number}{squared}
+%ajout
+(carr\'e),
+\mthind{Number}{sqrt}
+%ajout
+(racine carr\'ee).
+
+\cmind{Number}{printOn:} utilise la m\'ethode abstraite
+\ct{Number>>>printOn:base:} (la base par d\'efaut est 10).
+
+Les m\'ethodes de test comprennent entre autres \mthind{Number}{even}
+%ajout
+(pair), 
+\mthind{Number}{odd}
+%ajout
+(impair), 
+\mthind{Number}{positive}
+%ajout
+(positif)
+ et \mthind{Number}{negative}
+%ajout
+(n\'egatif).
+Logiquement, \ct{Number} surcharge \lct{is\-Num\-ber} 
+%ajout
+(test d'appartenance \`a la hi\'erarchie de la classe des nombres).
+Plus int\'eressant, \mthind{Number}{isInfinite} 
+%ajout
+(test d'infinit\'e)
+renvoie \ct{false}.
+
+Les m\'ethodes de \emph{troncature} incluent entre autres,
+\mthind{Number}{floor}
+%ajout
+(arrondi \`a l'entier inf\'erieur),
+\mthind{Number}{ceiling}
+%ajout
+(arrondi \`a l'entier sup\'erieur), 
+\mthind{Number}{integerPart}
+%ajout
+(partie enti\`ere), 
+\mthind{Number}{fractionPart}
+%ajout
+(partie apr\`es la virgule).
+
+\begin{code}{@TEST}
+1 + 2.5     --> 3.5             "Addition de deux nombres"
+3.4 * 5      --> 17.0           "Multiplication de deux nombres"
+8 / 2         --> 4                 "Division de deux nombres"
+10 - 8.3   --> 1.7              "Soustraction de deux nombres"
+12 = 11    --> false           !"\'Egalit\'e entre deux nombres"!
+12 ~= 11 --> true            !"Teste si deux nombres sont diff\'erents"!
+12 > 9      --> true            "Plus grand que"
+12 >= 10  --> true            !"Plus grand ou \'egal \`a"!
+12 < 10    --> false           "Plus petit que"
+100@10   --> 100@10    !"Cr\'eation d'un point"!
+\end{code}
+\on{Should check how tabbing works in the listings package ...}
+
+L'exemple suivant fonctionne \'etonnamment bien en \st:
+\begin{code}{@TEST}
+1000 factorial / 999 factorial --> 1000
+\end{code}
+Notons que \ct{1000 factorial} est r\'eellement calcul\'ee alors que dans beaucoup d'autres langages il peut \^etre difficile de le faire. Ceci est un excellent exemple de conversion automatique et d'une gestion exacte des nombres.
+\cmindex{Integer}{factorial}
+
+\dothis{Essayez d'afficher le r\'esultat de \ct{1000 factorial}. Il faut plus de temps pour l'afficher que pour le calculer!}
+
+%-----------------------------------------------------------------
+\subsection{Float}
+
+\clsindmain{Float} impl\'emente les m\'ethodes de \ct{Number} abstraites pour les nombres \`a virgule flottante.
+
+Plus int\'eressant, \ct{Float class} (\ie le c\^ot\'e classe de
+\ct{Float}) contient des m\'ethodes pour renvoyer les
+\emph{constantes}: \mthind{Float class}{e}, \mthind{Float
+  class}{infinity}
+%ajout
+(infini), 
+\mthind{Float class}{nan} 
+%martial: ajout (definition wikipedia, pas besoin de plus) 
+(acronyme de \emph{Not A Number} \cad ``n'est pas un nombre'':
+r\'esultat d'un calcul num\'erique ind\'etermin\'e)
+et \mthind{Float class}{pi}.
+
+\begin{code}{@TEST}
+Float pi                      --> 3.141592653589793
+Float infinity               --> Infinity
+Float infinity isInfinite --> true
+\end{code}
+
+%-----------------------------------------------------------------
+\subsection{Fraction}
+
+Les \clsind{fractions} sont repr\'esent\'ees par des variables d'instance pour le num\'erateur et le d\'enominateur, qui devraient \^etre des entiers. Les \ct{fractions} sont normalement cr\'e\'ees par division d'entiers (plut\^ot qu'en utilisant le constructeur \cmind{Fraction}{numerator:denominator:}):
+
+\begin{code}{@TEST}
+6/8             --> (3/4)
+(6/8) class --> Fraction
+\end{code}
+
+Multiplier une fraction par un entier ou par une autre fraction peut renvoyer un entier:
+
+\begin{code}{@TEST}
+6/8 * 4 --> 3
+\end{code}
+
+\lr{Maybe mention to avoid fractions in results that one of the operands has to be a float, e.g. 6.0 / 8 or 6 asFloat / 8. (p. 213)}
+
+%-----------------------------------------------------------------
+\subsection{Integer}
+
+\clsindmain{Integer} est le parent abstrait de trois impl\'ementations
+concr\`etes d'entiers. En plus de fournir une impl\'ementation
+concr\`ete de beaucoup de m\'ethodes abstraites de la classe
+\ct{Number}, il ajoute \'egalement quelques m\'ethodes sp\'ecifiques
+aux entiers, telles que \mthind{Integer}{factorial}
+%ajout
+(fractionnelle),
+\mthind{Integer}{atRandom}
+%ajout
+(nombre al\'eatoire entre 1 et le receveur),
+\mthind{Integer}{isPrime}
+%ajout
+(test de nombre premier), 
+\mthind{Integer}{gcd:} 
+%ajout
+(le plus grand d\'enominateur commun)
+et beaucoup d'autres.
+
+La classe \clsindmain{SmallInteger} est particuli\`ere dans le sens que ses instances sont repr\'esent\'ees de mani\`ere compacte --- au lieu d'\^etre stock\'ees comme r\'ef\'erence, une instance de \ct{SmallInteger} est directement repr\'esent\'ee en utilisant les bits qui seraient normalement utilis\'es pour contenir la r\'ef\'erence.  Le premier bit de la r\'ef\'erence \`a un objet indique si l'objet est une instance de SmallInteger ou non.
+
+Les m\'ethodes de classe \mthind{SmallInteger}{minVal} et \mthind{SmallInteger}{maxVal} nous donne la plage de valeurs d'une instance de \ct{SmallInteger}:
+
+\begin{code}{@TEST}
+SmallInteger maxVal = ((2 raisedTo: 30) - 1)      --> true
+SmallInteger minVal = (2 raisedTo: 30) negated --> true
+\end{code}
+
+Quand un \ct{SmallInteger} d\'epasse cette plage de valeurs, il est automatiquement converti en une instance de \clsind{LargePositiveInteger} ou de \clsind{LargeNegativeInteger}, selon le besoin:
+
+\begin{code}{@TEST}
+(SmallInteger maxVal + 1) class --> LargePositiveInteger
+(SmallInteger minVal - 1) class  --> LargeNegativeInteger
+\end{code}
+
+Les grands entiers sont de la m\^eme mani\`ere convertis en petits entiers quand il le faut.
+
+Comme dans la plupart des langages de programmation, les entiers peuvent \^etre utiles pour sp\'ecifier une it\'eration.  Il existe une m\'ethode d\'edi\'ee \mthind{Integer}{timesRepeat:} pour l'\'evaluation r\'ep\'etitive d'un bloc.
+Nous avons d\'ej\`a vu des exemples similaires dans le chapitre \charef{syntax}:
+\begin{code}{@TEST | n |}
+n := 2.
+3 timesRepeat: [ n := n*n ].
+n --> 256
+\end{code}
+
+%=================================================================
+\section{Les caract\`eres}
+
+\clsindmain{Character} est d\'efinie dans la cat\'egorie \scatind{Collections-Strings} comme une sous-classe de \clsind{Magnitude}. Les caract\`eres imprimables sont repr\'esent\'es en \pharo par \lct{\$$\langle$\emph{caract\`ere}$\rangle$}.  Par exemple:
+
+\begin{code}{@TEST}
+$a < $b --> true
+\end{code}
+
+Les caract\`eres non imprimables sont g\'en\'er\'es par diff\'erentes
+m\'ethodes de classe. \mbox{\cmind{Character class}{value:}} prend la
+valeur enti\`ere Unicode (ou ASCII) comme argument et renvoie le
+caract\`ere correspondant. Le protocole \protind{accessing untypeable
+  characters} contient un certain nombre de constructeurs utiles tels
+que \mthind{Character class}{backspace} 
+%ajout
+(retour arri\`ere), 
+\mthind{Character class}{cr} 
+%ajout
+(retour-chariot),
+\mthind{Character class}{escape}
+%ajout
+(\'echappement),
+\mthind{Character class}{euro}
+%ajout
+(signe \euro),
+\mthind{Character class}{space}
+%ajout
+(espace), 
+\mthind{Character class}{tab}
+%ajout
+(tabulation), 
+parmi d'autres.
+
+\begin{code}{@TEST}
+Character space = (Character value: Character space asciiValue) --> true
+\end{code}
+
+La m\'ethode \mthind{Character}{printOn:} est assez adroite pour
+savoir laquelle des trois mani\`eres utiliser pour g\'en\'erer les
+caract\`eres de la fa\c{c}on la plus appropri\'ee:
+
+\begin{code}{@TEST}
+Character value: 1   --> Character home
+Character value: 2   --> Character value: 2
+Character value: 32  --> Character space
+Character value: 97  --> $a
+\end{code}\ignoredollar$ % CHANGE
+
+Il existe plusieurs m\'ethodes de \emph{test} utiles:
+\mthind{Character}{isAlphaNumeric}
+%ajout
+(si alphanum\'erique),
+\mthind{Character}{isCharacter}
+%ajout
+(si caract\`ere),
+\mthind{Character}{isDigit}
+%ajout
+(si num\'erique),
+\mthind{Character}{isLowercase},
+%ajout
+(si minuscule),
+\mthind{Character}{isVowel}
+%ajout
+(si voyelle non-accentu\'ee, voir page~\pageref{def:isVowel}), 
+parmi d'autres.
+
+Pour convertir un caract\`ere en une cha\^{\i}ne de caract\`eres contenant uniquement ce caract\`ere, il faut lui envoyer le message \mthind{Character}{asString}.  Dans ce cas \ct{asString} et \mthind{Character}{printString} donnent des r\'esultats diff\'erents:
+
+\begin{code}{@TEST}
+$a asString    --> 'a'
+$a                  --> $a
+$a printString --> '$a'
+\end{code}\ignoredollar$
+
+Chaque caract\`ere ASCII est une instance unique, stock\'ee dans la variable de classe \cvind{CharacterTable}:
+
+\begin{code}{@TEST}
+(Character value: 97) == $a --> true
+\end{code}\ignoredollar$
+
+Cependant, les caract\`eres au del\`a de la plage 0 \`a 255 ne sont pas uniques: 
+\begin{code}{@TEST}
+Character characterTable size                               --> 256
+(Character value: 500) == (Character value: 500) --> false
+\end{code}
+
+%=================================================================
+\section{Les cha\^{\i}nes de caract\`eres}
+
+La classe \clsindmain{String} est \'egalement d\'efinie dans la cat\'egorie \scatind{Collections-Strings}.  Une cha\^{\i}ne de caract\`eres est une collection index\'ee contenant uniquement des caract\`eres.
+
+\begin{figure}[ht]
+\ifluluelse
+	{\centerline {\includegraphics[width=0.4\textwidth]{StringHierarchy}}}
+\caption{La hi\'erarchie de \ct{String}.\figlabel{strings}}
+\end{figure}
+
+En fait, \ct{String} est une classe abstraite et les cha\^{\i}nes de caract\`eres de \pharo sont en r\'ealit\'e des instances de la classe concr\`ete \clsindmain{ByteString}.
+
+\begin{code}{@TEST}
+'Bonjour Squeak' class --> ByteString
+\end{code}
+
+Une autre sous-classe importante de \ct{String} est
+\clsindmain{Symbol}.  La diff\'erence fondamentale est qu'il n'y a
+toujours qu'une instance unique de \ct{Symbol} pour une valeur
+donn\'ee  (ceci est quelques fois appel\'e ``la propri\'et\'e de
+l'instance unique'').  \`A l'oppos\'e, deux cha\^{\i}nes construites
+s\'epar\'ement  et contenant la m\^eme s\'equence de caract\`eres
+seront souvent des objets diff\'erents.
+
+\begin{code}{@TEST}
+'Sal','ut' == 'Salut' --> false
+\end{code}
+
+\begin{code}{@TEST}
+('Sal','ut') asSymbol == #Salut --> true
+\end{code}
+
+%martial: j'ai traduit 'mutable' en 'modifiable'; on peut peut-etre
+%juste garder 'mutable' pour les collections parce qu'on peut le
+%rencontrer souvent dans le code
+\noindent
+Une autre diff\'erence importante est que \ct{String} est modifiable,
+alors que \ct{Symbol} ne l'est pas.
+
+\begin{code}{@TEST}
+'hello' at: 2 put: $u; yourself --> 'hullo'
+\end{code}\ignoredollar$
+
+\begin{code}{NB: CANNOT TEST}
+#hello at: 2 put: $u --> !erreur!
+\end{code}\ignoredollar$
+
+Il est facile d'oublier que, puisque les cha\^{\i}nes de caract\`eres
+sont des collections, elles comprennent les m\^emes messages que les
+autres collections
+%ajout: parce qu'on n'a pas encore bien vu les collections
+(ici, la m\'ethode \ct{indexOf:} de \ct{Collections} donne la position
+du premier caract\`ere rencontr\'e): 
+
+\begin{code}{@TEST}
+#hello indexOf: $o --> 5
+\end{code}\ignoredollar$
+
+Bien que \ct{String} n'h\'erite pas de \clsind{Magnitude}, la classe supporte les m\'ethodes de  \protind{comparaison}, \ct{<}, \ct{=}, etc.  De plus, \cmind{String}{match:} est utile pour les recherches simples d'expressions r\'eguli\`eres:
+
+\begin{code}{@TEST}
+'*or*' match: 'zorro' --> true
+\end{code}
+
+\arelire{Si vous avez besoin d'un meilleur support pour les expressions
+r\'eguli\`eres, vous pouvez jeter un \oe il sur le paquetage
+\pkgind{Regex} de Vassili Bykov.} % CHANGE
+\index{Bykov, Vassili}
+\index{paquetage!expressions régulières}
+
+Les cha\^{\i}nes de caract\`eres supportent un grand nombre de
+m\'ethodes de conversion. Beaucoup sont des constructeurs-raccourci
+\index{constructeur-raccourci}%\ind{shortcut constructor methods}
+pour d'autres classes, comme \mthind{String}{asDate} 
+%ajout
+(pour cr\'eer une date)
+ou \mthind{String}{asFileName}
+%ajout
+(pour cr\'eer un nom de fichier).
+Il existe \'egalement un certain nombre de m\'ethodes utiles pour
+transformer une cha\^{\i}ne de caract\`eres en une autre, comme
+\mthind{String}{capitalized} 
+%ajout
+(pour capitaliser) 
+et \mthind{String}{translateToLowercase}
+%ajout
+(pour mettre en minuscule).
+%martial: peut-etre a redefinir \ind{shortcut constructor methods}
+\seeindex{shortcut constructor method}{constructeur-raccourci}
+
+Pour plus d'informations sur les cha\^{\i}nes de caract\`eres et les
+collections, rendez-vous au chapitre \ref{cha:collections}.
+
+\on{There is more material we could use here:
+\url{http://www.dmu.com/crb/crb7.html}.}
+
+%=================================================================
+\section{Les bool\'eens}
+
+La classe \clsindmain{Boolean} offre un aper\c{c}u fascinant de la
+mani\`ere dont \st est construit autour de la biblioth\`eque de classes. 
+%how much of the \st language has been pushed into the class library. 
+\ct{Boolean} est la super-classe \subind{classe}{abstraite} des classes
+singletons (de patron \patind{Singleton}): \clsindmain{True} et \clsindmain{False}.
+
+\begin{figure}[ht]
+	{\centerline {\includegraphics[width=0.5\textwidth]{BooleanHierarchy}}}
+\caption{La hi\'erarchie des bool\'eens.\figlabel{booleans}}
+\end{figure}
+
+La plupart des comportements des bool\'eens peuvent \^etre compris en
+regardant la m\'ethode \mthind{Boolean}{ifTrue:ifFalse:} (en
+fran\c{c}ais, \codefrench{si vrai: si faux:}), qui prend deux blocs
+comme arguments.
+
+\begin{code}{@TEST}
+(4 factorial > 20) ifTrue: [ 'plus grand' ] ifFalse: [ 'plus petit' ] --> 'plus grand'
+\end{code}
+
+La m\'ethode est abstraite dans \ct{Boolean}.
+Les impl\'ementations dans les sous-classes concr\`etes sont toutes les deux triviales:
+
+\begin{method}{Impl\'ementations de \lct{ifTrue:ifFalse:}}
+True>>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock 
+    ^trueAlternativeBlock value
+
+False>>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock 
+    ^falseAlternativeBlock value
+\end{method}
+\cmindex{True}{ifTrue:}
+\cmindex{False}{ifTrue:}
+
+En fait, ceci est l'essence m\^eme de la programmation orient\'ee
+objet (POO): quand un message est envoy\'e \`a un objet, l'objet
+lui-m\^eme d\'etermine quelle m\'ethode sera utilis\'ee pour
+r\'epondre. Dans ce cas, une instance de \ct{True}  \'evalue
+simplement l'alternative \emph{vraie}, alors qu'une instance de
+\ct{False} evalue l'alternative \emph{fausse}. Toutes les m\'ethodes abstraites de la classe \ct{Boolean} sont impl\'ement\'ees de cette mani\`ere pour \ct{True} et \ct{False}. Par exemple:
+
+\begin{method}{Impl\'ementer la n\'egation}
+True>>>not
+    "Negation--answer false since the receiver is true."
+    ^false
+\end{method}
+\cmindex{True}{not}
+
+%ajout
+Le commentaire de la m\'ethode \ct{not} (n\'egation logique) nous informe que
+la r\'eponse est toujours fausse (\ct{false}) puisque le receveur est
+vrai (\ct{true}, instance de \ct{True}).
+
+La classe \ct{Boolean} offre plusieurs m\'ethodes utiles, comme \mthind{Boolean}{ifTrue:}, \mthind{Boolean}{ifFalse:}, \mthind{Boolean}{ifFalse:ifTrue}. Vous avez \'egalement le choix entre les conjonctions et disjonctions optimis\'ees ou paresseuses.
+
+\begin{code}{@TEST}
+(1>2) & (3<4)              --> false    !"doit \'evaluer les deux cot\'es"!
+(1>2) and: [ 3<4 ]        --> false    !"\'evalue seulement le receveur"!
+(1>2) and: [ (1/0) > 0 ] --> false    !"le bloc pass\'e en argument n'est jamais \'evalu\'e, ainsi, pas d'exception"!
+\end{code}
+
+Dans le premier exemple, les deux sous-expressions bool\'eennes sont
+\'evalu\'ees, puisque \mthind{Boolean}{&} 
+%ajout
+(\emph{et} logique) 
+prend un argument bool\'een.
+Dans le second et troisi\`eme exemple, uniquement la premi\`ere est
+\'evalu\'ee, car \mthind{Boolean}{and:} 
+%ajout
+(\emph{et} non-\'evaluant) 
+attend un bloc comme argument. Le  bloc est \'evalu\'e uniquement si le premier argument vaut \pvind{true}.
+
+\dothis{Essayez d'imaginer comment \ct{and:} et \ct{or:} 
+%ajout
+(\emph{ou} non-\'evaluant)
+sont impl\'ement\'es.
+V\'erifiez les impl\'ementations dans \ct{Boolean}, \ct{True} et \ct{False}.}
+
+%=================================================================
+\section{R\'esum\'e du chapitre}
+Nous avons vu que:
+
+\begin{itemize}
+%  \item Send \ct{yourself} to get back the receiver at the end of a cascade.
+
+  \item si vous surchargez \ct{=} alors vous devez \'egalement
+    surcharger la m\'ethode de hachage, \ct{hash};
+
+  \item surchargez \ct{postCopy} pour impl\'ementer correctement la copie de vos objets;
+
+  \item envoyez \ct{self halt} pour cr\'eer un point d'arr\^et;
+
+  \item renvoyez \ct{self subclassResponsibility} pour faire une m\'ethode abstraite;
+
+  \item pour donner la repr\'esentation en cha\^{\i}ne de caract\`eres d'un objet \ct{String}, vous devez surcharger \ct{printOn:};
+
+  \item surchargez la m\'ethode g\'en\'erique \ct{initialize} pour instancier correctement vos objets;
+
+
+% proposition de Rene:
+%  \item Les m\'ethodes de la classe \ct{Number} convertissent automatiquement entre
+%  flottants, fractions et entiers.
+  \item les m\'ethodes de la classe \ct{Number} assurent, si
+    n\'ecessaire, les conversions automatiques entre flottants, fractions et entiers;
+
+  \item les fractions repr\'esentent vraiment des nombres r\'eels plut\^ot que des nombres \`a virgule flottante;
+
+  \item les caract\`eres sont des instances uniques;
+
+  \item les cha\^{\i}nes de caract\`eres sont modifiables mais les symboles ne le sont pas;
+  cependant faites attention \`a ne pas modifier les cha\^{\i}nes de caract\`eres litt\'erales!
+
+  \item ces symboles sont uniques mais les cha\^{\i}nes de caract\`eres ne le sont pas;
+
+  \item les cha\^{\i}nes de caract\`eres et les symboles sont des collections et donc, supportent les m\'ethodes usuelles de la classe \ct{Collection}.
+
+\end{itemize}
+
+%=============================================================
+\ifx\wholebook\relax\else
+   \bibliographystyle{jurabib}
+   \nobibliography{scg}
+   \end{document}
+\fi
+%=============================================================
+
+%-----------------------------------------------------------------
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-PDF-mode: t
+%%% ispell-local-dictionary: "english"
+%%% End:

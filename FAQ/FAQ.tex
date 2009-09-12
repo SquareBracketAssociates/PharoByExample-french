@@ -1,0 +1,455 @@
+% $Author: oscar $
+% $Date: 2007-09-23 11:56:47 +0200 (dim, 23 sep 2007) $
+% $Revision: 12130 $
+% Traduction: Benoît TUDURI 18-10-2007
+%% Relecture: Martial Boniou - Fri Nov  9  16:49:46 CET 2007
+%% Relecture: Rene Mages     - Fri Jan  10 22:23:44 CET 2008
+%% Relecture: Martial Boniou - Wed Jan 30 23:21:34 CET 2008
+% adaptation pour Pharo: martial - Fri Sep 11 10:50:59 CEST 2009 from
+% $Author: oscar $ % $Date: 2009-09-09 09:57:42 +0200 (Wed, 09 Sep 2009) $ % $Revision: 29006 $
+% martial: remplacement de la faq:omnibrowser en faq:packagebrowser pour la selection via "choose new default browser"
+%=================================================================
+\ifx\wholebook\relax\else
+% --------------------------------------------
+% Lulu:
+	\documentclass[a4paper,10pt,twoside]{book}
+	\usepackage[
+		papersize={6.13in,9.21in},
+		hmargin={.75in,.75in},
+		vmargin={.75in,1in},
+		ignoreheadfoot
+	]{geometry}
+	\input{../common.tex}
+	\pagestyle{headings}
+	\setboolean{lulu}{true}
+% --------------------------------------------
+% A4:
+%	\documentclass[a4paper,11pt,twoside]{book}
+%	\input{../common.tex}
+%	\usepackage{a4wide}
+% --------------------------------------------
+    \graphicspath{{figures/} {../figures/}}
+	\begin{document}
+	\renewcommand{\nnbb}[2]{} % Disable editorial comments
+	\sloppy
+\fi
+  
+%=================================================================
+%\chapter{Frequently Asked Questions}
+%\chapter{Questions Fr\'equemments Pos\'ees}
+%% note de Martial: le terme FAQ est utilise dans certaines pages; sinon "questions freq. posees" est valable aussi
+\chapter{Foire Aux Questions}
+\label{cha:faq}
+
+%\on{These should be *real* (not invented) FAQs.
+%Here are a few that I have collected.
+%Check the ST lecture notes for more FAQs.
+%We should also try to mine more from newbies.}
+\on{Ceci devrait \^etre une *vraie* FAQs.
+Celle-ci contient quelques questions que j'ai collect\'ees.
+Pour plus de FAQ, vous pouvez consulter les r\'ef\'erences de lectures sur ST.
+Nous devrions essayer de nous m\^emes pour les newbies...}
+
+%=================================================================
+%\section{Getting started}
+\section{Pr\'emices}
+\begin{faq}
+%Where do I get the latest Squeak?
+O\`u puis-je trouver la derni\`ere version de Pharo?
+\end{faq}
+\answer
+\pharoweb
+\index{download}
+
+\begin{faq}
+%Which \pharo image should I use with this book?
+Quelle image de \pharo devrais-je utiliser avec ce livre?
+\end{faq}
+\answer
+\arelire{Vous pouvez utiliser n'importe quelle image de \pharo mais nous vous
+recommandons d'utiliser l'image préparée sur le site web de \pharo par
+l'exemple: {\ppe}.
+Vous risqueriez d'avoir des comportements surprenants lors de la saisie
+des exercices en utilisant une autre image.} % CHANGE
+
+%=================================================================
+\section{Collections}
+
+\begin{faq}
+%How do I sort an \clsind{OrderedCollection}?
+Comment puis-je trier une \clsind{OrderedCollection}~?
+
+\end{faq}
+\answer
+%Send it the message \mthind{Collection}{asSortedCollection}.
+Envoyez le message suivant \mthind{Collection}{asSortedCollection}.
+
+\begin{code}{@TEST}
+#(7 2 6 1) asSortedCollection --> a SortedCollection(1 2 6 7)
+\end{code}
+
+\begin{faq}
+%How do I convert a collection of characters to a \clsind{String}?
+Comment puis-je convertir une collection de caract\`eres en une 
+%% ajout
+cha\^ine de caract\`eres
+\clsind{String}~?
+\end{faq}
+\answer
+\begin{code}{@TEST}
+String streamContents: [:str | str nextPutAll: 'hello' asSet] --> 'hleo'
+\end{code}
+
+%=================================================================
+%\section{Browsing the system}
+\section{Naviguer dans le syst\`eme}
+
+% voir \faqref{packagebrowser}
+\begin{faq}
+Le navigateur de classes ne ressemble pas à celui décrit dans le
+livre. Que se passe-t-il?
+\end{faq}
+\answer
+\arelire{Vous utilisez probablement une image disposant d'une version
+différente d'\ind{OmniBrowser}
+(abrégé en OB) % ajout: martial: Fri Sep 11 11:41:49 CEST 2009
+installé comme Browser par défaut.
+Dans ce livre, nous présumons que le navigateur Omnibrowser
+\emph{Package Browser} (navigateur par paquetages) est installé par
+défaut.
+Vous pouvez changer cela en \clickant sur la \arevoir{bulle grise}
+à droite de la barre de titre du navigateur, puis en sélectionnant
+dans le menu du Browser ``Choose new default Browser'' (en français,
+\emph{choisissez le nouveau Browser par défaut}). Dans la liste de
+navigateurs proposée, \clickz sur O2PackageBrowserAdaptor. 
+Le prochain navigateur de classes que vous ouvrirez sera le Package Browser.
+} %CHANGE
+
+\begin{figure}[tbh]
+	\centering
+	\subfigure[Choisir un nouveau Browser.]{\figlabel{chooseNewBrowser}
+		\includegraphics[width=0.45\linewidth]{chooseNewBrowser}}\hfill
+	\subfigure[Sélectionnez l'OB Package Browser]{\figlabel{O2PackageBrowserAdaptor}
+		\includegraphics[width=0.45\linewidth]{O2PackageBrowserAdaptor}}\hfill
+	\caption{Changer le navigateur de classes par défaut.}
+\end{figure}
+\seeindex{halo}{Morphic} % \seeindex{morphic halo}{Morphic} dans PBE
+
+\begin{faq}
+%How to I search for a class?
+Comment puis-je chercher une classe~?
+\end{faq}
+\answer
+%\short{b} (browse) on the class name, or \short{f} in the category pane of the class browser.
+\short{b} (pour \emph{browse} \cad parcourir \`a l'aide du navigateur
+de classes) sur le nom de la classe ou \short{f} dans le panneau des
+cat\'egories du Browser. % REVOIR
+\index{raccourci-clavier!browse it}
+\index{raccourci-clavier!find...}
+
+\begin{faq}
+%How do I find/browse all sends to super?
+Comment puis-je trouver/naviguer dans tous les envois 
+%%de
+\`a
+ super~?
+\end{faq}
+\answer
+%The second solution is much faster:
+La deuxi\`eme solution est la plus rapide:
+\begin{code}{}
+SystemNavigation default browseMethodsWithSourceString: 'super'.
+SystemNavigation default browseAllSelect: [:method | method sendsToSuper ].
+\end{code}
+%\index{browsing programmatically}
+\index{naviguer de mani\`ere pragmatique}
+\clsindex{SystemNavigation}
+
+\begin{faq}
+%How do I browse all super \subind{super}{send}{}s within a hierarchy?
+Comment puis-je naviguer au travers de tous les 
+\subpvind{super}{envoi}{}s de messages à \ct{super} dans une hiérarchie~?
+\end{faq}
+\answer
+\begin{code}{}
+browseSuperSends:= [:aClass | SystemNavigation default
+	browseMessageList: (aClass withAllSubclasses gather: [:each |
+		(each methodDict associations
+			select: [:assoc | assoc value sendsToSuper ])
+				collect: [:assoc | MethodReference class: each selector: assoc key ] ])
+	name: 'Supersends of ' , aClass name , ' and its subclasses'].
+browseSuperSends value: OrderedCollection.
+\end{code}
+
+\begin{faq}
+%How do I find out which are the new methods implemented in a class?
+Comment puis-je d\'ecouvrir quelles sont les nouvelles m\'ethodes impl\'ement\'ees dans une classe?
+\end{faq}
+\answer
+%Here we ask which new methods are introduced by \ct{True}:
+Dans le cas pr\'esent nous demandons quelles sont les nouvelles m\'ethodes introduites par \ct{True}:
+\begin{code}{@TEST | newMethods |}
+newMethods:= [:aClass| aClass methodDict keys select:
+	[:aMethod | (aClass superclass canUnderstand: aMethod) not ]].
+newMethods value: True --> an IdentitySet(#asBit)
+\end{code}
+
+\begin{faq}
+%How do I tell which methods of a class are abstract?
+Comment puis-je 
+%rapporter
+trouver
+les m\'ethodes d'une classe qui sont abstraites~?
+\end{faq}
+\answer
+\begin{code}{@TEST | abstractMethods |}
+abstractMethods:=
+	[:aClass | aClass methodDict keys select:
+		[:aMethod | (aClass>>aMethod) isAbstract ]].
+abstractMethods value: Collection --> an IdentitySet(#remove:ifAbsent: #add: #do:)
+\end{code}
+
+\begin{faq}
+%How do I generate a view of the \ind{AST} of an expression?
+Comment puis-je cr\'eer une vue de 
+%% ajout
+l'arbre syntaxique abstrait ou 
+\ind{AST} d'une expression~?
+\end{faq}
+\answer
+%Load AST from squeaksource.com. Then evaluate:
+Charger le paquetage AST depuis \url{http://squeaksource.com}. Ensuite \'evaluer:
+\begin{code}{}
+(RBParser parseExpression: '3+4') explore
+\end{code}
+%(Alternatively \emph{explore it}.)
+(D'autre part \emph{explorer le}.)
+\clsindex{RBParser}
+
+\begin{faq}
+%How do I find all the Traits in the system?
+Comment puis-je trouver tout les \emph{traits} dans le syst\`eme~?
+\end{faq}
+\answer
+\begin{code}{}
+Smalltalk allTraits
+\end{code}
+
+\begin{faq}
+%How do I find which classes use traits?
+Comment puis-je trouver quelles classes utilisent les \emph{traits}~?
+\end{faq}
+\answer
+\begin{code}{}
+Smalltalk allClasses select: [:each | each hasTraitComposition ]
+\end{code}
+
+%=================================================================
+%\section{Using Monticello and SqueakSource}
+\section{Utilisation de Monticello et de SqueakSource}
+
+\begin{faq}
+%How do I load a \ind{SqueakSource} project?
+Comment puis-je charger un projet du \ind{SqueakSource}~?
+\index{Monticello}
+\end{faq}
+\answer
+\begin{enumerate}
+%  \item Find the project you want in \url{squeaksource.com}
+  \item Trouvez le projet que vous souhaitez sur \url{http://squeaksource.com}
+%  \item Copy the registration code snippet
+  \item Copiez le code d'enregistrement
+%  \item Select \menu{open \go Monticello browser}
+  \item S\'electionnez \menu{open \go Monticello browser}
+%  \item Select \menu{+Repository \go HTTP}
+  \item S\'electionnez \menu{+Repository \go HTTP}
+%  \item Paste and accept the Registration code snippet; enter your password
+  \item Collez et acceptez le code d'enregistrement ; entrez votre mot de passe
+%  \item Select the new repository and \menu{Open} it
+  \item S\'electionnez le nouveau d\'ep\^ot et ouvrez-le avec le bouton \menu{Open}
+%  \item Select and load the latest version
+  \item S\'electionnez et chargez la version la plus r\'ecente
+\end{enumerate}
+
+\begin{faq}
+%How do I create a SqueakSource project?
+Comment puis-je cr\'eer un projet SqueakSource~?
+\end{faq}
+\answer
+\begin{enumerate}
+%  \item Go to \url{http://squeaksource.com}
+  \item Allez à \url{http://squeaksource.com}
+%  \item Register yourself as a new member
+  \item Enregistrez-vous comme un nouveau membre
+%  \item Register a project (name = category)
+  \item Enregistrez un projet (nom = cat\'egorie)
+%  \item Copy the Registration code snippet
+  \item Copiez le code d'enregistrement
+%  \item \menu{open \go Monticello browser}
+  \item \menu{open \go Monticello browser}
+%  \item \menu{+Package} to add the category
+  \item \menu{+Package} pour ajouter une cat\'egorie
+%  \item Select the package
+  \item S\'electionnez le package
+%  \item \menu{+Repository \go HTTP}
+  \item \menu{+Repository \go HTTP}
+%  \item Paste and accept the Registration code snippet; enter your password
+  \item Collez et acceptez le code d'enregistrement ; entrez votre mot de passe
+%  \item \menu{Save} to save the first version
+  \item \menu{Save} pour enregistrer la premi\`ere version
+\end{enumerate}
+
+\begin{faq}
+%How do I extend \ct{Number} with \ct{Number>>>chf} but have Monticello recognize it as being part of my \ct{Money} project?
+Comment puis-je \'etendre \ct{Number} avec
+%% ajout
+la m\'ethode \ct{Number>>>chf} 
+%% changement
+tel que Monticello la reconnaissent comme \'etant une partie de mon projet \ct{Money}~?
+\end{faq}
+\answer
+%Put it in a method-category named \ct{*Money}.
+%% changement
+Mettez-la 
+dans une cat\'egorie de m\'ethodes nomm\'ee \ct{*Money}.
+%Monticello gathers all methods that are in other categories named like *package and includes them in your package.
+Monticello r\'eunit toutes les m\'ethodes 
+dont les noms de cat\'egories 
+%% changement: nomm\'ees autrement telles que 
+ont la forme \emph{*package} et les ins\'ere dans votre package.
+
+%=================================================================
+%\section{Tools}
+\section{Outils}
+
+\begin{faq}
+%How do I programmatically open the \ind{SUnit} \ind{TestRunner}?
+Comment puis-je ouvrir de mani\`ere pragmatique le \ind{SUnit} \ind{TestRunner}~?
+\end{faq}
+\answer
+%Evaluate \ct{TestRunner open}.
+\'Evaluez \ct{TestRunner open}.
+
+\begin{faq}
+%Where can I find the \ind{Refactoring Browser}?
+O\`u puis-je trouver le \ind{Refactoring Browser}~?
+\end{faq}
+\answer
+%Load AST then Refactoring Engine from squeaksource.com:
+Chargez le paquetage AST puis le moteur de 
+%%plutot que refrabrication 
+refactorisation sur le site \url{http://squeaksource.com}:\\
+\url{http://www.squeaksource.com/AST}\\
+\url{http://www.squeaksource.com/RefactoringEngine}
+
+\begin{faq}
+%How do I register the browser that I want to be the default?
+Comment puis-je enregistrer le navigateur comme navigateur par d\'efaut~?
+\end{faq}
+\answer
+%Click the menu icon in the top left of the Browser window.
+Cliquez sur l'ic\^one du menu situ\'e en haut à gauche de la fen\^etre Browser \`a c\^ot\'e de la croix de destruction de la fen\^etre. 
+%% ajout (pour la traduction)
+Choisissez \menu{Register this Browser as default} pour enregistrer le navigateur courant comme navigateur par d\'efaut ou bien, s\'electionnez \menu{Choose new default Browser} pour obtenir un menu flottant d'o\`u vous pourrez faire votre choix parmi les diff\'erentes classes de Browser.
+
+%=================================================================
+%\section{Regular expressions and parsing}
+\section{Expressions r\'eguli\`eres et analyse grammaticale}
+
+%\begin{faq}
+%%How can I work with regular expressions?
+%Comment puis-je travailler avec les expressions r\'eguli\`eres~?
+%\index{paquetage!expressions régulières}
+%\end{faq}
+%\answer
+%Chargez le paquetage de RegEx de Vassili Bykov \`a l'adresse: \\
+%\url{http://www.squeaksource.com/Regex.html}
+%\index{Bykov, Vassili}
+
+\begin{faq}
+%Where is the documentation for the RegEx package?
+O\`u est la documentation pour le paquetage RegEx~?
+\end{faq}
+\answer
+%Look at the \menu{DOCUMENTATION} protocol of \ct{RxParser class} in the \menu{VB-Regex} category.
+%% changement
+Regardez dans le protocole \menu{DOCUMENTATION} de \ct{RxParser class} situ\'e dans la cat\'egorie \menu{VB-Regex}.
+
+\begin{faq}
+%Are there tools for writing parsers?
+Y a-t'il des outils pour l'\'ecriture d'un outil d'analyse grammaticale~?
+\end{faq}
+\answer
+%Use \ind{SmaCC}\,---\,the Smalltalk Compiler Compiler.
+Utilisez \ind{SmaCC}\,---\,le compilateur de compilateur (ou g\'en\'erateur de compilateur)~\footnote{En anglais, Compiler-Compiler.} Smalltalk.
+%You should install at least SmaCC-lr.13.
+Vous devrez installer au moins SmaCC-lr.13.
+%Load it from \url{http://www.squeaksource.com/SmaccDevelopment.html}.
+Chargez-le depuis \url{http://www.squeaksource.com/SmaccDevelopment.html}.
+%There is a nice tutorial online:
+Il y a un bon tutoriel en ligne \`a l'adresse:
+\url{http://www.refactory.com/Software/SmaCC/Tutorial.html}
+
+\begin{faq}
+%Which packages should I load from SqueakSource SmaccDevelopment to write parsers?
+Quels paquetages devrais-je charger depuis \emph{SqueakSource SmaccDevelopment} pour \'ecrire un analyseur grammatical~?
+\end{faq}
+\answer
+%Load the latest version of \ind{SmaCCDev}{}\,---\,the runtime is already there.
+Chargez la derni\`ere version de \ind{SmaCCDev}{}\,---\,le lanceur de programme est d\'ej\`a actif.
+(Attention: SmaCC-Development est destin\'e \`a la version 3.8 de \squeak)
+
+%=================================================================
+\ifx\wholebook\relax\else\end{document}\fi
+%=================================================================
+
+%\begin{faq}
+%How do I run a headless image with a file argument?
+%\end{faq}
+%\answer
+%Right now you can't do it with the MacOSX VM.
+
+%\begin{faq}
+%How do I find out which methods access the Smalltalk dictionary?
+%\end{faq}
+%\answer
+%???
+
+%\begin{faq}
+%How do I get the tree view of an AST?
+%\end{faq}
+%\answer
+%???
+
+%\begin{faq}
+%How do I browse all references to a given class?
+%\end{faq}
+%\answer
+%???
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%  Benoît
+
+% Rappel LaTeX:
+%  é    \'e
+%  è    \`e
+%  ê    \^e
+%  ë    \"e
+%  ç    \c{c}
+%  $    \$
+%  &    \&
+%  %    \%
+%  #    \#
+%  _    \_
+%  {    \{
+%  }    \}
+%  ~    \~
+%  ^    \^
+%  \    $\backslash$
+
+% Paramètre VIM 7.1
+% pour l'édition de ce document
+% :set encoding=UTF-8
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
