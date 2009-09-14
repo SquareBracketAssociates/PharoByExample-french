@@ -478,6 +478,7 @@ effectu\'ees sur la m\'ethode s\'electionn\'ee.
 Dans \figref{buildWorldMenuVersions} nous pouvons voir deux versions de la
 m\'ethode \ct{buildWorldMenu:}.}
 
+
 \index{System Browser!bouton!versions}
 
 Le panneau sup\'erieur affiche une ligne pour chaque version de la m\'ethode
@@ -602,74 +603,66 @@ ainsi de suite (voir{chasingBrowser}).}
 	\figlabel{chasingBrowser}
 \end{figure}
 
-\subsubsection{Trouver les r\'ef\'erences aux variables}
-\seclabel{variables}
+% Le menu permet aussi d'afficher le jeu 
+% %subset 
+% des r\'ef\'erences aux variables d'instance qui affecte la variable choisie
+% par \menu{inst var defs}.
+% Une fois que vous avez cliqu\'e sur le bouton ou que vous avez choisi une
+% des propositions de menu, un menu flottant s'affichera, vous invitant ainsi
+% \`a s\'electionner une variable parmi toutes les variables d\'efinies et
+% h\'erit\'ees dans la classe courante.
+% La liste suit l'ordre d'h\'eritage; il peut d'ailleurs \^etre utile d'afficher
+% cette liste \`a chaque fois vous avez besoin de vous rem\'emorer le nom d'une
+% variable d'instance. Si vous cliquer en dehors de la liste, cette derni\`ere
+% dispara\^{\i}tra sans avoir affich\'e le navigateur de variable.
 
-%//+++++++++++++++++++++++++++++++++ A TRADUIRE +++++++++++++
-\tradalert{martial}{le reste du texte est encore du SBE}
 
-\index{Browser!bouton!inst vars}
-\index{Browser!bouton!class vars}
-Les boutons \button{inst vars} et \button{class vars} vous aident \`a savoir
-dans quelles m\'ethodes sont utilis\'ees respectivement les variables d'instance
-et les variables de classe; cette information est aussi disponible depuis 
-\menu{inst var refs} et \menu{class var refs} du menu contextuel accessible via le 
-\ind{bouton jaune} de la souris dans le panneau de la classe.
-Le menu permet aussi d'afficher le jeu 
-%subset 
-des r\'ef\'erences aux variables d'instance qui affecte la variable choisie
-par \menu{inst var defs}.
-Une fois que vous avez cliqu\'e sur le bouton ou que vous avez choisi une
-des propositions de menu, un menu flottant s'affichera, vous invitant ainsi
-\`a s\'electionner une variable parmi toutes les variables d\'efinies et
-h\'erit\'ees dans la classe courante.
-La liste suit l'ordre d'h\'eritage; il peut d'ailleurs \^etre utile d'afficher
-cette liste \`a chaque fois vous avez besoin de vous rem\'emorer le nom d'une
-variable d'instance. Si vous cliquer en dehors de la liste, cette derni\`ere
-dispara\^{\i}tra sans avoir affich\'e le navigateur de variable.
+\subsubsection{\arevoir{Le panneau de code}}
+\seclabel{sources}
 
-Signalons que nous pouvons acc\'eder \`a \menu{class vars},
-gr\^ace au menu de panneau de classes accessible par le bouton jaune
-de la souris, 
-ouvrant donc un inspecteur affichant les variables de classe 
-de la classe actuelle ainsi que \emph{leurs valeurs};
-ou encore \`a
-\menu{class refs (N)} affichant une liste de toutes les m\'ethodes
-r\'ef\'eren\c{c}ant directement cette m\^eme classe.
-
-\subsubsection{Le panneau source}
-\label{sec:sources}
-
-\index{System Browser!bouton!source}
-Le bouton \button{source} affiche un menu que nous pourrions appeler
-%``what to show'' menu, 
-``ce qui est \`a voir''; il nous permet de choisir ce que le navigateur
-affiche dans le panneau inf\'erieur ou panneau source.
+%++++++++++++++++++
+\index{Browser!panneau de code}
+\seeindex{Browser!panneau source}{Browser, panneau de code} % CHANGE
+\seeindex{Browser!view}{Browser, panneau de code} % REVOIR
+L'élément de menu \menu{various \go view \ldots} 
+% ajout - martial
+disponible en \actclickant{} dans le panneau des méthodes
+affiche le menu ``comment faut-il l'afficher''
+qui vous permet de choisir comment le navigateur va afficher
+% ajout - martial
+la méthode sélectionnée dans le panneau inférieur \ie le panneau de code
+(ou \emph{panneau source}).
+%Le bouton \button{source} affiche un menu que nous pourrions appeler
+%%``what to show'' menu, 
+%``ce qui est \`a voir''; il nous permet de choisir ce que le navigateur
+%affiche dans le panneau inf\'erieur ou panneau source.
 Parmi les propositions, nous avons l'affichage du code \menu{source}, 
 du code source en mode \menu{prettyPrint} (affichage \'el\'egant), 
-du code compil\'e ou \menu{byteCodes} ou encore du code source
-d\'ecompil\'e depuis les \emph{bytes codes} via \menu{decompile}.
-Le label du bouton change pour afficher le mode choisi. Il y a d'autres
-options; si vous promenez la souris sur ces options, vous verrez
-appara\^{\i}tre un ballon d'aide (ou \emph{help balloon}). Essayez-en
-quelques-uns. 
+du code compil\'e ou \menu{byteCode}, ou encore du code source
+d\'ecompil\'e depuis le \emph{bytecode} via \menu{decompile}.
+%Le label du bouton change pour afficher le mode choisi. Il y a d'autres
+%options; si vous promenez la souris sur ces options, vous verrez
+%appara\^{\i}tre un ballon d'aide (ou \emph{help balloon}). Essayez-en
+%quelques-uns. 
 \index{méthode!pretty-print}
 \index{méthode!decompile}
 \index{méthode!byte code}
 
 Remarquez que le choix de \menu{prettyPrint} dans ce menu n'est \emph{absolument pas} le m\^eme que le travail en mode \emph{pretty-print} d'une m\'ethode
-avant sa sauvegarde.
+avant sa sauvegarde\footnote{\menu{pretty print (r)} est le premier élément de menu dans le panneau des méthodes ou celui à mi-hauteur dans le menu du panneau de code.}.
 Le menu contr\^ole seulement l'affichage du navigateur et n'a aucun effet sur
 le code enregistr\'e dans le syst\`eme.
 Vous pouvez le v\'erifier en ouvrant deux navigateurs et en s\'electionnant
 \menu{prettyPrint} pour l'un et \menu{source} pour l'autre.
 Pointer les deux navigateurs sur la m\^eme m\'ethode et en choisissant
-\menu{byteCodes} dans l'un et \menu{decompile} dans l'autre est vraiment
+\menu{byteCode} dans l'un et \menu{decompile} dans l'autre est vraiment
 une bonne mani\`ere d'en apprendre plus sur le jeu d'instructions cod\'ees
 (dit aussi \emph{byte-cod\'ees}) de la machine virtuelle \pharo.
 
 \subsubsection{La refactorisation}
 % ou r\'eusinage
+
+\tradalert{martial}{A finir}
 
 \index{System Browser!bouton!refactor}
 
@@ -746,7 +739,7 @@ minutes \`a tester les possibilit\'es du navigateur est v\'eritablement payant.
 
 %---------------------------------------------------------
 \subsection{Les autres navigateurs de classes}
-\label{sec:otherBrowsers}
+\seclabel{otherBrowsers}
 
 Au d\'ebut de cette section nous avons mentionn\'e un autre navigateur:
 le \emphind{Package Pane Browser}. 
@@ -757,7 +750,7 @@ Vous aurez not\'e que les noms des cat\'egories sont d\'ecompos\'es en deux
 parties.
 Par exemple, la classe \ct{ScaleMorph} appartient \`a la cat\'egorie
 \scat{Morphic-Widgets}.
-\label{sec:package-names}
+\seclabel{package-names}
 Le Package Browser suppose que la partie pr\'ec\'edant le trait d'union
 (soit \ct{Morphic}) est le nom du ``paquetage'' ou ``package''. 
 Il ajoute une cinqui\`eme
@@ -924,7 +917,7 @@ Pr\'ecisement, les r\`egles de formation d'un paquetage s'\'enoncent comme suit.
 
 Un paquetage appel\'e \ct{Foo} contient:
 
-\begin{enumerate}		\label{sec:packageRules}
+\begin{enumerate}		\seclabel{packageRules}
 	\item{} toutes les d\'efinitions de classe des classes pr\'esentes dans
 la cat\'egorie \scat{Foo} ou toutes cat\'egories avec un nom commen\c{c}ant par
 \scat{Foo-};
@@ -1269,7 +1262,7 @@ Comment accomplire cela avec Monticello?
 
 %=========================================================
 \section{L'inspecteur Inspector et l'explorateur Explorer}
-\label{sec:inspector} % (fold)
+\seclabel{inspector} % (fold)
 
 Une des caract\'eristiques de \st qui le rend diff\'erent de nombreux 
 environnements de programmation est qu'il vous offre une fen\^etre 
@@ -1440,7 +1433,7 @@ reposent ce morph comme nous pouvons le voir sur
 
 %=========================================================
 \section{Debugger, le d\'ebogueur}
-\label{sec:debugger} % (fold)
+\seclabel{debugger} % (fold)
 
 Le \ind{débogueur} \ind{Debugger} est sans conteste l'outil le plus
 puissant dans la suite d'outils de \pharo. 
@@ -1873,7 +1866,7 @@ tranches de la pile permettent des fonctions \'equivalentes.
 
 %=========================================================
 \section{Trouver les m\'ethodes}
-\label{sec:methodFinder} 
+\seclabel{methodFinder} 
 
 Il y a deux outils dans \pharo pour vous aider \`a trouver des messages; 
 chacun pouvant \^etre trouv\'e dans \toolsflapind.
@@ -1917,7 +1910,7 @@ ou sur sa classe.
 %=========================================================
 \section{Change set et son gestionnaire Change Sorter}
 % Change sets and the Change Sorter
-\label{sec:env:changeSet} % (fold)
+\seclabel{env:changeSet} % (fold)
 
 \`A chaque fois que vous travaillez dans \pharo, tous les changements que vous effectuez
 sur les m\'ethodes et les classes sont enregistr\'ees dans un
@@ -2137,7 +2130,7 @@ le protocole ou la m\'ethode correspondante.
 %=========================================================
 \section{En Smalltalk, pas de perte de codes}
 %you can't lose code
-\label{sec:cantLoseCode} % (fold)
+\seclabel{cantLoseCode} % (fold)
 
 \pharo peut parfois planter: en tant que syst\`eme exp\'erimental, \pharo vous permet
 de changer n'importe quoi dont les \'elements vitaux qui font que \pharo fonctionne!

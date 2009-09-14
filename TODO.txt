@@ -10,6 +10,11 @@ action-clic, meta-clic; SE METTRE D'ACCORD sur les termes:
 - trouver un mot français pour 'flagged green or red' (utilisé dans
 SUnit): pour l'instant: 'signalé d'une puce verte ou rouge'
 (wordreference forum)
+- le panneau inférieur du Browser = panneau de code ou panneau source
+(dans la version originale, ce n'est jamais pareil (cf Environment));
+il vaut mieux garder panneau de code partout (l'affichage (view)
+permet d'afficher le code source, bytecode... bref, un code quoi qu'il
+en soit. Si désaccord, il faut se décider sur un des termes.
 
 Les parties I,II,III,IV sont en cours de modifications (martial)
 
