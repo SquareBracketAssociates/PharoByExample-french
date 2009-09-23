@@ -85,6 +85,23 @@ accentués fonctionnent dans les commentaires de code.
 - retrait de la note de Mise en garde sur squeak 3.9 et les fermetures
 lexicales
 
+** QuickTour
+- clic bleu, rouge, jaune de squeak ont disparu
+- disparition de System (System Browser), colonne -> panneau dans les
+ajouts spécifiques à la vf
+- figures/annotatedDownload et figures/testShoutConfirm francisées (je
+garde le 'hello world' mais comme dans SBE, je remplace #testShout
+avec l'expression 'pas de panique'; pour l'instant la figure est un
+hack de l'original: j'attends la mise à jour des figures pour la
+nouvelle interface (fin des bords rouges pour les zones de texte
+non-sauvegardées)
+- mise à jour
+
+** FirstApp
+- jeu de Quinto -> jeu Lights Out, SBECell -> LOCell, SBE-Quinto ->
+PBE-LightsOut
+- File List (Browser) -> File Browser
+
 *** NOUVEAUX CHAPITRES
 ** Monticello
 - ajout des balises latex \titre-firstapp et \titre-environment pour

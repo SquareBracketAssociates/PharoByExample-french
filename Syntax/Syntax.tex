@@ -8,6 +8,7 @@
 % relecture par Rene Mages : (Sun, 13 Jan 2008) de la version #14938
 % adaptation pour PBE - martial - Thu Sep 10 22:45:08 CEST 2009 from
 % $Id: Syntax.tex 28624 2009-08-27 10:59:05Z oscar $
+% sync: 29170
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -168,7 +169,8 @@ Il y a seulement un objet symbole \ct{#Bonjour} mais il peut y avoir plusieurs o
 % dans d'autres chapitres? 
 \item[Les tableaux définis \`{a} la compilation.] Ils sont d\'{e}finis par \ct{#( )}, les objets litt\'{e}raux sont s\'{e}par\'{e}s par des espaces.
 À l'int\'{e}rieur des parenth\`{e}ses, tout doit \^{e}tre constant durant la compilation.
-Par exemple,  \ct{#(27 #(true false) abc)} est un
+Par exemple,  \arelire{\ct{#(27 (true false) abc)}}~\footnote{\arelire{Notez que c'est la
+même chose que \ct{#(27 #(true false) #abc)}.}} est un
 \subind{littéral}{tableau} litt\'{e}ral de trois \'{e}l\'{e}ments: l'entier \ct{27}, le tableau \`{a} la compilation contenant deux bool\'{e}ens et le symbole \ct{#abc}.
 \seeindex{tableau!littéral}{littéral, tableau}
 

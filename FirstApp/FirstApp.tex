@@ -10,6 +10,7 @@
 % relecture: Rene Mages (12/19/2007) + Martial -> Mon Dec 24 18:27:55 CET 2007
 % relecture: Rene Mages (01/10/2008) version 14902
 % relecture: Martial Boniou (01/30/2008) version 15374
+% adaptation pour PBE - martial - (09/20/2009) version 29170
 \ifx\wholebook\relax\else
 % --------------------------------------------
 % Lulu:
@@ -31,118 +32,159 @@
 % --------------------------------------------
     \graphicspath{{figures/} {../figures/}}
 	\begin{document}
-	\renewcommand{\nnbb}[2]{} % Disable editorial comments
+	% \renewcommand{\nnbb}[2]{} % Disable editorial comments
 	\sloppy
 \fi
 %=================================================================
 \chapter{\titreFirstapp}
-\label{cha:firstApp}
-\tradalert{martial}{le reste du texte est encore du SBE}
+\chalabel{firstApp}
 
-Dans ce chapitre, nous allons développer un jeu très simple, le jeu de \ind{Quinto}. 
-En cours de route, nous allons faire la démonstration de la plupart des outils que les développeurs \pharo utilisent pour construire et déboguer leurs programmes et comment les programmes sont échangés entre les développeurs. Nous verrons notamment le navigateur de classes (System Browser), l'inspecteur d'objet, le débogueur et le navigateur de \ind{paquetage}{}s \ind{Monticello}. 
+Dans ce chapitre, nous allons développer un jeu simple \arelire{de
+  réflexion}, le jeu \ind{Lights Out}~\footnote{En anglais,
+  \url{http://en.wikipedia.org/wiki/Lights_Out_(game)}.
+% martial - TODO ajouter une définition en français
+}. 
+En cours de route, nous allons faire la démonstration de la plupart des outils que les développeurs \pharo utilisent pour construire et déboguer leurs programmes et comment les programmes sont échangés entre les développeurs. Nous verrons notamment le navigateur de classes, l'inspecteur d'objet, le débogueur et le navigateur de \ind{paquetage}{}s \ind{Monticello}. 
 Le développement avec Smalltalk est efficace: vous découvrirez que vous passerez beaucoup plus de temps à écrire du code et beaucoup moins à gérer le processus de développement. 
 Ceci est en partie du au fait que Smalltalk est un langage très simple, et d'autre part que les outils qui forment l'environnement de programmation sont très intégrés avec le langage.
 
 %=================================================================
-\section{Le jeu de Quinto}
-
-% DON'T USE WRAPFIGURE CLOSE TOO A PAGE BREAK!!! (ON)
-%\begin{wrapfigure}[13]{r}{0.35\linewidth}%
-%	\vskip -\baselineskip
-%	\centerline{\includegraphics[width=.8\linewidth]{GameBoard}}
-%	\caption{The Quinto game board. The user has just clicked the mouse as shown by the cursor.
-%	\label{fig:gameBoard}}
-%\end{wrapfigure}
+\section{Le jeu Lights Out}
 
 \begin{figure}[ht]
 	\vskip -\baselineskip
 	\centerline{\includegraphics[width=.3\linewidth]{GameBoard}}
-	\caption{Le plateau de jeu de Quinto. L'utilisateur vient de cliquer sur une case avec la souris comme le montre le curseur.
-	\label{fig:gameBoard}}
+	\caption{Le plateau de jeu Lights Out. L'utilisateur vient de cliquer sur une case avec la souris comme le montre le curseur.
+	\figlabel{gameBoard}}
 \end{figure}
 
 Pour vous montrer comment utiliser les outils de développement de
 \pharo, nous allons construire un jeu très simple nommé
-\emph{Quinto}.  Le plateau de jeu est montré dans
+\emph{Lights Out}.  Le plateau de jeu est montré dans
 \figref{gameBoard}; il consiste en un tableau rectangulaire de
 \emph{cellules} jaunes claires.  Lorsque l'on clique sur l'une de ces
 cellules avec la souris, les quatre qui l'entourent deviennent
 bleues. Cliquez de nouveau et elles repassent au jaune p\^ale. Le but du 
 jeu est de passer au bleu autant de cellules que possible.
 
-Le jeu de Quinto montré dans \figref{gameBoard} est fait de deux types d'objets: le plateau de jeu lui-m\^eme et une centaine de cellule-objets individuelles. Le code \pharo pour réaliser ce jeu va contenir deux classes: une pour le jeu et une autre pour les cellules.
+Le jeu Lights Out montré dans \figref{gameBoard} est fait de deux types d'objets: le plateau de jeu lui-m\^eme et une centaine de cellule-objets individuelles. Le code \pharo pour réaliser ce jeu va contenir deux classes: une pour le jeu et une autre pour les cellules.
 Nous allons voir maintenant comment définir ces deux classes en utilisant les outils de programmation de \pharo.
 
 %=================================================================
-\section{Créer une nouvelle catégorie de classe}
+\section{Créer un nouveau paquetage}
 
-Nous avons déjà vu le \ind{navigateur de classes} (System Browser)
+Nous avons déjà vu le \ind{Browser}
 dans \charef{quick}, o\`u nous avons appris à naviguer dans les classes
 et méthodes, et à définir de nouvelles méthodes.
-Nous allons maintenant voir comment créer des catégories systèmes et des classes.
-\seeindex{catégorie système}{catégorie}
-\seeindex{catégorie de classe}{catégorie système}
+Nous allons maintenant voir comment créer des paquetages (ou \emph{packages}), des catégories et des classes.
 \index{catégorie!création}
+\index{package!création}
 
-\dothis{Ouvrez un navigateur de classes et cliquez avec le bouton jaune sur le panneau des catégories.
-Sélectionnez \menu{add item \ldots}.}
+\dothis{\arelire{Ouvrez un Browser et \actclickz{} sur le panneau des paquetages.
+Sélectionnez \menu{create package}\footnote{Nous supposons que le
+  Package Browser est installé en tant que navigateur de classes par
+  défaut. Si le Browser ne ressemble pas à celui de la
+  \figref{addPackage}, vous aurez besoin de changer le navigateur par
+  défaut. Voyez \faqref{packageBrowser}.}.}}
 
 \begin{figure}[htb]
 \begin{minipage}[b]{0.48\textwidth}
 \ifluluelse
-	{\centerline {\includegraphics[width=0.9\textwidth]{AddCategory}}}
-	{\centerline {\includegraphics[scale=0.7]{AddCategory}}}
-	\caption{Ajouter une catégorie système.
-	\label{fig:addCategory}}
+	{\centerline {\includegraphics[width=0.9\textwidth]{AddPackage}}}
+	{\centerline {\includegraphics[scale=0.7]{AddPackage}}}
+	\caption{Ajouter un paquetage.
+	\figlabel{addPackage}}
 \end{minipage}
 \hfill
 \begin{minipage}[b]{0.48\textwidth}
 \ifluluelse
-	{\centerline {\includegraphics[width=0.9\textwidth]{ClassTemplate}}}
-	{\centerline {\includegraphics[scale=0.7]{ClassTemplate}}}
-	\caption{Le modèle de création d'une classe.
-	\label{fig:classTemplate}}
+	{\centerline {\includegraphics[width=0.8\textwidth]{ClassTemplate}}}
+	{\centerline {\includegraphics[scale=0.6]{ClassTemplate}}}
+	\caption{Le \arelire{patron} de création d'une classe.
+	\figlabel{classTemplate}}
 \end{minipage}
 \end{figure}
 
-Tapez le nom de la nouvelle catégorie (nous allons utiliser
-\scat{PBE-LightsOut}) dans la boîte de dialogue et cliquez sur
-\menu{accept} (ou appuyez simplement sur la touche entrée); la nouvelle catégorie est créée et se positionne à la fin de la liste de catégories.
-Si vous sélectionnez une catégorie existante, alors la nouvelle catégorie sera positionnée juste après celle sélectionnée.
+Tapez le nom du nouveau paquetage (nous allons utiliser
+\scat{PBE-LightsOut}) dans la boîte de dialogue et \clickz{} sur
+\menu{accept} (ou appuyez simplement sur la touche entrée); \arelire{le nouveau
+paquetage est créé et se positionne dans la liste des paquetages en
+respectant l'ordre alphabétique}.
 
 %=================================================================
-\section{Définir la classe SBECell}
+\section{Définir la classe LOCell}
 
-Pour l'instant, il n'y a aucune classe dans cette nouvelle
-catégorie. Néanmoins, la zone principale d'édition affiche un
-patron ou modèle afin de créer facilement une nouvelle classe (voir \figref{classTemplate}).
+\arelire{Pour l'instant, il n'y a aucune classe dans le nouveau paquetage. Cependant le
+panneau de code inférieur\,---\,qui est la zone principale
+d'édition\,---\,affiche un patron pour faciliter la création d'une
+nouvelle classe (voir \figref{classTemplate}).}
 
-Ce modèle nous montre une expression \st qui envoie un message à la classe appelée \ct{Object}, lui demandant de créer une sous-classe appelée \ct{NameOfSubClass}.  La nouvelle classe n'a pas de variables et devrait appartenir à la catégorie \scat{PBE-LightsOut}.
+Ce modèle nous montre une expression \st qui envoie un message à la
+classe appelée \ct{Object}, lui demandant de créer une sous-classe
+appelée \ct{NameOfSubClass}.  La nouvelle classe n'a pas de variables
+et devrait appartenir à la catégorie \scat{PBE-LightsOut}.
+
+\subsection{\arelire{Des catégories et des paquetages}}
+\seclabel{categoriesPackages}
+
+Historiquement, \st{} ne connaît que les \emph{catégories}. Vous
+pouvez vous interroger sur la différence qui peut exister entre
+catégories et paquetages.
+Une catégorie est simplement une collection de classes apparentées
+dans une image \st. Un \emph{paquetage} (ou \emph{package})
+est une collection de classes apparentées \emph{et de méthodes
+  d'extension} qui peuvent être versionnées via l'outil de versionnage
+Monticello.
+Par convention, les noms de paquetages et les noms de catégories sont
+les mêmes.
+La plupart du temps, nous n'accordons pas de différence mais, dans ce
+livre, nous serons attentifs à utiliser la terminologie exacte car il
+y a des cas où la différence est cruciale.
+Vous en apprendrez plus lorsque nous aborderons le travail avec
+Monticello.
+\index{paquetage}
+\seeindex{package}{paquetage}
+\index{catégorie}
+
+% \subsection{On Categories and Packages}
+% \seclabel{categoriesPackages}
+
+% Historically, \st only knows about \emph{categories}, not packages.
+% You may well ask, what is the difference?
+% A category is simply a collection of related classes in a \st image.
+% A \emph{package} is a collection of related classes \emph{and extension methods} that may be versioned using the Monticello versioning tool.
+% By convention, package names and category names are the same.
+% For most purposes we do not care about the difference, but we will be careful to use the correct terminology in this book since there are points where the difference is crucial.
+% We will learn more when we start working with Monticello.
+% \index{package}
+% \index{category}
+
+\subsection{Créer une nouvelle classe}
 
 Nous modifions simplement le modèle afin de créer la classe que nous souhaitons.
 
 \dothis{Modifiez le modèle de création d'une classe comme suit:}
 \begin{itemize}
   \item remplacez \clsind{Object} par \clsind{SimpleSwitchMorph};
-  \item remplacez \ct{NameOfSubClass} par \clsind{SBECell};
+  \item remplacez \ct{NameOfSubClass} par \clsind{LOCell};
   \item ajoutez \ct{mouseAction} dans la liste de variables d'instances.
 \end{itemize}
 Le résultat doit ressembler à \tclsref{firstClassDef}.
 
-\begin{classdef}[firstClassDef]{Définition de la classe \ct| SBECell|}
-SimpleSwitchMorph subclass: #SBECell
+\needlines{5}
+\begin{classdef}[firstClassDef]{Définition de la classe \ct| LOCell|}
+SimpleSwitchMorph subclass: #LOCell
    instanceVariableNames: 'mouseAction'
    classVariableNames: ''
    poolDictionaries: ''
    category: 'PBE-LightsOut'
 \end{classdef}
-\index{System Browser!définir une classe}
+\index{Browser!définir une classe}
 \index{classe!création}
 \index{Morphic}
 
-Cette nouvelle définition consiste en une expression \st qui envoie un message à une classe existante \ct{SimpleSwitchMorph}, lui demandant de créer une sous-classe appelée \ct{SBECell}
-(en fait, comme \ct{SBECell} n'existe pas encore, nous passons comme argument le \emphind{symbole} \ct{#SBECell} qui correspond au nom de la classe à créer).
+Cette nouvelle définition consiste en une expression \st qui envoie un message à une classe existante \ct{SimpleSwitchMorph}, lui demandant de créer une sous-classe appelée \ct{LOCell}
+(en fait, comme \ct{LOCell} n'existe pas encore, nous passons comme argument le \emphind{symbole} \ct{#LOCell} qui correspond au nom de la classe à créer).
 Nous indiquons également que les instances de cette nouvelle classe doivent avoir une variable d'instance \ct{mouseAction}, que nous utiliserons pour définir l'action que la cellule doit effectuer lorsque l'utilisateur clique dessus avec la souris.
 
 \emph{À ce point, nous n'avons encore rien construit.}
@@ -156,22 +198,21 @@ Pour effectivement envoyer ce message, vous devez faire \menu{accept}.
 	{\centerline {\includegraphics[width=\textwidth]{AcceptClassDef}}}
 	{\centerline {\includegraphics[scale=0.7]{AcceptClassDef}}}
 \caption{Le modèle de création d'une classe.
-\label{fig:acceptClassDef}}
+\figlabel{acceptClassDef}}
 \end{figure}
 
 \dothis{Acceptez la nouvelle définition de classe.}
-Utilisez le bouton jaune de la souris ou bien, sélectionnez
-\menu{accept} ou encore utilisez le raccourci-clavier \short{s} (pour
+\Actclickz{} et sélectionnez \menu{accept} ou encore utilisez le
+raccourci-clavier \short{s} (pour
 ``save'' 
 %ajout
 \cad sauvegarder).
 Ce message sera envoyé à \ct{SimpleSwitchMorph}, ce qui aura pour
 effet de compiler la nouvelle classe.
-\index{bouton jaune}
 \index{raccourci-clavier!accept}
 
 Une fois la définition de classe acceptée, la classe va \^etre créée et
-apparaîtra dans le panneau des classes du navigateur (voir \figref{SBECell}).
+apparaîtra dans le panneau des classes du navigateur (voir \figref{LOCell}).
 Le panneau d'édition montre maintenant la définition de la classe et
 un petit panneau dessous vous invite à écrire quelques mots décrivant
 l'objectif de la classe. Nous appelons cela un \emph{commentaire de
@@ -190,18 +231,18 @@ sont vitaux si les développeurs qui viennent après vous souhaitent
 passer un peu de temps sur votre classe.
 \index{refactoring}
 
-\dothis{Tapez un commentaire de classe pour \ct{SBECell} et
+\dothis{Tapez un commentaire de classe pour \ct{LOCell} et
   acceptez-le; vous aurez tout le loisir de l'améliorer par la suite.}
 
 \begin{figure}[h!t]
 %\ifluluelse
-%	{\centerline {\includegraphics[width=\textwidth]{SBECell}}}
-%	{\centerline {\includegraphics[scale=0.7]{SBECell}}}
+%	{\centerline {\includegraphics[width=\textwidth]{LOCell}}}
+%	{\centerline {\includegraphics[scale=0.7]{LOCell}}}
 %martial: description de la frame de commentaire ajoute pour les non-anglophones
-\caption{La classe nouvellement créée \ct{SBECell}. Le panneau
+\caption{La classe nouvellement créée \ct{LOCell}. Le panneau
   inférieur est le panneau de commentaires; par défaut, il dit:
   ``CETTE CLASSE N'A PAS DE COMMENTAIRE!''.
-\label{fig:SBECell}}
+\figlabel{LOCell}}
 \end{figure}
 
 %=================================================================
@@ -216,10 +257,10 @@ Vous voyez maintenant un modèle pour la création d'une méthode dans le pannea
 Sélectionnez-le et remplacez-le par le texte de \tmthref{scbecellinitialize}.
 \protindex{all}
 \index{méthode!création}
-\index{System Browser!définir une méthode}
+\index{Browser!définir une méthode}
 
 \needlines{10}
-\begin{numMethod}[scbecellinitialize]{Initialiser les instances de \ct{SBECell}.}
+\begin{numMethod}[scbecellinitialize]{Initialiser les instances de \ct{LOCell}.}
 initialize
    super initialize.
    self label: ''.
@@ -246,12 +287,12 @@ Que fait le code ci-dessus?  Nous n'allons pas rentrer dans tous les
 détails maintenant (ce sera l'objet du reste de ce livre!), mais nous
 allons vous en donner un bref aperçu. Reprenons le code ligne par ligne.
 
-Notons que la méthode s'appelle \mthind{SBECell}{initialize}.
+Notons que la méthode s'appelle \mthind{LOCell}{initialize}.
 Ce nom dit bien ce qu'il veut dire~\footnote{En anglais, puisque c'est
   la langue conventionnelle en \st.}!
 Par convention, si une classe définit une méthode nommée
 \ct{initialize}, cette méthode sera appelée dès que l'objet aura été créé.
-Ainsi dès que nous évaluons \ct{SBECell new}, le message \ct{initialize} sera envoyé automatiquement à cet objet nouvellement créé.
+Ainsi dès que nous évaluons \ct{LOCell new}, le message \ct{initialize} sera envoyé automatiquement à cet objet nouvellement créé.
 Les méthodes d'initialisation sont utilisées pour définir l'état des objets, généralement pour donner une valeur à leurs variables d'instances; c'est exactement ce que nous faisons ici.
 %\seeindex{Object!initialization}{initialization}
 \seeindex{objet!initialisation}{initialisation}
@@ -306,27 +347,54 @@ dire:  ``Utilise des bords carrés!'' (d'o\`u \ct{useSquareCorners}),
 %=================================================================
 \section{Inspecter un objet}
 
-Vous pouvez tester l'effet du code que vous avez écrit en créant un nouvel objet \ct{SBECell} et en l'inspectant.
+Vous pouvez tester l'effet du code que vous avez écrit en créant un
+nouvel objet \ct{LOCell} et en l'inspectant
+% ajout - vf
+\arelire{avec l'inspecteur nommé Inspector}.
 
-\dothis{Ouvrez un espace de travail (Workspace). Tapez l'expression \ct{SBECell new} et choisissez \menu{inspect it}.}
+\dothis{Ouvrez un espace de travail (Workspace). Tapez l'expression \ct{LOCell new} et choisissez \menu{inspect it}.}
 
 \begin{figure}[htbp]
    \centering
-%   \includegraphics[scale=0.7]{SBECellInspector} 
-   \caption{L'inspecteur utilisé pour examiner l'objet SBECell.\label{fig:SBECellInspector}}
+%   \includegraphics[width=\textwidth]{LOCellInspector} 
+   \caption{L'inspecteur utilisé pour examiner l'objet LOCell.\figlabel{LOCellInspector}}
 \end{figure}
 
-Le panneau gauche de l'\ind{inspecteur} montre une liste de variables d'instances; si vous en sélectionnez une (par exemple \mbox{\ct{bounds}),} la valeur de la \ind{variable d'instance} est affichée dans le panneau droit. Vous pouvez également utiliser l'inspecteur pour changer la valeur d'une variable d'instance.
+Le panneau gauche de l'\ind{inspecteur} montre une liste de variables
+d'instances; si vous en sélectionnez une (par exemple
+\mbox{\ct{bounds}),} la valeur de la \ind{variable d'instance} est
+affichée dans le panneau droit. % CHANGE
 
-\dothis{Changez la valeur de \ct{bounds} à \ct{0@0 corner: 50@50} et
-  faites un \menu{accept}.}
+%  You can also use the inspector to change the value of an instance
+%  variable.
+% \dothis{Changez la valeur de \ct{bounds} à \ct{0@0 corner: 50@50} et
+%   faites un \menu{accept}.}
+% \on{This does not work any more. I get:}
+% \ct{OTNamedVariableNode(Object)>>doesNotUnderstand: #selectedClass}
+% \on{should use the mini workspace instead to send bounds: ?}
 
-Le panneau en bas d'un inspecteur est un mini-espace de travail. C'est très utile car, dans cet espace de travail, la pseudo-variable \self est liée à l'objet inspecté.
+Le panneau en bas d'un inspecteur est un mini-espace de
+travail. \aretirer{C'est très utile car, dans cet espace de travail, la
+  pseudo-variable \self est liée à l'objet inspecté.} % REVOIR
+                                % ATTENDRE dans PBE la phrase existe
+                                % mais c'est faux!?
 
-\dothis{Tapez le texte \ct{self openInWorld} dans la zone du bas et
-  choisissez \menu{do it} via le menu.}
-La cellule doit apparaître en haut à gauche de l'écran; en fait, à l'endroit exact o\`u sa variable \ct{bounds} dit qu'elle doit apparaître.
-Faites un clic avec le bouton bleu de la souris sur la cellule afin de faire apparaître son \subind{Morphic}{halo} Morphic.
+
+% \dothis{Tapez le texte \ct{self openInWorld} dans la zone du bas et
+%  choisissez \menu{do it} via le menu.}
+\dothis{\arelire{Séléctionnez LOCell à la racine de la fenêtre de
+    l'inspecteur. Saisissez l'expression 
+\ct{self bounds: (200@200 corner: 250@250)} dans le panneau inférieur et faîtes un
+    \menu{do it} (via le menu contextuel ou le raccourci-clavier).}}
+\arelire{%
+ Si   vous inspectez la variable \ct{bounds}, vous devriez constater que
+  sa valeur a changé. Saisissez maintenant \ct{self openInWorld} dans
+  ce même panneau et évaluez le code avec \menu{do it}. La cellule
+  doit apparaître près du coin supérieur gauche, là où les coordonnées
+  \ct{bounds} doivent le faire apparaître.
+\Metaclickz{} sur la cellule afin de faire apparaître son
+\subind{Morphic}{halo} Morphic.
+}
 Déplacez la cellule avec la poignée marron (à 
 %côte de celle en haut à droite
 gauche de l'ic\^one du coin supérieur droit) et redimensionnez-la avec la poignée jaune (en bas à droite).
@@ -335,9 +403,9 @@ Vérifiez que les limites indiquées par l'inspecteur sont modifiées en conséq
 \begin{figure}[htbp]
 \centering
 %\ifluluelse
-%	{\includegraphics[width=\textwidth]{SBECellResize} }
-%	{\includegraphics[scale=0.7]{SBECellResize} }
-\caption{Redimensionner la cellule.\label{fig:cellresize}}
+%	{\includegraphics[width=\textwidth]{LOCellResize} }
+%	{\includegraphics[scale=0.7]{LOCellResize} }
+\caption{Redimensionner la cellule.\figlabel{cellresize}}
 \end{figure}
 
 \dothis{Détruisez la cellule en cliquant sur le \ct{x} de la poignée 
@@ -345,19 +413,17 @@ Vérifiez que les limites indiquées par l'inspecteur sont modifiées en conséq
 rose p\^ale (en haut à gauche).}
 
 %=================================================================
-\section{Définir la classe SBEGame}
+\section{Définir la classe LOGame}
 
-Créons maintenant l'autre classe dont nous avons besoin dans le jeu; nous l'appellerons \clsind{SBEGame}.
+Créons maintenant l'autre classe dont nous avons besoin dans le jeu; nous l'appellerons \clsind{LOGame}.
 
 \dothis{Faites apparaître le modèle de définition de classe dans la fen\^etre principale du navigateur.}
-%Pour cela, re-sélectionnez le nom de la catégorie de classe ...
-Pour cela, cliquez deux fois sur le nom de la catégorie de classe
-déjà sélectionnée ou réaffichez la définition de \ct{SBECell} en cliquant sur le bouton \button{instance}.
+\arelire{Pour cela, \clickz{} sur le nom du paquetage.}
 Éditez le code de telle sorte qu'il puisse \^etre lu comme suit puis faites \menu{accept}.
 
 \needlines{6}
-\begin{classdef}[sbegame]{Définition de la classe \ct{SBEGame}}
-BorderedMorph subclass: #SBEGame
+\begin{classdef}[sbegame]{Définition de la classe \ct{LOGame}}
+BorderedMorph subclass: #LOGame
    instanceVariableNames: ''
    classVariableNames: ''
    poolDictionaries: ''
@@ -371,23 +437,23 @@ Nous pourrions également insérer les noms des variables d'instances
 entre apostrophes sur la seconde ligne, mais pour l'instant 
 laissons cette liste vide.
 
-Définissons maintenant une méthode \mthind{SBEGame}{initialize} pour \ct{SBEGame}.
+Définissons maintenant une méthode \mthind{LOGame}{initialize} pour \ct{LOGame}.
 
-\dothis{Tapez ce qui suit dans le navigateur comme une méthode de \ct{SBEGame} et faites ensuite \menu{accept}:}
+\dothis{Tapez ce qui suit dans le navigateur comme une méthode de \ct{LOGame} et faites ensuite \menu{accept}:}
 
 \begin{numMethod}[sbegameinitialize]{Initialisation du jeu}
 initialize
    | sampleCell width height n |
    super initialize.
    n := self cellsPerSide.
-   sampleCell := SBECell new.
+   sampleCell := LOCell new.
    width := sampleCell width.
    height := sampleCell height.
    self bounds: (5@5 extent: ((width*n) @(height*n)) + (2 * self borderWidth)).
    cells := Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ]
 \end{numMethod}
 
-%\sd{it would be nicer if we would not have to create an instance of SBECell for nothing}
+%\sd{it would be nicer if we would not have to create an instance of LOCell for nothing}
 %\on{yes}
 
 \pharo va se plaindre qu'il ne conna\^it pas la signification de
@@ -398,20 +464,20 @@ vous suggère un certain nombre de propositions, dans le cas o\`u il
 s'agirait d'une erreur de frappe.
 
 \begin{figure}[htb]
-\begin{minipage}{0.34\textwidth}
+\begin{minipage}{0.48\textwidth}
 	\centering
 	\ifluluelse
 		{\includegraphics[width=\textwidth]{UnknownSelector}}
 		{\includegraphics[scale=0.7]{UnknownSelector}}
-	\caption{\pharo détecte un sélecteur inconnu.\label{fig:unknownSelector}}
+	\caption{\pharo détecte un sélecteur inconnu.\figlabel{unknownSelector}}
 \end{minipage}
 \hfill
-\begin{minipage}{0.64\textwidth}
+\begin{minipage}{0.48\textwidth}
 	\centering
 	\ifluluelse
 		{\includegraphics[width=\textwidth]{DeclareInstanceVar}}
 		{\includegraphics[scale=0.7]{DeclareInstanceVar}}
-	\caption{Déclaration d'une nouvelle variable d'instance.\label{fig:declareInstance}}
+	\caption{Déclaration d'une nouvelle variable d'instance.\figlabel{declareInstance}}
 \end{minipage}
 \end{figure}
 
@@ -458,7 +524,7 @@ significatif et nous avons poursuivi, sans nous interrompre.
  
 La quatrième ligne utilise cette méthode: le code Smalltalk \ct{self cellsPerSide} envoie le message \ct{cellsPerSide} à \pvind{self}, \cad à l'objet lui-m\^eme. La réponse, qui sera le nombre de cellules par côté du plateau de jeu, est affectée à \ct{n}.
 
-Les trois lignes suivantes créent un nouvel objet \ct{SBECell} et assignent sa largeur et sa hauteur aux variables temporaires appropriées.
+Les trois lignes suivantes créent un nouvel objet \ct{LOCell} et assignent sa largeur et sa hauteur aux variables temporaires appropriées.
 
 %The eighth line sends the message \ct{bounds:} to \self.
 %\ct{bounds:} is a method that we inherit from our superclass; it is
@@ -467,7 +533,7 @@ Les trois lignes suivantes créent un nouvel objet \ct{SBECell} et assignent sa 
 La ligne 8 fixe la valeur de \ct{bounds} (définissant les limites) du nouvel objet. Ne vous inquiétez pas trop sur les détails pour l'instant. Croyez-nous: l'expression entre parenthèses crée un carré avec comme origine (\ie son coin haut à gauche) le point (5,5) et son coin bas droit suffisamment loin afin d'avoir de l'espace pour le bon nombre de cellules.
 
 La dernière ligne affecte la variable d'instance \ct{cells} de l'objet
-\ct{SBEGame} à un nouvel objet \clsind{Matrix} avec le bon nombre de lignes et de colonnes.
+\ct{LOGame} à un nouvel objet \clsind{Matrix} avec le bon nombre de lignes et de colonnes.
 Nous réalisons cela en envoyant le message \ct{new:tabulate:} à la classe \ct{Matrix} (les classes sont des objets aussi, nous pouvons leur envoyer des messages).
 Nous savons que \mthind{Matrix class}{new:tabulate:} prend deux arguments parce qu'il y a deux fois deux points (\ct{:}) dans son nom. Les arguments arrivent à droite après les deux points.
 Si vous \^etes habitué à des langages de programmation o\`u les arguments sont tous mis à l'intérieur de parenthèses, ceci peut sembler surprenant dans un premier temps. Ne vous inquiétez pas, c'est juste de la syntaxe!
@@ -476,33 +542,42 @@ Cela s'avère \^etre une excellente syntaxe car le nom de la méthode peut \^etr
 
 \ct{Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ]} crée une nouvelle matrice de taille \ct{n}{$\times$}\ct{n} et initialise ses éléments. La valeur initiale de chaque élément dépend de ses coordonnées. L'élément \ct{(i,j)} sera initialisé avec le résultat de l'évaluation de \ct{self newCellAt: i at: j}.  
 
-Voilà pour \ct{initialize}!  Lorsque vous acceptez cette méthode, vous
-pouvez également simultanément en profiter pour formater proprement
-votre code. Vous n'avez pas besoin de faire cela à la main: à partir
-du menu déclenché par le bouton jaune de la souris, sélectionnez
-\menu{more \ldots \go prettyprint}, et le navigateur vous formatera
-le code pour vous. Vous n'avez qu'à faire \menu{accept} après avoir 
-choisi ce nouveau formatage en \subind{méthode}{pretty-print} ou 
-%martial: j'ai reformule les deux phrases suivantes (lourdes)
-bien, si le résultat ne vous pla\^{\i}t pas, vous pouvez utiliser 
-le raccourci-clavier \subind{raccourci-clavier}{cancel}
-(\short{l}\,---\, ceci est un \emph{L} en minuscule) pour annuler.
-Vous pouvez également configurer votre navigateur de code pour
-toujours formater élégamment le code chaque fois qu'il vous
-l'affiche:
-utilisez pour ce faire le bouton le plus à droite dans la barre de
-boutons de votre navigateur de classe afin d'ajuster la vue.
-\seeindex{pretty-print}{méthode}
+%:===> Pretty-print is broken! (how to pretty-print?)
 
-Si vous utilisez beaucoup le menu \menu{more\, \ldots}, sachez que
-vous pouvez appuyer sur la touche {\sc shift} lorsque vous cliquez
-afin de le faire apparaître directement.
+% \on{I think it is silly to copy paste from the pretty-print view to the normal view}
+
+% Voilà pour \ct{initialize}!  Lorsque vous acceptez cette méthode, vous
+% pouvez également simultanément en profiter pour formater proprement
+% votre code. Vous n'avez pas besoin de faire cela à la main: à partir
+% du menu déclenché en \actclickant, sélectionnez
+% \menu{more \ldots \go prettyprint}, et le navigateur vous formatera
+% le code pour vous. Vous n'avez qu'à faire \menu{accept} après avoir 
+% choisi ce nouveau formatage en \subind{méthode}{pretty-print} ou 
+% %martial: j'ai reformule les deux phrases suivantes (lourdes)
+% bien, si le résultat ne vous pla\^{\i}t pas, vous pouvez utiliser 
+% le raccourci-clavier \subind{raccourci-clavier}{cancel}
+% (\short{l}\,---\, ceci est un \emph{L} en minuscule) pour annuler.
+% Vous pouvez également configurer votre navigateur de code pour
+% toujours formater élégamment le code chaque fois qu'il vous
+% l'affiche:
+% utilisez pour ce faire le bouton le plus à droite dans la barre de
+% boutons de votre navigateur de classe afin d'ajuster la vue.
+% \seeindex{pretty-print}{méthode}
+
+% Si vous utilisez beaucoup le menu \menu{more\, \ldots}, sachez que
+% vous pouvez appuyer sur la touche {\sc shift} lorsque vous cliquez
+% afin de le faire apparaître directement.
 
 %=================================================================
 \section{Organiser les méthodes en protocoles}
 
 Avant de définir de nouvelles méthodes, attardons-nous un peu sur le troisième panneau en haut du navigateur.
-De la m\^eme façon que le premier panneau du navigateur nous permet de catégoriser les classes de telle sorte que nous ne soyons pas submergés par une liste de noms de classes trop longue dans le second panneau, le troisième panneau nous permet de catégoriser les méthodes de telle sorte que n'ayons pas une liste de méthodes trop longue dans le quatrième panneau.
+De la m\^eme façon que le premier panneau du navigateur nous permet de
+catégoriser les classes \arelire{dans des paquetages} de telle sorte
+que nous ne soyons pas submergés par une liste de noms de classes trop
+longue dans le second panneau, le troisième panneau nous permet de
+catégoriser les méthodes de telle sorte que n'ayons pas une liste de
+méthodes trop longue dans le quatrième panneau.
 Ces catégories de méthodes sont appelées ``protocoles''.
 \index{protocole}
 
@@ -513,36 +588,40 @@ C'est pour cela que le navigateur offre un protocole virtuel
 
 \begin{figure}[htbp]
    \centering
-   \includegraphics[scale=0.7]{Categorize} 
-   \caption{Catégoriser toutes les méthodes non catégorisées.\label{fig:categorize}}
+   \includegraphics[width=\textwidth]{Categorize} 
+   \caption{Catégoriser \arelire{automatiquement} toutes les méthodes
+     non catégorisées.\figlabel{categorize}}
 \end{figure}
 
 Si vous avez suivi l'exemple jusqu'à présent, le troisième panneau doit contenir le protocole \protind{as yet unclassified}~\footnote{NdT: non encore classifié.}.
 
-\dothis{Sélectionnez avec le \ind{bouton jaune} de la souris l'élément du menu \menu{categorize all uncategorized} afin de régler ce problème et déplacer les méthodes \ct{initialize} vers un nouveau protocole appelé \protind{initialization}.}
+\dothis{\Actclickz{} dans le panneau des protocoles et sélectionnez
+  \menu{various \go{} categorize automatically} afin de régler ce
+  problème et déplacer les méthodes \ct{initialize} vers un nouveau
+  protocole appelé \protind{initialization}.} % CHANGE
 Comment \pharo sait que c'est le bon protocole? En général,
 \pharo ne peut pas le savoir mais dans notre cas, il y a aussi une méthode \ct{initialize} dans la super-classe et \pharo suppose que notre méthode \ct{initialize} doit \^etre rangée dans la m\^eme catégorie que celle qu'elle surcharge.
 %\index{method!categorize}
 \index{méthode!catégorisation}
 
-Vous pouvez également vous rendre compte que \pharo a déjà rangé votre
-méthode \ct{initialize} dans le protocole \protind{initialization}. Si
-c'est le cas, c'est probablement que vous avez chargé un paquetage nommé \ct{AutomaticMethodCategorizer} dans votre image.
+% Vous pouvez également vous rendre compte que \pharo a déjà rangé votre
+% méthode \ct{initialize} dans le protocole \protind{initialization}. Si
+% c'est le cas, c'est probablement que vous avez chargé un paquetage nommé \ct{AutomaticMethodCategorizer} dans votre image.
 
-\paragraph{Une convention typographique.} Les Smalltalkiens utilisent fréquemment la notation ``\verb|>>|'' afin d'identifier la classe à laquelle la méthode appartient, ainsi par exemple, la méthode \ct{cellsPerSide} de la classe \ct{SBEGame} sera référencée par \ct{SBEGame>>cellsPerSide}.
-Afin d'indiquer que cela ne fait pas partie de la syntaxe de \st, nous utiliserons plutôt le symbole spécial \ct{>>>} de telle sorte que cette méthode apparaîtra dans le texte comme \ct{SBEGame>>>cellsPerSide}
+\paragraph{Une convention typographique.} Les Smalltalkiens utilisent fréquemment la notation ``\verb|>>|'' afin d'identifier la classe à laquelle la méthode appartient, ainsi par exemple, la méthode \ct{cellsPerSide} de la classe \ct{LOGame} sera référencée par \ct{LOGame>>cellsPerSide}.
+Afin d'indiquer que cela ne fait pas partie de la syntaxe de \st, nous utiliserons plutôt le symbole spécial \ct{>>>} de telle sorte que cette méthode apparaîtra dans le texte comme \ct{LOGame>>>cellsPerSide}
 \cmindex{Behavior}{>>}
 
 À partir de maintenant, lorsque nous voudrons montrer une méthode dans ce livre, nous écrirons le nom de cette méthode sous cette forme. Bien s\^ur, lorsque vous tapez le code dans un navigateur, vous n'avez pas à taper le nom de la classe ou le \ct{>>>}; vous devrez juste vous assurez que la classe appropriée est sélectionnée dans le panneau des classes.
 
-Définissons maintenant les autres méthodes qui sont utilisées par la méthode \ct{SBEGame>>>initialize}. Les deux peuvent \^etre mises dans le protocole \prot{initialization}.
+Définissons maintenant les autres méthodes qui sont utilisées par la méthode \ct{LOGame>>>initialize}. Les deux peuvent \^etre mises dans le protocole \prot{initialization}.
 
 \begin{method}[sbegamecellsperside]{Une méthode constante}
-SBEGame>>>cellsPerSide
+LOGame>>>cellsPerSide
    "Le nombre de cellules le long de chaque !c\^oté! du jeu"
    ^ 10
 \end{method}
-\cmindex{SBEGame}{cellsPerSide}
+\cmindex{LOGame}{cellsPerSide}
 % le commentaire "The number of cells along each side of the game"
 \index{méthode!constante}
 
@@ -551,24 +630,24 @@ Cette méthode ne peut pas \^etre plus simple: elle retourne la constante
 
 \needlines{10}
 \begin{method}[newCellAt:at:]{Une méthode d'aide à l'initialisation}
-SBEGame>>>newCellAt: i at: j
+LOGame>>>newCellAt: i at: j
    "!Crée une cellule à la position (i,j) et l'ajoute dans ma représentation graphique à la position correcte. Retourne une nouvelle cellule!"
    | c origin |
-   c := SBECell new.
+   c := LOCell new.
    origin := self innerBounds origin.
    self addMorph: c.
    c position: ((i - 1) * c width) @ ((j - 1) * c height) + origin.
-   c mouseAction: [self toggleNeighboursOfCellAt: i at: j ]
+   c mouseAction: [self toggleNeighboursOfCellAt: i at: j]
 \end{method}
 % le commentaire "Create a cell for position (i,j) and add it to my on-screen
 %   representation at the appropriate screen position.  Answer the new cell"
-\cmindex{SBEGame}{newCellAt:at:}
+\cmindex{LOGame}{newCellAt:at:}
 %   ^ c      "omit this final line to create a bug"
 
-\dothis{Ajoutez les méthodes \ct{SBEGame>>>cellsPerSide} et \ct{SBEGame>>>newCellAt:at:}.}
+\dothis{Ajoutez les méthodes \ct{LOGame>>>cellsPerSide} et \ct{LOGame>>>newCellAt:at:}.}
 Confirmez que les sélecteurs \ct{toggleNeighboursOfCellAt:at:} et \ct{mouseAction:} s'épellent correctement.
 
-\Tmthref{newCellAt:at:} retourne une nouvelle cellule \ct{SBECell} à la position \ct{(i,j)} dans la matrice (\clsind{Matrix}) de cellules.
+\Tmthref{newCellAt:at:} retourne une nouvelle cellule \ct{LOCell} à la position \ct{(i,j)} dans la matrice (\clsind{Matrix}) de cellules.
 La dernière ligne définit l'action de la souris (\ct{mouseAction}) associée à la cellule comme le \emph{bloc}
 \mbox{\ct{[self toggleNeighboursOfCellAt:i at:j]}.}
 %martial: callback = fonction de rappel ? (plus francais)
@@ -576,23 +655,20 @@ En effet, ceci définit le comportement de rappel ou \callback à effectuer lors
 La méthode correspondante doit \^etre aussi définie.
 
 \begin{method}[toggleNeighboursOfCellAt:at:]{La méthode \callback}
-SBEGame>>>toggleNeighboursOfCellAt: i at: j
+LOGame>>>toggleNeighboursOfCellAt: i at: j
    (i > 1) ifTrue: [ (cells at: i - 1 at: j ) toggleState].
    (i < self cellsPerSide) ifTrue: [ (cells at: i + 1 at: j) toggleState].
    (j > 1) ifTrue: [ (cells at: i  at: j - 1) toggleState].
    (j < self cellsPerSide) ifTrue: [ (cells at: i at: j + 1) toggleState]
 \end{method}
-\cmindex{SBEGame}{toggleNeighboursOfCellAt:at:}
+\cmindex{LOGame}{toggleNeighboursOfCellAt:at:}
 
 \Tmthref{toggleNeighboursOfCellAt:at:} (traduisible par ``change les
 voisins de la cellule\ldots'') change l'état des 4 cellules au nord, sud, ouest et est de la cellule (\ct{i}, \ct{j}). La seule complication est que le plateau de jeu est fini. Il faut donc s'assurer qu'une cellule voisine existe avant de changer son état.
 
 \dothis{Placez cette méthode dans un nouveau protocole appelé
-  \prot{game logic} (pour ``logique du jeu'')
-%ajout
-que vous aurez créé gr\^ace au menu contextuel accessible via le
-\ind{bouton jaune} de la souris dans le panneau des protocoles en
-cliquant sur \menu{create category\ldots}.}
+  \prot{game logic} (pour ``logique du jeu'') et créé
+en \actclickant{} dans le panneau des protocoles.}
 Pour déplacer cette méthode, vous devez simplement cliquer sur son nom
 puis la glisser-déposer sur le nouveau protocole (voir \figref{dragMethod}).
 
@@ -601,15 +677,15 @@ puis la glisser-déposer sur le nouveau protocole (voir \figref{dragMethod}).
    \ifluluelse
 		{\includegraphics[width=\textwidth]{DragMethod} }
 		{\includegraphics[scale=0.7]{DragMethod} }
-   \caption{Faire un glisser-déposer de la méthode dans un protocole.\label{fig:dragMethod}}
+   \caption{Faire un glisser-déposer de la méthode dans un protocole.\figlabel{dragMethod}}
 \end{figure}
 
-Afin de compléter le jeu de Quinto, nous avons besoin de définir encore deux méthodes dans la classe \ct{SBECell} pour de gérer les événements souris.
+Afin de compléter le jeu Lights Out, nous avons besoin de définir encore deux méthodes dans la classe \ct{LOCell} pour de gérer les événements souris.
 \begin{method}[mouseAction:]{Un mutateur typique}
-SBECell>>>mouseAction: aBlock
+LOCell>>>mouseAction: aBlock
    ^ mouseAction := aBlock
 \end{method}
-\cmindex{SBECell}{mouseAction:}
+\cmindex{LOCell}{mouseAction:}
 
 La seule action de \tmthref{mouseAction:} consiste à donner comme
 valeur à la variable \ct{mouseAction} celle de l'argument puis, à en
@@ -654,7 +730,7 @@ lire ou de modifier ces variables en Smalltalk se fait au travers de
 ces méthodes d'accès comme ici~\footnote{En fait, les variables
   d'instances peuvent \^etre accédées également dans les sous-classes.}.
 
-\dothis{Allez à la classe \ct{SBECell}, définissez \ct{SBECell>>>mouseAction:} et mettez-la dans le protocole \prot{accessing}.}
+\dothis{Allez à la classe \ct{LOCell}, définissez \ct{LOCell>>>mouseAction:} et mettez-la dans le protocole \prot{accessing}.}
 
 Finalement, vous avez besoin de définir la méthode \ct{mouseUp:}; elle
 sera appelée automatiquement par l'infrastructure (ou \emph{framework})
@@ -662,21 +738,21 @@ graphique si le bouton de la souris est pressé lorsque le pointeur de
 celle-ci est au-dessus d'une cellule sur l'écran.
 
 \begin{method}[sbecellmouseup]{Un gestionnaire d'événement}
-SBECell>>>mouseUp: anEvent
+LOCell>>>mouseUp: anEvent
    mouseAction value
 \end{method}
-\cmindex{SBECell}{mouseUp:}
+\cmindex{LOCell}{mouseUp:}
 
-\dothis{Ajoutez la méthode \ct{SBECell>>>mouseUp:} 
+\dothis{Ajoutez la méthode \ct{LOCell>>>mouseUp:} 
 %ajout
 définissant l'action lorsque le bouton de la souris est relaché
-puis, faites \menu{categorize all uncategorized}.}
+puis, faites \menu{categorize automatically}.}
 %\index{method!categorize}
 \index{méthode!catégorisation}
 
 Que fait cette méthode? Elle envoie le message \ct{value} à l'objet
 stocké dans la variable d'instance \ct{mouseAction}. 
-Rappelez-vous que dans la méthode \ct{SBEGame>>>newCellAt: i at: j}
+Rappelez-vous que dans la méthode \ct{LOGame>>>newCellAt: i at: j}
 nous avons affecté le fragment de code qui suit à \ct{mouseAction}:
 
 \ct{[self toggleNeighboursOfCellAt: i at: j ]} 
@@ -693,31 +769,31 @@ conséquence, est responsable du changement d'état des cellules.
 %=================================================================
 \section{Essayons notre code}
 
-Voilà, le jeu de Quinto est complet!
+Voilà, le jeu Lights Out est complet!
 
 Si vous avez suivi toutes les étapes, vous devriez pouvoir jouer au jeu qui comprend 2 classes et 7 méthodes.
 
-\dothis{Dans un espace de travail, tapez \ct{SBEGame new openInWorld} et faites \menu{do it}.}
+\dothis{Dans un espace de travail, tapez \ct{LOGame new openInWorld} et faites \menu{do it}.}
 
 Le jeu devrait s'ouvrir et vous devriez pouvoir cliquer sur les cellules et vérifier si le jeu fonctionne.
 
 Du moins en théorie\ldots{}
 Lorsque vous cliquez sur une cellule une fen\^etre de \emphind{notification} appelée la fen\^etre \clsind{PreDebugWindow} devrait apparaître avec un message d'erreur!
-Comme nous pouvons le voir sur \figref{quintoError}, elle dit \ct{MessageNotUnderstood: SBEGame>>>toggleState}.
+Comme nous pouvons le voir sur \figref{lightsOutError}, elle dit \ct{MessageNotUnderstood: LOGame>>>toggleState}.
 
 \begin{figure}[ht]
 \ifluluelse
 	{\centerline{\includegraphics[width=\textwidth]{Error}}}
 	{\centerline{\includegraphics[scale=0.7]{Error}}}
 \caption{Il y a une erreur dans notre jeu lorsqu'une cellule est sélectionnée!
-\label{fig:quintoError}}
+  \figlabel{lightsOutError}}
 \end{figure}
 
 \noindent
 Que se passe-t-il? Afin de le découvrir, utilisons l'un des outils les plus puissants de Smalltalk, le \ind{débogueur}.
 
 \dothis{Cliquez sur le bouton \menu{debug} de la fen\^etre de notification.}
-Le débogueur devrait apparaître.
+Le débogueur nommé Debugger devrait apparaître.
 Dans la partie supérieure de la fen\^etre du débogueur, nous pouvons
 voir la pile d'exécution, affichant toutes les méthodes actives; en
 sélectionnant l'une d'entre elles, nous voyons dans le panneau du
@@ -725,7 +801,7 @@ milieu le code Smalltalk en cours d'exécution dans cette méthode, avec
 la partie qui a déclenchée l'erreur en caractère gras.
 
 \dothis{Cliquez sur la ligne nommée
-\ct{SBEGame>>>toggleNeighboursOfCellAt:at:} (près du haut).}
+\ct{LOGame>>>toggleNeighboursOfCellAt:at:} (près du haut).}
 Le débogueur vous montrera le \ind{contexte d'exécution} à l'intérieur
 de la méthode o\`u l'erreur s'est déclenchée (voir \figref{debugToggle}).
 
@@ -734,7 +810,7 @@ de la méthode o\`u l'erreur s'est déclenchée (voir \figref{debugToggle}).
 	{\centerline {\includegraphics[width=\textwidth]{Debugger}}}
 	{\centerline {\includegraphics[scale=0.7]{Debugger}}}
 \caption{Le débogueur avec la méthode \ct{toggleNeighboursOfCell:at:} sélectionnée.
-\label{fig:debugToggle}}
+\figlabel{debugToggle}}
 \end{figure}
 
 Dans la partie inférieure du débogueur, il y a deux petites fen\^etres
@@ -756,33 +832,33 @@ actuel d'exécution.
 %que vous voyez la méthode que vous écrivez telle qu'elle sera
 %exécutée, avec de paramètres dans son contexte actuel d'exécution.
 
-Dans notre cas, vous pouvez voir dans la première ligne du panneau du haut que le message \ct{toggleState} a été envoyé à une instance de \ct{SBEGame}, alors qu'il était clairement destiné à une instance de \ct{SBECell}.
+Dans notre cas, vous pouvez voir dans la première ligne du panneau du haut que le message \ct{toggleState} a été envoyé à une instance de \ct{LOGame}, alors qu'il était clairement destiné à une instance de \ct{LOCell}.
 Le problème se situe vraisemblablement dans l'initialisation de la matrice \ct{cells}.
-En parcourant le code de \cmind{SBEGame}{initialize}, nous pouvons
+En parcourant le code de \cmind{LOGame}{initialize}, nous pouvons
 voir que \ct{cells} est rempli avec les valeurs retournées par
 \ct{newCellAt:at:}, mais lorsque nous regardons cette méthode, nous
 constatons qu'il n'y a pas de valeur retournée ici!
-Par défaut, une méthode retourne \ct{self}, ce qui dans le cas de \ct{newCellAt:at:} est effectivement une instance de \ct{SBEGame}.
+Par défaut, une méthode retourne \ct{self}, ce qui dans le cas de \ct{newCellAt:at:} est effectivement une instance de \ct{LOGame}.
 \index{méthode!renvoi de self}
 
 \dothis{Fermez la fen\^etre du débogueur.
-Ajoutez l'expression ``\ct{^ c}'' à la fin de la méthode \ct{SBEGame>>>newCellAt:at:} de telle sorte qu'elle retourne \ct{c}
+Ajoutez l'expression ``\ct{^ c}'' à la fin de la méthode \ct{LOGame>>>newCellAt:at:} de telle sorte qu'elle retourne \ct{c}
 % It should now look as shown in \mthref{newCellAt:at:nobug}.
 (voir \tmthref{newCellAt:at:nobug}).}
 
 % \needlines{6}
 \begin{method}[newCellAt:at:nobug]{Corriger l'erreur}
-SBEGame>>>newCellAt: i at: j
+LOGame>>>newCellAt: i at: j
     "!Crée une cellule à la position (i,j) et l'ajoute dans ma représentation graphique à la position correcte. Retourne une nouvelle cellule!"
    | c origin |
-   c := SBECell new.
+   c := LOCell new.
    origin := self innerBounds origin.
    self addMorph: c.
    c position: ((i - 1) * c width) @ ((j - 1) * c height) + origin.
    c mouseAction: [self toggleNeighboursOfCellAt: i at: j].
    ^ c
 \end{method}
-\cmindex{SBEGame}{newCellAt:at:}
+\cmindex{LOGame}{newCellAt:at:}
 % le commentaire
 %"Create a cell for position (i,j) and add it to my on-screen
 %   representation at the appropriate screen position.  Answer the new cell"
@@ -809,7 +885,7 @@ l'initialisation de l'objet.
 %\ab{Stéph, did you try this?  It seems to me that it ought to work, but when I tried it, it messed up my image.}
 % ON : It messed me up too!  Better not propose this.
 
-\dothis{Exécutez \ct{SBEGame new openInWorld} de nouveau.}
+\dothis{Exécutez \ct{LOGame new openInWorld} de nouveau.}
 Le jeu doit maintenant se dérouler sans problèmes.
 
 %\sd{It would be good to have a word about the debugger buttons into, step.... Or to have a separate chapter, we would use the material I wrote for my turtle book, please check it.}
@@ -817,9 +893,9 @@ Le jeu doit maintenant se dérouler sans problèmes.
 
 %=================================================================
 \section{Sauvegarder et partager le code Smalltalk}
-\label{sec:Monticello}
+\seclabel{Monticello}
 
-Maintenant que nous avons un jeu de Quinto qui fonctionne, vous avez
+Maintenant que nous avons un jeu Lights Out qui fonctionne, vous avez
 probablement envie de le sauvegarder quelque part de telle sorte à
 pouvoir le partager avec des amis. Bien s\^ur, vous pouvez sauvegarder
 l'ensemble de votre image \pharo et montrer votre premier programme
@@ -829,9 +905,10 @@ Nous avons donc besoin de pouvoir extraire le code source d'une image
 \pharo afin que d'autres développeurs puissent le charger dans leurs images.
 
 La façon la plus simple de le faire est d'effectuer une exportation ou
-sortie-fichier (\emph{filing out}) de votre code. Le menu activé par
-le bouton jaune dans le panneau de catégories-système vous permet de
-générer un fichier correspondant à l'ensemble de la catégorie \scat{PBE-LightsOut}.
+sortie-fichier (\emph{filing out}) de votre code. \arevoir{Le menu activé en
+\actclickant{} dans le panneau de \aretirer{catégories} vous permet de
+générer un fichier correspondant à l'ensemble de la \aretirer{catégorie}
+\scat{PBE-LightsOut}.} % CHANGE ATTENDRE REVOIR : devrait être des packages
 Le fichier résultant est plus lisible par tout un chacun, m\^eme si son
 contenu est plut\^ot destiné aux machines qu'aux hommes.
 Vous pouvez envoyer par email ce fichier à vos amis et ils peuvent le
@@ -846,14 +923,23 @@ de fichiers File List Browser.
 \seeindex{fichier!filing-out}{fichier, exportation}
 \index{fichier!exportation}
 
-\dothis{Sélectionnez à l'aide du \ind{bouton jaune} la catégorie
-  \scat{PBE-LightsOut} et choisissez \menu{fileOut} pour exporter le contenu.}
+\dothis{%
+\arelire{\Actclickz{} sur le paquetage
+  \scat{PBE-LightsOut} et choisissez \menu{various \go{} file out} pour exporter le contenu.}}
 Vous devriez trouver maintenant un fichier PBE-LightsOut.st dans le m\^eme
 répertoire o\`u votre image a été sauvegardée.
 Jetez un coup d'\oe il à ce fichier avec un éditeur de texte.
 
-\dothis{Ouvrez une nouvelle image \pharo et utilisez l'outil File
-  List Browser pour faire une importation de fichier via l'option de menu  \menu{file in} dans le fichier PBE-LightsOut.st. Vérifiez que le jeu fonctionne maintenant dans une nouvelle image.}
+%:===> File-out package needs to be implemented! (On DR's to-do list)
+\on{currently this does not work --- DR has said he will do it.}
+
+\dothis{Ouvrez une nouvelle image \pharo et utilisez l'outil \arelire{File
+  Browser (\menu{Tools \go{} File Browser})} pour faire une importation
+  de fichier via l'option de menu  \menu{file in} dans le fichier
+  PBE-LightsOut.st. Vérifiez que le jeu fonctionne maintenant dans une
+  nouvelle image.}
+
+
 \seeindex{catégorie!importation de fichier}{fichier, importation}
 \seeindex{classe!importation de fichier}{fichier, importation}
 \seeindex{méthode!importation de fichier}{fichier, importation}
@@ -863,7 +949,7 @@ Jetez un coup d'\oe il à ce fichier avec un éditeur de texte.
 \begin{figure}[ht]
 \centerline {\includegraphics[width=\textwidth]{FileIn}}
 \caption{Charger le code source dans \pharo.
-\label{fig:filein}}
+\figlabel{filein}}
 \end{figure}
 
 \subsection{Les paquetages Monticello}
@@ -893,23 +979,24 @@ partager votre travail.
 %martial: IMPORTANT -- semble etre retire de l'original
 %% Une bonne astuce est de toujours développer dans le m\^eme
 %% répertoire. De cette façon vous pouvez obtenir une copie de tout le
-%% code que vous avez publié sur \squeaksource sur votre machine
+%% code que vous avez publié sur \sqsrc sur votre machine
 %% locale. Vous pouvez  alors faire une sauvegarde et naviguer dans le code à votre convenance.
 
 Vous pouvez également envoyer un fichier \ct{.mcz} par email.
 Le destinataire devra le placer dans son répertoire \emph{package-cache}; il sera alors capable d'utiliser Monticello pour le parcourir et le charger. 
 %(It is also possible to load it using the file list, but there is a difference between loading a \ct{.mcz} file using a file list and using Monticello \sd{check}.)
 
-\dothis{Ouvrez le navigateur Monticello (Monticello Browser) en sélectionnant le menu \menu{World \go open\,\ldots \go Monticello Browser}.}
+\dothis{Ouvrez le navigateur Monticello ou Monticello Browser depuis
+  le menu \menu{World}.} % CHANGE
 Dans la partie droite du navigateur (voir \figref{monticello1}), il y a une liste des dépôts Monticello incluant tous les dépôts desquels du code a été chargé dans l'image que vous utilisez. 
-%In addition to \squeaksource servers, Monticello repositories can live in a variety of other places, the simplest being a directory on your local disk.
+%In addition to \sqsrc servers, Monticello repositories can live in a variety of other places, the simplest being a directory on your local disk.
 
 \begin{figure}[hbt]
 \ifluluelse
 	{\centerline {\includegraphics[width=\textwidth]{MonticelloBrowser}}}
 	{\centerline {\includegraphics[scale=0.7]{MonticelloBrowser}}}
 \caption{Le navigateur Monticello.
-\label{fig:monticello1}}
+\figlabel{monticello1}}
 \end{figure}
 
 En haut de la liste dans le navigateur Monticello, il y a un dépôt
@@ -932,43 +1019,46 @@ astérisque
 \seeindex{*}{paquetage, dirty package}
 \seeindex{dirty package}{paquetage, dirty package}
 
-Qu'est-ce qu'un paquetage? Pour l'instant, vous pouvez penser le paquetage comme un groupe de classes et de catégories de méthodes qui partagent le m\^eme préfixe. Comme nous avons mis tout le code du jeu Quinto dans la catégorie de classes appelée \scat{PBE-LightsOut}, nous pouvons le désigner comme le paquetage \ct{PBE-LightsOut}.
+\aretirer{%
+Qu'est-ce qu'un paquetage? Pour l'instant, vous pouvez penser le
+paquetage comme un groupe de classes et de catégories de méthodes qui
+partagent le m\^eme préfixe. Comme nous avons mis tout le code du jeu
+Lights Out dans la catégorie de classes appelée \scat{PBE-LightsOut},
+nous pouvons le désigner comme le paquetage \ct{PBE-LightsOut}.} % REVOIR bizarre avec la sous-section 'Des categories et des paquetages'
 
 \dothis{Ajoutez le paquetage \ct{PBE-LightsOut} à votre navigateur Monticello en utilisant le bouton \button{+Package}.}
 
-\subsection{\ind{\squeaksource}: un \ind{SourceForge} pour \pharo} 
+\subsection{\ind{\sqsrc}: un \ind{SourceForge} pour \pharo} 
 Nous pensons que la meilleure façon de sauvegarder votre code et de le
 partager est de créer un compte sur un serveur
-\squeaksource. \squeaksource est similaire à
+\sqsrc. \sqsrc est similaire à
 \sourceforge~\footnote{\url{http://www.sourceforge.net}}: il s'agit d'un
-\emph{frontal web} à un serveur Monticello HTTP qui vous permet de gérer vos projets.
-%In addition, \squeaksource includes a wiki, remote code browsing, RSS feed, admin right and access right management,   
-% A number of {\squeaksource servers} around the Internet provide Monticello repositories and other facilities for development projects, including as a Wiki for documentation, remote code browsing, an RSS feed for update notification, and automatic publishing on SqueakMap.
-\lr{- Automatic publishing on SqueakMap does not work reliable anymore (the SqueakMap API changed several times), so better remove this part (p. 53)}
-Il y a un serveur public \squeaksource à l'adresse
+\emph{portail web} à un serveur Monticello HTTP qui vous permet de gérer vos projets.
+Il y a un serveur public \sqsrc à l'adresse
 \url{http://www.squeaksource.com} et une copie du code concernant ce
 livre est enregistrée sur
-\url{http://www.squeaksource.com/SqueakByExample.html}. Vous pouvez
+\url{http://www.squeaksource.com/PharoByExample.html}. Vous pouvez
 consulter ce projet à l'aide d'un navigateur internet, mais il est
 beaucoup plus productif de le faire depuis \pharo en utilisant
 l'outil \emph{ad hoc}, le navigateur Monticello, qui vous permet de
 gérer vos paquetages.
 
 \dothis{Ouvrez un navigateur web à l'adresse \url{http://www.squeaksource.com}.
-Ouvrez un compte et ensuite, créez un projet (\ie via ``register'').}
-\squeaksource va vous montrer l'information que vous devez utiliser
+Ouvrer un compte et ensuite, créez un projet (\ie via ``register'')
+pour le jeu Lights Out.}
+\sqsrc va vous montrer l'information que vous devez utiliser
 lorsque nous ajoutons un dépôt au moyen de Monticello.
 
-Une fois que votre projet a été créé sur \squeaksource, vous devez indiquer au système \pharo de l'utiliser.
+Une fois que votre projet a été créé sur \sqsrc, vous devez indiquer au système \pharo de l'utiliser.
 
 \dothis{Avec le paquetage \ct{PBE-LightsOut} sélectionné, cliquez sur le
   boutton \button{+Repository} dans le navigateur Monticello.}  Vous
 verrez une liste des différents types de dépôts disponibles; pour
-ajouter un dépôt \squeaksource, sélectionner le menu \menu{HTTP}. Une
+ajouter un dépôt \sqsrc, sélectionner le menu \menu{HTTP}. Une
 bo\^{\i}te de dialogue vous permettra de rentrer les informations
 nécessaires pour le serveur.
 Vous devez copier le modèle ci-dessous pour identifier votre projet
-\squeaksource, copiez-le dans Monticello en y ajoutant vos initiales
+\sqsrc, copiez-le dans Monticello en y ajoutant vos initiales
 et votre mot de passe:
 
 \needlines{5}
@@ -1001,17 +1091,19 @@ apparaître dans la partie droite du navigateur Monticello.
 	{\centerline {\includegraphics[width=\textwidth]{BrowseRepository}}}
 	{\centerline {\includegraphics[scale=0.7]{BrowseRepository}}}
 \caption{Parcourir un dépôt Monticello.
-\label{fig:monticello3}}
+\figlabel{monticello3}}
 \end{figure}
 
 \dothis{Cliquez sur le bouton \button{Save} pour faire une première
-  sauvegarde du jeu de Quinto sur \squeaksource.}
+  sauvegarde du jeu Lights Out sur \sqsrc.}
 
 Pour charger un paquetage dans votre image, vous devez d'abord
 sélectionner une version particulière. Vous pouvez faire cela dans le
-navigateur de dépôt, que vous pouvez ouvrir avec le bouton
-\button{Open} ou via le menu accessible par le bouton jaune de la
-souris. Une fois que vous avez sélectionné une version, vous pouvez la
+navigateur de dépôts \emph{Repository Browser}, que vous pouvez ouvrir
+\arelire{avec le bouton \button{Open} ou en \actclickant{}
+% ajout - vf
+pour choisir \menu{open repository} dans le menu contextuel.} % CHANGE
+Une fois que vous avez sélectionné une version, vous pouvez la
 charger dans votre image.
 
 \dothis{Ouvrez le dépôt \ct{PBE-LightsOut} que vous venez de sauvegarder.}
@@ -1024,15 +1116,15 @@ Monticello à l'adresse \url{http://www.wiresong.ca/Monticello/}.
 %=================================================================
 \section{Résumé du chapitre}
 Dans ce chapitre, nous avons vu comment créer des catégories, des classes
-et des méthodes. Nous avons vu aussi comment utiliser le navigateur de
-classes (System Browser), l'inspecteur, le débogueur et le
-navigateur Monticello.
+et des méthodes. Nous avons vu aussi comment utiliser le \arelire{navigateur de
+classes (Browser), l'inspecteur (Inspector), le débogueur (Debugger)
+et le navigateur Monticello.}
 
 \begin{itemize}
   \item Les catégories sont des groupes de classes connexes.
 %qui sont reliées entre-elles.
   \item Une nouvelle classe est créée en envoyant un message à sa super-classe.
-  \item Les protocoles sont des groupes de méthodes connexes.
+  \item Les protocoles sont des groupes de méthodes apparentées.
   \item Une nouvelle méthode est créée ou modifiée en éditant la définition dans le navigateur de classes et en \emph{acceptant} les modifications.
   \item L'inspecteur offre une manière simple et générale pour inspecter et interagir avec des objets arbitraires.
   \item Le navigateur de classes détecte l'utilisation de méthodes et de variables non déclarées et propose d'éventuelles corrections.
@@ -1044,7 +1136,7 @@ navigateur Monticello.
     catégorie sous forme d'un fichier d'exportation.
   \item Une meilleure façon de partager le code consiste à faire
     appel à Monticello afin de gérer un dépôt externe défini, par
-    exemple, comme un projet \squeaksource.
+    exemple, comme un projet \sqsrc.
 \end{itemize}
 
 %=================================================================

@@ -5,7 +5,9 @@
 % translated by Martial.Boniou@ifrance.com start: (Fri, 12 Oct 2007)
 % relecture : Rene Mages (9 jan 2008) de la version #14859
 % adaptation pour PBE: martial Tue Sep  8 19:56:33 CEST 2009 from
-% - oscar - 28661 - $Date: 2009-08-28 11:31:14 +0200 (Fri, 28 Aug 2009) $
+% - oscar - 28661 - $Date: 2009-08-28 11:31:14 +0200 (Fri, 28 Aug
+% 2009) $
+% sync avec la revision: 29170
 \ifx\wholebook\relax\else
 % --------------------------------------------
 % Lulu:
@@ -27,13 +29,13 @@
 % --------------------------------------------
     \graphicspath{{figures/} {../figures/}}
 	\begin{document}
-	\renewcommand{\nnbb}[2]{} % Disable editorial comments
+	%\renewcommand{\nnbb}[2]{} % Disable editorial comments
 	\sloppy
 \fi
 %=================================================================
 \chapter{Les collections}
 \chalabel{collections}
-
+\ew{Stack is a popular construction. How does it fit in the collection hierarchy?}
 % \ab{ The material here is based on a section that Andrew wrote for the \st Collections refactoring paper. It's not necessarily all appropriate for the book, but much of it is, I think, useful.}
 %\on{recycled some material from \url{https://www.iam.unibe.ch/scg/svn_repos/Lectures/ST-H07/03StandardClasses.ppt}}
 %\sd{Did a first pass: I should have a look at Xavier Briffault's book and at the material mentionned by andrew + lalonde book?}
@@ -51,7 +53,7 @@ ont d\'ej\`a \'et\'e remodel\'ees maintes fois avant la sortie du syst\`eme \st-
 de mod\'elisation orient\'ee objet.
 
 \arelire{Dans \pharo, les classes abstraites \ct{Collection} et \ct{Stream}
-disposent respectivement de 100 et de 50 sous-classes mais beaucoup d'entre elles
+disposent respectivement de 101 et de 50 sous-classes mais beaucoup d'entre elles
 (comme \mbox{\clsind{Bitmap},} \clsind{FileStream} et \clsind{CompiledMethod})
 sont des classes d'usage sp\'ecifique d\'efinies pour \^etre employ\'ees
 dans d'autres parties du syst\`eme ou dans des applications et ne sont par cons\'equent pas organis\'ees dans la cat\'egorie ``Collections''. 
@@ -60,8 +62,8 @@ Dans ce chapitre, nous r\'eunirons \ct{Collection} et ses 47 sous-classes
 sous le terme de ``hi\'erarchie de Collections''
 %``Collection Hierarchy'' 
 et \ct{Stream} et ses 9 sous-classes de la cat\'egorie \scat{Collections-Streams} sous celui de ``hi\'erarchie de Streams''.
-Ces 56 classes r\'epondent \`a 976 messages d\'efinissant un total de
-1600 m\'ethodes!}
+Ces 56 classes r\'epondent \`a 982 messages d\'efinissant un total de
+1609 m\'ethodes!}
 
 % % See test case in PBE-Collections for statistics
 

@@ -2,6 +2,7 @@
 % $Date$ Wed Oct 10 13:34:55 CEST 2007
 % $Revision$ source: SBE 12715 
 % Last Changed Date: 2007-10-08 21:32:45 +0200 (Mon, 08 Oct 2007)
+% sync avec la version: 29170 - Mon Sep 21 18:20:12 CEST 2009
 %=============================================================
 % NB: documentclass must be set in main document.
 % Allows book to be generated in multiple formats.
@@ -137,19 +138,21 @@
 \newcommand{\here}{\yellowbox{CONTINUE ICI!}}
 
 % macros éditeurs/traducteurs
-\newcommand{\ab}[1]{\nnbb{Andrew}{#1}}
-\newcommand{\sd}[1]{\nnbb{St\'{e}f}{#1}}
-\newcommand{\md}[1]{\nnbb{Marcus}{#1}}
-\newcommand{\on}[1]{\nnbb{Oscar}{#1}}
-\newcommand{\damien}[1]{\nnbb{Damien}{#1}}
-\newcommand{\lr}[1]{\nnbb{Lukas}{#1}}
-\newcommand{\orla}[1]{\nnbb{Orla}{#1}}
-\newcommand{\ja}[1]{\nnbb{Jannik}{#1}}
-\newcommand{\jr}[1]{\nnbb{Jorge}{#1}}
-\newcommand{\fp}[1]{\nnbb{Fabrizio}{#1}}
-%\newcommand{\here}{\nnbb{CONTINUE}{HERE}}
-%\newcommand{\here}{\nnbb{CONTINUE}{ICI}}
-\newcommand{\alex}[1]{\nnbb{Alexandre}{#1}}
+\newcommand{\ab}[1]{\nnbb{Andrew}{#1}} % Black
+\newcommand{\sd}[1]{\nnbb{St\'{e}f}{#1}} % Ducasse
+\newcommand{\md}[1]{\nnbb{Marcus}{#1}} % Denker
+\newcommand{\on}[1]{\nnbb{Oscar}{#1}} % Nierstrasz
+\newcommand{\damien}[1]{\nnbb{Damien}{#1}} % Pollet
+\newcommand{\lr}[1]{\nnbb{Lukas}{#1}} % Renggli
+\newcommand{\orla}[1]{\nnbb{Orla}{#1}} % Greevy
+\newcommand{\alex}[1]{\nnbb{Alex}{#1}} % Bergel
+\newcommand{\alx}[1]{\nnbb{Alex}{#1}} % Bergel
+\newcommand{\dr}[1]{\nnbb{David}{#1}} % Roethlisberger
+\newcommand{\ja}[1]{\nnbb{Jannik}{#1}} % Laval
+\newcommand{\jr}[1]{\nnbb{Jorge}{#1}} % Ressia
+\newcommand{\fp}[1]{\nnbb{Fabrizio}{#1}} % Perin
+\newcommand{\michael}[1]{\nnbb{Michael}{#1}} % Davies
+\newcommand{\ew}[1]{\nnbb{Erwann}{#1}} % Wernli
 %=============================================================
 %:Abbreviation macros
 \newcommand{\ie}{\emph{c-\`a-d.}\xspace}
@@ -238,9 +241,9 @@
 %=============================================================
 %:Mouse clicks % REVOIR * % CHANGE
 % [martial: ce sont des verbes] ==BOUTONS==
-\newcommand{\btnclick}{clic\xspace} % inutilisé
-\newcommand{\btnactclick}{clic d'action\xspace} % inutilisé
-\newcommand{\btnmetaclick}{meta-clic\xspace} % inutilisé
+\newcommand{\clickbtn}{clic\xspace} % inutilisé
+\newcommand{\actclickbtn}{clic d'action\xspace} % inutilisé
+\newcommand{\metaclickbtn}{meta-clic\xspace} % inutilisé
 \newcommand{\click}{cliquer\xspace} % RED = click
 \newcommand{\actclick}{cliquer avec le bouton d'action\xspace} % YELLOW = action-click
 \newcommand{\metaclick}{meta-cliquer\xspace} % BLUE = meta-click
@@ -694,10 +697,12 @@ framerule=0pt,
 %============================================================
 %% spécial PBE (Pharo By Example - vf)
 \newcommand{\senders}{\emph{senders}\xspace}
+\newcommand{\Senders}{\emph{Senders}\xspace} % dans Environment
 \newcommand{\sender}{\emph{sender}\xspace}
 \newcommand{\implementors}{\emph{implementors}\xspace}
 \newcommand{\implementor}{\emph{implementor}\xspace}
 \newcommand{\truetype}{\textsf{TrueType}\xspace}
+\newcommand{\bamfr}{atomes rebondissants\xspace} % pour le \bam dans QuickTour
 %% TITRES de chapitres nommés dans Monticello
 \newcommand{\titreFirstapp}{Une première application\xspace}
 \newcommand{\titreEnvironment}{L'environnement de programmation de Pharo\xspace}

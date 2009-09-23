@@ -8,7 +8,9 @@
 % relu par Rene Mages (Sun Jan 13 11:22:33 CET 2008)
 % relu par Martial Boniou (Mon Feb  4 17:35:46 CET 2008)
 % adaptation pour Pharo : martial - Fri Sep 11 13:23:52 CEST 2009 from
-% $Author: oscar $ % $Date: 2009-08-28 10:41:41 +0200 (Fri, 28 Aug 2009) $ % $Revision: 28654 $
+% $Author: oscar $ % $Date: 2009-08-28 10:41:41 +0200 (Fri, 28 Aug
+% 2009) $ % $Revision: 28654 $
+% sync avec la revision: 29170
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -676,7 +678,7 @@ Le contexte est porté par des variables d'instance de la sous-classe et par la 
 \subsection{TestSuite}
 
 Les instances de la classe \clsindmain{TestSuite} contiennent une collection de cas de tests. Une instance de \ct{TestSuite} contient des tests et d'autres suites de tests. En fait, une suite de tests contient des instances de sous-classes de \ct{TestCase} et de \ct{TestSuite}.
-Individuellement, les \ct{TestCase}s et les \ct{TestSuite}s comprennent le même protocole, ainsi elles peuvent être traitées de la même façon~; par exemple, elles comprennent toutes \ct{run}.
+Individuellement, les \lct{TestCase}s et les \lct{TestSuite}s comprennent le même protocole, ainsi elles peuvent être traitées de la même façon~; par exemple, elles comprennent toutes \ct{run}.
 Il s'agit en fait de l'application du patron de conception 
 %pas \ct{composite} mais plutôt
 \emph{Composite}

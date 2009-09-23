@@ -6,7 +6,9 @@
 % relecture par Rene (Sun, 13 Jan 2008)
 % update: Tue Dec 25 12:52:59 CET 2007
 % adaptation pour PBE: martial - Wed Sep  9 22:33:36 CEST 2009 from
-% $Author: oscar $ % $Date: 2009-08-16 16:37:09 +0200 (Sun, 16 Aug 2009) $ % $Revision: 28477 $
+% $Author: oscar $ % $Date: 2009-08-16 16:37:09 +0200 (Sun, 16 Aug
+% 2009) $ % $Revision: 28477 $
+% sync avec la version: 29170
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -37,6 +39,11 @@
 \newcommand{\streams}{\emph{streams}\xspace}
 % remarque generale: beaucoup de commentaires et de chaines de caracteres dans les codes ont ete traduites dans ce chapitre
 \chapter{Stream: les flux de donn\'ees}\chalabel{streams}
+
+\ew{Streams are presented as a way to navigate collection. From my point of view, stream are important not to navigate collection, but to produce/consume data:
+(a)	memory constraint. Data can not hold into memory and must be processed in a stream fashion, e.g: encryption
+(b)	blocking IO. A stream is a nice abstraction to deal with, and the stream manages internally data availability, buffering, etc. to simplify the consumption/production of data
+Only few streams have random access capability.}
 
 Les flux de donn\'ees ou \streams sont utilis\'es pour it\'erer dans
 une s\'equence d'\'el\'ements comme des
@@ -487,7 +494,8 @@ Nous avons besoin d'ajouter les m\'ethodes \ct{goBackward} et \ct{goForward} pou
 \begin{code}{}
 History>>goBackward
   self canGoBackward ifFalse: [self error: '!\normcode{D\'ej\`a sur le premier \'el\'ement}!'].
-  ^ stream back
+  stream skip: -2. 
+  ^ stream next
 
 History>>goForward
   self canGoForward ifFalse: [self error: '!\normcode{D\'ej\`a sur le dernier \'el\'ement}!'].

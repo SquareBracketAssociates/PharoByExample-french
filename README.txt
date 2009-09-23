@@ -1,3 +1,5 @@
+État de la synchro avec PBE: cf. STATE
+
 Pour les nouveaux arrivants, compiler avec latex ou pdflatex demo.tex
 (c'est l'équivalent de commonDemo dans PBE pour tester le rendu via le
 fichier common.tex)
@@ -13,6 +15,12 @@ cela disparaisse pour les versions beta du document)
 \tradalert{nom du traducteur}{message} (attention: contrairement à la
 VO, cette commande s'affiche aussi dans la compilation globale; ne pas
 utiliser en phase bêta du document)
+- Les outils de base Morphic sont à installer (pour l'instant?):
+MCHttpRepository
+	location: 'http://www.squeaksource.com/PharoMorphicExtras'
+	user: 'squeak'
+	password: 'squeak'
+puis choisir les packages: MorphicExtras et MorphicExamplesAndDemos.
 
 IMPORTANT:
 - \pbe devient \ppe pour referencer le livre en version française
@@ -78,6 +86,14 @@ rappelés (Monticello); les paquetages "clean" et "dirty" sont définis
 mais gardent leur nom anglais en italique; le 'repository inspector'
 s'écrit en capitales 'Repository Inspector' (défini une fois comme
 inspecteur des dépôts); 'unload' -> décharger
+- pour les panneaux du Browser (de gauche à droite et de bas en haut):
+panneau des paquetages, panneau des classes, panneau des protocoles,
+panneau des méthodes, panneau de code
+- repository browser -> Repository Browser ou navigateur de dépôts
+- Method Names Browser -> Message Names Browser
+- Change Set Browser -> Change Sorter
+- a morphic halo handle -> une icône du halo Morphic
+(Morphic/QuickTour); help balloon -> bulle d'aide; 
 
 NOTES SECONDAIRES (pour la mise en forme des chapitres des parties I,
 II, III, IV, il s'agit plus dans journal de bord de martial)

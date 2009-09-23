@@ -15,6 +15,7 @@ SUnit): pour l'instant: 'signalé d'une puce verte ou rouge'
 il vaut mieux garder panneau de code partout (l'affichage (view)
 permet d'afficher le code source, bytecode... bref, un code quoi qu'il
 en soit. Si désaccord, il faut se décider sur un des termes.
+- élément de menu -> option de menu
 
 Les parties I,II,III,IV sont en cours de modifications (martial)
 
@@ -32,32 +33,34 @@ Répartition des taches:
 - Omnibrowser:
   + ATTENDRE pourrait être obsolète avant de sortir dans
 
-- Environment: MARTIAL
-  + retirer les references + index dans boutons de souris (bleu, rouge
-  et jaune sont remplacés par clic, meta-clic et clic-action) 
-  + ATTENDRE la finalisation de la correction de PBE
-  + retirer les allusions aux boutons du Browser
-
-- FirstApp: MARTIAL
+- FirstApp: MARTIAL / tout est à faire (donc hors synchro entre les
+  révisions de PBE)
   + merger
   + Lights Out game 
   + figures PBE
+  + définir le jeu en français ou trouver une url (wikipedia-fr)
   + ajout de AddPackage.png : martial
 
-- Morphic: MARTIAL 
+- Morphic: MARTIAL / tout est à faire (donc hors synchro entre les
+  révisions de PBE)
+  + merger 
   + prévoir un refactoring massif
   + eliminer eToys/turningInViewer
 
-- Monticello: MARTIAL
-  + ATTENDRE changement de 'merge tool' dans la version actuelle de
-  Pharo
+- Environment: MARTIAL
+  + ATTENDRE la finalisation de la correction de PBE (Explorer out-of-sync)
+  + retirer les allusions aux boutons du Browser?
 
 - QuickTour: MARTIAL
-  + merger 
-  + a faire ClassBrowser1-flat/annotatedDownload dans figures/
-  + beaucoup de changements a prevoir
   + figures encore (nettoyer: viewerHandle/rotateHandle en fonction du
   chapitre Morphic; puisque les eToys ne sont plus)
+  + ATTENDRE: mise à jour des figures avec la nouvelle interface (fin
+  des bords rouges pour les zones de texte non-sauvegardées)
+  + première figure pour les nouveaux icônes à refaire
+
+- Monticello: MARTIAL
+  + ATTENDRE changement de 'merge tool' dans la version actuelle de
+  Pharo (DiffTool dans Monticello out-of-sync)
 
 Corrections/notes:
 - l'artiste de couverture change sur la VO: veiller à la cohérence

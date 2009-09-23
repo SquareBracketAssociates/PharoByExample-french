@@ -20,6 +20,26 @@ but there is only one test now so: 'The current test should be green...'
 - In Change subsection: the Patch Browser is mentionned in the figure
 not in the text. At the end of the first paragraph, we should add 'via
 the Patch Browser.'
+* QuickTour:
+- before 'First Interaction.' paragraph, {\sf x} should be the red
+button on the window title bar (OS X style by default?) 
+- blue-click on the bam????
+* FirstApp:
+- "The bottom pane of the inspector is a mini-workspace.  It's useful
+because in this workspace the pseudo-variable \self is bound to the
+object being inspected. " untrue now!
+- "The simplest way of doing this is by \emph{filing out} the code.
+The \actclick menu in the System Categories pane will give you the
+option to file out the whole of category \scat{PBE-LightsOut}." should
+be made from packages like in Environment
+- In 'Saving and loading code with Monticello': "What is a package?
+For now, you can think of a package as a group of  class and method
+categories that share the same prefix.  Since we put all of the code
+for the Lights Out game into the category called
+\scat{PBE-LightsOut}, we can refer to it as the \ct{PBE-LightsOut}
+package." We added a 'Categories & Packages' subsection; no need to
+say that or reformulate it
+
 
 **SENT/DONE:
 * BasicClasses:
