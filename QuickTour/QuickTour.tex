@@ -1,0 +1,1388 @@
+% $Author: oscar$
+% $Translate: mathieu chappuis + martial boniou $
+% $Date: 2007-12-13 15:59:51 +0100 (Thu, 13 Dec 2007) $
+% $Revision$
+% $french: Sun Dec 16 14:25:37 CET 2007$ 
+%%%%%%%%%%%%%%%%%%%%%%
+% note temporaire de Martial destine aux relectures:
+% collapse a window --> ranger la fenetre (et pas reduire, si vous
+% voyez cette erreur, SVP merci de corriger)
+%%%%%%%%%%%%%%%%%%%%%%
+% relecture: Rene Mages (fusion par martial: Wed Dec 26 17:28:17 CET 2007)
+% relecture: Rene Mages (Sat Jan 12 17:28:17 CET 2007)
+% note de martial: revoir les index pour les termes liés à Morphic
+% adaptation pour PBE - 28729
+% sync avec la version: 29170
+%=================================================================
+\ifx\wholebook\relax\else
+% --------------------------------------------
+% Lulu:
+	\documentclass[a4paper,10pt,twoside]{book}
+	\usepackage[
+		papersize={6.13in,9.21in},%,
+		%% Martial: j'ai enlevé les lignes pour tester la mise en page "manuelle" de la figure colouredMouse
+		hmargin={.75in,.75in},
+		vmargin={.75in,1in}
+%		ignoreheadfoot
+	]{geometry}
+	\input{../common.tex}
+	\pagestyle{headings}
+	\setboolean{lulu}{true}
+% --------------------------------------------
+% A4:
+%	\documentclass[a4paper,11pt,twoside]{book}
+%	\input{../common.tex}
+%	\usepackage{a4wide}
+% --------------------------------------------
+    \graphicspath{{figures/} {../figures/}}
+	\begin{document}
+	%\renewcommand{\nnbb}[2]{} % Disable editorial comments
+	\sloppy
+\fi
+%=================================================================
+\newcommand{\clover}{%
+	\raisebox{-0.8ex}[0pt][0pt]{%
+		\includegraphics[width=1em]{cloverleafKey}}}
+%=================================================================
+
+\chapter{Une visite de \pharo}
+\chalabel{quick}
+
+Nous vous proposons dans ce chapitre une premi\`ere visite de \pharo afin de vous familiariser avec son environnement.
+De nombreux aspects seront abordés; il est conseillé d'avoir une
+machine pr\^ete \`a l'emploi pour suivre ce chapitre. 
+
+Cette icône \dothisicon{} dans le texte signalera les étapes où vous devrez essayer quelque chose vous-même.
+Vous apprendrez à lancer \pharo et les différentes manières d'utiliser l'environnement et les outils de base.
+La création des méthodes, des objets et les envois de messages seront également abordés.
+
+%=================================================================
+\section{Premiers pas}
+
+\pharo est librement disponible au \ind{téléchargement} depuis le site
+web: \pharoweb. % CHANGE
+Vous devez y télécharger 3 archives (pour 4 fichiers principaux qui
+constituent une installation courante de \pharo; voir \figref{download}) 
+
+\begin{figure}[htb]
+\centerline {\includegraphics[width=\textwidth]{annotatedDownload}}
+\caption{Les fichiers à télécharger de \pharo. \figlabel{download}}
+\end{figure}
+
+\begin{enumerate}
+
+\item La \emphind{machine virtuelle} (abr\'eg\'ee en VM pour
+  \emph{virtual machine}) est la seule partie de l'environnement qui
+  est particulière à chaque système d'exploitation. Des machines
+  virtuelles pré-compilées sont disponibles pour la plupart des
+  systèmes (Linux, \macosx, Win32). Dans \figref{download}, vous
+  avez par exemple l'ic\^one de la machine virtuelle pour le syst\`eme
+  \macosx: \textit{Squeak 4.0.1beta1U.app}~\footnote{\pharo est dérivé
+  de \squeak{} 3.9 et il partage actuellement la machine virtuelle
+  avec \squeak.}.
+%martial: ajout des index dans la vf
+\index{machine virtuelle}
+\seeindex{VM}{machine virtuelle}
+
+  \item Le fichier \emphind{source} contient le code source du système
+    \pharo. Ce fichier ne change pas tr\`es fréquement. Dans \figref{download}, il
+    correspond au fichier \emph{SqueakV39.sources}.
+%ajout fr index
+\index{fichier!source}
+\seeindex{fichier-source}{fichier, source}
+\seeindex{SqueakV39.sources}{fichier, source}
+
+\item Le \emph{système} \emphind{image} est un cliché d'un système
+  \pharo{} en fonctionnement, figé à un instant donné. 
+Il est composé de deux fichiers: le premier nommé avec l'extension
+\emph{.}\emphind{image} contient l'état de tous les objets du système
+dont les classes et les méthodes (qui sont aussi des
+objets). Le second avec l'extension \emph{.}\emphind{changes} contient
+le journal de toutes les modifications apportées au code source du
+système (contenu dans le fichier source).
+\arelire{Dans \figref{download}, nous voyons que nous utilisons les images et
+fichiers \emph{changes} de \textit{PBE}.
+\arevoir{Nous utiliserons en fait une image légérement différente dans
+ce livre.}} \on{fix the figure to use Damien's PBE image} % CHANGE
+%ajout fr index
+\index{fichier!image}
+\index{fichier!changes}
+
+\end{enumerate}
+
+\dothis{Téléchargez et installez \pharo sur votre ordinateur.}
+\arelire{Nous vous recommandons d'utiliser l'image fournie sur la page web du
+livre\footnote{\ppe}.}
+\index{téléchargement}
+\seclabel{sbeImage} %????
+
+
+Sachez que si vous avez déjà une autre version de \pharo qui fonctionne sur votre
+machine, la plupart des exemples d'introduction de ce livre
+fonctionneront. Il n'est donc pas nécessaire de mettre à jour \pharo.
+D\`es lors, ne soyez pas surpris de constater parfois des différences dans l'apparence ou le comportement que nous décrirons.
+% D'un autre c\^ot\'e, si vous téléchargez \pharo pour la première fois,
+% vous devriez rapatrier et utiliser l'image \emph{\pharo par l'Exemple}.
+
+Pendant que vous travaillez avec \pharo les fichiers \emph{.image} et \emph{.changes} sont modifiés, vous devez vous assurer qu'ils sont accessibles en écriture.
+Conservez toujours ces deux fichiers ensemble, \cad dans le même dossier.
+Et surtout, ne tentez pas de les modifier avec un éditeur de texte, \pharo les utilise pour stocker vos objets de travail et vos changements dans le code source.
+Faire une copie de sauvegarde de vos images téléchargées et de vos
+fichiers \emph{changes} est une bonne id\'ee; vous pourrez ainsi
+toujours démarrer à partir d'une image propre et y recharger votre code.
+
+Les fichiers \emphind{source}{}\emph{s} et l'exécutable de la VM peuvent être
+en lecture seule\,---\,il est donc possible de les partager entre plusieurs utilisateurs.
+Ces quatre fichiers peuvent résider dans le même dossier, mais vous pouvez également placer la machine virtuelle et les fichiers sources dans un dossier partagé distinct.
+Vous pouvez adapter l'installation de \pharo à vos habitudes de travail
+et \`a votre système d'exploitation.
+
+%-----------------------------------------------------------------
+\begin{figure}[htb]
+%\centerline {\includegraphics[width=0.6\textwidth]{download}}
+\centerline {\includegraphics[width=0.95\textwidth]{startup}}
+\caption{Une image \arevoir{\ppe} fra\^{\i}chement d\'emarr\'ee.\figlabel{startup}}
+\end{figure}
+
+\index{lancement de \pharo}
+
+\paragraph{Lancement.} Pour lancer \pharo, selon votre système: glissez
+le fichier \emph{.}\emphind{image} sur l'icône de l'exécutable de la
+machine virtuelle, ou double-cliquez sur le fichier
+\emph{.}\emphind{image}, ou encore, depuis une ligne de commande,
+tapez le nom du fichier binaire correspondant \`a la machine virtuelle
+suivi du chemin d'accès au fichier \emph{.}\emphind{image} (si vous
+avez installé plusieurs machines virtuelles, le système ne choisira
+pas forcément celle qui convient, il sera préférable de
+glisser-déposer l'image sur la VM ou d'utiliser la ligne de commande).
+
+Une fois lancé, \pharo vous présente une large fenêtre qui contient des
+espaces de travail nommés \emphind{Workspace} (voir \figref{startup}).
+\arelire{Vous pourriez remarquer un barre de menus mais \pharo{}
+  emploie principalement des menus contextuels.}
+
+
+\dothis{Lancez \pharo. Vous pouvez fermer les fen\^etres d\'ej\`a
+  ouvertes en \clickant sur \arevoir{l'icône {\sf X}} situ\'e sur le coin
+  supérieur gauche des fenêtres ou les ranger (ce qui normalement les
+  r\'eduit \`a  leur barre de titre) en \clickant sur le symbole
+  \raisebox{-0.2ex}{{\Large $\circ$}} au coin supérieur droit.} % REVOIR dans la VO PBE x devrait être le bouton rouge si le style par défaut est OS X
+
+
+%-----------------------------------------------------------------
+\paragraph{Première interaction.}
+
+Les options du menu World (``Monde'' en anglais) pr\'esent\'ees dans
+\figref{threeButtons:click} sont un bon point de d\'epart.
+
+\dothis{Cliquez à l'aide de la souris dans l'arrière plan de la
+  fenêtre principale pour afficher le menu World, puis sélectionnez
+  \menu{Workspace} pour créer un nouvel espace de
+  travail ou Workspace.}
+
+\begin{figure}[tbh]
+	\centering
+	\subfigure[Le menu World]{\figlabel{threeButtons:click}% click
+		\includegraphics[width=0.40\linewidth]{worldMenu}}\hfill
+	\subfigure[le menu contextuel]{\figlabel{threeButtons:actclick}% action click
+		\includegraphics[width=0.55\linewidth]{yellowButtonMenuOnWorkspace}}\hfill
+	\subfigure[Le halo Morphic]{\figlabel{threeButtons:metaclick}% meta click
+		\includegraphics[width=0.60\linewidth]{morphicHaloOnWorkspace}}% these braces needed (else no whitespace at end of line)
+	\caption{\arelire{Le menu World (affiché en \clickant{} avec la
+        souris), un menu contextuel (affiché en \actclickant{}) et un
+      \subind{Morphic}{halo} Morphic (affiché en \metaclickant).}\figlabel{threeButtons}}
+\end{figure} % CHANGE
+%\seeindex{morphic halo}{Morphic}
+\seeindex{halo}{Morphic} % REVOIR
+
+% ON: I had to shrink this and move it up to avoid
+% it running over the end of the page.
+% position d'origine de la figure colouredMouse
+
+\st a été conçu à l'origine pour être utilisé avec une souris à trois
+boutons. Si votre souris en a moins, vous pourrez utiliser des touches
+du clavier en complément de la souris pour simuler les boutons
+manquants. Une souris à deux boutons fonctionne bien avec \pharo, mais si
+la v\^otre n'a qu'un seul bouton vous devriez songer à adopter un
+modèle récent avec une molette qui fera office de troisième bouton: votre travail avec \pharo n'en sera que plus agréable.
+
+\pharo évite les termes ``clic gauche'' ou ``clic droit'' car leurs
+effets peuvent varier selon les systèmes, le mat\'eriel ou les
+réglages utilisateur.
+\arelire{Originellement, \st{} introduit des couleurs pour définir les
+différents boutons de souris~\footnote{Les couleurs de boutons sont
+  \emph{rouge}, \emph{jaune} et \emph{bleu}. Les auteurs de ce livre
+  n'ont jamais pu se souvenir à quelle couleur se réfère chaque
+  bouton.}.}
+\index{bouton!rouge}
+\index{bouton!jaune}
+\index{bouton!bleu}
+\arelire{Puisque de nombreux utilisateurs utiliseront diverses touches de
+  modifications (\emph{Ctrl}, \emph{Alt}, \emph{Meta} \etc) pour
+  réaliser les mêmes actions, nous utiliserons plutôt les termes
+  suivants:}
+\begin{description}
+\item[\clickbtn:] \arelire{il s'agit du bouton de la souris le plus fréquemment
+  utilisé et correspond au fait de \click{} avec une souris à un seul
+  bouton sans aucun touche de modifications; \click{} sur
+  l'arrière-plan de l'image fait apparaître le menu ``World'' (voir
+  \figref{threeButtons:click}); 
+nous utiliserons le terme \emph{\click} pour définir cette action;} % vf-only
+\item[\actclickbtn:] \arelire{c'est le second bouton le plus utilisé; il est
+  utilisé pour afficher un menu contextuel \ie{} un menu qui fournit
+  différentes actions dépendant de où se trouve la souris comme le
+  montre \figref{threeButtons:actclick}. Si vous n'avez pas de souris
+  à multiples boutons, vous configurerez normalement la touche de
+  modifications \emph{Ctrl} pour effectuer cette même action avec
+  votre unique bouton de souris;
+nous utiliserons l'expression ``\emph{\actclick}\footnote{En anglais,
+  le terme utilisé est ``to actclick''.}''.} % vf-only: 2 dernières
+                                % lignes
+\item[\metaclickbtn:]  \arelire{vous pouvez finalement \emph{\metaclick{}} sur
+  un objet affiché dans l'image pour activer le
+  ``\subind{Morphic}{halo} Morphic'' qui est une consellation d'icônes
+  autour de l'objet actif à l'écran; chaque icône repr\'esentant une poign\'ee de contr\^ole
+permettant des actions telles que \emph{changer la taille} ou
+\emph{faire pivoter l'objet}, comme vous pouvez le voir sur
+\figref{threeButtons:metaclick}~\footnote{Notez que les icônes
+    Morphic sont habituellement actives dans \pharo, mais vous pouvez
+    les désactiver via le Preferences Browser que nous verrons plus
+    loin.}.
+En survolant lentement une icône avec le pointeur de votre souris,
+une bulle d'aide en affichera un descriptif de sa fonction.
+Dans \pharo, \metaclick dépend de votre système d'exploitation:
+Soit vous devez maintenir {\sc Shift} \emph{Ctrl} ou {\sc Shift}
+\emph{Alt} tout en \clickant.}
+% \ab{This makes it sound like either {\sc shift} \emph{ctrl} or {\sc shift} \emph{alt} will work.  On my (Mac OS) system, only the latter works.  Perhaps we want to say: In \pharo, how you meta-click depends on your operating system. On Linux \ldots}
+% Typically you will use a third modifier key, such as \emph{command} or \emph{meta} to \metaclick.
+\end{description}
+
+
+% %martial: il faut regler a la main la position et la hauteur de
+% %l'encart avec la souris 
+% \begin{wrapfigure}[15]{r}{0.25\linewidth}
+% % The parameters are the number of narrow lines to the right of the figure [19],
+% % the placement {r} for right, and the width of the figure. Capital R will allow some float.
+% % Inside the wrapfig environment, linewidth is special --- the width of the figure.
+% \includegraphics[width=0.95\linewidth]{colouredMouse}
+% \caption{La souris de l'auteur. Le clic avec la molette correspond au bouton bleu.\figlabel{colouredMouse}}
+% \end{wrapfigure}
+% \newpage
+
+\dothis{Saisissez \ct{Time now}
+%ajout 
+(expression retournant l'heure actuelle) dans le Workspace.
+Puis \actclickz{} dans le Workspace et sélectionnez
+\menu{print it} 
+%ajout
+(en fran\c{c}ais, ``imprimez-le'')
+dans le menu qui apparaît.}
+
+% \dothis{\Metaclickz{} sur le Workspace.
+% Déplacez la poignée 
+% %martial: j'ai decide de mettre tout les Morphic handles dans le
+% %repertoire 'figures' de la racine 
+% \rotateHandle{}
+% %\raisebox{-0.4ex}{\includegraphics[width=1em]{morphicRotate}}
+% située à proximité du coin inférieur gauche pour faire pivoter le Workspace.}
+
+\arelire{Nous recommandons aux droitiers de configurer leur souris pour
+\click{} avec le bouton gauche
+% ajout vf
+(qui devient donc le bouton de \clickbtn),
+\actclick{} avec le bouton droit et \metaclick{} avec la
+\arevoir{molette de défilement cliquable}, si elle est disponible.}
+% Avec une souris sans molette il est possible d'invoquer le menu halo
+% en maintenant \ct{alt}, \ct{ctrl}
+% ou \ct{option} pendant que vous cliquez sur le \ind{bouton rouge}.
+% \ab{This doesn't work any more.  This sentence either repeats or
+% contradicts the meta-click item above; neither is a good idea.}
+Si vous utilisez un Macintosh avec une souris à un bouton, vous pouvez
+simuler le second bouton en maintenant la touche \clover{} enfoncée 
+en \clickant. Cependant, si vous prévoyez d'utiliser \pharo souvent, nous
+vous recommandons d'investir dans un modèle à deux boutons au minimum.
+
+%  j'ai ajouté CTRL car sur mon linux ni alt ni fn.. ne marchent pour
+%  ça. seul ctrl le fait..
+% note de martial: ca depend aussi du windowmanager; c'est une bonne
+% idee de le mettre en tout cas 
+Vous pouvez configurer votre souris selon vos souhaits en utilisant
+les préférences de votre système ou le pilote de votre dispostif de
+pointage.
+\ab{How can I get meta-click without a three-finger salute?  Is this a secret?}
+\pharo vous propose des réglages pour adapter votre souris et les
+touches spéciales de votre clavier. 
+Dans l'outil de r\'eglage des pr\'ef\'erences nomm\'e \ind{Preference
+  Browser} (\menu{System \go Preferences {\ldots\go}
+  Preference Browser\ldots} dans le menu \menu{World}), la catégorie
+\menu{keyboard} contient une option \emph{swapControlAndAltKeys}
+permettant de \arelire{permuter les fonctions ``\actclick{}'' et
+  ``\metaclick''}.
+Cette catégorie
+propose aussi des options afin de dupliquer les touches de modifications.%  et 
+% rendre une pression sur \ct{alt} \'equivalente à une pression sur \ct{ctrl}.
+
+\begin{figure}[htb]
+	{\centerline {\includegraphics[width=\textwidth]{PreferenceBrowser}}}
+\caption{Le Preference Browser.\figlabel{prefBrowser}}
+\end{figure}
+
+%=================================================================
+\section{Le menu World}
+\index{menu World}
+
+\dothis{\Clickz dans l'arrière plan de \pharo.}
+Le menu \menu{World} apparaît à nouveau.
+La plupart des menus de \pharo ne sont pas modaux; ils ne bloquent pas
+le système dans l'attente d'une réponse.
+Avec \pharo vous pouvez maintenir ces menus sur l'écran en \clickant{} sur
+l'icône en forme d'épingle au coin supérieur droit. Essayez!%  Vous
+% remarquerez que les menus apparaissent  quand  vous cliquez  mais ne
+% disparaissent pas quand vous relâchez votre bouton, ils restent
+% visibles jusqu'à que vous ayez fait une sélection ou que vous ayez
+% cliqué en dehors du menu. Tous les menus affichés à l'écran peuvent se déplacer en glissant leur barre de titre, comme n'importe quelle fenêtre.
+
+Le menu World vous offre un moyen simple d'accéder à la plupart des
+outils disponibles dans \pharo.
+
+\dothis{\'Etudiez attentivement \arelire{le menu \menu{World} et, en
+    particulier, son sous-menu \menu{Tools}} (voir \figref{threeButtons:click}).}
+
+Vous y trouverez une liste des principaux outils de \pharo.
+Nous aurons affaire à eux dans les prochains chapitres.
+
+%=================================================================
+\section{\arelire{Envoyer des messages}} % CHANGE spécial Pharo
+
+\dothis{Ouvrez un espace de travail Workspace et saisissez-y
+    le texte suivant:}
+
+\begin{code}{}
+BouncingAtomsMorph new openInWorld
+\end{code}
+
+\dothis{Maintenant \actclickz. Un menu devrait
+  apparaître. Sélectionnez l'option \menu{do it (d)} (en français,
+  ``faîtes-le!'') comme le montre la \figref{doit}.}
+
+\begin{figure}[htb]
+\centerline {\includegraphics[width=0.8\textwidth]{Doit}}
+\caption{Évaluer une expression avec \menu{do it}.\figlabel{doit}}
+\end{figure}
+
+Une fenêtre contenant un grand nombre d'\bamfr
+(en anglais, ``\emph{bouncing atoms}'') s'ouvre dans le coin supérieur
+gauche de votre image \pharo.
+%A window containing a large number of bouncing atoms should open in the top left of the \pharo image.
+
+Vous venez tout simplement d'évaluer votre première expression \st. 
+%You have just evaluated your first \st expression!
+Vous avez juste envoyé le message 
+ \ct{new} à la classe \bam ce qui résulte de la création d'une
+ nouvelle instance qui à son tour \arevoir{reçoit le message}
+ \ct{openInWorld}. % REVOIR dans le texte orig. pas de notion de
+                   % receveur mais on parle uniquement d'envoyer (dur
+                   % à reformuler) - martial
+% You just sent the message \ct{new} to the \bam class, resulting in a new \bam instance, followed by the message \ct{openInWorld} to this instance.
+La classe \bam{} a décidé de ce qu'il fallait faire avec le message
+\ct{new}: elle recherche dans ces \emph{méthodes} pour répondre de
+façon appropriée au message \ct{new}
+% vf
+\arevoir{(\ie{} ``nouveau'' en français; ce que nous traduirons par
+  \emph{nouvelle instance})}.
+% The \bam class decided what to do with the \ct{new} message, that is, it looked up its \emph{methods} for handling \ct{new} message and reacted appropriately.
+De même, l'instance \bam recherchera dans ces méthodes comment
+répondre à \ct{openInWorld}.
+% Similarly the \bam instance looked up its method for responding to \ct{openInWorld} and took appropriate action.
+
+Si vous discutez avec des habitués de \st, vous constaterez rapidement
+qu'ils n'emploient généralement pas les expressions comme ``faire appel
+à une opération'' ou ``invoquer une méthode'': ils diront ``envoyer
+un message''.
+% If you talk to Smalltalkers for a while, you will quickly notice that they generally do not use expressions like ``call an operation'' or ``invoke a method'', but instead they will say ``send a message''.
+Ceci reflète l'idée que les objets sont responsables de leurs propres
+actions.
+% This reflects the idea that objects are responsible for their own actions. 
+Vous ne \emph{direz} jamais à un objet quoi faire\,---\,vous lui
+\emph{demanderez} polimment de faire quelque chose en lui envoyant un
+message.
+% You never \emph{tell} an object what to do\,---\,instead you politely \emph{ask} it to do something by sending it a message. 
+C'est l'objet, et non pas vous, qui choisit la méthode appropriée pour
+répondre à votre message.
+% The object, not you, selects the appropriate method for responding to your message.
+
+%=================================================================
+\section{Enregistrer, quitter et redémarrer une session \pharo.}
+
+\dothis{\arelire{\Clickz{} sur la fenêtre de démo des \bamfr{} et
+    déplacez-la où vous voulez. Vous avons maintenant la démo ``dans
+    la main''. Posez-la en \clickant.}}
+
+\begin{figure}[htb]
+\begin{minipage}[b]{0.48\textwidth}
+	{\centerline{\includegraphics[width=0.7\textwidth]{atoms}}}
+	\caption{Une instance de \bam.\figlabel{atoms}}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.48\textwidth}
+	{\centerline{\includegraphics[width=0.7\textwidth]{saveAs}}}
+	\caption{La bo\^{\i}te de dialogue \menu{save as\ldots}.\figlabel{saveas}}
+\end{minipage}
+\end{figure}
+
+\dothis{Sélectionnez \menu{World\go{}Save as\ldots} et entrez le nom
+  ``myPharo'', puis \clickz sur le bouton \button{OK}.
+%ajout
+pour sauvegarder sous un nouveau nom d'image.
+Pour quitter, sélectionnez \menu{World\go{}Save and quit}.} % CHANGE
+
+Le dossier qui contenait les fichiers image et \emph{changes} lorsque
+vous avez lancé cette session de travail avec \pharo contient d\'esormais
+deux nouveaux fichiers: ``myPharo.\ind{image}'' et ``myPharo.\ind{changes}''. 
+%image vivante = working state of the pharo image
+Ils repr\'esentent l'image ``vivante'' de votre session \pharo au moment qui précédait votre enregistrement avec \menu{Save and quit}.
+Ces deux fichiers peuvent être copiés à votre convenance dans les
+dossiers  de votre disque pour y être utilisés plus tard. \`A vous de
+les invoquer en prenant soin (selon votre syst\`eme de fichiers) de
+%note de martial: j'ai transforme pour plus de logique mais c'est
+%lourd: a revoir
+d\'eplacer, copier ou lier le fichier \emph{.source} correspondant,
+tout en veillant \`a ex\'ecuter la bonne machine virtuelle.
+
+\dothis{Lancez \pharo avec l'image que vous venez de créer \cad le
+  fichier ``myPharo.image''.}
+
+Vous retrouvez l'état de votre session exactement tel qu'il était
+avant que vous quittiez \pharo. La démo des \bamfr{} est toujours sur votre
+fenêtre de travail, en train de se déplacer d'o\`u vous l'aviez
+abandonné.
+
+En lançant pour la première fois \pharo, la \ind{machine virtuelle}
+charge le fichier image que vous spécifiez. Ce fichier contient
+l'instantané d'un grand nombre d'objets et surtout le code
+pré-existant accompagné des outils de développement qui sont
+d'ailleurs des objets comme les autres. En travaillant dans \pharo, vous
+allez envoyer des messages à ces objets, en créer de nouveaux, et
+certains seront supprimés et l'espace-mémoire utilisé sera récupéré
+(\ie pass\'e au ramasse-miettes ou \emph{garbage collector}).
+
+En quittant \pharo vous sauvegardez un instantané de tous vos objets. En sauvegardant (par ``Save''), vous remplacerez l'image courante par l'instantané de votre session. Pour préserver l'image courante, vous devez enregister sous un nouveau nom comme nous venons de le faire.
+
+Chaque fichier \emph{.image} est accompagné d'un fichier \emph{.changes}.
+Ce fichier contient un journal de toutes les modifications que vous avez faites en utilisant l'environnement de développement.
+Vous n'avez pas à vous soucier de ce fichier la plupart du temps.
+Mais comme nous allons le voir plus tard, le fichier \emph{.changes} pourra être utilisé pour rétablir votre système \pharo à la suite d'erreurs.
+
+L'image sur laquelle vous travaillez provient d'une image de \st-80 créée à la fin des années 1970.
+Beaucoup des objets qu'elle contient sont là depuis des décennies!
+
+Vous pourriez penser que l'utilisation d'une image est incontournable pour stocker et gérer des projets, mais comme nous le verrons bientôt il existe des outils plus adaptés pour gérer le code et travailler en équipe sur des projets.
+Les images sont très utiles mais nous consid\'erons comme une pratique un peu dépassée et fragile pour diffuser et partager vos projets alors qu'il existe des outils tels que Monticello qui proposent de biens meilleurs moyens de suivre les évolutions du code et de le partager entre plusieurs développeurs.
+
+\dothis{\arelire{\Metaclickz{} sur la fenêtre
+  d'\bamfr\footnote{Souvenez-vous que vous pourriez avoir besoin
+    d'activer l'option \ct{halosEnabled} dans le Preference Browser.}.}}
+
+%martial: le choix des noms 'poignee' 'icone' ... pourra etre change
+Vous verrez tout autour une collection d'icônes colorées nomm\'ee
+\subind{Morphic}{halo} de \bam; l'ic\^one
+% \emphsubind{halo}{ic\^one}
+\subind{Morphic}{halo} est aussi appel\'ee \emphsubind{halo}{poignée}.
+Cliquez sur la poignée rose p\^ale qui contient une croix; la fenêtre
+de démo disparaît. % CHANGE
+%(index Morphic vs halo) a revoir?
+\seeindex{poignée}{halo, poignée}
+\seeindex{Morphic!poignée}{halo, poignée}
+\seeindex{icône}{halo, icône}
+\seeindex{halo!icône}{halo, poignée}
+\seeindex{Morphic!icône}{halo, icône}
+\seeindex{halo}{Morphic, halo}
+
+%=================================================================
+\section{Les fenêtres Workspace et Transcript}
+\seclabel{transcript}
+
+% martial - REVOIR - j'ai choisi de merger les deux dothis
+\dothis{Fermez toutes fenêtres actuellement ouvertes. 
+Ouvrez un \ind{Transcript} (via le menu \menu{World \go{} Tools}) et un \ind{Workspace}.
+Positionnez et redimensionnez le Transcript et le Workspace
+  pour que ce dernier recouvre le Transcript.} % CHANGE
+Vous pouvez redimensionner les fenêtres en glissant l'un de leurs
+coins ou en \metaclickant qui affiche les poignées
+\emph{halo}: utilisez alors l'icône jaune située en bas à droite.
+
+Une seule fenêtre est active à la fois; elle s'affiche au premier plan
+et \arelire{son contour est alors mis en relief}. % CHANGE
+
+Le Transcript est un objet qui est couramment utilisé pour afficher
+des messages du système. C'est un genre de ``console''.
+% Sachez que l'affichage dans la fenêtre Transcript est extr\^ement
+% lent, donc si vous la conservez ouverte et que vous y affichez des
+% résultats, certaines opérations peuvent \^etre 10 fois plus lentes.
+% De plus, le Transcript n'est pas conçu pour recevoir
+% simultanément des messages à afficher provenant de plusieurs objets:
+% il n'est pas prot\'eg\'e contre les acc\`es concourrants (en anglais,
+% \emph{thread-safe}), donc vous pourriez \^etre t\'emoin de
+% comportements \'etranges si plusieurs objets tentent d'\'ecrire de
+% mani\`ere concourrante dans le Transcript. 
+% ON: I think the transcript has been made thread-safe now, right?
+
+%%%% martial: Sat Dec 15 14:13:47 CET 2007
+Les fen\^etres de Workspace ou espace de travail sont destin\'ees \`a
+y saisir vos expressions de code \st \`a exp\'erimenter.
+Vous pouvez aussi les utiliser simplement pour taper une quelconque
+note de texte \`a retenir, comme une liste de choses \`a faire (en
+anglais, \emph{todo-list}) ou des instructions pour quiconque est
+amen\'e \`a utiliser votre image.
+Les Workspaces sont souvent employ\'es pour maintenir une
+documentation \`a propos de l'image courante, comme c'est le cas
+dans l'image standard pr\'ec\'edemment charg\'ee (voir
+\figref{startup}).
+
+% originellement 'hello world'
+\dothis{Saisissez le texte suivant dans l'espace de travail Workspace:}
+\begin{code}{}
+Transcript show: 'hello world'; cr.
+\end{code}
+
+%ajout
+Exp\'erimentez la s\'election
+en double-\clickant{} dans l'espace de travail \`a diff\'erents points dans
+le texte que vous venez de saisir.
+% entire word, entire string, or the whole text ((diff: string and word?))
+Remarquez comment un mot entier ou tout un texte est
+s\'electionn\'e %selon l'endroit o\`u vous cliquez.
+\arelire{selon que vous \clickz{} sur un mot, à la fin d'une chaîne de
+caractères ou à la fin d'une expression entière.}
+
+\dothis{S\'electionnez le texte que vous avez saisi puis \actclickz{}.
+Choisissez \menu{do it (d)} 
+%ajout
+(dans le sens ``faites-le!'', \cad \emph{\'evaluer le code
+  s\'electionn\'e})
+dans le menu contextuel.}
+Notez que le texte ``hello world''~\footnote{\arelire{NdT: C'est une tradition de la
+  programmation: tout premier programme dans un nouveau langage de
+  programmation consiste à afficher la phrase en anglais ``hello world''
+  signifiant ``bonjour le monde''.}}
+ appara\^{\i}t dans la
+fen\^etre Transcript (voir \figref{helloworld}).
+Refaites encore un \menu{do it (d)}
+(Le \menu{(d)} dans l'option de menu \menu{do it (d)} vous indique que
+le raccourci-clavier correspondant est \short{d}. Pour plus
+d'informations, rendez-vous dans la prochaine section!).
+
+\begin{figure}[htb]
+\ifluluelse
+	{\centerline {\includegraphics[width=\textwidth]{HelloWorld}}}
+\caption{\arelire{Les fenêtres sont superposées. Le Workspace est actif.}\figlabel{helloworld}}
+\end{figure}
+
+% Vous venez d'\'evaluer votre premi\`ere
+% expression \st!
+% Vous avez seulement envoyé le message \ct{show: hello world} \`a
+% l'objet \ct{Transcript} (\ct{show:} veut dire: afficher), suivi du
+% message \ct{cr} 
+% %ajout
+% (qui a le sens de \emph{carriage return}, \cad retour-chariot
+% permettant de forcer le passage \`a la ligne suivante).
+% Le \ct{Transcript} d\'ecide ensuite de quoi faire avec ce message; il
+% cherche parmi ses \emph{m\'ethodes} celles qui g\`erent une r\'eponse
+% aux messages \ct{show:} et \ct{cr} et qui r\'eagissent de fa\c{c}on
+% appropri\'ee.
+
+%=================================================================
+\section{Les raccourcis-clavier}
+
+Si vous voulez \'evaluer une expression, vous n'avez pas besoin de
+toujours passer par le menu accessible en \actclickant: les
+raccourcis-clavier sont l\`a pour vous. Ils sont mentionn\'es
+dans les expressions parenth\'es\'ees des options des menus. Selon
+votre plateforme, vous pouvez \^etre amen\'e \`a presser l'une des
+touches de modifications soit \texttt{Control}, \texttt{Alt},
+\texttt{Command} ou \texttt{Meta} (nous les indiquerons de mani\`ere
+g\'en\'erique par \short{\emph{touche}}).
+\index{raccourci-clavier}
+\seeindex{clavier!raccourci-clavier}{raccourci-clavier}
+\seeindex{clavier!événement}{événement, clavier} % martial: pour
+                                % Morphic surtout
+
+\dothis{R\'e\'evaluez l'expression dans le Workspace en utilisant
+  cette fois-ci le raccourci-clavier: \short{d}.}
+\index{raccourci-clavier!do it}
+
+En plus de \menu{do it}, vous aurez not\'e la pr\'esence de
+\menu{print it} 
+%ajout
+(pour \'evaluer et afficher le r\'esultat dans le m\^eme espace de travail), 
+de \menu{inspect it} (pour inspecter) et de \menu{explore it} (pour
+explorer). 
+Jetons un coup d'\oe il \`a ceux-ci.
+
+\dothis{Entrez l'expression \ct{3 + 4} dans le Workspace. Maintenant
+  \'evaluez en faisant un \menu{do it} avec le raccourci-clavier.}
+
+Ne soyez pas surpris que rien ne se passe!
+Ce que vous venez de faire, c'est d'envoyer le message \ct{+} avec
+l'argument \ct{4} au nombre \ct{3}. Le r\'esultat \ct{7} aura
+normalement \'et\'e calcul\'e et retourn\'e, mais puisque votre espace de
+travail Workspace ne savait que faire de ce r\'esultat, la r\'eponse a
+simplement \'et\'e jet\'ee dans le vide. Si vous voulez voir le
+r\'esultat, vous devriez faire \menu{print it} au lieu
+de \menu{do it}. En fait, \menu{print it} compile l'expression,
+l'ex\'ecute et envoie le message \ct{printString} au r\'esultat puis
+affiche la cha\^{\i}ne de caract\`ere r\'esultante.
+
+\dothis{S\'electionnez \ct{3+4} et faites \menu{print it} (\short{p}).}
+Cette fois, nous pouvons lire le r\'esultat que nous attendions (voir
+\figref{printit}).
+\index{raccourci-clavier!print it}
+
+\begin{figure}[htb]
+% \centerline {\includegraphics[width=0.4\textwidth]{PrintIt}}
+\centerline {\includegraphics[width=0.8\textwidth]{PrintIt}}
+\caption{Afficher le r\'esultat sous forme de cha\^{\i}ne de
+  caract\`eres avec \menu{print it} plut\^ot que de simplement
+  \'evaluer avec \menu{do it}.\figlabel{printit}}
+\end{figure}
+
+\needlines{3}
+\begin{code}{@TEST}
+3 + 4 --> 7
+\end{code}
+\noindent
+Nous utilisons la notation \ct{-->} comme convention dans tout le
+livre pour indiquer qu'une expression particuli\`ere donne un certain
+r\'esultat quand vous l'\'evaluez avec \menu{print it}.
+
+\dothis{Effacez le texte surlign\'e ``\ct{7}''; comme \pharo devrait l'avoir
+  s\'electionn\'e pour vous, vous n'avez qu'\`a presser sur la touche
+  de suppression (suivant votre type de clavier \texttt{Suppr.} ou
+  \texttt{Del.}). S\'electionnez \ct{3+4} \`a nouveau et, cette fois,
+  faites une inspection avec \menu{inspect it} (\short{i}).}
+%ajout
+\index{raccourci-clavier!inspect it}
+\index{inspecteur}
+\seeindex{Inspector}{inspecteur}
+
+\noindent
+Vous devriez maintenant voir une nouvelle fen\^etre appel\'ee
+\emphind{inspecteur} avec pour titre 
+ \ct{SmallInteger: 7} (voir \figref{inspectit}).
+L'inspecteur ou (sous son nom de classe) Inspector est un outil
+extr\^emement utile: il vous permet de naviguer et d'interagir avec
+n'importe quel objet du syst\`eme.
+Le titre nous dit que \ct{7} est une instance de la classe
+\clsind{SmallInteger} 
+%ajout
+(classe des entiers sur 31 bits).
+Le panneau de gauche nous offre une vue des variables d'instance de
+l'objet en cours d'inspection. Nous pouvons naviguer entre ces
+variables et le panneau de droite nous affiche leur valeur.
+Le panneau inf\'erieur peut \^etre utilis\'e pour \'ecrire des
+expressions envoyant des messages \`a l'objet.
+
+\begin{figure}[htb]
+\centerline {\includegraphics[width=\textwidth]{InspectIt}}
+\caption{Inspecter un objet.\figlabel{inspectit}}
+\end{figure}
+
+\dothis{Saisissez \ct{self squared} dans le panneau inf\'erieur de
+  l'inspecteur que vous aviez ouvert sur l'entier \ct{7} et faites un
+  \menu{print it}.
+%ajout
+Le message \ct{squared} (carr\'e) va \'elever le nombre \ct{7} lui-m\^eme (\ct{self}).}
+
+\needlines{2}
+\dothis{Fermez l'inspecteur. Saisissez dans un Workspace le
+  mot-expression \ct{Object} et explorez-le via \menu{explore it}
+  (\short{I}, i majuscule).}
+\index{raccourci-clavier!explore it}
+\index{explorateur}
+\seeindex{Explorer}{explorateur}
+
+Vous devriez voir maintenant une fen\^etre intitul\'ee \clsind{Object}
+contenant le texte \mbox{$\triangleright$ \ct{root: Object}}.
+Cliquez sur le triangle pour l'ouvrir (voir \figref{exploreit}).
+
+\begin{figure}[htb]
+\centerline {\includegraphics[width=0.7\textwidth]{ExploreIt}}
+\caption{Explorer \ct{Object}.\figlabel{exploreit}}
+\end{figure}
+
+Cet explorateur (ou Explorer) est similaire \`a l'inspecteur mais il
+offre une vue arborescente d'un objet complexe.
+Dans notre cas, l'objet que nous observons est la classe \ct{Object}.
+Nous pouvons voir directement toutes les informations stock\'ees dans
+cette classe et naviguer facilement dans toutes ses parties.
+
+%=================================================================
+% \section{\sqmap}
+% \index{SqueakMap}
+
+% %web-based catalogue
+% \sqmap est un catalogue web des ``packages'' ou
+% \ind{paquetage}{}s\,---\,applications et biblioth\`eques de programmes (dites
+% aussi librairies)\,---\,que vous pouvez t\'el\'echarger dans votre
+% image.
+% Les paquetages sont h\'eberg\'es sur de nombreux serveurs de
+% par le monde et sont maintenus par un grand nombre de personnes. Certains de ces paquetages ne fonctionnent que sur une version spécifique de \pharo.
+% \lr{Maybe mention Package Universes (SqueakMap is not maintained anymore)}
+
+% \dothis{Ouvrez \menu{World \go open\ldots \go \sqmap Package Loader}.}
+% Vous aurez besoin d'une connection Internet pour que cela
+% fonctionne. Au bout d'un certain temps, la fen\^etre du gestionnaire
+% de chargement \sqmap devrait appara\^{\i}tre (voir \figref{sokoban}).
+% Sur le c\^ot\'e gauche, vous pouvez voir une longue liste de
+% paquetages. Le champ de saisie situ\'e dans le coin sup\'erieur gauche
+% est un panneau de recherche pour vous aider \`a trouver ce que vous
+% cherchez dans la liste.
+
+% Saisissez ``\ind{Sokoban}'' dans ce champ de recherche et
+%   tapez sur la touche \textsc{Entr\'ee}.
+% Cliquer sur le triangle dirig\'e vers le nom du paquetage vous
+% r\'ev\`ele une liste des versions disponibles. Quand un paquetage ou
+% une version est s\'electionn\'e, des informations \`a leur sujet sont
+% affich\'ees dans le panneau de droite.
+% Naviguez dans la derni\`ere version du jeu \ct{Sokoban}.
+% Activez le menu contextuel du panneau de liste en cliquant dans cet
+% espace avec le \ind{bouton jaune} et choisissez \menu{install} pour
+% installer le paquetage s\'electionn\'e
+% (si \pharo se plaint qu'il n'est pas s\^ur que cette version du jeu
+% fonctionne dans votre image, r\'epondez aux questions par ``yes'' 
+% %ajout
+% pour confirmer l'installation).
+% Remarquez qu'une fois que le paquetage a \'et\'e install\'e, il est
+% marqu\'e d'une ast\'erisque dans la liste du \sqmap Package Loader.
+
+% \begin{figure}[htb]
+% \ifluluelse
+% 	{\centerline {\includegraphics[width=\textwidth]{SqueakMap}}}
+% 	{\centerline {\includegraphics[width=0.8\textwidth]{SqueakMap}}}
+% \caption{Utiliser \sqmap pour installer le jeu Sokoban.\figlabel{sokoban}}
+% \end{figure}
+
+% \dothis{Apr\`es avoir installé ce paquetage, d\'emarrez \ct{Sokoban}
+%   en \'evaluant \ct{SokobanMorph random openInWorld} dans un Workspace
+% %ajout
+% (souvenez-vous de faire \menu{do it} sur toute la s\'election).}
+
+% % You can also try the \ct{NsGame}; execute it using \ct{NsGame new openInWorld}.
+% % ON: I could not find NsGame anywhere!
+
+% Le panneau inf\'erieur gauche du \sqmap Package Loader fournit
+% plusieurs possibilit\'es pour filtrer la liste des paquetages. Vous
+% pouvez choisir de ne voir que les paquetages qui sont compatibles avec
+% une version particuli\`ere de \pharo
+% %ajout
+% (\emph{Squeak versions}), 
+% ou qui sont de la famille des jeux
+% %ajout
+% (\emph{Entertainment\go{}Games}), 
+% \etc.
+
+%=================================================================
+\section{Le navigateur de classes Class Browser}
+
+Le navigateur de classes nomm\'e
+\ind{Class Browser}~\footnote{\arevoir{Ce navigateur est confusément référé sous les noms ``System Browser''
+  ou ``Code Browser''. \pharo{} utilise l'implémentation
+  \ind{OmniBrowser} du navigateur connue aussi comme ``OB'' ou
+  ``Package Browser''. Dans ce livre, nous utiliserons simplement le
+  terme de Browser ou, s'il y a ambiguïté, nous parlerons de
+  navigateur de classes}.} est un des
+outils-cl\'e pour programmer. % CHANGE
+Comme nous le verrons bient\^ot, il y a plusieurs navigateurs ou
+\emph{browsers} int\'eressants disponibles pour \pharo, mais c'est le
+plus simple que vous pourrez trouver dans n'importe quelle image, que
+nous allons utiliser ici. % REVOIR (toujours vrai?)
+\seeindex{navigateur de classes}{Browser}
+\seeindex{Class Browser}{Browser}
+
+\dothis{Ouvrez un navigateur de classes en s\'electionnant \menu{World
+    \go{} Class Browser}~\footnote{\arelire{Si votre Browser ne
+      ressemble pas à celui visible sur \figref{classBrowser}, vous
+      pourriez avoir besoin de changer le navigateur par défaut. Voyez
+    \faqref{packagebrowser}}}.} 
+
+\begin{figure}[htb]
+\ifluluelse
+	{\centerline {\includegraphics[width=\textwidth]{ClassBrowser1}}}
+	{\centerline {\includegraphics[width=0.7\textwidth]{ClassBrowser1}}}
+\caption{Le navigateur de classes (ou Browser) affichant la
+  m\'ethode \ct{printString} de la classe Object.
+\figlabel{classBrowser}}
+\end{figure}
+
+Nous pouvons voir un navigateur de classes sur \figref{classBrowser}.
+La barre de titre indique que nous sommes en train de parcourir la
+classe \clsind{Object}.
+
+\`A l'ouverture du Browser, tous les panneaux sont vides except\'e
+le premier \`a gauche.
+Ce premier panneau liste tous les \emph{paquetages} 
+% vf
+(en anglais, \emph{packages})
+connus; \arelire{elles contiennent des groupes de classes apparentées}.
+%\index{catégorie}
+
+\dothis{\clickz{} sur le paquetage \scatind{Kernel}.}
+Cette manipulation permet l'affichage dans le second panneau de toutes les
+classes du paquetage s\'electionn\'e.
+
+\dothis{S\'electionnez la classe \clsind{Object}.}
+D\'esormais les deux panneaux restants se remplissent.
+Le troisi\`eme panneau affiche les \emph{protocoles} de la classe
+s\'electionn\'ee.
+Ce sont des regroupements commodes pour relier des m\'ethodes
+connexes. Si aucun \ind{protocole} n'est s\'electionn\'e, vous devriez
+voir toutes les m\'ethodes disponibles de la classe dans le
+quatri\`eme panneau.
+
+\dothis{S\'electionnez le protocole \protind{printing}, 
+%ajout
+protocole de l'affichage.}
+Vous pourriez avoir besoin de faire d\'efiler (avec la barre de
+d\'efilement) la liste des protocoles pour le trouver.
+Vous ne voyez maintenant que les m\'ethodes relatives \`a
+l'affichage.
+
+\dothis{S\'electionnez la m\'ethode \mthind{Object}{printString}.}
+D\`es lors, vous voyez dans la partie inf\'erieure du Browser
+le code source de la m\'ethode \ct{printString} partag\'e par tous
+les objets 
+%ajout
+(tous dérivés de la classe Object,
+exception faite de ceux qui la surcharge).
+
+%=================================================================
+\section{Trouver les classes}
+
+Il existe plusieurs moyens de trouver une classe dans \pharo.
+Tout d'abord, comme nous l'avons vu plus haut, nous pouvons savoir (ou
+deviner) dans quelle cat\'egorie elle se trouve et, de l\`a, naviguer
+jusqu'\`a elle via le navigateur de classes.
+\index{Browser}
+\seeindex{Browser!trouver une classe}{classe, recherche}
+\index{classe!recherche}
+\seeindex{classe!trouver}{classe, recherche}
+
+Une seconde technique consiste \`a envoyer le message \ct{browse}
+(ce mot a le sens de ``naviguer'') \`a la classe, ce qui a pour effet
+d'ouvrir un navigateur de classes sur celle-ci
+%ajout
+(si elle existe bien s\^ur).
+Supposons que nous voulions naviguer dans la classe \clsind{Boolean}
+(la classe des bool\'eens).
+
+\dothis{Saisissez \ct{Boolean browse} dans un Workspace et faites un \menu{do it}.}
+Un navigateur s'ouvrira sur la classe \ct{Boolean} (voir \figref{browseBoolean}).
+Il existe aussi un \ind{raccourci-clavier} \short{b} (browse) que vous
+pouvez utiliser dans n'importe quel outil o\`u vous trouvez un nom de
+classe;
+\index{raccourci-clavier!browse it}
+s\'electionnez le nom de la classe 
+%ajout
+(\parex \ct{Boolean})
+puis tapez \short{b}.
+
+\dothis{Utilisez le raccourci-clavier pour naviguer dans la classe \ct{Boolean}.}
+
+\begin{figure}[hbt]
+	{\centerline {\includegraphics[width=\textwidth]{Kernel-objects-boolean}}}
+\caption{Le navigateur de classes affichant la d\'efinition de la
+  classe \ct{Boolean}.\figlabel{browseBoolean}}
+\end{figure}
+
+Remarquez \arelire{que nous voyons une \emph{définition de classe}
+  quand la classe \ct{Boolean} est sélectionnée mais sans qu'aucun
+  protocole ni aucune méthode ne le soit}
+% martial: on utilise le PLURIEL lorsque l’action ou l’état peut être
+% rapporté aux deux sujets ; et le SINGULIER, lorsqu’il ne peut être
+% rapporté qu’à un seul à la fois.
+(voir \figref{browseBoolean}).
+Ce n'est rien de plus qu'un message \st ordinaire qui est envoy\'e \`a
+la classe parente lui r\'eclamant de cr\'eer une sous-classe.
+Ici nous voyons qu'il est demand\'e \`a la classe \ct{Object} de
+cr\'eer une sous-classe nomm\'ee \ct{Boolean} sans aucune variables
+d'instance, ni variables de classe ou ``pool dictionaries'' et de 
+mettre la classe \ct{Boolean} dans la cat\'egorie \scatind{Kernel-Objects}.
+% The lower pane shows the \emph{class comment} --- a piece of plain text describing the class.
+\arelire{Si vous \clickz{} sur le bouton \button{?} en bas du panneau
+  de classes, vous verrez le \subind{classe}{commentaire} de classe
+  dans un panneau dédié comme le montre \figref{classComment}.} % CHANGE
+
+% Le nouveau panneau en dessous nous montre le \emph{commentaire de
+%   classe}\,---\,quelques paragraphes de texte d\'ecrivant la classe.
+% Si vous cliquez sur le bouton \button{?} \`a la base du panneau des
+% classes 
+% %ajout
+% (\cad le second),
+% vous pouvez voir le \subind{classe}{commentaire} de classe dans un
+% panneau d\'edi\'e.
+
+% \ab{I thought that this was supposed to be a \emph{Quick} tour!  And here we are describing a tool that I have used maybe twice in 10 years!   In any case, this description should be deferred to the \textbf{Environment} chapter}
+% \on{I don't see why.  I use the hierarchy browser a lot!  I think it is really useful to know from the beginning, to help you find your through the hierarchy.}
+
+% Si vous souhaitez explorer la hi\'erarchie des h\'eritages de \pharo, le
+% navigateur nomm\'e \emphind{Hierarchy Browser} vous y aidera.
+% Ça peut \^etre utile si vous \^etes en train de chercher une
+% sous-classe ou une super-classe inconnue d'une classe connue.
+% Le Hierarchy Browser ou navigateur hi\'erarchique est similaire au Browser except\'e que la liste des classes est arrang\'ee comme
+% une arborescence indent\'ee refl\'etant l'h\'eritage.
+
+% \dothis{Cliquez sur le bouton \button{hierarchy} dans le navigateur de
+%   classes lorsque la classe \ct{Boolean} est s\'electionn\'ee.}
+% \noindent
+% Il est r\'esulte l'ouverture d'un Hierarchy Browser affichant les
+% super-classes et les sous-classes de \clsind{Boolean}.
+% % (\figref{booleanhierarchybrowser}).
+% Naviguez un peu dans la super-classe et les sous-classes imm\'ediates
+% de \ct{Boolean}.
+
+\begin{figure}[hbt]
+\centerline {\includegraphics[width=\textwidth]{classComment}}
+\caption{Le commentaire de classe de \ct{Boolean}.
+\figlabel{classComment}}
+\end{figure}
+
+Souvent, la m\'ethode la plus rapide de trouver une classe consiste
+\`a la rechercher par son nom. Par exemple, supposons que vous \^etes
+\`a la recherche d'une classe inconnue qui repr\'esente les jours et
+les heures.% dates and times.
+
+\dothis{Placez la souris dans le panneau des paquetages
+  du Browser et tapez \short{f} ou s\'electionnez \menu{find
+    class\ldots (f)} dans le menu contextuel accessible en
+  \actclickant.
+Saisissez ``time'' 
+%ajout
+(\cad le temps, puisque c'est l'objet de notre qu\^ete) 
+dans la bo\^{\i}te de dialogue et acceptez cette entr\'ee.} 
+\noindent
+Une liste de classes dont le nom contient ``time'' vous sera
+pr\'esent\'ee (voir \figref{findit}). Choisissez-en une, disons,
+\ct{Time}; 
+%martial: ca fait longtemps qu'il n'y a plus ce comportement
+un navigateur l'affichera avec un commentaire de classe
+sugg\'erant d'autres classes pouvant \^etre utiles. Si vous voulez
+naviguer dans l'une des autres classes, s\'electionnez son nom (dans
+n'importe quelle zone de texte) et tapez \short{b}.
+\index{raccourci-clavier!find\ldots}
+\index{raccourci-clavier!browse it}
+
+\begin{figure}[hbt]
+\centerline{
+	\includegraphics[width=0.45\textwidth]{FindIt}
+	\hspace{1cm}
+	\includegraphics[width=0.45\textwidth]{TimeClasses}
+}
+\caption{Rechercher une classe d'apr\`es son nom.\figlabel{findit}}
+\end{figure}
+
+Notez que si vous tapez le nom complet (et correctement capitalis\'e 
+%ajout
+\cad en respectant la casse)
+de la classe dans la bo\^{\i}te de dialogue de recherche (find), le
+navigateur ira directement \`a cette classe sans montrer aucune liste
+de classes \`a choisir.
+
+%=================================================================
+\section{Trouver les m\'ethodes}
+\seclabel{quick:methodFinder}
+
+Vous pouvez parfois deviner le nom de la m\'ethode ou, tout au moins,
+une partie de son nom plus facilement que le nom d'une classe.
+Par exemple, si vous \^etes int\'eress\'e par la connaissance du temps
+actuel, vous pouvez vous attendre \`a ce qu'il y ait 
+%martial: phrase differente pour le sens en francais
+une m\'ethode affichant le temps \emph{maintenant}: comme la langue de \st
+est l'anglais et que \emph{maintenant} se dit ``now'', une m\'ethode
+contenant le mot ``now'' a de forte chance d'exister.
+Mais o\`u pourrait-elle \^etre?
+L'outil \emphind{Method Finder} peut vous aider \`a la trouver.
+\seeindex{Browser!trouver une méthode}{méthode, recherche}
+\index{méthode!recherche}
+\seeindex{méthode!trouver}{méthode, recherche}
+
+\dothis{\arelire{Sélectionnez \menu{World \go{} Tools \go{} Method Finder}.}
+Saisissez ``now'' dans le panneau sup\'erieur gauche et cliquez sur
+\menu{accept} (ou tapez simplement la touche \textsc{Entr\'ee}).}
+Le chercheur de m\'ethodes Method Finder affichera une liste de tous
+les noms de m\'ethodes contenant la sous-cha\^{\i}ne de caract\`eres ``now''.  
+
+Pour d\'efiler jusqu'\`a \ct{now} lui-m\^eme, tapez ``\ct{n}''; cette
+astuce fonctionne sur toutes les zones \`a d\'efilement de n'importe
+quelle fen\^etre. En s\'electionnant ``now'', le panneau de droite
+vous pr\'esentera les classes qui d\'efinissent une m\'ethode
+avec ce nom, comme le montre \figref{MethodFinder}.
+S\'electionner une de ces classes vous ouvrira un navigateur sur
+celle-ci.
+
+\begin{figure}[hbt]
+\centerline {\includegraphics[width=0.7\textwidth]{methodFinder-now}}
+\caption{Le Method Finder affichant toutes les classes qui
+  d\'efinissent une m\'ethode appel\'ee \ct{now}.
+\figlabel{MethodFinder}}
+\end{figure}
+
+\`A d'autres moments, vous pourriez avoir en t\^ete qu'une m\'ethode
+existe bien sans savoir comment elle s'appelle.
+Le Method Finder peut encore vous aider! Par exemple, partons de la
+situation suivante: vous voulez trouvez une m\'ethode qui transforme
+une cha\^{\i}ne de caract\`eres en sa version majuscule, \cad qui
+transforme \ct{'eureka'} en \ct{'EUREKA'}.
+
+\dothis{Saisissez \ct{'eureka' . 'EUREKA'} dans le Method Finder,
+  comme le montre \figref{methodFinder-example1}.}
+\noindent
+Le Method Finder vous sugg\`ere une m\'ethode qui fait ce
+que vous voulez~\footnote{\arelire{Si une fenêtre s'ouvre soudain avec un
+  message d'alerte à propos d'une méthode obsolète\,---\, le terme
+  anglais est \emph{deprecated method}\,---\, ne paniquez pas: le
+  Method Finder est simplement en train d'essayer de chercher parmi
+  tous les candidats incluant ainsi les méthodes obsolètes. \Clickz{}
+  alors sur le bouton~\button{Proceed}.}}.
+
+Un ast\'erisque au d\'ebut d'une ligne dans le panneau de droite du
+Method Finder vous indique que cette m\'ethode est celle qui a \'et\'e
+effectivement utilis\'ee pour obtenir le r\'esultat requis.
+Ainsi, l'ast\'erisque devant \ct{String asUppercase} vous fait savoir
+que la m\'ethode \mthind{String}{asUppercase} 
+%ajout
+(traduisible par ``en tant que majuscule'')
+d\'efinie dans la classe \clsind{String} 
+%ajout
+(la classe des cha\^{\i}nes de caract\`eres)
+a \'et\'e ex\'ecut\'ee et a renvoy\'e le r\'esultat voulu.
+Les m\'ethodes qui n'ont pas d'ast\'erisque ne sont que d'autres
+m\'ethodes que celles qui retournent le r\'esultat attendu.
+\cmind{Character}{asUppercase} n'a pas \'et\'e ex\'ecut\'ee dans notre
+exemple, parce que \ct{'eureka'} n'est pas un caract\`ere de classe \clsind{Character}.
+
+\begin{figure}[hbt]
+	{\centerline {\includegraphics[width=\textwidth]{MethodFinder-example1}}}
+\caption{Trouver une méthode par l'exemple.
+\figlabel{methodFinder-example1}}
+\end{figure}
+
+Vous pouvez aussi utiliser le Method Finder pour trouver des
+m\'ethodes avec plusieurs arguments; par exemple, si vous recherchez
+une m\'ethode qui trouve le plus grand commun diviseur de deux
+entiers, vous pouvez essayer de saisir \ct{25. 35. 5} comme exemple.
+Vous pouvez aussi donner au Method Finder de multiples exemples pour
+restreindre le champ des recherches; le texte d'aide situ\'e dans le
+panneau inf\'erieure vous apprendra \arelire{comment faire}. % CHANGE
+
+%=================================================================
+\section{D\'efinir une nouvelle m\'ethode}
+\seeindex{développement orienté tests}{Test Driven Development}
+L'av\`enement de la m\'ethodologie de d\'eveloppement orient\'e tests
+ou \emphind{Test Driven Development}\cite{Beck03a} a chang\'e la
+fa\c{c}on d'\'ecrire du code.
+L'id\'ee derri\`ere cette technique aussi appel\'ee TDD se r\'esume par l'\'ecriture
+du test qui d\'efinit le comportement d\'esir\'e de notre
+code \emph{avant} celle du code proprement dit.
+\`A partir de l\`a seulement, nous \'ecrivons le code qui satisfait au
+test.
+\seeindex{développement dirigé par le comportement}{Test Driven Development} 
+\seeindex{Behavior Driven Development}{Test Driven Development}
+
+
+%says something loudly and with emphasis
+Supposons que nous voulions \'ecrire une m\'ethode qui ``hurle quelque
+chose''. Qu'est-ce que cela veut dire au juste? Quelle serait le nom
+le plus convenable pour une telle m\'ethode? Comment pourrions-nous
+\^etre s\^urs que les programmeurs en charge de la maintenance future
+du code auront une description sans ambigu\"{\i}t\'e de ce que ce code
+est cens\'e faire?
+Nous pouvons r\'epondre \`a toutes ces questions en proposant
+l'exemple suivant:
+
+%martial: j'ai change figures/testShoutConfirm.png et j'ai remplace
+%"Don't panic" par "Pas de panique"
+\begin{quote}
+Quand nous envoyons le message \ct{shout} (qui veut dire ``crier'' en anglais)
+\`a la cha\^{\i}ne de caract\`eres ``Pas de panique'', le r\'esultat
+devrait \^etre ``PAS DE PANIQUE!''.
+\end{quote}
+
+\noindent
+Pour faire de cet exemple quelque chose que le syst\`eme peut
+utiliser, nous le transformons en m\'ethode de test:
+\index{test}
+%\seeindex{testing}{test}
+\index{SUnit}
+
+\needlines{3}
+\begin{method}[testShout]{Un test pour la m\'ethode shout}
+testShout
+	self assert: ('Pas de panique' shout = 'PAS DE PANIQUEBANG')
+\end{method} % BANG is the escape for !
+
+Comment cr\'eons-nous une nouvelle m\'ethode dans \pharo? Premi\`erement,
+nous devons d\'ecider quelle classe va accueillir la m\'ethode.
+Dans ce cas, la m\'ethode \ct{shout} que nous testons ira dans la
+classe \clsind{String}
+%ajout
+car c'est la classe des cha\^{\i}nes de caract\`eres et ``Pas de panique'' en est une.
+Donc, par convention, le test correspondant ira dans une classe
+nomm\'ee \clsind{StringTest}.
+
+\begin{figure}[hbt]
+	{\centerline {\includegraphics[width=\textwidth]{StringTest-newMethodTemplate}}}
+\caption{Le patron de la nouvelle m\'ethode dans la classe \ct{StringTest}.
+\figlabel{newMethodTemplate}}
+\end{figure}
+
+\dothis{Ouvrez un navigateur de classes sur la classe
+  \ct{StringTest}. S\'electionnez un protocole appropri\'e pour notre
+  m\'ethode; dans notre cas, \menu{tests - converting} 
+%ajout
+(signifiant tests de conversion, puisque notre m\'ethode modifiera le texte en retour),
+comme nous pouvons le voir sur \figref{newMethodTemplate}.
+Le texte surlign\'e dans le panneau inf\'erieur est un patron de
+m\'ethode qui vous rappelle ce \`a quoi ressemble une m\'ethode.
+Effacez-le et saisissez le code de  \tmthref{testShout}.}
+Une fois que vous avez commenc\'e \`a entrer le texte dans le
+navigateur, l'espace de saisie est entour\'e de rouge pour vous
+rappeler que ce panneau contient des changements non-sauvegard\'es.
+%ajout
+Lorsque vous avez fini de saisir le texte de la m\'ethode de test,
+s\'electionnez \menu{accept (s)} via le menu activ\'e en \actclickant{} dans ce panneau ou utilisez le raccourci-clavier
+\short{s}: ainsi, vous compilerez et sauvegarderez votre m\'ethode.
+\index{raccourci-clavier}
+\index{raccourci-clavier!accept}
+\seeindex{accept it}{raccourci-clavier, accept}
+%ajout
+\seeindex{méthode!accepter}{raccourci-clavier, accept}
+
+\arelire{Si c'est la première fois que vous acceptez du code dans
+  votre image, vous serez invité à saisir votre nom dans une
+  fenêtre spécifique. Beaucoup de personnes ont contribué au code de
+  l'image; c'est important de garder une trace de tous ceux qui créent
+  ou modifient les méthodes. Entrez simplement votre prénom suivi de
+  votre nom sans espaces ou de point de séparation.}
+% If this is the first time you have accepted any code in your image, you will likely be prompted to enter your name. Since many people have contributed code to the image, it is important to keep track of everyone who creates or modifies methods. Simply enter your first and last names, without any spaces, or separated by a dot.
+
+%\begin{figure}[hbt]
+%\centerline {\includegraphics[width=0.35\textwidth]{initials}}
+%\caption{Saisir ses initiales.
+%\figlabel{initials}}
+%\end{figure}
+
+Puisqu'il n'y a pas encore de m\'ethode nomm\'ee \ct{shout}, le 
+Browser vous demandera confirmation que c'est bien le nom que vous
+d\'esirez\,---\,il vous sugg\`erera d'ailleurs d'autres noms de
+m\'ethodes existantes dans le syst\`eme (voir \figref{testShoutConfirm}).
+Ce comportement du navigateur est utile si vous aviez effectivement
+fait une erreur de frappe. Mais ici, nous voulons \emph{vraiment}
+\'ecrire \ct{shout} puisque c'est la m\'ethode que nous voulons
+cr\'eer. D\`es lors, nous n'avons qu'\`a confirmer cela en
+s\'electionnant la premi\`ere option parmi celles du menu, comme vous
+le voyez sur \figref{testShoutConfirm}. 
+
+%\begin{figure}[htb]
+%\begin{minipage}[b]{0.48\textwidth}
+%\centerline {\includegraphics[width=0.9\textwidth]{name}}
+%\caption{Saisir son nom.\figlabel{name}}
+%\end{minipage}
+%\hfill
+% \begin{figure}[hbt]
+% \ifluluelse
+% 	{\centerline {\includegraphics[width=\textwidth]{testShoutConfirm}}}
+% 	{\centerline {\includegraphics[width=0.8\textwidth]{testShoutConfirm}}}
+% \caption{Accepter la m\'ethode testShout dans la classe \ct{StringTest}.
+% \figlabel{testShoutConfirm}}
+% \end{figure}
+
+\begin{figure}[htb]
+ \centerline {\includegraphics[width=0.6\textwidth]{name}}
+ \caption{Saisir son nom.\figlabel{name}}
+ \end{figure}
+
+\begin{figure}[htb]
+ 	{\centerline {\includegraphics[width=\textwidth]{testShoutConfirm}}}
+ \caption{Accepter la m\'ethode \ct{testShout} dans la classe \ct{StringTest}.
+ \figlabel{testShoutConfirm}}
+ \end{figure}
+
+ \dothis{Lancez votre test nouvellement cr\'e\'e: ouvrez le programme
+   \ind{SUnit} nomm\'e \emphind{TestRunner} depuis le menu \menu{World}.}
+
+ Les deux panneaux les plus \`a gauche se pr\'esentent un peu comme les
+ panneaux sup\'erieurs du Browser. Le panneau de gauche contient
+ une liste de cat\'egories restreintes aux cat\'egories qui
+ contiennent des classes de test.
+
+\dothis{S\'electionnez \scat{CollectionsTests-Text} et
+le panneau juste à droite vous affichera alors toutes les classes de test
+de cette cat\'egorie dont la classe \ct{StringTest}.
+Les classes sont déjà séléctionnées dans cette catégorie; \clickz{}
+alors sur \menu{Run Selected} pour lancer tous ces tests.} % CHANGE
+
+\begin{figure}[hbt]
+\centerline {\includegraphics[width=\textwidth]{testRunnerOnStringTest}}
+\caption{Lancer les tests de \ct{String}.
+\figlabel{testRunnerTestShout}}
+\end{figure}
+
+Vous devriez voir un message comme celui de
+\figref{testRunnerTestShout}, vous indiquant qu'il y a eu une erreur
+lors de l'ex\'ecution des tests. La liste des tests qui donne
+naissance \`a une erreur est affich\'ee dans le panneau inf\'erieur de
+droite; comme vous pouvez le voir, c'est bien
+\ct{StringTest>>>#testShout} le coupable
+(remarquez que la notation \ct{StringTest>>#testShout} est la fa\c{c}on dont \st
+identifie la m\'ethode de la classe \ct{StringTest}).
+Si vous \clickz{} sur cette ligne de texte, le test erron\'e sera
+lanc\'e \`a nouveau mais, cette fois-ci, de telle fa\c{c}on que vous
+voyez l'erreur surgir:
+``\ct{MessageNotUnderstood: ByteString>>>shout}''.
+\seeindex{\ct{>>}}{Behavior, \ct{>>}}
+\cmindex{Behavior}{>>}
+
+La fen\^etre qui s'ouvre avec le message d'erreur est le d\'ebogueur \st (voir \figref{predebugger}).
+Nous verrons le d\'ebogueur nomm\'e \ind{Debugger} et ses
+fonctionnalit\'es dans \charef{env}.
+\seeindex{Debugger}{débogueur}
+
+\begin{figure}[hbt]
+
+	\centerline {\includegraphics[width=\textwidth]{Predebugger}}
+\caption{La fenêtre de démarrage du d\'ebogueur.}
+\figlabel{predebugger}
+\end{figure}
+
+L'erreur \'etait bien s\^ur attendue; lancer le test g\'en\`ere une
+erreur parce que nous n'avons pas encore \'ecrit la m\'ethode qui dit
+aux cha\^{\i}nes de caract\`eres comment hurler 
+%ajout pour le francais
+\cad comment r\'epondre au message \ct{shout}.
+De toutes fa\c{c}ons, c'est une bonne pratique de s'assurer que le test
+\'echoue; cela confirme que nous avons correctement
+configur\'e notre machine \`a tests % testing machinery
+et que le nouveau test est actuellement en cours d'ex\'ecution.
+Une fois que vous avez vu l'erreur, vous pouvez cliquer sur le bouton
+\button{Abandon} pour abandonner le test en cours, ce qui fermera la
+fen\^etre du d\'ebogueur.
+Sachez qu'en \st vous pouvez souvent d\'efinir la m\'ethode manquante
+%ajout
+directement depuis le d\'ebogueur 
+en utilisant le bouton \button{Create}, en y \'editant la m\'ethode
+nouvellement cr\'e\'ee puis, \emph{in fine}, en appuyant sur le bouton
+\button{Proceed} pour poursuivre le test.
+
+D\'efinissons maintenant la m\'ethode qui fera du test un succ\`es!
+
+\dothis{S\'electionnez la classe \clsind{String} dans le 
+  Browser et rendez-vous dans le protocole 
+%ajout
+d\'ej\`a existant des m\'ethodes de conversion et appel\'e
+\menu{converting}. \`A la place du patron de cr\'eation de m\'ethode,
+saisissez le texte de \tmthref{shout} et faites \menu{accept}
+(saisissez \caret pour obtenir un \mbox{\ct{^}})}
+\begin{method}[shout]{La m\'ethode shout}
+shout
+	^ self asUppercase, 'BANG'
+\end{method}
+
+La virgule est un op\'erateur de concat\'enation de cha\^{\i}nes de
+caract\`eres, donc, le corps de cette m\'ethode ajoute un point
+d'exclamation \`a la version majuscule
+%martial: ajout pour rappeler au francais que uppercase eleve au majuscule
+(obtenue avec la m\'ethode \mthind{String}{asUppercase})
+de l'objet \ct{String} auquel le message \ct{shout} a \'et\'e
+envoy\'e.
+Le $\uparrow$ dit \`a \pharo que l'expression qui suit est la r\'eponse
+que la m\'ethode doit retourner; dans notre cas, il s'agit de la
+nouvelle cha\^{\i}ne concat\'en\'ee.
+\seeindex{virgule}{Collection, opérateur virgule}
+\index{Collection!opérateur virgule}
+
+Est-ce que cette m\'ethode fonctionne? Lan\c{c}ons tout simplement
+notre test afin de le savoir.
+
+\dothis{Cliquez encore sur le bouton \menu{Run Selected} du Test
+  Runner. Cette fois vous devriez obtenir une barre de signalisation
+  verte (et non plus rouge) et son texte vous confirmera que tous les
+  tests lanc\'es se feront sans aucun \'echec (ni \emph{failures}, ni
+  \emph{errors}).}
+Vous voyez une barre verte~\footnotemark\ dans le Test Runner? Bravo!
+Sauvegardez votre image et faites une pause. 
+%martial: ajout (ca fait toujours plaisir!)
+Vous l'avez bien m\'erit\'e. 
+% \footnotetext{En r\'ealit\'e, vous pourriez ne pas obtenir de barre
+%   verte car certaines images contiennent des tests pour des
+%   \emph{bugs} \`a corriger. Ne vous inqui\'etez pas!
+% \pharo est en perp\'etuelle \'evolution.
+% }
+
+\begin{figure}[hbt]
+	{\centerline{\includegraphics[width=0.7\textwidth]{String-Shout}}}
+\caption{La m\'ethode \ct{shout} dans la classe \ct{String}.\figlabel{String-shout}}
+\end{figure}
+
+%=================================================================
+\section{R\'esum\'e du chapitre}
+%martial: j'ai mis 'intronise' si trop solennel, corriger par 'presente'
+Dans ce chapitre, nous vous avons introduit \`a l'environnement de
+\pharo et nous vous avons montr\'e comment utiliser certains de ses
+principaux outils comme le   Browser, le
+Method Finder et le Test Runner. Vous avez pu avoir un aper\c{c}u de la
+syntaxe sans que vous puissiez encore la comprendre suffisamment \`a ce stade.
+
+\begin{itemize}
+  \item Un syst\`eme \pharo fonctionnel comprend une \emph{machine
+      virtuelle} (souvent abr\'eg\'ee par VM), un fichier
+    \emph{sources} et un couple de fichiers: une \emph{image} et un
+    fichier \emph{changes}. Ces deux derniers sont les seuls \`a
+    \^etre susceptibles de changer, puisqu'ils sauvegardent un clich\'e
+    du syst\`eme actif.
+  \item Quand vous restorez une image \pharo, vous vous retrouvez
+    exactement dans le m\^eme \'etat\,---\,avec les m\^emes objets
+    lanc\'es\,---\,que lorsque vous l'avez laiss\'ee au moment de votre derni\`ere
+    sauvegarde de cette image.
+  \item \pharo est destin\'e \`a fonctionner avec une souris \`a trois
+    boutons \arelire{pour \click, \actclick ou \metaclick}.
+ Si vous n'avez pas de souris \`a trois boutons, vous pouvez utiliser
+ des touches de modifications au clavier pour obtenir le m\^eme effet.
+  \item Vous \clickz sur l'arri\`ere-plan de
+    \pharo pour faire appara\^{\i}tre le \emph{menu World} et pouvoir
+    lancer depuis celui-ci divers outils.
+  \item Un \emph{Workspace} ou espace de travail est un outil
+    destin\'e \`a \'ecrire et \'evaluer des fragments de code. Vous
+    pouvez aussi l'utiliser pour y stocker un texte quelconque.
+  \item Vous pouvez utiliser des raccourcis-clavier sur du texte
+    dans un Workspace ou tout autre outil pour en
+    \'evaluer le code. Les plus importants sont \menu{do it}
+    (\short{d}), \menu{print it} (\short{p}), \menu{inspect it}
+    (\short{i}) et \menu{explore it} (\short{I}).
+\index{raccourci-clavier}
+  \item \sqmap est un outil pour t\'el\'echarger des paquetages utiles
+    depuis Internet.
+  \item Le navigateur de classes \emph{Browser} est le
+    principal outil pour naviguer dans le code \pharo et pour
+    d\'evelopper du nouveau code.
+  \item Le \emph{Test Runner} permet d'effectuer des tests
+    unitaires. Il supporte pleinement la m\'ethodologie de
+    programmation orient\'ee tests connue sous le nom de \emph{Test
+      Driven Development}.
+\end{itemize}
+
+%=================================================================
+\ifx\wholebook\relax\else 
+   \bibliographystyle{jurabib}
+   \nobibliography{scg}
+   \end{document}
+\fi
+%=================================================================
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-PDF-mode: t
+%%% ispell-local-dictionary: "english"
+%%% End:
+
