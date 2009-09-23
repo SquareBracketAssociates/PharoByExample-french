@@ -39,7 +39,9 @@ for the Lights Out game into the category called
 \scat{PBE-LightsOut}, we can refer to it as the \ct{PBE-LightsOut}
 package." We added a 'Categories & Packages' subsection; no need to
 say that or reformulate it
-
+* FAQ:
+- "How do I register the browser that I want to be the default?"
+it's on the right not on the left now
 
 **SENT/DONE:
 * BasicClasses:

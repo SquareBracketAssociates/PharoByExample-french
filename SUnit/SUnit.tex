@@ -213,7 +213,7 @@ votre application, sommeillant en attendant l'occasion d'endommager votre systè
 %\section{What makes a good test?}
 \section{De quoi est fait un bon test ?}
 
-\'Ecrire de bons tests constitue un savoir-faire qui peut s'apprendre facilement par la pratique.
+Écrire de bons tests constitue un savoir-faire qui peut s'apprendre facilement par la pratique.
 \aconfirmer{Regardons comment concevoir les tests de façon à en tirer le maximum de bénéfices.}
  
 % Writing good tests is a skill that can be learned most easily by
@@ -300,7 +300,7 @@ Avant de considérer \SUnit en détails, nous allons montrer un exemple, étape 
 % entering the code as we go along.
 %---------------------------------------------------------
 %\subsection{Step 1: create the test class}
-\subsection{\'Etape 1: créer la classe de test}
+\subsection{Étape 1: créer la classe de test}
 
 \dothis{Créez tout d'abord une nouvelle sous-classe de \clsind{TestCase} nommée
 \ct{ExampleSetTest}. Ajoutez-lui deux variables d'instance de façon à ce que votre classe ressemble à ceci~:}
@@ -340,7 +340,7 @@ Si vous définissez une classe nommée \ct{Pattern} et que vous nommez la classe
 % If you define a class called \ct{Pattern} and call the corresponding test class \ct{PatternTest}, the two classes will be alphabetized together in the browser (assuming that they are in the same category).  It \emph{is} critical that your class be a subclass of \ct{TestCase}.
 %---------------------------------------------------------
 %\subsection{Step 2: initialize the test context}
-\subsection{\'Etape 2: initialiser le contexte du test}
+\subsection{Étape 2: initialiser le contexte du test}
 
 La méthode \mthind{TestCase}{setUp} (en anglais, \emph{configurer}) définit le contexte dans lequel les tests vont s'exécuter, un peu comme la méthode \ct{initialize}. \ct{setUp} est invoquée avant l'exécution de chaque méthode de test définie dans la classe de test.
 \index{SUnit!set up method}
@@ -377,7 +377,7 @@ du test (en anglais, \emph{fixture}).
 % \seeindex{fixture}{SUnit, fixture}
 
 %---------------------------------------------------------
-\subsection{\'Etape 3: écrire quelques méthodes de test}
+\subsection{Étape 3: écrire quelques méthodes de test}
 %\subsection{Step 3: write some test methods}
 
 Créons quelques tests en définissant quelques méthodes dans la classe \ct{ExampleSetTest}.
@@ -443,7 +443,7 @@ Notez l'utilisation de la méthode \mthind{TestCase}{deny:} pour garantir que qu
 % \ct{aTest deny: anExpression} is equivalent to \ct{aTest assert: anExpression not}, but is much more readable.
 %---------------------------------------------------------
 %\subsection{Step 4: run the tests}
-\subsection{\'Etape 4: exécuter les tests}
+\subsection{Étape 4: exécuter les tests}
 \arelire{%
 L'exécution des tests se fait le plus simplement en utilisant
 directement le Browser. \Actclickz{} sur le paquetage, le nom de la
@@ -515,7 +515,7 @@ Si vous voulez en déboguer un et voir pourquoi il échoue, il suffit juste de c
 
 %---------------------------------------------------------
 %\subsection{Step 5: interpret the results}
-\subsection{\'Etape 5: interpréter les résultats}
+\subsection{Étape 5: interpréter les résultats}
 
 La méthode \mthind{TestCase}{assert:}\,, définie dans la classe
 \ct{TestCase}, prend un booléen en argument; habituellement la valeur
@@ -704,7 +704,7 @@ La classe \clsindmain{TestResult} représente les résultats de l'exécution d'u
 \seclabel{resource}
 
 Une des caractéristiques importantes d'une suite de tests est que les tests doivent être indépendants les uns des autres~: l'échec d'un test ne doit pas entraîner l'échec des autres tests qui en dépendent; l'ordre dans lequel les tests sont exécutés ne doit pas non plus importer.
-\'Evaluer \ct{setUp}  avant chaque test et \ct{tearDown} après permet de renforcer cette indépendance.
+Évaluer \ct{setUp}  avant chaque test et \ct{tearDown} après permet de renforcer cette indépendance.
 % One of the important  features of a suite of tests is that they should be independent of each other: the failure of one test should not cause an avalanche of failures of other tests that depend upon it, nor should the order in which the tests are run matter.
 % Performing \ct{setUp} before each test and \ct{tearDown} afterwards helps to reinforce this independence. 
 
@@ -895,7 +895,7 @@ Pour chaque élément en échec, un message sera affiché dans le flux des trace
 \section{La mise en {\oe}uvre de SUnit}
 
 La mise en {\oe}uvre de \sunit constitue un cas d'étude intéressant de \ct{framework} \st.
-\'Etudions quelques aspects clés de la mise en {\oe}uvre en suivant l'exécution d'un test.
+Étudions quelques aspects clés de la mise en {\oe}uvre en suivant l'exécution d'un test.
 % The implementation of \sunit makes an interesting case study of a \st framework.
 % Let's look at some key aspects of the implementation by following the
 % execution of a test.

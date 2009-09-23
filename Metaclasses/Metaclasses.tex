@@ -158,7 +158,7 @@ Vous pouvez voir l'effet produit dans la \figref{translucentEllipse}.
 \end{center}
 
 %%Par la \ruleref{inheritance}, 
-D'apr\`es la \ruleref{inheritance},
+D'après la \ruleref{inheritance},
 toute classe possède une super-classe.
 La super-classe de \clsind{TranslucentColor} est \clsind{Color} et la super-classe de \ct{Color} est \clsind{Object}:
 \begin{code}{@TEST}
@@ -327,7 +327,7 @@ L'inspecteur sur \ct{Color} vous permet de voir
 entre autre
 la super-classe, les variables d'instances, le \subind{méthode}{dictionnaire} des méthodes 
 %% etc.
-de  la classe \ct{Color}, comme indiqu\'e dans \figref{inspectingColor}.
+de  la classe \ct{Color}, comme indiqué dans \figref{inspectingColor}.
 
 \begin{center}
 \begin{figure}[!ht]
@@ -340,7 +340,7 @@ de  la classe \ct{Color}, comme indiqu\'e dans \figref{inspectingColor}.
 
 
 %=================================================================
-\section{Toute m{\'e}ta-classe h{\'e}rite de \ct{Class} et de \ct{Behavior}}
+\section{Toute m{é}ta-classe h{é}rite de \ct{Class} et de \ct{Behavior}}
 % \ruleref{behavior}
 
 Toute \ind{méta-classe} \emphind{est un}{}e classe, donc hérite de \clsind{Class}.
@@ -366,7 +366,7 @@ où est défini \ct{new} et comment cette définition est trouvée.
 Quand le message \ct{new} est envoyé à une classe, il est recherché dans sa chaîne de méta-classes et finalement dans ses super-classes \ct{Class}, \ct{ClassDescription} et \ct{Behavior} comme montré dans \figref{sendingnew}.
 
 La question ``\emph{Où est défini \ct{new}?}'' est cruciale.
-La m\'ethode \mthind{Behavior}{new} est définie en premier dans la classe \ct{Behavior} et peut être redéfinie dans ses sous-classes, ce qui inclut toutes les méta-classes des classes que nous avons définies, si cela est nécessaire.
+La méthode \mthind{Behavior}{new} est définie en premier dans la classe \ct{Behavior} et peut être redéfinie dans ses sous-classes, ce qui inclut toutes les méta-classes des classes que nous avons définies, si cela est nécessaire.
 Maintenant, quand un message \ct{new} est envoyé à une classe, il est recherché, comme d'habitude, dans la méta-classe de cette classe, en continuant le long de la chaîne de super-classes jusqu'à la classe \ct{Behavior} si aucune redéfinition n'a été rencontrée sur le chemin.
 
 Notons que le résultat de l'envoi de message \ct{TranslucentColor new} est une instance de  \clsind{TranslucentColor}  et \emph{non} de \ct{Behavior}, même si la méthode est trouvée dans la classe \ct{Behavior}!  \ct{new} retourne toujours une instance de \self, la classe qui a reçu le message, même si cela est implémenté dans une autre classe.
@@ -488,7 +488,7 @@ Color superclass							-->		Object
 
 \needlines{4}
 % Martial: trouver mieux que "saute". Les ! sont nécessaires pour l'espace avant le : 
-\begin{example}{La hi{\'e}rarchie parall{\`e}le des méta-classes}{@TEST}
+\begin{example}{La hi{é}rarchie parall{è}le des méta-classes}{@TEST}
 TranslucentColor class superclass   --> Color class
 Color class superclass                     --> Object class
 Object class superclass superclass --> Class    "!Attention: saute ProtoObject class!"
@@ -535,7 +535,7 @@ Puisque les méta-classes sont aussi des classes, elles doivent hériter de  \ct
 	\ct{Behavior} fournit un comportement commun à toutes les entités ayant des instances.
 
 \item Toute méta-classe est une instance de \clsind{Metaclass}.
-	\ct{ClassDescription} fournit tout ce qui est commun à \ct{Class} et \`a \ct{Metaclass}.
+	\ct{ClassDescription} fournit tout ce qui est commun à \ct{Class} et à \ct{Metaclass}.
 	
 
 \item La méta-classe de \ct{Metaclass} est une instance de \ct{Metaclass}.

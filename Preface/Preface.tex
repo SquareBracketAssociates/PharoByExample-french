@@ -40,12 +40,12 @@
 \renewcommand{\nnbb}[2]{} % Disable editorial comments
 \sloppy
 %=================================================================
-\chapter{Pr\'eface}\chalabel{intro}
+\chapter{Préface}\chalabel{intro}
 
 %=================================================================
 \section*{Qu'est ce que \pharo?}
 
-\arelire{\pharo est une impl\'ementation moderne, libre et compl\`ete du
+\arelire{\pharo est une implémentation moderne, libre et complète du
 langage de programmation \st et de son environnement. \pharo est
 dérivé de \squeak\cite{Inga97a}, une ré-programmation du classique
 système \st-80. Alors que \squeak fut développé principalement en tant que
@@ -74,11 +74,11 @@ dispose aussi du support pour de véritables fermetures lexicales ou
 \emph{block closures}. Les élements d'interface utilisateurs ont été
 revus et simplifiés.} % CHANGE
 
-\pharo est extr\^emement portable --- m\^eme sa machine virtuelle est
-entièrement \'ecrite en \st, ce qui facilite son d\'ebogage, son
-analyse et les modifications à venir. \pharo est le v\'ehicule de tout
-un ensemble de projets innovants, des applications multim\'edias et
-\'educatives aux environnements de d\'eveloppement pour le web.
+\pharo est extrêmement portable --- même sa machine virtuelle est
+entièrement écrite en \st, ce qui facilite son débogage, son
+analyse et les modifications à venir. \pharo est le véhicule de tout
+un ensemble de projets innovants, des applications multimédias et
+éducatives aux environnements de développement pour le web.
 % There is an important aspect behind \pharo: \pharo should not just be a copy of the past but really \emph{reinvent} Smalltalk. Big-bang approaches rarely succeed. \pharo will really favor evolutionary and incremental changes. We want to be able to experiment with important new features or libraries. Evolution means that \pharo accepts mistakes and is not not aiming for the next perfect solution in one big step\,---\,even if we would love it. \pharo will favor small incremental changes but a multitude of them. The success of \pharo depends on the contributions of its community.
 Il est important de préciser le fait suivant concernant \pharo: \arelire{\pharo
 ne devrait pas être qu'une simple copie du passé mais véritablement
@@ -101,16 +101,16 @@ Le succès de \pharo dépend des contributions de sa communauté.
 Ce livre est basé sur \emph{Squeak Par l'Exemple}\footnote{\spe;
   traduction française de Squeak By Example (\sbe).}, une introduction
 à \squeak éditée en \emph{open-source}. \arelire{Il a néanmoins été librement
-adapté pour refléter les différences entre \pharo et \squeak. Ce livre pr\'esente diff\'erents aspects de \pharo, en commen\c{c}ant par les concepts de base et en poursuivant vers des sujets plus avanc\'es.}
+adapté pour refléter les différences entre \pharo et \squeak. Ce livre présente différents aspects de \pharo, en commençant par les concepts de base et en poursuivant vers des sujets plus avancés.}
 
-Ce livre ne vous apprendra pas \`a programmer. Le lecteur doit avoir quelques notions concernant les langages de programmation. Quelques connaissances sur la programmation objet seront utiles.
+Ce livre ne vous apprendra pas à programmer. Le lecteur doit avoir quelques notions concernant les langages de programmation. Quelques connaissances sur la programmation objet seront utiles.
 
 Ce livre introduit l'environnement de programmation, le langage et
-les outils de \pharo. Vous serez confront\'e \`a de nombreuses bonnes
-pratiques de Smalltalk, mais l'accent sera mis plus particuli\`erement
-sur les aspects techniques et non sur la conception orient\'ee
-objet. Nous vous pr\'esenterons, autant que possible, une foule 
-d'exemples (nous avons \'et\'e inspir\'e par l'excellent livre de Alec
+les outils de \pharo. Vous serez confronté à de nombreuses bonnes
+pratiques de Smalltalk, mais l'accent sera mis plus particulièrement
+sur les aspects techniques et non sur la conception orientée
+objet. Nous vous présenterons, autant que possible, une foule 
+d'exemples (nous avons été inspiré par l'excellent livre de Alec
 % rene : c'est bien Alec et non Alex (verification OK)
 Sharp sur Smalltalk\cite{Shar97a}).
 \index{Sharp, Alex}
@@ -124,17 +124,17 @@ Il y a plusieurs autres livres sur \st disponibles gratuitement sur le web mais 
 
 % http://www.surfscranton.com/architecture/KnightsPrinciples.htm
 
-Ne soyez pas frustr\'e par des \'el\'ements de \st que vous ne comprenez pas imm\'ediatement.
-Vous n'avez pas tout \`a conna\^itre!
+Ne soyez pas frustré par des éléments de \st que vous ne comprenez pas immédiatement.
+Vous n'avez pas tout à connaître!
 Alan Knight exprime ce principe comme suit\footnote{\url{http://www.surfscranton.com/architecture/KnightsPrinciples.htm}}:
 \index{Knight, Alan}
-\important{{\bf Ne vous en pr\'eoccupez pas!}%
+\important{{\bf Ne vous en préoccupez pas!}%
 %\important{{\bf Moquez-vous en!}%
 \footnote{Dans sa version originale: ``Try not to care''.}
-Les d\'eveloppeurs \st d\'ebutants ont souvent beaucoup de
-difficult\'es car ils pensent qu'il est n\'ecessaire de conna\^itre
-tous les d\'etails d'une chose avant de l'utiliser. Cela signifie
-qu'il leur faut un moment avant de ma\^{\i}triser un simple: \ct{Transcript show: 'Hello World'}. Une des grandes avanc\'ees de la programmation par objets est de pouvoir r\'epondre \`a la question ``Comment ceci marche?'' avec  ``Je ne m'en pr\'eoccupe pas''.}
+Les développeurs \st débutants ont souvent beaucoup de
+difficultés car ils pensent qu'il est nécessaire de connaître
+tous les détails d'une chose avant de l'utiliser. Cela signifie
+qu'il leur faut un moment avant de maîtriser un simple: \ct{Transcript show: 'Hello World'}. Une des grandes avancées de la programmation par objets est de pouvoir répondre à la question ``Comment ceci marche?'' avec  ``Je ne m'en préoccupe pas''.}
 
 %=================================================================
 \section*{Un livre ouvert}
@@ -143,28 +143,28 @@ Ce livre est ouvert dans plusieurs sens:
 
 \begin{itemize}
 
-\item	Le contenu de ce livre est diffus\'e sous la licence Creative Commons Paternit\'e - Partage des Conditions Initiales \`a l'Identique.
-		En r\'esum\'e, vous \^etes autoris\'e \`a partager librement et \`a adapter ce livre, tant que vous respectez les conditions de la licence disponible \`a l'adresse suivante: 
+\item	Le contenu de ce livre est diffusé sous la licence Creative Commons Paternité - Partage des Conditions Initiales à l'Identique.
+		En résumé, vous êtes autorisé à partager librement et à adapter ce livre, tant que vous respectez les conditions de la licence disponible à l'adresse suivante: 
 		\url{http://creativecommons.org/licenses/by-sa/3.0/}.
 
-\item	Ce livre d\'ecrit simplement les concepts de base de \pharo.
-		Id\'ealement, nous voulons encourager de nouvelles personnes \`a contribuer \`a des chapitres sur des parties de \pharo qui ne sont pas encore d\'ecrites.
-		Si vous voulez participer \`a ce travail, merci de nous contacter. Nous voulons voir ce livre se d\'evelopper!
+\item	Ce livre décrit simplement les concepts de base de \pharo.
+		Idéalement, nous voulons encourager de nouvelles personnes à contribuer à des chapitres sur des parties de \pharo qui ne sont pas encore décrites.
+		Si vous voulez participer à ce travail, merci de nous contacter. Nous voulons voir ce livre se développer!
 \end{itemize}
 
-\arelire{Plus de d\'etails concernant ce livre sont disponibles sur le site
+\arelire{Plus de détails concernant ce livre sont disponibles sur le site
 web \ppe.}
-%\spe, h\'eberg\'e par l'\emph{Institute of Computer Science and Applied Mathematics} de l'Universit\'e de Berne en Suisse.
+%\spe, hébergé par l'\emph{Institute of Computer Science and Applied Mathematics} de l'Université de Berne en Suisse.
 
 %=================================================================
-\section*{La communaut\'e \pharo}
+\section*{La communauté \pharo}
 
-La communaut\'e \pharo est amicale et active.
+La communauté \pharo est amicale et active.
 Voici une courte liste de ressources que vous pourrez trouver utiles:
 
 \begin{itemize}
 \item \url{http://www.pharo-project.org} est le site web principale de \pharo.
-\item \url{http://www.squeaksource.com}: \squeaksource est l'\'equivalent de
+\item \url{http://www.squeaksource.com}: \squeaksource est l'équivalent de
   \sourceforge pour les projets \pharo. De nombreux paquetages
   optionnels se trouvent ici.
 \end{itemize}
@@ -174,10 +174,10 @@ Voici une courte liste de ressources que vous pourrez trouver utiles:
 
 % IRC et 'Autres sites' partie
 
-%\paragraph{La communaut\'e francophone de Squeak dispose \'egalement de plusieurs sites web :}
+%\paragraph{La communauté francophone de Squeak dispose également de plusieurs sites web :}
 % \begin{itemize}
-% \item \url{community.ofset.org/wiki/Squeak} est un Wiki qui regroupe la plupart des ressources en fran\c{c}ais concernant \pharo et \st. On y trouve notamment les actualit\'es de la communaut\'e, des tutoriels sur la programmation avec Squeak, des contenus p\'edagogiques utilisant les EToys.
-% \item \url{planet-fr.squeak.org} est un agr\'egateur de diff\'erents blogs francophones qui s'int\'eressent \`a \pharo.
+% \item \url{community.ofset.org/wiki/Squeak} est un Wiki qui regroupe la plupart des ressources en français concernant \pharo et \st. On y trouve notamment les actualités de la communauté, des tutoriels sur la programmation avec Squeak, des contenus pédagogiques utilisant les EToys.
+% \item \url{planet-fr.squeak.org} est un agrégateur de différents blogs francophones qui s'intéressent à \pharo.
 % \end{itemize}
 
 %=================================================================
@@ -185,23 +185,23 @@ Voici une courte liste de ressources que vous pourrez trouver utiles:
 
 Nous utilisons deux conventions typographiques dans ce livre.
 
-Nous avons essay\'e de fournir autant d'exemples que possible.
+Nous avons essayé de fournir autant d'exemples que possible.
 Il y a notamment plusieurs exemples avec des fragments de code qui
-peuvent \^etre \'evalu\'es. Nous utilisons le symbole \ct{-->} afin
-d'indiquer le r\'esultat qui peut \^etre obtenu en s\'electionnant
+peuvent être évalués. Nous utilisons le symbole \ct{-->} afin
+d'indiquer le résultat qui peut être obtenu en sélectionnant
 l'expression et en utilisant l'option \menu{print it} du menu contextuel:
 
 \begin{code}{@TEST}
-3 + 4 --> 7    "Si vous !s\'electionner! 3+4 et 'print it', 7 s'affichera"
+3 + 4 --> 7    "Si vous !sélectionner! 3+4 et 'print it', 7 s'affichera"
 \end{code}
 
 % mise a jour (12/2007)
-Si vous voulez d\'ecouvrir \pharo en vous amusant avec ces morceaux de
+Si vous voulez découvrir \pharo en vous amusant avec ces morceaux de
 code, sachez que vous pouvez charger un fichier texte avec la
-totalit\'e des codes d'exemple via le site web du livre: \ppe. 
+totalité des codes d'exemple via le site web du livre: \ppe. 
 
-La deuxi\`eme convention que nous utilisons est l'ic\^one
-\dothisicon{} pour vous indiquer que vous avez quelque chose \`a faire: 
+La deuxième convention que nous utilisons est l'ic\^one
+\dothisicon{} pour vous indiquer que vous avez quelque chose à faire: 
 
 \dothis{Avancez et lisez le prochain chapitre!}
 
@@ -235,27 +235,27 @@ La deuxi\`eme convention que nous utilisons est l'ic\^one
 %Of course, when you actually type the code of the method into the browser, you don't have to type the class name or the \ct{>>>}; instead, you just make sure that the appropriate class is selected in the browser.
 
 %=================================================================
-\section*{Remerciements pour l'\'edition anglaise}
+\section*{Remerciements pour l'édition anglaise}
 
 % We would like to thank various people who have contributed to this book.
 % In particular, we thank
 
 %martial: a reformuler - mettre 'les auteurs' a la place de nous
 Nous voulons remercier Hilaire Fernandes et Serge Stinckwich qui nous
-ont autoris\'e \`a traduire des parties de leurs articles sur \st et
+ont autorisé à traduire des parties de leurs articles sur \st et
 Damien Cassou pour sa contribution au chapitre sur les flots de
-donn\'ees ou \emph{streams}.
+données ou \emph{streams}.
 
 %  update (12/2007) - a relire
-Nous remercions particuli\`erement Alexandre Bergel, Orla Greevy,
+Nous remercions particulièrement Alexandre Bergel, Orla Greevy,
 Fabrizio Perin, Lukas Renggli, Jorge Ressia \arelire{et Erwann Wernli} pour leurs
 corrections détaillées % REVOIR en final (encore un ajout)
 % ajout - vf
 de l'édition originale. % REVOIR
 
-Nous remercions l'Universit\'e de Berne en Suisse pour le soutien
-gracieusement offert \`a cette entreprise \emph{Open Source} et pour
-les facilit\'es d'h\'ebergement web de ce livre.
+Nous remercions l'Université de Berne en Suisse pour le soutien
+gracieusement offert à cette entreprise \emph{Open Source} et pour
+les facilités d'hébergement web de ce livre.
 
 Nous remercions aussi la communauté \squeak pour leur soutien et leur
 enthousiasme sur ce projet et pour leur communication quant à l'aide à
@@ -263,13 +263,13 @@ la correction de la première édition
 de la version originale %ajout
 de ce livre. % REVOIR
 
-\section*{Remerciements pour l'\'edition fran\c{c}aise}
+\section*{Remerciements pour l'édition française}
 
-L'\'edition fran\c{c}aise de ce livre a \'et\'e r\'ealis\'ee par
-l'\'equipe de traducteurs et de relecteurs suivantes: \arelire{A VENIR.}
+L'édition française de ce livre a été réalisée par
+l'équipe de traducteurs et de relecteurs suivantes: \arelire{A VENIR.}
 %% REVOIR
-%Martial Boniou,  Mathieu Chappuis, Luc Fabresse, Ren\'e Mages, Nicolas Petton, Alain Plantec, Serge Stinckwich et Beno\^it Tuduri.
-%Cette \'equipe remercie l'association OFSET\footnote{OFSET est une organisation fran\c{c}aise \`a but non lucratif de type association loi 1901. Elle a \'et\'e cr\'e\'ee pour r\'epondre \`a la faiblesse du d\'eveloppement de logiciels libres \'educatifs pour le syst\`eme GNU. Elle fait la promotion de toutes les sortes de d\'eveloppements et de localisations n\'ecessaires aux syst\`emes \'educatifs \`a travers le monde.} (\url{www.ofset.org}) qui h\'eberge notamment le Wiki de la communaut\'e francophone de Squeak, ainsi que le magazine Gnu/Linux Magazine France (\url{www.gnulinuxmag.com}) qui nous a autoris\'e en reprendre en partie certains articles sur Smalltalk parus dans ses colonnes.
+%Martial Boniou,  Mathieu Chappuis, Luc Fabresse, René Mages, Nicolas Petton, Alain Plantec, Serge Stinckwich et Benoît Tuduri.
+%Cette équipe remercie l'association OFSET\footnote{OFSET est une organisation française à but non lucratif de type association loi 1901. Elle a été créée pour répondre à la faiblesse du développement de logiciels libres éducatifs pour le système GNU. Elle fait la promotion de toutes les sortes de développements et de localisations nécessaires aux systèmes éducatifs à travers le monde.} (\url{www.ofset.org}) qui héberge notamment le Wiki de la communauté francophone de Squeak, ainsi que le magazine Gnu/Linux Magazine France (\url{www.gnulinuxmag.com}) qui nous a autorisé en reprendre en partie certains articles sur Smalltalk parus dans ses colonnes.
 
 % note sur de la bibliographie en francais (Smalltalk + Squeak (Briffault, Bots...))
 

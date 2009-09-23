@@ -36,7 +36,7 @@
   
 %=================================================================
 %\chapter{Frequently Asked Questions}
-%\chapter{Questions Fr\'equemments Pos\'ees}
+%\chapter{Questions Fréquemments Posées}
 %% note de Martial: le terme FAQ est utilise dans certaines pages; sinon "questions freq. posees" est valable aussi
 \chapter{Foire Aux Questions}
 \label{cha:faq}
@@ -45,17 +45,17 @@
 %Here are a few that I have collected.
 %Check the ST lecture notes for more FAQs.
 %We should also try to mine more from newbies.}
-\on{Ceci devrait \^etre une *vraie* FAQs.
-Celle-ci contient quelques questions que j'ai collect\'ees.
-Pour plus de FAQ, vous pouvez consulter les r\'ef\'erences de lectures sur ST.
-Nous devrions essayer de nous m\^emes pour les newbies...}
+\on{Ceci devrait être une *vraie* FAQs.
+Celle-ci contient quelques questions que j'ai collectées.
+Pour plus de FAQ, vous pouvez consulter les références de lectures sur ST.
+Nous devrions essayer de nous mêmes pour les newbies...}
 
 %=================================================================
 %\section{Getting started}
-\section{Pr\'emices}
+\section{Prémices}
 \begin{faq}
 %Where do I get the latest Squeak?
-O\`u puis-je trouver la derni\`ere version de Pharo?
+Où puis-je trouver la dernière version de Pharo?
 \end{faq}
 \answer
 \pharoweb
@@ -90,9 +90,9 @@ Envoyez le message suivant \mthind{Collection}{asSortedCollection}.
 
 \begin{faq}
 %How do I convert a collection of characters to a \clsind{String}?
-Comment puis-je convertir une collection de caract\`eres en une 
+Comment puis-je convertir une collection de caractères en une 
 %% ajout
-cha\^ine de caract\`eres
+chaîne de caractères
 \clsind{String}~?
 \end{faq}
 \answer
@@ -102,7 +102,7 @@ String streamContents: [:str | str nextPutAll: 'hello' asSet] --> 'hleo'
 
 %=================================================================
 %\section{Browsing the system}
-\section{Naviguer dans le syst\`eme}
+\section{Naviguer dans le système}
 
 % voir \faqref{packagebrowser}
 \begin{faq}
@@ -141,9 +141,9 @@ Comment puis-je chercher une classe~?
 \end{faq}
 \answer
 %\short{b} (browse) on the class name, or \short{f} in the category pane of the class browser.
-\short{b} (pour \emph{browse} \cad parcourir \`a l'aide du navigateur
+\short{b} (pour \emph{browse} \cad parcourir à l'aide du navigateur
 de classes) sur le nom de la classe ou \short{f} dans le panneau des
-cat\'egories du Browser. % REVOIR
+catégories du Browser. % REVOIR
 \index{raccourci-clavier!browse it}
 \index{raccourci-clavier!find...}
 
@@ -151,18 +151,18 @@ cat\'egories du Browser. % REVOIR
 %How do I find/browse all sends to super?
 Comment puis-je trouver/naviguer dans tous les envois 
 %%de
-\`a
+à
  super~?
 \end{faq}
 \answer
 %The second solution is much faster:
-La deuxi\`eme solution est la plus rapide:
+La deuxième solution est la plus rapide:
 \begin{code}{}
 SystemNavigation default browseMethodsWithSourceString: 'super'.
 SystemNavigation default browseAllSelect: [:method | method sendsToSuper ].
 \end{code}
 %\index{browsing programmatically}
-\index{naviguer de mani\`ere pragmatique}
+\index{naviguer de manière pragmatique}
 \clsindex{SystemNavigation}
 
 \begin{faq}
@@ -183,11 +183,11 @@ browseSuperSends value: OrderedCollection.
 
 \begin{faq}
 %How do I find out which are the new methods implemented in a class?
-Comment puis-je d\'ecouvrir quelles sont les nouvelles m\'ethodes impl\'ement\'ees dans une classe?
+Comment puis-je découvrir quelles sont les nouvelles méthodes implémentées dans une classe?
 \end{faq}
 \answer
 %Here we ask which new methods are introduced by \ct{True}:
-Dans le cas pr\'esent nous demandons quelles sont les nouvelles m\'ethodes introduites par \ct{True}:
+Dans le cas présent nous demandons quelles sont les nouvelles méthodes introduites par \ct{True}:
 \begin{code}{@TEST | newMethods |}
 newMethods:= [:aClass| aClass methodDict keys select:
 	[:aMethod | (aClass superclass canUnderstand: aMethod) not ]].
@@ -199,7 +199,7 @@ newMethods value: True --> an IdentitySet(#asBit)
 Comment puis-je 
 %rapporter
 trouver
-les m\'ethodes d'une classe qui sont abstraites~?
+les méthodes d'une classe qui sont abstraites~?
 \end{faq}
 \answer
 \begin{code}{@TEST | abstractMethods |}
@@ -211,14 +211,14 @@ abstractMethods value: Collection --> an IdentitySet(#remove:ifAbsent: #add: #do
 
 \begin{faq}
 %How do I generate a view of the \ind{AST} of an expression?
-Comment puis-je cr\'eer une vue de 
+Comment puis-je créer une vue de 
 %% ajout
 l'arbre syntaxique abstrait ou 
 \ind{AST} d'une expression~?
 \end{faq}
 \answer
 %Load AST from squeaksource.com. Then evaluate:
-Charger le paquetage AST depuis \url{http://squeaksource.com}. Ensuite \'evaluer:
+Charger le paquetage AST depuis \url{http://squeaksource.com}. Ensuite évaluer:
 \begin{code}{}
 (RBParser parseExpression: '3+4') explore
 \end{code}
@@ -228,7 +228,7 @@ Charger le paquetage AST depuis \url{http://squeaksource.com}. Ensuite \'evaluer
 
 \begin{faq}
 %How do I find all the Traits in the system?
-Comment puis-je trouver tout les \emph{traits} dans le syst\`eme~?
+Comment puis-je trouver tout les \emph{traits} dans le système~?
 \end{faq}
 \answer
 \begin{code}{}
@@ -260,20 +260,20 @@ Comment puis-je charger un projet du \ind{SqueakSource}~?
 %  \item Copy the registration code snippet
   \item Copiez le code d'enregistrement
 %  \item Select \menu{open \go Monticello browser}
-  \item S\'electionnez \menu{open \go Monticello browser}
+  \item Sélectionnez \menu{open \go Monticello browser}
 %  \item Select \menu{+Repository \go HTTP}
-  \item S\'electionnez \menu{+Repository \go HTTP}
+  \item Sélectionnez \menu{+Repository \go HTTP}
 %  \item Paste and accept the Registration code snippet; enter your password
   \item Collez et acceptez le code d'enregistrement ; entrez votre mot de passe
 %  \item Select the new repository and \menu{Open} it
-  \item S\'electionnez le nouveau d\'ep\^ot et ouvrez-le avec le bouton \menu{Open}
+  \item Sélectionnez le nouveau dépôt et ouvrez-le avec le bouton \menu{Open}
 %  \item Select and load the latest version
-  \item S\'electionnez et chargez la version la plus r\'ecente
+  \item Sélectionnez et chargez la version la plus récente
 \end{enumerate}
 
 \begin{faq}
 %How do I create a SqueakSource project?
-Comment puis-je cr\'eer un projet SqueakSource~?
+Comment puis-je créer un projet SqueakSource~?
 \end{faq}
 \answer
 \begin{enumerate}
@@ -282,41 +282,41 @@ Comment puis-je cr\'eer un projet SqueakSource~?
 %  \item Register yourself as a new member
   \item Enregistrez-vous comme un nouveau membre
 %  \item Register a project (name = category)
-  \item Enregistrez un projet (nom = cat\'egorie)
+  \item Enregistrez un projet (nom = catégorie)
 %  \item Copy the Registration code snippet
   \item Copiez le code d'enregistrement
 %  \item \menu{open \go Monticello browser}
   \item \menu{open \go Monticello browser}
 %  \item \menu{+Package} to add the category
-  \item \menu{+Package} pour ajouter une cat\'egorie
+  \item \menu{+Package} pour ajouter une catégorie
 %  \item Select the package
-  \item S\'electionnez le package
+  \item Sélectionnez le package
 %  \item \menu{+Repository \go HTTP}
   \item \menu{+Repository \go HTTP}
 %  \item Paste and accept the Registration code snippet; enter your password
   \item Collez et acceptez le code d'enregistrement ; entrez votre mot de passe
 %  \item \menu{Save} to save the first version
-  \item \menu{Save} pour enregistrer la premi\`ere version
+  \item \menu{Save} pour enregistrer la première version
 \end{enumerate}
 
 \begin{faq}
 %How do I extend \ct{Number} with \ct{Number>>>chf} but have Monticello recognize it as being part of my \ct{Money} project?
-Comment puis-je \'etendre \ct{Number} avec
+Comment puis-je étendre \ct{Number} avec
 %% ajout
-la m\'ethode \ct{Number>>>chf} 
+la méthode \ct{Number>>>chf} 
 %% changement
-tel que Monticello la reconnaissent comme \'etant une partie de mon projet \ct{Money}~?
+tel que Monticello la reconnaissent comme étant une partie de mon projet \ct{Money}~?
 \end{faq}
 \answer
 %Put it in a method-category named \ct{*Money}.
 %% changement
 Mettez-la 
-dans une cat\'egorie de m\'ethodes nomm\'ee \ct{*Money}.
+dans une catégorie de méthodes nommée \ct{*Money}.
 %Monticello gathers all methods that are in other categories named like *package and includes them in your package.
-Monticello r\'eunit toutes les m\'ethodes 
-dont les noms de cat\'egories 
-%% changement: nomm\'ees autrement telles que 
-ont la forme \emph{*package} et les ins\'ere dans votre package.
+Monticello réunit toutes les méthodes 
+dont les noms de catégories 
+%% changement: nommées autrement telles que 
+ont la forme \emph{*package} et les insére dans votre package.
 
 %=================================================================
 %\section{Tools}
@@ -324,15 +324,15 @@ ont la forme \emph{*package} et les ins\'ere dans votre package.
 
 \begin{faq}
 %How do I programmatically open the \ind{SUnit} \ind{TestRunner}?
-Comment puis-je ouvrir de mani\`ere pragmatique le \ind{SUnit} \ind{TestRunner}~?
+Comment puis-je ouvrir de manière pragmatique le \ind{SUnit} \ind{TestRunner}~?
 \end{faq}
 \answer
 %Evaluate \ct{TestRunner open}.
-\'Evaluez \ct{TestRunner open}.
+Évaluez \ct{TestRunner open}.
 
 \begin{faq}
 %Where can I find the \ind{Refactoring Browser}?
-O\`u puis-je trouver le \ind{Refactoring Browser}~?
+Où puis-je trouver le \ind{Refactoring Browser}~?
 \end{faq}
 \answer
 %Load AST then Refactoring Engine from squeaksource.com:
@@ -344,60 +344,62 @@ refactorisation sur le site \url{http://squeaksource.com}:\\
 
 \begin{faq}
 %How do I register the browser that I want to be the default?
-Comment puis-je enregistrer le navigateur comme navigateur par d\'efaut~?
+Comment puis-je enregistrer le navigateur comme navigateur par défaut~?
 \end{faq}
 \answer
 %Click the menu icon in the top left of the Browser window.
-Cliquez sur l'ic\^one du menu situ\'e en haut à gauche de la fen\^etre Browser \`a c\^ot\'e de la croix de destruction de la fen\^etre. 
+\Clickz{} sur l'icône du menu situé \arelire{à droite dans la barre de
+titre} de la fenêtre du Browser. % REVOIR (erreur dans PBE)
+%% à côté de \aretirer{la croix de destruction de la fenêtre}. % martial - ce n'est plus une croix mais une bulle rouge 
 %% ajout (pour la traduction)
-Choisissez \menu{Register this Browser as default} pour enregistrer le navigateur courant comme navigateur par d\'efaut ou bien, s\'electionnez \menu{Choose new default Browser} pour obtenir un menu flottant d'o\`u vous pourrez faire votre choix parmi les diff\'erentes classes de Browser.
+Choisissez \menu{Register this Browser as default} pour enregistrer le navigateur courant comme navigateur par défaut ou bien, sélectionnez \menu{Choose new default Browser} pour obtenir un menu flottant d'où vous pourrez faire votre choix parmi les différentes classes de Browser.
 
 %=================================================================
 %\section{Regular expressions and parsing}
-\section{Expressions r\'eguli\`eres et analyse grammaticale}
+\section{Expressions régulières et analyse grammaticale}
 
 %\begin{faq}
 %%How can I work with regular expressions?
-%Comment puis-je travailler avec les expressions r\'eguli\`eres~?
+%Comment puis-je travailler avec les expressions régulières~?
 %\index{paquetage!expressions régulières}
 %\end{faq}
 %\answer
-%Chargez le paquetage de RegEx de Vassili Bykov \`a l'adresse: \\
+%Chargez le paquetage de RegEx de Vassili Bykov à l'adresse: \\
 %\url{http://www.squeaksource.com/Regex.html}
 %\index{Bykov, Vassili}
 
 \begin{faq}
 %Where is the documentation for the RegEx package?
-O\`u est la documentation pour le paquetage RegEx~?
+Où est la documentation pour le paquetage RegEx~?
 \end{faq}
 \answer
 %Look at the \menu{DOCUMENTATION} protocol of \ct{RxParser class} in the \menu{VB-Regex} category.
 %% changement
-Regardez dans le protocole \menu{DOCUMENTATION} de \ct{RxParser class} situ\'e dans la cat\'egorie \menu{VB-Regex}.
+Regardez dans le protocole \menu{DOCUMENTATION} de \ct{RxParser class} situé dans la catégorie \menu{VB-Regex}.
 
 \begin{faq}
 %Are there tools for writing parsers?
-Y a-t'il des outils pour l'\'ecriture d'un outil d'analyse grammaticale~?
+Y a-t'il des outils pour l'écriture d'un outil d'analyse grammaticale~?
 \end{faq}
 \answer
 %Use \ind{SmaCC}\,---\,the Smalltalk Compiler Compiler.
-Utilisez \ind{SmaCC}\,---\,le compilateur de compilateur (ou g\'en\'erateur de compilateur)~\footnote{En anglais, Compiler-Compiler.} Smalltalk.
+Utilisez \ind{SmaCC}\,---\,le compilateur de compilateur (ou générateur de compilateur)~\footnote{En anglais, Compiler-Compiler.} Smalltalk.
 %You should install at least SmaCC-lr.13.
 Vous devrez installer au moins SmaCC-lr.13.
 %Load it from \url{http://www.squeaksource.com/SmaccDevelopment.html}.
 Chargez-le depuis \url{http://www.squeaksource.com/SmaccDevelopment.html}.
 %There is a nice tutorial online:
-Il y a un bon tutoriel en ligne \`a l'adresse:
+Il y a un bon tutoriel en ligne à l'adresse:
 \url{http://www.refactory.com/Software/SmaCC/Tutorial.html}
 
 \begin{faq}
 %Which packages should I load from SqueakSource SmaccDevelopment to write parsers?
-Quels paquetages devrais-je charger depuis \emph{SqueakSource SmaccDevelopment} pour \'ecrire un analyseur grammatical~?
+Quels paquetages devrais-je charger depuis \emph{SqueakSource SmaccDevelopment} pour écrire un analyseur grammatical~?
 \end{faq}
 \answer
 %Load the latest version of \ind{SmaCCDev}{}\,---\,the runtime is already there.
-Chargez la derni\`ere version de \ind{SmaCCDev}{}\,---\,le lanceur de programme est d\'ej\`a actif.
-(Attention: SmaCC-Development est destin\'e \`a la version 3.8 de \squeak)
+Chargez la dernière version de \ind{SmaCCDev}{}\,---\,le lanceur de programme est déjà actif.
+(Attention: SmaCC-Development est destiné à la version 3.8 de \squeak)
 
 %=================================================================
 \ifx\wholebook\relax\else\end{document}\fi

@@ -6,8 +6,9 @@
   \item {\textsf  {[ ]}}, \see{bloc}{56}
   \item {\textsf  {\#( )}}, \see{litt\IeC {\'e}ral, tableau}{204}
   \item {\textsf  {\#}}, \see{litt\IeC {\'e}ral, symbole}{55}
-  \item \'egalit\'e, \see{Object, \'egalit\'e}{180}
   \item \IeC {\'e}criture en chameau, \hyperpage{127}
+  \item \IeC {\'e}galit\IeC {\'e}, 
+		\see{Object, \IeC {\'e}galit\IeC {\'e}}{180}
   \item \IeC {\'e}num\IeC {\'e}ration, \see{it\IeC {\'e}ration}{61}
   \item \IeC {\'e}v\IeC {\'e}nement
     \subitem clavier, \hyperpage{248}
@@ -16,9 +17,9 @@
   \item \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{.}, 
 		\see{expression, s\IeC {\'e}parateur}{56}
   \item \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{==}, 
-		\see{Object, identit\'e}{180}
+		\see{Object, identit\IeC {\'e}}{180}
   \item \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{=}, 
-		\see{Object, \'egalit\'e}{180}
+		\see{Object, \IeC {\'e}galit\IeC {\'e}}{180}
   \item \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{>>}, 
 		\see{Behavior, \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{>>}}{25}
   \item \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{become:}, 
@@ -28,7 +29,7 @@
 
   \indexspace
 
-  \item acc\`es, \hyperpage{85}
+  \item acc\IeC {\`e}s, \hyperpage{85}
   \item accept it, \see{raccourci-clavier, accept}{23}
   \item accesseur, \see{m\IeC {\'e}thode d'acc\IeC {\`e}s}{42}
   \item \textsf  {accessing} (protocole), \hyperpage{42}, 
@@ -218,11 +219,11 @@
     \subitem bouton
       \subsubitem hierarchy, \hyperpage{118}, \hyperpage{122}
     \subitem browse, \hyperpage{117}
-    \subitem c\^ot\'e classe, \hyperpage{87, 88}, \hyperpage{90, 91}, 
-		\hyperpage{109}
-    \subitem c\^ot\'e instance, \hyperpage{87, 88}, \hyperpage{90}
-    \subitem c\IeC {\^o}t\IeC {\'e} classe, \hyperpage{266}, 
+    \subitem c\IeC {\^o}t\IeC {\'e} classe, \hyperpage{87, 88}, 
+		\hyperpage{90, 91}, \hyperpage{109}, \hyperpage{266}, 
 		\hyperpage{270}
+    \subitem c\IeC {\^o}t\IeC {\'e} instance, \hyperpage{87, 88}, 
+		\hyperpage{90}
     \subitem d\IeC {\'e}finir une classe, \hyperpage{32}
     \subitem d\IeC {\'e}finir une m\IeC {\'e}thode, \hyperpage{33}
     \subitem implementors, \hyperpage{119}
@@ -269,7 +270,7 @@
     \subitem cr\IeC {\'e}ation, \hyperpage{30}
     \subitem exportation de fichier, \see{fichier, exportation}{46}
     \subitem importation de fichier, \see{fichier, importation}{46}
-  \item cha\^{\i }ne de caract\`eres, \see{String}{210}
+  \item cha\IeC {\^\i }ne de caract\IeC {\`e}res, \see{String}{210}
   \item change set, \see{fichier, exportation}{112}
   \item Change Sorter, \hyperpage{148}
   \item changes, \hyperpage{4}, \hyperpage{10}
@@ -339,7 +340,7 @@
     \subitem importation de fichier, \see{fichier, importation}{46}
     \subitem initialisation, \hyperpage{108}
     \subitem invariant, \hyperpage{187}
-    \subitem m\'ethode, \hyperpage{87, 88}, \hyperpage{91}
+    \subitem m\IeC {\'e}thode, \hyperpage{87, 88}, \hyperpage{91}
     \subitem r\IeC {\'e}cente, \hyperpage{124}
     \subitem recherche, \hyperpage{17}, \hyperpage{124}
     \subitem trouver, \see{classe, recherche}{17}
@@ -483,7 +484,7 @@
   \item copie superficielle, 
 		\see{Object, \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{shallowCopy}}{182}
   \item \textsf  {CR} (globale), \hyperpage{109}
-  \item \textsf  {cr\'eation} (protocole), \hyperpage{93}
+  \item \textsf  {cr\IeC {\'e}ation} (protocole), \hyperpage{93}
   \item \textsf  {creation} (protocole), \hyperpage{200}
   \item CrossMorph
     \subitem (classe), \hyperpage{243}
@@ -493,12 +494,12 @@
 
   \indexspace
 
-  \item d\'esapprobation, \see{deprecation}{185}
   \item d\IeC {\'e}bogueur, \hyperpage{43}, \hyperpage{136}, 
 		\hyperpage{184}
   \item d\IeC {\'e}finition de variable \IeC {\`a} la vol\IeC {\'e}e, 
 		\hyperpage{37}
   \item d\IeC {\'e}finition de variable d'instance, \hyperpage{37}
+  \item d\IeC {\'e}sapprobation, \see{deprecation}{185}
   \item d\IeC {\'e}veloppement agile, \hyperpage{157}
   \item d\IeC {\'e}veloppement dirig\IeC {\'e} par le comportement, 
 		\see{Test Driven Development}{22}
@@ -617,7 +618,7 @@
   \item expression
     \subitem s\IeC {\'e}parateur, \hyperpage{58}, \hyperpage{78}
   \item expression lambda, \hyperpage{199}
-  \item extension, \see{m\'ethode, extension}{100}
+  \item extension, \see{m\IeC {\'e}thode, extension}{100}
   \item extension de classe, \hyperpage{296}, \hyperpage{310}
   \item extension de package, \see{paquetage, extension}{126}
   \item extension de paquetage, \see{paquetage, extension}{126}
@@ -733,7 +734,7 @@
 
   \indexspace
 
-  \item h\'eritage, \hyperpage{92}, \hyperpage{98}
+  \item h\IeC {\'e}ritage, \hyperpage{92}, \hyperpage{98}
   \item halo, \see{Morphic}{5}, \see{Morphic, halo}{11}, 
 		\see{Morphic}{432}
     \subitem ic\IeC {\^o}ne, \see{halo, poign\IeC {\'e}e}{11}
@@ -753,7 +754,7 @@
   \indexspace
 
   \item ic\IeC {\^o}ne, \see{halo, ic\IeC {\^o}ne}{11}
-  \item identit\'e, \see{Object, identit\'e}{180}
+  \item identit\IeC {\'e}, \see{Object, identit\IeC {\'e}}{180}
   \item IdentityDictionary
     \subitem (classe), \hyperpage{207}, \hyperpage{323}
   \item image, \hyperpage{4, 5}, \hyperpage{10}
@@ -876,24 +877,14 @@
 
   \indexspace
 
-  \item m\'eta-classe, \hyperpage{87}
-  \item m\'ethode
-    \subitem abstraite, \hyperpage{93}
-    \subitem extension, \hyperpage{100}
-    \subitem lookup, \hyperpage{98}
-    \subitem publique, \hyperpage{86}
-    \subitem r\'eferencement, \hyperpage{98}
-    \subitem s\'electeur, \hyperpage{85}
-    \subitem surcharge, \hyperpage{100}
-    \subitem version, \hyperpage{119}
-  \item m\'ethode abstraite, \see{m\'ethode, abstraite}{93}
-  \item m\IeC {\'e}ta-classe, \hyperpage{266}, \hyperpage{268}, 
-		\hyperpage{271}
+  \item m\IeC {\'e}ta-classe, \hyperpage{87}, \hyperpage{266}, 
+		\hyperpage{268}, \hyperpage{271}
     \subitem anonyme, \hyperpage{268}
     \subitem hi\IeC {\'e}rarchie, \hyperpage{266}, \hyperpage{269}, 
 		\hyperpage{275}, \hyperpage{277}
     \subitem implicite, \hyperpage{268}
   \item m\IeC {\'e}thode
+    \subitem abstraite, \hyperpage{93}
     \subitem acc\IeC {\`e}s, 
 		\see{m\IeC {\'e}thode d'acc\IeC {\`e}s}{42}
     \subitem accepter, \see{raccourci-clavier, accept}{23}
@@ -906,16 +897,25 @@
     \subitem decompile, \hyperpage{123}
     \subitem dictionnaire, \hyperpage{271}
     \subitem exportation de fichier, \see{fichier, exportation}{46}
+    \subitem extension, \hyperpage{100}
     \subitem g\IeC {\'e}n\IeC {\'e}rique, \hyperpage{186}
     \subitem getter, \see{m\IeC {\'e}thode d'acc\IeC {\`e}s}{42}
     \subitem importation de fichier, \see{fichier, importation}{46}
+    \subitem lookup, \hyperpage{98}
     \subitem pretty-print, \hyperpage{123}
+    \subitem publique, \hyperpage{86}
+    \subitem r\IeC {\'e}ferencement, \hyperpage{98}
     \subitem recherche, \hyperpage{20}, \hyperpage{101}, 
 		\hyperpage{125}, \hyperpage{270}
     \subitem renvoi de self, \hyperpage{45}
+    \subitem s\IeC {\'e}lecteur, \hyperpage{85}
     \subitem setter, \see{m\IeC {\'e}thode d'acc\IeC {\`e}s}{42}
+    \subitem surcharge, \hyperpage{100}
     \subitem trouver, \see{m\IeC {\'e}thode, recherche}{20}, 
 		\see{m\IeC {\'e}thode, recherche}{125}
+    \subitem version, \hyperpage{119}
+  \item m\IeC {\'e}thode abstraite, 
+		\see{m\IeC {\'e}thode, abstraite}{93}
   \item m\IeC {\'e}thode d'acc\IeC {\`e}s en \IeC {\'e}criture, 
 		\see{m\IeC {\'e}thode d'acc\IeC {\`e}s}{42}
   \item m\IeC {\'e}thode d'acc\IeC {\`e}s en lecture, 
@@ -1124,7 +1124,7 @@
 		\see{Message Names Browser}{147}
   \item navigateur Monticello, \see{Monticello}{47}
   \item navigation par programme, \hyperpage{125}
-  \item naviguer de mani\`ere pragmatique, \hyperpage{433}
+  \item naviguer de mani\IeC {\`e}re pragmatique, \hyperpage{433}
   \item .Net, \hyperpage{157}
   \item {\lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{new}}, 
 		\see{\lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{Behavior>>>new}}{63}
@@ -1132,7 +1132,7 @@
   \item \textsf  {nil} (pseudo-variable), \hyperpage{53}, 
 		\hyperpage{56}
   \item nombres flottants, \hyperpage{55}
-  \item notation en base num\'{e}rique, \hyperpage{55}
+  \item notation en base num\IeC {\'e}rique, \hyperpage{55}
   \item notificateur, \hyperpage{145}
   \item notification, \hyperpage{43}
   \item Null Object (patron), \hyperpage{186}
@@ -1206,7 +1206,7 @@
     \subitem (classe), \hyperpage{15--17}, \hyperpage{31}, 
 		\hyperpage{92}, \hyperpage{103}, \hyperpage{177}, 
 		\hyperpage{267}
-    \subitem \'egalit\'e, \hyperpage{180}
+    \subitem \IeC {\'e}galit\IeC {\'e}, \hyperpage{180}
     \subitem \ct{~=}, \hyperpage{181}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{asMorph}, 
 		\hyperpage{240}
@@ -1246,7 +1246,7 @@
 		\hyperpage{418, 419}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{hash}, 
 		\hyperpage{181}
-    \subitem identit\'e, \hyperpage{180}
+    \subitem identit\IeC {\'e}, \hyperpage{180}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{ifNotNilDo:}, 
 		\hyperpage{185}
     \subitem initialize, \see{initialisation}{34}
@@ -1442,10 +1442,9 @@
 
   \indexspace
 
-  \item r\'eflexion, \hyperpage{178}
-  \item r\'eflexivit\'e, \hyperpage{85}
   \item r\IeC {\'e}fl\IeC {\'e}ctivit\IeC {\'e}, \hyperpage{257}
-  \item r\IeC {\'e}flexivit\IeC {\'e}, \hyperpage{158}
+  \item r\IeC {\'e}flexion, \hyperpage{178}
+  \item r\IeC {\'e}flexivit\IeC {\'e}, \hyperpage{85}, \hyperpage{158}
   \item raccourci clavier
     \subitem cancel, \hyperpage{139}
     \subitem explore it, \hyperpage{135}, \hyperpage{139}
@@ -1774,7 +1773,7 @@
 		\hyperpage{101}
     \subitem envoi, \hyperpage{101}, \hyperpage{118}, \hyperpage{433}
   \item super-classe, \hyperpage{92}, \hyperpage{98}
-  \item surcharge, \see{m\'ethode, surcharge}{100}
+  \item surcharge, \see{m\IeC {\'e}thode, surcharge}{100}
   \item Symbol
     \subitem (classe), \hyperpage{116}, \hyperpage{183}, 
 		\hyperpage{192}, \hyperpage{201}, \hyperpage{213}
@@ -1937,8 +1936,8 @@
 		\see{Dictionary, \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{values}}{206}
   \item variable
     \subitem classe, \see{classe, variable}{55}
-    \subitem d\'eclaration, \hyperpage{97}
-    \subitem d\IeC {\'e}claration, \hyperpage{55}, \hyperpage{60}
+    \subitem d\IeC {\'e}claration, \hyperpage{55}, \hyperpage{60}, 
+		\hyperpage{97}
     \subitem globale, \hyperpage{54}, \hyperpage{105}
     \subitem instance, \see{variable d'instance}{85}
     \subitem instance de classe, \see{classe, variable d'instance}{87}

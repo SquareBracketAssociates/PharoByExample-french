@@ -1,98 +1,101 @@
 % $Author: oscar $
 % $Date: 2007-06-06 15:10:38 +0200 (Wed, 06 Jun 2007) $
 % $Revision: 23297 $
+% martial french touch
 %=============================================================
 % Demo and test the common macros
 %=================================================================
 \documentclass[a4paper,10pt,twoside]{book}
 %=============================================================
-\input{common.tex}
+\input{common.tex} % doit contenir babel-french
 \graphicspath{{figures/}} % for \dothis
 %=============================================================
 \begin{document}
 \sloppy
 \mainmatter
 %=============================================================
-\section*{Code environments using the listings package}
+\section*{Environnements de code basés sur le package listings}
 %=============================================================
-\paragraph{Sample code environment}
-Use the script, method, classdef and example environments.
-Each takes a name and an optional label.
+\paragraph{Exemple d'environnement de code}
+Utilisez les environnements script, method, classdef et example.
+Chacun a un nom et un label optionnel.
+Avec les labels, nous pouvons avoir des références croisées de 
 With labels we can have cross references to
 \verb|\egref{history}| \egref{history},
 \verb|\scrref{helloworld}| \scrref{helloworld},
 \verb|\clsref{myclass}| \clsref{myclass},
-and \verb|\mthref{doit}| \mthref{doit}.
+et \verb|\mthref{doit}| \mthref{doit}.
 
 \begin{verbatim}
-\begin{example}[history]{The first thing that Smalltalk could do}{}
+\begin{example}[history]{La première chose que Smalltalk peut faire}{}
 3 + 4 --> 7
 \end{example}
 \end{verbatim}
-\begin{example}[history]{The first thing that Smalltalk could do}{}
+\begin{example}[history]{La première chose que Smalltalk peut faire}{}
 3 + 4 --> 7
 \end{example}
 
 \begin{verbatim}
-\begin{script}[helloworld]{The first thing you should try}
+\begin{script}[helloworld]{La première chose que vous pouvez tester}
 Transcript show: 'hello world'
 \end{script}
 \end{verbatim}
-\begin{script}[helloworld]{The first thing you should try}
+\begin{script}[helloworld]{La première chose que vous pouvez tester}
 Transcript show: 'hello world'
 \end{script}
 
 \begin{verbatim}
-\begin{classdef}[myclass]{MyClass is defined}
+\begin{classdef}[myclass]{définition de MyClass}
 Object subclass: #MyClass
 	instancevariables: '...'
 	...
 \end{classdef}
 \end{verbatim}
-\begin{classdef}[myclass]{MyClass is defined}
+\begin{classdef}[myclass]{définition de MyClass}
 Object subclass: #MyClass
 	instancevariables: '...'
 	...
 \end{classdef}
 
 \begin{verbatim}
-\begin{method}[doit]{A doit method}
+\begin{method}[doit]{Une méthode doit}
 MyClass>>>doit
 <tab>^ super doit
 \end{method}
 \end{verbatim}
-\begin{method}[doit]{A doit method}
+\begin{method}[doit]{Une méthode doit}
 MyClass>>>doit
 	^ super doit
 \end{method}
 
-The plain code environment has no title, label or numbering:
+L'environnement de code ordinaire n'a ni titre, ni label, ni
+numérotation:
 
 \begin{verbatim}
 \begin{code}{}
-just some plain code
+Du code tout court
 \end{code}
 \end{verbatim}
 \begin{code}{}
-just some plain code
+Du code tout court
 \end{code}
 
 %=============================================================
-\paragraph{Listings environments and macros}
-The code environments 
+\paragraph{Les environnements Listings et ses macros}
+L'environnement de code
 
 \begin{verbatim}
 \begin{code}{}
     ...
 \end{code}
 \end{verbatim}
-take plain, verbatim code,
-and translate some special characters like $\wedge$ to \ct{^}. Even tabs are handled, (which is not true for verbatim).
+accepte du code ordinaire ou \emph{verbatim} et traduit certains
+caractères spéciaux comme  $\wedge$ en \ct{^}. 
+Même les tabulations sont maintenus (ce qui n'est pas vrai pour le \emph{verbatim}).
 \begin{code}{}
-"All handled correctly: ^ $ ' % \\ << >> _ { }"
-"NB: If you !{\bf really}! want an exclamation mark you must spell it BANG"
-"
-If you really want a caret to look like this: CARET instead of this: ^, you must spell it out."
+"Tout les !caractères! correctes: ^ $ ' % \\ << >> _ { }"
+"Si vous voulez !{\bf vraiment}! un point d'exclamation BANG, vous devez !écrire! explicitement !{\bf BANG}!"
+"Si vous voulez vraiment un chapeau de renvoi ainsi: CARET au lieu de ^, vous devez !écrire! !{\bf CARET}!." 
 | y |
 true & false not & (nil isNil) ifFalse: [self halt].
 y _ self size + super size.
@@ -105,43 +108,48 @@ y _ self size + super size.
 ^ x < y 
 \end{code}
 
-QWERTY layout:
+La table QWERTY:
 \begin{code}{}
 BANG @ # $ % ^ & * ( ) UNDERSCORE +
 1 2 3 4 5 6 7 8 9 0 - =
  Q W E R T Y U I O P { }
  q w e r t y u i o p [ ]
-  A S D F G H J K L : "" |   		 (twice " to turn off italics")
+  A S D F G H J K L : "" |   		 (deux fois " pour annuler l'italique")
   a s d f g h j k l ; ' \
    Z X C V B N M < > ?
    z x c v b n m , . /
 \end{code}
-
-LaTeX escape:
+%$
+Échappement LaTeX dans le code:
 \begin{verbatim}
 \begin{code}{}
-plain code and !\textbf{bolded text}!
+code ordinaire et !\textbf{gras}!
 \end{code}
 \end{verbatim}
 
 \begin{code}{}
-plain code and !\textbf{bolded text}!
+code ordinaire et !\textbf{gras}!
 \end{code}
 
 % ^ $ \\ % # ' 
 
-In-line code with \verb|\ct| is typed like this \verb|\ct{1 + 2 --> 3}| and looks like this: \ct{1 + 2 --> 3}, text can follow immediately.  The ``brackets'' around \verb|\ct| can be any matching pair of characters, useful if you want \ct${ and }$ in the code.
+Dans le code \emph{inline} avec  \verb|\ct| comme, \parex 
+\verb|\ct{1 + 2 --> 3}| imprimé ainsi:
+\ct{1 + 2 --> 3}, le texte peut suivre immédiatement.
+Les ``caractères-bloc'' autour de \verb|\ct| peuvent être n'importe quelle
+paire de caractères; utile si vous voulez  \ct${ et }$ dans le code.
 
-\subsection{Special chars with $\backslash$ct}
+\subsection{Les caractères spéciaux avec  $\backslash$ct}
 \ct=^ ~ # $ ' % \\ << >> _ {  } ! -- --> =\\
 \verb|\ct=^ ~ # $ ' % \\ << >> _ {  } ! -- --> =|
 
-\subsection{Special conventions}
+\subsection{Conventions spéciales}
 
-\verb$\ct{Class>>>method}$ prints as \ct{Class>>>method}.\\
-\verb$\ct{3 + 4 - 5 --> 2}$ prints as \ct{3 + 4 - 5 --> 2}.
+\verb$\ct{Class>>>method}$ s'imprime  \ct{Class>>>method}.\\
+\verb$\ct{3 + 4 - 5 --> 2}$ s'imprime  \ct{3 + 4 - 5 --> 2}.
 
-Use \verb$@TEST$ to include the code in the automatic tests and use \verb$-->$ to represent the expected result
+Utiliser \verb$@TEST$ pour inclure le code dans des tests automatiques
+et utiliser  \verb$-->$ pour représenter leur résultat respectif.
 \begin{verbatim}
 \begin{code}{@TEST}
 true       --> true
@@ -161,58 +169,183 @@ $a         --> $a
 %\end{testenv}
 
 %=============================================================
-\section*{Other macros}
+\section*{Autres macros}
 %=============================================================
 \paragraph{url}
-\url{SqueakByExample.org}
+Ne pas oublier le \texttt{http://}:
+\url{http://SqueakByExample.org}, \pharoweb ou
+\ppe
 %=============================================================
-\paragraph{names}
+\paragraph{noms}
 \SUnit
 \xUnit
 \st
-\squeak
 \pharo
+\squeak
+\sqsrc
 %=============================================================
-\paragraph{editorial}
+\paragraph{annotations originales}
 \fix \ugh{please rephrase this}
 \ins{please insert this text}
 \del{delete this}
-and
+ou encore
 \chg{change this}{to this}
 \ab{...}
+\paragraph{annotations de l'édition française} % ajout vf
+~\\
+\tradalert{martial}{le reste n'est pas synchrone}
+\begin{itemize}
+\item \verb|\arevoir| \arevoir{Texte à revoir soit parce que c'est
+    incertain, soit parce que c'est une formulation ``pas très compréhensible''};
+\item \verb|\arelire| \arelire{Changement par rapport à la version de
+    Squeak Par l'Exemple ou raffinement par rapport à la version
+    originale Pharo By Example};
+\item \verb|\arevoir| \aretirer{Totalement faux mais à garder car
+    existe toujours dans la version originale}.
+\end{itemize}
 %=============================================================
-\paragraph{abbreviation}
+\paragraph{abbréviations}
 \ie
+\cad
 \eg
+\parex
 \etc
 %=============================================================
-\paragraph{Smalltalk macros}
+\paragraph{Macros Smalltalk}
 sep: \sep
 %=============================================================
-\paragraph{scat and prot}
-System category \scat{Kernel-Objects} and protocol \prot{accessing}.
+\paragraph{scat et prot}
+Catégorie \scat{Kernel-Objects} et protocoles \prot{accessing}.
+Les paquetages (ou \emph{packages}) s'écrivent comme les catégories
+avec \verb|\scat|.
 %=============================================================
 \paragraph{menu}
-\menu{World menu \go open ...}
+Le menu \menu{World \go Tools}
 %=============================================================
 \paragraph{button}
-\button{Create}
+Le bouton \button{Create}
 %=============================================================
 \paragraph{do this}
 \verb|\dothis|
 \ct{-->}
-\dothis{Download and install \pharo.}
+\dothis{Télécharger immédiatemment \pharo.}
 %=============================================================
-\paragraph{Keyboard shortcut}
+\paragraph{Raccourcis-clavier}
 \verb|\short{d}|
 \ct{-->}
 \short{d}
+% ajout vf
+\paragraph{Les clics de souris}
+Pour l'édition \pharo, les clics sont écrits:
+\begin{itemize}
+\item \verb|\click| pour \click{}
+\item \verb|\clickant| pour \clickant{}
+\item \verb|\clickz| pour \clickz{}
+\end{itemize}
+
+Le $c$ de \verb|\click| peut être majuscule. Les alternatives de
+\verb|\click| sont \verb|\actclick| et \verb|\metaclick| pour
+``\actclick'' et ``\metaclick'' respectivement. La règle de la
+capitalisation (première lettre en majuscule) existe aussi.
 %=============================================================
-\section*{Footnote citations}
-There is a great book on \squeak by Ducasse\cite{Duca05j}.
+\section*{Citations de bas de page}
+Il y a un grand livre sur \squeak par Ducasse\cite{Duca05j}.
 %=============================================================
-\section*{Important stuff}
-\important{This is really important}
+\section*{Les points importants}
+\important{L'heure est grave}
+%=============================================================
+\section*{Remarques de l'édition française}
+\paragraph{les termes et phrases toute faites}
+\verb|\mantra| pour ``\mantra''
+
+\begin{tabular}{|l|l|l|}
+  \hline
+  mot anglais & commande & imprimé \\
+  \hline
+  callback & \verb|\callback| & \callback\\
+  changeset & \verb|\changeset| & \changeset\\
+  sender & \verb|\sender| & \sender\\
+  sender & \verb|\sender| & \sender\\
+  senders & \verb|\senders| & \senders\\
+  Senders & \verb|\Senders| & \Senders\\
+  implementors & \verb|\implementors| & \implementors\\
+  implementor & \verb|\implementor| & \implementor\\
+  truetype & \verb|\truetype| & \truetype\\
+  \verb|\bam|\footnote{Dans le texte uniquement.} & \verb|\bamfr| & \bamfr\\
+  \hline
+\end{tabular}
+
+\paragraph{accents dans les environnements de code}
+
+\subparagraph{cas des commentaires}
+Il suffit de baliser chaque mot~\footnote{Nous ne pouvons pas baliser
+  toute une phrase en raison d'une implémentation \emph{cra-cra} du
+  package \texttt{listings}.} accentué avec des points d'exclamation
+\texttt{!}.
+
+\begin{verbatim}
+\begin{code}{}
+"Des !caractères! !accentués!"
+\end{code}
+\end{verbatim}
+\begin{code}{}
+"Des !caractères! !accentués!"
+\end{code}
+
+\subparagraph{autres éléments}
+
+\verb|\normcode| et \verb|emcode| permettent d'écrire dans le code
+entre \texttt{!} un
+mot accentué sans qu'il soit en italique comme dans tous commentaires:
+il sera ainsi respectivement de typographie normal et grasse.
+
+\begin{code}{}
+BladeRunner>>run
+  self mayRun ifFalse: [self error: 'Reste !\normcode{caché}! alors BANG'].
+  self runningFree
+\end{code}
+
+\paragraph{convention}
+
+\begin{itemize}
+\item Nous parlons à la première personne du pluriel et vous lisez à
+  la seconde personne du pluriel\,---\,pas de ``on'';
+\item Les notes de bas de pages commencent par une majuscule et
+  finissent par un point;
+\item Les légendes (\emph{caption}) des figures commencent normalement
+  par un verbe à l'impératif et finissent par un point;
+\item les articles de \verb|itemize| finissent par \verb|;| sauf le
+  dernier qui se termine par un point.
+\end{itemize}
+
+\paragraph{méthodologie}
+
+Utilisez les \verb|hyphenation| dans \texttt{common.tex} pour forcer
+les césures. En cas de doutes sur les index (\verb|\index| et
+\verb|\seeindex|) durant la traduction, laissez-les tels quels: il
+sera plus facile pour le responsable de l'indexation de faire des
+corrections d'une version orginale cohérente que d'une version
+anglaise incohérente.
+
+Les relecteurs devraient explorer les commentaires suivants dans le
+code \LaTeX:
+\begin{itemize}
+\item \verb|\% ATTENDRE|  signifie ``en attente de
+  corrections\/confirmations dans la version originale'';
+\item \verb|\% CHANGE|  signifie ``changement par rapport à Squeak Par
+  l'Exemple''. Souvent précédé d'une balise \verb|\arelire| dans les
+  parties I, II, III et IV du document;
+\item \verb|\% REVOIR|  signifie ``phrase lourde, terme francisé
+  incorrect, terme à franciser, inexactitude par rapport à la version
+  actuelle de \pharo''.
+\end{itemize}
+
+Ce document est une base technique; pour les
+conventions sur le vocabulaire ou les mises à jours des outils
+(\parex{} les paquetages MorphicExtras et consorts), référez-vous aux fichiers README.txt,
+CHANGES.txt, mailing-lists et
+\url{http://community.ofset.org/index.php/Squeak_par_l\%27exemple}.
+
 %=============================================================
 % \bibliographystyle{plain}
 %\bibliographystyle{jurabib}
