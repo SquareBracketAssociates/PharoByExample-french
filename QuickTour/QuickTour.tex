@@ -13,6 +13,7 @@
 % note de martial: revoir les index pour les termes liés à Morphic
 % adaptation pour PBE - 28729
 % sync avec la version: 29170
+% sync avec la version: 29247 changement des icônes pour squeak.exe
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -65,34 +66,38 @@ Vous devez y télécharger 3 archives (pour 4 fichiers principaux qui
 constituent une installation courante de \pharo; voir \figref{download}) 
 
 \begin{figure}[htb]
-\centerline {\includegraphics[width=\textwidth]{annotatedDownload}}
-\caption{Les fichiers à télécharger de \pharo. \figlabel{download}}
+\centerline {\includegraphics[width=\textwidth]{annotatedDownload-flat}}
+\caption{Les fichiers à télécharger de \pharo \arelire{pour une des
+    plateformes supportées}. \figlabel{download}}
 \end{figure}
 
 \begin{enumerate}
 
 \item La \emphind{machine virtuelle} (abrégée en VM pour
   \emph{virtual machine}) est la seule partie de l'environnement qui
-  est particulière à chaque système d'exploitation. Des machines
-  virtuelles pré-compilées sont disponibles pour la plupart des
-  systèmes (Linux, \macosx, Win32). Dans \figref{download}, vous
-  avez par exemple l'icône de la machine virtuelle pour le système
-  \macosx: \textit{Squeak 4.0.1beta1U.app}~\footnote{\pharo est dérivé
-  de \squeak{} 3.9 et il partage actuellement la machine virtuelle
-  avec \squeak.}.
+  est particulière à chaque \arelire{couple système d'exploitation et
+    processeur}. Des machines virtuelles pré-compilées sont disponibles pour la plupart des
+  systèmes (Linux, \macosx, Win32). Dans \figref{download}, \arelire{vous
+pouvez voir que la machine virtuelle pour la plateforme choisie   
+avez par exemple l'icône de la machine virtuelle pour le système est
+appelée \textit{Pharo.exe}.} % CHANGE 29247
 %martial: ajout des index dans la vf
 \index{machine virtuelle}
 \seeindex{VM}{machine virtuelle}
 
   \item Le fichier \emphind{source} contient le code source du système
     \pharo. Ce fichier ne change pas très fréquement. Dans \figref{download}, il
-    correspond au fichier \emph{SqueakV39.sources}.
+    correspond au fichier
+    \emph{SqueakV39.sources}\footnote{\arelire{\pharo est
+dérivé de \squeak{} 3.9 et partage actuellement la machine virtuelle
+avec \squeak.}}
+.
 %ajout fr index
 \index{fichier!source}
 \seeindex{fichier-source}{fichier, source}
 \seeindex{SqueakV39.sources}{fichier, source}
 
-\item Le \emph{système} \emphind{image} est un cliché d'un système
+\item L'\emphind{image} \emph{système}  est un cliché d'un système
   \pharo{} en fonctionnement, figé à un instant donné. 
 Il est composé de deux fichiers: le premier nommé avec l'extension
 \emph{.}\emphind{image} contient l'état de tous les objets du système
@@ -100,14 +105,11 @@ dont les classes et les méthodes (qui sont aussi des
 objets). Le second avec l'extension \emph{.}\emphind{changes} contient
 le journal de toutes les modifications apportées au code source du
 système (contenu dans le fichier source).
-\arelire{Dans \figref{download}, nous voyons que nous utilisons les images et
-fichiers \emph{changes} de \textit{PBE}.
-\arevoir{Nous utiliserons en fait une image légérement différente dans
-ce livre.}} \on{fix the figure to use Damien's PBE image} % CHANGE
+\arelire{Dans \figref{download}, ces fichiers sont appelés
+  \emph{pharo.image} et \emph{pharo.changes}.}
 %ajout fr index
 \index{fichier!image}
 \index{fichier!changes}
-
 \end{enumerate}
 
 \dothis{Téléchargez et installez \pharo sur votre ordinateur.}
@@ -245,14 +247,15 @@ nous utiliserons l'expression ``\emph{\actclick}\footnote{En anglais,
 permettant des actions telles que \emph{changer la taille} ou
 \emph{faire pivoter l'objet}, comme vous pouvez le voir sur
 \figref{threeButtons:metaclick}~\footnote{Notez que les icônes
-    Morphic sont habituellement actives dans \pharo, mais vous pouvez
+    Morphic sont inactives par défaut dans \pharo, mais vous pouvez
     les désactiver via le Preferences Browser que nous verrons plus
-    loin.}.
+    loin.}. % CHANGE 29247
 En survolant lentement une icône avec le pointeur de votre souris,
 une bulle d'aide en affichera un descriptif de sa fonction.
 Dans \pharo, \metaclick dépend de votre système d'exploitation:
 Soit vous devez maintenir {\sc Shift} \emph{Ctrl} ou {\sc Shift}
-\emph{Alt} tout en \clickant.}
+\arevoir{\emph{Option}} tout en \clickant.} % CHANGE 29247 - martial -
+                                % je préfère Alt (ou les deux)
 % \ab{This makes it sound like either {\sc shift} \emph{ctrl} or {\sc shift} \emph{alt} will work.  On my (Mac OS) system, only the latter works.  Perhaps we want to say: In \pharo, how you meta-click depends on your operating system. On Linux \ldots}
 % Typically you will use a third modifier key, such as \emph{command} or \emph{meta} to \metaclick.
 \end{description}
@@ -446,7 +449,7 @@ dossiers  de votre disque pour y être utilisés plus tard. à vous de
 les invoquer en prenant soin (selon votre système de fichiers) de
 %note de martial: j'ai transforme pour plus de logique mais c'est
 %lourd: a revoir
-déplacer, copier ou lier le fichier \emph{.source} correspondant,
+déplacer, copier ou lier le fichier \emph{sources} correspondant,
 tout en veillant à exécuter la bonne machine virtuelle.
 
 \dothis{Lancez \pharo avec l'image que vous venez de créer \cad le
@@ -454,8 +457,8 @@ tout en veillant à exécuter la bonne machine virtuelle.
 
 Vous retrouvez l'état de votre session exactement tel qu'il était
 avant que vous quittiez \pharo. La démo des \bamfr{} est toujours sur votre
-fenêtre de travail, en train de se déplacer d'où vous l'aviez
-abandonné.
+fenêtre de travail \arelire{et les atomes continuent de rebondir d'où
+  ils étaient lorsque vous avez quitté.}
 
 En lançant pour la première fois \pharo, la \ind{machine virtuelle}
 charge le fichier image que vous spécifiez. Ce fichier contient
@@ -479,12 +482,15 @@ Beaucoup des objets qu'elle contient sont là depuis des décennies!
 Vous pourriez penser que l'utilisation d'une image est incontournable pour stocker et gérer des projets, mais comme nous le verrons bientôt il existe des outils plus adaptés pour gérer le code et travailler en équipe sur des projets.
 Les images sont très utiles mais nous considérons comme une pratique un peu dépassée et fragile pour diffuser et partager vos projets alors qu'il existe des outils tels que Monticello qui proposent de biens meilleurs moyens de suivre les évolutions du code et de le partager entre plusieurs développeurs.
 
-\dothis{\arelire{\Metaclickz{} sur la fenêtre
+\dothis{\arelire{\Metaclickz{} (en utilisant les touches de
+    modifications appropriées conjointement avec votre souris) sur la fenêtre
   d'\bamfr\footnote{Souvenez-vous que vous pourriez avoir besoin
-    d'activer l'option \ct{halosEnabled} dans le Preference Browser.}.}}
+    d'activer l'option \ct{halosEnabled} dans le Preference
+    Browser.}.}} % CHANGE 29247
 
 %martial: le choix des noms 'poignee' 'icone' ... pourra etre change
-Vous verrez tout autour une collection d'icônes colorées nommée
+Vous verrez tout autour une collection d'icônes \arelire{circulaires} colorées
+nommée % CHANGE 29247
 \subind{Morphic}{halo} de \bam; l'icône
 % \emphsubind{halo}{icône}
 \subind{Morphic}{halo} est aussi appelée \emphsubind{halo}{poignée}.
@@ -508,8 +514,8 @@ Ouvrez un \ind{Transcript} (via le menu \menu{World \go{} Tools}) et un \ind{Wor
 Positionnez et redimensionnez le Transcript et le Workspace
   pour que ce dernier recouvre le Transcript.} % CHANGE
 Vous pouvez redimensionner les fenêtres en glissant l'un de leurs
-coins ou en \metaclickant qui affiche les poignées
-\emph{halo}: utilisez alors l'icône jaune située en bas à droite.
+coins ou \arelire{en \metaclickant pour afficher le
+\emph{halo} Morphic:} utilisez alors l'icône jaune située en bas à droite.
 
 Une seule fenêtre est active à la fois; elle s'affiche au premier plan
 et \arelire{son contour est alors mis en relief}. % CHANGE
