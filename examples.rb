@@ -23,11 +23,14 @@ obtain as a result the value following the arrow.
 Many of these actually serve as test cases for the book. For more details
 about testing, see the Wiki link under:
 
-http://www.squeaksource.com/SBEtesting.html
+http://www.squeaksource.com/PharoByExample.html
+
 eof
 # ============================================================
+require 'date'
 def main
   puts Header
+  puts 'Last update: ' + DateTime.now.to_s
   ARGV.each do |arg|
     ch = Chapter.new arg
     puts ch
