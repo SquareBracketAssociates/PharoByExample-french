@@ -3,8 +3,47 @@ cb = callback pour le retour vers la version originale (si vous avez
 des commentaires qui ne sont pas encore postés sur la mailing list,
 ajouter ici)
 
+***********************
 *** Comment by chapters
 **TODO:
+* Morphic:
+- the redClick/yellowClick-thing method should be replaced by another
+name/convention in Pharo code in order to have the same names:
+click/metaclick/actionclick
+
+**SENT/DONE (advice/previous update):
+* BasicClasses:
+- A comment about something in Squeak 3.9; there is 'In 3.9...', it's
+unclear
+* Environment:
+- Navigating the code space > Senders and implementors
+of a message (112)
+"If you look at the senders of drawOn: in AtomMorph»drawOn:, you will 
+see that it is a super send. So we know that the method that will be 
+executed will be in AtomMorph's superclass. What class is that? Action- 
+click browse ◃ hierarchy implementors and you will see that it is
+EllipseMorph."
+What's EllipseMorph? Is there someone in charge of the
+QuickTour/FirstApp/Environment corrections?
+* Streams:
+- At the end of the 4.2 section, there is a remark about 'Nile is
+better...' but Pharo got Nile now!?
+(previous sent on sbe@iam.unibe.ch)
+* SUnit:
+- Running a single test:
+'If you don't want to launch the Test Runner from the
+\menu{open\,\ldots} menu, you can execute \ct{TestRunner open} as a
+\menu{print it}.' What's 'open...'? It should be 'You can also run the
+Test Runner by \menu{doit} the text \ct{TestRunner open}.' (what I did
+for the french version)
+* Model:
+- reference to squeak 3.9, the sentence should be without: 'since
+version 3.9'.
+- besoin de Color-Buttons.graffle et fooNotFound.graffle
+(done)
+* FAQ:
+- "How do I register the browser that I want to be the default?"
+it's on the right not on the left now
 * Model:
 - remove words about MVC in Model.tex / I did it in
 Morph>>openInWorld
@@ -39,41 +78,8 @@ for the Lights Out game into the category called
 \scat{PBE-LightsOut}, we can refer to it as the \ct{PBE-LightsOut}
 package." We added a 'Categories & Packages' subsection; no need to
 say that or reformulate it
-* FAQ:
-- "How do I register the browser that I want to be the default?"
-it's on the right not on the left now
 
-**SENT/DONE:
-* BasicClasses:
-- A comment about something in Squeak 3.9; there is 'In 3.9...', it's
-unclear
-* Environment:
-- Navigating the code space > Senders and implementors
-of a message (112)
-"If you look at the senders of drawOn: in AtomMorph»drawOn:, you will 
-see that it is a super send. So we know that the method that will be 
-executed will be in AtomMorph's superclass. What class is that? Action- 
-click browse ◃ hierarchy implementors and you will see that it is
-EllipseMorph."
-What's EllipseMorph? Is there someone in charge of the
-QuickTour/FirstApp/Environment corrections?
-* Streams:
-- At the end of the 4.2 section, there is a remark about 'Nile is
-better...' but Pharo got Nile now!?
-(previous sent on sbe@iam.unibe.ch)
-* SUnit:
-- Running a single test:
-'If you don't want to launch the Test Runner from the
-\menu{open\,\ldots} menu, you can execute \ct{TestRunner open} as a
-\menu{print it}.' What's 'open...'? It should be 'You can also run the
-Test Runner by \menu{doit} the text \ct{TestRunner open}.' (what I did
-for the french version)
-* Model:
-- reference to squeak 3.9, the sentence should be without: 'since
-version 3.9'.
-- besoin de Color-Buttons.graffle et fooNotFound.graffle
-(done)
-
+******************
 *** Global advices
 ** refactor the  PBE1/PBE2/PBE-Omnibus (ugly copy/paste; harder to
 maintain by translators)
@@ -81,6 +87,7 @@ maintain by translators)
 'More...' should be reuse in the parts' titles:
 More Software Dev, More Frameworks, More language details...
 
+*********************
 *** Version française
 (SBE dans FrenchBook)
 ** FAQ:

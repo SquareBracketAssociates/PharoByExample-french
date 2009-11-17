@@ -7,14 +7,16 @@
 %% Maintainer: Martial Boniou
 %% Created: 2007-11-09 08:07:45 +0100 (Fri, 09 Nov 2007)
 %% Version: 13642
-%% Last-Updated: Wed Sep 23 14:35:03 2009 (+0200)
+%% Last-Updated: Tue Nov 17 17:25:24 2009 (+0100)
 %%           By: Martial Boniou
-%%     Update #: 776
+%%     Update #: 847
 %% URL:
 %% https://www.iam.unibe.ch/scg/svn_repos/SqueakByExample/FrenchBook/Morphic/Morphic.tex
 %% Review: Rene Mages - Fri Dec 21 22:18:36 2007 (3600 CET)
 %% Review: Rene Mages - Sat Jan 12 18:55:44 2008 (3600 CET)
-%% Keywords: 
+%% Adaptation pour PharoBook: Martial Boniou - Tue Nov 17 11:45:22 2009
+%% Sync avec la version: 29309
+%% Keywords:
 %% Compatibility: 
 %% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -47,6 +49,11 @@
 %%             de corrections. Reste la structure centrale des
 %%             chapitres, les exemples et les graphiques associes.
 %% 
+%%             PBE:
+%%             - rappel: rouge = click; jaune = actclick (contextuel)
+%%             bleu = metaclick (halo) 
+%%
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 
 %%% Change log: 
@@ -76,7 +83,7 @@
 % --------------------------------------------
     \graphicspath{{figures/} {../figures/}}
 	\begin{document}
-	\renewcommand{\nnbb}[2]{} % Disable editorial comments
+	% \renewcommand{\nnbb}[2]{} % Disable editorial comments
 	\sloppy
 \fi
 %=================================================================
@@ -147,23 +154,25 @@ Comme preuve de cette vie et de toute la dynamique qui en résulte,
 nous vous proposons d'isoler une option du menu World et de vous
 en faire un bouton hors du menu.
 
-\dothis{Afficher le menu World. Cliquez une première fois avec le
-  \ind{bouton bleu} de la souris de manière à afficher le
-  \emph{halo} Morphic. Recliquez à nouveau avec le bouton bleu mais
-  cette fois-ci, placez le pointeur de la souris au-dessus de l'option
-  de menu que vous voulez détacher, disons \menu{new
-    morph\ldots}. Le halo est donc affiché pour cette option du
-  menu. Déplacez celui-ci n'importe où sur l'écran en glissant
+\dothis{Afficher le menu World. 
+\arelire{%
+\Metaclickz{} une première fois sur le menu World
+  de manière à afficher son \emph{halo}\footnote{Rappelez-vous que
+    vous devez avoir l'option \button{halosEnabled} activée dans le
+    Preference Browser. Vous pouvez aussi l'activer en évaluant
+    \ct{Preferences enable: \#halosEnabled} dans un espace de
+    travail.} Morphic.
+\Metaclickz{} à nouveau sur l'option de menu que vous voulez détacher,
+disons \menu{Workspace} pour afficher son halo.} % CHANGE
+ Déplacez celui-ci n'importe où sur l'écran en glissant
   la poignée noire \grabHandle{},
  comme le montre \figref{detachingMenu}.}
 \index{Morphic!halo}
 
 \begin{figure}[ht]
-	\ifluluelse
-		{\centerline{\includegraphics[width=0.6\textwidth]{detachingMenu}}}
-		{\centerline{\includegraphics[width=0.4\textwidth]{detachingMenu}}}
-	\caption{Détacher l'option de menu \menu{new morph\ldots} pour
-      en faire un bouton indépendant.\label{fig:detachingMenu}}
+   \centerline{\includegraphics[width=0.3\textwidth]{detachingMenu}}
+	\caption{Détacher l'option de menu \menu{Workspace} pour
+      en faire un bouton indépendant.\figlabel{detachingMenu}}
 \end{figure}
 
 \subsection{Un monde de morphs}
@@ -176,85 +185,30 @@ Vous pouvez créer un morph pour représenter n'importe quel objet.
 %, although how good a representation you get depends on the object!
 
 \dothis{Pour créer un morph représentant une chaîne de
-  caractères, évaluer le code suivant dans un espace de travail,
-  une ligne à la fois.}
+  caractères, évaluer le code suivant dans un espace de travail.}
 
 \begin{code}{}
-s := 'Morph' asMorph openInWorld.
-s openViewerForArgument
+'Morph' asMorph openInWorld
 \end{code}
 \cmindex{Morph}{openInWorld}
+% ON: openViewerForArgument is gone in pharo! % CHANGE - martial: donc
+% différent de SBE
 
-La première ligne crée un morph pour représenter la chaîne
+\arelire{Ce code} crée un morph pour représenter la chaîne
 de caractères \ct{'Morph'} et l'affiche dans
 l'écran principal, le ``world'' (en français, nous dirions
 ``monde'' puisque la fenêtre \pharo est un \emph{monde de morphs}).
-Vous pouvez manipuler cet objet graphique grâce au \ind{bouton rouge}
-de la souris.
-La seconde ligne ouvre un \ind{visualiseur de commandes} (ou
-\emph{Viewer}) sous la forme d'un onglet
-permettant la manipulation graphique de ce morph. Vous pouvez y voir
-ses attributs tels que ses coordonnées \ct{x} et \ct{y} dans
-l'espace du \emph{world} dans lequel le morph est apparu.
-Cliquer sur une icône de point d'exclamation jaune sur noir envoie un
-message au morph qui répond promptement.
-\seeindex{Viewer}{visualiseur de commandes}
+Vous pouvez manipuler cet objet graphique \arelire{en
+  \metaclickant{}}.
 \index{world}
 
-%ajout massif
-Par exemple, vous pouvez sélectionner dans le menu de la boîte de
-contrôles inférieure de ce visualiseur de commandes l'option de
-mouvement nommée \ct{motion} comme le montre \figref{turningInViewer}.
-Remarquez que le titre du visualiseur n'est pas le nom de la classe
-(ici \mbox{\ct{StringMorph})} mais le nom du morph; comme notre morph n'a pas
-de nom, le visualiseur lui trouve un nom de morph en fonction de son
-origine: \ct{String}. Si vous aviez l'idée de créer un second
-morph en reprenant le code plus haut et en replaçant, par exemple,
-le \ct{s} par un \ct{t}, vous obtiendrez certainement \ct{String1} comme nom
-temporairement attribué.
-
-Nous partons ici du principe que le nom du morph est \ct{String}.
-
-\dothis{Cliquez le point d'exclamation de la commande \ct{String turn
-    by 5} dans la boîte de contrôle inférieure du visualiseur
-  de commandes. Vous pouvez voir le morph tourner sur son axe d'un
-  angle de 5 degrés. Cliquez plusieurs fois pour faire faire un tour
-  complet au Morph. Observez les valeurs de coordonnées se mettre
-  à jour à chaque clic.}
-
-Vous pouvez vous amuser avec différentes commandes. Changez l'angle
-avec les flèches haut et bas. Cliquez sur \ct{String forward by 5}
-pour faire avancer votre morph de 5 pixels. Faites apparaître le halo
-Morphic via le \ind{bouton jaune} de la souris et manipuler votre
-morph en cliquant sur les poignées \grabHandle{} et \rotateHandle{}.
-Remarquez les coordonnées évoluer dans le visualiseur de commandes.
-
-\begin{figure}[ht]
-	\ifluluelse
-		{\centerline{\includegraphics[width=0.6\textwidth]{turningInViewer}}}
-		{\centerline{\includegraphics[width=0.4\textwidth]{turningInViewer}}}
-	\caption{Tourner le morph grâce au visualiseur de commandes.\label{fig:turningInViewer}}
-\end{figure}
-
-Pour fermer le visualiseur, cliquez sur le bouton en forme de cercle
-en haut à gauche. Pour faire apparaître ce visualiseur de
-commandes, vous pouvez aussi utiliser le halo Morphic et cliquer sur
-la poignée nommée Viewer \viewerHandle{}.
-   
-Notez que vous pouvez ranger le visualiseur au même titre que les
-fenêtres; pour ce faire, cliquez sur l'icône miniature collée à
-gauche du visualiseur. Pour rappeler le visualiseur, vous n'aurez
-qu'à cliquer sur son icône placée sur le bord droit du \emph{world}.
+% CHANGE - martial - dans SBE, il y a un paragraphe avec le Viewer
+% eToys que j'avais ajouté
 
 \subsection{Personnaliser sa représentation}
 
 Revenons maintenant au code qui a créé ce morph.% 
-%fin ajout massif
-%ces deux lignes ne sont pas traduites!
-%%%%Il est possible de définir des morphs plus intéressants en tant
-%%%%%que représentation graphique. 
-%ajout et transformation (plus clair) (j'ai mis aussi orange a la
-%place de tan, comme ca il n'y a pas a traduire)
+% martial - 'orange' remplace 'tan' dans la VO de PBE/SBE
 Tout repose sur la méthode qui fabrique un morph à partir d'une
 chaîne de caractères:
 cette méthode \mthind{String}{asMorph} implémentée dans
@@ -399,7 +353,7 @@ Par exemple, centrer l'étoile dans joe revient à exécuter
 \begin{figure}[ht]
 	\centerline{\includegraphics{joeStar}}
 	\caption{L'étoile de classe StarMorph est contenue dans joe, le
-      morph bleu translucide.\label{fig:joeStar}}
+      morph bleu translucide.\figlabel{joeStar}}
 \end{figure}
 %%%orange
 
@@ -417,41 +371,6 @@ tout morph, nous pouvons aussi faire notre inclusion de morphs en
 remplaçant la programmation par une simple manipulation à la souris.
 %In addition to doing this programatically, you can also embed morphs by direct manipulation.
 \seeindex{submorph}{sous-morph}
-
-%martial: L'etoile est dite blanche mais elle est bleu claire en
-%fait. De plus, il faut dire que certaines images n'ont plus du tout
-%de supplies; donc j'ajoute le fait que ces morphs sont aussi dans Objects.
-\dothis{Si vous n'avez pas d'onglet \menu{Supplies} (ou \menu{Accessoires})
-  en bas d'écran, exécutez la ligne \ct{Flaps enableGlobalFlaps}
-  pour en créer un. %
-Si vous n'obtenez rien, vous pouvez aussi cliquer sur \menu{World
-  \go{} objects (o)} et vous rendre dans la catégorie
-\menu{Graphics} de cette fenêtre rose d'objets. %
-Depuis cette fenêtre ou depuis l'onglet \menu{Supplies}, 
-déplacez une ellipse jaune nommée ``Ellipse'' et une étoile
-  bleu pâle nommée ``Star''. Placez l'étoile sur l'ellipse et 
-cliquez avec le bouton rouge de la souris en maintenant la touche
-\texttt{Control} enfoncée. Vous obtenez ainsi un menu~\footnote{Vous
-  pouvez aussi cliquer avec le bouton bleu de la souris pour afficher
-  le halo Morphic et cliquer sur la poignée rouge de
-  menu.}. Sélectionnez \menu{embed into \go Ellipse}. Maintenant
-votre étoile et votre ellipse bougent ensemble.}
-
-Pour déplacer le sous-morph \emph{star}, évaluez \ct{joe}
-\mthind{Morph}{removeMorph:} \ct{star} ou \ct{star}
-\mthind{Morph}{delete}. Là encore, une manipulation directe est
-possible: 
-
-\dothis{Cliquez avec le \ind{bouton bleu} de la souris deux fois sur
-  l'étoile bleu pâle. Glisser l'étoile hors de l'ellipse en
-  utilisant la poignée \grabHandle{}.}
-
-\noindent
-Le premier clic affiche le halo Morphic de l'ellipse; le second clic
-affiche celui de l'étoile. Chaque clic change la mise au point en
-descendant la hiérarchie des inclusions.
-%The first click brings up the morphic halo on the ellipse; the second click the halo on the star.   Each click moves the focus down one level of embedding.
-
 
 %=================================================================
 \section{Dessiner ses propres morphs}
@@ -473,7 +392,7 @@ lui-même sur ce canevas dans ses limites. %
 Utilisons cette connaissance pour créer un morph en forme de croix.
 \index{morph!sous-classer}
 
-\dothis{Utilisez le navigateur de classes, définissez une nouvelle
+\dothis{Définissez \arelire{via le Browser} une nouvelle
   classe \clsind{CrossMorph} héritée de \ct{Morph}:}
 \begin{classdef}{Définir la classe \ct{CrossMorph}}
 Morph subclass: #CrossMorph
@@ -506,7 +425,7 @@ drawOn: aCanvas
 	\caption{Un nouveau morph en forme de croix de classe
       \ct{CrossMorph} avec son halo. Vous pouvez redimensionner cette
       croix grâce à la poignée inférieure droite
-      de couleur jaune.\label{fig:cross}}
+      de couleur jaune.\figlabel{cross}}
 \end{figure}
 
 Envoyer le message \mthind{Morph}{bounds} à un morph renvoie sa
@@ -624,7 +543,7 @@ semi-transparente, comme nous pouvons le voir sur \figref{overdrawBug}.
 		{\centerline{\includegraphics[scale=0.6]{overdrawBug}}}
 		{\centerline{\includegraphics{overdrawBug}}}
 	\caption{Le centre de la croix est rempli deux fois avec la
-      couleur.	\label{fig:overdrawBug}}
+      couleur.	\figlabel{overdrawBug}}
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
@@ -632,7 +551,7 @@ semi-transparente, comme nous pouvons le voir sur \figref{overdrawBug}.
 		{\centerline{\includegraphics[scale=0.6]{hairlineBug}}}
 		{\centerline{\includegraphics{bug}}}
 	\caption{Le morph en forme de croix présente une ligne de pixels
-      non remplis.	\label{fig:bug}}
+      non remplis.	\figlabel{bug}}
 \end{minipage}
 \end{figure}
 
@@ -643,7 +562,6 @@ semi-transparente, comme nous pouvons le voir sur \figref{overdrawBug}.
 m := CrossMorph new bounds: (0@0 corner: 300@300).
 m openInWorld.
 m color: (Color blue alpha: 0.3).
-
 \end{code}
 
 \noindent
@@ -711,7 +629,7 @@ verticalBar
 %\begin{figure}[ht]
 %	\centerline{\includegraphics[width=0.25\textwidth]{labeler}}
 %	\caption{The sticker label morph.
-%		\label{fig:labeler}}
+%		\figlabel{labeler}}
 %\end{figure}
 
 %\begin{example}[labeler]{Creating a sticker label}{}
@@ -728,7 +646,7 @@ verticalBar
 %\begin{figure}[ht]
 %	\centerline{\includegraphics{pyramid}}
 %	\caption{The number pyramid morph.
-%		\label{fig:pyramid}}
+%		\figlabel{pyramid}}
 %\end{figure}
 
 %\begin{example}[pyramid]{Manipulating the number pyramid}{}
@@ -777,16 +695,19 @@ CrossMorph>>>handlesMouseDown: anEvent
 
 Supposons que vous voulez que la couleur de la croix passe au rouge
 (\ct{Color red})
-à chaque clic du bouton rouge de la souris et qu'elle passe au jaune
+à chaque \arelire{fois que vous \clickz} et qu'elle passe au jaune
 (\ct{Color yellow})
-lorsque le bouton enfoncé est le bouton jaune. 
+lorsque \arelire{vous \actclickz sur celle-ci}. 
 Nous devons créer la \mthref{mouseDown}.
 
+%% REVOIR IMPORTANT
+\tradalert{martial}{Faudrait-il mettre des méthodes \#clickButtonPressed
+  et \#actClickButtonPressed dans Pharo?!}
 \begin{method}[mouseDown]{Réagir aux clics de la souris en changeant la couleur de la croix}
 CrossMorph>>>mouseDown: anEvent
-	anEvent redButtonPressed
+	anEvent redButtonPressed "click"
 		ifTrue: [self color: Color red].
-	anEvent yellowButtonPressed
+	anEvent yellowButtonPressed "action-click"
 		ifTrue: [self color: Color yellow].
 	self changed
 \end{method}
@@ -799,21 +720,21 @@ Ce message assure que Morphic envoie \ct{drawOn:}
 de façon assez rapide.
 \ab{However, the \ct{self changed} message seems to be entirely unnecessary; the colour changes instantly without it.}
 Notez aussi qu'une fois qu'un morph gère les événements \subind{événement}{souris}, vous ne pouvez plus l'attraper avec la souris pour le déplacer.
-Dès lors, vous devez utiliser le halo Morphic en cliquant dessus avec le
-bouton bleu: les poignées supérieurs noir \grabHandle{}
-et marron \moveHandle{} 
+Dès lors, vous devez utiliser le halo Morphic en \arelire{\metaclickant}: les poignées \arelire{supérieures noire \grabHandle{}
+et marron \moveHandle{}}
 vous permettent respectivement de prendre et déplacer ce morph.
 \seeindex{souris!événement}{événement, souris}
 
-L'argument \ct{anEvent} de \ct{mouseDown:} est une instance de
+\arevoir{L'argument \ct{anEvent} de \ct{mouseDown:} est une instance de
 \mbox{\clsind{MouseEvent},} sous-classe de \ct{MorphicEvent}.
 %\lct{Mor\-phic\-Event}{.} 
 \ct{MouseEvent} définit les méthodes
-\mthind{MouseEvent}{redButtonPressed} pour la gestion du clic au
-bouton rouge de la souris et \mthind{MouseEvent}{yellowButtonPressed}
-pour celle du clic au bouton jaune. Parcourez cette classe pour
+\mthind{MouseEvent}{redButtonPressed} pour la gestion du \arelire{\clickbtn} 
+et \mthind{MouseEvent}{yellowButtonPressed} \arelire{pour celle du
+  \actclickbtn}.
+ Parcourez cette classe pour
 en savoir plus sur les autres méthodes disponibles pour la gestion
-des événements souris.
+des événements souris.} % ATTENDRE - martial - je n'aime pas trop l'abandon des conventions de couleurs de la souris dans le livre si le système les garde CONFUS! 
 
 \subsection{Les événements clavier}
 
@@ -940,14 +861,14 @@ CrossMorph>>>step
 \noindent
 Pour démarrer l'animation, vous pouvez ouvrir un inspecteur sur
 votre objet \ct{CrossMorph}: cliquez sur la poignée de débogage 
-\debugHandle{} du halo Morphic de votre croix (activé avec le
-bouton bleu de la souris) puis choisissez \menu{inspect morph} dans le
+\debugHandle{} du halo Morphic de votre croix 
+\arelire{(en \metaclickant{})} puis choisissez \menu{inspect morph} dans le
 menu flottant. Entrez l'expression \ct{self startStepping} dans le
 mini-espace de travail situé dans le bas de l'inspecteur et faites
 un \menu{do it}.
 %ajout
-Pour arrêter l'animation, vous n'avez qu'à évaluer \ct{self stopStepping} dans l'inspecteur. 
-Pour démarrer et arrêter l'animation de faç plus efficace, vous pouvez
+Pour arrêter l'animation, évaluez simplement \ct{self stopStepping} dans l'inspecteur. 
+Pour démarrer et arrêter l'animation de façon plus efficace, vous pouvez
 ajouter des contrôles supplémentaires au clavier. Par exemple,
 vous pouvez modifier la méthode \ct{handleKeystroke:} pour que la
 touche $+$ démarre le clignotement de la croix et que la touche $-$
@@ -971,52 +892,41 @@ le stoppe.
 %ajout
 Morphic dispose de morphs commodes pour créer en quelques lignes de
 code des interactions avec l'utilisateur. Parmi eux, nous avons la
-classe \clsind{FillInTheBank} offre quelques boîtes de dialogue
-prêtes à l'emploi pour fournir à l'utilisateur une zone de saisie.
-La méthode \mthind{FillInTheBlank}{request:initialAnswer:} renvoie
+classe \clsind{UIManager} offre \arelire{un grand nombre de} boîtes de
+dialogue % CHANGE - martial - FillInTheBank devient UIManager
+prêtes à l'emploi.
+La méthode \mthind{UIManager}{request:initialAnswer:} renvoie
 une chaîne de caractères entrée par l'utilisateur (voir
 \figref{dialogName}).
+\begin{code}{} % CHANGE
+UIManager default request: 'Quel est votre nom?' initialAnswer: 'sans nom'
+\end{code}
 
 \begin{figure}[htb]
-\begin{minipage}{0.55\textwidth}
-	\ifluluelse
-		{\centerline{\includegraphics[scale=0.65]{dialog}}}
-		{\centerline{\includegraphics[width=5cm]{dialog}}}
+\begin{minipage}{0.48\textwidth}
+	\centerline{\includegraphics[width=0.8\textwidth]{dialog}}
 	\caption{Une boîte de dialogue affichée par
-      \ct{FillInTheBlank request: 'Quel est votre nom?' initialAnswer: 'sans nom'}.
-		\label{fig:dialogName}}
+      \ct{UIManager request: 'Quel est votre nom?' initialAnswer: 'sans nom'}.
+		\figlabel{dialogName}}
 \end{minipage}
 \hfill
-\begin{minipage}{0.38\textwidth}
+\begin{minipage}{0.48\textwidth}
 	\vfill
-	\ifluluelse
-		{\centerline{\includegraphics [scale=0.65]{popup}}}
-		{\centerline{\includegraphics[width=3cm]{popup}}}
+	\centerline{\includegraphics[width=0.8\textwidth]{popup}}
 	\vfill
 	\vspace{4ex}
-	\caption{Un menu flottant affiché grâce à \ct{PopUpMenu>>>startUpWithCaption:}.}
+	\caption{Un menu flottant.}\figlabel{popup}
 \end{minipage}
 \end{figure}
 
-%\begin{figure}[ht]
-%	\centerline{\includegraphics[width=5cm]{dialog}}
-%	\caption{Dialog displayed by \ct{FillInTheBlank request: 'What''s your name?' initialAnswer: 'no name'}.
-%		\label{fig:dialogName}}
-%\end{figure}
-
-Pour afficher le menu flottant (en anglais, \emph{pop-up menu}), vous
-devez faire appel à la classe \clsind{PopupMenu}:
+Pour afficher le menu flottant (en anglais, \emph{pop-up menu}), 
+\arelire{utilisez une des méthodes \ct{chooseFrom:} (voir
+  \figref{popup}):}
 \begin{code}{}
-menu := PopUpMenu
-	labelArray: #('cercle' 'ovale' '!\normcode{carré}!' 'rectangle' 'triangle')
-	lines: #(2 4).
-menu startUpWithCaption: 'Choisissez une forme'
+UIManager default
+	chooseFrom: #('cercle' 'ovale' '!\normcode{carré}!' 'rectangle' 'triangle')
+	lines: #(2 4) message: 'Choisissez une forme'
 \end{code}
-
-%\begin{figure}[ht]
-%	\centerline{\includegraphics[width=3cm]{popup}}
-%	\caption{PopUp displayed by \ct{PopUpMenu>>>startUpWithCaption:}.}
-%\end{figure}
 
 %=================================================================
 \section{Le glisser-déposer}
@@ -1180,7 +1090,7 @@ d'un second clic, arrêter l'animation sur une face.
 
 \begin{figure}[ht]
 	\centerline{\includegraphics[scale=0.65]{die}}
-	\caption{Le dé dans Morphic.\label{fig:dialogDie}}
+	\caption{Le dé dans Morphic.\figlabel{dialogDie}}
 \end{figure}
 
 \dothis{Définissez un dé comme une sous-classe de
@@ -1320,9 +1230,8 @@ en envoyant le message \ct{drawDotOn:at:} pour chacune de ces
 coordonnées. Pour joindre la bonne méthode %martial: joindre plutot qu'appeler
 \ct{faceX}, nous utilisons la méthode \mthind{Object}{perform:} qui
 envoie le message construit à partir d'une chaîne de
-caractères \ct{('face', dieValue asString) asSymbol}.
+caractères \lct{('face', dieValue asString) asSymbol}.
 Cet usage de la méthode \ct{perform:} est très fréquent.
-
 \index{réfléctivité}
 \begin{method}{Dessiner un simple point noir sur une face}
 DieMorph>>>drawDotOn: aCanvas at: aPoint
@@ -1332,6 +1241,9 @@ DieMorph>>>drawDotOn: aCanvas at: aPoint
 			extent: self extent / 6)
 		color: Color black
 \end{method}
+\ew{I would not use reflection to call faceX on p.234. A statically
+  filled Dictionary would be more appropriate. Get the point set with
+  "MyDict at: X".}
 
 Puisque les coordonnées sont normées dans l'intervalle $[0{:}1]$,
 elles sont mises à l'échelle des dimensions du dé avec 
@@ -1373,11 +1285,10 @@ DieMorph>>>step
 \end{methods}
 Désormais, notre dé ``roule''!
 
-Pour démarrer ou arrêter  l'animation par un clic de souris, nous
-utiliserons ce que nous avons préalablement appris sur les
-événements souris.
+Pour démarrer ou arrêter  l'animation par un \arelire{\clickbtn de souris}, nous
+utiliserons ce que nous avons préalablement appris sur les événements souris.
 Nous activons la réception des événements de la souris et nous
-décrivons notre gestion du bouton rouge de la souris dans la
+décrivons notre gestion \arelire{du \clickbtn} dans la
 méthode \ct{mouseDown:}.       
 %ou \mthind{Morph}{mouseDown:}
 
@@ -1386,7 +1297,7 @@ DieMorph>>>handlesMouseDown: anEvent
 	^ true
 
 DieMorph>>>mouseDown: anEvent
-	anEvent redButtonPressed
+	anEvent redButtonPressed "click"
 		ifTrue: [isStopped := isStopped not]
 \end{methods}
 
@@ -1447,35 +1358,36 @@ DieMorph>>>drawOn: aCanvas
 
 C'est tout ce dont nous avons besoin! 
 
-Vous pouvez parcourir la méthode
-\mthind{Canvas}{asAlphaBlendingCanvas:} par curiosité.
-Pour profiter de l'anti-crénelage, vous pouvez aussi utiliser
-\clsind{BalloonCanvas} et changer la méthode d'affichage des points
-noirs de notre dé comme dans \mthsref{aadie}.
-
 \begin{figure}[ht]
 	\centerline{\includegraphics[scale=0.7]{multiMorphs}}
-	\caption{Le dé semi-transparent.\label{fig:multiMorphs}}
+	\caption{Le dé semi-transparent.\figlabel{multiMorphs}}
 \end{figure}
 
-\needlines{6}
-\begin{methods}[aadie]{Dessiner un dé avec anti-crénelage}
-DieMorph>>>drawOn: aCanvas
-	| theCanvas |
-	theCanvas := aCanvas asBalloonCanvas aaLevel: 3.
-	super drawOn: aCanvas.
-	(self perform: ('face' , dieValue asString) asSymbol)
-		do: [:aPoint | self drawDotOn: theCanvas at: aPoint]
+% ON: This appears to be broken:
+% Vous pouvez parcourir la méthode
+% \mthind{Canvas}{asAlphaBlendingCanvas:} par curiosité.
+% Pour profiter de l'anti-crénelage, vous pouvez aussi utiliser
+% \clsind{BalloonCanvas} et changer la méthode d'affichage des points
+% noirs de notre dé comme dans \mthsref{aadie}.
 
-DieMorph>>>drawDotOn: aCanvas at: aPoint
-	aCanvas
-		drawOval: (Rectangle
-			center: self position + (self extent * aPoint)
-			extent: self extent / 6)
-		color: Color black
-		borderWidth: 0
-		borderColor: Color transparent
-\end{methods}
+% \needlines{6}
+% \begin{methods}[aadie]{Dessiner un dé avec anti-crénelage}
+% DieMorph>>>drawOn: aCanvas
+% 	| theCanvas |
+% 	theCanvas := aCanvas asBalloonCanvas aaLevel: 3.
+% 	super drawOn: aCanvas.
+% 	(self perform: ('face' , dieValue asString) asSymbol)
+% 		do: [:aPoint | self drawDotOn: theCanvas at: aPoint]
+
+% DieMorph>>>drawDotOn: aCanvas at: aPoint
+% 	aCanvas
+% 		drawOval: (Rectangle
+% 			center: self position + (self extent * aPoint)
+% 			extent: self extent / 6)
+% 		color: Color black
+% 		borderWidth: 0
+% 		borderColor: Color transparent
+% \end{methods}
 
 %=================================================================
 \section{Résumé du chapitre}
@@ -1487,8 +1399,8 @@ Vous pouvez:
   \item convertir un objet en \emph{morph} et l'afficher
     sur l'écran de \pharo, le \emph{world}, en lui envoyant le message
     \ct{asMorph openInWorld};
-  \item faire apparaître le halo Morphic en cliquant avec le
-    bouton bleu de la souris sur un morph et manipuler ce morph
+  \item faire apparaître le halo Morphic en \arelire{\metaclickant}
+  sur un morph et manipuler ce morph
     grâce aux poignées du halo. Ces poignées ont des ballons
     d'aide (ou \emph{help balloons}) qui détaillent leur action;
   \item composer des morphs en les emboîtant les uns dans les autres,
@@ -1504,7 +1416,7 @@ Vous pouvez:
     millisecondes entre les pas);
   \item trouver différents morphs pré-définis pour
     l'interactivité de l'utilisateur comme
-    \ct{PopUpMenu} ou \ct{FillInTheBlank};
+    \ct{PopUpMenu} ou \ct{UIManager};
 %martial: ajout a signaler a andrew
   \item explorer les méthodes graphiques des différents canevas,
     instances de \ct{Canvas} ou de sous-classes,

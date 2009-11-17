@@ -10,7 +10,7 @@
 % relecture: Rene Mages (12/19/2007) + Martial -> Mon Dec 24 18:27:55 CET 2007
 % relecture: Rene Mages (01/10/2008) version 14902
 % relecture: Martial Boniou (01/30/2008) version 15374
-% adaptation pour PBE - martial - (09/20/2009) version 29170
+% adaptation pour PBE - martial - (09/20/2009) version 29552
 \ifx\wholebook\relax\else
 % --------------------------------------------
 % Lulu:
@@ -374,11 +374,8 @@ affichée dans le panneau droit. % CHANGE
 % \on{should use the mini workspace instead to send bounds: ?}
 
 Le panneau en bas d'un inspecteur est un mini-espace de
-travail. \aretirer{C'est très utile car, dans cet espace de travail, la
-  pseudo-variable \self est liée à l'objet inspecté.} % REVOIR
-                                % ATTENDRE dans PBE la phrase existe
-                                % mais c'est faux!?
-
+travail. \arelire{C'est très utile car, dans cet espace de travail, la
+  pseudo-variable \self est liée à l'objet sélectionné.}
 
 % \dothis{Tapez le texte \ct{self openInWorld} dans la zone du bas et
 %  choisissez \menu{do it} via le menu.}
@@ -387,8 +384,8 @@ travail. \aretirer{C'est très utile car, dans cet espace de travail, la
 \ct{self bounds: (200@200 corner: 250@250)} dans le panneau inférieur et faîtes un
     \menu{do it} (via le menu contextuel ou le raccourci-clavier).}}
 \arelire{%
- Si   vous inspectez la variable \ct{bounds}, vous devriez constater que
-  sa valeur a changé. Saisissez maintenant \ct{self openInWorld} dans
+ La variable \ct{bounds} devrait changer
+dans l'inspecteur. Saisissez maintenant \ct{self openInWorld} dans
   ce même panneau et évaluez le code avec \menu{do it}. La cellule
   doit apparaître près du coin supérieur gauche, là où les coordonnées
   \ct{bounds} doivent le faire apparaître.
@@ -398,7 +395,9 @@ travail. \aretirer{C'est très utile car, dans cet espace de travail, la
 Déplacez la cellule avec la poignée marron (à 
 %côte de celle en haut à droite
 gauche de l'icône du coin supérieur droit) et redimensionnez-la avec la poignée jaune (en bas à droite).
-Vérifiez que les limites indiquées par l'inspecteur sont modifiées en conséquence.
+Vérifiez que les limites indiquées par l'inspecteur sont modifiées en
+conséquence \arelire{(vous pourriez avoir à \actclick{} sur
+  \menu{refresh} pour voir les nouvelles valeurs)}. % CHANGE
 
 \begin{figure}[htbp]
 \centering
@@ -886,7 +885,20 @@ l'initialisation de l'objet.
 % ON : It messed me up too!  Better not propose this.
 
 \dothis{Exécutez \ct{LOGame new openInWorld} de nouveau.}
-Le jeu doit maintenant se dérouler sans problèmes.
+Le jeu doit maintenant se dérouler sans problèmes
+\arelire{\ldots{} ou presque! S'il vous arrive de bouger la souris
+  entre le moment où vous \clickz{} et le moment où vous relâchez le
+  bouton de la souris, la cellule sur laquelle se trouve la souris
+  sera aussi changée. Ceci résulte du comportement hérité de
+  \ct{SimpleSwitchMorph}. Nous pouvons simplement corriger celà en
+  surchargeant \ct{mouseMove:} pour lui dire de ne rien faire:} % CHANGE
+
+% \needlines{6}
+\begin{method}[mouseMove:]{Surcharger les actions associées aux déplacements de la souris}
+LOGame>>>mouseMove: anEvent
+\end{method}
+
+\arelire{Et voilà!} % CHANGE
 
 %\sd{It would be good to have a word about the debugger buttons into, step.... Or to have a separate chapter, we would use the material I wrote for my turtle book, please check it.}
 %\on{I think that is too much for this chapter. It will come soon enough.}
@@ -906,9 +918,10 @@ Nous avons donc besoin de pouvoir extraire le code source d'une image
 
 La façon la plus simple de le faire est d'effectuer une exportation ou
 sortie-fichier (\emph{filing out}) de votre code. \arevoir{Le menu activé en
-\actclickant{} dans le panneau de \aretirer{catégories} vous permet de
-générer un fichier correspondant à l'ensemble de la \aretirer{catégorie}
-\scat{PBE-LightsOut}.} % CHANGE ATTENDRE REVOIR : devrait être des packages
+\actclickant{} dans le panneau des paquetages vous permet de
+générer un fichier correspondant au paquetage
+\scat{PBE-LightsOut} tout entier via l'option
+\menu{various \go{} file out}.} % CHANGE ATTENDRE REVOIR : devrait être des packages
 Le fichier résultant est plus lisible par tout un chacun, même si son
 contenu est plutôt destiné aux machines qu'aux hommes.
 Vous pouvez envoyer par email ce fichier à vos amis et ils peuvent le
@@ -929,9 +942,6 @@ de fichiers File List Browser.
 Vous devriez trouver maintenant un fichier PBE-LightsOut.st dans le même
 répertoire où votre image a été sauvegardée.
 Jetez un coup d'\oe il à ce fichier avec un éditeur de texte.
-
-%:===> File-out package needs to be implemented! (On DR's to-do list)
-\on{currently this does not work --- DR has said he will do it.}
 
 \dothis{Ouvrez une nouvelle image \pharo et utilisez l'outil \arelire{File
   Browser (\menu{Tools \go{} File Browser})} pour faire une importation
@@ -1019,12 +1029,12 @@ astérisque
 \seeindex{*}{paquetage, dirty package}
 \seeindex{dirty package}{paquetage, dirty package}
 
-\aretirer{%
-Qu'est-ce qu'un paquetage? Pour l'instant, vous pouvez penser le
-paquetage comme un groupe de classes et de catégories de méthodes qui
-partagent le même préfixe. Comme nous avons mis tout le code du jeu
-Lights Out dans la catégorie de classes appelée \scat{PBE-LightsOut},
-nous pouvons le désigner comme le paquetage \ct{PBE-LightsOut}.} % REVOIR bizarre avec la sous-section 'Des categories et des paquetages'
+% \aretirer{%
+% Qu'est-ce qu'un paquetage? Pour l'instant, vous pouvez penser le
+% paquetage comme un groupe de classes et de catégories de méthodes qui
+% partagent le même préfixe. Comme nous avons mis tout le code du jeu
+% Lights Out dans la catégorie de classes appelée \scat{PBE-LightsOut},
+% nous pouvons le désigner comme le paquetage \ct{PBE-LightsOut}.} % bizarre avec la sous-section 'Des categories et des paquetages'
 
 \dothis{Ajoutez le paquetage \ct{PBE-LightsOut} à votre navigateur Monticello en utilisant le bouton \button{+Package}.}
 

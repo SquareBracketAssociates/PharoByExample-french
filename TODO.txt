@@ -41,12 +41,6 @@ Répartition des taches:
   + définir le jeu en français ou trouver une url (wikipedia-fr)
   + ajout de AddPackage.png : martial
 
-- Morphic: MARTIAL / tout est à faire (donc hors synchro entre les
-  révisions de PBE)
-  + merger 
-  + prévoir un refactoring massif
-  + eliminer eToys/turningInViewer
-
 - Environment: MARTIAL
   + ATTENDRE la finalisation de la correction de PBE (Explorer out-of-sync)
   + retirer les allusions aux boutons du Browser?

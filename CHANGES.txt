@@ -115,3 +115,7 @@ figures/dependencies.pdf
 - multi-select list -> liste à sélections multiples
 - fileout -> fichier d'exportation ou \emph{fileout}
 
+** Morphic
+- merger
+- eliminer eToys/turningInViewer
+- correction massive des noms de clic pour les boutons de souris

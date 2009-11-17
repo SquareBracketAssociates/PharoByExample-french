@@ -10,7 +10,7 @@
 % adaptation pour Pharo : martial - Fri Sep 11 13:23:52 CEST 2009 from
 % $Author: oscar $ % $Date: 2009-08-28 10:41:41 +0200 (Fri, 28 Aug
 % 2009) $ % $Revision: 28654 $
-% sync avec la revision: 29170
+% sync avec la revision: 29460
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -75,13 +75,6 @@ En effet, de nombreux développeurs apprécient la puissance du test unitaire et
 % Indeed, developers in many languages have come to appreciate
 % the power of unit testing, and versions of
 % \xUnit{}  now exist for many languages, including \ind{Java}, \ind{Python}, \ind{Perl}, .Net and \ind{Oracle}.
-
-\arevoir{} % martial: je ne comprends pas pourquoi il y avait ce lien
-           % dans l'index
-%\seeindex{Matrix!free will}{Oracle} % sorry, couldn't resist
-
-%  OSCAR: There was a broken citation here for the xprogramming web site
-% I could not figure out what it was supposed to refer to.
 
 Ce chapitre décrit \SUnit~3.3 (la version courante lors de l'écriture de ce document); le site officiel de \sunit est \url{sunit.sourceforge.net}, dans lequel les mises à jour sont disponibles.
 % This chapter describes \SUnit~3.3 (the current version as of this writing); the official web site of \sunit is
@@ -694,7 +687,9 @@ pour lequel \ct{TestSuite} est le composite et les \ct{TestCase}s sont les feuil
 %---------------------------------------------------------
 \subsection{TestResult}
 
-La classe \clsindmain{TestResult} représente les résultats de l'exécution d'un \ct{TestSuite}. Elle mémorise le nombre de tests passés, le nombre de tests en échec et le nombre d'erreurs levées.
+La classe \clsindmain{TestResult} représente les résultats de
+l'exécution d'un \ct{TestSuite}. Elle mémorise le nombre de tests
+passés, le nombre de tests en échec et le \arelire{nombre d'erreurs signalées.} % CHANGE
 % The class \clsindmain{TestResult} represents the results of a
 % \ct{TestSuite} execution.  It records the number of tests passed,
 % the number of tests failed, and the number of errors raised.
@@ -724,7 +719,7 @@ l'exécution des tests.
 Où pourrions nous conserver ces ressources de façon à ce qu'elles puissent être partagées par les tests d'une suite~?
 Les variables d'instance d'une sous-classe de \ct{TestCase} particulière ne le pourraient pas parce que ses instances ne subsistent que pendant la durée d'un seul test.
 Une variable globable ferait l'affaire, mais utiliser trop de variables globales pollue l'espace de nommage et la relation entre la variable globale et les tests qui en dépendent ne serait pas explicite.
-Une meilleure solution est de placer les ressources nécessaires dans l'objet singleton d'une certaine classe. La classe \clsindmain{TestResource} est définie pour avoir des sous-classes utilisées comme classes de ressource. Chaque sous-classe de \ct{TestResource} comprend le message \ct{current} qui retournera son instance singleton.
+Une meilleure solution est de placer les ressources nécessaires dans l'objet singleton d'une certaine classe. La classe \clsindmain{TestResource} est définie pour avoir des sous-classes utilisées comme classes de ressource. Chaque sous-classe de \lct{TestResource} comprend le message \ct{current} qui retournera son instance singleton.
 Les méthodes  \ct{setUp} et \ct{tearDown} doivent être surchargées dans la sous-classe pour permettre à la ressource d'être initialisée et libérée.
 % Where should we cache these resources, so that they can be shared by a suite of tests?
 % The instance variables of a particular \ct{TestCase} sub-instance won't do, because such an instance persists only for the duration of a single test.
@@ -935,7 +930,7 @@ TestCase>>>run
 
 La méthode \cmind{TestCase}{run:} envoie le message \mthind{TestResult}{runCase:} au résultat de test de classe \clsind{TestResult}~:
 
-\begin{method}[testcaserun:]{Passage du case de test au TestResult}
+\begin{method}[testcaserun:]{Passage du cas de test au TestResult}
 TestCase>>>run: aResult
 	aResult runCase: self
 \end{method}
@@ -1000,7 +995,7 @@ TestSuite>>>run
 \lr{Methods 7.15 and 7.17: use \#ensure: instead of \#sunitEnsure:, this has been changed in 3.9}
 
 %\begin{method}[testsuiterun:]{Passing the test suite to the test result}
-\begin{method}[testsuiterun:]{Passage de la suite de tests au TestResult}
+\begin{method}[testsuiterun:]{Passage de la suite de tests au résultat de test}
 TestSuite>>>run: aResult
 	self tests do: [:each |
 	  self changed: each.
@@ -1122,7 +1117,15 @@ Vous pouvez les écrire avec \sunit, mais vous ne voudriez pas les exécuter à 
 
 \item[Les règles de Black.]
 \aconfirmer{Pour tout les tests du système, vous devriez être en mesure d'identifier une propriété pour laquelle le test renforce votre confiance. Il est évident qu'il ne devrait pas y avoir de propriété importante que vous ne testez pas. Cette règle établit le fait moins évident qu'il ne devrait pas y avoir de tests sans valeur ajoutée de nature à accroître votre confiance envers une propriété utile.}
-Par exemple, il n'est pas bon d'avoir plusieurs tests pour la même propriété. En fait, c'est nuisible~: ils rendent la compréhension de la classe plus difficile à déduire à la lecture des tests et un bug dans le code est susceptible de casser beaucoup de tests en même temps. Ne pensez qu'à une seule propriété quand vous écrivez un test.  
+Par exemple, il n'est pas bon d'avoir plusieurs tests pour la même
+propriété.
+En fait, c'est néfaste pour deux raisons.
+D'abord, ils  rendent le comportement de la classe plus difficile à
+déduire à la lecture des tests.
+Ensuite, un bug dans le code est susceptible de casser beaucoup de
+tests et \arelire{donc il est plus difficile de jauger du nombre de
+  bogues restants dans le code. Ainsi,}
+ne pensez qu'à une seule propriété quand vous écrivez un test.
 % \item[Black's Rule of Testing.]
 %   For every test in the system, you should be able to identify some property for which
 %   the test increases your confidence.
