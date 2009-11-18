@@ -630,7 +630,7 @@ Cette méthode ne peut pas être plus simple: elle retourne la constante
 \needlines{10}
 \begin{method}[newCellAt:at:]{Une méthode d'aide à l'initialisation}
 LOGame>>>newCellAt: i at: j
-   "!Crée une cellule à la position (i,j) et l'ajoute dans ma représentation graphique à la position correcte. Retourne une nouvelle cellule!"
+   "!Crée! une cellule !à! la position (i,j) et l'ajoute dans ma !représentation! graphique !à! la position correcte. Retourne une nouvelle cellule"
    | c origin |
    c := LOCell new.
    origin := self innerBounds origin.
@@ -848,7 +848,7 @@ Ajoutez l'expression ``\ct{^ c}'' à la fin de la méthode \ct{LOGame>>>newCellA
 % \needlines{6}
 \begin{method}[newCellAt:at:nobug]{Corriger l'erreur}
 LOGame>>>newCellAt: i at: j
-    "!Crée une cellule à la position (i,j) et l'ajoute dans ma représentation graphique à la position correcte. Retourne une nouvelle cellule!"
+    "!Crée! une cellule !à! la position (i,j) et l'ajoute dans ma !représentation! graphique !à! la position correcte. Retourne une nouvelle cellule"
    | c origin |
    c := LOCell new.
    origin := self innerBounds origin.

@@ -87,7 +87,7 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{>>}, 
 		\hyperpage{25}, \hyperpage{40}
     \subitem (classe), \hyperpage{96}, \hyperpage{262}, \hyperpage{267}, 
-		\hyperpage{269}, \hyperpage{273}
+		\hyperpage{270}, \hyperpage{273}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{addSelector:withMethod:}, 
 		\hyperpage{420}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{addSubclass:}, 
@@ -1420,7 +1420,7 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{withArgs:executeMethod:}, 
 		\hyperpage{422}
   \item ProtoObject class
-    \subitem (classe), \hyperpage{271}
+    \subitem (classe), \hyperpage{272}
   \item Prototype, \hyperpage{341}
   \item pseudo-variable, \see{variable, pseudo}{54}
   \item Python, \hyperpage{157}, \hyperpage{347}
@@ -1892,7 +1892,7 @@
     \subitem (classe), \hyperpage{105}
   \item TranslucentColor
     \subitem (classe), \hyperpage{108}, \hyperpage{262, 263}, 
-		\hyperpage{266}, \hyperpage{269}
+		\hyperpage{266}, \hyperpage{268}
   \item True
     \subitem (classe), \hyperpage{56}, \hyperpage{193}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{ifTrue:}, 

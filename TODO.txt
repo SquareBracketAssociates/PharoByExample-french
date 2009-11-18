@@ -22,6 +22,7 @@ Les parties I,II,III,IV sont en cours de modifications (martial)
 Répartition des taches:
 
 - Seaside: 
+  + en cours de traduction
 
 - Regex: 
 
@@ -33,24 +34,13 @@ Répartition des taches:
 - Omnibrowser:
   + ATTENDRE pourrait être obsolète avant de sortir dans
 
-- FirstApp: MARTIAL / tout est à faire (donc hors synchro entre les
-  révisions de PBE)
-  + merger
-  + Lights Out game 
-  + figures PBE
-  + définir le jeu en français ou trouver une url (wikipedia-fr)
-  + ajout de AddPackage.png : martial
-
 - Environment: MARTIAL
   + ATTENDRE la finalisation de la correction de PBE (Explorer out-of-sync)
   + retirer les allusions aux boutons du Browser?
 
 - QuickTour: MARTIAL
-  + figures encore (nettoyer: viewerHandle/rotateHandle en fonction du
-  chapitre Morphic; puisque les eToys ne sont plus)
   + ATTENDRE: mise à jour des figures avec la nouvelle interface (fin
   des bords rouges pour les zones de texte non-sauvegardées)
-  + première figure pour les nouveaux icônes à refaire
 
 - Monticello: MARTIAL
   + ATTENDRE changement de 'merge tool' dans la version actuelle de
@@ -71,3 +61,4 @@ Futur:
 - Debugging
 - Concurrency
 - Profiling
+- Metacello

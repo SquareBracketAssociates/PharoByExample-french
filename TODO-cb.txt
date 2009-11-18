@@ -5,11 +5,15 @@ ajouter ici)
 
 ***********************
 *** Comment by chapters
-**TODO:
+**TODO (must be sent to SBE mailing list):
 * Morphic:
 - the redClick/yellowClick-thing method should be replaced by another
 name/convention in Pharo code in order to have the same names:
 click/metaclick/actionclick
+* Metaclasses:
+- PharoBook/Metaclasses/figures/InspectingColor.png may be
+PharoFrench/Metaclasses/figures/InspectingColor.png (using the newest
+Inspector in a 0.1 preprint image)
 
 **SENT/DONE (advice/previous update):
 * BasicClasses:
