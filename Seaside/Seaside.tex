@@ -591,7 +591,7 @@ La valeur actuelle du compteur est affichée comme une entête (ou
 \emph{heading}) XHTML et les opérations d'incrémentation et de
 décrémentation sont implémentées sous la forme de lien HTML (ou
 \emph{anchor}) \arelire{avec des \callbacks (\ie{} des fonctions
-  de rappel) sous la forme de \emph{blocks} qui enverront soit
+  de rappel) sous la forme de \emph{blocs} qui enverront soit
   \ct{increase} soit \ct{decrease} à l'objet ``counter''}.
 %The current value of the counter is displayed as an XHTML heading, and the increment and decrement operations are implemented as html anchors (that is, links) with callbacks to blocks that will send \ct{increase} and \ct{decrease} to the counter object.
 Avant de voir plus en détails le protocole \prot{rendering}, regardons
@@ -747,7 +747,7 @@ sur les feuilles de style CSS, rendez-vous à \secref{css}).
 Notez aussi que l'argument du message à mots-clés \ct{with:} n'a pas
 besoin d'être une chaîne de caractères litéral: ce peut être un autre
 composant ou même\,---\,comme dans l'exemple suivant\,---\,un
-\emph{block} contenant \arevoir{des actions de rendu appliquées plus tard}.
+bloc contenant \arevoir{des actions de rendu appliquées plus tard}.
 %block containing further rendering actions.
 
 Le composant \ct{SeasideHtmlDemo} fait la démonstration des \brushes{}
@@ -784,7 +784,7 @@ montre comment générer des paragraphes XHTML, du texte ordinaire ou en
 emphase (\ie{} en italique) et des images.
 Remarquez qu'en Seaside les éléments simples sont rendus en spécifiant
 le texte qu'ils contiennent directement alors que les éléments
-complexes sont spécifiés dans des \emph{blocks}.
+complexes sont spécifiés dans des blocs.
 C'est une convention simple pour vous aider à structurer votre code de
 rendu.
 
@@ -792,7 +792,7 @@ rendu.
 
 La méthode suivante, \ct{SeasideHtmlDemo>>>renderListsAndTablesOn:},
 vous montre comment générer des listes et des tables.
-\arelire{Une table utilise deux niveaux de \emph{blocks} pour afficher chacune
+\arelire{Une table utilise deux niveaux de blocs pour afficher chacune
 de ses lignes et les cellules que ces dernières contiennent.}
 %A table uses two levels of blocks to display each of its rows and the cells within the rows.
 
@@ -864,7 +864,7 @@ SeasideFormDemo>>>renderContentOn: html
 \end{code}{}
 
 En raison de sa nature complexe, le formulaire est rendu en utilisant
-un \emph{block}.
+un bloc.
 \arevoir{%
 Notez que tous les changements d'état se produit dans les
 \callbacks et non dans les parties de code liées au rendu.} % REVOIR - martial - déjà dit plus haut dans \important
@@ -1082,9 +1082,9 @@ appelé jusqu'à ce que le \arelire{composant appelé lui rende la main
 L'appelant est généralement \ct{self} mais ce peut être un autre
 composant visible;
 \seeindex{Seaside!tâche}{Seaside, \task}
-  \item un flux d'information (ou \emph{workflow}) peut être défini
-    comme une \subind{Seaside}{\task}~\footnote{En français, \emph{tâche}.}.
-%A workflow
+  \item une modélisation des tâches (ou \emph{workflow}) peut être définie
+    sous forme de \subind{Seaside}{\task}{\emph{s}}~\footnote{En
+      français, \emph{tâche}.}.
     C'est un type particulier de composant, sous-classe de
     \clsind{WATask} (et non pas de \clsind{WAComponent}).\seclabel{task}
 Au lieu de définir \ct{renderContentOn:}, ce composant ne définit
@@ -1104,14 +1104,19 @@ pour réaliser des dialogues simples.
 
 L'application ``Rendering Demo'' présente un exemple simple de
 \ct{call:} et \ct{answer:}.
-Le composant \ct{SeasideEditCallDemo} affiche un  displays a text field and an \emph{edit} link.
-The callback for the edit link calls a new instance of \ct{SeasideEditAnswerDemo} initialized to the value of the text field.
-The callback also updates this text field to the result which is sent as an answer.
-
-(We underline the \ct{call:} and \ct{answer:} sends to draw attention to them.)
+Le composant \ct{SeasideEditCallDemo} affiche une zone de saisie de
+texte et un lien \emph{edit}.
+Le \callback pour ce lien appelle (en anglais, \emph{call}) une nouvelle instance de
+\ct{SeasideEditAnswerDemo} initialisée à la valeur du texte dans la
+zone de saisie.
+Le \callback met aussi à jour cette zone de saisie au résultat qui est
+envoyé en réponse (en anglais, \emph{answer})\,---\,dans les codes
+suivants, nous avons \arelire{souligné les messages \ct{call:} et
+\ct{answer:} pour plus de clareté}. % REVOIR - un peu changé par
+                                % rapport à la VO
 
 \begin{code}{}
-SeasideEditCallDemo>>>renderContentOn: html 
+SeasideEditCallDemo>>>renderContentOn: html
 	html span
 		class: 'field';
 		with: self text.
@@ -1121,15 +1126,28 @@ SeasideEditCallDemo>>>renderContentOn: html
 		with: 'edit'
 \end{code}{}
 
-What is particularly elegant is that the code makes absolutely no reference to the new web page that must be created.
-At run-time, a new page is created in which the \ct{SeasideEditCallDemo} component is replaced by a \ct{SeasideEditAnswerDemo} component; the parent component and the other peer components are untouched.
+Le code ne fait absolument aucune référence à la nouvelle page web qui
+doit être créée, ce qui est particulièrement élégant.
+À l'exécution, une nouvelle page est créée dans laquelle le composant
+\ct{SeasideEditCallDemo} est remplacé par un composant
+\ct{SeasideEditAnswerDemo}; le composant parent et les autres et les
+autres composants homologues restent inchangés.
+%the other peer components are untouched.
 
-\important{\mthind{WAComponent}{call:} and \mthind{WAComponent}{answer:} should never be used while rendering.
-They may safely be sent from within a \subind{Seaside}{callback}, or from within the \mthind{WATask}{go} method of a task.}
+\important{Les messages \mthind{WAComponent}{call:} et
+  \mthind{WAComponent}{answer:} ne doivent jamais être utilisés durant
+  la phase de rendu.
+Ils peuvent être envoyés sans problème depuis un
+\subind{Seaside}{\callback} ou depuis la méthode \mthind{WATask}{go}
+d'une \task.}
 
-The \ct{SeasideEditAnswerDemo} component is also remarkably simple.
-It just renders a form with a text field.
-The submit button is bound to a callback that will answer the final value of the text field.
+Le composant \ct{SeasideEditAnswerDemo} est aussi remarquable simple.
+Il se contente d'afficher un formulaire avec une zone de saisie.
+Le bouton \emph{submit} 
+% ajout - vf
+(\brush accessible par le message \ct{submitButton})
+est lié au \callback qui répondra la valeur finale du texte dans la
+zone de saisie.
 
 \begin{code}{}
 SeasideEditAnswerDemo>>>renderContentOn: html
@@ -1142,31 +1160,43 @@ SeasideEditAnswerDemo>>>renderContentOn: html
 		]
 \end{code}{}
 
-That's it.
+C'est tout!
 
-Seaside takes care of the control flow and the correct rendering of all the components.
-Interestingly, the ``back'' button of the browser will also work just fine (though side effects are not rolled back unless we take additional steps).
+Seaside prend soin du flux de contrôle et du rendu de tous les
+composants.
+Il est intéressant de voir que le bouton \backbtn{} du navigateur web
+fonctionnera bien (bien que les \arelire{effets de bord ne soient pas
+rembobinés au moins d'avoir pris des dispositions complémentaires}).
+%though side effects are not rolled back unless we take additional steps).
 
 %-----------------------------------------------------------------
 \subsection{Les méthodes utilitaires}
 %\subsection{Convenience methods}
 
-Since certain call--answer dialogues are very common, Seaside provides some convenience methods to save you the trouble of writing components like \ct{SeasideEditAnswerDemo}.
-The generated dialogues are shown in \figref{dialogs}.
-We can see these convenience methods being used within \ct{SeasideDialogDemo>>>renderContentOn:}
-\index{Seaside!convenience methods} % REVOIR
+Puisque certains dialogues de type \emph{call--answer} sont très
+communs, Seaside fournit des méthodes utilitaires pour vous éviter
+l'écriture des composants tels que \ct{SeasideEditAnswerDemo}.
+Les dialogues générés sont montrés sur \figref{dialogs}.
+Nous pouvons voir que ces méthodes utilitaires sont utilisées dans la
+méthode \ct{SeasideDialogDemo>>>renderContentOn:}
+\index{Seaside!méthodes utilitaires}
+%\index{Seaside!convenience methods} % REVOIR
 
 \begin{figure}[b]
 \begin{center}
 \includegraphics[width=\textwidth]{dialogs}
-\caption{Some standard dialogs}
+\caption{Certains dialogues standards.}
 \figlabel{dialogs}
 \end{center}
 \end{figure}
 
-The message \mthind{WAComponent}{request:} performs a call to a component that will let you edit a text field.
-The component answers the edited string.
-An optional label and default value may also be specified.
+Le message \mthind{WAComponent}{request:} fait un appel à un composant
+qui vous laissera éditer une zone de saisie. Le composant répond la
+chaîne de caractères éditée
+% ajout - vf
+dans cette zone de saisie.
+Un \emph{label} optionnel et une valeur par défaut peuvent aussi être
+spécifiés.
 
 \needlines{3}
 \begin{code}{}
@@ -1177,8 +1207,11 @@ SeasideDialogDemo>>>renderContentOn: html
 ...
 \end{code}
 
-The message \mthind{WAComponent}{inform:} calls a component that simply displays the argument message and waits for the user to click ``ok''.
-The called component just returns \ct{self}.
+Le message \mthind{WAComponent}{inform:} appelle un composant qui
+affiche simplement l'argument-message et attend que l'utilisateur
+clique sur ``ok''.
+\arelire{Le composant appelé retourne \ct{self}.}
+%The called component just returns \ct{self}.
 
 \begin{code}{}
 ...
@@ -1189,31 +1222,44 @@ The called component just returns \ct{self}.
 ...
 \end{code}
 
-The message \mthind{WAComponent}{confirm:} asks a questions and waits for the user to select either ``Yes'' or ``No''.
-The component answers a boolean, which can be used to perform further actions.
+Le message \mthind{WAComponent}{confirm:} pose une question et attend
+que l'utilisateur clique sur ``Yes'' ou ``No''.
+Le composant répond un booléen qui peut être utilisé pour faire
+d'autres actions.
 
 \begin{code}{}
 ...
 	html space.
 	html anchor
 		callback: [
-			(self confirm: 'Are you happy?')
+			(self confirm: 'Are you happy?') "!Êtes-vous! content?"
 				ifTrue: [ self inform: ':-)' ]
 				ifFalse: [ self inform: ':-(' ]
 			];
 		with: 'self confirm:'.
 \end{code}
 
-A few further convenience methods, such as \mthind{WAComponent}{chooseFrom:caption:}, are defined in the \prot{convenience} protocol of \clsind{WAComponent}.
+Quelques méthodes utilitaires, tels que
+\mthind{WAComponent}{chooseFrom:caption:}, sont définies dans le
+protocole \prot{convenience} de la classe \clsind{WAComponent}.
 
 %-----------------------------------------------------------------
-\subsection{Les tâches Seaside}
+\subsection{Les \tasks Seaside}
 
-A \subind{Seaside}{task} is a component that subclasses \clsind{WATask}.
-It does not render anything itself, but simply calls other components in a control flow defined by implementing the method \mthind{WATask}{go}.
+Une \subind{Seaside}{task} (ou \emph{tâche}) est un composant qui est
+sous-classe de \clsind{WATask}.
+Elle ne fait le rendu du rien elle-même mais appelle simplement
+d'autres composants dans un flux de contrôle défini en implémentant la
+méthode \mthind{WATask}{go}.
 
-\clsind{WAConvenienceTest} is a simple example of a task defined in the category \scat{Seaside-Tests-Functional}.
-To see its effect, just point your browser to \url{http://localhost:8080/seaside/tests/alltests}, select \menu{WAConvenienceTest} and click \button{Restart}.
+
+\clsind{WAConvenienceTest} est une simple exemple de l'utilisation
+d'une \task définie dans \arelire{la catégorie
+  \scat{Seaside-Tests-Functional}}. % REVOIR - en attendant une
+                                % version packagée de One-Click...
+Pour voir son effet, pointez votre navigateur web sur l'URL
+\url{http://localhost:8080/seaside/tests/alltests} et sélectionnez
+\menu{WAConvenienceTest} et cliquez sur \button{Restart}.
 
 \begin{code}{}
 WAConvenienceTest>>>go
@@ -1222,99 +1268,160 @@ WAConvenienceTest>>>go
 	self informCheese
 \end{code}
 
-This task calls in turn three components.
-The first, generated by the convenience method \mthind{WAComponent}{chooseFrom: caption:}, is a \clsind{WAChoiceDialog} that asks the user to choose a cheese.
+Cette \task appelle trois composants.
+Le premier, généré par la méthode utilitaire
+\mthind{WAComponent}{chooseFrom: caption:}, est une instance de
+\clsind{WAChoiceDialog} qui demande à l'utilisateur de choisir un
+fromage (\emph{cheese}).
 
 \begin{code}{}
 WAConvenienceTest>>>chooseCheese
 	cheese := self
 		chooseFrom: #('Greyerzer' 'Tilsiter' 'Sbrinz')
-		caption: 'What''s your favorite Cheese?'.
+		caption: 'What''s your favorite Cheese?'. "Quel est votre fromage !préféré!"
 	cheese isNil ifTrue: [ self chooseCheese ]
 \end{code}
 
 % \alex{Is there a situation where cheese may be nil? Maybe if a browser authorizes an empty selection...}
 
-The second is a \clsind{WAYesOrNoDialog} to confirm the choice (generated by the convenience method \mthind{WAComponent}{confirm:}).
+Le second est un dialogue \clsind{WAYesOrNoDialog} pour confirmer le
+choix (généré par la méthode utilitaire \mthind{WAComponent}{confirm:}).
 
 \begin{code}{}
 WAConvenienceTest>>>confirmCheese
+    "Ce fromage est-il votre !préféré!?"
 	^self confirm: 'Is ', cheese,  ' your favorite cheese?'
 \end{code}
 
-Finally a \clsind{WAFormDialog} is called (via the convenience method \mthind{WAComponent}{inform:}).
+\emph{In fine}, un dialogue \clsind{WAFormDialog} est appelé (via la
+méthode utilitaire \mthind{WAComponent}{inform:}).
 
 \begin{code}{}
 WAConvenienceTest>>>informCheese
+    "Votre fromage !préféré! est ..."
 	self inform: 'Your favorite cheese is ', cheese, '.'
 \end{code}
 
-The generated dialogues are shown in \figref{chooseCheese}.
+Vous pouvez voir ces dialogues générés sur \figref{chooseCheese}.
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\textwidth]{chooseCheese}
-\caption{Une tâche simple.}
+\caption{Un simple exemple de \task en action.}
 \figlabel{chooseCheese}
 \end{center}
 \end{figure}
 
 %-----------------------------------------------------------------
-\subsection{Transactions} % REVOIR TRADUIRE
+\subsection{Les \transactions} % REVOIR TRADUIRE
 
-We saw in \secref{backtracking} that Seaside can keep track of the correspondence between the state of components and individual web pages by having components register their state for backtracking:
-all that a component need do is implement the method \ct{states} to answer an array of all the objects whose state must be tracked.
+Nous avons vu dans \secref{backtracking} que Seaside peut garder une
+trace de la correspondance entre l'état des composants et les pages
+web en ayant des composants qui enregistre leur état pour le
+\backtracking:
+% Seaside can keep track of the correspondence between the state of components and individual web pages by having components register their state for backtracking:
+tout ce qu'un composant a besion de faire, c'est d'implémenter la
+méthode \ct{states} pour répondre un tableau de toutes les objets dont
+l'état doit être suivi.
 
-Sometimes, however, we do not want to backtrack state: instead we want to \emph{prevent} the user from accidentally undoing effects that should be permanent.
-This is often referred to as ``the shopping cart problem''.
-Once you have checked-out your shopping cart and paid for the items you have purchased, it should not be possible to go ``back'' with the browser and add more items to the shopping cart!
+Cependant, certaines fois, nous ne voudrions pas avoir de \backtracking
+de l'état: nous aimerions seulement \emph{prévenir} l'utilisateur
+qu'il risque \arelire{d'effacer accidentellement des effets qui
+  devraient être permanents}.
+%from accidentally undoing effects that should be permanent.
+Ce problème est souvent appelé ``le problème du panier'' (en anglais, ``the
+shopping cart problem'').
+Une fois que vous avez validé votre panier virtuel 
+% ajout - vf
+sur un site webmarchand
+et que vous avez payé pour les articles que vous avez acheté, il ne
+devrait pas être possible de revenir en arrière avec le bouton
+\backbtn{} de votre navigateur web et d'ajouter de nouveaux articles à
+votre panier!
 
-Seaside allows you to prevent this by defining a task within which certain actions are grouped together as \emph{transactions}.
-You can backtrack within a transaction, but once a transaction is complete, you can no longer go back to it.
-The corresponding pages are \emph{invalidated}, and any attempt to go back to them will cause Seaside to generate a warning and redirect the user to the most recent valid page.
+Seaside vous permet de prévenir cela en définissant une \task 
+dans laquelle certaines actions sont regroupées en \transactions.
+Vous pouvez utiliser le \backtracking{} dans une \transaction mais,
+une fois la \transaction terminée, vous ne pouvez plus revenir sur
+celle-ci.
+Les pages correspondantes sont \emph{invalidatées} et toute tentative
+de revenir sur celles-ci entraînera la création d'une alerte par
+Seaside et redirigera l'utilisateur sur la page la plus récemment
+valide.
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\textwidth]{sushiStore}
-\caption{The Sushi Store}
+\caption{L'application ``Sushi Store''.}
 \figlabel{sushiStore}
 \end{center}
 \end{figure}
 
-The Seaside \emphsubind{Seaside}{Sushi Store} is sample application that illustrates many of the features of Seaside, including transactions.
-This application is bundled with your installation of Seaside, so you can try it out by pointing your browser at
-\url{http://localhost:8080/seaside/examples/store}.\footnote{If you cannot find it in your image, there is a version of the sushi store available on SqueakSource from \url{http://www.squeaksource.com/SeasideExamples/}.}
+L'application ``\emphsubind{Seaside}{Sushi Store}'' est une
+application de démonstration illustrant de nombreuses particularités
+de Seaside dont les \transactions.
+Cette application est incluse dans votre installation de Seaside. Dès
+lors vous pouvez l'essayer en vous rendant sur la page 
+\url{http://localhost:8080/seaside/examples/store}\footnote{%
+Si vous ne la trouvez pas dans votre image, vous pouvez charger une
+version de l'application ``Sushi Store'' sur SqueakSource dans le dépôt
+  \url{http://www.squeaksource.com/SeasideExamples/}
+% ajout vf
+sous le nom de paquetage \scat{Store}%
+.} avec votre navigateur web.
 
-The sushi store supports the following workflow:
+L'application ``Sushi Store''
+% ajout -vf
+(traduisible par le \emph{restaurant de sushis en ligne})
+présente la modélisation des tâches suivante:
+%The sushi store supports the following workflow:
 \begin{enumerate}[itemsep=0pt]
-  \item Visit the store.
-  \item Browse or search for sushi.
-  \item Add sushi to your shopping cart.
-  \item Checkout.
-  \item Verify your order.
-  \item Enter shipping address.
-  \item Verify shipping address.
-  \item Enter payment information.
-  \item Your fish is on its way!
+  \item Visiter la boutique.
+  \item Naviguer ou chercher un sushi.
+  \item Ajouter un sushi à votre panier (ou \emph{shopping cart}).
+  \item Valider (\emph{checkout}).
+  \item Vérifier votre ordre.
+  \item Entrer une addresse d'expédition.
+  \item Vérifier une addresse d'expédition.
+  \item Entrer les informations de paiement.
+  \item Votre poisson cru est en route!
 \end{enumerate}
 
-If you toggle the \subind{Seaside}{halos}, you will see that the top-level component of the sushi store is an instance of \clsind{WAStore}.
-It does nothing but render the title bar, and then it renders \ct{task}, an instance of \clsind{WAStoreTask}.
+Si vous activez les \subind{Seaside}{halos}, vous verrez que le
+composant racine de l'application ``Sushi Store'' est un instance de
+\clsind{WAStore}.
+Ce composant ne fait rien d'autre que le rendu d'une barre de titre et
+de l'objet \ct{task}; ce dernier est une variable d'instance de
+\clsind{WAStoreTask}.
 
 \begin{code}{}
 WAStore>>>renderContentOn: html
-	"... render the title bar ..."
+	"... rendu de la barre de titre ..."
 	html div id: 'body'; with: task
 \end{code}
 
-\clsind{WAStoreTask} captures this workflow sequence. At a couple of points it is critical that the user not be able to go back and change the submitted information.
+\clsind{WAStoreTask} retient cette séquence de modélisation de tâches.
+%captures this workflow sequence.
+C'est important qu'à deux moments l'utilisateur ne puisse pas revenir
+en arrière et changer les informations déjà envoyées.
 
-\dothis{\,``Purchase'' some sushi and then use the ``back'' button to try to put more sushi into your cart.
-You will get the message ``That page has expired.''}
+% vf - martial: c'est pas clair dans la VO REVOIR
+\dothis{\,Achetez avec la \arevoir{commande ``Checkout'' des sushis,
+    confirmez en cliquant ``Proceed with checkout'' et utilisez
+  ensuite le bouton \backbtn{} pour essayer de mettre plus de sushis
+  dans votre panier (dans l'application, ``\emph{Your cart}'').}
+\arelire{Vous aurez le message ``That page has expired'' (\ie{} ``la
+  page a expiré'').}}
+%You will get the message ``That page has expired.''}
 
-Seaside lets the programmer say that a certain part of a workflow act like a transaction: once the transaction is complete, the user cannot go back and undo it.
-You say this by sending \mthind{WAComponent}{isolate:} to a task with the transactional block as its argument.
-We can see this in the sushi store workflow as follows:
+Seaside laisse le programmeur écrire si une certaine partie d'une
+séquence de tâches agit comme une \transaction: une fois la
+\transaction complète, l'utilisateur ne pourra plus revenir en arrière
+et l'annuler.
+Vous l'écrivez en envoyant le message \mthind{WAComponent}{isolate:} à
+la \task avec le bloc transactionnel comme argument.
+Nous pouvons le voir dans la séquence des tâches de l'application
+``Sushi Store'' dans le code suivant:
 
 \begin{code}{}
 WAStoreTask>>>go
@@ -1336,17 +1443,24 @@ WAStoreTask>>>go
 	self displayConfirmation.
 \end{code}
 
-Here we see quite clearly that there are two transactions.
-The first fills the cart and closes the shopping phase.
-(The helper methods \ct{fillCart} \etc take care of instantiating and calling the right subcomponents.)
-Once you have confirmed the contents of the cart you cannot go back without starting a new session.
-The second transaction completes the shipping and payment data.
-You can navigate back and forth within the second transaction until you confirm payment.
-However, once both transactions are complete, any attempt to navigate back will fail.
+Nous voyons assez clairement que nous avons ici deux \transactions.
+La première remplit le panier (en anglais, \emph{fill cart}) et clôt
+la phase des achats (les méthodes adjointes, \ct{fillCart} \etc,
+prennent soin d'instancier et d'appeler les bons sous-composants).
+Une fois que vous avez confirmé le contenu du panier, vous ne pouvez
+plus revenir sans démarrer une nouvelle session.
+La seconde \transaction concerne la saisie des informations d'envoi et
+de paiement.
+Vous pouvez naviguer en arrière et revenir dans la seconde
+\transaction{} jusqu'à votre confirmation du paiement.
+Cependant, une fois les deux \transaction{} concluent, toute tentation
+de navigation en arrière échouera.
 
-Transactions may also be nested.
-A simple demonstration of this is found in the class \clsind{WANestedTransaction}.
-The first \ct{isolate:} takes as argument a block that contains another, nested \ct{isolate:}
+Les \transactions{} peuvent aussi être imbriquées.
+Une simple démonstration de ceci se trouve dans la classe
+\clsind{WANestedTransaction}.
+Le premier message \ct{isolate:} prend un bloc comme argument;
+celui-ci a un autre envoi de message \ct{isolate:} imbriqué.
 
 \begin{code}{}
 WANestedTransaction>>>go
@@ -1358,30 +1472,51 @@ WANestedTransaction>>>go
 	self inform: 'Outside parent txn'
 \end{code}
 
-\dothis{Go to \url{http://localhost:8080/seaside/tests/alltests}, select \menu{WATransactionTest} and click on \button{Restart}.
-Try to navigate back and forth within the parent and child transaction by clicking the \button{back} button and then clicking \button{ok}.
-Note that as soon as a transaction is complete, you can no longer go back inside the transaction without generating an error upon clicking \button{ok}.}
+\dothis{Allez sur \url{http://localhost:8080/seaside/tests/alltests},
+  sélectionnez \menu{WATransactionTest} et cliquez sur
+  \button{Restart}.
+Essayez de naviguer en arrière et en avant dans la transaction parent
+et enfant (\emph{child}) en cliquant sur le bouton \backbtn et
+en cliquant ensuite sur le bouton \button{ok}.
+%Try to navigate back and forth within the parent and child transaction by clicking the \button{back} button and then clicking \button{ok}.
+Remarquez que, dès qu'un \transaction{} est complète, vous ne pouvez
+plus revenir dans la \transaction, sans
+générer une erreur en cliquant sur \button{ok}.}
 
 %=================================================================
 \section{Un tutoriel complet}
 
 % ON: Should take about two hours
 
-Let's see how we can build a complete Seaside application from scratch.\footnote{The exercise should take at most a couple of hours. If you prefer to just look at the completed source code, you can grab it from the SqueakSource project \url{http://www.squeaksource.com/PharoByExample}.
-The package to load is \scat{PBE-SeasideRPN}. The tutorial that follows uses slightly different class names so that you can compare your implementation with ours.}
-We will build a RPN (Reverse Polish Notation) calculator as a Seaside application that uses a simple stack machine as its underlying model.
+Voyons comment nous pouvons construire une application Seaside
+complète à zéro\footnote{L'exercice devrait vous prendre deux bonnes
+  heures. Si vous préférez simplement regarder le code source final,
+  vous pouvez le récupérer depuis le projet SqueakSource à l'addresse:
+ \url{http://www.squeaksource.com/PharoByExample}. \scat{PBE-SeasideRPN}
+ est le paquetage à charger. Le tutoriel utilise des noms de classe
+ légèrement différents ainsi vous pourrez comparer votre
+ implémentation avec la notre.%
+}.
+Nous allons construire un calculateur RPN~\footnote{La RPN pour
+  ``Reverse Polish Notation'' ou notation polonaise inversée est une
+  des trois écritures mathématiques; elle est dite aussi
+  \emph{postfixe}.} % martial - perso, c'est ma notation favorite (PS,
+                    % factor, forth...)
+comme une application Seaside qui \arelire{utilise une machine à pile simple
+comme modèle}.
+%simple stack machine as its underlying model.
 Furthermore, the Seaside interface will let us toggle between two displays\,---\,one which just shows us the current value on top of the stack, and the other which shows us the complete state of the stack.
 The calculator with the two display options is shown in \figref{stackMachine}.
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\textwidth]{stackMachine}
-\caption{RPN calculator and its stack machine}
+\caption{Le calculateur RPN et sa machine à pile.}
 \figlabel{stackMachine}
 \end{center}
 \end{figure}
 
-We begin by implementing the stack machine and its tests.
+Nous commençons par implémenter la machine à piles et ses tests.
 
 \dothis{Define a new class called \ct{MyStackMachine} with an instance variable \ct{contents} initialized to a new \ct{OrderedCollection}.}
 

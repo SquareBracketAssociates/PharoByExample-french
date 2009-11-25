@@ -88,9 +88,13 @@
 \urlstyle{leo}
 %=============================================================
 %:Booleans
-\newboolean{lulu}
+\newboolean{lulu} % version lulu
 \setboolean{lulu}{false}
+\newboolean{deployment} % version de déploiement
+\setboolean{deployment}{false}  % true pour enlever les couleurs et
+                                % annotations de traduction
 \newcommand{\ifluluelse}[2]{\ifthenelse{\boolean{lulu}}{#1}{#2}}
+\newcommand{\ifdeploy}[1]{\ifthenelse{\boolean{deployment}}{#1}{}}
 %=============================================================
 %:Names
 \newcommand{\SUnit}{SUnit\xspace}
@@ -677,6 +681,11 @@ framerule=0pt,
 \newcommand{\tradalert}[2]{\fix~\uppercase{#1:~\emph{#2}}} % affiche
                                 % une balise avec le nom de traducteur
                                 % signalant un message d'alerte
+\ifdeploy{%
+        \renewcommand{\arevoir}[1]{#1}
+        \renewcommand{\arelire}[1]{#1}
+        \renewcommand{\aretirer}[1]{#1}
+        \renewcommand{\tradalert}[2]{\relax}}
 % \traduit utilisé dans Model.tex
 \newcommand{\traduit}[1]{\footnote[2]{#1}}
 % changeset alias
@@ -714,7 +723,10 @@ framerule=0pt,
 \newcommand{\brushes}{\emph{brushes}\xspace}
 \newcommand{\backbtn}{``retour arrière''\xspace}
 \newcommand{\toolbar}{barre d'outils\xspace}
-\newcommand{\task}{\emph{task} Seaside}
+\newcommand{\task}{\emph{task}\xspace}
+\newcommand{\tasks}{\emph{tasks}\xspace}
+\newcommand{\transaction}{\emph{transaction}\xspace}
+\newcommand{\transactions}{\emph{transactions}\xspace}
 %% TITRES de chapitres nommés dans Monticello (PBE2->PBE1)
 \newcommand{\titreFirstapp}{Une première application\xspace}
 \newcommand{\titreEnvironment}{L'environnement de programmation de Pharo\xspace}

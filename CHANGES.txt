@@ -136,7 +136,6 @@ chaînage arrière)
 en cascade
 - flow control -> contrôle de flux
 et control flow -> flux de contrôles ?????
-- task -> tâche (dit "tâche Seaside" la première fois)
 - toolbar -> \toolbar (barre d'outils)
 - navigateur de classes Seaside / inspecteur d'objets
 - html canvas -> canevas HTML
@@ -146,6 +145,7 @@ le nom du lien)
 - horizontal rule -> barre horizontale
 - plain text -> texte ordinaire
 - edit field -> zone d'édition
+- text field -> zone de saisie
 - a heading -> un entête
 - nouvelle structure de test: \frsays[2] pour le cas des figures/codes
 francisés (permet de revenir à la version native selon le souhait des
@@ -153,5 +153,10 @@ relecteurs); \localcode pour faire un \input selon la langue
 - checkbox -> case à cocher
 - table data -> cellule (\ct{td} pour \emph{table data})
 - class attribute -> classe ; id attribute -> attribut \emph{id}
-- task -> \task (\emph{task} mais défini un fois comme tâche)
-- 
+- task -> une \task ("\emph{task}" mais traduit parfois comme tâche)
+- transaction -> une \transaction ("\emph{transaction}")
+- the shopping cart problem -> le problème du panier (plutôt que caddy)
+- The Sushi Store -> l'application ``Sushi Store'' (pour garder la
+cohérence avec les autres applications déclarées entre guillements);
+traduisible par ``restaurant de sushis en ligne''; store -> boutique
+- workflow -> modélisation de tâches (ou \emph{workflow})

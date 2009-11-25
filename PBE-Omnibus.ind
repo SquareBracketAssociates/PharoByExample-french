@@ -42,7 +42,7 @@
   \item \textsf  {ActiveHand} (globale), \hyperpage{106}
   \item \textsf  {adding} (protocole), \hyperpage{200}
   \item affectation, \hyperpage{56}, \hyperpage{97}
-  \item AJAX, \hyperpage{343}
+  \item AJAX, \hyperpage{344}
   \item \textsf  {all} (protocole), \hyperpage{33}, \hyperpage{39}, 
 		\hyperpage{114}, \hyperpage{125}
   \item AlphaBlendingCanvas
@@ -809,7 +809,7 @@
 
   \item Java, \hyperpage{69}, \hyperpage{85}, \hyperpage{88}, 
 		\hyperpage{91}, \hyperpage{100}, \hyperpage{157}
-  \item JavaScript, \hyperpage{343, 344}
+  \item JavaScript, \hyperpage{344, 345}
 
   \indexspace
 
@@ -1269,7 +1269,7 @@
 		\hyperpage{255}, \hyperpage{420}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{postCopy}, 
 		\hyperpage{184}
-    \subitem \ct{printOn:}, \hyperpage{338}
+    \subitem \ct{printOn:}, \hyperpage{339}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{printOn:}, 
 		\hyperpage{178}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{printString}, 
@@ -1423,7 +1423,7 @@
 		\hyperpage{424}
   \item ProtoObject class
     \subitem (classe), \hyperpage{272}
-  \item Prototype, \hyperpage{343}
+  \item Prototype, \hyperpage{344}
   \item pseudo-variable, \see{variable, pseudo}{54}
   \item Python, \hyperpage{157}, \hyperpage{349}
 
@@ -1556,14 +1556,14 @@
 
   \item s\IeC {\'e}parateur, \see{expression, s\IeC {\'e}parateur}{78}
   \item sauvegarde du code, \see{cat\IeC {\'e}gorie}{46}
-  \item script.aculo.us, \hyperpage{343}
+  \item script.aculo.us, \hyperpage{344}
   \item Seaside, \hyperpage{311}
     \subitem \backtracking, \hyperpage{312}, \hyperpage{320}
-    \subitem \emph  {callback}\xspace  , \hyperpage{326}
+    \subitem \emph  {callback}\xspace  , \hyperpage{326}, 
+		\hyperpage{331}
     \subitem \emph  {form}, \see{Seaside, formulaire}{326}
-    \subitem \emph  {task} Seaside, \hyperpage{330}
+    \subitem \emph  {task}\xspace  , \hyperpage{330}
     \subitem barre d'outils\xspace  , \hyperpage{314}
-    \subitem callback, \hyperpage{331}
     \subitem component, \see{Seaside, composant}{318}
     \subitem composant, \hyperpage{312}
     \subitem composants, \hyperpage{318}
@@ -1571,13 +1571,13 @@
     \subitem configuration, \hyperpage{317}
     \subitem control flow, 
 		\see{Seaside, flux de contr\IeC {\^o}le}{330}
-    \subitem convenience methods, \hyperpage{332}
     \subitem counter, \hyperpage{314}
     \subitem deployment mode, \hyperpage{317}
     \subitem development mode, \hyperpage{317}
     \subitem flux de contr\IeC {\^o}le, \hyperpage{330}
     \subitem formulaire, \hyperpage{326}
-    \subitem halos, \hyperpage{314}, \hyperpage{335}
+    \subitem halos, \hyperpage{314}, \hyperpage{336}
+    \subitem m\IeC {\'e}thodes utilitaires, \hyperpage{332}
     \subitem mode
       \subsubitem deployment, \hyperpage{317}
       \subsubitem development, \hyperpage{317}
@@ -1586,7 +1586,7 @@
     \subitem rendu, \hyperpage{318}
     \subitem site web, \hyperpage{312}
     \subitem Sushi Store, \hyperpage{335}
-    \subitem t\IeC {\^a}che, \see{Seaside, \emph  {task} Seaside}{330}
+    \subitem t\IeC {\^a}che, \see{Seaside, \emph  {task}\xspace  }{330}
     \subitem task, \hyperpage{333}
     \subitem transactions, \hyperpage{312}
   \item Self, \hyperpage{237}
@@ -2008,7 +2008,7 @@
   \item WAKom
     \subitem (classe), \hyperpage{312}
   \item WANestedTransaction
-    \subitem (classe), \hyperpage{336}
+    \subitem (classe), \hyperpage{337}
   \item WAPresenter
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{renderContentOn:}, 
 		\hyperpage{318}, \hyperpage{321}
@@ -2020,12 +2020,12 @@
   \item WASnapshot
     \subitem (classe), \hyperpage{320}
   \item WAStore
-    \subitem (classe), \hyperpage{335}
+    \subitem (classe), \hyperpage{336}
   \item WAStoreTask
-    \subitem (classe), \hyperpage{335, 336}
+    \subitem (classe), \hyperpage{336}
   \item WATagBrush
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{onClick:}, 
-		\hyperpage{344}
+		\hyperpage{345}
   \item WATask
     \subitem (classe), \hyperpage{330}, \hyperpage{333}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{go}, 
@@ -2057,7 +2057,7 @@
 
   \indexspace
 
-  \item XML, \hyperpage{343}
+  \item XML, \hyperpage{344}
   \item xUnit, \hyperpage{157}
     \subitem SUnit, \see{SUnit}{157}
 
