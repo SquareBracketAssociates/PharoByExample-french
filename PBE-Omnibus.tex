@@ -32,7 +32,7 @@
 %\usepackage{a4wide}
 %=================================================================
 % Add the path for the figures of each chapter here:
-\graphicspath{
+\localgpath{
 	{figures/}
 % BOOK 1
 	{BasicClasses/figures/}
@@ -50,7 +50,7 @@
 	{SUnit/figures/}
 	{Streams/figures/}
 	{Syntax/figures/}
-	% BOOK 2
+% BOOK 2
 	% {Announcements/figures/}
 	{Compiler/figures/}
 	{Concurrency/figures/}
@@ -64,8 +64,7 @@
 	{Profiling/figures/}
 	{Regex/figures/}
 	{Seaside/figures/}
-    {FAQ/figures/}
-}
+    {FAQ/figures/}}
 %=================================================================
 \let\wholebook=\relax
 \makeindex
@@ -211,17 +210,18 @@ Paternit\'e Version 3.0 de la licence g\'en\'erique - Partage des Conditions Ini
 \part{Dévelopment Logiciel}
 %:Monticello
 \input{Monticello/Monticello.tex}
-
+%=================================================================
 \part{Les Bibliothèques}
 %:Seaside
-\input{Seaside/Seaside.tex}
+\import{Seaside/}{Seaside/Seaside.tex} % import b/c inner input in
+                                % French Edition
 %:Magma
 %\input{Magma/Magma.tex}
 %:Expressions régulières
 \input{Regex/Regex.tex}
 %:Omnibrowser
 %+%\input{Omnibrowser/Omnibrowser.tex}
-
+%=================================================================
 \part{Plus de détails}
 %:Exceptions
 \input{Exceptions/Exceptions.tex}
@@ -231,7 +231,7 @@ Paternit\'e Version 3.0 de la licence g\'en\'erique - Partage des Conditions Ini
 %\input{Announcements/Announcements.tex}
 %:Reflectivité
 \input{Reflection/Reflection.tex}
-
+%=================================================================
 \appendix
 \part{Annexes}
 %:FAQ

@@ -1,0 +1,11 @@
+\begin{method}[renderdemo]{\lct{SeasideDemo>>renderContentOn:}}
+SeasideDemo>>>renderContentOn: html
+	html heading: 'Rendering Demo'.
+	html heading
+		level: 2;
+		with: 'Rendu de code HTML simple: '.
+	html div
+		class: 'subcomponent';
+		with: htmlDemo.
+	"rendu des composants restants ..."
+\end{method}

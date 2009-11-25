@@ -1,0 +1,10 @@
+\begin{code}{}
+SeasideHtmlDemo>>>renderListsAndTablesOn: html 
+	html orderedList: [
+		html listItem: 'Un !\normcode{élément}! de liste !\normcode{ordonnée}!'].
+	html unorderedList: [
+		html listItem: 'Un !\normcode{élément}! de liste !\normcode{non-ordonnée}!'].
+	html table: [
+		html tableRow: [
+			html tableData: 'Une table avec une cellule.']]
+\end{code}

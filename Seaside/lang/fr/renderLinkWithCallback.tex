@@ -1,0 +1,13 @@
+\begin{code}{}
+SeasideHtmlDemo>>>renderLinkWithCallbackOn: html 
+	html paragraph: [
+		html text: 'Un lien avec une action locale: '.
+		html span with: [
+			html anchor
+				callback: [toggleValue := toggleValue not];
+				with: 'change la valeur du !\normcode{booléen:}!'].
+		html space.
+		html span
+			class: '!\normcode{booléen}!';
+			with: toggleValue ]
+\end{code}

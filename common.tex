@@ -57,6 +57,7 @@
 \usepackage{titletoc}
 \usepackage{eurosym}
 \usepackage{wrapfig}
+\usepackage{import}
 
 \usepackage[
 	super,
@@ -683,6 +684,7 @@ framerule=0pt,
 \newcommand{\changesets}{\emph{change sets}\xspace}
 % callback alias
 \newcommand{\callback}{\emph{callback}\xspace}
+\newcommand{\callbacks}{\emph{callbacks}\xspace}
 % blobmorph alias (QuickTour->blob)
 \newcommand{\blobmorph}{\emph{blob}\xspace}
 % repository
@@ -707,9 +709,28 @@ framerule=0pt,
 \newcommand{\implementor}{\emph{implementor}\xspace}
 \newcommand{\truetype}{\textsf{TrueType}\xspace}
 \newcommand{\bamfr}{atomes rebondissants\xspace} % pour le \bam dans QuickTour
-%% TITRES de chapitres nommés dans Monticello
+\newcommand{\backtracking}{\emph{backtracking}\xspace}
+\newcommand{\brush}{\emph{brush}\xspace}
+\newcommand{\brushes}{\emph{brushes}\xspace}
+\newcommand{\backbtn}{``retour arrière''\xspace}
+\newcommand{\toolbar}{barre d'outils\xspace}
+\newcommand{\task}{\emph{task} Seaside}
+%% TITRES de chapitres nommés dans Monticello (PBE2->PBE1)
 \newcommand{\titreFirstapp}{Une première application\xspace}
 \newcommand{\titreEnvironment}{L'environnement de programmation de Pharo\xspace}
+%% spécial Seaside *IMPORTANT*
+\def\fr{french}
+\let\sslang=\fr % sslang défini la francisation de certains textes de
+                % démos Seaside / \relax sinon
+\newcommand{\frsays}[2]{\ifx\sslang\fr#1\else#2\fi} % frsays for
+                                % complete figures/code translation
+\newcommand{\localcode}[1]{\frsays{\input{lang/fr/#1}}{\input{lang/en/#1}}}
+\newcommand{\localizedgpath}[3]{\frsays{%
+        \graphicspath{#1 #3}}{%
+                         \graphicspath{#2 #3}}}
+\newcommand{\localgpath}[1]{% add Seaside localized graphics path
+        \localizedgpath{{Seaside/figures/lang/fr/}}%
+                                {{Seaside/figures/lang/en/}}{#1}}
 % césure (pour forcer les coupures de mots)
 \hyphenation{Omni-Brow-ser}
 \hyphenation{m\'e-tho-de} % erreur de cesure commune

@@ -1,0 +1,10 @@
+\begin{code}{}
+SeasideHtmlDemo>>>renderDivsAndSpansOn: html 
+	html div
+		id: 'author';
+		with: [
+			html text: 'Texte brut dans un !\normcode{élément}! div avec l''id ''author''. '.
+			html span
+				class: 'highlight';
+				with: 'Un !\normcode{élément}! span de classe ''highlight''.']
+\end{code}

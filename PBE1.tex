@@ -35,7 +35,7 @@
 %\usepackage{a4wide}
 %=================================================================
 % Add the path for the figures of each chapter here:
-\graphicspath{
+\localgpath{
 	{figures/}
 % BOOK 1
 	{BasicClasses/figures/}
@@ -185,6 +185,9 @@ Paternit\'e Version 3.0 de la licence g\'en\'erique - Partage des Conditions Ini
 \input{Streams/Streams.tex}
 %:Morphic
 \input{Morphic/Morphic.tex}
+%:Seaside
+\import{Seaside/}{Seaside/Seaside.tex} % import b/c inner input in
+                                % French Edition
 %=================================================================
 %:PART 3 -- Advanced Pharo
 \part{Pharo avanc\'e}

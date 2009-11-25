@@ -1,0 +1,15 @@
+\begin{code}{}
+SeasideHtmlDemo>>>renderParagraphsOn: html 
+	html paragraph: 'Un paragraphe en texte ordinaire.'.
+	html paragraph: [
+		html
+			text: 'Un paragraphe en texte ordinaire suivi par une ligne de !\normcode{séparation}!. ';
+			break;
+			emphasis: 'Texte en emphase ';
+			text: 'suivi d''une barre horizontale.';
+			horizontalRule;
+			text: 'Une URI d''image: '.
+		html image
+			url: self pharoImageUrl;
+			heigh: '40']
+\end{code}
