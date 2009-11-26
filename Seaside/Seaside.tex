@@ -1489,7 +1489,7 @@ générer une erreur en cliquant sur \button{ok}.}
 % ON: Should take about two hours
 
 Voyons comment nous pouvons construire une application Seaside
-complète à zéro\footnote{L'exercice devrait vous prendre deux bonnes
+complète de zéro\footnote{L'exercice devrait vous prendre deux bonnes
   heures. Si vous préférez simplement regarder le code source final,
   vous pouvez le récupérer depuis le projet SqueakSource à l'addresse:
  \url{http://www.squeaksource.com/PharoByExample}. \scat{PBE-SeasideRPN}
@@ -1497,28 +1497,37 @@ complète à zéro\footnote{L'exercice devrait vous prendre deux bonnes
  légèrement différents ainsi vous pourrez comparer votre
  implémentation avec la notre.%
 }.
-Nous allons construire un calculateur RPN~\footnote{La RPN pour
+Nous allons construire une calculatrice RPN~\footnote{La RPN pour
   ``Reverse Polish Notation'' ou notation polonaise inversée est une
   des trois écritures mathématiques; elle est dite aussi
   \emph{postfixe}.} % martial - perso, c'est ma notation favorite (PS,
                     % factor, forth...)
 comme une application Seaside qui \arelire{utilise une machine à pile simple
-comme modèle}.
+comme modèle (``pile'' en anglais se disant ``\emph{stack}'')}.
 %simple stack machine as its underlying model.
-Furthermore, the Seaside interface will let us toggle between two displays\,---\,one which just shows us the current value on top of the stack, and the other which shows us the complete state of the stack.
-The calculator with the two display options is shown in \figref{stackMachine}.
+En outre, l'interface Seaside nous laissera choisir entre deux modes
+d'affichage\,---\,l'un nous montrant simplement la valeur
+actuelle au sommet de la pile et l'autre nous montrant l'état complet
+de la pile.
+%the other which shows us the complete state of the stack.
+Vous pouvez voir la calculatrice munie de ses deux options d'affichage
+sur \figref{stackMachine}.
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\textwidth]{stackMachine}
-\caption{Le calculateur RPN et sa machine à pile.}
+\caption{La calculatrice RPN et sa machine à pile.}
 \figlabel{stackMachine}
 \end{center}
 \end{figure}
 
 Nous commençons par implémenter la machine à piles et ses tests.
 
-\dothis{Define a new class called \ct{MyStackMachine} with an instance variable \ct{contents} initialized to a new \ct{OrderedCollection}.}
+\dothis{Définissez une nouvelle classe \ct{MyStackMachine} 
+% ajout - vf
+\arelire{dans une nouvelle catégorie de votre choix et} % rappel
+avec une variable d'instance \ct{contents} initialisée comme une
+nouvelle collection ordonnée, instance de \ct{OrderedCollection}.}
 
 \begin{code}{}
 MyStackMachine>>>initialize
@@ -1526,10 +1535,25 @@ MyStackMachine>>>initialize
 	contents := OrderedCollection new.
 \end{code}
 
-The stack machine should provide operations to \ct{push:} and \ct{pop} values, view the \ct{top} of the stack, and perform various arithmetic operations to add, subtract, multiply and divide the top values on the stack.
+La machine à pile devrait fournir des opérateurs \ct{push:} et
+\ct{pop}
+% ajout - vf
+pour ajouter et enlever des valeurs respectivement ainsi que des
+commandes pour
+voir le sommet de la pile que nous appellerons \ct{top} et pour faire
+plusieurs opérations arithmétiques telles que l'addition (\emph{add}),
+la soustraction (\emph{substract}), la multiplication
+(\emph{multiply}) et la division (\emph{divide}) des valeurs au sommet
+de la pile.
+%The stack machine should provide operations to \ct{push:} and \ct{pop} values, view the \ct{top} of the stack, and perform various arithmetic operations to add, subtract, multiply and divide the top values on the stack.
 
-\dothis{Write some tests for the stack operations and then implement these operations.
-Here is a sample test:}
+\dothis{Écrivez des tests pour les opérations de la pile et
+  implémentons ensuite ces opérations. Voici un exemple de test
+% ajout - vf 
+(avec la classe \ct{MyStackMachineTest}, instance de \ct{TestCase},
+pour le cas de la division \ct{div} en ayant pris soin d'initialiser
+la variable d'instance \ct{stack} dans \ct{setUp}): % martial - pour plus de clareté
+}
 
 \needlines{4}
 \begin{code}{}
@@ -1542,37 +1566,76 @@ MyStackMachineTest>>>testDiv
 	self assert: stack top = (4/3).
 \end{code}
 
-You might consider using some helper methods for the arithmetic operations to check that there are two numbers on the stack before doing anything, and raising an error if this precondition is not fulfilled.\footnote{It's a good idea to use \ct{Object>>>assert:} to specify the preconditions for an operation.
-This method will raise an \ct{AssertionFailure} if the user tries to use the stack machine in an invalid state.}
-If you do this, most  of your methods will just be one or two lines long.
+Vous devriez penser à utiliser des méthodes utilitaires pour les
+opérations arithmétiques pour vérifier qu'il y a toujours deux nombres
+sur la pile avant de faire quoi que ce soit et lever une erreur si
+ce prérequis n'est pas atteint\footnote{C'est une bonne idée
+  d'utiliser \ct{Object>>>assert:} 
+% ajout - vf
+dans \ct{MyStackMachine}
+pour écrire les préconditions
+  requises pour une opération. Cette méthode lévera un 
+ \ct{AssertionFailure} si l'utilisateur essaye d'utiliser la machine à
+ pile dans un état invalide.}.
+%You might consider using some helper methods for the arithmetic operations to check that there are two numbers on the stack before doing anything, and raising an error if this precondition is not fulfilled.\footnote{It's a good idea to use \ct{Object>>>assert:} to specify the preconditions for an operation.
+Si vous faites ainsi, la plupart de vos méthodes ne seront longues que
+d'une ligne ou deux.
 
-You might also consider implementing \ct{MyStackMachine>>>printOn:} to make it easier to debug your stack machine implementation with the help of an object inspector.
-(Hint: just delegate printing to the \ct{contents} variable.)
+Vous pourriez aussi considérer l'implémentation d'une méthode
+\ct{MyStackMachine>>>printOn:} pour faciliter le débogage de votre
+implémentation de la machine à pile avec l'aide de l'Inspector
+(une petite astuce: déléguer simplement l'impression \ct{printOn:} à
+la variable d'instance \ct{contents}).
 \index{Object!printOn:@\ct{printOn:}}
 
-\dothis{Complete the \ct{MyStackMachine} by writing operations \ct{dup} (push a duplicate of the top value onto the stack), \ct{exch} (exchange the top two values), and \ct{rotUp} (rotate the entire stack contents up\,---\,the top value will move to the bottom).}
+\dothis{Complétez la classe \ct{MyStackMachine} en écrivant les
+  opérateurs \ct{dup} qui duplique la valeur du sommet de la pile
+et la met dans la pile, \ct{exch} (abrégé de \emph{exchange}) qui échange
+les deux valeurs du sommet de la pile et \ct{rotUp} qui fait une
+permutation circulaire du contenu entier de la pile\,---\,la valeur en
+\ct{top} se retrouvera ainsi en bas de la pile.}
 
-Now we have a simple stack machine implementation.
-We can start to implement the Seaside RPN Calculator.
+Nous avons maintenant une implémentation simple d'une machine à
+pile. Nous pouvons commencer la programmation de notre calculatrice
+RPN Seaside.
 
-We will make use of 5 classes:
+Nous allons créer 5 classes:
 \begin{itemize}
-  \item \ct{MyRPNWidget}\,---\,this should be an abstract class that defines the common CSS style sheet for the application, and other common behavior for the components of the RPN calculator.
-  It is a subclass of \ct{WAComponent} and the direct superclass of the following four classes. 
+  \item \ct{MyRPNWidget}\,---\,c'est une classe que nous voulons
+    abstraite et qui définit la feuille de style CSS commune pour
+    l'application et d'autres comportements communs pour les
+    composants de la calculatrice RPN.
+C'est une sous-classe de \ct{WAComponent} et super-classe directe des
+quatre classes suivantes;
   
-    \item \ct{MyCalculator}\,---\,this is the root component.
-  It should register the application (on the class side), it should instantiate and render its subcomponents, and it should register any state for backtracking.
-  \item \ct{MyKeypad}\,---\,this displays the keys that we use to interact with the calculator.
-  \item \ct{MyDisplay}\,---\,this component displays the top of the stack and provides a button to call another component to display the detailed view.
-  \item \ct{MyDisplayStack}\,---\,this component shows the detailed view of the stack and provides a button to answer back.
-  It is a subclass of \lct{MyDisplay}.
+    \item \ct{MyCalculator}\,---\,c'est le composant racine.
+      Il devrait enregistrer l'application dans Seaside (côté classe),
+      instancier et faire le rendu de ses sous-composants et il
+      devrait enfin déclarer un état pour le \backtracking;
+  \item \ct{MyKeypad}\,---\,ce composant affiche les boutons
+    (\emph{key}) que nous utiliserons pour interagir avec la
+    calculatrice;
+  \item \ct{MyDisplay}\,---\,ce composant affiche le sommet de la pile
+    et fournit un bouton pour appeler un autre composant pour afficher
+    la vue détaillée
+% ajout - vf
+(\ie pour gérer un \emph{call});
+  \item \ct{MyDisplayStack}\,---\,ce composant affiche la vue
+    détaillée de la pile et offre un bouton pour répondre en retour
+% ajout - vf
+(\ie pour gérer un \emph{answer}).
+C'est une sous-classe de \lct{MyDisplay}.
 \end{itemize}
 
-\dothis{Define \ct{MyRPNWidget} in the category \ct{MyCalculator}.
-Define the common \ct{style} for the application.}
+\dothis{Définissez la classe \ct{MyRPNWidget} \arevoir{dans la catégorie
+    \ct{MyCalculator}}. % REVOIR - martial - je pense qu'il faudrait
+                        % faire un paquetage avec les deux catégories
+                        % Core pour MyStackMachine et Display pour
+                        % MyRPNWidget etc
+Définissez le \ct{style} commun pour l'application.}
 
-Here is a minimal CSS for the application.
-You can make it more fancy if you like.
+Voici une feuille de style CSS minimale pour l'application.
+Vous pourrez à loisir la rendre plus chic si vous voulez.
 \begin{code}{}
 MyRPNWidget>>>style
 	^ 'table.keypad { float: left; }
@@ -1594,50 +1657,78 @@ td.stackcell {
 td.small { font-size: 8pt; }'
 \end{code}
 
-\dothis{Define \ct{MyCalculator} to be a root component and register itself as an application (\ie implement \ct{canBeRoot} and \ct{initialize} on the class side).
-Implement \ct{MyCalculator>>>renderContentOn:} to render something trivial (such as its name), and verify that the application runs in a browser.
-}
+\dothis{Définissez la classe \ct{MyCalculator} de façon à être un
+  composant racine et enregistrez le en tant qu'application Seaside
+(autrement dit, implémentez \ct{canBeRoot} et la méthode de classe
+\ct{initialize}).
+Commencez à implémenter la méthode
+\ct{MyCalculator>>>renderContentOn:} pour faire le rendu de quelque
+chose de simple comme, par exemple, afficher le nom de l'application
+et vérifiez que l'application tourne correctement dans un navigateur
+web.}
 
-\ct{MyCalculator} is responsible for instantiating \ct{MyStackMachine}, \ct{MyKeypad} and \ct{MyDisplay}.
+\ct{MyCalculator} est responsable de l'instanciation des classes \ct{MyStackMachine}, \ct{MyKeypad} et \ct{MyDisplay}.
 
-\dothis{
-Define \ct{MyKeypad} and \ct{MyDisplay} as subclasses of \lct{MyRPNWidget}.
-All three components will need access to a common instance of the stack machine, so define the instance variable \ct{stackMachine} and an initialization method \ct{setMyStackMachine:} in the common parent, \ct{MyRPNWidget}.
-Add instance variables \ct{keypad} and \ct{display} to \ct{MyCalculator} and initialize them in \ct{MyCalculator>>>initialize}.
-(Don't forget to send \lct{super initialize}!)}
+\dothis{%
+Définissez \ct{MyKeypad} et \ct{MyDisplay} comme sous-classes
+de \lct{MyRPNWidget}.
+Tous ces trois composants auront besoin d'accéder à une instance
+commune de la machine à pile; définissez donc la variable d'instance 
+\ct{stackMachine} et une méthode d'initialisation
+\ct{setMyStackMachine:} dans la classe mère \ct{MyRPNWidget}.
+Ajoutez les variables d'instance \ct{keypad} et \ct{display} à la
+classe \ct{MyCalculator} et initialisez-les dans
+\ct{MyCalculator>>>initialize} (sans oublier d'envoyer 
+ \lct{super initialize}).}
 
-\dothis{
-Pass the shared instance of the stack machine to the keypad and the display in the same initialize method.
-Implement \ct{MyCalculator>>>renderContentOn:} to simply render in turn the keypad and the display.
-To correctly display the subcomponents, you must implement \ct{MyCalculator>>>children} to return an array with the keypad and the display.
-Implement placeholder rendering methods for the keypad and the display and verify that the calculator now displays its two subcomponents.
-}
+\dothis{%
+Passez l'instance partagée de la machine à pile à l'objet \ct{keypad}
+et à l'objet \ct{display} dans la même méthode
+\ct{MyCalculator>>>initialize}.
+Implémentez \ct{MyCalculator>>>renderContentOn:} de façon à faire le
+rendu des instances \ct{keypad} et \ct{display}.
+Pour afficher correctement les sous-composants, vous devez coder la
+méthode \ct{MyCalculator>>>children} de manière à retourner un tableau
+avec \ct{keypad} et \ct{display}.
+Implémentez une méthode de rendu quelconque,
+% ajout - vf
+par exemple pour afficher un texte ordinaire,
+pour le \ct{keypad} et le \ct{display} et vérifiez que l'application
+calculatrice affiche ces deux sous-composants.}
 
 %\ab{Too long!}
 
-Now we will change the implementation of the display to show the top value of the stack.
+Maintenant nous allons changer l'implémentation du \ct{display} pour
+afficher la valeur du sommet de la pile.
 
-\dothis{
-Use a table with class ``keypad'' containing a row with a single table data cell with class ``stackcell''.
-Change the rendering method of the keypad to ensure that the number 0 is pushed on the stack in case it is empty.
-(Define and use \ct{MyKeypad>>>ensureMyStackMachineNotEmpty}.)
-Also make it display an empty table with class ``keypad''.
-Now the calculator should display a single cell containing the value 0.
-If you toggle the halos, you should see something like this:
-}
+\dothis{%
+Utilisez une table HTML avec la classe ``keypad'' contenant une ligne
+avec une seule cellule de classe ``stackcell''
+% ajout - vf - martial - plus clair comme ça:
+dans \ct{MyDisplay>>>renderContentOn:}.
+Changez maintenant la méthode de rendu de \ct{keypad} pour que le
+nombre \ct{0} soit mis sur la pile dans le cas où celle-ci est vide
+%Change the rendering method of the keypad to ensure that the number 0 is pushed on the stack in case it is empty.
+(définissez et utilisez \ct{MyKeypad>>>ensureMyStackMachineNotEmpty}).
+Faites en sorte que \ct{keypad} affiche un table vide de classe
+``keypad''.
+Le calculateur devrait afficher une seule cellule contenant la valeur
+0.
+Si vous activez les halos, vous devriez voir quelque chose comme suit:}
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{firstStackDisplay}
-\caption{Displaying the top of the stack}
+\caption{Affichage du sommet de la pile.}
 \figlabel{firstStackDisplay}
 \end{center}
 \end{figure}
 
-Now let's implement an interface to interact with the stack.
+Implémentons désormais une interface pour interagir avec la pile.
 
 \dothis{
-First define the following helper methods, which will make it easier to script the interface:
+Définissez tout d'abord les méthodes adjointes facilitant l'écriture
+de l'interface:
 }
 
 \needlines{3}
@@ -1662,13 +1753,21 @@ MyKeypad>>>renderStackButton: text callback: aBlock on: html
 		on: html
 \end{code}
 
-We will use these two methods to define the buttons on the keypad with appropriate \callbacks.
-Certain buttons may span multiple columns, but the default is to occupy just one column.
+Nous utiliserons ces deux méthodes pour définir les boutons du
+\ct{keypad} avec les \callbacks appropriés.
+Certains boutons peuvent s'étaler sur plusieurs colonnes
+% ajout - vf
+(avec \ct{colSpan:}) mais, par défaut, ils occupent une seule colonne.
 
-\dothis{
-Use the two helper methods to script the keypad as follows:
-(Hint: start by getting the digit and ``Enter'' keys working, then the arithmetic operators.)
-}
+\dothis{%
+Utiliser ces deux méthodes pour écrire le \ct{keypad} comme suit
+(une astuce: commencez par faire en sorte que les chiffres et du bouton
+``Enter'' fonctionnent 
+% ajout - vf
+\arelire{(en laissant la méthode \ct{setClearMode})} % REVOIR -
+                                % martial - à reporter dans la VO
+                                % parce que pas gagné! 
+avant de vous attardez aux opérateurs arithmétiques):}
 
 \needlines{4}
 \begin{code}{}
@@ -1689,7 +1788,7 @@ MyKeypad>>>renderContentOn: html
           self renderStackButton: '3' callback: [self type: '3'] on: html.
           self renderStackButton: 'Drop' callback: [self stackOp: #pop]
           	colSpan: 2 on: html ].
-" and so on ... "
+" et ainsi de suite ... "
         html tableRow: [
           self renderStackButton: '0' callback: [self type: '0'] colSpan: 2 on: html.
           self renderStackButton: 'C' callback: [self stackClearTop] on: html.
@@ -1698,19 +1797,26 @@ MyKeypad>>>renderContentOn: html
 			colSpan: 2 on: html ]]
 \end{code}
 
-Check that the keypad displays properly.
-If you try to click on the keys, however, you will find that the calculator does not work yet ...
+Vérifiez que le \ct{keypad} s'affiche proprement.
+Si vous essayez de cliquer sur les boutons, vous verrez que la
+calculatrice ne marche pas encore\ldots{}
 
-\dothis{
-Implement \ct{MyKeypad>>>type:} to update the top of the stack by appending the typed digit.
-You will need to convert the top value to a string, update it, and convert it back to an integer, something like this:
-}
+\dothis{%
+Implémentez \ct{MyKeypad>>>type:} pour mettre à jour le sommet de la
+pile en annexant les chiffres saisis.
+Vous aurez besoin de convertir la valeur du sommet de la pile en
+chaîne de caractères, la mettre à jour
+% ajout - vf
+en la concatenant avec l'argument de \ct{type:} et la convertir enfin
+en entier, en faisant de la sorte:}
 \begin{code}{}
 MyKeypad>>>type: aString
 	stackMachine push: (stackMachine pop asString, aString) asNumber.
 \end{code}
-Now when you click on the digit keys the display should be updated.
-(Be sure that \ct{MyStackMachine>>>pop} returns the value popped, or this will not work!)
+Lorsque vous cliquez sur les boutons-chiffre, l'affichage devrait être
+mis à jour
+(soyez donc sûr que la méthode \ct{MyStackMachine>>>pop} retourne la
+valeur sortie de la pile, sinon ça ne marchera pas!).
 
 
 \dothis{Now we must implement \ct{MyKeypad>>>stackOp:}
@@ -1721,52 +1827,90 @@ MyKeypad>>>stackOp: op
 	[ stackMachine perform: op ] on: AssertionFailure do: [ ].
 \end{code}
 
-The point is that we are not sure that all operations will succeed, for example, addition will fail if we do not have two numbers on the stack.
-For the moment we can just ignore such errors.
-If we are feeling more ambitious later on, we can provide some user feedback in the error handler block.
+Nous ne sommes pas sûrs du succès de toutes les opérations. Par
+exemple, une addition peut échouer si nous n'avons pas deux nombres
+sur la pile.
+Pour l'instant, nous pouvons simplement ignorer de telles erreurs.
+\arelire{%
+Si nous nous sentons plus ambitieux plus tard, nous pourrons ajouter
+un retour informatif à l'utilisateur dans un bloc de gestion d'erreur.}
+%If we are feeling more ambitious later on, we can provide some user feedback in the error handler block.
 
-\dothis{The first version of the calculator should be working now.
-Try to enter some numbers by pressing the digit keys, hitting \menu{Enter} to push a copy of the current value, and entering \menu{+} to sum the top two values.}
+\dothis{La première version de la calculatrice devrait fonctionner
+  maintenant. Essayez d'entrer des nombres en cliquant sur les
+  boutons-chiffre, puis
+cliquez sur \menu{Enter} pour dupliquer la valeur actuelle, et cliquez
+enfin sur \menu{+} pour faire l'addition de ces deux valeurs.}
 
-You will notice that typing digits does not behave the way you might expect.
-Actually the calculator should be aware of whether you are typing a \emph{new} number, or appending to an existing number.
+Vous remarquerez que la saisie des chiffres ne se passent pas comme
+prévu.
+En fait, la calculatrice devrait savoir si vous saisissez un
+\emph{nouveau} nombre ou que vous complétez une nombre existant.
 
-\dothis{Adapt \ct{MyKeypad>>>type:} to behave differently depending on the current typing mode.
-Introduce an instance variable \ct{mode} which takes on one of the three values \lct{typing} (when you are typing), \lct{push} (after you you have performed a calculator operation and typing should force the top value to be pushed), or \lct{clear} (after you have performed \menu{Enter} and the top value should be cleared before typing).
-The new \ct{type:} method might look like this:
-}
+\dothis{Adaptez la méthode \ct{MyKeypad>>>type:} pour se comporter
+  différemment suivant le mode actuel de saisie.
+Introduisez une variable d'instance \ct{mode} pouvant prendre trois
+valeurs \lct{\#typing} (lorsque vous saisissez), \lct{\#push} (après que
+vous ayez effectué une opération de calcul \arevoir{et que la saisie
+  devrait forcer l'entrée de la valeur sur la pile}) 
+%after you have performed a calculator operation and typing should
+%force the top value to be pushed)
+ou \lct{\#clear} (après que vous ayez cliqué sur le bouton \menu{Enter}
+et que \arevoir{le sommet de la pile devrait se mettre dans l'état
+  initial avant la prochaine saisie}).
+% and the top value should be cleared before typing).
+La nouvelle méthode \ct{type:} pourrait ressembler à ceci:}
 
+\tradalert{martial}{pour TODO-cb, type: devrait utiliser
+  "stackMachine dup." au lieu de "stackMachine push: stackMachine
+  top."; j'ai déjà changé en prévision...}
 \begin{code}{}
 MyKeypad>>>type: aString
 	self inPushMode ifTrue: [
-		stackMachine push: stackMachine top.
+		stackMachine dup.
 		self stackClearTop ].
 	self inClearMode ifTrue: [ self stackClearTop ].
 	stackMachine push: (stackMachine pop asString, aString) asNumber.
-\end{code}
+\end{code} % ATTENDRE
 
-Typing might work better now, but it is still frustrating not to be able to see what is on the stack.
+La saisie devrait mieux fonctionner maintenant mais le fait de ne
+pouvoir voir la pile intégralement est frustrant.
+%Typing might work better now, but it is still frustrating not to be able to see what is on the stack.
 
-\dothis{
-Define \ct{MyDisplayStack} as a subclass of \ct{MyDisplay}.
-Add a button to the rendering method of \ct{MyDisplay} which will call a new instance of \ct{MyDisplayStack}.
-You will need an html anchor that looks something like this:
-}
+\dothis{%
+Définissez la classe \ct{MyDisplayStack} comme une sous-classe de
+\ct{MyDisplay}. Ajoutez un bouton dans la méthode de rendu de
+\ct{MyDisplay} qui appelera une nouvelle instance de
+\ct{MyDisplayStack}.
+Vous aurez besoin d'un lien HTML (ou \emph{anchor}) ressemblant à ceci:}
 
 \begin{code}{}
 html anchor
-	callback: [ self call: (MyDisplayStack new setMyStackMachine: stackMachine)];
+	callback: [ self call: (MyDisplayStack new setStackMachine: stackMachine)];
 	with: 'open'
 \end{code}
+% ATTENDRE setMyStackMachine: dans la VO, setStackMachine c'est plus
+% logique
 
-The callback will cause the current instance of \ct{MyDisplay} to be temporarily replaced by a new instance of \ct{MyDisplayStack} whose job it is to display the complete stack.
-When this component signals that it is done (\ie by sending \ct{self answer}), then control will return to the original instance of \ct{MyDisplay}.
+Le \callback{} entraînera le remplacement temporaire de l'actuelle
+instance de \ct{MyDisplay} en une nouvelle instance de la classe
+\ct{MyDisplayStack} dont le travail consiste à afficher la pile
+entière.
+Lorsque ce composant signale que le travail est fini (en envoyant
+\ct{self answer}), l'instance originel de \ct{MyDisplay} reviendra
+dans le \arelire{flux}.
+%then control will return to the original instance of \ct{MyDisplay}.
 
-\dothis{
-Define the rendering method of \ct{MyDisplayStack} to display all of the values on the stack.
-(You will either need to define an accessor for the stack machine's \ct{contents} or you can define \ct{MyStackMachine>>>do:} to iterate over the stack values.)
-The stack display should also have a button labelled ``close'' whose callback will simply perform \ct{self answer}.
-}
+\dothis{%
+Définissez la méthode de rendu de la classe \ct{MyDisplayStack} pour
+qu'elle affiche \arelire{toutes les valeurs sur la pile
+(vous aurez besoin de définir soit un accesseur \ct{contents} pour
+atteindre le contenu de la machine à pile, soit une méthode
+\ct{MyStackMachine>>>do:} pour itérer sur les valeurs de la pile)}.
+L'interface de la pile devra aussi proposer un bouton ``close'' dont
+le \callback{} effectuera simplement en \ct{self answer}.}
+%The stack display should also have a button labelled ``close'' whose callback will simply perform \ct{self answer}.
+
 
 \begin{code}{}
 html anchor
@@ -1774,24 +1918,31 @@ html anchor
 	with: 'close'
 \end{code}
 
-Now you should be able to \emph{open} and \emph{close} the stack while you are using the calculator.
+Vous devriez maintenant être capable de ouvrir (avec \menu{open}) et de
+fermer (avec \menu{close}) l'interface \ct{display} de la pile durant
+l'utilisation de la calculatrice.
+%Now you should be able to \emph{open} and \emph{close} the stack while you are using the calculator.
 
-There is, however, one thing we have forgotten.
-Try to perform some operations on the stack.
-Now use the ``back'' button of your browser and try to perform some more stack operations.
-(For example, \menu{open} the stack, type \menu{1}, \menu{Enter} twice and \menu {+}.
-The stack should display ``2'' and ``1''.
-Now hit the ``back'' button.
-The stack now shows three times ``1'' again.
-Now if you type \menu{+} the stack shows ``3''.
-Backtracking is not yet working.
+Il y a cependant une chose que nous avons oubliée.
+Essayez d'effectuer des opérations sur la pile.
+Utilisez maintenant le bouton \backbtn{} de votre navigateur web et
+essayez encore d'effectuer des opérations sur la pile (\parex
+ouvrez la pile, saisissez \menu{1} une fois et \menu{Enter} deux fois
+puis \menu{+}. La pile devrait afficher ``2'' et ``1''. Cliquez
+maintenant sur la bouton \backbtn. La pile montre encore trois fois
+``1''. Mais si vous cliquez sur \menu{+}, la pile affichera ``3''
+% ajout - vf
+au lieu de ``2''. Le \backtracking{} ne marche pas encore).
 
-\dothis{
-Implement \ct{MyCalculator>>>states} to return the contents of the stack machine.
-Check that backtracking now works correctly!
-}
+\dothis{%
+Codez la méthode \ct{MyCalculator>>>states} pour retourner 
+% ajout - vf
+un tableau contenant
+le contenu \ct{contents} de la machine de pile.
+Vérifiez que le \backtracking{} fonctionne correctement désormais!}
 
-Sit back and enjoy a tall glass of something cool!
+Détendez-vous et prenez un rafraîchissant: vous l'avez bien mérité!
+%Sit back and enjoy a tall glass of something cool!
 
 %=================================================================
 \section{Un bref coup d'\oe il sur la technologie AJAX}

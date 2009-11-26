@@ -159,4 +159,10 @@ relecteurs); \localcode pour faire un \input selon la langue
 - The Sushi Store -> l'application ``Sushi Store'' (pour garder la
 cohérence avec les autres applications déclarées entre guillements);
 traduisible par ``restaurant de sushis en ligne''; store -> boutique
-- workflow -> modélisation de tâches (ou \emph{workflow})
+- workflow -> "modélisation de tâches (ou \emph{workflow})" dans
+certains cas, "séquence de tâches" dans d'autres
+- calculator RPN -> une calculatrice RPN
+- top of the stack -> sommet de la pile
+- key (pour l'application RPN Calculator) -> bouton (plutôt que
+touche)
+- 
