@@ -1381,8 +1381,8 @@ présente la modélisation des tâches suivante:
   \item Ajouter un sushi à votre panier (ou \emph{shopping cart}).
   \item Valider (\emph{checkout}).
   \item Vérifier votre ordre.
-  \item Entrer une addresse d'expédition.
-  \item Vérifier une addresse d'expédition.
+  \item Entrer une adresse d'expédition.
+  \item Vérifier une adresse d'expédition.
   \item Entrer les informations de paiement.
   \item Votre poisson cru est en route!
 \end{enumerate}
@@ -1491,7 +1491,7 @@ générer une erreur en cliquant sur \button{ok}.}
 Voyons comment nous pouvons construire une application Seaside
 complète de zéro\footnote{L'exercice devrait vous prendre deux bonnes
   heures. Si vous préférez simplement regarder le code source final,
-  vous pouvez le récupérer depuis le projet SqueakSource à l'addresse:
+  vous pouvez le récupérer depuis le projet SqueakSource à l'adresse:
  \url{http://www.squeaksource.com/PharoByExample}. \scat{PBE-SeasideRPN}
  est le paquetage à charger. Le tutoriel utilise des noms de classe
  légèrement différents ainsi vous pourrez comparer votre
@@ -1949,26 +1949,57 @@ Détendez-vous et prenez un rafraîchissant: vous l'avez bien mérité!
 
 % Original text by Lukas Renggli
 
-\ind{AJAX} (Asynchronous \ind{JavaScript} and \ind{XML}) is a technique to make web applications more interactive by exploiting JavaScript functionality on the client side.
+\ind{AJAX} (Asynchronous \ind{JavaScript} and \ind{XML}) est une
+technique pour créer des applications web plus interactive en
+exploitant les fonctionalités offertes par \jscript du côté client.
 
-Two well-known JavaScript libraries are \ind{Prototype} (\url{http://www.prototypejs.org}) and \ind{script.aculo.us} (\url{http://script.aculo.us}).
-Prototype provides a framework to ease writing JavaScript.
-script.aculo.us provides some additional features to support animations and drag-and-drop on top of Prototype.
-Both frameworks are supported in Seaside through the package ``Scriptaculous''.
+Deux bibliothèques \jscript{} populaires sont \ind{\pjs}\footnote{\url{http://www.prototypejs.org}.} et \ind{\sau}\footnote{\url{http://script.aculo.us}.}.
 
-All ready-made images have the Scriptaculous package extensions already loaded.
-The latest version is available from \url{http://www.squeaksource.com/Seaside}.
-An online demo is available at \url{http://scriptaculous.seasidehosting.st}.
-Alternatively, if you have a enabled image running, simply go to \url{http://localhost:8080/seaside/tests/scriptaculous}.
 
-The Scriptaculous extensions follow the same approach as Seaside itself\,---\,simply configure Smalltalk objects to model your application, and the needed Javascript code will be generated for you.
+%Prototype provides a framework to ease writing JavaScript.
+% CHANGE - retrait - vf - martial: phrase non traduite parce que redondant
+\sau{} étend la librairie \pjs{} en ajoutant des fonctionnalités pour
+l'animation et le glissé-déposé (\emph{drag-and-drop}).
+%script.aculo.us provides some additional features to support
+%animations and drag-and-drop on top of Prototype.
+Ces deux bibliothèques sont incluses dans Seaside via la paquetage
+\scat{Scriptaculous}.
 
-Let us look at a simple example of how client-side Javascript support can make our RPN calculator behave more naturally.
-Currently every keystroke to enter a digit generates a request to refresh the page.
-We would like instead to handle editing of the display on the client-side by updating the display in the existing page.
+Toutes les images prêtes à l'emploi ont ce paquetage déjà chargé. La
+dernière version est disponible sur
+\url{http://www.squeaksource.com/Seaside}.
+Une démo en ligne est visible à l'adresse 
+\url{http://scriptaculous.seasidehosting.st}.
+Si vous avez une image actuellement lancée, pointez tout simplement
+votre navigateur web sur la page
+\url{http://localhost:8080/seaside/tests/scriptaculous}.
 
-\dothis{To address the display from JavaScript code we must first give it a unique id.
-Update the calculator's rendering method as follows:\footnote{If you have not implemented the tutorial example yourself, you can simply load the complete example (PBE-SeasideRPN) from \url{http://www.squeaksource.com/PharoByExample} and apply the suggested changes to the classes \ct{RPN*} instead of \ct{My*}.}}
+Les extensions \sau{} suivent la même approche que Seaside
+lui-même\,---\,configurez des objets Smalltalk pour modéliser votre
+application et le code \jscript{} nécessaire sera généré pour vous.
+
+Jetons un \oe il sur un simple exemple pour voir comment le support
+\jscript{} côté client peut rendre le réactivité de notre calculatrice
+RPN plus naturelle.
+%of how client-side Javascript support can make our RPN calculator behave more naturally.
+Actuellement tout clic sur un chiffre entraîne une requête pour
+rafraîchir la page. Nous aimerions plutôt gérer l'édition de
+l'affichage côté client en mettant à jour l'affichage 
+% ajout - vf (plus clair)
+de la partie \ct{display}
+de la page existante.
+%We would like instead to handle editing of the display on the client-side by updating the display in the existing page.
+
+\dothis{Pour pouvoir communiquer depuis \jscript{} avec des éléments
+  précis de l'interface, nous devons tout d'abord donner à ces
+  éléments un attribut \emph{id} unique.
+%To address the display from JavaScript code we must first give it a unique id.
+Changez la méthode de rendu de la calculatrice\footnote{Si
+  vous n'avez pas implémenté le tutoriel vous-même, vous pouvez \aretirer{%
+  télécharger l'exemple complet \scat{PBE-SeasideRPN} depuis
+  \url{http://www.squeaksource.com/PharoByExample} et} appliquer les
+modifications suggérées aux classes en \ct{RPN*} au lieu des classes
+en \ct{My*}.} comme suit:}
 
 \begin{code}{}
 MyCalculator>>>renderContentOn: html
@@ -1976,9 +2007,20 @@ MyCalculator>>>renderContentOn: html
 	html div id: 'display'; with: display.	
 \end{code}
 				
-\dothis{To be able to re-render the display when a keyboard button is pressed, the keyboard needs to know the display component.
-Add a \ct{display} instance variable to \ct{MyKeypad}, an initialize method \ct{MyKeypad>>>setDisplay:}, and call this from \ct{MyCalculator>>initialize}.
-Now we are able to assign some JavaScript code to the buttons by updating \ct{MyKeypad>>>renderStackButton:callback:colSpan:on:} as follows:}
+\dothis{%
+% martial - confusion keyboard et keypad dans la version de Lukas -
+% REVOIR à signaler dans TODO-cb
+Pour pouvoir refaire le rendu du \ct{display} lorsqu'un bouton du
+\ct{keypad} est pressé, le composant \ct{keypad} a besoin de connaître
+le composant \ct{display}.
+%To be able to re-render the display when a keyboard button is
+%pressed, the keyboard needs to know the display component.
+Ajoutez une variable d'instance \ct{display} à la classe \ct{MyKeypad}
+et une méthode d'initialisation \ct{MyKeypad>>>setDisplay:} et
+utilisez-la dans la méthode \ct{MyCalculator>>initialize}.
+Nous sommes maintenant capable d'adjoindre du code \jscript aux
+boutons en mettant à jour
+\ct{MyKeypad>>>renderStackButton:callback:colSpan:on:} comme suit:}
 
 \begin{code}{}
 MyKeypad>>>renderStackButton: text callback: aBlock colSpan: anInteger on: html 
@@ -1988,7 +2030,7 @@ MyKeypad>>>renderStackButton: text callback: aBlock colSpan: anInteger on: html
 		with: [
 			html anchor
 				callback: aBlock;
-				onClick:				"handle Javascript event"
+				onClick:				"!gère! les !événements! JavaScript"
 					(html updater
 						id: 'display';
 						callback: [ :r |
@@ -1998,28 +2040,55 @@ MyKeypad>>>renderStackButton: text callback: aBlock colSpan: anInteger on: html
 				with: [ html html: text ] ]
 \end{code}
 
-\mthind{WATagBrush}{onClick:} specifies a \ind{JavaScript} event handler.
-\ct{html updater} returns an instance of \ct{SUUpdater}, a Smalltalk object representing the JavaScript Ajax.Updater object (\url{http://www.prototypejs.org/api/ajax/updater}).
-This object performs an AJAX request and updates a container's contents based on the response text.
-\ct{id:} tells the updater what XHTML DOM element to update, in this case the contents of the div element with the id 'display'.
-\ct{callback:} specifies a block that is triggered when the user presses the button.
-The block argument is a new renderer \ct{r}, which we can use to render the display component.
-(Note: Even though html is still accessible, it is not valid anymore at the time this callback block is evaluated).
-Before rendering the display component we evaluate \ct{aBlock} to perform the desired action.
+\mthind{WATagBrush}{onClick:} indique une gestionnaire d'événements
+\ind{\jscript}.
+%\ind{JavaScript} event handler.
+\ct{html updater} renvoie un \updater \ie une instance de
+\ct{SUUpdater}, un objet Smalltalk représentant l'objet JavaScript
+Ajax.Updater (\url{http://www.prototypejs.org/api/ajax/updater}).
+Cet objet fait une requête AJAX et met à jour, par le texte en
+réponse, le contenu d'un conteneur.
+%updates a container's contents based on the response text.
+Le message \ct{id:} dit à l'\updater quel élément DOM XHTML mettre à jour; ici,
+il s'agit du contenu de l'élément \emph{div} d'attribut \emph{id}
+``display''.
+Un bloc est passé en argument à \ct{callback:} pour se déclencher
+quand l'utilisateur cliquera sur le bouton.
+L'argument de bloc \ct{r} est \arelire{une nouvelle inteface de rendu ou
+  \emph{renderer}} qui peut être utilisé pour le rendu du composant
+\ct{display}
+(remarquez que \arelire{même si le code HTML est toujours accessible,
+  il n'est plus valide au moment où ce \callback est évalué}).
+%(Even though html is still accessible, it is not valid anymore at the
+%time this callback block is evaluated).
+Avant de faire le rendu du composant \ct{display}, nous évaluons
+\ct{aBlock} pour effectuer l'action désirée.
 
-\ct{return: false} tells the JavaScript engine to not trigger the original link callback, which would cause a full refresh.
-We could instead remove the original anchor \ct{callback:}, but like this the calculator will still work even if JavaScript is disabled.
+\ct{return: false} interdit au moteur \jscript de déclencher le
+\callback d'origine du lien, ce qui engendrerait un rafraîchissement
+complet. %JavaScript engine
+Nous pouvons aussi retirer l'ancre d'origine \ct{callback:}, mais en
+le laissant, nous sommes sûrs que la calculatrice marchera même si le
+\jscript est désactivé.
 
-\dothis{Try the calculator again, and notice how a full page refresh is triggered every time you press a digit key. (The URL of the web page is updated at each keystroke.)}
+\dothis{Essayez la calculatrice à nouveau et remarquez que le
+  rafraîchissement complet de la page se produit toujours lorsque vous
+  cliquez sur un chiffre du \ct{keypad} (autrement dit, l'URL de la
+  page web change à chaque clic).}
 
-Although we have implemented the client-side behavior, we have not yet activated it.
-Now we will enable the Javascript event handling.
+Bien que nous ayons bien implémenté le comportement du côté client,
+nous ne l'avons pas encore activé.
+Nous devons donc permettre la gestion des événements \jscript.
 
-\dothis{
-Click on the \link{Configure} link in the toolbar of the calculator.
-Select ``Add Library:'' \ct{SULibrary}, click the \button{Add} button and \button{Close}.}
+\dothis{%
+Cliquez sur le lien \link{Configure} dans la \toolbar de la
+calculatrice.
+Sélectionnez ``Add Library:'' \ct{SULibrary} (pour configurer l'ajout de la
+bibliothèque \ct{SULibrary}) et cliquez sur \button{Add} puis
+\button{Close}.}
 
-Instead of manually adding the library, you may also do it programmatically when you register the application:
+Vous pouvez aussi ajouter la bibliothèque de manière programmatique
+(plutôt que manuellement) lorsque vous enregistrez l'application:
 \begin{code}{}
 MyCalculator class>>>initialize
 	(self registerAsApplication: 'rpn')
@@ -2029,18 +2098,25 @@ MyCalculator class>>>initialize
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\textwidth]{ajax-processing}
-\caption{Seaside AJAX processing (simplified)}
+\caption{Diagramme de séquences simplifié des interactions AJAX dans notre application Seaside.}
+%\caption{Seaside AJAX processing (simplified)}
 \figlabel{ajax-processing}
 \end{center}
 \end{figure}
 
-\dothis{Try the revised application.  Note that the feedback is much more natural. In particular, a new URL is not generated with each keystroke.}
+\dothis{Essayez l'application revisitée. 
+Notez que la réponse est beaucoup plus naturelle. En particulier,
+aucune nouvelle URL n'est générée lors du clic.}
 
-You may well ask, \emph{yes, but how does this work?}
-\figref{ajax-processing} shows how the RPN applications would both without and with AJAX.
-Basically AJAX short-circuits the rendering to \emph{only} update the display component.
-Javascript is responsible both for triggering the request and updating the corresponding DOM element.
-Have a look at the generated source-code, especially the JavaScript code:
+Vous devez vous demander: ``oui mais, comment ça marche?''.
+%You may well ask, \emph{yes, but how does this work?}
+\Figref{ajax-processing} montre comment les deux versions\,---\,avec et
+sans AJAX\,---\,de l'application RPN (avec et sans AJAX) fonctionnent.
+AJAX court-circuite simplement le rendu de façon à mettre à jour le
+composant \ct{display} \emph{uniquement}. 
+\jscript est responsable à la fois du déclenchement de la requête et
+de la mise à jour de l'élément DOM correspondant.
+Regardons le code source généré, principalement le code \jscript.
 
 \begin{code}{}
 new Ajax.Updater(
@@ -2051,24 +2127,46 @@ new Ajax.Updater(
 return false
 \end{code}
 
-For more advanced examples, have a further look at \url{http://localhost:8080/seaside/tests/scriptaculous}.
+Pour des exemples plus avancés, nous vous invitons à visiter la page
+\url{http://localhost:8080/seaside/tests/scriptaculous} avec votre
+navigateur web.
 
 \paragraph{\emph{Astuces.}}
-In case of server side problems use the Smalltalk debugger.
-In case of client side problems use FireFox (\url{http://www.mozilla.com}) with the JavaScript debugger FireBug (\url{http://www.getfirebug.com/}) plugin enabled.
+En cas de soucis du côté serveur, servez-vous du débogueur
+Smalltalk. Pour parer aux problèmes côté client, utiliser FireFox
+(\url{http://www.mozilla.com}) et FireBug, son débogueur \jscript
+(\url{http://www.getfirebug.com/}) en \emph{plugin}.
 
 %=================================================================
 \section{Résumé du chapitre}
 
+% ajout - vf (martial: impression de bacler (11/2009): il y a bcp de
+% copier-coller dans la VO)
+Nous avons vu que:
+
 \begin{itemize}
-  \item The easiest way to get started is to download the ``Seaside One-Click Experience'' from \url{http://seaside.st}
-  \item Turn the server on and off by evaluating \ct{WAKom startOn: 8080} and \ct{WAKom stop}.
-  \item Reset the administrator login and password by evaluating \ct{WADispatcherEditor initialize}.
-  \item \menu{Toggle Halos} to directly view application source code, run-time objects, CSS and XHTML.
-  \item Send \ct{WAGlobalConfiguration setDeploymentMode} to hide the toolbar.
-  \item Seaside web applications are composed of components, each of which is an instance of a subclass of \ct{WAComponent}.
-  \item Only a root component may be registered as a component. It should implement \ct{canBeRoot} on the class side. Alternatively it may register itself as an application in its class-side \ct{initialize} method by sending \ct{self registerAsApplication:} \emph{application path}.
-  If you override \ct{description} it is possible to return a descriptive application name that will be displayed in the configuration editor.
+  \item La façon la plus simple de commencer avec Seaside est de
+    télécharger le programme ``Seaside One-Click Experience'' sur
+    \url{http://seaside.st};
+  \item Lancer ou arrêter le serveur se fait en évaluant \ct{WAKom startOn: 8080} 
+ou \ct{WAKom stop} respectivement;
+  \item Changer le \emph{login} et mot de passe de l'administrateur
+    peut se faire en évaluant \ct{WADispatcherEditor initialize};
+  \item \menu{Toggle Halos} permet de visualiser directement le code
+    source de l'application, les objets à l'exécution, les feuilles de
+    style CSS et le code XHTML;
+  \item Envoyer \ct{WAGlobalConfiguration setDeploymentMode} masque la
+    \toolbar.
+  \item Les applications web Seaside sont composées de composants,
+    chacun étant une sous-classe de \ct{WAComponent};
+  \item Seul un composant racine (\emph{Root Component}) peut être
+    enregistré comme application. 
+Il devrait implémenter la méthode de classe \ct{canBeRoot}. Il est
+possible d'enregistrer le composant comme application dans la
+méthode de classe \ct{initialize} en envoyant
+\ct{self registerAsApplication:} \emph{chemin de l'application}.
+Si vous surchargez \ct{description}, il est possible de retourner 
+% it is possible to return a descriptive application name that will be displayed in the configuration editor.
   \item To backtrack state, a component must implement the \ct{states} method to answer an array of objects whose state will be restored if the user clicks the browser's ``back'' button.
   \item A component renders itself by implementing \ct{renderContentOn:}.
   The argument to this method is an XHTML rendering \emph{canvas} (usually called \ct{html}).
