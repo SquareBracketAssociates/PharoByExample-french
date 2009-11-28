@@ -94,35 +94,36 @@
 \setboolean{deployment}{false}  % true pour enlever les couleurs et
                                 % annotations de traduction
 \newcommand{\ifluluelse}[2]{\ifthenelse{\boolean{lulu}}{#1}{#2}}
-\newcommand{\ifdeploy}[1]{\ifthenelse{\boolean{deployment}}{#1}{}}
+\newcommand{\ifdeploy}[1]{\ifthenelse{\boolean{deployment}}{#1}{}}      % vf only
+\newcommand{\newalias}[2]{\newcommand{#1}{#2\xspace}}              % vf only 
 %=============================================================
 %:Names
-\newcommand{\SUnit}{SUnit\xspace}
-\newcommand{\sunit}{SUnit\xspace}
-\newcommand{\xUnit}{$x$Unit\xspace}
-\newcommand{\JUnit}{JUnit\xspace}
-%\newcommand{\XP}{eXtreme Programming\xspace}
-\newcommand{\st}{Smalltalk\xspace}
-\newcommand{\pharo}{Pharo\xspace} % utilisé \pharo et non \Pharo
-\newcommand{\sqsrc}{SqueakSource\xspace}
-\newcommand{\sqmap}{SqueakMap\xspace}
-\newcommand{\squeak}{Squeak\xspace}
-%\newcommand{\sbe}{\url{scg.unibe.ch/SBE}\xspace}
-%\newcommand{\sbe}{\url{squeakbyexample.org}\xspace}
-\newcommand{\sbe}{\url{http://SqueakByExample.org}\xspace}
+\newalias{\SUnit}{SUnit}
+\newalias{\sunit}{SUnit}
+\newalias{\xUnit}{$x$Unit}
+\newalias{\JUnit}{JUnit}
+%\newalias{\XP}{eXtreme Programming}
+\newalias{\st}{Smalltalk}
+\newalias{\pharo}{Pharo} % utilisé \pharo et non \Pharo
+\newalias{\sqsrc}{SqueakSource}
+\newalias{\sqmap}{SqueakMap}
+\newalias{\squeak}{Squeak}
+%\newalias{\sbe}{\url{scg.unibe.ch/SBE}}
+%\newalias{\sbe}{\url{squeakbyexample.org}}
+\newalias{\sbe}{\url{http://SqueakByExample.org}}
 % pharo
-\newcommand{\pharoweb}{\url{http://pharo-project.org}\xspace}
-\newcommand{\pbe}{\url{http://PharoByExample.org}\xspace}
+\newalias{\pharoweb}{\url{http://pharo-project.org}}
+\newalias{\pbe}{\url{http://PharoByExample.org}}
 % pharo-french
-\newcommand{\ppe}{\url{http://PharoByExample.org/fr}\xspace} % ATTENDRE - à définir
+\newalias{\ppe}{\url{http://PharoByExample.org/fr}} % ATTENDRE - à définir
 % squeak-fr: adresse de la version francaise
-\newcommand{\spe}{\url{http://SqueakByExample.org/fr}\xspace}
-\newcommand{\sba}{\url{http://SquareBracketAssociates.org}\xspace}
+\newalias{\spe}{\url{http://SqueakByExample.org/fr}}
+\newalias{\sba}{\url{http://SquareBracketAssociates.org}}
 % squeak-fr: ajout de la \squeakdev pour eviter les problemes de
 % changements d'url rencontres dans la VO:
-\newcommand{\squeakdev}{\url{http://www.squeaksource.com/ImageForDevelopers}\xspace} %ou
-%\newcommand{\squeakdev}{\url{squeak.ofset.org/squeak-dev}\xspace}
-\newcommand{\bam}{\lct{Bounc\-ing\-Atoms\-Morph}\xspace} % REVOIR
+\newalias{\squeakdev}{\url{http://www.squeaksource.com/ImageForDevelopers}} %ou
+%\newalias{\squeakdev}{\url{squeak.ofset.org/squeak-dev}}
+\newalias{\bam}{\lct{Bounc\-ing\-Atoms\-Morph}} % REVOIR
 %=============================================================
 %:Markup macros for proof-reading
 \usepackage[normalem]{ulem} % for \sout
@@ -164,12 +165,12 @@
 \newcommand{\hw}[1]{\nnbb{Hernan}{#1}} % Wilkinson
 %=============================================================
 %:Abbreviation macros
-\newcommand{\ie}{\emph{c-\`a-d.}\xspace}
-\newcommand{\cad}{\emph{c-\`a-d.}\xspace}
-%\newcommand{\eg}{\emph{e.g.},\xspace}
-\newcommand{\eg}{\emph{par ex.},\xspace}
-\newcommand{\parex}{\emph{par ex.},\xspace}
-\newcommand{\etc}{etc\xspace}
+\newalias{\ie}{\emph{c-\`a-d.}}
+\newalias{\cad}{\emph{c-\`a-d.}}
+%\newalias{\eg}{\emph{e.g.},}
+\newalias{\eg}{\emph{par ex.},}
+\newalias{\parex}{\emph{par ex.},}
+\newalias{\etc}{etc}
 %=============================================================
 %:Cross reference macros
 
@@ -246,28 +247,28 @@
 \newcommand{\button}[1]{{%
 	\setlength{\fboxsep}{0pt}%
 	\fbox{{\upshape\sffamily\strut \,#1\,}}}}
-\newcommand{\toolsflap}{l'onglet \textit{Tools}\xspace}
+\newalias{\toolsflap}{l'onglet \textit{Tools}}
 %=============================================================
 %:Mouse clicks % REVOIR * % CHANGE
 % [martial: ce sont des verbes] ==BOUTONS==
-\newcommand{\clickbtn}{clic\xspace} % inutilisé
-\newcommand{\actclickbtn}{clic d'action\xspace} % inutilisé
-\newcommand{\metaclickbtn}{meta-clic\xspace} % inutilisé
-\newcommand{\click}{cliquer\xspace} % RED = click
-\newcommand{\actclick}{cliquer avec le bouton d'action\xspace} % YELLOW = action-click
-\newcommand{\metaclick}{meta-cliquer\xspace} % BLUE = meta-click
-\newcommand{\Click}{Cliquer\xspace} % RED = click
-\newcommand{\Actclick}{Cliquer avec le bouton d'action\xspace} % YELLOW = action-click
-\newcommand{\Metaclick}{Meta-cliquer\xspace} % BLUE = meta-click
-\newcommand{\clickant}{cliquant\xspace} % RED = click
-\newcommand{\actclickant}{cliquant avec le bouton d'action\xspace} % YELLOW = action-click
-\newcommand{\metaclickant}{meta-cliquant\xspace} % BLUE = meta-click
-\newcommand{\clickz}{cliquez\xspace} % RED = click
-\newcommand{\actclickz}{cliquez avec le bouton d'action\xspace} % YELLOW = action-click
-\newcommand{\metaclickz}{meta-cliquez\xspace} % BLUE = meta-click
-\newcommand{\Clickz}{Cliquez\xspace} % RED = click
-\newcommand{\Actclickz}{Cliquez avec le bouton d'action\xspace} % YELLOW = action-click
-\newcommand{\Metaclickz}{Meta-cliquez\xspace} % BLUE = meta-click
+\newalias{\clickbtn}{clic} % inutilisé
+\newalias{\actclickbtn}{clic d'action} % inutilisé
+\newalias{\metaclickbtn}{meta-clic} % inutilisé
+\newalias{\click}{cliquer} % RED = click
+\newalias{\actclick}{cliquer avec le bouton d'action} % YELLOW = action-click
+\newalias{\metaclick}{meta-cliquer} % BLUE = meta-click
+\newalias{\Click}{Cliquer} % RED = click
+\newalias{\Actclick}{Cliquer avec le bouton d'action} % YELLOW = action-click
+\newalias{\Metaclick}{Meta-cliquer} % BLUE = meta-click
+\newalias{\clickant}{cliquant} % RED = click
+\newalias{\actclickant}{cliquant avec le bouton d'action} % YELLOW = action-click
+\newalias{\metaclickant}{meta-cliquant} % BLUE = meta-click
+\newalias{\clickz}{cliquez} % RED = click
+\newalias{\actclickz}{cliquez avec le bouton d'action} % YELLOW = action-click
+\newalias{\metaclickz}{meta-cliquez} % BLUE = meta-click
+\newalias{\Clickz}{Cliquez} % RED = click
+\newalias{\Actclickz}{Cliquez avec le bouton d'action} % YELLOW = action-click
+\newalias{\Metaclickz}{Meta-cliquez} % BLUE = meta-click
 %=============================================================
 %:ToSh macros
 \newboolean{tosh}
@@ -589,9 +590,9 @@ framerule=0pt,
 \newcommand{\subind}[2]{\index{#1!#2}#2\xspace} % show #2, subindex inder #1
 \newcommand{\emphind}[1]{\index{#1}\emph{#1}\xspace} % emph #1
 \newcommand{\emphsubind}[2]{\index{#1!#2}\emph{#2}\xspace} % show emph #2, subindex inder #1
-\newcommand{\scatind}[1]{\index{#1@\textsf{#1} (cat\'egorie)}\scat{#1}} % category
-\newcommand{\pkgind}[1]{\index{#1@\textsf{#1} (paquetage)}\pkg{#1}} % package
-\newcommand{\protind}[1]{\index{#1@\textsf{#1} (protocole)}\prot{#1}} % protocol
+\newcommand{\scatind}[1]{\index{#1@\textsf{#1} (cat\'egorie)}\scat{#1}\xspace} % category
+\newcommand{\pkgind}[1]{\index{#1@\textsf{#1} (paquetage)}\pkg{#1}\xspace} % package
+\newcommand{\protind}[1]{\index{#1@\textsf{#1} (protocole)}\prot{#1}\xspace} % protocol
 % \newcommand{\clsind}[1]{\index{#1@\textsf{#1} (class)}\ct{#1}\xspace}
 \newcommand{\clsind}[1]{\index{#1!\#@(classe)}\ct{#1}\xspace} % class
 \newcommand{\cvind}[1]{\index{#1@\textsf{#1} (variable de classe)}\ct{#1}\xspace} % class var
@@ -654,9 +655,9 @@ framerule=0pt,
 %:Smalltalk macros
 %\newcommand{\sep}{{$\gg$}}
 \newcommand{\sep}{\mbox{>>}}
-\newcommand{\self}{\ct{self}\xspace}
-\newcommand{\super}{\ct{super}\xspace}
-\newcommand{\nil}{\ct{nil}\xspace}
+\newalias{\self}{\ct{self}}
+\newalias{\super}{\ct{super}}
+\newalias{\nil}{\ct{nil}}
 %=============================================================
 % be less conservative about float placement
 % these commands are from http://www.tex.ac.uk/cgi-bin/texfaq2html?label=floats
@@ -689,47 +690,51 @@ framerule=0pt,
 % \traduit utilisé dans Model.tex
 \newcommand{\traduit}[1]{\footnote[2]{#1}}
 % changeset alias
-\newcommand{\changeset}{\emph{change set}\xspace}
-\newcommand{\changesets}{\emph{change sets}\xspace}
+\newalias{\changeset}{\emph{change set}}
+\newalias{\changesets}{\emph{change sets}}
 % callback alias
-\newcommand{\callback}{\emph{callback}\xspace}
-\newcommand{\callbacks}{\emph{callbacks}\xspace}
+\newalias{\callback}{\emph{callback}}
+\newalias{\callbacks}{\emph{callbacks}}
 % blobmorph alias (QuickTour->blob)
-\newcommand{\blobmorph}{\emph{blob}\xspace}
+\newalias{\blobmorph}{\emph{blob}}
 % repository
-\newcommand{\squeaksource}{\textsf{SqueakSource}\xspace}
-\newcommand{\sourceforge}{\textsf{SourceForge}\xspace}
+\newalias{\squeaksource}{\textsf{SqueakSource}}
+\newalias{\sourceforge}{\textsf{SourceForge}}
 % L'onglet Tools
-\newcommand{\Toolsflap}{L'onglet \textit{Tools}\xspace}
+\newalias{\Toolsflap}{L'onglet \textit{Tools}}
 % Mac OS X
-\newcommand{\macosx}{\mbox{Mac OS X}\xspace}
+\newalias{\macosx}{\mbox{Mac OS X}}
 % code en francais (uniquement dans le chapitre BasicClasses)
 \newcommand{\codefrench}[1]{\NoAutoSpaceBeforeFDP\texttt{#1}\AutoSpaceBeforeFDP\xspace}
 %\renewcommand{\codefrench}[1]{\texttt{#1}} % TEST
 % mantra du modele objet
-\newcommand{\Mantra}{Tout est objet\xspace}
-\newcommand{\mantra}{\MakeLowercase{\Mantra}\xspace}
+\newalias{\Mantra}{Tout est objet}
+\newalias{\mantra}{\MakeLowercase{\Mantra}}
 %============================================================
 %% spécial PBE (Pharo By Example - vf)
-\newcommand{\senders}{\emph{senders}\xspace}
-\newcommand{\Senders}{\emph{Senders}\xspace} % dans Environment
-\newcommand{\sender}{\emph{sender}\xspace}
-\newcommand{\implementors}{\emph{implementors}\xspace}
-\newcommand{\implementor}{\emph{implementor}\xspace}
-\newcommand{\truetype}{\textsf{TrueType}\xspace}
-\newcommand{\bamfr}{atomes rebondissants\xspace} % pour le \bam dans QuickTour
-\newcommand{\backtracking}{\emph{backtracking}\xspace}
-\newcommand{\brush}{\emph{brush}\xspace}
-\newcommand{\brushes}{\emph{brushes}\xspace}
-\newcommand{\backbtn}{``retour arrière''\xspace}
-\newcommand{\toolbar}{barre d'outils\xspace}
-\newcommand{\task}{\emph{task}\xspace}
-\newcommand{\tasks}{\emph{tasks}\xspace}
-\newcommand{\transaction}{\emph{transaction}\xspace}
-\newcommand{\transactions}{\emph{transactions}\xspace}
+\newalias{\senders}{\emph{senders}}
+\newalias{\Senders}{\emph{Senders}} % dans Environment
+\newalias{\sender}{\emph{sender}}
+\newalias{\implementors}{\emph{implementors}}
+\newalias{\implementor}{\emph{implementor}}
+\newalias{\truetype}{\textsf{TrueType}}
+\newalias{\bamfr}{atomes rebondissants} % pour le \bam dans QuickTour
+\newalias{\backtracking}{\emph{backtracking}}
+\newalias{\brush}{\emph{brush}}
+\newalias{\brushes}{\emph{brushes}}
+\newalias{\backbtn}{``retour arrière''}
+\newalias{\toolbar}{barre d'outils}
+\newalias{\task}{\emph{task}}
+\newalias{\tasks}{\emph{tasks}}
+\newalias{\transaction}{\emph{transaction}}
+\newalias{\transactions}{\emph{transactions}}
+\newalias{\jscript}{JavaScript}
+\newalias{\sau}{\textsf{script.aculo.us}}
+\newalias{\pjs}{\textsf{Prototype}}
+\newalias{\updater}{\emph{updater}}
 %% TITRES de chapitres nommés dans Monticello (PBE2->PBE1)
-\newcommand{\titreFirstapp}{Une première application\xspace}
-\newcommand{\titreEnvironment}{L'environnement de programmation de Pharo\xspace}
+\newalias{\titreFirstapp}{Une première application}
+\newalias{\titreEnvironment}{L'environnement de programmation de Pharo}
 %% spécial Seaside *IMPORTANT*
 \def\fr{french}
 \let\sslang=\fr % sslang défini la francisation de certains textes de

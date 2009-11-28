@@ -22,10 +22,10 @@ Les parties I,II,III,IV sont en cours de modifications (martial)
 Répartition des taches:
 
 - Seaside: 
-  + en cours de traduction
   + index: Seaside!forms serait mieux en Seaside!XHTML!form
 
 - Regex: 
+  + en cours de traduction
 
 - Reflection:
 

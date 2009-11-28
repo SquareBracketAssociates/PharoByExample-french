@@ -62,7 +62,7 @@ Deux des applications basées sur Seaside les plus connues sont
  \ind{SqueakSource}\footnote{\url{http://SqueakSource.com}} et \ind{Dabble DB}\footnote{\url{http://DabbleDB.com}}.
 Seaside n'est pas commun dans le sens qu'il est résolument orienté
 objet: il n'y a aucune structure de type \emph{template} XHTML, aucun
-contrôle de flux complexe par des pages web, ni même encodage de
+flux de contrôle complexe par des pages web, ni même encodage de
 l'état dans les URLs. Vous envoyez simplement des messages aux
 objets. Quelle merveilleuse idée!
 
@@ -77,7 +77,7 @@ l'utilisateur fait des requêtes au serveur et le serveur répond avec
 une nouvelle page web.
 Dès lors les bibliothèques (ou \emph{frameworks}) destinées au
 \ind{développement d'applications web} doivent contourner une foule de
-problèmes, le principal étant la gestion du contrôle de flux ``inversé''.
+problèmes, le principal étant la gestion du flux de contrôle ``inversé''.
 % control flow
 C'est pour cette raison que beaucoup d'applications web tentent
 d'interdire \arelire{l'usage du bouton \backbtn (ou ``back'' en anglais, nommé
@@ -2165,25 +2165,64 @@ Il devrait implémenter la méthode de classe \ct{canBeRoot}. Il est
 possible d'enregistrer le composant comme application dans la
 méthode de classe \ct{initialize} en envoyant
 \ct{self registerAsApplication:} \emph{chemin de l'application}.
-Si vous surchargez \ct{description}, il est possible de retourner 
-% it is possible to return a descriptive application name that will be displayed in the configuration editor.
-  \item To backtrack state, a component must implement the \ct{states} method to answer an array of objects whose state will be restored if the user clicks the browser's ``back'' button.
-  \item A component renders itself by implementing \ct{renderContentOn:}.
-  The argument to this method is an XHTML rendering \emph{canvas} (usually called \ct{html}).
-  \item A component can render a subcomponent by sending \ct{self render:} \emph{subcomponent}.
-  \item XHTML is generated programmatically by sending messages to \emph{brushes}. A brush is obtained by sending a message, such as \ct{paragraph} or \ct{div}, to the html canvas.
-  \item If you send a cascade of messages to a brush that includes the message \ct{with:}, then \ct{with:} should be the last message sent.
-  Thw \ct{with:} message sets the contents \emph{and} renders the result.
-  \item Actions should appear only in \callbacks (ou fonction de rappel).
-You should not change the state of the application while you are rendering it.
-  \item You can bind various form widgets and anchors to instance variables with accessors by sending the message \ct{on:} \emph{instance variable} \ct{of:} \emph{object} to the brush.
-  \item You can define the CSS for a component hierarchy by defining the method \ct{style}, which should return a string containing the style sheet.
-  (For deployed applications, it is more usual to refer to a style sheet located at a static URL.)
-  \item Control flows can be programmed by sending \ct{x call: y}, in which case component \ct{x} will be replaced by \ct{y} until \ct{y} answers by sending \ct{answer:} with a result in a callback.
-  The receiver of \ct{call:} is usually \ct{self}, but may in general be any visible component.
-  \item A control flow can also be specified as a \emph{task}\,---\,a instance of a subclass of \ct{WATask}. It should implement the method \ct{go}, which should \ct{call:} a series of components in a workflow.
-  \item Use \ct{WAComponents}'s convenience methods \ct{request:}, \ct{inform:}, \ct{confirm:} and \ct{chooseFrom:caption:} for basic interactions.
-  \item To prevent the user from using the browser's ``back'' button to access a previous execution state of the web application, you can declare portions of the workflow to be a \emph{transaction} by enclosing them in an \ct{isolate:} block.
+\aretirer{%
+Si vous surchargez \ct{description}, il est possible de retourner une
+nom descriptif pour l'application qui sera affiché dans l'éditeur de
+configuration}; % ATTENDRE - martial: pas vu du tout, ça!
+  \item Pour gérer le chaînage arrière ou \backtracking, un composant
+    devait disposer d'une méthode \ct{states} renvoyant un tableau des
+    objets dont l'état sera restauré quand l'utilisateur clique sur le
+    bouton \backbtn de son navigateur web;
+  \item Le rendu d'un composant se fait via la méthode
+    \ct{renderContentOn:}. L'argument de cette méthode est un
+    \emph{canevas} destiné au rendu XHTML (généralement appelé
+    \ct{html});
+  \item Un composant peut faire le rendu d'un sous-composant en
+    envoyant \ct{self render:} \emph{sous-component};
+  \item Le code XHTML est généré de manière programmatique en envoyant
+    des messages à des \brushes. Un \brush est obtenu en envoyant un
+    message, par exemple \ct{paragraph} ou \ct{div}, au canevas HTML;
+  \item Si vous envoyez des messages en cascade à un \brush qui
+    contient le message \ct{with:}, ce \ct{with:} devra être le
+    dernier message envoyé.
+Le message \ct{with:} envoie le contenu \emph{et} le fait le rendu du résultat;
+  \item Les actions devrait apparaître uniquement dans des \callbacks
+    (ou fonctions de rappel).
+Vous ne devez jamais changer l'état de l'application durant la phase de rendu;
+  \item Vous pouvez attacher plusieurs éléments graphiques de
+    formulaire (ou \emph{widgets}) et autre ancres (ou liens) à des
+    variables d'instance munies de méthodes d'accès en envoyant le
+    message \ct{on:} \emph{variable d'instance} \ct{of:} \emph{objet}
+    au \brush;
+  \item Vous pouvez définir la feuille de style CSS pour une
+    hiérarchie de composants en définissant la méthode \ct{style} de
+    sorte à ce qu'elle retourne une chaîne de caractères contenant la
+    feuille de style (pour les applications officiellement déployées,
+    il est commun de se référer à une feuille de style externe se
+    trouvant à une URL statique);
+  \item Les flux de contrôle
+%Control flows can be programmed
+peuvent être programmés en envoyant \ct{x call: y} où le composant
+\ct{x} sera replacé par \ct{y} jusqu'à ce qu'\ct{y} répondent en
+envoyant le message \ct{answer:} \arelire{avec un résultat dans un
+  \callback}.
+%by sending \ct{answer:} with a result in a callback.
+Le receveur de \ct{call:} est habituellement \ct{self} mais peut être
+de façon générale n'importe quel composant visible;
+  \item Il existe un flux de contrôle
+%A control flow 
+nommé \emph{task}\,---\,instance d'une sous-classe de \ct{WATask}. Il
+devrait implémenter la méthode \ct{go} pour appeler avec le message
+\ct{call:} une série de composants dans une séquence de tâches;
+  \item Vous pouvez vous \arelire{simplifier le travail de création
+    d'interactions simples en utilisant les méthodes utilitaires de
+    \ct{WAComponent} telles que \ct{request}, \ct{inform:},
+    \ct{confirm:} et \ct{chooseFrom:caption:};}
+  \item Pour interdire à l'utilisateur de se servir du bouton \backbtn
+    de son navigateur web pour accéder un état d'exécution passé de
+    l'application web, vous pouvez isoler des parties de la séquence
+    de tâches dans des \transactions en les incluant dans un
+    bloc-argument du message \ct{isolate:}.
 \end{itemize}
 %-----------------------------------------------------------------
 

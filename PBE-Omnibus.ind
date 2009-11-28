@@ -25,6 +25,8 @@
 		\see{Behavior, \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{>>}}{25}
   \item \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{become:}, 
 		\see{\lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{ProtoObject>>>become:}}{420}
+  \item \textsf  {Prototype}\xspace  , \hyperpage{344}
+  \item \textsf  {script.aculo.us}\xspace  , \hyperpage{344}
   \item {\textsf  {\{ \}}}, \see{tableau, dynamique}{204}
   \item {$\uparrow$}, \see{renvoi}{45}
 
@@ -809,7 +811,8 @@
 
   \item Java, \hyperpage{69}, \hyperpage{85}, \hyperpage{88}, 
 		\hyperpage{91}, \hyperpage{100}, \hyperpage{157}
-  \item JavaScript, \hyperpage{344}, \hyperpage{346}
+  \item JavaScript, \hyperpage{344}
+  \item JavaScript\xspace  , \hyperpage{346}
 
   \indexspace
 
@@ -1423,7 +1426,6 @@
 		\hyperpage{426}
   \item ProtoObject class
     \subitem (classe), \hyperpage{272}
-  \item Prototype, \hyperpage{344}
   \item pseudo-variable, \see{variable, pseudo}{54}
   \item Python, \hyperpage{157}, \hyperpage{351}
 
@@ -1556,7 +1558,6 @@
 
   \item s\IeC {\'e}parateur, \see{expression, s\IeC {\'e}parateur}{78}
   \item sauvegarde du code, \see{cat\IeC {\'e}gorie}{46}
-  \item script.aculo.us, \hyperpage{344}
   \item Seaside, \hyperpage{311}
     \subitem \backtracking, \hyperpage{312}, \hyperpage{320}
     \subitem \emph  {callback}\xspace  , \hyperpage{326}, 

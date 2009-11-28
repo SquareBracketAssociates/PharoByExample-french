@@ -130,12 +130,11 @@ seaside/examples; défini comme "application des compteurs multiples")
 vers Seaside/composant)
 - backtracking -> \backtracking (alias \emph{backtracking}; défini par
 chaînage arrière)
-- brush/Brushes,brushes -> \brush/\brushes (alias \emph{brush(es)})
+- brush/Brushes,brushes -> un \brush/\brushes (alias \emph{brush(es)})
 - forms -> formulaires
 - Cascading Style Sheets -> feuilles de style CSS ou feuilles de style
 en cascade
-- flow control -> contrôle de flux
-et control flow -> flux de contrôles ?????
+- control flow -> flux de contrôles
 - toolbar -> \toolbar (barre d'outils)
 - navigateur de classes Seaside / inspecteur d'objets
 - html canvas -> canevas HTML
@@ -165,4 +164,10 @@ certains cas, "séquence de tâches" dans d'autres
 - top of the stack -> sommet de la pile
 - key (pour l'application RPN Calculator) -> bouton (plutôt que
 touche)
+- Javascript ou JavaScript -> \jscript (retranscrit en JavaScript;
+c'est la convention)
+- Prototype -> \pjs ; script.aculo.us -> \sau
+- updater -> un \updater (\emph{updater})
+
+** Regex
 - 
