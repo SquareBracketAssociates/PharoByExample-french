@@ -170,4 +170,6 @@ c'est la convention)
 - updater -> un \updater (\emph{updater})
 
 ** Regex
-- 
+- \regex -> expressions régulières
+- \pattern -> \emph{pattern} (j'ai pris le parti de )
+- \pkgregex -> \pkg{Regex}

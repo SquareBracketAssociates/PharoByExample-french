@@ -618,6 +618,7 @@
   \item expression
     \subitem s\IeC {\'e}parateur, \hyperpage{58}, \hyperpage{78}
   \item expression lambda, \hyperpage{199}
+  \item Expressions r\IeC {\'e}guli\IeC {\`e}res, \see{Regex}{351}
   \item extension, \see{m\IeC {\'e}thode, extension}{100}
   \item extension de classe, \hyperpage{292}, \hyperpage{306}
   \item extension de package, \see{paquetage, extension}{126}
@@ -1473,24 +1474,23 @@
   \item reflection, \hyperpage{405}
   \item Regex
     \subitem operator precedence, \hyperpage{360}
-    \subitem subexpression matches, \hyperpage{368}
+    \subitem subexpression matches, \hyperpage{369}
   \item \textsf  {Regex} (paquetage), \hyperpage{193}, \hyperpage{212}, 
 		\hyperpage{351}
-  \item Regex syntax, \hyperpage{359}, \hyperpage{362}
-    \subitem character classes, \hyperpage{363}
+  \item Regex syntax, \hyperpage{360}, \hyperpage{362}
+    \subitem character classes, \hyperpage{364}
     \subitem character range, \hyperpage{362}
     \subitem character set, \hyperpage{361}
     \subitem escape, \hyperpage{361}
     \subitem matching string boundaries, \hyperpage{365}
   \item RegexCompilationError
-    \subitem (classe), \hyperpage{370}
+    \subitem (classe), \hyperpage{371}
   \item RegexMatchingError
-    \subitem (classe), \hyperpage{370}
+    \subitem (classe), \hyperpage{371}
   \item RegexSyntaxError
     \subitem (classe), \hyperpage{370}
   \item regular expression package, 
 		\see{paquetage, expressions r\IeC {\'e}guli\IeC {\`e}res}{212}
-  \item Regular expressions, \see{Regex}{351}
   \item \textsf  {removing} (protocole), \hyperpage{200}
   \item renvoi, \hyperpage{100}
   \item Repository Inspector, 
@@ -1517,7 +1517,7 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{lastResult}, 
 		\hyperpage{368}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matches:}, 
-		\hyperpage{367}
+		\hyperpage{368}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesIn:}, 
 		\hyperpage{367}, \hyperpage{370}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesIn:collect:}, 
@@ -1733,18 +1733,18 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{match:}, 
 		\hyperpage{193}, \hyperpage{211}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesRegex}, 
-		\hyperpage{365}
+		\hyperpage{366}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesRegex:}, 
-		\hyperpage{351}, \hyperpage{354}, \hyperpage{359}, 
+		\hyperpage{351}, \hyperpage{354}, \hyperpage{360}, 
 		\hyperpage{367}, \hyperpage{371}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesRegexIgnoringCase:}, 
-		\hyperpage{365}
+		\hyperpage{366}
     \subitem pattern matching, 
 		\see{String, appariement de cha\IeC {\^\i }nes}{211}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{prefixMatchesRegex:}, 
-		\hyperpage{365}
+		\hyperpage{366}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{prefixMatchesRegexIgnoringCase:}, 
-		\hyperpage{365}
+		\hyperpage{366}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{regex:matchesCollect:}, 
 		\hyperpage{366}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{regex:matchesDo:}, 
