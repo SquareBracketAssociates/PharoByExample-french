@@ -4,6 +4,7 @@
 % traduit par Martial 
 % relecture par Rene (Fri, 21 Dec 2007)
 % relecture par Rene (Sun, 13 Jan 2008)
+% relecture par Rene (Fri,  8 Jan 2010)
 % update: Tue Dec 25 12:52:59 CET 2007
 % adaptation pour PBE: martial - Wed Sep  9 22:33:36 CEST 2009 from
 % $Author: oscar $ % $Date: 2009-08-16 16:37:09 +0200 (Sun, 16 Aug
@@ -72,8 +73,7 @@ C'est pour cette raison que la plupart des
 classes \clsindmain{Stream} sont des sous-classes de \clsind{PositionableStream}.
 \Figref{_abcde} présente un flux de données contenant cinq caractères.
 Ce \stream est dans sa position originale \ie qu'il n'y a aucun élément
-dans le passé. Vous pouvez revenir à cette position en envoyant le 
-message 
+dans le passé. Vous pouvez revenir à cette position en envoyant le message 
 \mthind{PositionableStream}{reset}.
 
 \begin{figure}[ht]
@@ -83,7 +83,8 @@ message
 \vspace{.2in}
 \end{figure}
 
-Lire un élément revient conceptuellement à effacer le premier élément de la séquence d'éléments future et le mettre après le dernier élément dans la séquence d'éléments passée.
+Lire un élément revient conceptuellement à effacer le premier élément de la séquence 
+d'éléments future et le mettre après le dernier élément dans la séquence d'éléments passée.
 Aprés avoir lu un élément avec le message \ct{next}, l'état de votre \stream est celui de \figref{a_bcde}.
 
 \begin{figure}[ht]
@@ -108,8 +109,7 @@ Aprés avoir lu un élément avec le message \ct{next}, l'état de votre \stream
 Le protocole des collections supporte le stockage, l'effacement et l'énumération
 des éléments d'une collection mais il ne permet pas que ces opérations
 soient combinées ensemble. Par exemple, si les éléments d'une 
-\clsind{OrderedCollection} sont traités par une méthode \mthind{OrderedCollection}{do:}, il n'est pas possible d'ajouter ou d'enlever des éléments
-à l'intérieur du bloc \ct{do:}.
+\clsind{OrderedCollection} sont traités par une méthode \mthind{OrderedCollection}{do:}, il n'est pas possible d'ajouter ou d'enlever des éléments à l'intérieur du bloc \ct{do:}.
 Ce protocole ne permet pas non plus d'itérer dans deux collections
 en même temps en choisissant quelle collection on itère, laquelle on n'itère pas.
 % ?choosing which collection goes forward
@@ -145,7 +145,8 @@ les protocoles de lecture et d'écriture.
 est que, dans \pharo, ils ne supportent que les tableaux et les 
 chaînes de caractères. Cette limitation est en cours de
 disparition grâce au développement d'une nouvelle librairie
-nommée \emph{Nile}}~\footnote{Disponible à \url{www.squeaksource.com/Nile.html}}. mais en attendant, vous obtiendrez une erreur
+nommée \emph{Nile}}~\footnote{Disponible à \url{www.squeaksource.com/Nile.html}}. 
+mais en attendant, vous obtiendrez une erreur
 si vous essayez d'utiliser les \streams avec un autre type de collection:
 % REVOIR 
 
@@ -184,14 +185,15 @@ des \streams dans le cadre des collections.
 %-----------------------------------------------------------------
 \subsection{Lire les collections}
 
-Cette section présente les propriétés utilisées pour lire des collections. Utiliser les flux de données pour lire une collection 
-repose essentiellement sur le fait de disposer d'un pointeur sur le contenu de la collection.
+Cette section présente les propriétés utilisées pour lire des collections. 
+Utiliser les flux de données pour lire une collection repose essentiellement 
+sur le fait de disposer d'un pointeur sur le contenu de la collection.
 Vous pouvez placer où vous voulez ce pointeur qui avancera dans le contenu pour lire.
-La classe \clsindmain{ReadStream} devrait être utilisée pour lire les éléments dans les collections.
+La classe \clsindmain{ReadStream} devrait être utilisée pour lire les éléments dans 
+les collections.
 
 Les méthodes \mthind{ReadStream}{next} et \mthind{ReadStream}{next:} 
-sont utilisées pour récupérer un ou plusieurs éléments dans
-la collection.
+sont utilisées pour récupérer un ou plusieurs éléments dans la collection.
 
 \begin{code}{@TEST |stream|}
 stream := ReadStream on: #(1 (a b c) false).
@@ -259,8 +261,7 @@ stream peek --> $c
 Si vous voulez aller au début ou à la fin, vous pouvez utiliser
    %martial: signaler la tournure lourde dans la VO: If you want to go to the beginning or at the end is what you want, you can use
 \mthind{PositionableStream}{reset} ou \mthind{PositionableStream}{setToEnd}.
-Les messages \mthind{PositionableStream}{skip:} et \mthind{PositionableStream}{skipTo:} sont utilisés pour avancer d'une position relative à la
-position actuelle: la méthode \ct{skip:} accepte un nombre comme
+Les messages \mthind{PositionableStream}{skip:} et \mthind{PositionableStream}{skipTo:} sont utilisés pour avancer d'une position relative à la position actuelle: la méthode \ct{skip:} accepte un nombre comme
 argument et saute sur une distance de ce nombre d'éléments alors que
 \ct{skipTo:} saute tous les éléments dans le flux jusqu'à trouver
 un élément égal à son argument. Notez que cette méthode positionne
@@ -268,14 +269,14 @@ le \stream après l'élément identifié.
 
 \begin{code}{@TEST |stream|}
 stream := 'abcdef' readStream.
-stream next.        --> $a    "!le flux est à la position juste après a!"
+stream next.      --> $a    "!le flux est à la position juste après a!"
 stream skip: 3.                           "le flux est !après! d"
 stream position.  -->   4
 stream skip: -2.                          "le flux est !après! b"
 stream position.  --> 2
 stream reset.
 stream position.  --> 0
-stream skipTo: $e.                      "le flux est !après! e"
+stream skipTo: $e.                        "le flux est !après! e"
 stream next.        --> $f
 stream contents. --> 'abcdef'
 \end{code}
@@ -329,8 +330,7 @@ stream
   cr;
   nextPutAll: 'C'est vraiment beaucoup.'.
 
-stream contents. --> 'Cette image Smalltalk contient: 2322 classes.
-C'est vraiment beaucoup.'
+stream contents. --> 'Cette image Smalltalk contient: 2322 classes. C'est vraiment beaucoup.'
 \end{code}
 
 Par exemple, cette technique est utilisée dans différentes 
@@ -368,7 +368,7 @@ Les méthodes de \ct{WriteStream} suivantes sont spécialement utiles dans ce co
 Il existe aussi des méthodes utiles pour imprimer différentes sortes
 de caractères au \stream comme \mthind{WriteStream}{space} (pour un espace), 
    \mthind{WriteStream}{tab} (pour une tabulation) et
-\mthind{WriteStream}{cr} (pour \emph{Carriage Return} \cad le retour-chariot).
+   \mthind{WriteStream}{cr} (pour \emph{Carriage Return} \cad le retour-chariot).
 Une autre méthode s'avère utile pour s'assurer que le dernier caractère
 dans le flux de données est un espace: il s'agit de \mthind{WriteStream}{ensureASpace}; si le dernier caractère n'est pas un espace, il en ajoute un.
 
@@ -396,8 +396,8 @@ du fait que l'opérateur virgule crée une nouvelle chaîne de caractères
 contenant la concaténation du receveur et de l'argument, donc il doit
 les copier tous les deux.
 Quand vous concaténez de manière répétée sur le même receveur,
-	  ça prend de plus en plus de temps à chaque fois; le nombre
-	  de caractères copiés s'accroît de façon exponentielle.
+ça prend de plus en plus de temps à chaque fois; le nombre
+de caractères copiés s'accroît de façon exponentielle.
 Cet opérateur implique aussi une surcharge de travail pour le ramasse-miettes qui collecte ces chaînes. 
 % ajout de 'Pour ce cas' pour suggerer que ca ne concerne specialement les gros travaux sur les chaines, pour les petites accumulations, je suis assez d'accord avec lukas (a discuter dans la sbe-discussion)
 Pour ce cas, utiliser un \stream plutôt qu'une concaténation de chaînes est une optimisation bien connue.
@@ -503,16 +503,14 @@ History>>goForward
 \end{code}
 
 Jusqu'ici le code est assez simple. Maintenant, nous devons nous occuper
-de la méthode \ct{goTo:} (que nous pouvons traduire en français par ``aller à'') qui devrait être activée quand l'utilisateur
-clique sur un lien. Une solution possible est la suivante:
+de la méthode \ct{goTo:} (que nous pouvons traduire en français par ``aller à'') qui devrait être activée quand l'utilisateur clique sur un lien. Une solution possible est la suivante:
 
 \begin{code}{}
 History>>goTo: aPage
     stream nextPut: aPage.
 \end{code}
 
-Cette version est cependant incomplète. Ceci vient du fait que lorsque l'utilisateur clique sur un lien, il ne devrait plus y avoir de pages futurs \ie
-que le bouton ``Avant'' devrait être désactivé.
+Cette version est cependant incomplète. Ceci vient du fait que lorsque l'utilisateur clique sur un lien, il ne devrait plus y avoir de pages futurs \ie que le bouton ``Avant'' devrait être désactivé.
 Pour ce faire, la solution la plus simple est d'écrire \ct{nil}
 juste après la position courante pour indiquer la fin de l'historique:
 
@@ -633,7 +631,8 @@ stream close.
 %	ifAbsent: [ 'Could not delete ', fileName ] ]
 %	value: 'test.txt'
 
-La méthode \mthind{FileStream}{localName} retourne le dernier composant du nom du fichier. Vous pouvez accéder au chemin entier en utilisant la méthode
+La méthode \mthind{FileStream}{localName} retourne le dernier composant du nom du fichier. 
+Vous pouvez accéder au chemin entier en utilisant la méthode
 \mthind{StandardFileStream}{fullName}.
 
 Vous remarquerez bientôt que la fermeture manuelle de \stream de fichier
@@ -657,7 +656,8 @@ string --> '!\normcode{Ce fichier est écrit dans un fichier nommé}! ''test.txt
 
 Les méthodes de création de flux de données prenant un bloc comme
 argument créent d'abord un \stream sur un fichier, puis exécute
-un argument et enfin ferme le \stream. Ces méthodes retournent ce qui est retourné par le bloc, \ie la valeur de la dernière
+un argument et enfin ferme le \stream. Ces méthodes retournent ce qui est retourné par 
+le bloc, \ie la valeur de la dernière
 expression dans le bloc. C'est ce que nous avons utilisé dans
 l'exemple précédent pour récupérer le contenu d'un fichier
 et le mettre dans la variable \ct{string}.
