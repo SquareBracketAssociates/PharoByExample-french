@@ -6,7 +6,8 @@
 % translated by Rene Mages squeak@rmages.com start: (Fri, 5 Oct 2007)
 % relecture par Rene Mages et Martial Boniou: (Fri, 20 Dec 2007)
 % relecture par Rene Mages : (Sun, 13 Jan 2008) de la version #14938
-% adaptation pour PBE - martial - Thu Sep 10 22:45:08 CEST 2009 from
+% adaptation pour PBE - martial - Thu Sep 10 22:45:08 CEST 2009 
+% relecture par Rene Mages (Fri, 8 Jan 2010) de la version #30178
 % $Id: Syntax.tex 28624 2009-08-27 10:59:05Z oscar $
 % sync: 29170
 %=================================================================
@@ -45,7 +46,7 @@
 % \on{There are links already.}
 
 \pharo, comme la plupart des dialectes modernes de \st, adopte une syntaxe proche de celle de \st-80.
-La \ind{syntaxe} est con\c{c}ue de telle sorte que le texte d'un
+La \ind{syntaxe} est conçue de telle sorte que le texte d'un
 programme lu à haute voix ressemble à de l'\emph{English pidgin} ou ``anglais simplifié'':
 
 \begin{code}{}
@@ -53,7 +54,7 @@ programme lu à haute voix ressemble à de l'\emph{English pidgin} ou ``anglais 
 \end{code}
 
 \noindent
-La syntaxe de \pharo (\ie les expressions) est minimaliste; pour l'essentiel, con\c{c}ue uniquement pour \emph{envoyer des messages}.
+La syntaxe de \pharo (\ie les expressions) est minimaliste; pour l'essentiel, conçue uniquement pour \emph{envoyer des messages}.
 %% et  \emph{des déclarations de méthodes}.
 Les expressions sont construites à partir d'un nombre très réduit de primitives.
 \st dispose seulement de 6 mots-clés et d'aucune syntaxe pour les structures de contrôle, ni pour les déclarations de nouvelles classes.
@@ -126,7 +127,8 @@ Dans \tabref{syntax}, nous pouvons voir des exemples divers d'éléments syntaxi
 Par convention, les identifiants sont composés de mots au format
 d'écriture \emph{casse chameau} (``\ind{camelCase}''): chaque mot
 excepté le premier débute par une lettre majuscule.
-La première lettre d'une variable d'instance, d'une méthode ou d'un bloc argument ou d'une variable temporaire doit être en minuscule.
+La première lettre d'une variable d'instance, d'une méthode ou d'un bloc argument 
+ou d'une variable temporaire doit être en minuscule.
 Ce qui indique au lecteur que la portée de la variable est privée .
 
 \item[Les variables partagées.]	Les identifiants qui débutent par
@@ -138,7 +140,7 @@ Ce qui indique au lecteur que la portée de la variable est privée .
 \seeindex{dictionnaire de pool}{variable, pool}
 \seeindex{variable!classe}{classe, variable}
 
-\item[Le receveur.] \pvind{self} est un mot-clé qui pointe vers l'objet sur lequel la méthode courante s'exécute. Nous le nommons  ``le receveur'' car cet objet devra normalement re\c{c}evoir le message qui provoque l'exécution de la méthode.
+\item[Le receveur.] \pvind{self} est un mot-clé qui pointe vers l'objet sur lequel la méthode courante s'exécute. Nous le nommons  ``le receveur'' car cet objet devra normalement reçevoir le message qui provoque l'exécution de la méthode.
 \self est appelé une ``\subind{variable}{pseudo-variable}'' puisque nous ne pouvons rien lui affecter.
 
 \item[Les entiers.] En plus des entiers décimaux habituels comme
@@ -167,7 +169,8 @@ Il y a seulement un objet symbole \ct{#Bonjour} mais il peut y avoir plusieurs o
 
 % martial (25 dec 2007): nous avons dit 'tableaux à la compilation'
 % dans d'autres chapitres? 
-\item[Les tableaux définis à la compilation.] Ils sont définis par \ct{#( )}, les objets littéraux sont séparés par des espaces.
+\item[Les tableaux définis à la compilation.] Ils sont définis par \ct{#( )}, les objets littéraux 
+sont séparés par des espaces.
 À l'intérieur des parenthèses, tout doit être constant durant la compilation.
 Par exemple,  \arelire{\ct{#(27 (true false) abc)}}~\footnote{\arelire{Notez que c'est la
 même chose que \ct{#(27 #(true false) #abc)}.}} est un
@@ -211,7 +214,8 @@ Les commentaires peuvent se répartir sur plusieurs lignes.
 %\seeindex{<-@{$\leftarrow$}}{affectation}
 
 \item[Les blocs.] Des crochets \ct{[ ]} définissent un \ind{bloc},
-  aussi connu sous le nom de \emph{block closure} ou fermeture lexicale, laquelle est un objet à part entière représentant une fonction.
+  aussi connu sous le nom de \emph{block closure} ou fermeture lexicale, laquelle est un 
+objet à part entière représentant une fonction.
 Comme nous le verrons, les blocs peuvent avoir des arguments et des variables locales.
 \seeindex{[ ]@{\textsf{[ ]}}}{bloc}
 \seeindex{block closure}{bloc}
@@ -242,10 +246,12 @@ Dans l'expression \ct{2 raisedTo: 6 modulo: 10}, le \emph{sélecteur de message}
 \item[Le retour d'une méthode.] \ct{^} est employé pour
   obtenir le \emphind{retour} ou \emph{renvoi} d'une méthode.  Il
   vous faut taper \verb|^| pour obtenir le caractère \ct{^}.
-\md{\ct{^} donne toujours un retour de la méthode, même s'il est utilisé dans un bloc, il donnera le retour de la méthode inserée dans le bloc.}
+\md{\ct{^} donne toujours un retour de la méthode, même s'il est utilisé 
+dans un bloc, il donnera le retour de la méthode inserée dans le bloc.}
 
 \item[Les séquences d'instructions.]	Un point (\ct{.}) est le
-  \emphsubind{instruction}{séparateur} \emph{d'instructions}. Placer un point entre deux expressions les transforme en deux instructions indépendantes.	
+  \emphsubind{instruction}{séparateur} \emph{d'instructions}. Placer un point entre 
+deux expressions les transforme en deux instructions indépendantes.	
 \index{instruction!séquence}
 \seeindex{instruction!séparateur}{expression, séparateur}
 \seeindex{point}{expression, séparateur}
@@ -254,7 +260,8 @@ Dans l'expression \ct{2 raisedTo: 6 modulo: 10}, le \emph{sélecteur de message}
 \item[Les cascades.] un point virgule peut être utilisé pour
   envoyer une \emphind{cascade} de messages à un receveur
   unique. Dans \ct{Transcript show: 'bonjour'; cr}, nous envoyons
-  d'abord le message à mots-clés \ct{show: 'bonjour'} au receveur  \ct{Transcript}, puis nous envoyons au même receveur le message unaire \ct{cr}.
+  d'abord le message à mots-clés \ct{show: 'bonjour'} au receveur 
+ \ct{Transcript}, puis nous envoyons au même receveur le message unaire \ct{cr}.
 	\seeindex{;}{cascade}
 
 \end{description}
@@ -269,7 +276,7 @@ Dans \st, il y a 6 mots-clés réservés ou  \emph{pseudo-variables}:
 \pvind{nil}, \pvind{true},  \pvind{false},  \pvind{self},
 \pvind{super} et \pvind{thisContext}.
 Ils sont appelés \subind{variable}{pseudo-variable}{s} car ils sont prédéfinis et ne peuvent pas être l'objet d'une affectation.
-\ct{true}, \ct{false} et \ct{nil} sont des constantes tandis que les valeurs de \ct{self}, \ct{super} et de \ct{thisContext} varient de fa\c{c}on dynamique lorsque le code est exécuté. 
+\ct{true}, \ct{false} et \ct{nil} sont des constantes tandis que les valeurs de \ct{self}, \ct{super} et de \ct{thisContext} varient de façon dynamique lorsque le code est exécuté. 
 
 \ct{true} et \ct{false} sont les uniques instances des classes
 \clsind{Boolean}: \clsind{True} et \clsind{False} (voir \charef{basic} 
@@ -317,10 +324,12 @@ Les sélecteurs des messages binaires sont constitués par un ou plusieurs carac
 \on{Il semble que 3 caractères ou plus fonctionnent bien, mais il n'est pas possible d'avoir plus d'un ``-'' dans un sélecteur binaire. Sans doute à cause d'un conflit avec l'analyseur (parser) des nombres négatifs?}
 \ab{Bon; $-$ est étrange .}
 
-Les sélecteurs des messages à mots-clés sont formés d'une suite de mots-clés alphanumériques qui commencent par une lettre minuscule et se terminent par \lct{:}.
+Les sélecteurs des messages à mots-clés sont formés d'une suite de mots-clés alphanumériques 
+qui commencent par une lettre minuscule et se terminent par \lct{:}.
 \index{message!à mots-clés}
 
-Les messages unaires ont la plus haute priorité, puis viennent les messages binaires et, pour finir, les messages à mots-clés; ainsi:
+Les messages unaires ont la plus haute priorité, puis viennent les messages binaires et, 
+pour finir, les messages à mots-clés; ainsi:
 \begin{code}{@TEST}
 2 raisedTo: 1 + 3 factorial --> 128
 \end{code}
@@ -351,7 +360,8 @@ Ce code enverra \ct{cr} à l'objet \glbind{Transcript}, puis
 enverra  \ct{show: 'Bonjour le monde'}, et enfin enverra un nouveau \ct{cr}.
 
 Quand une succession de messages doit être envoyée à un \emph{même} receveur, 
-ou pour dire les choses plus succinctement en \emphind{cascade}, le receveur est spécifié une seule fois et la suite des messages est séparée par des points-virgules:
+ou pour dire les choses plus succinctement en \emphind{cascade}, le receveur est 
+spécifié une seule fois et la suite des messages est séparée par des points-virgules:
 
 \begin{code}{}
 Transcript cr;
@@ -369,12 +379,14 @@ dans un débogueur (Debugger) ou dans un navigateur de classes),
 les méthodes sont en principe définies dans une fenêtre du
 Browser ou du débogueur
 % (Methods can also be filed in from an external medium, but this is not the usual way to program in \pharo.)
-(\arelire{les méthodes peuvent aussi être rentrées} % CHANGE - retrait
-                                % de  (par \menu{file in})
-depuis une source externe, mais ce n'est pas une fa\c{c}on habituelle de programmer en \pharo).
+les méthodes peuvent aussi être rentrées % CHANGE - retrait
+                                         % de  (par \menu{file in})
+depuis une source externe, mais ce n'est pas une façon habituelle de programmer en \pharo).
 
 Les programmes sont développés, une méthode à la fois,
-dans l'environnement d'une classe précise (une classe est définie en envoyant un message à une classe existante, en demandant de créer une sous-classe, de sorte qu'il n'y ait pas de syntaxe spécifique pour créer une classe).
+dans l'environnement d'une classe précise (une classe est définie en envoyant 
+un message à une classe existante, en demandant de créer une sous-classe, de sorte 
+qu'il n'y ait pas de syntaxe spécifique pour créer une classe).
 
 Voilà la méthode \mthind{String}{lineCount} (pour compter le
 nombre de lignes) dans la classe  \clsind{String}.
@@ -409,8 +421,9 @@ Sur le plan de la syntaxe, une méthode comporte:
 \end{enumerate}
 
 L'évaluation de n'importe quelle expression précédée
-par un \ct{^} (saisi en tapant \verb|^|) provoquera l'arrêt de la méthode à cet endroit, donnant en retour la valeur de cette expression.
-Une méthode qui se termine sans retourner explicitement une expression retournera de fa\c{c}on implicite \pvind{self}.
+par un \ct{^} (saisi en tapant \verb|^|) provoquera l'arrêt de la méthode à cet endroit, 
+donnant en retour la valeur de cette expression.
+Une méthode qui se termine sans retourner explicitement une expression retournera de façon implicite \pvind{self}.
 \index{retour!implicite}
 
 
@@ -423,7 +436,8 @@ simplement des variables globales qui se réfèrent à l'objet représentant cet
 \section{La syntaxe des blocs}
 
 Les blocs apportent un moyen de différer l'évaluation d'une expression.
-Un \ind{bloc} est essentiellement une fonction anonyme. Un bloc est évalué en lui envoyant le message \mthind{BlockClosure}{value}.
+Un \ind{bloc} est essentiellement une fonction anonyme. Un bloc est évalué 
+en lui envoyant le message \mthind{BlockClosure}{value}.
 Le bloc retourne la valeur de la dernière expression de son corps,
 à moins qu'il y ait un retour explicite (avec \ct{^}) auquel cas il ne retourne aucune valeur.
 \seeindex{value}{BlockClosure}
@@ -440,7 +454,8 @@ Une barre verticale sépare les déclarations des paramètres
 et le corps du bloc.
 Pour évaluer un bloc avec un paramètre, vous devez lui envoyer le message 
  \mthind{BlockClosure}{value:} avec un argument.
-Un bloc à deux paramètres doit recevoir  \mthind{BlockClosure}{value:value:}; et ainsi de suite, jusqu'à 4 arguments.
+Un bloc à deux paramètres doit recevoir  \mthind{BlockClosure}{value:value:}; et 
+ainsi de suite, jusqu'à 4 arguments.
 
 \begin{code}{@TEST}
 [ :x | 1 + x ] value: 2 --> 3
@@ -449,9 +464,12 @@ Un bloc à deux paramètres doit recevoir  \mthind{BlockClosure}{value:value:}; 
 
 Si vous avez un bloc comportant plus de quatre paramètres, vous devez utiliser
 \mthind{BlockClosure}{valueWithArguments:} et passer les arguments à
-l'aide d'un tableau (un bloc comportant un grand nombre de paramètres étant souvent révélateur d'un problème au niveau de sa conception).
+l'aide d'un tableau (un bloc comportant un grand nombre de paramètres étant 
+souvent révélateur d'un problème au niveau de sa conception).
 
-Des blocs peuvent aussi déclarer des variables locales, lesquelles seront entourées par des barres verticales, tout comme des déclarations de variables locales dans une méthode.
+Des blocs peuvent aussi déclarer des variables locales, 
+lesquelles seront entourées par des barres verticales, tout 
+comme des déclarations de variables locales dans une méthode.
 Les variables locales sont déclarées après les éventuels
 arguments:
 \index{variable!déclaration}
@@ -503,7 +521,8 @@ l'instar de tout autre objet.
 \section{Conditions et itérations}
 
 \st n'offre aucune syntaxe spécifique pour les structures de contrôle.
-Typiquement celles-ci sont obtenues par l'envoi de messages à des booléens, des nombres ou des collections, avec pour arguments des blocs.
+Typiquement celles-ci sont obtenues par l'envoi de messages à des booléens, 
+des nombres ou des collections, avec pour arguments des blocs.
 
 Les clauses conditionnelles sont obtenues par l'envoi des messages
 \mthind{Boolean}{ifTrue:}, \mthind{Boolean}{ifFalse:} ou
@@ -555,7 +574,8 @@ n --> 1024
 % mark
 Nous pouvons aussi envoyer le message \mthind{Number}{to:do:} à un
 nombre qui deviendra alors la valeur initiale d'un compteur de boucle.
-Le premier argument est la borne supérieure; le second est un bloc qui prend la valeur courante du compteur de boucle comme argument:
+Le premier argument est la borne supérieure; le second est un bloc qui 
+prend la valeur courante du compteur de boucle comme argument:
 
 \needlines{4}
 \begin{code}{@TEST | n |}
@@ -573,7 +593,8 @@ sont
 \mthind{Collection}{do:}, \mthind{Collection}{collect:}, \mthind{Collection}{select:}, \mthind{Collection}{reject:}, \mthind{Collection}{detect:} ainsi que  \mthind{Collection}{inject:into:}.
 Ces messages définissent des itérateurs d'ordre supérieur qui nous permettent d'écrire du code très compact.
 
-Une instance \clsind{Interval} (\ie un intervalle) est une collection qui définit un itérateur sur une suite de nombres depuis un début jusqu'à une fin.
+Une instance \clsind{Interval} (\ie un intervalle) est une collection qui 
+définit un itérateur sur une suite de nombres depuis un début jusqu'à une fin.
 \ct{1 to: 10} représente l'intervalle de 1 à 10.
 Comme il s'agit d'une collection, nous pouvons lui envoyer le message \ct{do:}.
 L'argument est un bloc qui est évalué pour chaque élément de la collection.
@@ -589,7 +610,8 @@ n --> 55
 (1 to: 10) collect: [ :each | each * each ] --> #(1 4 9 16 25 36 49 64 81 100)
 \end{code}
 
-\ct{select:} et \ct{reject:} construisent des collections nouvelles, contenant un sous-ensemble d'éléments satisfaisant (ou non) la condition du bloc booléen.
+\ct{select:} et \ct{reject:} construisent des collections nouvelles, 
+contenant un sous-ensemble d'éléments satisfaisant (ou non) la condition du bloc booléen.
 \ct{detect:} retourne le premier élément satisfaisant la condition.
 Ne perdez pas de vue que les chaînes sont aussi des collections, ainsi
 vous pouvez itérer aussi sur tous les caractères.
@@ -731,8 +753,8 @@ les chaînes (\ct{'bonjour'}), les symboles (\ct{#bonjour}) et les tableaux (\ct
 \ct{OrderedCollection new add: #albert; add: #einstein; size --> 2}
 
 \item	Les variables locales sont déclarées à l'aide de barres verticales.
-		\arelire{Employez} \ct{:=} \arelire{pour les affectations.} %; \ct{_} ou
-   %     \ct{UNDERSCORE} marche aussi; tous deux sont abandonnées
+        Employez \ct{:=} pour les affectations. 
+   %; \ct{_} ou % \ct{UNDERSCORE} marche aussi; tous deux sont abandonnées
    %     depuis la version 3.9 de \squeak. % CHANGE - martial
 		\ct{|x| x:=1}
 
