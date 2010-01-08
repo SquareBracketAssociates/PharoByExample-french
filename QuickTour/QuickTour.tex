@@ -9,9 +9,10 @@
 % voyez cette erreur, SVP merci de corriger)
 %%%%%%%%%%%%%%%%%%%%%%
 % relecture: Rene Mages (fusion par martial: Wed Dec 26 17:28:17 CET 2007)
-% relecture: Rene Mages (Sat Jan 12 17:28:17 CET 2007)
+% relecture: Rene Mages (Sat Jan 12 17:28:17 CET 2008)
 % note de martial: revoir les index pour les termes liés à Morphic
 % adaptation pour PBE - 28729
+% relecture: Rene Mages (Thu Jan 8 11:22:22 CET 2010)
 % sync avec la version: 29170
 % sync avec la version: 29247 changement des icônes pour squeak.exe
 % sync avec la version: 29309
@@ -169,12 +170,12 @@ espaces de travail nommés \emphind{Workspace} (voir \figref{startup}).
   ouvertes en \clickant sur \arevoir{la bulle rouge dans le coin
     supérieur gauche} des fenêtres.}
 
-\arelire{Vous pouvez minimiser les fenêtres (ce qui les masque dans la
-  barre de tâches située dans le bas de l'écran) en \clickant{} sur la
-  \arevoir{bulle orange}. \Click{} sur la \arevoir{bulle verte}
-  entraîne l'agrandissement maximal de la fenêtre.} % CHANGE REVOIR -
-                                % martial - je préfère 'barre de
-                                % tâches' au terme 'dock'  
+Vous pouvez minimiser les fenêtres (ce qui les masque dans la
+barre de tâches située dans le bas de l'écran) en \clickant{} sur la
+\arevoir{bulle orange}. \Click{} sur la \arevoir{bulle verte}
+entraîne l'agrandissement maximal de la fenêtre.
+% CHANGE REVOIR -
+% martial - je préfère 'barre de tâches' au terme 'dock'  
 
 %-----------------------------------------------------------------
 \paragraph{Première interaction.}
@@ -211,7 +212,8 @@ boutons. Si votre souris en a moins, vous pourrez utiliser des touches
 du clavier en complément de la souris pour simuler les boutons
 manquants. Une souris à deux boutons fonctionne bien avec \pharo, mais si
 la vôtre n'a qu'un seul bouton vous devriez songer à adopter un
-modèle récent avec une molette qui fera office de troisième bouton: votre travail avec \pharo n'en sera que plus agréable.
+modèle récent avec une molette qui fera office de troisième bouton: 
+votre travail avec \pharo n'en sera que plus agréable.
 
 \pharo évite les termes ``clic gauche'' ou ``clic droit'' car leurs
 effets peuvent varier selon les systèmes, le matériel ou les
@@ -283,8 +285,7 @@ Soit vous devez maintenir {\sc Shift} \emph{Ctrl} ou {\sc Shift}
 Puis \actclickz{} dans le Workspace et sélectionnez
 \menu{print it} 
 %ajout
-(en français, ``imprimez-le'')
-dans le menu qui apparaît.}
+(en français, ``imprimez-le'') dans le menu qui apparaît.}
 
 % \dothis{\Metaclickz{} sur le Workspace.
 % Déplacez la poignée 
@@ -294,12 +295,12 @@ dans le menu qui apparaît.}
 % %\raisebox{-0.4ex}{\includegraphics[width=1em]{morphicRotate}}
 % située à proximité du coin inférieur gauche pour faire pivoter le Workspace.}
 
-\arelire{Nous recommandons aux droitiers de configurer leur souris pour
+Nous recommandons aux droitiers de configurer leur souris pour
 \click{} avec le bouton gauche
 % ajout vf
 (qui devient donc le bouton de \clickbtn),
 \actclick{} avec le bouton droit et \metaclick{} avec la
-\arevoir{molette de défilement cliquable}, si elle est disponible.}
+molette de défilement cliquable}, si elle est disponible.
 % Avec une souris sans molette il est possible d'invoquer le menu halo
 % en maintenant \ct{alt}, \ct{ctrl}
 % ou \ct{option} pendant que vous cliquez sur le \ind{bouton rouge}.
@@ -310,12 +311,12 @@ simuler le second bouton en maintenant la touche \clover{} enfoncée
 en \clickant. Cependant, si vous prévoyez d'utiliser \pharo souvent, nous
 vous recommandons d'investir dans un modèle à deux boutons au minimum.
 
-%  j'ai ajouté CTRL car sur mon linux ni alt ni fn.. ne marchent pour
-%  ça. seul ctrl le fait..
+% j'ai ajouté CTRL car sur mon linux ni alt ni fn.. ne marchent pour
+% ça. seul ctrl le fait..
 % note de martial: ca depend aussi du windowmanager; c'est une bonne
 % idee de le mettre en tout cas 
 Vous pouvez configurer votre souris selon vos souhaits en utilisant
-les préférences de votre système ou le pilote de votre dispositif de
+les préférences de votre système ou le pilote de votre dispostif de
 pointage.
 \ab{How can I get meta-click without a three-finger salute?  Is this a secret?}
 \pharo vous propose des réglages pour adapter votre souris et les
@@ -326,8 +327,8 @@ Dans l'outil de réglage des préférences nommé \ind{Preference
 \menu{keyboard} contient une option \emph{swapControlAndAltKeys}
 permettant de \arelire{permuter les fonctions ``\actclick{}'' et
   ``\metaclick''}.
-Cette catégorie
-propose aussi des options afin de dupliquer les touches de modifications.%  et 
+Cette catégorie propose aussi des options afin de dupliquer les touches de 
+modifications.%  et 
 % rendre une pression sur \ct{alt} équivalente à une pression sur \ct{ctrl}.
 
 \begin{figure}[htb]
@@ -360,7 +361,7 @@ Vous y trouverez une liste des principaux outils de \pharo.
 Nous aurons affaire à eux dans les prochains chapitres.
 
 %=================================================================
-\section{\arelire{Envoyer des messages}} % CHANGE spécial Pharo
+\section{Envoyer des messages} % CHANGE spécial Pharo
 
 \dothis{Ouvrez un espace de travail Workspace et saisissez-y
     le texte suivant:}
@@ -385,12 +386,11 @@ gauche de votre image \pharo.
 
 Vous venez tout simplement d'évaluer votre première expression \st. 
 %You have just evaluated your first \st expression!
-Vous avez juste envoyé le message 
- \ct{new} à la classe \bam ce qui résulte de la création d'une
- nouvelle instance qui à son tour \arevoir{reçoit le message}
- \ct{openInWorld}. % REVOIR dans le texte orig. pas de notion de
-                   % receveur mais on parle uniquement d'envoyer (dur
-                   % à reformuler) - martial
+Vous avez juste envoyé le message \ct{new} à la classe \bam 
+ce qui résulte de la création d'une nouvelle instance qui à 
+son tour \arevoir{reçoit le message}
+\ct{openInWorld}. % REVOIR dans le texte orig. pas de notion de
+% receveur mais on parle uniquement d'envoyer (dur à reformuler) - martial
 % You just sent the message \ct{new} to the \bam class, resulting in a new \bam instance, followed by the message \ct{openInWorld} to this instance.
 La classe \bam{} a décidé de ce qu'il fallait faire avec le message
 \ct{new}: elle recherche dans ces \emph{méthodes} pour répondre de
@@ -408,8 +408,7 @@ qu'ils n'emploient généralement pas les expressions comme ``faire appel
 à une opération'' ou ``invoquer une méthode'': ils diront ``envoyer
 un message''.
 % If you talk to Smalltalkers for a while, you will quickly notice that they generally do not use expressions like ``call an operation'' or ``invoke a method'', but instead they will say ``send a message''.
-Ceci reflète l'idée que les objets sont responsables de leurs propres
-actions.
+Ceci reflète l'idée que les objets sont responsables de leurs propres actions.
 % This reflects the idea that objects are responsible for their own actions. 
 Vous ne \emph{direz} jamais à un objet quoi faire\,---\,vous lui
 \emph{demanderez} polimment de faire quelque chose en lui envoyant un
@@ -452,8 +451,7 @@ Ils représentent l'image ``vivante'' de votre session \pharo au moment qui pré
 Ces deux fichiers peuvent être copiés à votre convenance dans les
 dossiers  de votre disque pour y être utilisés plus tard. à vous de
 les invoquer en prenant soin (selon votre système de fichiers) de
-%note de martial: j'ai transforme pour plus de logique mais c'est
-%lourd: a revoir
+%note de martial: j'ai transforme pour plus de logique mais c'est lourd: a revoir
 déplacer, copier ou lier le fichier \emph{sources} correspondant,
 tout en veillant à exécuter la bonne machine virtuelle.
 
@@ -462,8 +460,8 @@ tout en veillant à exécuter la bonne machine virtuelle.
 
 Vous retrouvez l'état de votre session exactement tel qu'il était
 avant que vous quittiez \pharo. La démo des \bamfr{} est toujours sur votre
-fenêtre de travail \arelire{et les atomes continuent de rebondir d'où
-  ils étaient lorsque vous avez quitté.}
+fenêtre de travail et les atomes continuent de rebondir depuis la position
+qu'ils avaient lorsque vous avez quitté.}
 
 En lançant pour la première fois \pharo, la \ind{machine virtuelle}
 charge le fichier image que vous spécifiez. Ce fichier contient
@@ -474,18 +472,29 @@ allez envoyer des messages à ces objets, en créer de nouveaux, et
 certains seront supprimés et l'espace-mémoire utilisé sera récupéré
 (\ie passé au ramasse-miettes ou \emph{garbage collector}).
 
-En quittant \pharo vous sauvegardez un instantané de tous vos objets. En sauvegardant (par ``Save''), vous remplacerez l'image courante par l'instantané de votre session. Pour préserver l'image courante, vous devez enregister sous un nouveau nom comme nous venons de le faire.
+En quittant \pharo vous sauvegardez un instantané de tous vos objets. 
+En sauvegardant (par ``Save''), vous remplacerez l'image courante par 
+l'instantané de votre session. Pour préserver l'image courante, vous 
+devez enregister sous un nouveau nom comme nous venons de le faire.
 
 Chaque fichier \emph{.image} est accompagné d'un fichier \emph{.changes}.
-Ce fichier contient un journal de toutes les modifications que vous avez faites en utilisant l'environnement de développement.
+Ce fichier contient un journal de toutes les modifications que vous avez 
+faites en utilisant l'environnement de développement.
 Vous n'avez pas à vous soucier de ce fichier la plupart du temps.
-Mais comme nous allons le voir plus tard, le fichier \emph{.changes} pourra être utilisé pour rétablir votre système \pharo à la suite d'erreurs.
+Mais comme nous allons le voir plus tard, le fichier \emph{.changes} 
+pourra être utilisé pour rétablir votre système \pharo à la suite d'erreurs.
 
-L'image sur laquelle vous travaillez provient d'une image de \st-80 créée à la fin des années 1970.
-Beaucoup des objets qu'elle contient sont là depuis des décennies!
+L'image sur laquelle vous travaillez provient d'une image de \st-80 créée 
+à la fin des années 1970. Beaucoup des objets qu'elle contient sont là 
+depuis des décennies!
 
-Vous pourriez penser que l'utilisation d'une image est incontournable pour stocker et gérer des projets, mais comme nous le verrons bientôt il existe des outils plus adaptés pour gérer le code et travailler en équipe sur des projets.
-Les images sont très utiles mais nous considérons comme une pratique un peu dépassée et fragile pour diffuser et partager vos projets alors qu'il existe des outils tels que Monticello qui proposent de biens meilleurs moyens de suivre les évolutions du code et de le partager entre plusieurs développeurs.
+Vous pourriez penser que l'utilisation d'une image est incontournable pour 
+stocker et gérer des projets, mais comme nous le verrons bientôt il existe 
+des outils plus adaptés pour gérer le code et travailler en équipe sur des projets.
+Les images sont très utiles mais nous considérons comme une pratique un peu 
+dépassée et fragile pour diffuser et partager vos projets alors qu'il existe 
+des outils tels que Monticello qui proposent de biens meilleurs moyens de 
+suivre les évolutions du code et de le partager entre plusieurs développeurs.
 
 \dothis{\arelire{\Metaclickz{} (en utilisant les touches de
     modifications appropriées conjointement avec votre souris) sur la fenêtre
@@ -557,27 +566,25 @@ Transcript show: 'hello world'; cr.
 \end{code}
 
 %ajout
-Expérimentez la sélection
-en double-\clickant{} dans l'espace de travail à différents points dans
-le texte que vous venez de saisir.
+Expérimentez la sélection en double-\clickant{} dans l'espace de travail 
+à différents points dans le texte que vous venez de saisir.
 % entire word, entire string, or the whole text ((diff: string and word?))
-Remarquez comment un mot entier ou tout un texte est
-sélectionné %selon l'endroit où vous cliquez.
-\arelire{selon que vous \clickz{} sur un mot, à la fin d'une chaîne de
-caractères ou à la fin d'une expression entière.}
+Remarquez comment un mot entier ou tout un texte est sélectionné 
+%selon l'endroit où vous cliquez.
+selon que vous \clickz{} sur un mot, à la fin d'une chaîne de
+caractères ou à la fin d'une expression entière.
 
 \dothis{Sélectionnez le texte que vous avez saisi puis \actclickz{}.
 Choisissez \menu{do it (d)} 
 %ajout
 (dans le sens ``faites-le!'', \cad \emph{évaluer le code
-  sélectionné})
-dans le menu contextuel.}
-Notez que le texte ``hello world''~\footnote{\arelire{NdT: C'est une tradition de la
-  programmation: tout premier programme dans un nouveau langage de
-  programmation consiste à afficher la phrase en anglais ``hello world''
-  signifiant ``bonjour le monde''.}}
- apparaît dans la
-fenêtre Transcript (voir \figref{helloworld}).
+  sélectionné}) dans le menu contextuel.
+
+Notez que le texte ``hello world''~\footnote{NdT: C'est une tradition de la
+programmation: tout premier programme dans un nouveau langage de
+programmation consiste à afficher la phrase en anglais ``hello world''
+signifiant ``bonjour le monde''.}
+apparaît dans la fenêtre Transcript (voir \figref{helloworld}).
 Refaites encore un \menu{do it (d)}
 (Le \menu{(d)} dans l'option de menu \menu{do it (d)} vous indique que
 le raccourci-clavier correspondant est \short{d}. Pour plus
@@ -615,9 +622,8 @@ touches de modifications soit \texttt{Control}, \texttt{Alt},
 générique par \short{\emph{touche}}).
 \index{raccourci-clavier}
 \seeindex{clavier!raccourci-clavier}{raccourci-clavier}
-\seeindex{clavier!événement}{événement, clavier} % martial: pour
-                                % Morphic surtout
-
+\seeindex{clavier!événement}{événement, clavier} 
+% martial: pour Morphic surtout
 \dothis{Réévaluez l'expression dans le Workspace en utilisant
   cette fois-ci le raccourci-clavier: \short{d}.}
 \index{raccourci-clavier!do it}
@@ -829,12 +835,12 @@ Nous pouvons voir un navigateur de classes sur \figref{classBrowser}.
 La barre de titre indique que nous sommes en train de parcourir la
 classe \clsind{Object}.
 
-\`A l'ouverture du Browser, tous les panneaux sont vides excepté
+à l'ouverture du Browser, tous les panneaux sont vides excepté
 le premier à gauche.
 Ce premier panneau liste tous les \emph{paquetages} 
 % vf
-(en anglais, \emph{packages})
-connus; \arelire{elles contiennent des groupes de classes apparentées}.
+(en anglais, \emph{packages}) connus; 
+ils contiennent des groupes de classes apparentées.
 %\index{catégorie}
 
 \dothis{\clickz{} sur le paquetage \scatind{Kernel}.}
@@ -863,8 +869,7 @@ Dès lors, vous voyez dans la partie inférieure du Browser
 le code source de la méthode \ct{printString} partagé par tous
 les objets 
 %ajout
-(tous dérivés de la classe Object,
-exception faite de ceux qui la surcharge).
+(tous dérivés de la classe Object, exception faite de ceux qui la surcharge).
 
 %=================================================================
 \section{Trouver les classes}
@@ -919,9 +924,9 @@ créer une sous-classe nommée \ct{Boolean} sans aucune variables
 d'instance, ni variables de classe ou ``pool dictionaries'' et de 
 mettre la classe \ct{Boolean} dans la catégorie \scatind{Kernel-Objects}.
 % The lower pane shows the \emph{class comment} --- a piece of plain text describing the class.
-\arelire{Si vous \clickz{} sur le bouton \button{?} en bas du panneau
-  de classes, vous verrez le \subind{classe}{commentaire} de classe
-  dans un panneau dédié comme le montre \figref{classComment}.} % CHANGE
+Si vous \clickz{} sur le bouton \button{?} en bas du panneau
+de classes, vous verrez le \subind{classe}{commentaire} de classe
+dans un panneau dédié comme le montre \figref{classComment}. % CHANGE
 
 % Le nouveau panneau en dessous nous montre le \emph{commentaire de
 %   classe}\,---\,quelques paragraphes de texte décrivant la classe.
@@ -1016,9 +1021,9 @@ L'outil \emphind{Method Finder} peut vous aider à la trouver.
 \index{méthode!recherche}
 \seeindex{méthode!trouver}{méthode, recherche}
 
-\dothis{\arelire{Sélectionnez \menu{World \go{} Tools \go{} Method Finder}.}
+\dothis{Sélectionnez \menu{World \go{} Tools \go{} Method Finder}.}
 Saisissez ``now'' dans le panneau supérieur gauche et cliquez sur
-\menu{accept} (ou tapez simplement la touche \textsc{Entrée}).}
+\menu{accept} (ou tapez simplement la touche \textsc{Entrée}).
 Le chercheur de méthodes Method Finder affichera une liste de tous
 les noms de méthodes contenant la sous-chaîne de caractères ``now''.  
 
@@ -1037,7 +1042,7 @@ celle-ci.
 \figlabel{MethodFinder}}
 \end{figure}
 
-\`A d'autres moments, vous pourriez avoir en tête qu'une méthode
+à d'autres moments, vous pourriez avoir en tête qu'une méthode
 existe bien sans savoir comment elle s'appelle.
 Le Method Finder peut encore vous aider! Par exemple, partons de la
 situation suivante: vous voulez trouvez une méthode qui transforme
@@ -1049,11 +1054,11 @@ transforme \ct{'eureka'} en \ct{'EUREKA'}.
 \noindent
 Le Method Finder vous suggère une méthode qui fait ce
 que vous voulez~\footnote{\arelire{Si une fenêtre s'ouvre soudain avec un
-  message d'alerte à propos d'une méthode obsolète\,---\, le terme
-  anglais est \emph{deprecated method}\,---\, ne paniquez pas: le
-  Method Finder est simplement en train d'essayer de chercher parmi
-  tous les candidats incluant ainsi les méthodes obsolètes. \Clickz{}
-  alors sur le bouton~\button{Proceed}.}}.
+message d'alerte à propos d'une méthode obsolète\,---\, le terme
+anglais est \emph{deprecated method}\,---\, ne paniquez pas: le
+Method Finder est simplement en train d'essayer de chercher parmi
+tous les candidats incluant ainsi les méthodes obsolètes. \Clickz{}
+alors sur le bouton~\button{Proceed}.}}.
 
 Un astérisque au début d'une ligne dans le panneau de droite du
 Method Finder vous indique que cette méthode est celle qui a été
@@ -1094,8 +1099,7 @@ façon d'écrire du code.
 L'idée derrière cette technique aussi appelée TDD se résume par l'écriture
 du test qui définit le comportement désiré de notre
 code \emph{avant} celle du code proprement dit.
-à partir de là seulement, nous écrivons le code qui satisfait au
-test.
+à partir de là seulement, nous écrivons le code qui satisfait au test.
 \seeindex{développement dirigé par le comportement}{Test Driven Development} 
 \seeindex{Behavior Driven Development}{Test Driven Development}
 
@@ -1168,12 +1172,12 @@ sélectionnez \menu{accept (s)} via le menu activé en \actclickant{} dans ce pa
 %ajout
 \seeindex{méthode!accepter}{raccourci-clavier, accept}
 
-\arelire{Si c'est la première fois que vous acceptez du code dans
-  votre image, vous serez invité à saisir votre nom dans une
-  fenêtre spécifique. Beaucoup de personnes ont contribué au code de
-  l'image; c'est important de garder une trace de tous ceux qui créent
-  ou modifient les méthodes. Entrez simplement votre prénom suivi de
-  votre nom sans espaces ou de point de séparation.}
+Si c'est la première fois que vous acceptez du code dans
+votre image, vous serez invité à saisir votre nom dans une
+fenêtre spécifique. Beaucoup de personnes ont contribué au code de
+l'image; c'est important de garder une trace de tous ceux qui créent
+ou modifient les méthodes. Entrez simplement votre prénom suivi de
+votre nom sans espaces ou avec un point de séparation.
 % If this is the first time you have accepted any code in your image, you will likely be prompted to enter your name. Since many people have contributed code to the image, it is important to keep track of everyone who creates or modifies methods. Simply enter your first and last names, without any spaces, or separated by a dot.
 
 %\begin{figure}[hbt]
@@ -1321,7 +1325,7 @@ notre test afin de le savoir.
   \emph{errors}).}
 Vous voyez une barre verte~\footnotemark\ dans le Test Runner? Bravo!
 Sauvegardez votre image et faites une pause. 
-%martial: ajout (ca fait toujours plaisir!)
+% martial: ajout (ca fait toujours plaisir!)
 Vous l'avez bien mérité. 
 % \footnotetext{En réalité, vous pourriez ne pas obtenir de barre
 %   verte car certaines images contiennent des tests pour des
@@ -1336,7 +1340,7 @@ Vous l'avez bien mérité.
 
 %=================================================================
 \section{Résumé du chapitre}
-%martial: j'ai mis 'intronise' si trop solennel, corriger par 'presente'
+%martial: j'ai mis 'introduit' si trop solennel, corriger par 'presente'
 Dans ce chapitre, nous vous avons introduit à l'environnement de
 \pharo et nous vous avons montré comment utiliser certains de ses
 principaux outils comme le   Browser, le
@@ -1370,6 +1374,8 @@ syntaxe sans que vous puissiez encore la comprendre suffisamment à ce stade.
     (\short{d}), \menu{print it} (\short{p}), \menu{inspect it}
     (\short{i}) et \menu{explore it} (\short{I}).
 \index{raccourci-clavier}
+  \item \sqmap est un outil pour télécharger des paquetages utiles
+    depuis Internet.
   \item Le navigateur de classes \emph{Browser} est le
     principal outil pour naviguer dans le code \pharo et pour
     développer du nouveau code.
