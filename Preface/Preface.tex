@@ -7,7 +7,8 @@
 % relecture: rene mages : Mon Dec 24 11:47:29 CET 2007
 % relecture: rene mages : Sat Jan 12 18:47:29 CET 2008
 % relecture: martial boniou: Mon Feb 11 11:58:24 CET 2008
-% adaptation pour Pharo: martial - Thu Sep 10 23:36:52 CEST 2009 from
+% adaptation pour Pharo: martial - Thu Sep 10 23:36:52 CEST 2009 
+% relecture: rene mages : Sat Jan 9 18:18:18 CET 2010
 % $Author: mars $ $Date: 2009-09-09 12:48:45 +0200 (Wed, 09 Sep 2009)
 % $ $Revision: 29014 $
 % sync: 29170
@@ -45,34 +46,32 @@
 %=================================================================
 \section*{Qu'est ce que \pharo?}
 
-\arelire{\pharo est une implémentation moderne, libre et complète du
+\pharo est une implémentation moderne, libre et complète du
 langage de programmation \st et de son environnement. \pharo est
 dérivé de \squeak\cite{Inga97a}, une ré-programmation du classique
 système \st-80. Alors que \squeak fut développé principalement en tant que
- plateforme pour le développement de logiciels éducatifs
- expérimentaux, \pharo tend à offrir une plateforme,
- à la fois, \emph{open-source} et épurée pour le développement de
- logiciels professionnels
-et aussi, 
- stable et robuste pour la recherche et le développement dans le
- domaine des langages et environnement dynamiques. \pharo est le
- système de référence de la bibliothèque de développement web
- Seaside.} % CHANGE
+plateforme pour le développement de logiciels éducatifs
+expérimentaux, \pharo tend à offrir une plateforme,
+à la fois, \emph{open-source} et épurée pour le développement de
+logiciels professionnels et aussi, stable et robuste pour la recherche 
+et le développement dans le domaine des langages et environnement dynamiques. 
+\pharo est le système de référence de la bibliothèque de développement web
+ Seaside. % CHANGE
 
-\arelire{\pharo résout les problèmes de licence inérrant à
-\squeak. Contrairement aux versions précédentes de \squeak, le noyau
+\pharo résout les problèmes de licence inhérent à \squeak. 
+Contrairement aux versions précédentes de \squeak, le noyau
 de \pharo ne contient que du code sous licence MIT. Le projet \pharo
 a débuté en mars 2008 depuis un \emph{fork}\footnote{Embranchement à
-  partir duquel le code d'un logiciel sert de base à un nouveau produit.}
+partir duquel le code d'un logiciel sert de base à un nouveau produit.}
 de \squeak 3.9 et la première version 1.0 \emph{beta} a été publiée le
-31 juillet 2009.} % CHANGE
+31 juillet 2009. % CHANGE
 
-\arelire{Bien que dépourvu de nombreux paquetages présents dans \squeak, \pharo
+Bien que dépourvu de nombreux paquetages présents dans \squeak, \pharo
 est fourni avec beaucoup de fonctionalités optionnelles dans \squeak.
 Par exemple, les fontes \truetype sont inclus dans \pharo. \pharo
 dispose aussi du support pour de véritables fermetures lexicales ou
 \emph{block closures}. Les élements d'interface utilisateurs ont été
-revus et simplifiés.} % CHANGE
+revus et simplifiés. % CHANGE
 
 \pharo est extrêmement portable --- même sa machine virtuelle est
 entièrement écrite en \st, ce qui facilite son débogage, son
@@ -80,16 +79,16 @@ analyse et les modifications à venir. \pharo est le véhicule de tout
 un ensemble de projets innovants, des applications multimédias et
 éducatives aux environnements de développement pour le web.
 % There is an important aspect behind \pharo: \pharo should not just be a copy of the past but really \emph{reinvent} Smalltalk. Big-bang approaches rarely succeed. \pharo will really favor evolutionary and incremental changes. We want to be able to experiment with important new features or libraries. Evolution means that \pharo accepts mistakes and is not not aiming for the next perfect solution in one big step\,---\,even if we would love it. \pharo will favor small incremental changes but a multitude of them. The success of \pharo depends on the contributions of its community.
-Il est important de préciser le fait suivant concernant \pharo: \arelire{\pharo
-ne devrait pas être qu'une simple copie du passé mais véritablement
+Il est important de préciser le fait suivant concernant \pharo: 
+\pharo ne devrait pas être qu'une simple copie du passé mais véritablement
 une \emph{réinvention} de Smalltalk. \arevoir{Les approches en \emph{big bang}
 fonctionnent rarement.} \pharo encourage les changements évolutifs et
 incrémentaux. Nous voulons être capable d'expérimenter via les
 nouvelles fonctionalités et autre bibliothèques. Par \emph{évolution},
-nous disons que \pharo \arevoir{tolèrent les erreurs et n'a pas pour objectif
+nous disons que \pharo tolèrent les erreurs et n'a pas pour objectif
 de devenir la prochaine solution de rêve d'un bond\,---\,même si nous
-le désirons.}
-\arevoir{\pharo favorisera de multiples évolutions.}} % REVOIR
+le désirons.
+\pharo favorisera toutes les évolutions à caractère incrémental. 
 Le succès de \pharo dépend des contributions de sa communauté.
 
 %=================================================================
@@ -100,10 +99,14 @@ Le succès de \pharo dépend des contributions de sa communauté.
 %This book presents the various aspects of \pharo, starting with the basics, and proceeding to more advanced topics.
 Ce livre est basé sur \emph{Squeak Par l'Exemple}\footnote{\spe;
   traduction française de Squeak By Example (\sbe).}, une introduction
-à \squeak éditée en \emph{open-source}. \arelire{Il a néanmoins été librement
-adapté pour refléter les différences entre \pharo et \squeak. Ce livre présente différents aspects de \pharo, en commençant par les concepts de base et en poursuivant vers des sujets plus avancés.}
+à \squeak éditée en \emph{open-source}. Il a néanmoins été librement
+adapté pour refléter les différences entre \pharo et \squeak. Ce livre 
+présente différents aspects de \pharo, en commençant par les concepts 
+de base et en poursuivant vers des sujets plus avancés.
 
-Ce livre ne vous apprendra pas à programmer. Le lecteur doit avoir quelques notions concernant les langages de programmation. Quelques connaissances sur la programmation objet seront utiles.
+Ce livre ne vous apprendra pas à programmer. Le lecteur doit avoir quelques 
+notions concernant les langages de programmation. Quelques connaissances 
+sur la programmation objet seront utiles.
 
 Ce livre introduit l'environnement de programmation, le langage et
 les outils de \pharo. Vous serez confronté à de nombreuses bonnes
@@ -111,12 +114,12 @@ pratiques de Smalltalk, mais l'accent sera mis plus particulièrement
 sur les aspects techniques et non sur la conception orientée
 objet. Nous vous présenterons, autant que possible, une foule 
 d'exemples (nous avons été inspiré par l'excellent livre de Alec
-% rene : c'est bien Alec et non Alex (verification OK)
 Sharp sur Smalltalk\cite{Shar97a}).
 \index{Sharp, Alex}
 
-Il y a plusieurs autres livres sur \st disponibles gratuitement sur le web mais aucun d'entre eux ne se concentrent sur \pharo. Voyez par exemple:
-\url{http://stephane.ducasse.free.fr/FreeBooks.html}
+Il y a plusieurs autres livres sur \st disponibles gratuitement 
+sur le web mais aucun d'entre eux ne se concentrent sur \pharo. 
+Voyez par exemple: \url{http://stephane.ducasse.free.fr/FreeBooks.html}
 
 \ifluluelse{}{\newpage} % layout hint
 %=================================================================
@@ -134,7 +137,10 @@ Alan Knight exprime ce principe comme suit\footnote{\url{http://www.surfscranton
 Les développeurs \st débutants ont souvent beaucoup de
 difficultés car ils pensent qu'il est nécessaire de connaître
 tous les détails d'une chose avant de l'utiliser. Cela signifie
-qu'il leur faut un moment avant de maîtriser un simple: \ct{Transcript show: 'Hello World'}. Une des grandes avancées de la programmation par objets est de pouvoir répondre à la question ``Comment ceci marche?'' avec  ``Je ne m'en préoccupe pas''.}
+qu'il leur faut un moment avant de maîtriser un 
+simple: \ct{Transcript show: 'Hello World'}. 
+Une des grandes avancées de la programmation par objets est de 
+pouvoir répondre à la question ``Comment ceci marche?'' avec  ``Je ne m'en préoccupe pas''.}
 
 %=================================================================
 \section*{Un livre ouvert}
@@ -152,8 +158,7 @@ Ce livre est ouvert dans plusieurs sens:
 		Si vous voulez participer à ce travail, merci de nous contacter. Nous voulons voir ce livre se développer!
 \end{itemize}
 
-\arelire{Plus de détails concernant ce livre sont disponibles sur le site
-web \ppe.}
+Plus de détails concernant ce livre sont disponibles sur le site web \ppe.
 %\spe, hébergé par l'\emph{Institute of Computer Science and Applied Mathematics} de l'Université de Berne en Suisse.
 
 %=================================================================
@@ -165,8 +170,7 @@ Voici une courte liste de ressources que vous pourrez trouver utiles:
 \begin{itemize}
 \item \url{http://www.pharo-project.org} est le site web principale de \pharo.
 \item \url{http://www.squeaksource.com}: \squeaksource est l'équivalent de
-  \sourceforge pour les projets \pharo. De nombreux paquetages
-  optionnels se trouvent ici.
+  \sourceforge pour les projets \pharo. De nombreux paquetages optionnels se trouvent ici.
 \end{itemize}
 
 % REVOIR : listes de diffusion parties peut être attendre la version
@@ -200,7 +204,7 @@ Si vous voulez découvrir \pharo en vous amusant avec ces morceaux de
 code, sachez que vous pouvez charger un fichier texte avec la
 totalité des codes d'exemple via le site web du livre: \ppe. 
 
-La deuxième convention que nous utilisons est l'ic\^one
+La deuxième convention que nous utilisons est l'icône
 \dothisicon{} pour vous indiquer que vous avez quelque chose à faire: 
 
 \dothis{Avancez et lisez le prochain chapitre!}
@@ -248,7 +252,7 @@ données ou \emph{streams}.
 
 %  update (12/2007) - a relire
 Nous remercions particulièrement Alexandre Bergel, Orla Greevy,
-Fabrizio Perin, Lukas Renggli, Jorge Ressia \arelire{et Erwann Wernli} pour leurs
+Fabrizio Perin, Lukas Renggli, Jorge Ressia et Erwann Wernli pour leurs
 corrections détaillées % REVOIR en final (encore un ajout)
 % ajout - vf
 de l'édition originale. % REVOIR
@@ -259,8 +263,7 @@ les facilités d'hébergement web de ce livre.
 
 Nous remercions aussi la communauté \squeak pour leur soutien et leur
 enthousiasme sur ce projet et pour leur communication quant à l'aide à
-la correction de la première édition 
-de la version originale %ajout
+la correction de la première édition de la version originale %ajout
 de ce livre. % REVOIR
 
 \section*{Remerciements pour l'édition française}
