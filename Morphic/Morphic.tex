@@ -15,6 +15,7 @@
 %% Review: Rene Mages - Fri Dec 21 22:18:36 2007 (3600 CET)
 %% Review: Rene Mages - Sat Jan 12 18:55:44 2008 (3600 CET)
 %% Adaptation pour PharoBook: Martial Boniou - Tue Nov 17 11:45:22 2009
+%% Relecture pour PharoBook: Rene Mages - Sat Nov 09 11:45:22 2009
 %% Sync avec la version: 29309
 %% Keywords:
 %% Compatibility: 
@@ -141,7 +142,7 @@ dans l'espace mais aussi dans le temps.
 \subsection{Réponse au doigt et à l'\oe il}
 Le caractère direct de l'interface Morphic se traduit par le fait
 que toutes les formes graphiques sont des objets 
-%examined or chapnged directly
+%examined or changed directly
 inspectables et modifiables directement par la souris.
 %l'interactivité offerte
 
@@ -179,7 +180,7 @@ disons \menu{Workspace} pour afficher son halo.} % CHANGE
 Tous les objets que vous voyez à l'écran dans \pharo sont des
 \emph{morphs}; tous sont des instances des sous-classes de \ct{Morph}.
 \mbox{\ct{Morph}} est une grande classe avec de nombreuses méthodes
-qui permettent d'implémenter des sous-classes avec un comportement
+qui permettent d'implémenter des sous-classes ayant un comportement
 original avec très peu de code.
 Vous pouvez créer un morph pour représenter n'importe quel objet. 
 %, although how good a representation you get depends on the object!
@@ -194,12 +195,11 @@ Vous pouvez créer un morph pour représenter n'importe quel objet.
 % ON: openViewerForArgument is gone in pharo! % CHANGE - martial: donc
 % différent de SBE
 
-\arelire{Ce code} crée un morph pour représenter la chaîne
+Ce code crée un morph pour représenter la chaîne
 de caractères \ct{'Morph'} et l'affiche dans
 l'écran principal, le ``world'' (en français, nous dirions
 ``monde'' puisque la fenêtre \pharo est un \emph{monde de morphs}).
-Vous pouvez manipuler cet objet graphique \arelire{en
-  \metaclickant{}}.
+Vous pouvez manipuler cet objet graphique en \metaclickant{}.
 \index{world}
 
 % CHANGE - martial - dans SBE, il y a un paragraphe avec le Viewer
@@ -446,6 +446,7 @@ surface de la croix sensible à la souris.
 %However, you will notice that the sensitive zone\,---\,where you can click to grab the morph\,---\,is still the whole bounding box.  Let's fix this.
 
 Lorsque la librairie Morphic a besoin de trouver quels morphs se
+% Rene propose le framework Morphic 
 trouvent sous le curseur, elle envoie le message \ct{containsPoint:}
  à tous les morphs qui ont leur boîte englobante sous le
 pointeur de la souris. 
@@ -475,15 +476,14 @@ nous sommes donc sûrs que les points pour lesquels
 seront colorés par \ct{drawOn:}.
 Notez qu'à 
 %ajout
-la dernière ligne
-nous avons profité de la méthode
+la dernière ligne nous avons profité de la méthode
 \mthind{Rectangle}{containsPoint:} 
 de la classe \ct{Rectangle} pour faire l'essentiel du travail.
 %Notice how we leverage the \mthind{Rectangle}{containsPoint:} method in class \ct{Rectangle} to do the hard work.
 
 Il reste tout de même deux problèmes avec ce code dans les 
 \mthsref{firstDrawOn} et \ref{mth:firstContains}.
-Le plus remarquable est que nous avons du code dupliqué.
+Le plus remarquable est que nous ayons du code dupliqué.
 C'est une erreur fondamentale: si vous avez besoin de modifier la
 façon dont \ct{horizontalBar} ou \ct{verticalBar} sont
 calculées, vous risquez d'oublier de reporter les changements
@@ -566,8 +566,7 @@ m color: (Color blue alpha: 0.3).
 
 \noindent
 La correction repose sur la division de la barre verticale en trois
-morceaux et sur le remplissage uniquement des deux morceaux
-supérieurs et inférieurs.
+morceaux et sur le remplissage uniquement des deux morceaux supérieurs et inférieurs.
 Encore une fois, nous trouvons une méthode dans la classe
 \ct{Rectangle} qui va bien nous aider: \ct{r1 areasOutside: r2} 
 retourne un tableau de rectangles comprenant les parties de \ct{r1}
@@ -672,7 +671,7 @@ morph sous le pointeur de la souris le message
 \ct{handlesMouseDown:}. Si un morph répond \ct{true}, Morphic lui
 envoie immédiatemment le message \mthind{Morph}{mouseDown:}. Lorsque
 le bouton de la souris est relâché, Morphic envoie
-\mthind{Morph}{mouseUp:}  à ces même morphs qui avaient répondus
+\mthind{Morph}{mouseUp:}  à ces mêmes morphs qui avaient répondus
 positivement. Si tous les morphs retournent \ct{false}, Morphic entame
 une opération de
 %saisissement dans la version d'Hilaire (c'est en fait une emotion
@@ -718,10 +717,11 @@ morph, mais qu'elle envoie aussi le message \ct{self changed}.
 Ce message assure que Morphic envoie \ct{drawOn:}
 %in a timely fashion
 de façon assez rapide.
+
 \ab{However, the \ct{self changed} message seems to be entirely unnecessary; the colour changes instantly without it.}
+
 Notez aussi qu'une fois qu'un morph gère les événements \subind{événement}{souris}, vous ne pouvez plus l'attraper avec la souris pour le déplacer.
-Dès lors, vous devez utiliser le halo Morphic en \arelire{\metaclickant}: les poignées \arelire{supérieures noire \grabHandle{}
-et marron \moveHandle{}}
+Dès lors, vous devez utiliser le halo Morphic en \arelire{\metaclickant}: les poignées \arelire{supérieures noire \grabHandle{} et marron \moveHandle{}}
 vous permettent respectivement de prendre et déplacer ce morph.
 \seeindex{souris!événement}{événement, souris}
 
@@ -732,8 +732,7 @@ vous permettent respectivement de prendre et déplacer ce morph.
 \mthind{MouseEvent}{redButtonPressed} pour la gestion du \arelire{\clickbtn} 
 et \mthind{MouseEvent}{yellowButtonPressed} \arelire{pour celle du
   \actclickbtn}.
- Parcourez cette classe pour
-en savoir plus sur les autres méthodes disponibles pour la gestion
+ Parcourez cette classe pour en savoir plus sur les autres méthodes disponibles pour la gestion
 des événements souris.} % ATTENDRE - martial - je n'aime pas trop l'abandon des conventions de couleurs de la souris dans le livre si le système les garde CONFUS! 
 
 \subsection{Les événements clavier}
@@ -806,7 +805,7 @@ CrossMorph>>>handleKeystroke: anEvent
 \end{method}
 
 La méthode que nous venons d'écrire vous permet de déplacer
-notre croix avec les touches fléchées. Remarquez que quand la
+notre croix avec les touches fléchées. Remarquez que lorsque la
 souris n'est pas sur la croix, le message
 \mthind{Morph}{handleKeystroke:} n'est pas envoyé: dans ce cas, la croix
 ne répond pas aux commandes clavier.
@@ -892,7 +891,7 @@ le stoppe.
 %ajout
 Morphic dispose de morphs commodes pour créer en quelques lignes de
 code des interactions avec l'utilisateur. Parmi eux, nous avons la
-classe \clsind{UIManager} offre \arelire{un grand nombre de} boîtes de
+classe \clsind{UIManager} offre un grand nombre de boîtes de
 dialogue % CHANGE - martial - FillInTheBank devient UIManager
 prêtes à l'emploi.
 La méthode \mthind{UIManager}{request:initialAnswer:} renvoie
@@ -971,8 +970,7 @@ receveur
 %ajout
 passé en argument est défini comme compatible. L'implémentation
 de cette méthode dans la classe mère des morphs \ct{Morph} renvoie
-toujours \ct{true} 
-donc, par défaut, tous les morphs sont acceptés en tant que
+toujours \ct{true} donc, par défaut, tous les morphs sont acceptés en tant que
 receveur.
 
 \begin{method}{Accepter les morphs déposés selon leur couleur}
@@ -1393,6 +1391,7 @@ C'est tout ce dont nous avons besoin!
 \section{Résumé du chapitre}
 
 Morphic est une librairie graphique dans laquelle les éléments de
+% Rene :  framework plutot que librairie
 l'interface graphique peuvent être composés dynamiquement.
 Vous pouvez:
 \begin{itemize}
@@ -1417,7 +1416,7 @@ Vous pouvez:
   \item trouver différents morphs pré-définis pour
     l'interactivité de l'utilisateur comme
     \ct{PopUpMenu} ou \ct{UIManager};
-%martial: ajout a signaler a andrew
+% martial: ajout a signaler a andrew
   \item explorer les méthodes graphiques des différents canevas,
     instances de \ct{Canvas} ou de sous-classes,
     pour exploiter leurs ressources pour le dessin des morphs.
