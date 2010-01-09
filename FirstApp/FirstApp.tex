@@ -11,6 +11,8 @@
 % relecture: Rene Mages (01/10/2008) version 14902
 % relecture: Martial Boniou (01/30/2008) version 15374
 % adaptation pour PBE - martial - (09/20/2009) version 29552
+% relecture: Rene Mages (10/01/2010) version 30222
+
 \ifx\wholebook\relax\else
 % --------------------------------------------
 % Lulu:
@@ -45,8 +47,8 @@ Dans ce chapitre, nous allons développer un jeu simple \arelire{de
 % martial - TODO ajouter une définition en français
 }. 
 En cours de route, nous allons faire la démonstration de la plupart des outils que les développeurs \pharo utilisent pour construire et déboguer leurs programmes et comment les programmes sont échangés entre les développeurs. Nous verrons notamment le navigateur de classes, l'inspecteur d'objet, le débogueur et le navigateur de \ind{paquetage}{}s \ind{Monticello}. 
-Le développement avec Smalltalk est efficace: vous découvrirez que vous passerez beaucoup plus de temps à écrire du code et beaucoup moins à gérer le processus de développement. 
-Ceci est en partie du au fait que Smalltalk est un langage très simple, et d'autre part que les outils qui forment l'environnement de programmation sont très intégrés avec le langage.
+Le développement avec \st est efficace: vous découvrirez que vous passerez beaucoup plus de temps à écrire du code et beaucoup moins à gérer le processus de développement. 
+Ceci est en partie du au fait que \st est un langage très simple, et d'autre part que les outils qui forment l'environnement de programmation sont très intégrés avec le langage.
 
 %=================================================================
 \section{Le jeu Lights Out}
@@ -107,17 +109,17 @@ Sélectionnez \menu{create package}\footnote{Nous supposons que le
 
 Tapez le nom du nouveau paquetage (nous allons utiliser
 \scat{PBE-LightsOut}) dans la boîte de dialogue et \clickz{} sur
-\menu{accept} (ou appuyez simplement sur la touche entrée); \arelire{le nouveau
-paquetage est créé et se positionne dans la liste des paquetages en
-respectant l'ordre alphabétique}.
+\menu{accept} (ou appuyez simplement sur la touche entrée); le nouveau
+paquetage est créé et s'affiche dans la liste des paquetages en
+respectant l'ordre alphabétique.
 
 %=================================================================
 \section{Définir la classe LOCell}
 
-\arelire{Pour l'instant, il n'y a aucune classe dans le nouveau paquetage. Cependant le
+Pour l'instant, il n'y a aucune classe dans le nouveau paquetage. Cependant le
 panneau de code inférieur\,---\,qui est la zone principale
 d'édition\,---\,affiche un patron pour faciliter la création d'une
-nouvelle classe (voir \figref{classTemplate}).}
+nouvelle classe (voir \figref{classTemplate}).
 
 Ce modèle nous montre une expression \st qui envoie un message à la
 classe appelée \ct{Object}, lui demandant de créer une sous-classe
@@ -331,7 +333,7 @@ Ce nouveau rectangle va être affecté à la variable \ct{bounds} héritée de l
 
 Notez que l'origine de l'écran \pharo est en \emph{haut à gauche} et que les coordonnées en $y$ augmentent \emph{vers le bas}.
 
-Le reste de la méthode doit être compréhensible d'elle-même.
+Le reste de la méthode doit être compréhensible de lui-même.
 Une partie de l'art d'écrire du bon code \st est de choisir les bons
 noms de méthodes de telle sorte que le code \st peut être lu comme
 de l'anglais simplifié (\emph{English pidgin}).  
@@ -374,8 +376,8 @@ affichée dans le panneau droit. % CHANGE
 % \on{should use the mini workspace instead to send bounds: ?}
 
 Le panneau en bas d'un inspecteur est un mini-espace de
-travail. \arelire{C'est très utile car, dans cet espace de travail, la
-  pseudo-variable \self est liée à l'objet sélectionné.}
+travail. C'est très utile car, dans cet espace de travail, la
+  pseudo-variable \self est liée à l'objet sélectionné.
 
 % \dothis{Tapez le texte \ct{self openInWorld} dans la zone du bas et
 %  choisissez \menu{do it} via le menu.}
@@ -384,8 +386,8 @@ travail. \arelire{C'est très utile car, dans cet espace de travail, la
 \ct{self bounds: (200@200 corner: 250@250)} dans le panneau inférieur et faîtes un
     \menu{do it} (via le menu contextuel ou le raccourci-clavier).}}
 \arelire{%
- La variable \ct{bounds} devrait changer
-dans l'inspecteur. Saisissez maintenant \ct{self openInWorld} dans
+ La variable \ct{bounds} devrait changer dans l'inspecteur. 
+Saisissez maintenant \ct{self openInWorld} dans
   ce même panneau et évaluez le code avec \menu{do it}. La cellule
   doit apparaître près du coin supérieur gauche, là où les coordonnées
   \ct{bounds} doivent le faire apparaître.
@@ -396,8 +398,7 @@ Déplacez la cellule avec la poignée marron (à
 %côte de celle en haut à droite
 gauche de l'icône du coin supérieur droit) et redimensionnez-la avec la poignée jaune (en bas à droite).
 Vérifiez que les limites indiquées par l'inspecteur sont modifiées en
-conséquence \arelire{(vous pourriez avoir à \actclick{} sur
-  \menu{refresh} pour voir les nouvelles valeurs)}. % CHANGE
+conséquence (il faudra peut-être \actclick{} sur \menu{refresh} pour voir les nouvelles valeurs). % CHANGE
 
 \begin{figure}[htbp]
 \centering
@@ -505,15 +506,13 @@ Quel est le bon nombre de cellules? 5? 10? 100? Nous ne le savons pas
 pour l'instant et si nous le savions, il y aurait des chances pour que
 nous changions d'idée par la suite. Nous déléguons donc la
 responsabilité de connaître ce nombre à une autre méthode, que nous
-appelons \ct{cellsPerSide} et que nous écrirons 
-bientôt.
+appelons \ct{cellsPerSide} et que nous écrirons bientôt.
 %martial: 'bientot' remplace 'dans une minute ou deux'. Trop repetitif!
 C'est parce que nous envoyons le message \ct{cellsPerSide} avant de
 définir une méthode avec ce nom que \pharo nous demande ``confirm,
 correct, or cancel'' (\cad ``confirmez, corrigez ou annulez'') lorsque
 nous acceptons le corps de la méthode \mbox{\ct{initialize}.}
-% Rene : s/Ne soyez pas inquiet par cela:/ 
-\arevoir{Que cela ne vous inquiète pas:}
+Que cela ne vous inquiète pas:
 c'est en fait une bonne pratique d'écrire en fonction d'autres méthodes qui ne sont pas encore définies.
 Pourquoi? En fait, ce n'est que quand nous avons commencé à écrire la
 méthode \ct{initialize} que nous nous sommes rendu compte que nous en
@@ -521,7 +520,7 @@ avions besoin, et à ce point, nous lui avons donné un nom
 %qui fait sens 
 significatif et nous avons poursuivi, sans nous interrompre.
  
-La quatrième ligne utilise cette méthode: le code Smalltalk \ct{self cellsPerSide} envoie le message \ct{cellsPerSide} à \pvind{self}, \cad à l'objet lui-même. La réponse, qui sera le nombre de cellules par côté du plateau de jeu, est affectée à \ct{n}.
+La quatrième ligne utilise cette méthode: le code \st \ct{self cellsPerSide} envoie le message \ct{cellsPerSide} à \pvind{self}, \cad à l'objet lui-même. La réponse, qui sera le nombre de cellules par côté du plateau de jeu, est affectée à \ct{n}.
 
 Les trois lignes suivantes créent un nouvel objet \ct{LOCell} et assignent sa largeur et sa hauteur aux variables temporaires appropriées.
 
@@ -570,9 +569,10 @@ Cela s'avère être une excellente syntaxe car le nom de la méthode peut être 
 %=================================================================
 \section{Organiser les méthodes en protocoles}
 
-Avant de définir de nouvelles méthodes, attardons-nous un peu sur le troisième panneau en haut du navigateur.
+Avant de définir de nouvelles méthodes, attardons-nous un peu sur le 
+troisième panneau en haut du navigateur.
 De la même façon que le premier panneau du navigateur nous permet de
-catégoriser les classes \arelire{dans des paquetages} de telle sorte
+catégoriser les classes dans des paquetages de telle sorte
 que nous ne soyons pas submergés par une liste de noms de classes trop
 longue dans le second panneau, le troisième panneau nous permet de
 catégoriser les méthodes de telle sorte que n'ayons pas une liste de
@@ -625,7 +625,9 @@ LOGame>>>cellsPerSide
 \index{méthode!constante}
 
 Cette méthode ne peut pas être plus simple: elle retourne la constante
-10. Représenter les constantes comme des méthodes a comme avantage que si le programme évolue de telle sorte que la constante dépende d'autres propriétés, la méthode peut être modifiée pour calculer la valeur.
+10. Représenter les constantes comme des méthodes a comme avantage que 
+si le programme évolue de telle sorte que la constante dépende d'autres 
+propriétés, la méthode peut être modifiée pour calculer la valeur.
 
 \needlines{10}
 \begin{method}[newCellAt:at:]{Une méthode d'aide à l'initialisation}
@@ -723,9 +725,9 @@ manière avec un ``\ct{:}'' à la fin; ici nous avons donc
 Une méthode d'accès (en lecture ou en écriture) est appelée
 en anglais \emphind{accessor} et par convention, elle doit être
 placée dans le protocole \protind{accessing}.
-En Smalltalk, \emph{toutes} les variables d'instances sont privées à
+En \st, \emph{toutes} les variables d'instances sont privées à
 l'objet qui les possède, ainsi la seule façon pour un autre objet de
-lire ou de modifier ces variables en Smalltalk se fait au travers de
+lire ou de modifier ces variables en \st se fait au travers de
 ces méthodes d'accès comme ici~\footnote{En fait, les variables
   d'instances peuvent être accédées également dans les sous-classes.}.
 
@@ -756,8 +758,8 @@ nous avons affecté le fragment de code qui suit à \ct{mouseAction}:
 
 \ct{[self toggleNeighboursOfCellAt: i at: j ]} 
 
-%martial: j'ai remplace 'fragment de code' ici par 'bloc' et j'ai
-%ajoute la reference vers le chapitre syntax.tex car c'est plus clair
+% martial: j'ai remplace 'fragment de code' ici par 'bloc' et j'ai
+% ajoute la reference vers le chapitre syntax.tex car c'est plus clair
 % pour le debutant qui a ce stade ne maitrise pas bien les elements
 % fondamentaux de squeak 
 \noindent
@@ -789,14 +791,14 @@ Comme nous pouvons le voir sur \figref{lightsOutError}, elle dit \ct{MessageNotU
 \end{figure}
 
 \noindent
-Que se passe-t-il? Afin de le découvrir, utilisons l'un des outils les plus puissants de Smalltalk, le \ind{débogueur}.
+Que se passe-t-il? Afin de le découvrir, utilisons l'un des outils les plus puissants de \st, le \ind{débogueur}.
 
 \dothis{Cliquez sur le bouton \menu{debug} de la fenêtre de notification.}
 Le débogueur nommé Debugger devrait apparaître.
 Dans la partie supérieure de la fenêtre du débogueur, nous pouvons
 voir la pile d'exécution, affichant toutes les méthodes actives; en
 sélectionnant l'une d'entre elles, nous voyons dans le panneau du
-milieu le code Smalltalk en cours d'exécution dans cette méthode, avec
+milieu le code \st en cours d'exécution dans cette méthode, avec
 la partie qui a déclenchée l'erreur en caractère gras.
 
 \dothis{Cliquez sur la ligne nommée
@@ -813,8 +815,12 @@ de la méthode où l'erreur s'est déclenchée (voir \figref{debugToggle}).
 \end{figure}
 
 Dans la partie inférieure du débogueur, il y a deux petites fenêtres
-d'inspection. Sur la gauche, vous pouvez inspecter l'objet-receveur du message qui cause l'exécution de la méthode sélectionnée. Vous pouvez voir ici les valeurs des variables d'instance.
-Sur la droite, vous pouvez inspecter l'objet qui représente la méthode en cours d'exécution. Il est possible d'examiner ici les valeurs des paramètres et les variables temporaires.
+d'inspection. Sur la gauche, vous pouvez inspecter l'objet-receveur du 
+message qui cause l'exécution de la méthode sélectionnée. Vous pouvez 
+voir ici les valeurs des variables d'instance.
+Sur la droite, vous pouvez inspecter l'objet qui représente la méthode 
+en cours d'exécution. Il est possible d'examiner ici les valeurs des 
+paramètres et les variables temporaires.
 
 En utilisant le débogueur, vous pouvez exécuter du code pas à pas,
 inspecter les objets dans les paramètres et les variables locales,
@@ -831,13 +837,16 @@ actuel d'exécution.
 %que vous voyez la méthode que vous écrivez telle qu'elle sera
 %exécutée, avec de paramètres dans son contexte actuel d'exécution.
 
-Dans notre cas, vous pouvez voir dans la première ligne du panneau du haut que le message \ct{toggleState} a été envoyé à une instance de \ct{LOGame}, alors qu'il était clairement destiné à une instance de \ct{LOCell}.
+Dans notre cas, vous pouvez voir dans la première ligne du panneau du 
+haut que le message \ct{toggleState} a été envoyé à une instance de \ct{LOGame}, 
+alors qu'il était clairement destiné à une instance de \ct{LOCell}.
 Le problème se situe vraisemblablement dans l'initialisation de la matrice \ct{cells}.
 En parcourant le code de \cmind{LOGame}{initialize}, nous pouvons
 voir que \ct{cells} est rempli avec les valeurs retournées par
 \ct{newCellAt:at:}, mais lorsque nous regardons cette méthode, nous
 constatons qu'il n'y a pas de valeur retournée ici!
-Par défaut, une méthode retourne \ct{self}, ce qui dans le cas de \ct{newCellAt:at:} est effectivement une instance de \ct{LOGame}.
+Par défaut, une méthode retourne \ct{self}, ce qui dans le cas 
+de \ct{newCellAt:at:} est effectivement une instance de \ct{LOGame}.
 \index{méthode!renvoi de self}
 
 \dothis{Fermez la fenêtre du débogueur.
@@ -864,7 +873,7 @@ LOGame>>>newCellAt: i at: j
 
 \noindent
 Rappelez-vous ce que nous avons vu dans \charef{quick}:
-pour renvoyer une valeur d'une méthode en Smalltalk, nous utilisons 
+pour renvoyer une valeur d'une méthode en \st, nous utilisons 
  \ct{^}, que nous pouvons obtenir en tapant \verb|^|.
 % \index{^@\verb|^|}
 \index{^@{$\uparrow$}|see{renvoi}}
@@ -877,8 +886,7 @@ fenêtre du débogueur et de poursuivre l'application en cliquant sur
 Dans notre cas, la chose la plus simple à faire est de fermer la
 fenêtre du débogueur, détruire l'instance en cours d'exécution (avec
 le \subind{Morphic}{halo} Morphic) et d'en créer une nouvelle, parce que le bug
-ne se situe pas dans une méthode erronée mais dans
-l'initialisation de l'objet.
+ne se situe pas dans une méthode erronée mais dans l'initialisation de l'objet.
 
 %Indeed, even in this case it would be possible to \menu{do} \ct{self initialize} and then \menu{Proceed} the \ct{toggleNeighboursOfCellAt:at:} method.
 %\ab{Stéph, did you try this?  It seems to me that it ought to work, but when I tried it, it messed up my image.}
@@ -904,10 +912,10 @@ LOGame>>>mouseMove: anEvent
 %\on{I think that is too much for this chapter. It will come soon enough.}
 
 %=================================================================
-\section{Sauvegarder et partager le code Smalltalk}
+\section{Sauvegarder et partager le code \st}
 \seclabel{Monticello}
 
-Maintenant que nous avons un jeu Lights Out qui fonctionne, vous avez
+Maintenant que nous avons un jeu Lights Out fonctionnel, vous avez
 probablement envie de le sauvegarder quelque part de telle sorte à
 pouvoir le partager avec des amis. Bien sûr, vous pouvez sauvegarder
 l'ensemble de votre image \pharo et montrer votre premier programme
@@ -943,8 +951,8 @@ Vous devriez trouver maintenant un fichier PBE-LightsOut.st dans le même
 répertoire où votre image a été sauvegardée.
 Jetez un coup d'\oe il à ce fichier avec un éditeur de texte.
 
-\dothis{Ouvrez une nouvelle image \pharo et utilisez l'outil \arelire{File
-  Browser (\menu{Tools \go{} File Browser})} pour faire une importation
+\dothis{Ouvrez une nouvelle image \pharo et utilisez l'outil File
+  Browser (\menu{Tools \go{} File Browser}) pour faire une importation
   de fichier via l'option de menu  \menu{file in} dans le fichier
   PBE-LightsOut.st. Vérifiez que le jeu fonctionne maintenant dans une
   nouvelle image.}
@@ -976,9 +984,15 @@ ces paquetages sont représentés comme des fichiers dont le nom se
 termine en \ct{.mcz}; ce sont en fait des fichiers compressés en
 \emph{zip} qui contiennent le code complet de votre paquetage.
 
-En utilisant le navigateur de paquetages Monticello, vous pouvez sauver les paquetages dans des dépôts en utilisant de nombreux types de serveurs, notamment des serveurs FTP et HTTP; vous pouvez également écrire vos paquetages dans un dépôt qui se trouve dans un répertoire de votre système local de fichiers.
-Une copie de votre paquetage est toujours \emph{en cache} sur disque local dans le répertoire \emph{package-cache}. 
-Monticello vous permet de sauver de multiples versions de votre programme, fusionner des versions, revenir à une ancienne version et voir les différences entre plusieurs versions.
+En utilisant le navigateur de paquetages Monticello, vous pouvez sauver les 
+paquetages dans des dépôts en utilisant de nombreux types de serveurs, notamment 
+des serveurs FTP et HTTP; vous pouvez également écrire vos paquetages dans un 
+dépôt qui se trouve dans un répertoire de votre système local de fichiers.
+Une copie de votre paquetage est toujours \emph{en cache} sur disque local 
+dans le répertoire \emph{package-cache}. 
+Monticello vous permet de sauver de multiples versions de votre programme, 
+fusionner des versions, revenir à une ancienne version et voir les différences 
+entre plusieurs versions.
 En fait, nous retrouvons les mêmes types d'opérations auxquelles vous
 pourriez être habitués en utilisant CVS ou Subversion pour
 partager votre travail.
@@ -998,7 +1012,7 @@ Le destinataire devra le placer dans son répertoire \emph{package-cache}; il se
 
 \dothis{Ouvrez le navigateur Monticello ou Monticello Browser depuis
   le menu \menu{World}.} % CHANGE
-Dans la partie droite du navigateur (voir \figref{monticello1}), il y a une liste des dépôts Monticello incluant tous les dépôts desquels du code a été chargé dans l'image que vous utilisez. 
+Dans la partie droite du navigateur (voir \figref{monticello1}), il y a une liste des dépôts Monticello incluant tous les dépôts dans lesquels du code a été chargé dans l'image que vous utilisez. 
 %In addition to \sqsrc servers, Monticello repositories can live in a variety of other places, the simplest being a directory on your local disk.
 
 \begin{figure}[hbt]
@@ -1012,7 +1026,7 @@ Dans la partie droite du navigateur (voir \figref{monticello1}), il y a une list
 En haut de la liste dans le navigateur Monticello, il y a un dépôt
 dans un répertoire local appelé \emphind{package cache}: il s'agit
 d'un répertoire-cache pour des copies de paquetages que vous avez
-chargé ou publié sur le réseau. Ce cache est vraiment utile car il
+chargées ou publiées sur le réseau. Ce cache est vraiment utile car il
 vous permet de garder votre historique local. Il vous permet également
 de travailler là où vous n'avez pas d'accès Internet ou lorsque 
 l'accès est si lent que vous n'avez pas envie de sauver fréquemment 
@@ -1025,7 +1039,9 @@ paquetages qui ont été modifiés depuis qu'ils ont été chargés sont
 marqués d'une 
 %étoile; martial:  http://www.iam.unibe.ch/pipermail/sbe-discussion/2007-December/000102.html
 astérisque
-(ils sont parfois appelés des \emphsubind{paquetage}{dirty package}{}\emph{s}). Si vous sélectionnez un paquetage, la liste des dépôts est restreinte à ceux qui contiennent une copie du paquetage sélectionné.
+(ils sont parfois appelés des \emphsubind{paquetage}{dirty package}{}\emph{s}). 
+Si vous sélectionnez un paquetage, la liste des dépôts est restreinte à ceux qui 
+contiennent une copie du paquetage sélectionné.
 \seeindex{*}{paquetage, dirty package}
 \seeindex{dirty package}{paquetage, dirty package}
 
@@ -1040,8 +1056,7 @@ astérisque
 
 \subsection{\ind{\sqsrc}: un \ind{SourceForge} pour \pharo} 
 Nous pensons que la meilleure façon de sauvegarder votre code et de le
-partager est de créer un compte sur un serveur
-\sqsrc. \sqsrc est similaire à
+partager est de créer un compte sur un serveur \sqsrc. \sqsrc est similaire à
 \sourceforge~\footnote{\url{http://www.sourceforge.net}}: il s'agit d'un
 \emph{portail web} à un serveur Monticello HTTP qui vous permet de gérer vos projets.
 Il y a un serveur public \sqsrc à l'adresse
@@ -1126,9 +1141,9 @@ Monticello à l'adresse \url{http://www.wiresong.ca/Monticello/}.
 %=================================================================
 \section{Résumé du chapitre}
 Dans ce chapitre, nous avons vu comment créer des catégories, des classes
-et des méthodes. Nous avons vu aussi comment utiliser le \arelire{navigateur de
+et des méthodes. Nous avons vu aussi comment utiliser le navigateur de
 classes (Browser), l'inspecteur (Inspector), le débogueur (Debugger)
-et le navigateur Monticello.}
+et le navigateur Monticello.
 
 \begin{itemize}
   \item Les catégories sont des groupes de classes connexes.
