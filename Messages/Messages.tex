@@ -6,8 +6,10 @@
 % stylo...)
 % relecture par Rene Mages : Thu Dec 20 12:13:40 2007
 % relecture par Rene Mages : Thr Jan 10 12:11:33 2008
-% adaptation pour PBE - martial - Fri Sep 11 17:52:08 CEST 2009 from
-% $Author: oscar $ % $Date: 2009-08-27 12:59:05 +0200 (Thu, 27 Aug 2009) $ % $Revision: 28624 $
+% adaptation pour PBE - martial - Fri Sep 11 17:52:08 CEST 2009 
+% relecture par Rene Mages : Sun Jan 10 12:11:33 2010
+% $Author: oscar $ % $Date: 2009-08-27 12:59:05 +0200 (Thu, 27 Aug 2009) $ 
+% $Revision: 28624 $
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -37,8 +39,12 @@
 \chapter{Comprendre la syntaxe des messages}
 \chalabel{understanding}
 
-Bien que la syntaxe des messages \st soit extrêmement simple, elle n'est pas habituelle et cela peut prendre un certain temps pour s'y habituer. Ce chapitre offre quelques conseils pour vous aider à mieux appréhender la syntaxe spéciale des envois de messages.
-Si vous vous sentez en confiance avec la syntaxe, vous pouvez choisir de sauter ce chapitre ou bien d'y revenir un peu plus tard.
+Bien que la syntaxe des messages \st soit extrêmement simple, elle n'est pas 
+habituelle et cela peut prendre un certain temps pour s'y habituer. Ce chapitre 
+offre quelques conseils pour vous aider à mieux appréhender la syntaxe spéciale 
+des envois de messages.
+Si vous vous sentez en confiance avec la syntaxe, vous pouvez choisir de sauter 
+ce chapitre ou bien d'y revenir un peu plus tard.
 
 \on{I still feel this chapter contains too much repetition.
 I would like to get feedback from students.}
@@ -48,7 +54,8 @@ I would like to get feedback from students.}
 
 En \st, exception faite des éléments syntaxiques rencontrés dans
 \charef{syntax} (\ct+:= ^ . ; # () {} [ : | ]+), tout se passe par envoi de messages.
-Comme en \ind{C++}, vous pouvez définir vos opérateurs comme \ct{+} pour vos propres classes, mais tous les opérateurs ont la même précédence.
+Comme en \ind{C++}, vous pouvez définir vos opérateurs comme \ct{+} pour vos propres 
+classes, mais tous les opérateurs ont la même précédence.
 De plus, il n'est pas possible de changer l'arité d'une méthode:
 \ct{-} est toujours un message binaire, et il n'est pas possible
 d'avoir une forme unaire avec une surcharge différente.
@@ -59,9 +66,14 @@ messages: les messages \emphsubind{message}{unaire},
 \emphsubind{message}{binaire} et \emphsubind{message}{à mots-clés}.
  Les messages unaires sont toujours envoyés en premier, puis
 les messages binaires et enfin ceux à mots-clés. Comme dans la
-plupart des langages,  les \ind{parenthèses} peuvent être utilisées pour changer l'ordre d'évaluation. Ces règles rendent le code \st aussi facile à lire que possible. La plupart du temps, il n'est pas nécessaire de réfléchir à ces règles.
+plupart des langages,  les \ind{parenthèses} peuvent être utilisées 
+pour changer l'ordre d'évaluation. Ces règles rendent le code \st 
+aussi facile à lire que possible. La plupart du temps, il n'est pas 
+nécessaire de réfléchir à ces règles.
 
-Comme la plupart des calculs en \st sont effectués par des envois de messages, identifier correctement les messages est crucial. La terminologie suivante va nous être utile:
+Comme la plupart des calculs en \st sont effectués par des envois de 
+messages, identifier correctement les messages est crucial. La terminologie 
+suivante va nous être utile:
 
 \begin{itemize}
   \item Un message est composé d'un \emphsubind{message}{sélecteur} et d'arguments optionnels.
@@ -177,10 +189,13 @@ objet. Dans \ct{Pen new go: 100}, le message \ct{go: 100} est envoyé
 %=============================================================
 \section{Trois sortes de messages}
 
-\st définit quelques règles simples pour déterminer l'ordre dans lequel les messages sont envoyés. Ces règles sont basées sur la distinction établie entre les 3 formes d'envoi de messages: 
+\st définit quelques règles simples pour déterminer l'ordre dans lequel 
+les messages sont envoyés. Ces règles sont basées sur la distinction établie 
+entre les 3 formes d'envoi de messages: 
 \begin{itemize}
 \item \emph{Les messages unaires} sont des messages qui sont envoyés
-  à un objet sans autre information. Par exemple dans \ct{3 factorial}, \ct{factorial} (pour factorielle) est un message unaire. 
+  à un objet sans autre information. Par exemple dans \ct{3 factorial}, \ct{factorial} (pour factorielle) est un message    
+  unaire. 
 \item  \emph{Les messages binaires} sont des messages formés avec
   des opérateurs (souvent arithmétiques). Ils sont binaires car
   ils ne concernent que deux objets: le receveur et l'objet
@@ -230,14 +245,17 @@ Ils suivent le moule syntaxique: \lct{receveur \textbf{sélecteur} argument}}
 %-------------------------------------------------------------
 \subsection{Messages à mots-clés}
 
-Les messages à mots-clés sont des messages qui nécessitent un ou plusieurs arguments et dont le sélecteur consiste en un ou plusieurs mots-clés se finissant par deux points \ct{:}.  Les messages à mots-clés suivent le moule syntaxique: 
+Les messages à mots-clés sont des messages qui nécessitent un ou plusieurs arguments et 
+dont le sélecteur consiste en un ou plusieurs mots-clés se finissant par deux points \ct{:}.  
+Les messages à mots-clés suivent le moule syntaxique: 
 \lct{receveur \textbf{selecteurMotUn:} argument\-Un \textbf{motDeux:} argumentDeux}
 
 Chaque mot-clé utilise un argument. Ainsi \ct{r:g:b:} est une
 méthode avec 3 arguments, \ct{playFileNamed:} et \ct{at:} sont des
 méthodes avec un argument, et \ct{at:put:} est une méthode avec
 deux arguments. Pour créer une instance de la classe \ct{Color} on
-peut utiliser la méthode \ct{r:g:b:} comme dans \ct{Color r: 1 g: 0 b: 0} créant ainsi la couleur rouge. Notez que les deux points ne font pas partie du sélecteur.
+peut utiliser la méthode \ct{r:g:b:} comme dans \ct{Color r: 1 g: 0 b: 0} 
+créant ainsi la couleur rouge. Notez que les deux points ne font pas partie du sélecteur.
 
 \important{En \ind{Java} ou \ind{C++}, l'invocation de méthode \st \ct{Color r: 1 g: 0 b: 0} serait écrite \ct{Color.rgb(1,0,0)}.}
 
@@ -343,7 +361,11 @@ sous-classes concrètes de \ct{Boolean}: \ct{True} et \ct{False}.
 
 
 \paragraph{Exemple.}
-Dans le message \ct{aPen color: Color yellow}, il y a un message \emph{unaire} \ct{yellow} envoyé à la classe \ct{Color} et un message à \emph{mots-clés} \ct{color:} envoyé à \ct{aPen}. Les messages unaires sont d'abord envoyés, de telle sorte que l'expression \ct{Color yellow} soit d'abord exécutée (1). Celle-ci retourne un objet couleur qui est passé en argument du message \ct{aPen color: aColor} (2) comme indiqué dans l'\egref{decColor}.
+Dans le message \ct{aPen color: Color yellow}, il y a un message \emph{unaire} \ct{yellow} 
+envoyé à la classe \ct{Color} et un message à \emph{mots-clés} \ct{color:} envoyé à \ct{aPen}. 
+Les messages unaires sont d'abord envoyés, de telle sorte que l'expression \ct{Color yellow} 
+soit d'abord exécutée (1). Celle-ci retourne un objet couleur qui est passé en argument du 
+message \ct{aPen color: aColor} (2) comme indiqué dans l'\egref{decColor}.
 \Figref{uKeyUn} montre graphiquement comment les messages sont envoyés.
 
 \needlines{5}
@@ -729,13 +751,17 @@ Ils sont de la forme \lct{receveur \textbf{sélecteur}}.
 
 \item Les messages binaires sont des messages qui concernent deux objets, le receveur et un autre objet \emph{et} dont le sélecteur est composé de un ou deux caractères de la liste suivante: \ct{+}, \ct{-}, \ct{*}, \ct{/}, \ct{|}, \texttt{\&}, \ct{=}, \ct{>}, \ct{<}, \texttt{\~}, et \ct{@}.\\
 Ils sont de la forme: \lct{receveur \textbf{sélecteur} argument}.
+
 \item Les messages à mots-clés sont des messages qui concernent plus d'un objet et qui contiennent au moins un caractère deux points (\ct{:}).\\
 Ils sont de la forme: 
 \lct{receveur \textbf{sélecteurMotUn:} argumentUn \textbf{motDeux:} argumentDeux}.
 
 \item \textbf{Règle un.} Les messages unaires sont d'abord envoyés, puis les messages binaires et finalement les messages à mots-clés.
+
 \item \textbf{Règle deux.} Les messages entre parenthèses sont envoyés avant tous les autres.
+
 \item \textbf{Règle trois.} Lorsque les messages sont de même nature, l'ordre d'évaluation est de gauche à droite.
+
 \item En \st, les opérateurs arithmétiques traditionnels comme +
   ou * ont la même priorité. \ct{+} et \ct{*} ne sont que des
   messages binaires; donc \ct{*} n'a aucune priorité sur
