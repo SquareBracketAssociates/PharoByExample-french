@@ -5,8 +5,9 @@
 % $Revision: 12715 $ 
 % translated by Martial.Boniou@ifrance.com start: (Fri, 5 Oct 2007)
 % relecture : par Rene Mages  (Wed 9 Jan 2008) de la version 14879
-% adaptation pour PBE - martial - Tue Sep  8 21:34:54 CEST 2009 from
-%  $Author: black$ $Date: 2009-09-06 15:31:38 +0200 (Sun, 06 Sep 2009) $
+% adaptation pour PBE - martial - Tue Sep  8 21:34:54 CEST 2009 
+% relecture : par Rene Mages  (Sun 10 Jan 2010) de la version 30225
+% $Author: black$ $Date: 2009-09-06 15:31:38 +0200 (Sun, 06 Sep 2009) $
 % $Revision: 28940 $
 % $Revision: 29158 $
 % sync avec la revision: 29516
@@ -49,11 +50,12 @@
 %\seeindex{souris!bouton rouge}{bouton rouge} % REVOIR
 %\seeindex{souris!bouton bleu}{bouton bleu}   % REVOIR
 
-L'objectif de ce chapitre est de vous montrer comment développer des programmes dans l'environnement de programmation de \pharo.
-\arelire{Vous avez déjà vu comment définir des méthodes et des classes
+L'objectif de ce chapitre est de vous montrer comment développer des programmes 
+dans l'environnement de programmation de \pharo.
+Vous avez déjà vu comment définir des méthodes et des classes
 en utilisant le navigateur de classes; ce chapitre
 vous présentera plus de caractéristiques du Browser ainsi que
-de nouveaux navigateurs.} % CHANGE
+d'autres navigateurs. % CHANGE
 
 Bien entendu, vous pouvez occasionnellement rencontrer
 des situations dans lesquelles votre programme ne marche pas comme voulu.
@@ -64,11 +66,16 @@ montrerons certaines de ses possibilités.
 Lorsque vous programmez, vous le faites dans un monde d'objets vivants et
 non dans un monde de programmes textuels statiques; c'est 
 une des particularités uniques de Smalltalk.
-Elle permet d'obtenir une réponse très rapide de vos programmes et vous rend plus productif. Il y a deux outils vous permettant l'observation et aussi la modification de ces objets vivants: l'\emph{Inspector} (ou inspecteur) et l'\emph{Explorer} (ou explorateur).
+Elle permet d'obtenir une réponse très rapide de vos programmes et vous rend plus productif. 
+Il y a deux outils vous permettant l'observation et aussi la modification de ces objets 
+vivants: l'\emph{Inspector} (ou inspecteur) et l'\emph{Explorer} (ou explorateur).
 
-La programmation dans un monde d'objets vivants plutôt qu'avec des fichiers et un éditeur de texte vous oblige à agir explicitement pour exporter votre programme depuis l'image \st.
+La programmation dans un monde d'objets vivants plutôt qu'avec des fichiers et un éditeur 
+de texte vous oblige à agir explicitement pour exporter votre programme depuis l'image \st.
 
-La technique traditionnelle, aussi supportée par tous les dialectes \st consiste à créer un fichier d'exportation \emph{fileout} ou une archive d'échange dit \changeset. Il s'agit principalement de fichiers textes encodés pouvant être importés dans un autre système.
+La technique traditionnelle, aussi supportée par tous les dialectes \st consiste à créer un 
+fichier d'exportation \emph{fileout} ou une archive d'échange dit \changeset. Il s'agit 
+principalement de fichiers textes encodés pouvant être importés dans un autre système.
 Une technique plus récente de \pharo est le chargement de code dans un dépôt de versions sur un serveur.
 Elle est plus efficace surtout en travail coopératif et est rendu possible via un outil nommé \ind{Monticello}.
 %\seeindex{change set}{file, filing out}
@@ -99,6 +106,7 @@ Vous l'utiliserez pour créer, définir et organiser vos classes et vos méthode
 	\index{Browser}
 	\index{navigateur de classes}
     \seeindex{Browser}{navigateur de classes}
+
 	\item L'outil {\menu{Message Names}} sert à voir toutes les méthodes ayant un sélecteur (noms de messages sans argument) spécifique ou dont le sélecteur contient une certaine sous-chaîne de caractères.
 	\index{Message Name Finder}
 	
@@ -121,7 +129,7 @@ Vous l'utiliserez pour créer, définir et organiser vos classes et vos méthode
 \menu{do it}~\footnote{En anglais, \emph{do it} correspond à l'exclamation ``fais-le!''.}. L'utilisation de \ind{Workspace} a déjà été vu dans \secref{transcript}.
 \end{itemize}
 
-L'outil \menu{Debugger} a un rôle évident, mais vous découvrirez qu'il a une place plus centrale \arevoir{comparé aux débogueurs d'autres langages de programmation}
+L'outil \menu{Debugger} a un rôle évident, mais vous découvrirez qu'il a une place plus centrale comparé aux débogueurs d'autres langages de programmation
 % en comparaison des débogueurs dans d'autres langages de programmation 
 car en \st vous pouvez \emph{programmer} dans l'outil \ind{Debugger}.  Il n'est pas lancé depuis un menu; il apparaît normalement en situation d'erreur,
 en tapant \short{\textbf{.}} pour interrompre un processus lancé ou
@@ -134,17 +142,18 @@ encore en insérant une expression \ct{self halt} dans le code.
 \seclabel{browser} % (fold)
 %apb: what does the fold comment mean?
 
-\arelire{De nombreux navigateur de classes ou \emph{browsers} ont été
-  développés pour \st durant des années. \pharo simplifie l'histoire
-  en proposant un unique navigateur disposant de multiples vues,
+De nombreux navigateurs de classes ou \emph{browsers} ont été
+développés pour \st durant des années. \pharo simplifie l'histoire
+en proposant un unique navigateur disposant de multiples vues,
 le \ind{Browser}. 
- \Figref{SystemBrowser0} présente le Browser tel qu'il apparaît
- lorsque vous l'ouvrez pour la première fois\footnote{Rappelez-vous
-   que si votre navigateur ne ressemble pas à celui présenté sur
-   \figref{classbrowser}, vous pourriez avoir besoin de changer le 
-   navigateur par défaut (voir \faqref{packagebrowser}).}.
-                                % REVOIR figref SystemBrowser0
-}
+\Figref{SystemBrowser0} présente le Browser tel qu'il apparaît
+lorsque vous l'ouvrez pour la première fois
+
+\footnote{Rappelez-vous que si votre navigateur ne ressemble pas à 
+celui présenté sur \figref{classbrowser}, vous pourriez avoir besoin 
+de changer le navigateur par défaut (voir \faqref{packagebrowser}).}.
+% REVOIR figref SystemBrowser0
+
 \begin{figure}[htbp]
    \centering
    \ifluluelse
@@ -160,11 +169,11 @@ manière que le \textit{File Viewer} de \ind{NeXTstep} et le
 \textit{Finder} de Mac OS X fournissent une vue en colonnes 
 des fichiers du disque.
 
-\arelire{Le premier panneau de gauche liste les \emph{paquetages} de
-  classes ou, en anglais, \emph{packages};
+Le premier panneau de gauche liste les \emph{paquetages} de
+classes ou, en anglais, \emph{packages};
 sélectionnez-en une (disons \scat{Kernel}) et alors le
 panneau immédiatemment à droite affichera toutes les classes incluses
-dans ce paquetage.} % CHANGE
+dans ce paquetage. % CHANGE
 
 \begin{figure}[htbp]
    \centering
@@ -178,7 +187,8 @@ dans ce paquetage.} % CHANGE
 De même, si vous sélectionnez une des classes de ce second panneau,
 disons, \menu{Model} (voir  \figref{SystemBrowserModel}), le troisième
 panneau vous affichera tous les \emph{protocoles} définis pour cette
-classe ainsi qu'un protocole virtuel \prot{-{}-all-{}-} (désignant l'ensemble des catégories). Ce dernier est sélectionné par défaut. 
+classe ainsi qu'un protocole virtuel \prot{-{}-all-{}-} (désignant l'ensemble 
+des catégories). Ce dernier est sélectionné par défaut. 
 Les protocoles sont une façon de catégoriser les méthodes;
 ils rendent la recherche des méthodes plus facile et détaillent
 le comportement d'une classe en le découpant en petites divisions 
@@ -189,7 +199,8 @@ Si vous sélectionnez enfin un nom de méthode, le code source de la
 méthode correspondante apparaît dans le grand panneau inférieur
 du navigateur. Là, vous pouvez voir, éditer et sauvegarder la version éditée.
 Si vous sélectionnez la classe
-\menu{Model}, le protocole \protind{dependents} et la méthode \menu{myDependents}, le navigateur devrait ressembler à \figref{SystemBrowserMyDependents}.
+\menu{Model}, le protocole \protind{dependents} et la méthode \menu{myDependents}, 
+le navigateur devrait ressembler à \figref{SystemBrowserMyDependents}.
 \protindex{all}
 \cmindex{Model}{myDependents}
 
@@ -202,27 +213,28 @@ Si vous sélectionnez la classe
    \figlabel{SystemBrowserMyDependents}}
 \end{figure}
 
-Contrairement aux répertoires du \emph{Finder} de Mac OS X, les quatre panneaux supérieurs ne sont aucunement égaux.
+Contrairement aux répertoires du \emph{Finder} de Mac OS X, les quatre panneaux 
+supérieurs ne sont aucunement égaux.
 Là où les classes et les méthodes font partie du langage \st,
-\arelire{les paquetages} et les protocoles de message ne sont que des commodités
+les paquetages et les protocoles ne sont que des commodités
 introduites par le navigateur pour limiter la quantité d'information que chaque panneau pourrait présenter.
 Par exemple, s'il n'y avait pas de protocoles, le navigateur devrait afficher
-la liste de toutes les méthodes dans la classe choisie; pour la plupart des classes, cette liste sera trop importante pour être parcourue aisément.
+la liste de toutes les méthodes dans la classe choisie; pour la plupart des classes, 
+cette liste sera trop importante pour être parcourue aisément.
 \index{Mac OS X Finder}
 
-\arelire{De ce fait, la façon dont vous créez un nouveau paquetage ou
+De ce fait, la façon dont vous créez un nouveau paquetage ou
 un nouveau protocole est différent de la manière avec laquelle
 vous créez une nouvelle classe ou une nouvelle méthode. 
 Pour créer un nouveau paquetage, sélectionnez 
  \menu{new package} dans le menu contextuel accessible 
-en \actclickant dans le  
- panneau des paquetages; pour créer un nouveau protocole, 
-sélectionnez \menu{new protocol} via 
+en \actclickant dans le  panneau des paquetages; 
+pour créer un nouveau protocole, sélectionnez \menu{new protocol} via 
 le menu accessible en \actclickant dans le panneau des protocoles.
 Entrez le nom de la nouvelle entité (paquetage ou protocole) dans
 la zone de saisie, et voilà! 
 % dialog
-Un paquetage ou un protocole, ça n'est qu'un nom et son contenu.}
+Un paquetage ou un protocole, ça n'est qu'un nom et son contenu.
 \index{paquetage!création}
 
 \begin{figure}[htbp]
@@ -242,21 +254,24 @@ panneau de gauche, le panneau inférieur%
 }
 affichera un patron de création de classe
 (voir \figref{SystemBrowserClassCreation}).
-Vous créez une nouvelle classe en éditant ce patron ou \emph{template}. Pour ce faire, remplacez \ct{Object} par le nom de la classe existante
+Vous créez une nouvelle classe en éditant ce patron ou \emph{template}. 
+Pour ce faire, remplacez \ct{Object} par le nom de la classe existante
 que vous voulez dériver, puis remplacez \ct{NameOfSubclass} par le nom
-que vous avez choisi pour votre nouvelle classe (sous-classe de la première) et enfin, remplissez la liste des noms de variables d'instance si vous en connaissez.  
-\arelire{La catégorie pour la nouvelle classe est par défaut la
-  catégorie du paquetage actuellement
-  sélectionné\footnote{Rappelez-vous que paquetages et catégories
-    ne sont pas exactement la même chose. Nous verrons la relation qui
-  existe entre eux dans \secref{packages}.}, mais vous pouvez à loisir
-la changer si vous voulez.}
+que vous avez choisi pour votre nouvelle classe (sous-classe de la première) 
+et enfin, remplissez la liste des noms de variables d'instance si vous en connaissez.  
+La catégorie pour la nouvelle classe est par défaut la
+catégorie du paquetage actuellement sélectionné
+
+\footnote{Rappelez-vous que paquetages et catégories ne sont pas exactement la même chose. 
+Nous verrons la relation qui existe entre eux dans \secref{packages}.}, 
+
+mais vous pouvez à loisir la changer si vous voulez.
 Si vous avez déjà la classe à dériver sélectionnée dans 
 le Browser, vous pouvez obtenir le même patron avec une initialisation
-quelque peu différente en \arelire{\actclickant
-dans le panneau des classes et en sélectionnant 
- \menu{class templates \ldots \go subclass template}.}
-Vous pouvez aussi éditer simplement la définition de la classe existante en changeant le nom de la classe en quelque chose d'autre.
+quelque peu différente en \actclickant dans le panneau des classes et en sélectionnant 
+\menu{class templates \ldots \go subclass template}.
+Vous pouvez aussi éditer simplement la définition de la classe existante en changeant 
+le nom de la classe en quelque chose d'autre.
 Dans tous les cas, à chaque fois que vous acceptez la nouvelle définition, la nouvelle classe 
 (celle dont le nom est précédé par \ct{#}) est créée (ainsi que sa méta-classe associée).  
 Créer une classe crée aussi une variable globale référençant
@@ -277,7 +292,7 @@ Le processus de création d'une nouvelle méthode
 est similaire. Premièrement sélectionnez la classe dans laquelle vous
 voulez que la méthode apparaisse, puis sélectionnez un protocole.
 Le navigateur affichera un patron de création de méthode que
-vous pouvez remplir et éditer, comme montré par
+vous pouvez remplir et éditer, comme indiqué par
 \figref{SystemBrowserMethodTemplate}.
 \index{méthode!création}
 \seeindex{méthode!création}{Browser, définir une méthode}
@@ -299,33 +314,33 @@ vous pouvez remplir et éditer, comme montré par
 
 Le navigateur de classes fournit plusieurs outils pour l'exploration et 
 l'analyse de code. 
-\arelire{Ces outils peuvent être accédés  en \actclickant dans divers menus
+Ces outils peuvent être accédés  en \actclickant dans divers menus
 contextuels ou, pour les outils les plus communs, via des
-raccourcis-clavier.}
+raccourcis-clavier.
 
 \subsubsection{\arelire{Ouvrir une nouvelle fenêtre de Browser}}
 \seclabel{browsing}
 
-\arelire{Vous aurez besoin parfois d'ouvrir de multiples navigateurs
-  de classes.
+Vous aurez besoin parfois d'ouvrir de multiples navigateurs de classes.
 Lorsque vous écrivez du code, vous aurez presque toujours besoin d'au moins deux
 fenêtres: une pour la méthode que vous éditez et une pour naviguer
 dans le reste du système pour y voir ce dont vous aurez besoin pour la
-méthode éditée dans la première.
-} % CHANGE
+méthode éditée dans la première. % CHANGE
 Vous pouvez ouvrir un Browser sur une classe en sélectionnant son nom et en
 utilisant le raccourci-clavier \short{b} \ind{raccourci-clavier}.
 \index{Browser!browse} % REVOIR !bouton!
 \seeindex{navigateur de classes!browse}{Browser, browse} % CHANGE
 \index{raccourci-clavier!browse it}
 
-\dothis{Essayez ceci: dans un espace de travail ou Workspace, saisissez le nom d'une classe (par exemple, \ct{Morph}), sélectionnez-le et pressez \short{b}. Cette astuce est souvent utile; elle marche depuis n'importe quelle fenêtre de texte.}
+\dothis{Essayez ceci: dans un espace de travail ou Workspace, saisissez le nom d'une 
+classe (par exemple, \ct{Morph}), sélectionnez-le et pressez \short{b}. Cette astuce 
+est souvent utile; elle marche depuis n'importe quelle fenêtre de texte.}
 
 \subsubsection{\Senders et \implementors d'un message}
 \seclabel{sendersImplementors}
 
 \index{Browser!senders}%\index{Browser!bouton!senders}
-\arelire{%
+
 \Actclick sur \menu{browse \ldots \go senders (n)} dans le
 panneau des méthodes vous renvoie une liste de toutes les méthodes
 pouvant utiliser la méthode sélectionnée. En prenant le Browser
@@ -335,14 +350,13 @@ la partie inférieure du navigateur.
 Si vous sélectionnez \menu{senders (n)} (\figref{SendersOfDrawOn}), un 
 un menu apparaîtra avec \ct{drawOn:} comme premier élement de
 la pile,  suivi de tous les messages que 
-\ct{drawOn:} envoie (voir \figref{SendersOfDrawOn2}).
-} %CHANGE
+\ct{drawOn:} envoie (voir \figref{SendersOfDrawOn2}). %CHANGE
 Sélectionner un message dans ce menu ouvrira un navigateur avec la
 liste de toutes les méthodes dans l'image qui envoie le message
 choisi (\figref{CanvasDraw}).
 
-%	\caption{Un navigateur de classes ouvert sur la classe \ct{ScaleMorph}. Notez la barre horizontale de boutons en son centre; nous appuyons ici sur le bouton \button{senders}.
-	%\label{fig:SendersOfCheckEvent}}
+% \caption{Un navigateur de classes ouvert sur la classe \ct{ScaleMorph}. Notez la barre horizontale de boutons en son centre; nous appuyons ici sur le bouton \button{senders}.
+%\label{fig:SendersOfCheckEvent}}
 
 %\begin{figure}[htb]
 %\begin{minipage}[b]{0.74\textwidth}
@@ -386,14 +400,14 @@ choisi (\figref{CanvasDraw}).
 % (en incluant les arguments s'il s'agit d'un message à mots-clés) 
 %\arevoir{et que vous appuyez sur \short{m}}.}
 
-\arelire{Le ``n'' dans \menu{senders (n)} vous informe que le
-  raccourci-clavier pour trouver les \senders (\ie les méthodes émettrices) d'un message
-  est \short{n}. Cette commande fonctionne depuis \emph{n'importe
-    quelle} fenêtre de texte.} % CHANGE text window
+Le ``n'' dans \menu{senders (n)} vous informe que le
+raccourci-clavier pour trouver les \senders (\ie les méthodes émettrices) d'un message
+est \short{n}. Cette commande fonctionne depuis \emph{n'importe
+quelle} fenêtre de texte. % CHANGE text window
 
-\dothis{\arelire{Sélectionnez le texte ``drawOn:'' dans le panneau de
+\dothis{Sélectionnez le texte ``drawOn:'' dans le panneau de
     code et pressez \short{n} pour faire apparaître immédiatement les
-     \senders de \ct{drawOn:}.}}
+     \senders de \ct{drawOn:}.}
 
 \begin{figure}[htbp]
 	\begin{center}
@@ -416,14 +430,17 @@ verrez qu'il s'agit de \ct{EllipseMorph}.}
 
 Maintenant observons le sixième \emph{sender} de la liste,
 \ct{Canvas>>>draw}, comme le montre \figref{CanvasDraw}.
-Vous pouvez voir que cette méthode envoie \ct{drawOn:} à n'importe quel objet passé en argument; ce peut être une instance de n'importe quelle classe.
-L'analyse du flux de données peut nous aider à mettre la main sur la classe du receveur de certains messages, mais de manière générale, il n'a pas de moyen simple pour que le navigateur sache quelle méthode sera exécutée à l'envoi d'un message.
+Vous pouvez voir que cette méthode envoie \ct{drawOn:} à n'importe quel objet 
+passé en argument; ce peut être une instance de n'importe quelle classe.
+L'analyse du flux de données peut nous aider à mettre la main sur la classe du 
+receveur de certains messages, mais de manière générale, il n'a pas de moyen simple 
+pour que le navigateur sache quelle méthode sera exécutée à l'envoi d'un message.
 %Dataflow analysis can help figure out the class of the receiver of some messages, but in general, there is no simple way for the browser to know which message-sends might cause which methods to be executed.
 
 C'est pourquoi, le navigateur de ``\senders'' (\ie le Browser des
 méthodes émettrices) nous montre exactement ce que son nom
 suggère: tous les envois d'un message ayant \arelire{pour nom} le
-sélecteur choisi. %CHANGE martial: la phrase trop lourde
+sélecteur choisi. %CHANGE martial: la phrase trop lourde rene: ne fait pas mieux
 Ce navigateur devient grandement indispensable quand vous avez besoin
 de comprendre le \emph{rôle} d'une méthode: il vous permet de
 naviguer rapidement à travers les exemples d'usage. % CHANGE
@@ -442,30 +459,33 @@ Puisque toutes les méthodes avec un même sélecteur devraient être utilisées
 \seeindex{navigateur de classes!classes contenantes}{Browser, implementors} % CHANGE TEMP
 \seeindex{navigateur de classes!implementors}{Browser, implementors} % CHANGE
 
-\arelire{L'Implementors Browser fonctionnent de même mais, au lieu de
-  lister les \senders d'un message, il affiche toutes les classes
-  contenantes ou \implementors, \ie les classes qui implémentent une
-  méthode avec le même selecteur
+L'Implementors Browser fonctionne de même mais, au lieu de
+lister les \senders d'un message, il affiche toutes les classes
+contenantes ou \implementors, \ie les classes qui implémentent une
+méthode avec le même selecteur
 % martial: ajout de 'que celui sélectionné' plus clair!?
 que celui sélectionné.
 Sélectionnez, par exemple, \lct{drawOn:} dans le panneau des méthodes
 et sélectionne \menu{browse \go implementors (m)} (ou selectionnez le
-texte ``drawOn:'' dans la zone inférieure du code et preseez 
+texte ``drawOn:'' dans la zone inférieure du code et pressez 
 \short{m}).
 Vous devriez voir une fenêtre listant des méthodes montrant ainsi la
 liste déroulante des \arevoir{63} % 90 dans l'original
+% rene : ni 90 ni 63 mais 59
+% rene : il me semble préférable de s'éloigner un peu de l'original et
+%        ne plus préciser le nombre exact 
 classes qui implémentent une méthode \ct{drawOn:}.
 Ceci ne devrait pas être si suprenant qu'il y ait tant de classes
 implémentant cette méthode: \ct{drawOn:} est le message qui est
 compris par chaque objet capable de se représenter graphiquement à
-l'écran.}
+l'écran.
 
 \subsubsection{Les versions d'une méthode}
 \seclabel{versions}
 
-%===========================
 Quand vous sauvegardez une nouvelle \subind{méthode}{version} d'une méthode,
-l'ancienne version n'est pas perdue. \pharo garde toutes les versions passées et vous permet de comparer les différentes versions entre elles et de revenir (en anglais, ``revert'') à une ancienne version.
+l'ancienne version n'est pas perdue. \pharo garde toutes les versions passées et vous permet 
+de comparer les différentes versions entre elles et de revenir (en anglais, ``revert'') à une ancienne version.
 \begin{figure}[btp]
    \centering
 	   {\includegraphics[width=\textwidth]{Versions} }
@@ -489,7 +509,7 @@ Le panneau supérieur affiche une ligne pour chaque version de la méthode
 incluant les initiales du programmeur qui l'a écrite, la date et l'heure de
 sauvegarde, les noms de la classe et de la méthode et le protocole dans 
 lequel elle est définie.
-La version courante (active) est au sommet de la liste; quelque soit la version
+La version courante (active) est au sommet de la liste; quelle que soit la version
 sélectionnée affichée dans le panneau inférieur.
 %Si le bouton ou \emph{checkbox} \menu{diffs} est sélectionné, 
 %comme c'est le cas dans \figref{mouseUpVersions}, 
@@ -502,16 +522,17 @@ Les boutons offrent aussi l'affichage des différences entre la méthode sélect
 %ce que les différences liées au formatage ne soient pas prises en compte.
 
 Le \ind{Versions Browser} existe pour que vous ne vous inquiétez jamais
-de la préservation de code que vous pensiez ne plus avoir besoin: effacez-le simplement. Si vous vous rendez compte que vous en avez \emph{vraiment} besoin, 
+de la préservation de code que vous pensiez ne plus avoir besoin: effacez-le simplement. 
+Si vous vous rendez compte que vous en avez \emph{vraiment} besoin, 
 vous pouvez toujours revenir à l'ancienne version ou copier le morceau de 
 code utile de la version antérieure pour le coller dans une autre méthode.
 
-Ayez pour habitude d'utiliser les versions; ``commenter'' le code qui n'est plus utile n'est pas une bonne pratique car ça rend le code courant plus
-difficile à lire. Les Smalltalkiens~\footnote{En anglais, nous les appelons
+Ayez pour habitude d'utiliser les versions; ``commenter'' le code qui n'est 
+plus utile n'est pas une bonne pratique car ça rend le code courant plus difficile à lire. 
+Les Smalltalkiens~\footnote{En anglais, nous les appelons
  \emph{Smalltalkers}.} accorde une extrême importance à la lisibilité du code.
 
-\hint{Qu'en est-il du cas 
-où vous décidez de revenir à une méthode que vous
+\hint{Qu'en est-il du cas où vous décidez de revenir à une méthode que vous
 avez entièrement effacée?  
 Vous pouvez trouver l'effacement dans un \changeset
 dans lequel vous pouvez demander à visiter les versions 
@@ -522,8 +543,8 @@ Le navigateur de \changeset est décrit dans
 \subsubsection{Les surcharges de méthodes}
 \seclabel{overriding}
 
-\arelire{Le Inheritance Browser est un navigateur spécialisé
-  affichant toutes les méthodes surchargées par la méthode affichée.
+Le Inheritance Browser est un navigateur spécialisé
+affichant toutes les méthodes surchargées par la méthode affichée.
 Pour le voir à l'action, sélectionnez la méthode
 \cmind{ImageMorph}{drawOn:} dans le Browser.
 Remarquez les icônes triangulaires juxtant le nom des méthodes (voir \figref{OBinheritanceBrowser}).
@@ -532,7 +553,7 @@ Le triangle pointant vers le haut vous indique que
  (\ie \ct{Morph>>>drawOn:}) et triangle pointant vers le bas vous
  indique que cette méthode est surchargée dans ses sous-classes (vous
  pouvez aussi \click sur les icônes pour naviguer vers ces méthodes).
-Sélectionnez maintenant \menu{browse \go inheritance}.
+Sélectionnez maintenant \menu{browse \go inheritance.
 L'Inheritance Browser vous montre la hiérarchie de méthodes
 surchargées (voir \figref{OBinheritanceBrowser}).}
 
@@ -551,7 +572,7 @@ surchargées (voir \figref{OBinheritanceBrowser}).}
 \subsubsection{\arelire{La vue hiérarchique}}
 \seclabel{hierarchy}
 
-\arelire{Par défaut, le navigateur présente une liste de paquetages dans son
+Par défaut, le navigateur présente une liste de paquetages dans son
 panneau supérieur gauche.
 Cependant, il est possible de changer le contenu de ce panneau pour
 avoir une vue hiérarchique des classes. Pour cela, sélectionner tout
@@ -560,8 +581,8 @@ sur le bouton \button{hier.}.
 Vous verrez alors dans le panneau le plus à gauche une hiérarchie de
 classes affichant toutes les super-classes et sous-classes de la
 classe sélectionnée.
-\arevoir{Le second panneau liste les paquetages implémentant les
-  méthodes de la classe sélectionnée.} % CHANGE à vérifier
+Le second panneau liste les paquetages implémentant les
+méthodes de la classe sélectionnée. % CHANGE à vérifier
 %The \button{hierarchy} button opens a \ind{hierarchy browser} on the current class; this
 %browser can also be opened by using the \menu{browse hierarchy} menu item in the class pane.
 %The hierarchy browser is similar to the browser, but instead of displaying the categories and the classes in each category, it shows a single list of classes, indented to represent inheritance.
@@ -585,7 +606,7 @@ montre que \clsind{ImageMorph} est la super-classe directe de
 \seclabel{variables}
 
 \index{Browser!variables}
-\arelire{En \actclickant sur une classe dans le panneau de classes du
+En \actclickant sur une classe dans le panneau de classes du
 navigateur, puis en sélectionnant
 \menu{browse \go chase variables}~\footnote{\emph{Chase} signifie
   ``poursuivre'' en anglais.}, vous pouvez trouver 
@@ -593,8 +614,8 @@ où une certaine variable\,---\,d'instance ou de classe\,---\,est
 utilisée.
 Vous naviguez au travers des méthodes d'accès de toutes les variables
 d'instance ou de classe via ce \emph{navigateur de poursuite} et, en
-retour, visitez les \arevoir{méthodes qui envoyent} ces accesseurs, et
-ainsi de suite (voir{chasingBrowser}).}
+retour, visitez les méthodes qui envoyent ces accesseurs, et
+ainsi de suite (voir{chasingBrowser}).
 
 \begin{figure}[btp]
 	\begin{center}
@@ -652,7 +673,8 @@ décompilé depuis le \emph{bytecode} via \menu{decompile}.
 
 Remarquez que le choix de \menu{prettyPrint} dans ce menu n'est
 \emph{absolument pas} le même que le travail en mode \emph{pretty-print} d'une méthode
-avant sa sauvegarde\footnote{\menu{pretty print (r)} est la première option de menu dans le panneau des méthodes ou celui à mi-hauteur dans le menu du panneau de code.}.
+avant sa sauvegarde\footnote{\menu{pretty print (r)} est la première option de menu 
+dans le panneau des méthodes ou celui à mi-hauteur dans le menu du panneau de code.}.
 Le menu contrôle seulement l'affichage du navigateur et n'a aucun effet sur
 le code enregistré dans le système.
 Vous pouvez le vérifier en ouvrant deux navigateurs et en sélectionnant
@@ -721,9 +743,8 @@ avez oublié son nom.} % FAUX dans la VO
 \index{classe!récente}
 
 Vous pouvez aussi rechercher une classe ou méthode en particulier en
-saisissant son nom dans \arelire{la zone de texte} %\arelire{la boîte
-                                %de requête}
-dans la partie supérieure gauche de votre navigateur. Quand vous tapez
+saisissant son nom dans la boîte de requête située dans la partie 
+supérieure gauche de votre navigateur. Quand vous tapez
 sur la touche ``entrée'', une requête sera envoyée au système et son
 résultat sera affiché. % REVOIR CHANGE
 Notez qu'en préfixant votre requête avec \ct{#}, vous pouvez chercher
@@ -733,8 +754,7 @@ message.
 %``trouver une méthode'') et \menu{find method wildcard\ldots} qui
 %s'avèrent utiles si vous souhaitez naviguer dans une méthode
 %particulière.
-Cependant, 
-\arelire{Si vous recherchez une méthode dans la classe sélectionnée}, il est
+Cependant, si vous recherchez une méthode dans une classe sélectionnée, il est
 souvent plus efficace de naviguer dans le protocole \prot{-{}-all-{}-} 
 (qui d'ailleurs est le choix par défaut), placer la souris dans le
 panneau des méthodes et taper la première lettre du nom de la méthode
@@ -752,7 +772,7 @@ minutes à tester les possibilités du navigateur est véritablement payant.
 \dothis{Comparez le résultat de \menu{Browse Protocol}, \menu{Browse Hierarchy},  et \menu{Show Hierarchy} dans le menu contextuel du panneau de classes.}
 
 %---------------------------------------------------------
-\subsection{Naviguer par programme} %{Browsing programatically}
+\subsection{Naviguer par programme} %{Browsing programmatically}
 
 La classe \glbind{SystemNavigation} offre de nombreuses méthodes utiles
 pour naviguer dans le système.
@@ -777,7 +797,7 @@ programme car \emph{ceux-ci sont aussi des objets}. Vous pouvez dès lors
 développer vos propres outils ou adapter ceux qui existent déjà
 selon vos besoins.
 
-L'équivalent programmatique de \arelire{l'option de menu}
+L'équivalent programmatique de l'option de menu
 \menu{implementors} est: % CHANGE
 \begin{code}{}
 SystemNavigation default browseAllImplementorsOf: #drawOn: .
@@ -803,13 +823,12 @@ un \ind{paquetage} avant d'aborder Monticello proprement dit.
 \subsection{Les paquetages: une catégorisation déclarative du code de Pharo}
 \seclabel{packages}
 
-\arelire{Dans \secref{categoriesPackages}, nous avons pointé le fait
-  que les paquetages sont plus ou moins équivalent aux
-  catégories. Nous allons désormais voir la relation qui existe entre
-  eux.
+Dans \secref{categoriesPackages}, nous avons pointé le fait
+que les paquetages sont plus ou moins équivalent aux catégories. 
+Nous allons désormais voir la relation qui existe entre eux.
 Le système du paquetage est une façon simple et légère
 d'organiser le code source de Smalltalk; il exploite une simple
-convention de nommage pour les catégories et les protocoles.}
+convention de nommage pour les catégories et les protocoles.
 
 Prenons l'exemple suivant en guise d'explication.
 Supposons que nous sommes en train de développer une librairie pour
@@ -859,34 +878,40 @@ dans \emph{n'importe quelle classe} dont le protocole se nomme
 \prot{*Foo} ou \prot{*foo}~\footnote{Durant la comparaison
 de ces noms, la casse des lettres est parfaitement ignorée.}, et;
 %%ou n'importe quel nom commençant par \prot{*foo-} et;
-	\item{} toutes les \emph{méthodes} dans les classes présentes dans
-\scat{Foo} ou toutes catégories avec un nom commençant par \scat{Foo-}, \emph{exception} faite des méthodes dont le nom des protocoles débute par 
+\item{} toutes les \emph{méthodes} dans les classes présentes dans
+\scat{Foo} ou toutes catégories avec un nom commençant par \scat{Foo-}, 
+\emph{exception} faite des méthodes dont le nom des protocoles débute par 
 \prot{*}.
 \end{enumerate}
 
 \noindent
-Une conséquence de ces règles est que chaque définition de classe et chaque méthode appartiennent exactement à un paquetage. 
+Une conséquence de ces règles est que chaque définition de classe et chaque 
+méthode appartiennent exactement à un paquetage. 
 L'\emph{exception} de la dernière règle est justifiée parce que
 ces méthodes doivent appartenir à d'autres paquetages.
 La raison pour laquelle la casse
 %%~\footnote{La hauteur minuscule ou majuscule d'une lettre.} 
 est ignorée dans la règle \ref{env:extensions} 
-% rene rewording
+% Rene rewording
 % est que, par convention, les noms de protocole sont tous en
 % minuscules (et peuvent inclure des  
 % espaces), alors que les noms de catégorie utilise une écriture
 % en chameau c'est-à-dire les 
 % mots composants ces noms sont en capitales et forment les noms sans espaces comme
 % dans CamelCase (nom anglais de cette technique de formatage de nom).
-est que, conventionnellement les noms de protocoles sont \arelire{(typiquement
-mais pas nécessairement)} en minuscules (et peuvent inclure des espaces); alors que les noms de catégories utilisent un format d'écriture en forme chameau comme par exemple AlanKay, LargePositiveInteger ou CamelCase (d'ailleurs CamelCase est le nom anglais de ce type de format de noms).
+est que, conventionnellement les noms de protocoles sont typiquement
+(mais pas nécessairement) en minuscules (et peuvent inclure des espaces); alors que 
+les noms de catégories utilisent un format d'écriture en forme chameau comme par 
+exemple AlanKay, LargePositiveInteger ou CamelCase (d'ailleurs CamelCase est 
+le nom anglais de ce type de format de noms).
 \index{écriture en chameau}
 \seeindex{CamelCase}{écriture en chameau}
-%martial: au-dessus, dans la correction de rene, je n'ai mis
-%LargePositiveInteger a la place de SmallTalk parce que ce n'est pas
-%(plus) la convention d'ecriture
+% martial: au-dessus, dans la correction de rene, je n'ai mis
+% LargePositiveInteger a la place de SmallTalk parce que ce n'est pas
+% (plus) la convention d'ecriture
 
-La classe \ct{PackageInfo} implémente ces règles et vous pouvez mieux les appréhender en expérimentant cette classe.
+La classe \ct{PackageInfo} implémente ces règles et vous pouvez mieux les 
+appréhender en expérimentant cette classe.
 
 \dothis{Évaluez l'expression suivante dans un espace de travail:}
 %\seeindex{refactoring}{refactorisation} REVOIR
@@ -915,7 +940,8 @@ sur celles déjà existantes, il est possible d'utiliser
 été explicitement adapté pour pouvoir y répondre.} % REVOIR -
                                 % FAUX? DANS PBE
 
-\dothis{Imprimer le code \ct{(PackageInfo named: 'Collections') externalSubclasses}; cette expression répond une liste de toutes les sous-classes de \ct{Collection}
+\dothis{Imprimer le code \ct{(PackageInfo named: 'Collections') externalSubclasses}; 
+cette expression répond une liste de toutes les sous-classes de \ct{Collection}
 qui ne sont \emph{pas} dans le paquetage \ct{Collections}.}
 
 %---------------------------------------------------------
@@ -1054,10 +1080,10 @@ Monticello ajoutera \ct{PBE} à sa liste de paquetages;
 l'entrée du paquetage sera marquée avec une astérisque pour
 montrer que la version présente dans votre image n'a pas
 été encore écrite dans le dépôt.
-\arelire{Remarquez que vous devriez avoir maintenant deux paquetages;
-  un nommé \ct{PBE} et un autre nommé \ct{PBE-Monticello}. C'est
-  normal puisque \ct{PBE} contiendra \ct{PBE-Monticello} ainsi que
-  tout autre paquetage dont le nom commence par \ct{PBE-}.} % CHANGE
+Remarquez que vous devriez avoir maintenant deux paquetages;
+un nommé \ct{PBE} et un autre nommé \ct{PBE-Monticello}. C'est
+normal puisque \ct{PBE} contiendra \ct{PBE-Monticello} ainsi que
+tout autre paquetage dont le nom commence par \ct{PBE-}. % CHANGE
 
 Initialement, le seul dépôt associé à ce paquetage sera votre
 \emph{package cache} comme nous pouvons le voir sur \figref{MC+PBE}.
@@ -1109,15 +1135,15 @@ la même chose que sur
 \end{figure}
 
 Pour sauvegarder notre nouveau paquetage dans un autre
-dépôt (autre que package cache), vous
-avez besoin de vous assurer tout d'abord que Monticello connaît
+dépôt (autre que package cache), vous avez besoin de vous 
+assurer tout d'abord que Monticello connaît
 ce dépôt en l'ajoutant si nécessaire.
 Alors vous pouvez utiliser le bouton \button{Copy} dans le 
 Repository Browser de package-cache et choisir le dépôt vers lequel
 le paquetage doit être copié.
 Vous pouvez aussi associer le dépôt désiré avec le paquetage
-en \arelire{sélectionnant \menu{add to package \ldots} 
-dans le menu contextuel du répertoire accessible en \actclickant{}},
+en sélectionnant \menu{add to package \ldots} 
+dans le menu contextuel du répertoire accessible en \actclickant{},
 comme nous pouvons le voir dans \figref{associateRepository}.
 Une fois que le paquetage est lié à un dépôt, vous pouvez sauvegarder
 toute nouvelle version en sélectionnant le dépôt et le paquetage
@@ -1128,7 +1154,8 @@ Le dépôt \ct{PharoByExample} sur \emphind{\sqsrc} est
 lisible pour tout le monde mais n'est pas inscriptible; ainsi, si vous
 essayez d'y sauvegarder quelque chose, vous aurez un message d'erreur.
 Cependant, vous pouvez créer votre propre dépôt sur 
-\sqsrc en utilisant l'interface web de \url{http://www.squeaksource.com} et en l'utilisant pour sauvegarder votre travail.
+\sqsrc en utilisant l'interface web de \url{http://www.squeaksource.com} et 
+en l'utilisant pour sauvegarder votre travail.
 Ceci est particulièrement utile pour partager votre code avec vos amis ou
 si vous utilisez plusieurs ordinateurs.
 
@@ -1145,7 +1172,7 @@ Si vous essayez de sauvegarder dans un répertoire dans lequel vous n'avez
 pas les droits en écriture, une version sera de toute façon écrite
 dans le package-cache.
 Donc vous pourrez corriger en éditant les informations du dépôt
-\arelire{(en \actclickant{} dans Monticello Browser)} ou
+(en \actclickant{} dans Monticello Browser) ou
 en choisissant un dépôt différent puis, en le copiant
 depuis le navigateur ouvert sur package-cache avec le bouton \button{Copy}.
 
@@ -1193,7 +1220,8 @@ de
 % and the following word, and that space happens to come out at the start of a line.
 qui a été créée en évaluant l'expression 
 \ct{TimeStamp now}.
-La barre de titre de la fenêtre affiche la \arevoir{représentation imprimée} de l'objet
+La barre de titre de la fenêtre affiche  \arevoir{la représentation imprimée} de l'objet
+% Rene propose de s'éloigner du texte anglais : s/la représentation imprimée/le nom/
 en cours d'inspection.
 Si vous sélectionnez \menu{self} dans le panneau supérieur de gauche,
 le panneau de droite affichera la description de l'objet en chaîne de caractères ou \emph{printstring} de l'objet.
@@ -1206,17 +1234,18 @@ le panneau de droite affichera la description de l'objet en chaîne de caractèr
 % être facilement examinées et même modifiées dans le panneau
 % de droite. % CHANGE
 
-\arelire{Le panneau de gauche montre une vue arborescente de l'objet
-  avec \self{} pour racine. Les variables d'instance peuvent être
-  explorées en \clickant{} sur les triangles à côté de leurs noms.} % REVOIR
+Le panneau de gauche montre une vue arborescente de l'objet
+avec \self{} pour racine. Les variables d'instance peuvent être
+explorées en \clickant{} sur les triangles à côté de leurs noms.% REVOIR
+
 % The left pane shows a tree view of the object, with \self at the root.
 % Instance variables can be explored by expanding the triangles next to their names.
 
 Le panneau horizontal inférieur de l'Inspector est un petit espace de
 travail ou Workspace.
 C'est utile car dans cette fenêtre, la pseudo-variable \ct{self}
-\arevoir{correspond à l'objet que vous avez sélectionné dans le
-  panneau de gauche.} % CHANGE
+correspond à l'objet que vous avez sélectionné dans le panneau de gauche. 
+% CHANGE
 % is bound to the object that you have selected in the left pane.
 Ainsi, si vous inspectez via \menu{inspect it} l'expression:
 \begin{code}{}
@@ -1234,7 +1263,7 @@ ce qui vous donnera le temps que vous avez mis à lire la section de ce livre!
 En plus de \ct{self}, toutes les variables d'instance de l'objet sont
 visibles dans le panneau-espace de travail; dès lors vous pouvez
 les utiliser dans des expressions ou même les affecter.
-Par exemple, si vous \arelire{sélectionnez l'objet racine} et que vous
+Par exemple, si vous sélectionnez l'objet racine et que vous
 évaluez \ct{jdn  := jdn - 1} dans ce panneau,
 vous verrez que la valeur de la variable d'instance \ct{jdn} 
 changera réellement et que la valeur de \ct{TimeStamp now - self} 
@@ -1247,9 +1276,10 @@ sera augmentée d'un jour.
 %\pharo évaluera l'expression et assignera le résultat à la variable
 %d'instance.
 
-Il y a des variantes spécifiques de l'inspecteur pour les dictionnaires sous-classes de Dictionaries, pour les collections ordonnées sous-classes de OrderedCollections, pour les CompiledMethods (objet des méthodes compilées)
-et pour quelques autres classes facilitant ainsi l'examen du contenu de
-ces objets spéciaux.
+Il y a des variantes spécifiques de l'inspecteur pour les dictionnaires sous-classes 
+de Dictionaries, pour les collections ordonnées sous-classes de OrderedCollections, 
+pour les CompiledMethods (objet des méthodes compilées) et pour quelques autres classes 
+facilitant ainsi l'examen du contenu de ces objets spéciaux.
 
 %---------------------------------------------------------
 \subsection{Object Explorer}
@@ -1499,11 +1529,13 @@ nous attendions à trouver \ct{dot} dans la chaîne de caractère
 ligne de la méthode et que l'exécution n'aurait jamais du atteindre
 la dernière ligne.
 \pharo ne nous permet pas de lancer une exécution en arrière mais
-il ne permet de relancer une méthode, ce qui marche parfaitement dans
+il permet de relancer une méthode, ce qui marche parfaitement dans
 notre code qui ne mute pas les objets mais qui en crée de nouveaux.
 
-\dothis{Cliquez sur le bouton \button{Restart} et vous verrez que le \emph{locus} de l'exécution retournera dans l'état premier de la méthode courante.
-La sélection bleue englobe maintenant le message suivant à envoyer: {\ct{do:}} (voir \figref{RestartDetectIfNone}).}
+\dothis{Cliquez sur le bouton \button{Restart} et vous verrez que 
+le \emph{locus} de l'exécution retournera dans l'état premier de la méthode courante.
+La sélection bleue englobe maintenant le message suivant à envoyer: 
+{\ct{do:}} (voir \figref{RestartDetectIfNone}).}
 
 \begin{figure}[btp]
 	\begin{center}
@@ -1515,9 +1547,10 @@ La sélection bleue englobe maintenant le message suivant à envoyer: {\ct{do:}}
 	\figlabel{RestartDetectIfNone}
 \end{figure}
 
-Les boutons \button{Into} et \button{Over} offrent deux façons différentes de parcourir l'exécution pas-à-pas.
+Les boutons \button{Into} et \button{Over} offrent deux façons différentes de 
+parcourir l'exécution pas-à-pas.
 Si vous cliquez sur le bouton \button{Over}, \pharo exécutera sauf erreur
-l'envoi de message actuel (dans notre cas \ct{do:}) d'un pas (en anglais, \emph{step}).
+l'envoi du message actuel (dans notre cas \ct{do:}) d'un pas (en anglais, \emph{step}).
 Ainsi \button{Over} nous amènera sur 
 %to the next message-send in the current method,
 le prochain message à envoyer dans la méthode courante. Ici nous
@@ -1526,9 +1559,11 @@ et ça ne nous aide pas beaucoup.
 En fait, nous avons besoin de trouver pourquoi \ct{do:} ne trouve pas
 le caractère que nous cherchons.
 
-\dothis{Après avoir \click{} sur le bouton \button{Over}, \clickz sur le bouton \button{Restart} pour obtenir la situation vue dans \figref{RestartDetectIfNone}.}
+\dothis{Après avoir \click{} sur le bouton \button{Over}, \clickz sur le 
+bouton \button{Restart} pour obtenir la situation vue dans \figref{RestartDetectIfNone}.}
 
-\dothis{Cliquez sur le bouton \button{Into}; \pharo ira dans la méthode correspondante au message surligné par la sélection bleue; dans ce cas, \ct{Collection>>>do:}.}
+\dothis{Cliquez sur le bouton \button{Into}; \pharo ira dans la méthode correspondante 
+au message surligné par la sélection bleue; dans ce cas, \ct{Collection>>>do:}.}
 
 Cependant, ceci ne nous aide pas plus: nous pouvons être confiant dans le fait
 que la méthode \ct{Collection>>>do:} n'est pas erronée. 
@@ -1538,17 +1573,17 @@ Le bug est plutôt dans \emph{ce que} nous demandons à \pharo de faire.
 voulons ignorer les détails de \ct{do:} lui-même et se focaliser sur
 l'exécution du bloc argument. 
 
-\dothis{%
-\arelire{Sélectionnez encore la méthode \ct{detect:ifNone:} et
-  \clickz{} sur le bouton \button{Restart} pour revenir à l'état de
-  \figref{RestartDetectIfNone}.}
+\dothis{Sélectionnez encore la méthode \ct{detect:ifNone:} et
+\clickz{} sur le bouton \button{Restart} pour revenir à l'état de
+\figref{RestartDetectIfNone}.
 \Clickz maintenant sur le bouton \button{Through} plusieurs fois. 
 Sélectionnez \ct{each} dans le mini-inspecteur de contexte (en bas à droite).
 %in the context window as you do so.
 Vous remarquez que \ct{each} décompte depuis \ct{10} au fur et à mesure de
 l'exécution de la méthode \ct{do:}.}
 
-Quand \ct{each} est \ct{7}, nous nous attendons à ce que le bloc \ct{ifTrue:} soit exécuté, mais ce n'est pas le cas.
+Quand \ct{each} est \ct{7}, nous nous attendons à ce que le bloc \ct{ifTrue:} soit 
+exécuté, mais ce n'est pas le cas.
 Pour voir ce qui ne marche pas, allez \emph{dans} l'exécution de 
 \ct{value:} par le bouton \button{Into} 
 comme illustré par \figref{steppingIntoValue}.
@@ -1582,7 +1617,8 @@ que \ct{suffix} fourni en argument à \ct{detect:}.
 Si vous sélectionnez \ct{dot} dans l'inspecteur contextuel, 
 vous verrez que sa valeur est \ct{'.'}.
 Vous constatez maintenant qu'ils ne sont pas égaux: le septième caractère
-de \ct{'readme.txt'} est pourtant un objet \ct{Character} (donc un caractère), alors que \ct{dot} est un \ct{String} (\ie une chaîne de caractères).
+de \ct{'readme.txt'} est pourtant un objet \ct{Character} (donc un caractère), 
+alors que \ct{dot} est un \ct{String} (\ie une chaîne de caractères).
 
 \begin{figure}[btp]
 	\begin{center}
@@ -1594,8 +1630,10 @@ de \ct{'readme.txt'} est pourtant un objet \ct{Character} (donc un caractère), 
 	\figlabel{dotIsAString}
 \end{figure}
 
-Maintenant nous pouvons mettre le doigt sur le bug, la correction~\footnote{En anglais, nous parlons de \emph{bug fix}.} est évidente: nous devons convertir
-\ct{dot} en un caractère avant de recommencer la recherche.
+Maintenant nous pouvons mettre le doigt sur le bug, 
+la correction~\footnote{En anglais, nous parlons de \emph{bug fix}.} 
+est évidente: nous devons convertir \ct{dot} en un caractère avant de 
+recommencer la recherche.
 %before starting to search for it.  
 
 \begin{figure}[btp]
@@ -1658,7 +1696,8 @@ dans la méthode \ct{suffix} par le bouton \button{Into}. Vous
 pouvez alors corriger l'erreur, comme nous l'avons fait dans
 \figref{fixOffByOne}.
 Il s'agit maintenant de cliquer sur le bouton \button{Run Failures} dans
-le \sunit Test Runner et de se voir confirmer que le test passe (en anglais, \emph{pass}) normalement. Rapide, non?
+le \sunit Test Runner et de se voir confirmer que le test passe (en anglais, \emph{pass}) 
+normalement. Rapide, non?
 
 \begin{figure}[btp]
 	\begin{center}
@@ -1703,13 +1742,15 @@ suffix
 	^ self copyFrom: dotPosition to: self size 
 \end{method}
 
-Quand nous lançons cette méthode, l'exécution de \ct{self halt} ouvre un \ind{notificateur} ou \emph{\ind{pre-debugger}} d'où nous pouvons continuer 
+Quand nous lançons cette méthode, l'exécution de \ct{self halt} ouvre 
+un \ind{notificateur} ou \emph{\ind{pre-debugger}} d'où nous pouvons continuer 
 %ajout
 en cliquant sur \menu{proceed}
 ou déboguer et explorer l'état des variables, parcourir pas-à-pas la pile d'exécution et éditer le code.
 
 C'est tout pour le débogueur mais nous n'en avons pas fini avec la méthode \ct{suffix}.
-Le bug initial aurait dû vous faire réaliser que s'il n'y a pas de point dans la chaîne cible la méthode \ct{suffix} lèvera une erreur.
+Le bug initial aurait dû vous faire réaliser que s'il n'y a pas de point dans la chaîne 
+cible la méthode \ct{suffix} lèvera une erreur.
 Ce n'est pas le comportement que nous voulons. Ajoutons ainsi un second test
 pour signaler ce qu'il pourrait arriver dans ce cas.  
 
@@ -1718,11 +1759,13 @@ testSuffixNotFound
 	self assert: 'readme' suffix = ''
 \end{method}
 
-\dothis{Ajoutez \tmthref{testNoSuffix} à la suite de tests dans la classe \clsind{StringTest} et observez l'erreur levée par le test.
+\dothis{Ajoutez \tmthref{testNoSuffix} à la suite de tests dans la classe \clsind{StringTest} 
+et observez l'erreur levée par le test.
 Entrez dans Debugger en sélectionnant le test erroné dans \sunit puis éditez
 le code de façon à passer normalement le test (donc sans erreur).
-La méthode la plus facile et la plus claire consiste à remplacer le message \ct{detect:} par \ct{detect: ifNone:}~\footnote{En anglais, \emph{if none} signifie ``s'il n'y a rien''.}  où le second argument un bloc qui retourne tout simplement
-une chaîne.}
+La méthode la plus facile et la plus claire consiste à remplacer le message \ct{detect:} 
+par \ct{detect: ifNone:}~\footnote{En anglais, \emph{if none} signifie ``s'il n'y a rien''.}  
+où le second argument un bloc qui retourne tout simplement une chaîne.}
 
 Nous en apprendrons plus sur SUnit dans \charef{SUnit}.
 
@@ -1738,8 +1781,8 @@ votre image.
 %fonctionnent de façon concourrante dans votre image.
 Dans l'avenir la machine virtuelle de \pharo bénéficiera davantage
 des multi-processeurs lorsqu'ils seront disponibles, mais le partage
-d'accès est actuellement programmé sur le principe de
- tranches temporelles (ou \emph{time-slice}).
+d'accès est actuellement programmé sur le principe de 
+tranches temporelles (ou \emph{time-slice}).
 %concurrency is implemented by time-slicing.
 
 \begin{figure}[btp]
@@ -1770,16 +1813,15 @@ tous les autres processus seront en attente d'un quelconque événement.
 %:===> Process browser context menu is broken!
 \on{broken -- to be fixed!}
 Par défaut, l'affichage des processus est statique; il peut être
-mis à jour en \arelire{\actclickant{} et en sélectionnant
-\menu{turn on auto-update (a)}}. % CHANGE
+mis à jour en \actclickant{} et en sélectionnant \menu{turn on auto-update (a)}. % CHANGE
 
 Si vous sélectionnez un processus dans le panneau supérieur gauche, le panneau de droite
 affichera son \emph{stack trace} tout comme le fait le débogueur.
 Si vous en sélectionnez un, la méthode correspondante est affichée dans le panneau
 inférieur.
 Le Process Browser n'est pas équipé de mini-inspecteurs pour 
-\self et \lct{thisContext} mais \arelire{\actclick{} sur les
-tranches de la pile offre une fonctionnalité  équivalente.} % CHANGE
+\self et \lct{thisContext} mais \actclick{} sur les
+tranches de la pile offre une fonctionnalité  équivalente. % CHANGE
 
 %=========================================================
 \section{Trouver les méthodes}
@@ -1802,7 +1844,7 @@ un nouveau navigateur. Cela peut vite devenir pénible.
 		{\includegraphics[width=\textwidth]{methodNamesRandom}}
 		{\includegraphics[width=0.7\textwidth]{methodNamesRandom}}
 	\end{center}
-	\caption{Le \arelire{Message Names Browser} montrant toutes les méthodes
+	\caption{Le Message Names Browser montrant toutes les méthodes
       contenant le sous-élement de chaîne \ct{random} dans leur
       sélecteur.} % CHANGE : Method Names Browser -> Message Names Browser
 	\figlabel{methodNamesRandom}
@@ -1819,7 +1861,7 @@ contenant ce fragment dans leurs noms, comme nous pouvons le voir dans
 Cependant, c'est un navigateur complet:
 %full-fledged browser:
 si vous sélectionnez un des noms dans le panneau de gauche, toutes les méthodes
-ayant ce nom seront listées dans celle de droite et vous pourrez alors naviguer dans
+ayant ce nom seront listées dans celui de droite et vous pourrez alors naviguer dans
 le panneau inférieur.
 Le Message Names Browser a une barre de bouton, comme le Browser, % CHANGE
 pouvant être utilisée pour ouvrir d'autres navigateurs sur la méthode choisie
@@ -1874,19 +1916,19 @@ Remarquez que le navigateur ne montre \emph{pas} si la création de la classe el
 fait partie du \changeset bien que cette information soit stockée dans la structure
 de l'objet qui est utilisé pour représenter le \changeset.
 
-\arelire{Le Change Sorter vous permet d'effacer des classes et des méthodes du \changeset
-en  \actclickant{} sur les élements correspondants.}
+Le Change Sorter vous permet d'effacer des classes et des méthodes du \changeset
+en  \actclickant{} sur les élements correspondants.
 % Cependant, pour une édition plus élaborée, vous devez utiliser un deuxième
 % programme, le \textit{Change Sorter} (ou trieuse de \changeset), disponible sous ce nom dans 
 % \toolsflap ou en passant par \menu{World\go{}open...\go{}dual change sorter}. Nous
 % pouvons le voir dans \figref{changeSorter}.
 
-\arelire{Le Change Sorter vous permet de voir simultanément deux
-  \changesets: un \changeset à gauche et un autre à droite.
-Cette \arevoir{disposition offre} les principales fonctions du Change Sorter telles que
-la possibilité de déplacer ou copier les changements d'un \changeset à un autre,
+Le Change Sorter vous permet de voir simultanément deux
+\changesets: un \changeset à gauche et un autre à droite.
+Cette \arevoir{disposition offre} les principales fonctions du Change Sorter 
+telles que la possibilité de déplacer ou copier les changements d'un \changeset à un autre,
 comme nous pouvons le voir sur \figref{changeSorter},
-dans le menu contextuel accessible en \actclickant.}
+dans le menu contextuel accessible en \actclickant.
 Nous pouvons aussi copier des méthodes d'un pan à un autre.
 
 Vous pouvez vous demander pourquoi vous devez accorder de l'importance à la composition
@@ -1903,16 +1945,21 @@ ils ne conservent pas les dépendances.
 \index{fichier!filing-out}
 \index{fichier!exportation}
 
+\arevoir{
 Avant l'avènement de Monticello, les \changesets étaient la
-technique majeure d'échange de code entre les \arelire{utilisateurs
-de \pharo (en anglais \emph{\pharo{}ers})}. % REVOIR %????
+technique majeure d'échange de code entre les utilisateurs
+de \pharo (en anglais \emph{\pharo{}ers}). % REVOIR % ?????
+        }
+% Rene propose de remplacer pharo par squeak 
 % [squeak-fr] \sq{}ers: squeakiens, squeakois, squeakais, squeakeux?
-Ils ont l'avantage d'être simples et relativement portables (le fichier d'exportation n'est qu'un fichier texte; 
-\emph{nous ne vous recommandons pas} d'éditer ce fichier avec un éditeur de texte).
+Ils ont l'avantage d'être simples et relativement portables (le fichier d'exportation 
+n'est qu'un fichier texte; \emph{nous ne vous recommandons pas} d'éditer ce fichier 
+avec un éditeur de texte).
 Il est assez facile aussi de créer un \changeset qui modifie
 beaucoup de parties différentes du système sans aucun rapport
 entre elles\,---\,ce pour quoi Monticello n'est pas encore équipé.
-%martial: ou 'ce pourquoi'; je crois que les deux marches
+% martial: ou 'ce pourquoi'; je crois que les deux marches
+% Rene : ce pour quoi est correct
 %\ab{Or is it?}
 %\on{you mean something different than extensions to foreign packages using the *package protocol notation?}
 
@@ -1980,15 +2027,17 @@ Le panneau de gauche est utilisé pour naviguer dans le système de fichiers de 
 conventionnelle.
 % note de martial; j'ai enleve le terme: larger pane parce que ce n'est pas forcement le plus grand 
 
-Quand un répertoire est sélectionné, les fichiers qu'ils contiennent (mais pas les répertoires) sont affichés sur la droite.
-Cette liste de fichiers peut être filtrée en entrant dans la petite boîte
+Quand un répertoire est sélectionné, les fichiers qu'ils contiennent (mais pas les répertoires) 
+sont affichés sur la droite. Cette liste de fichiers peut être filtrée en entrant dans la petite boîte
 dans la zone supérieure gauche de la fenêtre un modèle de filtrage ou 
 \emph{pattern} dans le style Unix.
-Initialement, ce \emph{pattern} est \ct{*}, ce qui est égal à l'ensemble des fichiers, mais vous pouvez entrer une chaîne de caractères différente et l'accepter pour changer ce filtre. 
+Initialement, ce \emph{pattern} est \ct{*}, ce qui est égal à l'ensemble des fichiers, mais vous 
+pouvez entrer une chaîne de caractères différente et l'accepter pour changer ce filtre. 
 %ajout/sans les parentheses
 Notez qu'un \ct{*} est implicitement joint ou pré-joint au \emph{pattern}
 que vous entrez.
-L'ordre de tri des fichiers peut être modifié via les boutons \button{name} (par nom), \button{date} (par date) et \button{size} (par taille).
+L'ordre de tri des fichiers peut être modifié via les boutons \button{name} (par nom), 
+\button{date} (par date) et \button{size} (par taille).
 Le reste des boutons dépend du nom du fichier sélectionné dans le navigateur.
 Dans \figref{fileList}, le nom des fichiers ont le suffixe \ct{.cs}, donc le navigateur
 suppose qu'il s'agit de \changeset et ajoute les boutons \button{install} (pour
@@ -2018,7 +2067,7 @@ pouvant indiquer qu'il ne pourrait pas être proprement chargé.
 Puisque le choix des boutons affichés dépend du \emph{nom} du fichier et
 non de son contenu, parfois le bouton dont vous avez besoin pourrait ne pas être
 affiché.
-N'importe comment, le jeu complet des options est toujours disponible grâce
+De toutes façons, le jeu complet des options est toujours disponible grâce
 à l'option \menu{more \ldots} du menu contextuel accessible en \actclickant,
 ainsi vous pouvez facilement contourner ce problème.
 
@@ -2152,7 +2201,7 @@ afficher leur \emph{halo} et en sélectionnant l'icône
 \emph{debug} \debugHandle .
   \item Le \emph{Debugger} ou débogueur est un outil qui non seulement vous permet
 d'inspecter la pile d'exécution (\emph{runtime stack}) de votre
-programme lorsque qu'une erreur est signalée, mais aussi, 
+programme lorsqu'une erreur est signalée, mais aussi, 
 vous assure une interaction avec tous les objets de votre application,
 incluant le code source. Souvent, vous pouvez modifier votre 
 code source depuis le Debugger et continuer l'exécution.
@@ -2167,8 +2216,9 @@ premier excelle lorsque vous n'êtes pas sûr du nom mais que vous
 connaissez le comportement.
 % note perso de martial: (attendu) 
 Le second dispose d'une interface de navigation plus avancée pour le cas où
-vous savez au moins une partie du nom.
-  \item Les \changesets sont des journaux de bord (ou log) automatiquement générés pour tous les changements du code source dans l'image.
+vous connaissez au moins une partie du nom.
+  \item Les \changesets sont des journaux de bord (ou log) automatiquement générés pour 
+tous les changements du code source dans l'image.
 Bien que rendus obsolètes par la présence de Monticello comme
 moyen de stockage et d'échange des versions de votre code source,
 ils sont toujours utiles, en particulier pour réparer des erreurs
@@ -2180,7 +2230,8 @@ source depuis le système de fichiers via \menu{fileIn}.
 vous l'ayez sauvegardée ou que vous ayez enregistré le code source
 avec Monticello, vous pouvez toujours retrouver vos modifications les
 plus récentes en utilisant un \emph{Change List Browser}. 
-Vous pouvez alors sélectionner les changements ou \emph{changes} (en anglais) que vous voulez reprndre et les charger dans la copie la plus récente de votre image.
+Vous pouvez alors sélectionner les changements ou \emph{changes} (en anglais) que vous voulez 
+reprendre et les charger dans la copie la plus récente de votre image.
 \end{itemize}
 
 %=================================================================
