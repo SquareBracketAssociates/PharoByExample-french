@@ -6,6 +6,7 @@
 % relecture: Martial Boniou (sun, 23 dec 2007) de la version #14626 
 % relecture : Rene Mages (sat, 9 jan 2008) de la version #14856
 % export Pharo : Martial Boniou à partir de la revision 28661 - oscar
+% relecture : Rene Mages (mon, 11 jan 2010) de la version #30227
 % 2009-08-28 11:31:14 +0200 (Fri, 28 Aug 2009) $
 %=================================================================
 \ifx\wholebook\relax\else
@@ -41,7 +42,10 @@ Une grande partie de la magie de \st ne réside pas dans son langage mais dans s
 %methodes cles' (cles est ici adjectifs)
 Notre but ici n'est pas de présenter en détail l'intégralité
 des bibliothèques de classes de \pharo, mais plutôt d'indiquer
-quelles classes et méthodes clés vous devrez utiliser ou surcharger pour programmer efficacement. Ce chapitre couvre les classes de base qui vous seront utiles dans la plupart de vos applications: \ct{Object}, \ct{Number} et ses sous-classes, \ct{Character}, \ct{String}, \ct{Symbol} et \ct{Boolean}.
+quelles classes et méthodes clés vous devrez utiliser ou surcharger 
+pour programmer efficacement. Ce chapitre couvre les classes de base 
+qui vous seront utiles dans la plupart de vos applications: \ct{Object}, \ct{Number} 
+et ses sous-classes, \ct{Character}, \ct{String}, \ct{Symbol} et \ct{Boolean}.
 
 \md{Here are some comments:\\
 - copying: Good question... the copying in Pharo is much too complicated... there is for one the "old" smalltalk way of
@@ -72,8 +76,12 @@ pourraient l'être.
 Le commentaire de la classe \ct{Object} indique:
 \needlines{4}
 \begin{quote}
-\textit{\ct{Object} est la classe racine de la plupart des autres classes dans la hiérarchie des classes. Les exceptions sont \ct{ProtoObject} (super-classe de \ct{Object}) et ses sous-classes.
-La classe \ct{Object} fournit le comportement par défaut, commun à tous les objets classiques, comme l'accès, la copie, la comparaison, le traitement des erreurs, l'envoi de messages et la \ind{réflexion}. Les messages utiles auxquels tous les objets devraient répondre sont également définis ici.
+\textit{\ct{Object} est la classe racine de la plupart des autres classes dans 
+la hiérarchie des classes. Les exceptions sont \ct{ProtoObject} (super-classe de \ct{Object}) 
+et ses sous-classes. La classe \ct{Object} fournit le comportement par défaut, commun à tous 
+les objets classiques, comme l'accès, la copie, la comparaison, le traitement des erreurs, 
+l'envoi de messages et la \ind{réflexion}. Les messages utiles auxquels tous les objets 
+devraient répondre sont également définis ici.
 \ct{Object} n'a pas de variable d'instance, aucune ne devrait être
 créée. Ceci est dû aux nombreuses classes d'objets qui
 héritent de \ct{Object} et qui ont des implémentations
@@ -82,12 +90,18 @@ exemple) ou à certaines classes standards que la VM connaît et
 pour lesquelles leur structure et leur organisation sont importantes.}
 \end{quote}
 
-Si nous naviguons dans les catégories des méthodes d'instance de \ct{Object}, nous commençons à voir quelques-uns des comportements-clé qu'elle offre.
+Si nous naviguons dans les catégories des méthodes d'instance de \ct{Object}, nous commençons 
+à voir quelques-uns des comportements-clé qu'elle offre.
 
 %-----------------------------------------------------------------
 %titre de sous-section = mot-cle sans article
 \subsection{Impression}
-Tout objet en \st peut renvoyer une forme imprimée de lui-même. Vous pouvez sélectionner n'importe quelle expression dans un Workspace et sélectionner le menu \menu{print it}: ceci exécute l'expression et demande à l'objet renvoyé de s'imprimer. En réalité le message \ct{printString} est envoyé à l'objet retourné. La méthode \mthind{Object}{printString}, qui est une \ind{méthode générique}, envoie le message \mthind{Object}{printOn:} à son receveur. Le message \ct{printOn:} est un point d'entrée qui peut être spécialisé. 
+Tout objet en \st peut renvoyer une forme imprimée de lui-même. Vous pouvez sélectionner 
+n'importe quelle expression dans un Workspace et sélectionner le menu \menu{print it}: 
+ceci exécute l'expression et demande à l'objet renvoyé de s'imprimer. En réalité le 
+message \ct{printString} est envoyé à l'objet retourné. La méthode \mthind{Object}{printString}, 
+qui est une \ind{méthode générique}, envoie le message \mthind{Object}{printOn:} à son receveur. 
+Le message \ct{printOn:} est un point d'entrée qui peut être spécialisé. 
 
 %martial: il faudra peut-etre ajouter une remarque et un lien pour
 %expliquer pourquoi 'a' ou 'an' (article indefini). Dans le chapitre
@@ -95,8 +109,8 @@ Tout objet en \st peut renvoyer une forme imprimée de lui-même. Vous pouvez s�
 \ct{Object>>>printOn:} est une des méthodes que vous surchargerez le
 plus souvent. Cette méthode prend comme argument un flux
 (\clsind{Stream}) dans lequel une représentation en chaîne de
-caractères (\clsind{String}) de l'objet sera
-écrite. L'implémentation par défaut écrit simplement le nom de
+caractères (\clsind{String}) de l'objet sera écrite. 
+L'implémentation par défaut écrit simplement le nom de
 la classe précédée par ``\ct{a}'' ou
 ``\ct{an}''. \ct{Object>>>printString} retourne la chaîne de
 caractères (\ct{String}) qui est écrite.
@@ -133,7 +147,12 @@ Color>>>printOn: aStream
 Color red printString --> 'Color red'
 \end{code} % CHANGE
 
-Notez que le message \ct{printOn:} n'est pas le même que \mthind{Object}{storeOn:}. Le message \ct{storeOn:} ajoute au flux passé en argument une expression pouvant être utilisée pour recréer le receveur. Cette expression est évaluée quand le flux est lu avec le message \ct{readFrom:}. \ct{printOn:} retourne simplement une version textuelle du receveur. Bien sûr, il peut arriver que cette représentation textuelle puisse représenter le receveur sous la forme d'une expression auto-évaluée.
+Notez que le message \ct{printOn:} n'est pas le même que \mthind{Object}{storeOn:}. 
+Le message \ct{storeOn:} ajoute au flux passé en argument une expression pouvant 
+être utilisée pour recréer le receveur. Cette expression est évaluée quand le 
+flux est lu avec le message \ct{readFrom:}. \ct{printOn:} retourne simplement 
+une version textuelle du receveur. Bien sûr, il peut arriver que cette représentation 
+textuelle puisse représenter le receveur sous la forme d'une expression auto-évaluée.
 
 \paragraph{Un mot à propos de la représentation et de la représentation auto-évaluée.}
 En programmation fonctionnelle, les expressions retournent des valeurs
@@ -143,7 +162,9 @@ sympathique d'être eux-mêmes leur propre valeur. Par exemple, la
 valeur de l'objet \ct{true} est lui-même, \ie l'objet
 \ct{true}. Nous appelons de tels objets des \emph{objets}
 \emphsubind{objet}{auto-évalué}{}\emph{s}. 
-Vous pouvez voir une version  \emph{imprimée} de la valeur d'un objet quand vous imprimez l'objet dans un \ct{Workspace}. Voici quelques exemples de telles expressions auto-évaluées. 
+Vous pouvez voir une version  \emph{imprimée} de la valeur d'un objet 
+quand vous imprimez l'objet dans un \ct{Workspace}. Voici quelques exemples 
+de telles expressions auto-évaluées. 
 
 \begin{code}{@TEST}
 true      --> true
@@ -222,7 +243,8 @@ Object>>>= anObject
 \end{method}
 \cmindex{Object}{=}
 
-C'est une méthode que vous voudrez souvent surcharger. Considérez le cas de la classe des nombres complexes \ct{Complex}:
+C'est une méthode que vous voudrez souvent surcharger. Considérez le cas de la classe 
+des nombres complexes \ct{Complex}:
 
 \begin{code}{@TEST}
 (1 + 2 i) = (1 + 2 i)   --> true     !"même valeur"!
@@ -240,7 +262,8 @@ Complex>>>= anObject
 \end{method}
 \cmindex{Complex}{=}
 
-L'implémentation par défaut de \ct{Object>>>~=} renvoie simplement l'inverse de \ct{Object>>>=} et ne devrait normalement pas être modifiée.
+L'implémentation par défaut de \ct{Object>>>~=} renvoie simplement l'inverse 
+de \ct{Object>>>=} et ne devrait normalement pas être modifiée.
 %\cmindex{Object}{\~=}
 \index{Object!~=@\ct{~=}} % needs special treatment due to ~
 
@@ -264,9 +287,14 @@ Complex>>>hash
 %martial: j'ai retire la phrase sur l'identite des objets des
 %parentheses parce que c'est important.
 Alors que vous devez surcharger à la fois \ct{=} et \ct{hash}, vous
-ne devriez \emph{jamais} surcharger \ct{==} puisque la sémantique de l'identité d'objets est la même pour toutes les classes.  \ct{==} est une méthode primitive de \clsind{ProtoObject}.
+ne devriez \emph{jamais} surcharger \ct{==} puisque la sémantique de 
+l'identité d'objets est la même pour toutes les classes.  \ct{==} est une 
+méthode primitive de \clsind{ProtoObject}.
 
-Notez que \pharo a certains comportements étranges comparé à d'autres \st{}s: par exemple, un symbole et une chaîne de caractères peuvent être égaux si la chaîne de caractères associée au symbole est égale à la chaîne de caractères (nous considérons ce comportement comme un bug, pas comme une fonctionnalité).
+Notez que \pharo a certains comportements étranges comparé à d'autres \st{}s: 
+par exemple, un symbole et une chaîne de caractères peuvent être égaux si 
+la chaîne de caractères associée au symbole est égale à la chaîne de caractères 
+(nous considérons ce comportement comme un bug, pas comme une fonctionnalité).
 
 \begin{code}{@TEST}
 #'lulu' = 'lulu' --> true
@@ -325,12 +353,17 @@ Puisque \st est écrit en lui-même, vous pouvez vraiment naviguer au travers de
 
 C'est normalement une mauvaise idée de demander sa classe à un
 objet ou de lui demander quels messages il comprend.
-Au lieu de prendre des décisions basées sur la classe d'un objet, vous devriez simplement envoyer un message à cet objet et le laisser décider (\ie sur la base de sa classe) comment il doit se comporter.
+Au lieu de prendre des décisions basées sur la classe d'un objet, 
+vous devriez simplement envoyer un message à cet objet et le laisser 
+décider (\ie sur la base de sa classe) comment il doit se comporter.
 
 %-----------------------------------------------------------------
 \subsection{Copie}
 
-Copier des objets introduit quelques problèmes subtils. Puisque les variables d'instance sont accessibles par référence, une \emphsubind{Object}{copie superficielle}, les références portées par les variables d'instance devraient être partagées entre l'objet produit par la copie et l'objet original:
+Copier des objets introduit quelques problèmes subtils. Puisque les variables 
+d'instance sont accessibles par référence, une \emphsubind{Object}{copie superficielle}, 
+les références portées par les variables d'instance devraient être partagées entre l'objet 
+produit par la copie et l'objet original:
 \seeindex{copie}{Object, \ct{copy}}
 \seeindex{copie superficielle}{Object, \ct{shallowCopy}}
 \seeindex{copie profonde}{Object, \ct{deepCopy}}
@@ -370,7 +403,8 @@ a1 --> #(#('sally'))
 a2 --> #(#(#('harry')))
 \end{code}
 
-Le problème avec \ct{deepCopy} est qu'elle ne se termine pas si elle est appliquée à une structure mutuellement récursive:
+Le problème avec \ct{deepCopy} est qu'elle ne se termine pas si elle est appliquée 
+à une structure mutuellement récursive:
 
 \begin{code}{NB: CANNOT TEST}
 a1 := { 'harry' }.
@@ -380,7 +414,8 @@ a1 deepCopy --> !\emph{... ne se termine jamais}!
 \end{code}
 % NB: Not a test!
 
-Même s'il est possible de surcharger \ct{deepCopy} pour qu'elle fonctionne mieux, \cmind{Object}{copy} offre une meilleure solution:
+Même s'il est possible de surcharger \ct{deepCopy} pour qu'elle fonctionne 
+mieux, \cmind{Object}{copy} offre une meilleure solution:
 
 \begin{method}{Modèle de méthode pour la copie d'objets}
 Object>>>copy
@@ -430,7 +465,10 @@ Stack>>>pop
     ^self linkedList removeFirst element
 \end{method}
 
-Il ne faut pas confondre \ct{Object>>>assert:} avec \cmind{TestCase}{assert:}, méthode de l'environnement de test SUnit (voir \charef{SUnit}). Alors que la première attend un bloc en argument~\footnote{En fait, elle peut prendre n'importe quel argument qui comprend \ct{value}, dont un \ct{Boolean}.}, la deuxième attend un \clsind{Boolean}. Même si les deux sont utiles pour déboguer, elles ont chacune un but très différent.
+Il ne faut pas confondre \ct{Object>>>assert:} avec \cmind{TestCase}{assert:}, 
+méthode de l'environnement de test SUnit (voir \charef{SUnit}). Alors que la 
+première attend un bloc en argument~\footnote{En fait, elle peut prendre n'importe quel argument qui comprend \ct{value}, dont un \ct{Boolean}.}, la deuxième attend un \clsind{Boolean}. Même si les deux sont utiles pour déboguer, 
+elles ont chacune un but très différent.
 
 %-----------------------------------------------------------------
 \subsection{Gestion des erreurs}
@@ -488,17 +526,24 @@ l'envoi du message d'erreur \ct{error:} vous prévient que la
 méthode devra être surchargée dans une sous-classe concrète.
 %fin de l'ajout d'une explication pour la methode suivante
 
-\clsind{Magnitude}, \clsind{Number} et \clsind{Boolean} sont des exemples classiques de  classes \subind{classe}{abstraite}{}s que nous verrons rapidement dans ce chapitre.
+\clsind{Magnitude}, \clsind{Number} et \clsind{Boolean} sont des exemples 
+classiques de  classes \subind{classe}{abstraite}{}s que nous verrons rapidement 
+dans ce chapitre.
 
 \begin{code}{NB: CANNOT TEST}
 Number new + 1 --> !\emph{Error: My subclass should have overridden \#+}!
 \end{code}
 
-\ct{self shouldNotImplement} est envoyée par convention pour signaler qu'une méthode héritée est inappropriée pour cette sous-classe. C'est généralement le signe que quelque chose ne va pas dans la conception de la hiérarchie de classes. à cause des limitations de l'héritage simple, malgré tout, il est des fois très difficile d'éviter de telles solutions.
+\ct{self shouldNotImplement} est envoyée par convention pour signaler qu'une méthode héritée 
+est inappropriée pour cette sous-classe. C'est généralement le signe que quelque chose 
+ne va pas dans la conception de la hiérarchie de classes. à cause des limitations de 
+l'héritage simple, malgré tout, il est des fois très difficile d'éviter de telles solutions.
 \cmindex{Object}{shouldNotImplement}
 %\apl:jenesaispastraduire\index{inheritance!canceling}
 
-Un exemple classique est la méthode \cmind{Collection}{remove:} qui est héritée de \clsind{Dictionary} mais marquée comme non implémentée (\ct{Dictionary} fournit la méthode \mthind{Dictionary}{removeKey:} à la place).
+Un exemple classique est la méthode \cmind{Collection}{remove:} qui est héritée 
+de \clsind{Dictionary} mais marquée comme non implémentée (\ct{Dictionary} fournit 
+la méthode \mthind{Dictionary}{removeKey:} à la place).
 
 %-----------------------------------------------------------------
 \sd{ subsection{Deprecation} }
@@ -509,7 +554,8 @@ Un exemple classique est la méthode \cmind{Collection}{remove:} qui est hérit�
 %-----------------------------------------------------------------
 \subsection{Test}
 
-Les méthodes de \protind{test} n'ont aucun rapport avec SUnit! Une méthode de test vous permet de poser une question sur l'état du receveur et retourne un booléen (\clsind{Boolean}).
+Les méthodes de \protind{test} n'ont aucun rapport avec SUnit! Une méthode de test vous 
+permet de poser une question sur l'état du receveur et retourne un booléen (\clsind{Boolean}).
 
 De nombreuses méthodes de test sont fournies par \ct{Object}. Nous
 avons déjà vu \mthind{Object}{isComplex}. Il existe également
@@ -884,8 +930,9 @@ seront souvent des objets différents.
 %martial: j'ai traduit 'mutable' en 'modifiable'; on peut peut-etre
 %juste garder 'mutable' pour les collections parce qu'on peut le
 %rencontrer souvent dans le code
+%rene: suis de l'avis de martial
 \noindent
-Une autre différence importante est que \ct{String} est modifiable,
+Une autre différence importante est que \ct{String} est modifiable (mutable),
 alors que \ct{Symbol} ne l'est pas.
 
 \begin{code}{@TEST}
@@ -986,7 +1033,9 @@ objet (POO): quand un message est envoyé à un objet, l'objet
 lui-même détermine quelle méthode sera utilisée pour
 répondre. Dans ce cas, une instance de \ct{True}  évalue
 simplement l'alternative \emph{vraie}, alors qu'une instance de
-\ct{False} evalue l'alternative \emph{fausse}. Toutes les méthodes abstraites de la classe \ct{Boolean} sont implémentées de cette manière pour \ct{True} et \ct{False}. Par exemple:
+\ct{False} évalue l'alternative \emph{fausse}. Toutes les méthodes 
+abstraites de la classe \ct{Boolean} sont implémentées de cette 
+manière pour \ct{True} et \ct{False}. Par exemple:
 
 \begin{method}{Implémenter la négation}
 True>>>not
@@ -1056,7 +1105,7 @@ Nous avons vu que:
 
   \item les caractères sont des instances uniques;
 
-  \item les chaînes de caractères sont modifiables mais les symboles ne le sont pas;
+  \item les chaînes de caractères sont modifiables (mutables) mais les symboles ne le sont pas;
   cependant faites attention à ne pas modifier les chaînes de caractères littérales!
 
   \item ces symboles sont uniques mais les chaînes de caractères ne le sont pas;
