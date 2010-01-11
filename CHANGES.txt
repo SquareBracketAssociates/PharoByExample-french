@@ -170,6 +170,41 @@ c'est la convention)
 - updater -> un \updater (\emph{updater})
 
 ** Regex
-- \regex -> expressions régulières
-- \pattern -> \emph{pattern} (j'ai pris le parti de )
-- \pkgregex -> \pkg{Regex}
+- \expreg -> expression régulière
+- \expregs -> expressions régulières
+- pattern -> \pattern ("\emph{pattern}"; j'ai pris le parti de ne pas
+traduire; défini une première fois comme "motif")
+- \pkg{Regex} -> \pkgregex
+- site map -> un \sitemap ("\emph{site map}")
+- matching (seul) -> "filtrage" ou "concordance" (suivant les cas);
+match (seul) -> "concordance" ou "correspondance" (attention:
+appariement est sûrement utilisé dans les chapitres précédents comme BasicClasses); matcher ->
+RxMatcher (cad le nom de la classe de Regex) ou "\emph{matcher}"
+(traduit une fois par le terme québécois valide, "concordeur")
+- pattern matching -> le \patmatch ("\emph{pattern matching}"; traduit une
+première fois par "filtrage par motif")
+- regex match(es) -> un \regexmatch(es) ("\emph{regex match(es)}"
+traduit en filtre)
+- ajout de la commande LaTeX: \sectionindex => \section+\indexmain
+- les index {Regex syntax!*} deviennent {Regex!syntaxe!*}
+- Kleene star -> une \kleenestar ("fermeture de Kleene" (convention française))
+- "WebPage>>initializePath: filePath homePath: dirPath" ->
+"WebPage>>setPath: filePath homePath: dirPath" comme dans le code en ligne
+- changement dans WebPage>>title : 'untitled' -> 'sans titre'
+- le titre de la page web index.html est 'Pharo By Example -- Home
+Page' d'après WebDirTest
+- bullet list -> liste à puces
+- sequencing -> séquençage (cad l'ordonnancement des caractères)
+- operator precedence -> priorité des opérateurs
+- escape (synonyme de \) -> \escchar (caractère d'échappement) dit
+"\eschar ou \emph{escape}"
+- ajout de la définition de "quantificateur" (très utilisé dans la
+littérature française) pour "? , + et *" ; ce terme est redit avec les
+accolades 
+- backslash -> \emph{antislash}
+- character set -> classe de caractères
+- character range -> intervalle de classe (on trouve aussi le terme de
+"plage" mais puisqu'on a utilisé "intervalle" ailleurs dans le livre,
+je pense que "intervalle de classe" est préférable)
+- 
+

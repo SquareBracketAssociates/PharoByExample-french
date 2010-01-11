@@ -16,6 +16,8 @@ il vaut mieux garder panneau de code partout (l'affichage (view)
 permet d'afficher le code source, bytecode... bref, un code quoi qu'il
 en soit. Si désaccord, il faut se décider sur un des termes.
 - élément de menu -> option de menu
+- revoir les index ainsi que les raccourcis-commandes qui ont changé
+depuis SBE; \mthind et \clsindex par exemple
 
 Les parties I,II,III,IV sont en cours de modifications (martial)
 
@@ -26,6 +28,9 @@ Répartition des taches:
 
 - Regex: 
   + en cours de traduction
+  + revoir l'index
+  + voir dans les chapitres antérieurs comme BasicClasses: appariement
+  <-> concordance (faire un choix)
 
 - Reflection:
 

@@ -611,8 +611,7 @@ framerule=0pt,
 \newcommand{\lcmind}[2]{\index{#1!#2@\ct{#2}}\lct{#1>>>#2}\xspace} % show class>>method
 \newcommand{\toolsflapind}{\index{onglet Tools}\toolsflap} % index tools flap
 % The following only generate an index entry:
-\newcommand{\clsindex}[1]{\index{#1@\textsf{#1} (classe)}\ct{#1}\xspace}
-%\newcommand{\clsindex}[1]{\index{#1!\#@(classe)}} % class
+\newcommand{\clsindex}[1]{\index{#1!\#@(classe)}} % class
 \newcommand{\mthindex}[2]{\index{#1!#2@\ct{#2}}} % method
 \newcommand{\cmindex}[2]{\index{#1!#2@\ct{#2}}} % class>>method
 \newcommand{\cvindex}[1]{\index{#1@\textsf{#1} (variable de classe)}} % class var
@@ -636,7 +635,8 @@ framerule=0pt,
 \newcommand{\subindmain}[2]{\index{#1!#2}#2\xspace} % subindex, main entry
 %\newcommand{\clsindmain}[1]{\index{#1@\textsf{#1} (class)}\ct{#1}\xspace}
 \newcommand{\clsindmain}[1]{\index{#1!\#@(classe)}\ct{#1}\xspace} % class main
-\newcommand{\indexmain}[1]{\index{#1}} 
+\newcommand{\indexmain}[1]{\index{#1}}
+\newcommand{\sectionindex}[1]{\section{#1}\indexmain{#1}} % vf only
 %=============================================================
 %:Code macros
 % some constants
@@ -732,10 +732,17 @@ framerule=0pt,
 \newcommand{\sau}{\textsf{script.aculo.us}\xspace}
 \newcommand{\pjs}{\textsf{Prototype}\xspace}
 \newcommand{\updater}{\emph{updater}\xspace}
-\newcommand{\regex}{expressions régulières\xspace}
+\newcommand{\expreg}{expression régulière\xspace}
+\newcommand{\expregs}{expressions régulières\xspace}
 \newcommand{\pattern}{\emph{pattern}\xspace}
 %\newcommand{\patterns}{\emph{patterns}\xspace}
 \newcommand{\pkgregex}{\pkg{Regex}\xspace}
+\newcommand{\sitemap}{\emph{site map}\xspace}
+\newcommand{\patmatch}{\emph{pattern matching}\xspace}
+\newcommand{\regexmatch}{\emph{regex match}\xspace}
+\newcommand{\regexmatches}{\emph{regex matches}\xspace}
+\newcommand{\kleenestar}{fermeture de Kleene\xspace}
+\newcommand{\escchar}{caractère d'échappement\xspace}
 %% TITRES de chapitres nommés dans Monticello (PBE2->PBE1)
 \newcommand{\titreFirstapp}{Une première application\xspace}
 \newcommand{\titreEnvironment}{L'environnement de programmation de \pharo\xspace}
