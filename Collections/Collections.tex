@@ -4,7 +4,8 @@
 % $Revision: 12789 $
 % translated by Martial.Boniou@ifrance.com start: (Fri, 12 Oct 2007)
 % relecture : Rene Mages (9 jan 2008) de la version #14859
-% adaptation pour PBE: martial Tue Sep  8 19:56:33 CEST 2009 from
+% adaptation pour PBE: martial Tue Sep  8 19:56:33 CEST 2009 
+% relecture : Rene Mages (12 jan 2010) de la version #30229
 % - oscar - 28661 - $Date: 2009-08-28 11:31:14 +0200 (Fri, 28 Aug
 % 2009) $
 % sync avec la revision: 29170
@@ -49,21 +50,23 @@
 Les classes de collections forment un groupe de sous-classes de \clsindmain{Collection} et de \clsindmain{Stream} (pour flux de données) faiblement couplées destiné à un usage générique.
 Ce groupe de classes mentionné dans la bible de \st nommée ``\ind{Blue Book}''~\cite{Gold83a} (le fameux livre bleu) comprend 17 sous-classes de \ct{Collection} 
 et 9 issues de la classe \ct{Stream}. Formant un total de 28 classes, elles
-ont déjà été remodelées maintes fois avant la sortie du système \st-80. Ce groupe de classes est souvent considéré comme un exemple pragmatique
-de modélisation orientée objet.
+ont déjà été remodelées maintes fois avant la sortie du système \st-80. Ce groupe de classes est souvent 
+considéré comme un exemple pragmatique de modélisation orientée objet.
 
-\arelire{Dans \pharo, les classes abstraites \ct{Collection} et \ct{Stream}
+Dans \pharo, les classes abstraites \ct{Collection} et \ct{Stream}
 disposent respectivement de 101 et de 50 sous-classes mais beaucoup d'entre elles
 (comme \mbox{\clsind{Bitmap},} \clsind{FileStream} et \clsind{CompiledMethod})
 sont des classes d'usage spécifique définies pour être employées
-dans d'autres parties du système ou dans des applications et ne sont par conséquent pas organisées dans la catégorie ``Collections''. 
+dans d'autres parties du système ou dans des applications et ne sont par conséquent 
+pas organisées dans la catégorie ``Collections''. 
 Dans ce chapitre, nous réunirons \ct{Collection} et ses 47 sous-classes
 \emph{aussi} présentes dans les catégories-système de la forme \scat{Collections-*}
 sous le terme de ``hiérarchie de Collections''
 %``Collection Hierarchy'' 
 et \ct{Stream} et ses 9 sous-classes de la catégorie \scat{Collections-Streams} sous celui de ``hiérarchie de Streams''.
 Ces 56 classes répondent à 982 messages définissant un total de
-1609 méthodes!}
+1609 méthodes!
+
 
 % % See test case in PBE-Collections for statistics
 
@@ -344,8 +347,7 @@ par trois entiers qui enregistrent les deux points extrêmes et la taille de pas
 \end{enumerate}
 En plus de ces classes, il y a aussi les variantes de \mbox{\ct{Array},} de \ct{Set} et de plusieurs sortes de dictionnaires dites à liaisons faibles ou ``\subind{Collection}{weak}''. Ces collections maintiennent faiblement leurs éléments, \ie de manière à ce qu'elles n'empêchent pas ses éléments d'être
 recyclés par le ramasse-miettes ou \emph{garbage collector}.
-La machine virtuelle \pharo est consciente de ces classes et les gère d'une
-façon particulière.
+La machine virtuelle \pharo est consciente de ces classes et les gère d'une façon particulière.
 \index{Collection!à liaison faible}
 \seeindex{weak collections}{collection!à liaison faible}
 
@@ -361,8 +363,7 @@ Les protocoles principaux de collections sont: \mthind{Collection}{at:}, \mthind
 Chaque collection implémente ou non de tels protocoles et quand elle 
 le fait, elle les interpréte pour être en adéquation avec leurs sémantiques.
 Nous vous suggérons de naviguer dans les classes elles-même pour
-identifier par vous même les protocoles spécifiques et plus
-avancés.
+identifier par vous même les protocoles spécifiques et plus avancés.
 \seeindex{do:@\ct{do:}}{Collection, \ct{do:}}
 \seeindex{at:@\ct{at:}}{Collection, \ct{at:}}
 \seeindex{at:put:@\ct{at:put:}}{Collection, \ct{at:put:}}
@@ -656,7 +657,7 @@ et lorsque des objets sont comparés.
 \seeindex{Dictionary!surcharger \ct{=} et \ct{hash}}{dictionnaire!surcharger \ct{=} et \ct{hash}}
 
 La classe \clsindmain{Dictionary} illustre clairement que la hiérarchie
-de collections \arevoir{est basée sur l'héritage et non sur du sous-typage}.
+de collections est basée sur l'héritage et non sur du sous-typage.
 Même si \ct{Dictionary} est une sous-classe de \clsind{Set}, nous
 ne voudrions normalement pas utiliser un \ct{Dictionary} là où
 un \ct{Set} est attendu. 
@@ -675,10 +676,9 @@ colors associations --> {#yellow->Color yellow . #red->Color red}
 \end{code}
 
 \paragraph{IdentityDictionary.}
-Alors qu'un dictionnaire utilise le résultat des messages \ct{=} et \ct{hash} pour déterminer si deux clés sont la même, la classe \clsindmain{IdentityDictionary} utilise l'identité (\cad le message \mthind{ProtoObject}{==}) de la clé au lieu de celle de ses valeurs, \ie qu'il considère deux clés comme égales \emph{seulement} si elles sont le même objet.
+Alors qu'un dictionnaire utilise le résultat des messages \ct{=} et \ct{hash} pour déterminer si deux clés sont identiques, la classe \clsindmain{IdentityDictionary} utilise l'identité (\cad le message \mthind{ProtoObject}{==}) de la clé au lieu de celle de ses valeurs, \ie qu'il considère deux clés comme égales \emph{seulement} si elles sont le même objet.
 
-Souvent les symboles de classe \ct{Symbol} sont utilisés comme clés, dans les cas où le choix de \ct{IdentityDictionary} s'impose, car un symbole est toujours certain d'être globalement unique. Si d'un autre côté, vos clés sont des chaînes de caractères 
-\ct{String}, il est préférable d'utiliser un \ct{Dictionary} ou sinon vous pourriez avoir des ennuis:
+Souvent les symboles de classe \ct{Symbol} sont utilisés comme clés, dans les cas où le choix de \ct{IdentityDictionary} s'impose, car un symbole est toujours certain d'être globalement unique. Si d'un autre côté, vos clés sont des chaînes de caractères \ct{String}, il est préférable d'utiliser un \ct{Dictionary} ou sinon vous pourriez avoir des ennuis:
 
 \begin{code}{@TEST | a b trouble |}
 a := 'foobar'.
@@ -696,8 +696,7 @@ Comme \ct{a} et \ct{b} sont des objets différents, ils sont traités comme des 
 Le littéral \mbox{\ct{'foobar'}} est alloué une seule fois et
 ce n'est vraiment pas le même objet que \ct{a}.
 Vous ne voulez pas que votre code dépende d'un tel comportement!
-Un simple \ct{Dictionary} vous donnerait la même valeur pour n'importe quelle
-clé égale à \ct{'foobar'}.
+Un simple \ct{Dictionary} vous donnerait la même valeur pour n'importe quelle clé égale à \ct{'foobar'}.
 
 %ajout
 Vous ne vous tromperez pas en utilisant seulement des \ct{Symbol}s comme clé d'\ct{IdentityDictionary} et des \ct{String}s (ou d'autres objets) comme clé de \ct{Dictionary} classique.
@@ -709,8 +708,7 @@ Smalltalk keys collect: [ :each | each class ] --> a Set(ByteSymbol)
 \end{code}
 \noindent
 Envoyer \ct{keys} ou \ct{values} à un \ct{Dictionary} nous renvoie 
-un ensemble \ct{Set}; nous explorerons cette collection dans la section
-qui suit.
+un ensemble \ct{Set}; nous explorerons cette collection dans la section qui suit.
 % Since every key has the same class, the set of classes of keys contains only a single element, \ct{ByteSymbol}.
 
 %---------------------------------------------------------
@@ -829,8 +827,8 @@ que des entiers, des flottants et des fractions:
 { 5. 2/-3. 5.21 } asSortedCollection --> a SortedCollection((-2/3) 5 5.21)
 \end{code}
 
-Imaginez que vous voulez trier des objets qui ne définissent pas
-la méthode \ct{<=} ou que vous voulez trier selon une critère bien spécifique.
+Imaginez que vous vouliez trier des objets qui ne définissent pas
+la méthode \ct{<=} ou que vous vouliez trier selon une critère bien spécifique.
 Vous pouvez le faire en spécifiant un bloc à deux arguments.
 Par exemple, la classe de couleur \ct{Color} n'est pas une \ct{Magnitude} et
 ainsi il n'implémente pas \ct{<=} mais nous pouvons établir un bloc
@@ -868,8 +866,7 @@ En fait, \ct{String} est abstrait.
 Lorsque vous instanciez un \ct{String}, vous obtenez en réalité soit
 un \clsind{ByteString} en 8 bits ou un \clsind{WideString}~\footnote{\emph{Wide} a le sens: étendu} en 32 bits.
 % Martial: ou "Pour faire court" (il y a déjà 'simplement')
-\arevoir{Pour simplifier}, nous ignorons habituellement la différence
-et parlons simplement d'instances de \ct{String}.
+Pour simplifier, nous ignorons habituellement la différence et parlons simplement d'instances de \ct{String}.
 
 Deux instances de \ct{String} peuvent être concaténées avec une virgule (en anglais, \emph{comma}).
 \index{Collection!opérateur virgule}
@@ -944,7 +941,7 @@ pour représenter un simple caractère quelconque.
 Notez que \emph{\ct{match:} est envoyé au filtre} et non pas à la chaîne
 de caractères à apparier.
 \begin{code}{@TEST}
-'Linux *' match: 'Linux mag'                      --> true
+'Linux *' match: 'Linux mag'           --> true
 'GNU/Linux #ag' match: 'GNU/Linux tag' --> true
 \end{code}
 
@@ -954,9 +951,9 @@ de caractères à apparier.
 'GNU/Linux mag' findString: 'linux' startingAt: 1 caseSensitive: false  --> 5
 \end{code}
 
-\arelire{Des techniques d'appariements plus avancées par filtre 
+Des techniques d'appariements plus avancées par filtre 
 offrant les même possibilités que Perl sont disponibles dans le
-paquetage \pkgind{Regex}.} % CHANGE
+paquetage \pkgind{Regex}. % CHANGE
 \index{paquetage!expressions régulières}
 \seeindex{regular expression package}{paquetage, expressions régulières}
 
@@ -1209,7 +1206,8 @@ voyelle non-accentuée (pour plus d'explications, voir page~\pageref{def:isVowel
 'through' detect: [:each | each isVowel] --> $o
 \end{code} %$
 
-La méthode \mthind{Collection}{detect:ifNone:} est une variante de la méthode \ct{detect:}. Son second bloc est évalué quand il n'y a pas d'élément trouvé dans le bloc.
+La méthode \mthind{Collection}{detect:ifNone:} est une variante de la méthode \ct{detect:}. 
+Son second bloc est évalué quand il n'y a pas d'élément trouvé dans le bloc.
 
 \begin{code}{@TEST}
 Smalltalk allClasses detect: [:each | '*cobol*' match: each asString] ifNone: [ nil ] --> nil
@@ -1232,8 +1230,7 @@ Une application triviale de  \ct{inject:into:} consiste à produire
 la somme de nombres stockés dans une collection.
 %?En se référant à Gauss,
 %Following Gauss,
-\arelire{D'après Gauss,} 
-nous pouvons écrire, en \pharo, cette expression pour sommer les 100 premiers entiers:
+Selon Gauss, nous pouvons écrire, en \pharo, cette expression pour sommer les 100 premiers entiers:
 \begin{code}{@TEST}
 (1 to: 100) inject: 0 into: [:sum :each | sum + each ] --> 5050
 \end{code}
@@ -1304,8 +1301,7 @@ range do: [:aNumber | aNumber isPrime ifFalse: [ range remove: aNumber ] ].
 range --> an OrderedCollection(2 3 5 7 9 11 13 15 17 19)
 \end{code}
 \noindent
-Ce résultat est clairement incorrect puisque 9 et 15 auraient du été
-filtrés!
+Ce résultat est clairement incorrect puisque 9 et 15 auraient du être filtrés!
 
 La solution consiste à copier la collection avant de la parcourir.
 \begin{code}{@TEST |range|}
@@ -1320,7 +1316,7 @@ redéfinissez \ct{=} mais pas \ct{hash}. Les symptômes sont
 la perte d'éléments que vous mettez dans des ensembles ainsi
 que d'autres phénomènes plus étranges. Une solution proposée
 par Kent Beck est d'utiliser \ct{xor:} pour redéfinir \ct{hash}.
-Supposons que nous voulons que deux livres soient considérés comme
+Supposons que nous voulions que deux livres soient considérés comme
 égaux si leurs titres et leurs auteurs sont les mêmes.
 Alors nous redéfinissons non seulement
 \ct{=} mais aussi \ct{hash} comme suit:
@@ -1360,8 +1356,10 @@ grâce à une syntaxe spéciale: \ct{#( ... )}.  Les tableaux dynamiques
 sont créés avec la syntaxe \ct|{ ... }|.
   \item Un dictionnaire \ct{Dictionary} compare ses clés par égalité.
 C'est plus utile lorsque les clés sont des instances de \ct{String}. 
-Un \ct{IdentityDictionary} utilise l'identité entre objets pour comparer les clés. Il est souhaitable que des \ct{Symbol}s soient utilisés comme clés ou que la correspondance soit établie sur les valeurs.
-% cette phrase ci-dessus est a revoir: +when mapping object references to values.s
+Un \ct{IdentityDictionary} utilise l'identité entre objets pour comparer les clés. Il est souhaitable que des \ct{Symbol}s soient utilisés comme clés \arevoir{ou que la correspondance soit établie sur les valeurs.}
+% cette phrase ci-dessus est a revoir: 
+% It is more suitable when Symbols are used as keys, or when mapping object references to values.
+
   \item Les chaînes de caractères de classe \ct{String} comprennent
 aussi les messages habituels de la collection. En plus, un \ct{String} 
 supporte une forme simple d'appariement de formes ou \emph{pattern-matching}. 
