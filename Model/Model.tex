@@ -11,7 +11,8 @@
 %% de messages'; j'ai remplace 'envoi sur super/self' par 'envoi a
 %% ...'; j'ai remplace '\lct{}' par '\ct{}' quand possible
 %
-% adaptation pour PBE - martial - Thu Sep 10 20:18:24 CEST 2009 from
+% adaptation pour PBE - martial - Thu Sep 10 20:18:24 CEST 2009 
+% relecture par Rene Mages : Tue Jan 12 17:17:17 2010
 % $Author: oscar $ $Date: 2009-08-28 11:02:05 +0200 (Fri, 28 Aug 2009) $ $Revision: 28659 $
 % sync avec la version: 29660
 %=================================================================
@@ -65,6 +66,7 @@ qui sont appliquées de manière \emph{uniforme}. Les règles s'énoncent comme 
 
 \item{}  \rulelabel{message}
 	Tout se passe par envoi de messages. % REVOIR dans PBE 'by sending messages'
+
 \item{}  \rulelabel{lookup}
 	La recherche des méthodes suit la chaîne de l'héritage.
 
@@ -195,7 +197,7 @@ aux messages \ct{x} et \ct{y}, le code de la \mthref{dist:} fonctionnera toujour
 %---------------------------------------------------------
 \subsection{Les méthodes}
 
-Toutes les méthodes sont \subind{méthode}{publique}{}s~\footnote{En fait, presque toute.  En \squeak, des méthodes dont les sélecteurs commencent par
+Toutes les méthodes sont \subind{méthode}{publique}{}s~\footnote{En fait, presque toute.  En \pharo, des méthodes dont les sélecteurs commencent par
 la chaîne de caractères \ct{pvt} sont privées: un message \ct{pvt}
 ne peut être envoyé qu'à \self \emph{uniquement}.  N'importe comment, les méthodes \ct{pvt} sont très peu utilisées.}.
 Les méthodes sont regroupées en protocoles qui indique leur objectif.
@@ -240,13 +242,10 @@ n'étaient qu'une seule entité avec deux ``côtés'': le ``\subind{Browser}{cô
 \damien{something wrong here. The text between quotes is not generated}
 % true: \ind should replace \index there! (martial)
 En cliquant sur le 
-bouton \button{instance}, vous voyez la présentation de la classe \ct{Color}, \ie vous pouvez naviguer dans les méthodes qui sont exécutées quand
-les messages sont envoyés à une instance de
+bouton \button{instance}, vous voyez la présentation de la classe \ct{Color}, \ie vous pouvez naviguer dans les méthodes qui sont exécutées quand les messages sont envoyés à une instance de
 \ct{Color}, comme la couleur blue (correspondant au bleu). En appuyant
-sur le bouton \button{class} (pour classe), vous naviguez dans la classe \ct{Color class}, autrement dit vous voyez les méthodes qui seront exécutées
-en envoyant les messages directement à la classe \ct{Color} elle-même.
-Par exemple, \ct{Color blue} envoie le message \ct{blue} (pour \emph{bleu}) à
-la classe \clsind{Color}.
+sur le bouton \button{class} (pour classe), vous naviguez dans la classe \ct{Color class}, autrement dit vous voyez les méthodes qui seront exécutées en envoyant les messages directement à la classe \ct{Color} elle-même.
+Par exemple, \ct{Color blue} envoie le message \ct{blue} (pour \emph{bleu}) à la classe \clsind{Color}.
 Vous trouverez donc la méthode \ct{blue} définie côté classe de la classe \ct{Color} et non du côté instance.
 \seeindex{côté instance}{Browser!côté instance}
 \seeindex{côté classe}{Browser!côté classe}
@@ -284,11 +283,11 @@ Les méthodes de classe peuvent être relativement utiles; naviguez dans \ct{Col
 Vous verrez qu'il y a deux sortes de \subind{classe}{méthode}{s} définies dans une classe: celles qui créent les instances de la classe, comme \cmind{Color class}{blue} et celles qui ont une action \emph{utilitaire}, 
 % martial: j'ai mis volontairement \emph pour l'adjectif utilitaire
 comme \cmind{Color class}{showColorCube}.
-Ceci est courant, bien que vous trouverez occasionnellement des méthodes
-de classe utilisées d'une autre manière.
+Ceci est courant, bien que vous trouverez occasionnellement des méthodes de classe utilisées d'une autre manière.
 
 Il est commun de placer des méthodes utilitaires dans le \subind{Browser}{côté classe} parce qu'elles peuvent être exécutées
-sans avoir à créer un objet additionnel dans un premier temps. % coutumier -> commun
+sans avoir à créer un objet additionnel dans un premier temps. 
+% coutumier -> commun
 En fait, beaucoup d'entre elles contiennent un commentaire pour les rendre plus compréhensibles pour l'utilisateur qui les exécute.
 
 \dothis{Naviguez dans la méthode \ct{Color class>>>showColorCube}, double-cliquez à l'intérieur des guillements englobant le commentaire \ct{"Color showColorCube"} et tape au clavier \short{d}.}
@@ -299,10 +298,8 @@ Néanmoins, l'homogénéité de \st induit une différence:  les méthodes stati
 
 %---------------------------------------------------------
 \subsection{Les variables d'instance de classe}
-Dans le cadre des variables d'instance ordinaires,
-toutes les instances d'une classe partagent le même ensemble
-de noms de variable et les instances de ses sous-classes héritent
-de ces noms; cependant, chaque instance possède son propre jeu de valeurs.
+Dans le cadre des variables d'instance ordinaires, toutes les instances d'une classe partagent le même ensemble
+de noms de variable et les instances de ses sous-classes héritent de ces noms; cependant, chaque instance possède son propre jeu de valeurs.
 C'est exactement la même histoire avec les \subind{classe!variables d'instance}{variables d'instance de classe}: chaque classe a ses propres variables d'instance de classe privées.
 Une sous-classe héritera de ces  variables d'instance de classe, \emph{mais elle aura ses propres copies privées de ces variables}.
 Aussi vrai que les objets ne partagent pas les variables d'instance, les classes et leurs sous-classes ne partagent pas les variables d'instance de classe.
@@ -382,7 +379,7 @@ avec les variables de classe de \st dont nous parlerons dans \secref{classVars}:
 
 \paragraph{Exemple: Définir un Singleton.}
 Le patron de conception~\footnote{En anglais, nous parlons de \emph{Design Patterns}.} nommé \ind{Singleton}~\cite{Alpe98a} offre un exemple-type de l'usage de variables d'instance de classe et de méthodes de classe.
-Imaginez que nous souhaitons d'une part, créer une classe \ct{WebServer} et d'autre part, s'assurer qu'il n'a qu'une et une seule instance en faisant appel au patron Singleton.
+Imaginez que nous souhaitions d'une part, créer une classe \ct{WebServer} et d'autre part, s'assurer qu'il n'a qu'une et une seule instance en faisant appel au patron Singleton.
 
 En cliquant sur le bouton \button{instance} dans le navigateur de classe, nous définissons la classe \clsind{WebServer} comme suit (\clsref{singleton}).
 
@@ -427,8 +424,8 @@ Du reste, notez que \ct{WebServer} et \ct{ReliableWebServer} ont chacune
 leur propre variable d'instance de classe nommée \ct{uniqueInstance}.  
 
 % proposition de Rene :
-% Ces deux variables ont, bien entendu, des valeurs différentes.
-\arevoir{Ces deux variables ont, bien entendu, différentes valeurs.}
+% Ces deux variables ont, bien entendu, différentes valeurs.
+Ces deux variables ont, bien entendu, différentes valeurs.
 
 %=========================================================
 \section{Toute classe a une super-classe}
@@ -472,9 +469,7 @@ Veuillez jeter un coup d'\oe il au protocole \prot{Kernel-Classes \go Class \go 
 %An abstract class is an ordinary class in which the implementation of some methods is deferred to a subclass.
 %This is repeated in the next section
 
-Bien que \pharo ne dispose pas d'héritage multiple, il 
-\arelire{dispose d'un}
-mécanisme appelé % CHANGE 
+Bien que \pharo ne dispose pas d'héritage multiple, il dispose d'un mécanisme appelé % CHANGE 
 % martial: footnote ajoute
 \emphind{trait}{}s~\footnote{Dans le sens de trait de caractères, nous faisons allusion ainsi à la génétique du comportement d'une méthode.} 
 pour partager le comportement entre des classes distincts.
@@ -654,8 +649,7 @@ Beaucoup de langages orientés objets disposent à la fois
 d'opérations statiques et dynamiques pour les objets; en \st il n'y
 a qu'envois de messages dynamiques. Au lieu de fournir des
 opérations statiques sur les classes, nous leur envoyons simplement
-des messages, puisque les classes sont aussi des objets. % REVOIR 'by
-                                % sending messages'
+des messages, puisque les classes sont aussi des objets. % REVOIR 'by sending messages'
 
 \emph{Pratiquement} tout en \st se passe par envoi de messages. % REVOIR 'by sending messages'
 à certains stades, le pragmatisme doit prendre le relais:
@@ -686,8 +680,7 @@ Joseph Pelrine annonce aussi à juste titre:
 Qu'arrive-t-il exactement quand un objet reçoit un message?
 
 Le processus est relativement simple:
-la classe du receveur cherche la méthode à utiliser pour
-opérer le message.
+la classe du receveur cherche la méthode à utiliser pour opérer le message.
 Si cette classe n'a pas de méthode, elle demande à sa \ind{super-classe} et remonte ainsi de suite la chaîne d'\ind{héritage}.
 Quand la méthode est enfin trouvée, les arguments sont affectés aux paramètres de la méthode et la \ind{machine virtuelle} l'exécute.
 \index{méthode!lookup}
@@ -704,11 +697,10 @@ Mais il reste quelques questions auxquelles nous devons prendre soin de répondr
 \end{itemize}
 
 Les règles pour la recherche par référencement (en anglais \emph{lookup}) présentées ici sont conceptuelles: des réalisations au sein de la machine virtuelle rusent pour optimiser la vitesse de recherche des méthodes. 
-C'est leur travail mais tout est fait pour que vous ne remarqueriez jamais qu'elles font quelque chose de différent des règles énoncées.
+C'est leur travail mais tout est fait pour que vous ne remarquiez jamais qu'elles font quelque chose de différent des règles énoncées.
 % Whatever the implementation does, these rules will give you a clear understanding of the semantics of sending messages to \self and \super.
 
-Tout d'abord, penchons-nous sur la stratégie de base de la recherche. Ensuite
-nous répondrons aux questions.
+Tout d'abord, penchons-nous sur la stratégie de base de la recherche. Ensuite nous répondrons aux questions.
 
 %---------------------------------------------------------
 \subsection{La recherche de méthode}
@@ -805,8 +797,7 @@ La méthode \ct{initialize} est l'exemple le plus important de l'application de 
 Quand une nouvelle instance d'une classe est initialisée, il est vital
 d'initialiser toutes les variables d'instance héritées.
 Cependant, les méthodes \ct{initialize} de chacune des super-classes
-de la chaîne d'héritage fournissent déjà la connaissance
-nécessaire. 
+de la chaîne d'héritage fournissent déjà la connaissance nécessaire. 
 La sous-classe n'a pas à s'occuper d'initialiser les variables d'instance héritées!
 
 C'est une bonne pratique d'envoyer \ct{super initialize} avant tout autre considération lorsque nous créons une méthode d'\ind{initialisation}:
@@ -851,11 +842,9 @@ n'importe quel morph:
 \begin{code}{@TEST | anEllipse | anEllipse := EllipseMorph new.}
 anEllipse constructorString --> '((EllipseMorph newBounds: (0@0 corner: 50@40) color: Color yellow) setBorderWidth: 1 borderColor: Color black)'
 \end{code}
-La valeur de retour est une chaîne de caractères qui peut être
-évaluée pour recréer un morph.
+La valeur de retour est une chaîne de caractères qui peut être évaluée pour recréer un morph.
 
-Comment ce résultat est-il exactement obtenu grâce à l'association
-de \self et de \super?
+Comment ce résultat est-il exactement obtenu grâce à l'association de \self et de \super?
 Pour commencer, 
 \ct{anEllipse constructorString} trouvera la méthode \ct{constructorString} dans la 
 classe \ct{Morph},
@@ -927,7 +916,7 @@ Que se passe-t-il si la méthode que nous cherchons n'est pas trouvée?
 \index{message!not understood}
 %\index{message!incompris}
 
-Supposons que nous envoyions le message \ct{foo} à une ellipse \ct{anEllipse}.
+Supposons que nous envoyons le message \ct{foo} à une ellipse \ct{anEllipse}.
 Tout d'abord, la recherche normale de cette méthode aurait à parcourir
 toute la chaîne d'héritage jusqu'à la classe \clsind{Object} (ou
 plutôt \clsind{ProtoObject}).
@@ -960,7 +949,7 @@ offrant une façon différente de capturer l'erreur.
 En fait, nous nous simplifions la vie en implémentant une 
 délégation automatique de messages d'un objet à un autre.
 Un objet \ct{Delegator} peut simplement déléguer tous les messages
-qu'il ne comprend pas à un autre objet responsable de les gérer ou
+qu'il ne comprend pas à un autre objet dont la responsabilité est de les gérer ou
 de lever une erreur lui-même!
 
 %=========================================================
@@ -980,8 +969,7 @@ En \pharo, toutes les variables globales sont stockées dans un espace de nommag
 Les variables globales sont accessibles de partout.
 Toute classe est nommée par une variable globale; en plus, quelques variables globales sont utilisées pour nommer des objets spéciaux ou couramment utilisés.  
 
-La variable \glbind{Transcript} nomme une instance de \clsind{TranscriptStream}, un flux de données ou \emph{stream} qui écrit dans une fenêtre 
-à ascenseur (dite aussi \emph{scrollable}).
+La variable \glbind{Transcript} nomme une instance de \clsind{TranscriptStream}, un flux de données ou \emph{stream} qui écrit dans une fenêtre à ascenseur (dite aussi \emph{scrollable}).
 Le code suivant affiche des informations dans le \ct{Transcript} en passant une ligne.
 
 \begin{code}{}
@@ -990,7 +978,7 @@ Transcript show: 'Pharo est extra' ; cr
 
 \noindent
 Avant vous lanciez la commande \menu{do it}, ouvrez un Transcript en 
-\arelire{sélectionnant \menu{World \go Tools \ldots \go Transcript}.} % CHANGE
+sélectionnant \menu{World \go Tools \ldots \go Transcript}. % CHANGE
 
 \hint{Écrire dans le Transcript est lent, surtout quand la fenêtre Transcript est ouverte. 
 Ainsi, si vous constatez un manque de réactivité de votre système alors que vous êtes en train d'écrire dans le Transcript, pensez à le minimiser (bouton \emph{collapse this window}).}
@@ -1014,9 +1002,7 @@ et
 (Smalltalk at: #Smalltalk) == Smalltalk --> true
 \end{code}
 
-\item \clsind{Sensor} est une instance of \clsind{EventSensor}. Il représente les entrées interactives ou intefaces de saisie (en anglais, \emph{input}) dans \pharo.
-Par exemple, \ct{Sensor keyboard} retourne le caractère suivant saisi au clavier, et \ct{Sensor leftShiftDown} répond \ct{true} (vrai en booléen) si la
-touche \emph{shift} gauche est maintenue enfoncée, alors que \ct{Sensor mousePoint} renvoie un \ct{Point} indiquant la position actuelle de la souris.
+\item \clsind{Sensor} est une instance of \clsind{EventSensor}. Il représente les entrées interactives ou interfaces de saisie (en anglais, \emph{input}) dans \pharo. Par exemple, \ct{Sensor keyboard} retourne le caractère suivant saisi au clavier, et \ct{Sensor leftShiftDown} répond \ct{true} (vrai en booléen) si la touche \emph{shift} gauche est maintenue enfoncée, alors que \ct{Sensor mousePoint} renvoie un \ct{Point} indiquant la position actuelle de la souris.
 
 \item \glbind{World} (Monde en anglais) est une instance de \clsind{PasteUpMorph} représentant l'écran.
 \ct{World bounds} retourne un rectangle définissant l'espace tout entier de l'écran; tous les morphs (objet Morph) sur l'écran sont des sous-morphs ou \emph{submorphs} de \ct{World}.
@@ -1030,8 +1016,7 @@ touche \emph{shift} gauche est maintenue enfoncée, alors que \ct{Sensor mousePo
 Si vous écrivez une méthode qui référence une variable non déclarée,
 le navigateur de classe (Browser) vous l'annoncera normalement
 pour que vous la déclariez, par exemple, en tant que variable globale ou variable d'instance de la classe.
-Cependant, si par la suite, vous effacez la déclaration, le code
-référencera une variable non déclarée. 
+Cependant, si par la suite, vous effacez la déclaration, le code référencera une variable non déclarée. 
 Inspecter \ct{Undeclared} peut parfois expliquer des comportements bizarres!
 
 \item
@@ -1102,10 +1087,8 @@ Les méthodes d'instance et de classe peuvent accéder toutes les deux
 %\begin{center}\includegraphics[width=6cm]{dateToday}\caption{A date is an object that  represents only anumber of days; all the information about month names, day names, etc.\ is shared among all the instances \figlabel{dateToday}}\end{center}.
 %\end{figure}
 
-Une \subind{classe}{variable} de classe est déclarée dans le patron
-de définition de la classe.
-Par exemple, la classe \ct{Color} définit un grand nombre de variables
-de classe pour accélérer la création des couleurs;
+Une \subind{classe}{variable} de classe est déclarée dans le patron de définition de la classe.
+Par exemple, la classe \ct{Color} définit un grand nombre de variables de classe pour accélérer la création des couleurs;
 sa définition est visible ci-dessous (\clsref{Color}).
 
 \needlines{5} % CHANGE
@@ -1117,8 +1100,7 @@ Object subclass: #Color
         category: 'Graphics-Primitives'
 \end{classdef}
 
-La variable de classe \cvind{ColorNames} est un tableau contenant le nom des
-couleurs fréquemment utilisées. Ce tableau est partagé par toutes les instances de \ct{Color} et de sa sous-classe \clsind{TranslucentColor}. 
+La variable de classe \cvind{ColorNames} est un tableau contenant le nom des couleurs fréquemment utilisées. Ce tableau est partagé par toutes les instances de \ct{Color} et de sa sous-classe \clsind{TranslucentColor}. 
 Elles sont accessibles via les méthodes d'instance et de classe.
 
 % (see \figref{ClassVarAccess2}).
@@ -1218,6 +1200,7 @@ Le modèle objet de \pharo est à la fois simple et uniforme.
                                 % 'by sending messages'
 
 \begin{itemize}
+
   \item \Mantra.
   Les entités primitives telles que les entiers sont des objets, tout comme
 il est vrai que les classes soient des objets de premier ordre.
@@ -1247,25 +1230,22 @@ il est facile de partager les implémentations de méthodes
 en regroupant ces dernières en \emph{traits}.
 
   \item Tout se passe par envoi de messages. % REVOIR 'by sending
-                                % messages'
+                                             % messages'
 
-	Nous ne faisons pas des ``appels de méthodes'', nous
-	faisons des ``envois de messages''.
-Le receveur choisit alors sa propre méthode pour répondre au message.
+	Nous ne faisons pas des ``appels de méthodes'', nous faisons des ``envois de messages''.
+        Le receveur choisit alors sa propre méthode pour répondre au message.
 
   \item La recherche de méthodes suit la chaîne d'héritage;
-  Les envois à \self sont dynamiques et la recherche de méthode
-démarre dans le receveur de la classe, alors que
-celles à \super sont statiques
-et la recherche commence dans la super-classe de la classe dans laquelle l'envoi
-à \super est écrit.
+        Les envois à \self sont dynamiques et la recherche de méthode
+        démarre dans le receveur de la classe, alors que
+        celles à \super sont statiques et la recherche commence dans la super-classe de la 
+        classe dans laquelle l'envoi à \super est écrit.
 
   \item Il y a trois sortes de variables partagées.
-Les variables globales sont accessibles partout dans le système.
-Les variables de classe sont partagées entre une classe, ses sous-classes et
-ses instances.
-Les variables de pool sont partagées dans un ensemble de classes particulier.
-Vous devez éviter l'emploi de variables partagées autant que possible.
+        Les variables globales sont accessibles partout dans le système.
+        Les variables de classe sont partagées entre une classe, ses sous-classes et ses instances.
+        Les variables de pool sont partagées dans un ensemble de classes particulier.
+        Vous devez éviter l'emploi de variables partagées autant que possible.
 
 \end{itemize}
 
