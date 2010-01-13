@@ -470,10 +470,11 @@ et sélectionne \menu{browse \go implementors (m)} (ou selectionnez le
 texte ``drawOn:'' dans la zone inférieure du code et pressez 
 \short{m}).
 Vous devriez voir une fenêtre listant des méthodes montrant ainsi la
-liste déroulante des \arevoir{63} % 90 dans l'original
+liste déroulante des \arevoir{\drawOnImplNumber} % 90 dans l'original
 % rene : ni 90 ni 63 mais 59
 % rene : il me semble préférable de s'éloigner un peu de l'original et
-%        ne plus préciser le nombre exact 
+%        ne plus préciser le nombre exact
+% martial: j'ai mis une variable globale
 classes qui implémentent une méthode \ct{drawOn:}.
 Ceci ne devrait pas être si suprenant qu'il y ait tant de classes
 implémentant cette méthode: \ct{drawOn:} est le message qui est
@@ -589,7 +590,7 @@ méthodes de la classe sélectionnée. % CHANGE à vérifier
 %The category of the selected class is displayed in the small annotation pane at the top of the browser.
 Sur \figref{hierarchyBrowser}, la vue hiérarchique dans le navigateur 
 montre que \clsind{ImageMorph} est la super-classe directe de
-\clsind{Morph}.}
+\clsind{Morph}.
 \index{Browser!bouton!hierarchy} % REVOIR
 
 \begin{figure}[btp]
@@ -1143,7 +1144,7 @@ Repository Browser de package-cache et choisir le dépôt vers lequel
 le paquetage doit être copié.
 Vous pouvez aussi associer le dépôt désiré avec le paquetage
 en sélectionnant \menu{add to package \ldots} 
-dans le menu contextuel du répertoire accessible en \actclickant{},
+dans le menu contextuel du répertoire accessible en \actclickant,
 comme nous pouvons le voir dans \figref{associateRepository}.
 Une fois que le paquetage est lié à un dépôt, vous pouvez sauvegarder
 toute nouvelle version en sélectionnant le dépôt et le paquetage
@@ -1559,7 +1560,7 @@ et ça ne nous aide pas beaucoup.
 En fait, nous avons besoin de trouver pourquoi \ct{do:} ne trouve pas
 le caractère que nous cherchons.
 
-\dothis{Après avoir \click{} sur le bouton \button{Over}, \clickz sur le 
+\dothis{Après avoir \clicke sur le bouton \button{Over}, \clickz sur le 
 bouton \button{Restart} pour obtenir la situation vue dans \figref{RestartDetectIfNone}.}
 
 \dothis{Cliquez sur le bouton \button{Into}; \pharo ira dans la méthode correspondante 
@@ -2067,7 +2068,9 @@ pouvant indiquer qu'il ne pourrait pas être proprement chargé.
 Puisque le choix des boutons affichés dépend du \emph{nom} du fichier et
 non de son contenu, parfois le bouton dont vous avez besoin pourrait ne pas être
 affiché.
-De toutes façons, le jeu complet des options est toujours disponible grâce
+De toutes façons, le jeu complet des options est toujours disponible
+grâce
+% martial: "de toute façon" est plus correct selon l'Académie française
 à l'option \menu{more \ldots} du menu contextuel accessible en \actclickant,
 ainsi vous pouvez facilement contourner ce problème.
 

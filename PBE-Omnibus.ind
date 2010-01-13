@@ -10,11 +10,14 @@
   \item \IeC {\'e}galit\IeC {\'e}, 
 		\see{Object, \IeC {\'e}galit\IeC {\'e}}{180}
   \item \IeC {\'e}num\IeC {\'e}ration, \see{it\IeC {\'e}ration}{61}
+  \item \IeC {\'e}toile de Kleene, 
+		\see{fermeture de Kleene\xspace  }{354}
   \item \IeC {\'e}v\IeC {\'e}nement
     \subitem clavier, \hyperpage{247}
     \subitem souris, \hyperpage{246}
   \item {\textsf  {\_}}, \see{affectation}{56}
   \item \emph  {brushes}\xspace  , \see{\emph  {brush}\xspace  }{322}
+  \item \emph  {regex match}\xspace  , \hyperpage{357}
   \item \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{.}, 
 		\see{expression, s\IeC {\'e}parateur}{56}
   \item \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{==}, 
@@ -24,7 +27,7 @@
   \item \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{>>}, 
 		\see{Behavior, \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{>>}}{25}
   \item \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{become:}, 
-		\see{\lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{ProtoObject>>>become:}}{420}
+		\see{\lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{ProtoObject>>>become:}}{422}
   \item \textsf  {Prototype}\xspace  , \hyperpage{344}
   \item \textsf  {script.aculo.us}\xspace  , \hyperpage{344}
   \item {\textsf  {\{ \}}}, \see{tableau, dynamique}{204}
@@ -40,7 +43,7 @@
   \item \textsf  {accessing untypeable characters} (protocole), 
 		\hyperpage{191}
   \item accessor, \hyperpage{42}
-  \item activation context, \hyperpage{385}
+  \item activation context, \hyperpage{386}
   \item \textsf  {ActiveHand} (globale), \hyperpage{106}
   \item \textsf  {adding} (protocole), \hyperpage{200}
   \item affectation, \hyperpage{56}, \hyperpage{97}
@@ -49,8 +52,8 @@
 		\hyperpage{114}, \hyperpage{125}
   \item AlphaBlendingCanvas
     \subitem (classe), \hyperpage{257}
-  \item ANSI Smalltalk\xspace  {}, \hyperpage{375}
-  \item ANSI standard, \hyperpage{388}
+  \item ANSI Smalltalk\xspace  {}, \hyperpage{377}
+  \item ANSI standard, \hyperpage{390}
   \item Apache, \hyperpage{301}
   \item Array
     \subitem (classe), \hyperpage{199--204}
@@ -62,7 +65,6 @@
 		\hyperpage{205}
     \subitem dynamique, \see{tableau, dynamique}{204}
     \subitem litt\IeC {\'e}ral, \see{litt\IeC {\'e}ral, tableau}{204}
-  \item \textsf  {Array} (classe), \hyperpage{201}
   \item Array class
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{new:}, 
 		\hyperpage{204}
@@ -71,7 +73,7 @@
   \item \textsf  {as yet unclassified} (protocole), \hyperpage{39}
   \item association, 
 		\see{Object, \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{->}}{207}
-  \item AST, \hyperpage{433}
+  \item AST, \hyperpage{435}
   \item \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{at:}, 
 		\see{Collection, \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{at:}}{202}
   \item \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{at:put:}, 
@@ -81,8 +83,8 @@
   \indexspace
 
   \item Bag
-    \subitem (classe), \hyperpage{199, 200}, \hyperpage{208}
-  \item \textsf  {Bag} (classe), \hyperpage{202}
+    \subitem (classe), \hyperpage{199, 200}, \hyperpage{202}, 
+		\hyperpage{208}
   \item BalloonCanvas
     \subitem (classe), \hyperpage{257}
   \item Beck, Kent, \hyperpage{100}, \hyperpage{157}
@@ -92,21 +94,21 @@
     \subitem (classe), \hyperpage{96}, \hyperpage{262}, \hyperpage{267}, 
 		\hyperpage{270}, \hyperpage{273}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{addSelector:withMethod:}, 
-		\hyperpage{424}
+		\hyperpage{426}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{addSubclass:}, 
 		\hyperpage{270}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{allInstances}, 
-		\hyperpage{270}, \hyperpage{410}
+		\hyperpage{270}, \hyperpage{412}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{allInstVarNames}, 
-		\hyperpage{265}, \hyperpage{410}
+		\hyperpage{265}, \hyperpage{412}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{allSelectors}, 
-		\hyperpage{270}, \hyperpage{410}
+		\hyperpage{270}, \hyperpage{412}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{allSubclasses}, 
-		\hyperpage{410}
+		\hyperpage{412}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{allSubInstances}, 
-		\hyperpage{410}
+		\hyperpage{412}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{allSuperclasses}, 
-		\hyperpage{265}, \hyperpage{410}
+		\hyperpage{265}, \hyperpage{412}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{basicNew}, 
 		\hyperpage{270}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{basicNew:}, 
@@ -116,7 +118,7 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{compiledMethodAt:}, 
 		\hyperpage{270}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{crossReference}, 
-		\hyperpage{411}
+		\hyperpage{413}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{hasMethods}, 
 		\hyperpage{270}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{includesSelector}, 
@@ -124,40 +126,40 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{inheritsFrom:}, 
 		\hyperpage{270}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{instanceCount}, 
-		\hyperpage{410}
+		\hyperpage{412}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{instVarNames}, 
-		\hyperpage{265}, \hyperpage{270}, \hyperpage{410}
+		\hyperpage{265}, \hyperpage{270}, \hyperpage{412}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{isVariable}, 
 		\hyperpage{270}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{methodDict}, 
-		\hyperpage{414}
+		\hyperpage{416}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{new}, 
 		\hyperpage{63}, \hyperpage{186}, \hyperpage{268}, 
-		\hyperpage{270}, \hyperpage{413}
+		\hyperpage{270}, \hyperpage{415}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{new:}, 
 		\hyperpage{63}, \hyperpage{270}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{selectors}, 
-		\hyperpage{265}, \hyperpage{270}, \hyperpage{410}
+		\hyperpage{265}, \hyperpage{270}, \hyperpage{412}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{someInstance}, 
-		\hyperpage{410}
+		\hyperpage{412}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{subclasses}, 
-		\hyperpage{270}, \hyperpage{410}
+		\hyperpage{270}, \hyperpage{412}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{superclass}, 
 		\hyperpage{263}, \hyperpage{270}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{superclass:}, 
 		\hyperpage{270}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{unreferencedInstanceVariables}, 
-		\hyperpage{411}
+		\hyperpage{413}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{whichClassIncludesSelector:}, 
-		\hyperpage{411}
+		\hyperpage{413}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{whichSelectorsAccess:}, 
-		\hyperpage{411}
+		\hyperpage{413}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{whichSelectorsReferTo:}, 
-		\hyperpage{411}
+		\hyperpage{413}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{whichSelectorsStoreInto:}, 
-		\hyperpage{411}
+		\hyperpage{413}
   \item Behavior Driven Development, \see{Test Driven Development}{22}
-  \item behavioural reflection, \hyperpage{406}
+  \item behavioural reflection, \hyperpage{408}
   \item Bitmap
     \subitem (classe), \hyperpage{197}
   \item bloc, \hyperpage{54}, \hyperpage{56}, \hyperpage{59}, 
@@ -166,12 +168,12 @@
   \item BlockClosure
     \subitem (classe), \hyperpage{57}, \hyperpage{61}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{ensure:}, 
-		\hyperpage{376}
+		\hyperpage{378}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{ifCurtailed:}, 
-		\hyperpage{377}
-    \subitem on:do:, \hyperpage{385}
+		\hyperpage{379}
+    \subitem on:do:, \hyperpage{387}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{on:do:}, 
-		\hyperpage{378}, \hyperpage{396}
+		\hyperpage{380}, \hyperpage{398}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{value}, 
 		\hyperpage{59}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{value:}, 
@@ -185,7 +187,7 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{whileTrue:}, 
 		\hyperpage{61}
   \item Blue Book, \hyperpage{197}
-  \item Bonzini, Paolo, \hyperpage{403}
+  \item Bonzini, Paolo, \hyperpage{405}
   \item Boolean
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{&}, 
 		\hyperpage{194}
@@ -212,7 +214,7 @@
     \subitem rouge, \hyperpage{6}
   \item bouton jaune, \hyperpage{149}
   \item branch, \hyperpage{285}
-  \item breakpoint, \hyperpage{384}
+  \item breakpoint, \hyperpage{385}
   \item Browser, \hyperpage{17}, \hyperpage{30}, \hyperpage{87}, 
 		\hyperpage{112}, \see{navigateur de classes}{112}, 
 		\hyperpage{113}, \hyperpage{116}
@@ -228,41 +230,41 @@
     \subitem d\IeC {\'e}finir une classe, \hyperpage{32}
     \subitem d\IeC {\'e}finir une m\IeC {\'e}thode, \hyperpage{33}
     \subitem implementors, \hyperpage{119}
-    \subitem panneau de code, \hyperpage{122}
-    \subitem panneau source, \see{Browser, panneau de code}{122}
+    \subitem panneau de code, \hyperpage{123}
+    \subitem panneau source, \see{Browser, panneau de code}{123}
     \subitem senders, \hyperpage{117}, \hyperpage{119}
     \subitem trouver une classe, \see{classe, recherche}{17}
     \subitem trouver une m\IeC {\'e}thode, 
 		\see{m\IeC {\'e}thode, recherche}{20}
     \subitem variables, \hyperpage{122}
-    \subitem versions, \hyperpage{119}
-    \subitem view, \see{Browser, panneau de code}{122}
+    \subitem versions, \hyperpage{120}
+    \subitem view, \see{Browser, panneau de code}{123}
   \item BrowserEnvironment
-    \subitem (classe), \hyperpage{416}
+    \subitem (classe), \hyperpage{418}
   \item Bryant, Avi, \hyperpage{311}
   \item Bykov, Vassili, \hyperpage{193}, \hyperpage{351}, 
-		\hyperpage{371}
+		\hyperpage{372}
   \item ByteArray
     \subitem (classe), \hyperpage{233}
-  \item bytecode, \hyperpage{412}
+  \item bytecode, \hyperpage{414}
   \item ByteString
-    \subitem (classe), \hyperpage{137}, \hyperpage{192}, 
+    \subitem (classe), \hyperpage{138}, \hyperpage{192}, 
 		\hyperpage{210}
 
   \indexspace
 
-  \item C, \hyperpage{385}
+  \item C, \hyperpage{387}
   \item C++, \hyperpage{65}, \hyperpage{69}, \hyperpage{85}, 
 		\hyperpage{88}, \hyperpage{91}
   \item CamelCase, \see{\IeC {\'e}criture en chameau}{127}
   \item camelCase, \hyperpage{54}
-  \item canevas, \see{canevas HTML}{321}
-  \item canevas HTML, \hyperpage{321}
+  \item canevas, \see{canevas HTML}{322}
+  \item canevas HTML, \hyperpage{322}
   \item CannotDeleteFileException
-    \subitem (classe), \hyperpage{381}
+    \subitem (classe), \hyperpage{383}
   \item Canvas
     \subitem (classe), \hyperpage{241}, \hyperpage{257}
-  \item canvas, \see{canevas HTML}{321}
+  \item canvas, \see{canevas HTML}{322}
   \item cascade, \hyperpage{56}, \hyperpage{58}, \hyperpage{78}, 
 		\hyperpage{217}, \hyperpage{324}
   \item cat\IeC {\'e}gorie, \hyperpage{31}
@@ -271,7 +273,7 @@
     \subitem importation de fichier, \see{fichier, importation}{46}
   \item cha\IeC {\^\i }ne de caract\IeC {\`e}res, \see{String}{210}
   \item change set, \see{fichier, exportation}{112}
-  \item Change Sorter, \hyperpage{148}
+  \item Change Sorter, \hyperpage{149}
   \item changes, \hyperpage{4}, \hyperpage{10}
   \item Character
     \subitem (classe), \hyperpage{21}, \hyperpage{55}, \hyperpage{94}, 
@@ -328,7 +330,7 @@
   \item ClassDescription
     \subitem (classe), \hyperpage{267}, \hyperpage{270}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{linesOfCode}, 
-		\hyperpage{410}
+		\hyperpage{412}
   \item classe
     \subitem abstraite, \hyperpage{93}, \hyperpage{185}, 
 		\hyperpage{193}
@@ -340,8 +342,8 @@
     \subitem initialisation, \hyperpage{108}
     \subitem invariant, \hyperpage{187}
     \subitem m\IeC {\'e}thode, \hyperpage{87, 88}, \hyperpage{91}
-    \subitem r\IeC {\'e}cente, \hyperpage{124}
-    \subitem recherche, \hyperpage{17}, \hyperpage{124}
+    \subitem r\IeC {\'e}cente, \hyperpage{125}
+    \subitem recherche, \hyperpage{17}, \hyperpage{125}
     \subitem trouver, \see{classe, recherche}{17}
     \subitem variable, \hyperpage{54}, \hyperpage{105--107}
     \subitem variable d'instance, \hyperpage{87}
@@ -353,9 +355,9 @@
     \subitem \IeC {\'e}v\IeC {\'e}nement, 
 		\see{\IeC {\'e}v\IeC {\'e}nement, clavier}{13}
     \subitem raccourci-clavier, \see{raccourci-clavier}{13}
-  \item code smell, \hyperpage{415}
+  \item code smell, \hyperpage{417}
   \item Collection
-    \subitem (classe), \hyperpage{197}, \hyperpage{416}
+    \subitem (classe), \hyperpage{197}, \hyperpage{418}
     \subitem \IeC {\`a} liaison faible, \hyperpage{202}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{add:}, 
 		\hyperpage{202}
@@ -366,7 +368,7 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{asSet}, 
 		\hyperpage{208}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{asSortedCollection}, 
-		\hyperpage{209}, \hyperpage{431}
+		\hyperpage{209}, \hyperpage{433}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{at:}, 
 		\hyperpage{202}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{at:put:}, 
@@ -456,13 +458,13 @@
   \item \textsf  {ColorNames} (variable de classe), \hyperpage{108}
   \item commentaire, \hyperpage{55}
   \item \textsf  {comparaison} (protocole), \hyperpage{193}
-  \item compiled methods, \hyperpage{413}
+  \item compiled methods, \hyperpage{415}
   \item CompiledMethod
     \subitem (classe), \hyperpage{197}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{methodReference}, 
-		\hyperpage{414}
+		\hyperpage{416}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{pragmas}, 
-		\hyperpage{427}
+		\hyperpage{429}
   \item Complex
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{=}, 
 		\hyperpage{181}
@@ -474,7 +476,7 @@
   \item contexte d'ex\IeC {\'e}cution, \hyperpage{44}
   \item ContextPart
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{handleSignal:}, 
-		\hyperpage{386}
+		\hyperpage{388}
   \item \textsf  {converting} (protocole), \hyperpage{200}
   \item copie, 
 		\see{Object, \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{copy}}{182}
@@ -493,7 +495,7 @@
 
   \indexspace
 
-  \item d\IeC {\'e}bogueur, \hyperpage{43}, \hyperpage{136}, 
+  \item d\IeC {\'e}bogueur, \hyperpage{43}, \hyperpage{137}, 
 		\hyperpage{184}
   \item d\IeC {\'e}finition de variable \IeC {\`a} la vol\IeC {\'e}e, 
 		\hyperpage{37}
@@ -510,13 +512,13 @@
   \item Dabble DB, \hyperpage{311}
   \item \textsf  {debug} (protocole), \hyperpage{184}
   \item Debugger, \hyperpage{25}, \see{d\IeC {\'e}bogueur}{25}, 
-		\hyperpage{112}, \hyperpage{136}
-  \item debugger, \hyperpage{416}, \hyperpage{418}
+		\hyperpage{112}, \hyperpage{137}
+  \item debugger, \hyperpage{418}, \hyperpage{420}
   \item \textsf  {dependents} (protocole), \hyperpage{114}
   \item Deprecation
-    \subitem (classe), \hyperpage{391}
+    \subitem (classe), \hyperpage{393}
   \item deprecation, \hyperpage{184}
-  \item deprecation (pattern), \hyperpage{391}
+  \item deprecation (pattern), \hyperpage{392}
   \item Dictionary
     \subitem (classe), \hyperpage{181}, \hyperpage{185}, 
 		\hyperpage{199, 200}, \hyperpage{202}, \hyperpage{207}
@@ -558,7 +560,7 @@
   \item dirty package, \see{paquetage, dirty package}{48}
   \item \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{do:}, 
 		\see{Collection, \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{do:}}{202}
-  \item download, \hyperpage{431}
+  \item download, \hyperpage{433}
   \item Duration
     \subitem (classe), \hyperpage{135}, \hyperpage{188}
   \item dynamique
@@ -572,7 +574,8 @@
 		\hyperpage{99}
   \item \textsf  {enumerating} (protocole), \hyperpage{200}, 
 		\hyperpage{214}
-  \item \textsf  {Error} (classe), \hyperpage{377}
+  \item Error
+    \subitem (classe), \hyperpage{379}
   \item espace d'encapsulation, \hyperpage{85}
   \item est un, \hyperpage{263}, \hyperpage{267}
   \item Euclide, \hyperpage{278}
@@ -580,40 +583,40 @@
     \subitem (classe), \hyperpage{105}
   \item ex\IeC {\'e}cuteur de tests, \hyperpage{162}
   \item Exception
-    \subitem (classe), \hyperpage{375}, \hyperpage{384}, 
-		\hyperpage{392}
+    \subitem (classe), \hyperpage{377}, \hyperpage{386}, 
+		\hyperpage{393}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{isResumable}, 
-		\hyperpage{400}
+		\hyperpage{401}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{nextHandlerContext}, 
-		\hyperpage{398}
+		\hyperpage{400}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{outer}, 
-		\hyperpage{395}
+		\hyperpage{396}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{pass}, 
-		\hyperpage{394}
+		\hyperpage{396}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{resume:}, 
-		\hyperpage{389}
+		\hyperpage{391}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{retry}, 
-		\hyperpage{388}
+		\hyperpage{390}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{retryUsing:}, 
-		\hyperpage{388}
+		\hyperpage{390}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{return:}, 
-		\hyperpage{388}
+		\hyperpage{390}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{signal}, 
-		\hyperpage{386}, \hyperpage{398}
+		\hyperpage{388}, \hyperpage{399}
   \item exception
-    \subitem handler, \hyperpage{385}
-    \subitem handling, \hyperpage{387}
-    \subitem resending, \hyperpage{394}
-    \subitem resumable, \hyperpage{384}
-    \subitem resuming execution, \hyperpage{389}
-    \subitem retrying, \hyperpage{388}
-  \item exception handler, \hyperpage{375}
-  \item Exception handling, \hyperpage{378}
+    \subitem handler, \hyperpage{386}
+    \subitem handling, \hyperpage{389}
+    \subitem resending, \hyperpage{396}
+    \subitem resumable, \hyperpage{386}
+    \subitem resuming execution, \hyperpage{391}
+    \subitem retrying, \hyperpage{390}
+  \item exception handler, \hyperpage{377}
+  \item Exception handling, \hyperpage{380}
   \item ExceptionSet
-    \subitem (classe), \hyperpage{396}
+    \subitem (classe), \hyperpage{397}
   \item explorateur, \hyperpage{15}, \hyperpage{135}
-  \item Explorer, \see{explorateur}{15}, \hyperpage{135}
-  \item explorer, \hyperpage{412}
+  \item Explorer, \see{explorateur}{15}, \hyperpage{136}
+  \item explorer, \hyperpage{414}
   \item exposant, \hyperpage{55}
   \item expression
     \subitem s\IeC {\'e}parateur, \hyperpage{58}, \hyperpage{78}
@@ -621,8 +624,8 @@
   \item Expressions r\IeC {\'e}guli\IeC {\`e}res, \see{Regex}{351}
   \item extension, \see{m\IeC {\'e}thode, extension}{100}
   \item extension de classe, \hyperpage{292}, \hyperpage{306}
-  \item extension de package, \see{paquetage, extension}{126}
-  \item extension de paquetage, \see{paquetage, extension}{126}
+  \item extension de package, \see{paquetage, extension}{127}
+  \item extension de paquetage, \see{paquetage, extension}{127}
   \item extensions de classes, \hyperpage{282}
   \item eXtreme Programming, \hyperpage{157}, \hyperpage{160}
 
@@ -635,10 +638,11 @@
   \item \textsf  {false} (pseudo-variable), \hyperpage{53}, 
 		\hyperpage{56}
   \item Feathers, Michael, \hyperpage{174}
+  \item fermeture de Kleene\xspace  , \hyperpage{354}, \hyperpage{361}
   \item fermeture lexicale, \see{bloc}{56}
   \item feuille de style en cascade, \see{CSS}{312}
   \item fichier
-    \subitem change set, \hyperpage{148}
+    \subitem change set, \hyperpage{149}
     \subitem changes, \hyperpage{4}, \hyperpage{153}
     \subitem exportation, \hyperpage{46}, \hyperpage{112}, 
 		\hyperpage{124}, \hyperpage{150}
@@ -654,17 +658,18 @@
   \item fichier-source, \see{fichier, source}{4}
   \item File List Browser, \hyperpage{151}
   \item FileDirectory
+    \subitem (classe), \hyperpage{381}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{newFileNamed:}, 
-		\hyperpage{379}
+		\hyperpage{381}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{oldFileNamed:}, 
-		\hyperpage{379}
-  \item \textsf  {FileDirectory} (classe), \hyperpage{379}
+		\hyperpage{381}
   \item FileDoesNotExistException
-    \subitem (classe), \hyperpage{381}
+    \subitem (classe), \hyperpage{383}
   \item FileExistsException
-    \subitem (classe), \hyperpage{381}
+    \subitem (classe), \hyperpage{383}
   \item FileStream
-    \subitem (classe), \hyperpage{197}, \hyperpage{232}
+    \subitem (classe), \hyperpage{197}, \hyperpage{232}, 
+		\hyperpage{381}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{binary}, 
 		\hyperpage{233}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{close}, 
@@ -672,10 +677,9 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{localName}, 
 		\hyperpage{232}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{newFileNamed:}, 
-		\hyperpage{376}
+		\hyperpage{378}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{oldFileOrNoneNamed:}, 
-		\hyperpage{356}
-  \item \textsf  {FileStream} (classe), \hyperpage{379}
+		\hyperpage{357}
   \item FileStream class
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{fileNamed:}, 
 		\hyperpage{232}
@@ -692,8 +696,7 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{readOnlyFileNamed:}, 
 		\hyperpage{232}
   \item FileStreamException
-    \subitem (classe), \hyperpage{379}, \hyperpage{381}
-  \item \textsf  {FileStreamException} (classe), \hyperpage{379}
+    \subitem (classe), \hyperpage{381}, \hyperpage{383}
   \item fixture, \see{SUnit, installation}{161}
   \item Float
     \subitem (classe), \hyperpage{187}, \hyperpage{189}
@@ -726,26 +729,26 @@
   \item GForge, \hyperpage{277}
   \item GIFReadWriter
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{nextPutImage:}, 
-		\hyperpage{376}
-  \item GNU \st, \hyperpage{403}
+		\hyperpage{378}
+  \item GNU \st, \hyperpage{405}
 
   \indexspace
 
   \item h\IeC {\'e}ritage, \hyperpage{92}, \hyperpage{98}
   \item halo, \see{Morphic}{5}, \see{Morphic, halo}{11}, 
-		\see{Morphic}{432}
+		\see{Morphic}{434}
     \subitem ic\IeC {\^o}ne, \see{halo, poign\IeC {\'e}e}{11}
     \subitem poign\IeC {\'e}e, \hyperpage{11}
   \item Halt
-    \subitem (classe), \hyperpage{384}
+    \subitem (classe), \hyperpage{386}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{defaultAction}, 
-		\hyperpage{384}
+		\hyperpage{386}
   \item HandMorph
     \subitem (classe), \hyperpage{106}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{grabMorph:}, 
 		\hyperpage{252}
   \item Haskell, \hyperpage{198}
-  \item HTML, \hyperpage{351}
+  \item HTML, \hyperpage{352}
 
   \indexspace
 
@@ -789,7 +792,7 @@
 		\hyperpage{61}, \hyperpage{190}
   \item IntegerArray
     \subitem (classe), \hyperpage{201}
-  \item intercession, \hyperpage{406}
+  \item intercession, \hyperpage{408}
   \item Interval
     \subitem (classe), \hyperpage{62}, \hyperpage{200}, \hyperpage{202}, 
 		\hyperpage{206}
@@ -797,7 +800,6 @@
 		\hyperpage{200}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{printOn:}, 
 		\hyperpage{180}
-  \item \textsf  {Interval} (classe), \hyperpage{202}
   \item Interval class
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{from:to:}, 
 		\hyperpage{206}
@@ -805,7 +807,7 @@
 		\hyperpage{206}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{printString}, 
 		\hyperpage{206}
-  \item introspection, \hyperpage{405, 406}
+  \item introspection, \hyperpage{407, 408}
   \item it\IeC {\'e}ration, \hyperpage{61}
 
   \indexspace
@@ -826,24 +828,24 @@
     \subitem (classe), \hyperpage{248}
   \item keys, 
 		\see{Dictionary, \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{keys}}{206}
-  \item Kleene star, \hyperpage{354}, \hyperpage{356}, \hyperpage{360}
   \item Knight, Alan, \hyperpage{xii}
 
   \indexspace
 
+  \item La syntaxe des expressions r\IeC {\'e}guli\IeC {\`e}res\xspace  , 
+		\hyperpage{361}
   \item lancement de \pharo, \hyperpage{4}
   \item LargeNegativeInteger
     \subitem (classe), \hyperpage{187}, \hyperpage{190}
   \item LargePositiveInteger
     \subitem (classe), \hyperpage{187}, \hyperpage{190}
-  \item \textsf  {Latin1TextConverter} (classe), \hyperpage{356}
+  \item Latin1TextConverter
+    \subitem (classe), \hyperpage{357}
   \item \textsf  {LF} (globale), \hyperpage{109}
   \item Lights Out, \hyperpage{29}
-  \item lightweight proxies, \hyperpage{419}
+  \item lightweight proxies, \hyperpage{421}
   \item LinkedList
-    \subitem (classe), \hyperpage{201}
-  \item \textsf  {LinkedList} (classe), \hyperpage{200}, 
-		\hyperpage{202}
+    \subitem (classe), \hyperpage{200--202}
   \item Linux, \hyperpage{312}
   \item Lisp, \hyperpage{198}
   \item litt\IeC {\'e}ral, \hyperpage{55}
@@ -910,7 +912,7 @@
     \subitem surcharge, \hyperpage{100}
     \subitem trouver, \see{m\IeC {\'e}thode, recherche}{20}, 
 		\see{m\IeC {\'e}thode, recherche}{125}
-    \subitem version, \hyperpage{119}
+    \subitem version, \hyperpage{120}
   \item m\IeC {\'e}thode abstraite, 
 		\see{m\IeC {\'e}thode, abstraite}{93}
   \item m\IeC {\'e}thode d'acc\IeC {\`e}s en \IeC {\'e}criture, 
@@ -960,33 +962,33 @@
   \item Message Name Finder, \hyperpage{112}
   \item Message Names Browser, \hyperpage{147}
   \item MessageNotUnderstood
-    \subitem (classe), \hyperpage{383}, \hyperpage{393}
+    \subitem (classe), \hyperpage{385}, \hyperpage{395}
   \item Metaclass
     \subitem (classe), \hyperpage{262}, \hyperpage{270}, 
 		\hyperpage{273}
   \item Metaclass class
     \subitem (classe), \hyperpage{271}
-  \item metaobjects, \hyperpage{405}
-  \item metaprogram, \hyperpage{406}
-  \item method dictionary, \hyperpage{414}
+  \item metaobjects, \hyperpage{407}
+  \item metaprogram, \hyperpage{408}
+  \item method dictionary, \hyperpage{416}
   \item Method Finder, \hyperpage{20}, \hyperpage{112}
-  \item method wrappers, \hyperpage{424}
+  \item method wrappers, \hyperpage{426}
   \item MethodContext
-    \subitem (classe), \hyperpage{57}, \hyperpage{416}
+    \subitem (classe), \hyperpage{57}, \hyperpage{418}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{findNextHandlerContextStarting}, 
-		\hyperpage{398}
+		\hyperpage{400}
   \item MethodDictionary
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{at:put:}, 
-		\hyperpage{424}
-  \item metrics, \hyperpage{410}
-  \item minimal object, \hyperpage{420}
+		\hyperpage{426}
+  \item metrics, \hyperpage{412}
+  \item minimal object, \hyperpage{422}
   \item ML, \hyperpage{198}
   \item Model
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{myDependents}, 
 		\hyperpage{114}
   \item Monticello, \hyperpage{29}, \hyperpage{47}, \hyperpage{112}, 
 		\hyperpage{126}, \hyperpage{128}, \hyperpage{150}, 
-		\hyperpage{434}
+		\hyperpage{436}
     \subitem archiver, \hyperpage{280}
     \subitem backporting, \hyperpage{295}
     \subitem branching, 
@@ -1011,7 +1013,7 @@
 		\see{Monticello, Repository Inspector}{283}
     \subitem outil de fusion, \hyperpage{288}
     \subitem Package, \hyperpage{305}
-    \subitem package cache, \see{paquetage, package cache}{131}
+    \subitem package cache, \see{paquetage, package cache}{132}
     \subitem paquetage, \hyperpage{305}
     \subitem Patch Browser, \hyperpage{293}
     \subitem Repository Inspector, \hyperpage{283}
@@ -1100,7 +1102,7 @@
 
   \item navigateur
     \subitem fichiers, \hyperpage{151}
-    \subitem processus, \hyperpage{147}
+    \subitem processus, \hyperpage{146}
   \item navigateur de classes, \see{Browser}{16}, \hyperpage{112}
     \subitem browse, \see{Browser, browse}{117}
     \subitem classes contenantes, \see{Browser, implementors}{119}
@@ -1117,7 +1119,7 @@
 		\see{Message Names Browser}{147}
   \item navigateur Monticello, \see{Monticello}{47}
   \item navigation par programme, \hyperpage{125}
-  \item naviguer de mani\IeC {\`e}re pragmatique, \hyperpage{433}
+  \item naviguer de mani\IeC {\`e}re pragmatique, \hyperpage{435}
   \item .Net, \hyperpage{157}
   \item {\lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{new}}, 
 		\see{\lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{Behavior>>>new}}{63}
@@ -1126,7 +1128,7 @@
 		\hyperpage{56}
   \item nombres flottants, \hyperpage{55}
   \item notation en base num\IeC {\'e}rique, \hyperpage{55}
-  \item notificateur, \hyperpage{145}
+  \item notificateur, \hyperpage{146}
   \item notification, \hyperpage{43}
   \item Null Object (patron), \hyperpage{186}
   \item Number
@@ -1212,7 +1214,7 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{at:put:}, 
 		\hyperpage{63}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{class}, 
-		\hyperpage{181}, \hyperpage{263}, \hyperpage{409}
+		\hyperpage{181}, \hyperpage{263}, \hyperpage{411}
     \subitem copie superficielle, \hyperpage{182}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{copy}, 
 		\hyperpage{183}
@@ -1221,10 +1223,10 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{deepCopy}, 
 		\hyperpage{183}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{deprecated:}, 
-		\hyperpage{184}, \hyperpage{391}
+		\hyperpage{184}, \hyperpage{392}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{doesNotUnderstand:}, 
-		\hyperpage{104}, \hyperpage{185}, \hyperpage{383}, 
-		\hyperpage{419}
+		\hyperpage{104}, \hyperpage{185}, \hyperpage{385}, 
+		\hyperpage{421}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{doIfNotNil:}, 
 		\hyperpage{185}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{error}, 
@@ -1232,11 +1234,11 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{error:}, 
 		\hyperpage{185}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{explore}, 
-		\hyperpage{412}
+		\hyperpage{414}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{halt}, 
-		\hyperpage{184}, \hyperpage{384}, \hyperpage{417, 418}
+		\hyperpage{184}, \hyperpage{385}, \hyperpage{419, 420}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{haltIf:}, 
-		\hyperpage{418, 419}
+		\hyperpage{420, 421}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{hash}, 
 		\hyperpage{181}
     \subitem identit\IeC {\'e}, \hyperpage{180}
@@ -1244,15 +1246,15 @@
 		\hyperpage{185}
     \subitem initialize, \see{initialisation}{34}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{instanceVariableValues}, 
-		\hyperpage{408}
+		\hyperpage{410}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{instVarAt:}, 
-		\hyperpage{407}
+		\hyperpage{409}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{instVarAt:put:}, 
-		\hyperpage{407}
+		\hyperpage{409}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{instVarNamed:}, 
-		\hyperpage{407}
+		\hyperpage{409}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{instVarNamed:put:}, 
-		\hyperpage{407}
+		\hyperpage{409}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{isArray}, 
 		\hyperpage{186}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{isBlock}, 
@@ -1264,13 +1266,13 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{isComplex}, 
 		\hyperpage{186}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{isKindOf:}, 
-		\hyperpage{182}, \hyperpage{263}, \hyperpage{409}
+		\hyperpage{182}, \hyperpage{263}, \hyperpage{411}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{isMemberOf:}, 
 		\hyperpage{181}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{notNil}, 
 		\hyperpage{186}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{perform:}, 
-		\hyperpage{255}, \hyperpage{422}
+		\hyperpage{255}, \hyperpage{424}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{postCopy}, 
 		\hyperpage{184}
     \subitem \ct{printOn:}, \hyperpage{339}
@@ -1279,7 +1281,7 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{printString}, 
 		\hyperpage{17}, \hyperpage{178}, \hyperpage{213}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{respondsTo:}, 
-		\hyperpage{182}, \hyperpage{409}
+		\hyperpage{182}, \hyperpage{411}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{shallowCopy}, 
 		\hyperpage{183}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{shouldNotImplement}, 
@@ -1287,22 +1289,22 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{storeOn:}, 
 		\hyperpage{179}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{subclassResponsibility}, 
-		\hyperpage{93, 94}, \hyperpage{185}, \hyperpage{418}
+		\hyperpage{93, 94}, \hyperpage{185}, \hyperpage{420}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{yourself}, 
 		\hyperpage{217}
   \item Object class
     \subitem (classe), \hyperpage{264}
   \item ObjectsAsMethodsExample
-    \subitem (classe), \hyperpage{423}
+    \subitem (classe), \hyperpage{425}
   \item objet
     \subitem auto-\IeC {\'e}valu\IeC {\'e}, \hyperpage{179}
     \subitem initialisation, \see{initialisation}{34}
     \subitem litt\IeC {\'e}ral, \see{litt\IeC {\'e}ral, objet}{54}
-  \item OmniBrowser, \hyperpage{16}, \hyperpage{432}
+  \item OmniBrowser, \hyperpage{16}, \hyperpage{434}
   \item Oracle, \hyperpage{157}
   \item OrderedCollection
     \subitem (classe), \hyperpage{200--202}, \hyperpage{205}, 
-		\hyperpage{222}, \hyperpage{431}
+		\hyperpage{222}, \hyperpage{433}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{add:}, 
 		\hyperpage{205}, \hyperpage{217}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{addAll:}, 
@@ -1333,8 +1335,8 @@
   \indexspace
 
   \item package, \see{paquetage}{31}, \hyperpage{278}
-    \subitem cache, \hyperpage{128}, 
-		\see{paquetage, package cache}{131}
+    \subitem cache, \hyperpage{129}, 
+		\see{paquetage, package cache}{132}
     \subitem clean et dirty, \hyperpage{282}
     \subitem cr\IeC {\'e}ation, \hyperpage{30}
   \item Package Browser, \see{Monticello}{47}
@@ -1349,8 +1351,8 @@
     \subitem dirty package, \hyperpage{48}
     \subitem expressions r\IeC {\'e}guli\IeC {\`e}res, \hyperpage{193}, 
 		\hyperpage{212}
-    \subitem extension, \hyperpage{126}
-    \subitem package cache, \hyperpage{131}
+    \subitem extension, \hyperpage{127}
+    \subitem package cache, \hyperpage{132}
     \subitem requis, \see{Monticello, d\IeC {\'e}pendance}{296}
   \item parenth\IeC {\`e}ses, \hyperpage{65}, \hyperpage{69}, 
 		\hyperpage{72}
@@ -1361,7 +1363,7 @@
   \item Pier, \hyperpage{298}
   \item poign\IeC {\'e}e, \see{halo, poign\IeC {\'e}e}{11}
   \item Point
-    \subitem (classe), \hyperpage{34}, \hyperpage{412}
+    \subitem (classe), \hyperpage{34}, \hyperpage{414}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{dist:}, 
 		\hyperpage{86}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{printOn:}, 
@@ -1395,21 +1397,21 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{on:}, 
 		\hyperpage{224}
   \item Pragma
-    \subitem (classe), \hyperpage{427}
-  \item pragma, \hyperpage{407}, \hyperpage{426}
-  \item pragmas, \hyperpage{426}
-  \item pre-debugger, \hyperpage{145}
+    \subitem (classe), \hyperpage{429}
+  \item pragma, \hyperpage{409}, \hyperpage{428}
+  \item pragmas, \hyperpage{428}
+  \item pre-debugger, \hyperpage{146}
   \item PreDebugWindow
-    \subitem (classe), \hyperpage{43}, \hyperpage{137}
+    \subitem (classe), \hyperpage{43}, \hyperpage{138}
   \item Preference Browser, \hyperpage{7}, \hyperpage{184}
   \item primitive, \hyperpage{56}, \hyperpage{63}, \hyperpage{97}
-  \item primitive methods, \hyperpage{407}
+  \item primitive methods, \hyperpage{409}
   \item \textsf  {printing} (protocole), \hyperpage{17}
   \item \textsf  {private} (protocole), \hyperpage{86}
   \item Process Browser, \hyperpage{112}
   \item processus
-    \subitem Browser, \hyperpage{147}
-    \subitem interruption, \hyperpage{113}, \hyperpage{144}
+    \subitem Browser, \hyperpage{146}
+    \subitem interruption, \hyperpage{113}, \hyperpage{145}
   \item programmation par contrat, \hyperpage{184}
   \item protocole, \hyperpage{17}, \hyperpage{39}
   \item ProtoObject
@@ -1418,13 +1420,13 @@
     \subitem (classe), \hyperpage{92}, \hyperpage{103}, \hyperpage{177}, 
 		\hyperpage{181}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{become:}, 
-		\hyperpage{420}
+		\hyperpage{422}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{initialize}, 
 		\hyperpage{186}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{isNil}, 
 		\hyperpage{186}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{withArgs:executeMethod:}, 
-		\hyperpage{426}
+		\hyperpage{428}
   \item ProtoObject class
     \subitem (classe), \hyperpage{272}
   \item pseudo-variable, \see{variable, pseudo}{54}
@@ -1437,20 +1439,21 @@
   \item r\IeC {\'e}flexivit\IeC {\'e}, \hyperpage{85}, \hyperpage{158}
   \item raccourci clavier
     \subitem cancel, \hyperpage{139}
-    \subitem explore it, \hyperpage{135}, \hyperpage{139}
-    \subitem inspect it, \hyperpage{134}, \hyperpage{139}
+    \subitem explore it, \hyperpage{136}, \hyperpage{140}
+    \subitem inspect it, \hyperpage{134}, \hyperpage{140}
   \item raccourci-clavier, \hyperpage{13}, \hyperpage{17}, 
 		\hyperpage{23}, \hyperpage{27}, \hyperpage{117}
     \subitem accept, \hyperpage{23}, \hyperpage{33}
     \subitem browse it, \hyperpage{17, 18}, \hyperpage{117}, 
-		\hyperpage{432}
+		\hyperpage{434}
     \subitem do it, \hyperpage{13}
     \subitem explore it, \hyperpage{15}
-    \subitem find..., \hyperpage{432}
+    \subitem find..., \hyperpage{434}
     \subitem find\ldots, \hyperpage{18}
     \subitem inspect it, \hyperpage{14}
     \subitem print it, \hyperpage{14}
-  \item \textsf  {RBParser} (classe), \hyperpage{434}
+  \item RBParser
+    \subitem (classe), \hyperpage{436}
   \item ReadStream
     \subitem (classe), \hyperpage{222}, \hyperpage{224}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{next}, 
@@ -1470,25 +1473,27 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{containsPoint:}, 
 		\hyperpage{243}
   \item refactoring, \hyperpage{33}
-  \item Refactoring Browser, \hyperpage{414}, \hyperpage{435}
-  \item reflection, \hyperpage{405}
+  \item Refactoring Browser, \hyperpage{416}, \hyperpage{437}
+  \item reflection, \hyperpage{407}
   \item Regex
-    \subitem operator precedence, \hyperpage{360}
-    \subitem subexpression matches, \hyperpage{369}
+    \subitem priorit\IeC {\'e} des op\IeC {\'e}rateurs, \hyperpage{361}
+    \subitem subexpression matches, \hyperpage{370}
+    \subitem syntaxe
+      \subsubitem caract\IeC {\`e}re d'\IeC {\'e}chappement\xspace  , 
+		\hyperpage{362}
+      \subsubitem classe de caract\IeC {\`e}res, \hyperpage{362}
+      \subsubitem intervalle de classe, \hyperpage{363}
   \item \textsf  {Regex} (paquetage), \hyperpage{193}, \hyperpage{212}, 
 		\hyperpage{351}
-  \item Regex syntax, \hyperpage{360}, \hyperpage{362}
-    \subitem character classes, \hyperpage{364}
-    \subitem character range, \hyperpage{362}
-    \subitem character set, \hyperpage{361}
-    \subitem escape, \hyperpage{361}
-    \subitem matching string boundaries, \hyperpage{365}
+  \item Regex syntax, \hyperpage{363}
+    \subitem character classes, \hyperpage{365}
+    \subitem matching string boundaries, \hyperpage{366}
   \item RegexCompilationError
-    \subitem (classe), \hyperpage{371}
+    \subitem (classe), \hyperpage{372}
   \item RegexMatchingError
-    \subitem (classe), \hyperpage{371}
+    \subitem (classe), \hyperpage{372}
   \item RegexSyntaxError
-    \subitem (classe), \hyperpage{370}
+    \subitem (classe), \hyperpage{372}
   \item regular expression package, 
 		\see{paquetage, expressions r\IeC {\'e}guli\IeC {\`e}res}{212}
   \item \textsf  {removing} (protocole), \hyperpage{200}
@@ -1501,58 +1506,58 @@
     \subitem implicite, \hyperpage{59}
   \item Ruby, \hyperpage{351}
   \item RxMatcher
-    \subitem (classe), \hyperpage{367}, \hyperpage{371}
+    \subitem (classe), \hyperpage{368}, \hyperpage{372}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{copy:replacingMatchesWith:}, 
-		\hyperpage{370}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{copy:translatingMatchesUsing:}, 
-		\hyperpage{370}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{copyStream:to:replacingMatchesWith:}, 
-		\hyperpage{370}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{copyStream:to:translatingMatchesUsing:}, 
-		\hyperpage{370}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{forString:}, 
-		\hyperpage{367}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{forString:ignoreCase:}, 
-		\hyperpage{367}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{lastResult}, 
-		\hyperpage{368}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matches:}, 
-		\hyperpage{368}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesIn:}, 
-		\hyperpage{367}, \hyperpage{370}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesIn:collect:}, 
-		\hyperpage{370}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesIn:do:}, 
-		\hyperpage{370}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesOnStream:}, 
-		\hyperpage{370}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesOnStream:collect:}, 
-		\hyperpage{370}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesOnStream:do:}, 
-		\hyperpage{370}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesPrefix:}, 
-		\hyperpage{357}, \hyperpage{368}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesStream:}, 
-		\hyperpage{368}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesStreamPrefix:}, 
-		\hyperpage{368}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{search:}, 
-		\hyperpage{368}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{searchStream:}, 
-		\hyperpage{368}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{subBeginning:}, 
-		\hyperpage{369}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{subEnd:}, 
-		\hyperpage{369}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{subexpression:}, 
-		\hyperpage{357}, \hyperpage{369}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{subexpressionCount}, 
-		\hyperpage{369}
-  \item RxParser
-    \subitem (classe), \hyperpage{354}, \hyperpage{367}, 
 		\hyperpage{371}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{copy:translatingMatchesUsing:}, 
+		\hyperpage{371}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{copyStream:to:replacingMatchesWith:}, 
+		\hyperpage{371}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{copyStream:to:translatingMatchesUsing:}, 
+		\hyperpage{371}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{forString:}, 
+		\hyperpage{368}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{forString:ignoreCase:}, 
+		\hyperpage{368}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{lastResult}, 
+		\hyperpage{369}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matches:}, 
+		\hyperpage{369}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesIn:}, 
+		\hyperpage{368}, \hyperpage{371}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesIn:collect:}, 
+		\hyperpage{371}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesIn:do:}, 
+		\hyperpage{371}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesOnStream:}, 
+		\hyperpage{371}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesOnStream:collect:}, 
+		\hyperpage{371}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesOnStream:do:}, 
+		\hyperpage{371}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesPrefix:}, 
+		\hyperpage{357}, \hyperpage{369}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesStream:}, 
+		\hyperpage{369}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesStreamPrefix:}, 
+		\hyperpage{369}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{search:}, 
+		\hyperpage{369}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{searchStream:}, 
+		\hyperpage{369}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{subBeginning:}, 
+		\hyperpage{370}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{subEnd:}, 
+		\hyperpage{370}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{subexpression:}, 
+		\hyperpage{357}, \hyperpage{370}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{subexpressionCount}, 
+		\hyperpage{370}
+  \item RxParser
+    \subitem (classe), \hyperpage{355}, \hyperpage{368}, 
+		\hyperpage{372}
   \item Rxs*
-    \subitem (classe), \hyperpage{371}
+    \subitem (classe), \hyperpage{372}
 
   \indexspace
 
@@ -1572,12 +1577,12 @@
     \subitem configuration, \hyperpage{317}
     \subitem control flow, 
 		\see{Seaside, flux de contr\IeC {\^o}le}{330}
-    \subitem counter, \hyperpage{314}
+    \subitem counter, \hyperpage{313}
     \subitem deployment mode, \hyperpage{317}
     \subitem development mode, \hyperpage{317}
     \subitem flux de contr\IeC {\^o}le, \hyperpage{330}
     \subitem formulaire, \hyperpage{326}
-    \subitem halos, \hyperpage{314}, \hyperpage{336}
+    \subitem halos, \hyperpage{314}, \hyperpage{335}
     \subitem m\IeC {\'e}thodes utilitaires, \hyperpage{332}
     \subitem mode
       \subsubitem deployment, \hyperpage{317}
@@ -1598,7 +1603,7 @@
   \item Sensor
     \subitem (classe), \hyperpage{105}
   \item SequenceableCollection
-    \subitem (classe), \hyperpage{199}, \hyperpage{366}
+    \subitem (classe), \hyperpage{199}, \hyperpage{367}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{doWithIndex:}, 
 		\hyperpage{213}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{first}, 
@@ -1630,10 +1635,11 @@
     \subitem (classe), \hyperpage{31}
   \item Singleton, \hyperpage{91}
   \item Singleton (patron), \hyperpage{193}
-  \item \textsf  {SkipList} (classe), \hyperpage{200}
+  \item SkipList
+    \subitem (classe), \hyperpage{200}
   \item slot, \see{variable d'instance}{85}
-  \item SmaCC, \hyperpage{436}
-  \item SmaCCDev, \hyperpage{436}
+  \item SmaCC, \hyperpage{438}
+  \item SmaCCDev, \hyperpage{438}
   \item SmallInteger
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{+}, 
 		\hyperpage{63}
@@ -1658,23 +1664,23 @@
     \subitem \IeC {\'e}v\IeC {\'e}nement, 
 		\see{\IeC {\'e}v\IeC {\'e}nement, souris}{246}
   \item sous-morph, \hyperpage{241}
-  \item SqueakSource, \hyperpage{277}, \hyperpage{311}, \hyperpage{434}
+  \item SqueakSource, \hyperpage{277}, \hyperpage{311}, \hyperpage{436}
   \item SqueakSource\xspace  , \hyperpage{48}, \hyperpage{133}, 
-		\hyperpage{301, 302}, \hyperpage{351}
+		\hyperpage{301, 302}
   \item SqueakV39.sources, \see{fichier, source}{4}
   \item Stack
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{pop}, 
 		\hyperpage{184}
-  \item stack trace, \hyperpage{137}
+  \item stack trace, \hyperpage{138}
   \item StandardFileStream
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{fullName}, 
 		\hyperpage{232}
   \item StandardFileStream class
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{oldFileNamed:}, 
-		\hyperpage{382}
+		\hyperpage{384}
   \item StandardToolSet
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{debug:context:label:contents:fullView:}, 
-		\hyperpage{384}
+		\hyperpage{386}
   \item Stream
     \subitem (classe), \hyperpage{178}, \hyperpage{197}, 
 		\hyperpage{221}
@@ -1686,9 +1692,9 @@
     \subitem (classe), \hyperpage{21, 22}, \hyperpage{26}, 
 		\hyperpage{59}, \hyperpage{178}, \hyperpage{191}, 
 		\hyperpage{201}, \hyperpage{210}, \hyperpage{213}, 
-		\hyperpage{367}, \hyperpage{431}
+		\hyperpage{368}, \hyperpage{433}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{allRegexMatches:}, 
-		\hyperpage{366}
+		\hyperpage{367}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{anySatisfy:}, 
 		\hyperpage{212}
     \subitem appariement de cha\IeC {\^\i }nes, \hyperpage{211}
@@ -1701,9 +1707,9 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{asMorph}, 
 		\hyperpage{239}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{asRegex}, 
-		\hyperpage{367}
+		\hyperpage{368}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{asRegexIgnoringCase}, 
-		\hyperpage{357}, \hyperpage{367}
+		\hyperpage{358}, \hyperpage{368}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{asUppercase}, 
 		\hyperpage{21}, \hyperpage{26}, \hyperpage{212}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{at:put:}, 
@@ -1715,7 +1721,7 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{copyReplaceAll:}, 
 		\hyperpage{211}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{copyWithRegex:matchesReplacedWith:}, 
-		\hyperpage{356}, \hyperpage{358}, \hyperpage{366}
+		\hyperpage{356}, \hyperpage{359}, \hyperpage{367}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{expandMacros}, 
 		\hyperpage{212}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{expandMacrosWith:}, 
@@ -1735,8 +1741,8 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesRegex}, 
 		\hyperpage{366}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesRegex:}, 
-		\hyperpage{351}, \hyperpage{354}, \hyperpage{360}, 
-		\hyperpage{367}, \hyperpage{371}
+		\hyperpage{351}, \hyperpage{354, 355}, \hyperpage{361}, 
+		\hyperpage{368}, \hyperpage{372}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{matchesRegexIgnoringCase:}, 
 		\hyperpage{366}
     \subitem pattern matching, 
@@ -1746,9 +1752,9 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{prefixMatchesRegexIgnoringCase:}, 
 		\hyperpage{366}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{regex:matchesCollect:}, 
-		\hyperpage{366}
+		\hyperpage{367}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{regex:matchesDo:}, 
-		\hyperpage{366}
+		\hyperpage{367}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{replaceAll:with:}, 
 		\hyperpage{211}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{replaceFrom:to:with:}, 
@@ -1759,24 +1765,23 @@
     \subitem virgule, \see{Collection, op\IeC {\'e}rateur virgule}{211}
   \item StringTest
     \subitem (classe), \hyperpage{22}, \hyperpage{146}
-  \item structural reflection, \hyperpage{406}
+  \item structural reflection, \hyperpage{408}
   \item submorph, \see{sous-morph}{241}
   \item Subversion, \hyperpage{47}, \hyperpage{277}
-  \item SUnit, \hyperpage{22, 23}, \hyperpage{112}, \hyperpage{142}, 
-		\hyperpage{157}, \hyperpage{435}
+  \item SUnit, \hyperpage{22, 23}, \hyperpage{112}, \hyperpage{143}, 
+		\hyperpage{157}, \hyperpage{437}
     \subitem installation, \hyperpage{161}
     \subitem set up method, \hyperpage{161}
   \item \textsf  {super} (pseudo-variable), \hyperpage{53}, 
 		\hyperpage{56}, \hyperpage{98}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{initialize}, 
 		\hyperpage{101}
-    \subitem envoi, \hyperpage{101}, \hyperpage{118}, \hyperpage{433}
+    \subitem envoi, \hyperpage{101}, \hyperpage{118}, \hyperpage{435}
   \item super-classe, \hyperpage{92}, \hyperpage{98}
   \item surcharge, \see{m\IeC {\'e}thode, surcharge}{100}
   \item Symbol
     \subitem (classe), \hyperpage{116}, \hyperpage{183}, 
-		\hyperpage{192}, \hyperpage{201}, \hyperpage{213}
-  \item \textsf  {Symbol} (classe), \hyperpage{200}
+		\hyperpage{192}, \hyperpage{200, 201}, \hyperpage{213}
   \item symbole, \hyperpage{32}
     \subitem litt\IeC {\'e}ral, \see{litt\IeC {\'e}ral, symbole}{55}
   \item syntaxe, \hyperpage{53}
@@ -1786,28 +1791,28 @@
   \item SystemDictionary
     \subitem (classe), \hyperpage{105}, \hyperpage{208}
   \item SystemNavigation
-    \subitem (classe), \hyperpage{411}, \hyperpage{414}
+    \subitem (classe), \hyperpage{413}, \hyperpage{416}, 
+		\hyperpage{435}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{allCallsOn:}, 
-		\hyperpage{411}
+		\hyperpage{413}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{allClassesImplementing:}, 
-		\hyperpage{411}
+		\hyperpage{413}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{allSentMessages}, 
-		\hyperpage{411}
+		\hyperpage{413}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{allUnimplementedCalls}, 
-		\hyperpage{411}
+		\hyperpage{413}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{allUnsentMessages}, 
-		\hyperpage{411}
+		\hyperpage{413}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{browseAllImplementorsOf:}, 
-		\hyperpage{412}
+		\hyperpage{414}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{browseAllSelect:}, 
-		\hyperpage{412}
+		\hyperpage{414}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{browseMethodsWithSourceString:}, 
-		\hyperpage{412}
-  \item \textsf  {SystemNavigation} (classe), \hyperpage{433}
+		\hyperpage{414}
   \item \textsf  {SystemNavigation} (globale), \hyperpage{125}
   \item SystemNavigation class
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{default}, 
-		\hyperpage{411}
+		\hyperpage{413}
   \item \textsf  {SystemOrganization} (globale), \hyperpage{106}
   \item SystemOrganizer
     \subitem (classe), \hyperpage{106}
@@ -1878,11 +1883,11 @@
   \item TestResult class
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{error}, 
 		\hyperpage{165}
-  \item TestRunner, \hyperpage{23}, \hyperpage{435}
+  \item TestRunner, \hyperpage{23}, \hyperpage{437}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{collectCoverageFor:}, 
-		\hyperpage{425}
+		\hyperpage{427}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{runCoverage}, 
-		\hyperpage{425}
+		\hyperpage{427}
   \item TestSuite
     \subitem (classe), \hyperpage{166, 167}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{run}, 
@@ -1892,10 +1897,11 @@
   \item Text
     \subitem (classe), \hyperpage{109}
   \item \textsf  {thisContext} (pseudo-variable), \hyperpage{53}, 
-		\hyperpage{56}, \hyperpage{416}
+		\hyperpage{56}, \hyperpage{418}
   \item Timespan
     \subitem (classe), \hyperpage{188}
-  \item \textsf  {TimeStamp} (classe), \hyperpage{134}
+  \item TimeStamp
+    \subitem (classe), \hyperpage{134}
   \item Trait
     \subitem (classe), \hyperpage{94}
   \item trait, \hyperpage{93, 94}
@@ -1924,13 +1930,12 @@
 		\hyperpage{249}
   \item \textsf  {Undeclared} (globale), \hyperpage{106}
   \item UndefinedObject
-    \subitem (classe), \hyperpage{57}, \hyperpage{183}
+    \subitem (classe), \hyperpage{57}, \hyperpage{138}, \hyperpage{183}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{handleSignal:}, 
-		\hyperpage{386}
-  \item \textsf  {UndefinedObject} (classe), \hyperpage{137}
+		\hyperpage{388}
   \item UnhandledError
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{defaultAction}, 
-		\hyperpage{384}
+		\hyperpage{386}
 
   \indexspace
 
@@ -1952,11 +1957,11 @@
 		\hyperpage{97}
   \item variable globale, \see{variable, globale}{55}
   \item version, \hyperpage{281}
-  \item Versions Browser, \see{Browser, versions}{119}, \hyperpage{120}
+  \item Versions Browser, \hyperpage{120}, \see{Browser, versions}{120}
   \item virgule, \see{Collection, op\IeC {\'e}rateur virgule}{26}
-  \item virtual machine, \hyperpage{385}
+  \item virtual machine, \hyperpage{387}
   \item VM, \see{machine virtuelle}{4}
-  \item \textsf  {VMMaker} (paquetage), \hyperpage{397}
+  \item \textsf  {VMMaker} (paquetage), \hyperpage{399}
 
   \indexspace
 
@@ -1982,7 +1987,7 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{chooseFrom:caption:}, 
 		\hyperpage{333}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{confirm:}, 
-		\hyperpage{333, 334}
+		\hyperpage{333}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{inform:}, 
 		\hyperpage{332}, \hyperpage{334}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{isolate:}, 
@@ -1991,13 +1996,13 @@
 		\hyperpage{332}
   \item WAComponent class
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{canBeRoot}, 
-		\hyperpage{320, 321}
+		\hyperpage{319}, \hyperpage{321}
   \item WAConvenienceTest
     \subitem (classe), \hyperpage{333}
   \item WACounter
     \subitem (classe), \hyperpage{316}, \hyperpage{319}
   \item WADispatcherEditor
-    \subitem (classe), \hyperpage{313}, \hyperpage{318}
+    \subitem (classe), \hyperpage{312}, \hyperpage{318}
   \item WAFileLibrary
     \subitem (classe), \hyperpage{328}
   \item WAFormDialog
@@ -2012,18 +2017,18 @@
     \subitem (classe), \hyperpage{337}
   \item WAPresenter
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{renderContentOn:}, 
-		\hyperpage{318}, \hyperpage{321}
+		\hyperpage{318}, \hyperpage{322}
     \subitem \ct{states}, \hyperpage{320}
   \item WARenderCanvas
     \subitem (classe), \hyperpage{322}
   \item Warning
-    \subitem (classe), \hyperpage{391}
+    \subitem (classe), \hyperpage{393}
   \item WASnapshot
     \subitem (classe), \hyperpage{320}
   \item WAStore
-    \subitem (classe), \hyperpage{336}
+    \subitem (classe), \hyperpage{335}
   \item WAStoreTask
-    \subitem (classe), \hyperpage{336}
+    \subitem (classe), \hyperpage{335, 336}
   \item WATagBrush
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{onClick:}, 
 		\hyperpage{346}
@@ -2032,7 +2037,7 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamily  \upshape  }]{go}, 
 		\hyperpage{331}, \hyperpage{333}
   \item WAYesOrNoDialog
-    \subitem (classe), \hyperpage{334}
+    \subitem (classe), \hyperpage{333}
   \item WebServer
     \subitem (classe), \hyperpage{91}
   \item WideString
@@ -2065,6 +2070,6 @@
   \indexspace
 
   \item ZeroDivide
-    \subitem (classe), \hyperpage{382}
+    \subitem (classe), \hyperpage{384}
 
 \end{theindex}

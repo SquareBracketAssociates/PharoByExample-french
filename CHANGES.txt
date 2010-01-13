@@ -206,5 +206,47 @@ accolades
 - character range -> intervalle de classe (on trouve aussi le terme de
 "plage" mais puisqu'on a utilisé "intervalle" ailleurs dans le livre,
 je pense que "intervalle de classe" est préférable)
-- 
 
+NOTE de relecture (martial):
+
+relecture/acceptation des remarques de René entre la version 30261 et la version 29770
+[les changements sont entre parenthèses]
+* common.tex
+** ajout de \drawOnImplNumber (contenant le nombre de #drawOn:
+implémenté)
+** ajout des participes passés de \click... -> \clicke donne "cliqué"
+(dans ce cas \clicke{e} donnera "cliquée")
+*    Enviroment/Environment ok
+** @477: % la remarque de rené est bonne: j'ai créé \drawOnImplNumber
+(=59) dans common.tex. (tous les nombres de classes ou méthodes,
+susceptibles de changer, devraient être mis dans une commande
+globale).
+** @1563: "Après avoir \click( -> e) sur le bouton"
+** @2072: remarque: "De toutes façons": j'ai laissé tel quel mais d'après
+l'Académie française sans les "s" c'est plus correct; perso, ça ne me
+gêne pas
+** de nombreuses fautes de genre dans Environment: parce les "colonnes
+du Browser" sont devenus des "panneaux"
+*    QuickTour/QuickTour.tex
+** @1180: "Entrez simplement votre prénom suivi de votre nom sans
+espaces (et avec -> ni) point de séparation"
+*    Seaside/Seaside.tex
+** @146: remarque: "la version packagée" c'est un anglicisme; mon idée
+est de traduire le terme "bundle" et le côté "prêt à l'emploi": j'ai
+mis "la version ''clé en main''"
+** @416: remarque: je préfère "applications Seaside" à "applications
+de Seaside" (du coup, j'ai remis l'accolade \arelire)
+** @509: "page (du navigateur web -> web)"
+** @953: "(une -> la) brève introduction aux feuilles de style CSS";
+remarque: j'ai remis comme c'était, avec la balise \arelire{} parce
+que l'on invite le lecteur à lire la brève introduction à suivre.
+*    Preface/Preface-Omnibus.tex
+** @57: "la réflexivité"; remarque: j'ai utilisé le même terme que
+dans la littérature; il est aussi dans le chapitre 'Reflection.tex';
+je l'ai mis dans une balise \arevoir{}
+*    BasicClasses/BasicClasses.tex
+** @935: "modifiable (mutable)" -> "modifiable (nous disons alors
+que \ct{String} est mutable)"; j'ai mis \arelire{}
+** @1109: "modifiable" -> "mutable"
+*    SUnit/SUnit.tex
+** @1004: "d'un \ct{framework}" -> "d'un \emph{framework}"
