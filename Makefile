@@ -61,7 +61,7 @@ BOOK2 : clean examples2
 
 # We need a makefile rule to generated the index as well ...
 index1 :
-	makeindex ${BOOK}
+	makeindex ${BOOK1}
 
 pbe1 : BOOK1 index1
 	time ${PDFLATEX} ${BOOK1}
