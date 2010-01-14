@@ -12,7 +12,7 @@
 % relecture: Rene Mages (Sat Jan 12 17:28:17 CET 2008)
 % note de martial: revoir les index pour les termes liés à Morphic
 % adaptation pour PBE - 28729
-% relecture: Rene Mages (Thu Jan 8 11:22:22 CET 2010)
+% relecture: Rene Mages (Thu Jan 7 11:22:22 CET 2010)
 % sync avec la version: 29170
 % sync avec la version: 29247 changement des icônes pour squeak.exe
 % sync avec la version: 29309
@@ -393,13 +393,13 @@ son tour \arevoir{reçoit le message}
 % receveur mais on parle uniquement d'envoyer (dur à reformuler) - martial
 % You just sent the message \ct{new} to the \bam class, resulting in a new \bam instance, followed by the message \ct{openInWorld} to this instance.
 La classe \bam{} a décidé de ce qu'il fallait faire avec le message
-\ct{new}: elle recherche dans ces \emph{méthodes} pour répondre de
+\ct{new}: elle recherche dans ses \emph{méthodes} pour répondre de
 façon appropriée au message \ct{new}
 % vf
 \arevoir{(\ie{} ``nouveau'' en français; ce que nous traduirons par
   \emph{nouvelle instance})}.
 % The \bam class decided what to do with the \ct{new} message, that is, it looked up its \emph{methods} for handling \ct{new} message and reacted appropriately.
-De même, l'instance \bam recherchera dans ces méthodes comment
+De même, l'instance \bam recherchera dans ses méthodes comment
 répondre à \ct{openInWorld}.
 % Similarly the \bam instance looked up its method for responding to \ct{openInWorld} and took appropriate action.
 
@@ -411,8 +411,7 @@ un message''.
 Ceci reflète l'idée que les objets sont responsables de leurs propres actions.
 % This reflects the idea that objects are responsible for their own actions. 
 Vous ne \emph{direz} jamais à un objet quoi faire\,---\,vous lui
-\emph{demanderez} polimment de faire quelque chose en lui envoyant un
-message.
+\emph{demanderez} poliment de faire quelque chose en lui envoyant un message.
 % You never \emph{tell} an object what to do\,---\,instead you politely \emph{ask} it to do something by sending it a message. 
 C'est l'objet, et non pas vous, qui choisit la méthode appropriée pour
 répondre à votre message.
@@ -491,7 +490,7 @@ depuis des décennies!
 Vous pourriez penser que l'utilisation d'une image est incontournable pour 
 stocker et gérer des projets, mais comme nous le verrons bientôt il existe 
 des outils plus adaptés pour gérer le code et travailler en équipe sur des projets.
-Les images sont très utiles mais nous considérons comme une pratique un peu 
+Les images sont très utiles mais nous les considérons comme une pratique un peu 
 dépassée et fragile pour diffuser et partager vos projets alors qu'il existe 
 des outils tels que Monticello qui proposent de biens meilleurs moyens de 
 suivre les évolutions du code et de le partager entre plusieurs développeurs.
@@ -1354,7 +1353,7 @@ syntaxe sans que vous puissiez encore la comprendre suffisamment à ce stade.
     fichier \emph{changes}. Ces deux derniers sont les seuls à
     être susceptibles de changer, puisqu'ils sauvegardent un cliché
     du système actif.
-  \item Quand vous restorez une image \pharo, vous vous retrouvez
+  \item Quand vous restaurez une image \pharo, vous vous retrouvez
     exactement dans le même état\,---\,avec les mêmes objets
     lancés\,---\,que lorsque vous l'avez laissée au moment de votre dernière
     sauvegarde de cette image.
