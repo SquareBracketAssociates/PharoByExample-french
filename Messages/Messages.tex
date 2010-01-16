@@ -377,7 +377,7 @@ message \ct{aPen color: aColor} (2) comme indiqué dans l'\egref{decColor}.
 \end{example}
 
 \paragraph{Exemple.} Dans le message \ct{aPen go: 100 + 20}, il y a le message \emph{binaire} \ct{+ 20} et un message à \emph{mots-clés} \ct{go:}. Les messages binaires sont d'abord envoyés avant les messages à mots-clés, ainsi \ct{100 + 20} est envoyé en premier (1): le message \ct{+ 20} est envoyé à l'objet \ct{100} et retourne le nombre \ct{120}. Ensuite le message \ct{aPen go: 120} est envoyé avec comme argument \ct{120} (2).
-L'\egref{decGo} nous montre comment l'expression est évalué. 
+L'\egref{decGo} nous montre comment l'expression est évaluée. 
 
 \begin{example}[decGo]{Décomposition de \ct{aPen go: 100 + 20}}{}
       aPen go: 100 + 20   
