@@ -93,7 +93,7 @@ et comment soumettre les corrections de bugs ou \emph{bug fixes}.
 %Overview
 \seclabel{overview}
 
-Smalltalk et les interfaces graphiques modernes ont été dévelopées ensemble.
+Smalltalk et les interfaces graphiques modernes ont été développées ensemble.
 Bien avant la première sortie publique de Smalltalk en 1983, Smalltalk
 avait un environnement de développement graphique écrit lui-même en Smalltalk et
 tout le développement est intégré à cet environnement.
@@ -150,9 +150,9 @@ le \ind{Browser}.
 lorsque vous l'ouvrez pour la première fois
 
 \footnote{Rappelez-vous que si votre navigateur ne ressemble pas à 
-celui présenté sur \figref{classbrowser}, vous pourriez avoir besoin 
+celui présenté sur \figref{SystemBrowser0}, vous pourriez avoir besoin 
 de changer le navigateur par défaut (voir \faqref{packagebrowser}).}.
-% REVOIR figref SystemBrowser0
+% REVOIR figref SystemBrowser0  au lieu  de classbrowser
 
 \begin{figure}[htbp]
    \centering
@@ -348,7 +348,7 @@ ouvert sur \ct{Morph}, \clickz sur la méthode  \mthind{Morph}{drawOn:}
 dans le panneau des méthodes; le corps de \ct{drawOn:} s'affiche dans
 la partie inférieure du navigateur.
 Si vous sélectionnez \menu{senders (n)} (\figref{SendersOfDrawOn}), un 
-un menu apparaîtra avec \ct{drawOn:} comme premier élement de
+menu apparaîtra avec \ct{drawOn:} comme premier élement de
 la pile,  suivi de tous les messages que 
 \ct{drawOn:} envoie (voir \figref{SendersOfDrawOn2}). %CHANGE
 Sélectionner un message dans ce menu ouvrira un navigateur avec la
@@ -372,13 +372,12 @@ choisi (\figref{CanvasDraw}).
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=\textwidth]{SendersOfDrawOn}}
-\caption{\arelire{L'élement de menu \menu{senders (n)}.}\figlabel{SendersOfDrawOn}}
+\caption{L'élement de menu \menu{senders (n)}.\figlabel{SendersOfDrawOn}}
  \end{figure}
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=0.4\textwidth]{SendersOfDrawOn2}}
-\caption{\arelire{Choisir un message dans la liste pour avoir ses
-    \emph{senders}.}} % CHANGE
+\caption{Choisir un message dans la liste pour avoir ses \emph{senders}.\figlabel{SendersOfDrawOn2}}
 \end{figure}
 
 %\index{Browser!bouton!implementors}
@@ -531,7 +530,7 @@ code utile de la version antérieure pour le coller dans une autre méthode.
 Ayez pour habitude d'utiliser les versions; ``commenter'' le code qui n'est 
 plus utile n'est pas une bonne pratique car ça rend le code courant plus difficile à lire. 
 Les Smalltalkiens~\footnote{En anglais, nous les appelons
- \emph{Smalltalkers}.} accorde une extrême importance à la lisibilité du code.
+ \emph{Smalltalkers}.} accordent une extrême importance à la lisibilité du code.
 
 \hint{Qu'en est-il du cas où vous décidez de revenir à une méthode que vous
 avez entièrement effacée?  
@@ -588,7 +587,8 @@ méthodes de la classe sélectionnée. % CHANGE à vérifier
 %browser can also be opened by using the \menu{browse hierarchy} menu item in the class pane.
 %The hierarchy browser is similar to the browser, but instead of displaying the categories and the classes in each category, it shows a single list of classes, indented to represent inheritance.
 %The category of the selected class is displayed in the small annotation pane at the top of the browser.
-Sur \figref{hierarchyBrowser}, la vue hiérarchique dans le navigateur 
+Sur \figref{OBinheritanceBrowser}, la vue hiérarchique dans le navigateur 
+% rene : s /hierarchyBrowser/OBinheritanceBrowser/
 montre que \clsind{ImageMorph} est la super-classe directe de
 \clsind{Morph}.
 \index{Browser!bouton!hierarchy} % REVOIR
@@ -688,8 +688,8 @@ une bonne manière d'en apprendre plus sur le jeu d'instructions codées
 \subsubsection{La refactorisation}
 
 
-Les menus contextuels propose un grand nombre de refactorisation (ou
-\emph{refactoring}) classique. \Actclickz sur l'\arelire{un des quatre panneaux
+Les menus contextuels proposent un grand nombre de refactorisations (ou
+\emph{refactoring}) classiques. \Actclickz sur l'\arelire{un des quatre panneaux
 supérieurs pour voir les opérations de refactorisation actuellement
 disponibles (voir \figref{refactoring}).}
 à l'origine, cette fonction était disponible uniquement
@@ -825,7 +825,7 @@ un \ind{paquetage} avant d'aborder Monticello proprement dit.
 \seclabel{packages}
 
 Dans \secref{categoriesPackages}, nous avons pointé le fait
-que les paquetages sont plus ou moins équivalent aux catégories. 
+que les paquetages sont plus ou moins équivalents aux catégories. 
 Nous allons désormais voir la relation qui existe entre eux.
 Le système du paquetage est une façon simple et légère
 d'organiser le code source de Smalltalk; il exploite une simple
@@ -1874,8 +1874,8 @@ ou sur sa classe.
 % Change sets and the Change Sorter
 \seclabel{env:changeSet} % (fold)
 
-à chaque fois que vous travaillez dans \pharo, tous les changements que vous effectuez
-sur les méthodes et les classes sont enregistrées dans un
+Chaque fois que vous travaillez dans \pharo, tous les changements que vous effectuez
+sur les méthodes et les classes sont enregistrés dans un
 \ct{change set} (traduisible par ``ensemble des modifications'').
 %note temporaire de martial: je dois changer sauf contre-ordre change set en \ct{change set} sans traduction
 Ceci inclus la création de nouvelles classes, le renommage de classes, le changement de
@@ -1888,7 +1888,7 @@ un espace de travail, la création de variable ne sera pas dans un
 %%\seeindex{navigateur de change set}{Change Set Browser}
 \index{Change Sorter}
 
-à n'importe quel moment, beaucoup de \changesets existent, mais un seul d'entre eux\,---\,\ct{ChangeSet current}\,---\,collecte les changements qui sont en cours dans l'image actuelle.
+A tout moment, beaucoup de \changesets existent, mais un seul d'entre eux\,---\,\ct{ChangeSet current}\,---\,collecte les changements qui sont en cours dans l'image actuelle.
 Vous pouvez voir quel \changeset est le \changeset actuel et vous pouvez examiner
 tous les \changesets en utilisant le \arelire{Change Sorter
 (ou trieur de \changeset)} disponible dans le menu
