@@ -169,7 +169,8 @@ Cela signifie que les variables d'instance en \st sont semblables aux
 variables \emph{protégées} (protected) en C++ et en Java. Cependant,
 nous préférons dire qu'elles sont privées parce qu'il n'est pas d'usage en \st d'accéder à une variable d'instance directement depuis une sous-classe. 
 \subsubsection{Exemple}
-La méthode \cmind{Point}{dist:} (\mthref{dist:}) calcule la distance entre le receveur et un autre point. Les variables d'instance \ct{x} et \ct{y} du receveur sont accédées directement par le corps de la méthode. Cependant, les variables d'instance de l'autre point doivent être accédées en lui envoyant les messasges \ct{x} et \ct{y}.
+La méthode \cmind{Point}{dist:} (\mthref{dist:}) calcule la distance entre le receveur et un autre point. Les variables d'instance \ct{x} et \ct{y} du receveur sont accédées directement par le corps de la méthode. Cependant, les variables d'instance de l'autre point doivent être accédées en lui envoyant les messages \ct{x} et \ct{y}.
+% rene : s/messasges/messages/ ligne 172
 
 \needlines{7}
 \begin{method}[dist:]{la distance entre deux points. le nom arbitraire aPoint est utilisé dans le sens de \emph{a point} qui, en anglais, signifie un point}
@@ -197,10 +198,10 @@ aux messages \ct{x} et \ct{y}, le code de la \mthref{dist:} fonctionnera toujour
 %---------------------------------------------------------
 \subsection{Les méthodes}
 
-Toutes les méthodes sont \subind{méthode}{publique}{}s~\footnote{En fait, presque toute.  En \pharo, des méthodes dont les sélecteurs commencent par
+Toutes les méthodes sont \subind{méthode}{publique}{}s~\footnote{En fait, presque toutes.  En \pharo, des méthodes dont les sélecteurs commencent par
 la chaîne de caractères \ct{pvt} sont privées: un message \ct{pvt}
 ne peut être envoyé qu'à \self \emph{uniquement}.  N'importe comment, les méthodes \ct{pvt} sont très peu utilisées.}.
-Les méthodes sont regroupées en protocoles qui indique leur objectif.
+Les méthodes sont regroupées en protocoles qui indiquent leur objectif.
 Certains noms de protocoles courants ont été attribués par convention,
 par exemple, \protind{accessing} pour les méthodes d'accès, et \protind{initialization} pour construire un état initial stable pour l'objet.
 Le protocole \protind{private} est parfois utilisé pour réunir les
@@ -216,7 +217,7 @@ Cette pratique a un certain avantage, mais elle tend à rendre l'interface de vo
 %---------------------------------------------------------
 \subsection{Le côté instance et le côté classe}
 
-Puisque les classes sont des objets, elles peuvent avoir leur propre variables d'instance ainsi que leur propre méthodes.
+Puisque les classes sont des objets, elles peuvent avoir leurs propres variables d'instance ainsi que leurs propres méthodes.
 Nous les appelons \emph{variables d'instance de classe} (en anglais \emph{class instance variables}) et \emph{méthodes de classe}, mais elles ne sont véritablement pas différentes des variables et méthodes d'instances ordinaires:
 les variables d'instance de classe ne sont seulement que des variables d'instance définies par une méta-classe. Quant aux méthodes de classe,
 elles correspondent juste aux méthodes définies par une \ind{méta-classe}. 
@@ -1160,7 +1161,7 @@ Ici, notre but est de vous expliquer suffisamment les variables de
 \subind{variable}{pool} pour comprendre leur fonction quand vous les
 rencontrez durant la lecture de code.
 
-Une classe qui accéde à une variable de pool doit mentionner le \emph{pool}
+Une classe qui accède à une variable de pool doit mentionner le \emph{pool}
 dans sa définition de classe.
 Par exemple, la classe \clsind{Text} indique qu'elle emploie le dictionnaire
 de pool \ct{TextConstants} qui contient toutes les constantes textuelles
