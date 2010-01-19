@@ -17,8 +17,8 @@
 % martial: convertir ``mon texte'' en «~mon texte~» pour franciser +
 % j'ai mis des \ct{} au lieu de \lct{}
 % relecture : Rene Mages 10-01-2008
+% adaptation pour PBE - martial - Thu Sep 10 19:46:40 CEST 2009 
 % relecture : Rene Mages 12-01-2010
-% adaptation pour PBE - martial - Thu Sep 10 19:46:40 CEST 2009 from
 % $Author: oscar $ $Date: 2009-08-17 12:10:55 +0200 (Mon, 17 Aug 2009) $ $Revision: 28502 $
 
 \ifx\wholebook\relax\else
@@ -51,13 +51,13 @@
 
 \on{The section on responsibilities of Class, Behavior and Metaclass are weak, and need to be fleshed out with convincing examples. Marcus, can you help?}
 
-Comme nous l'avons vu dans~\charef{model}, en \st, \mantra, et tout objet est une instance d'une classe.
+Comme nous l'avons vu dans~\charef{model}, en \st \mantra, et tout objet est une instance d'une classe.
 Les classes ne sont pas des cas particuliers:
 les classes sont des objets, et les objets représentant les classes sont des instances d'autres classes.
 Ce modèle objet capture l'essence de la programmation orientée objet: il est petit, simple, élégant et uniforme.
 Cependant, les implications de cette uniformité peuvent prêter à confusion pour les débutants.
 L'objectif de ce chapitre est de montrer qu'il n'y a rien de compliqué, de ``magique'' ou de spécial ici: juste des règles simples appliquées uniformément. 
-En suivant ces règles, vous pourrez toujours comprendre le code, quelque soit la situation.
+En suivant ces règles, vous pourrez toujours comprendre le code, quelle que soit la situation.
 
 %=================================================================
 \section{Les règles pour les classes et les méta-classes}
@@ -511,7 +511,7 @@ Metaclass superclass --> ClassDescription
 \section{Résumé du chapitre}
 
 Maintenant, vous devriez mieux comprendre la façon dont les classes sont organisées et l'impact de l'uniformité du modèle objet.
-Si vous vous perdez ou vous embrouillez, vous devez toujours vous rappeler que l'envoi de messages est la clé: cherchez alors la méthode dans la classe du receveur.
+Si vous vous perdez ou vous vous embrouillez, vous devez toujours vous rappeler que l'envoi de messages est la clé: cherchez alors la méthode dans la classe du receveur.
 Cela fonctionne pour \emph{tous} les receveurs.
 Si une méthode n'est pas trouvée dans la classe du receveur, elle est recherchée dans ses super-classes.
 
@@ -545,4 +545,3 @@ Puisque les méta-classes sont aussi des classes, elles doivent hériter de  \ct
 %=================================================================
 
 %-----------------------------------------------------------------
---
