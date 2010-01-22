@@ -200,6 +200,8 @@ Continuation blocks \ct{[:x :y| ^ x + y]} returns the value to the method that a
 
 \begin{code}{}
 Object>>returnBlock
+	"self new returnBlock value -> error"
+
 	^[^self]
 
 Object new returnBlock
@@ -284,7 +286,48 @@ These variables are bound in the context in which the block is defined and not i
 \section{About closure....}
 lukas tests illustrated 
 
+\begin{code}{}
+testToDoOutsideTemp
+	| temp |
+	1 to: 5 do: [ :index | 
+		temp := index. 
+		collection add: [ temp ] ].
+	self assertValues: #(5 5 5 5 5)
 
+(map 
+ (lambda (each)
+   (apply each '()))
+ (let ((r '()) 
+       (tmp 0))
+  (for-each (lambda (each)
+              (set! tmp each)
+              (set! r (cons (lambda () tmp) 
+                            r)))
+            '(1 2 3 4 5))
+  r))
+
+
+testToDoInsideTemp
+	
+	1 to: 5 do: [ :index | | temp |
+		temp := index. 
+		collection add: [ temp ] ].
+	self assertValues: #(1 2 3 4 5)
+
+(map 
+ (lambda (each)
+   (apply each '()))
+ 
+ (let ((r '()) 
+       (tmp 0))
+  (for-each (lambda (each)
+              (set! tmp each)
+              (set! r (cons (lambda () tmp) 
+                            r)))
+            '(1 2 3 4 5))
+  r))
+
+\end{code}
 When we look at the following Scheme expression and evaluate it you get 4. Indeed a binding is created 
 which associates the variable index to the value 0. Then y a lambda expression is defined and it returns
  the variable index (its value). Then within this context another expression is evaluated which starts
@@ -322,6 +365,71 @@ and this is why it returns 4 and not 0 because.
 
 
 \section{Conclusion}
+
+I have a method that takes OBCommands and returns Actions:
+
+\begin{code}{}
+actionsFrom: aCollectionOfOBCommandClasses on: aTarget for: aRequestor
+	| command |
+	^ aCollectionOfOBCommandClasses collect: [ :each |
+		command := each on: aTarget for: aRequestor.
+		GLMAction new
+			icon: command icon;
+			title: command label;
+			action: [:presentation | command execute ];
+			yourself
+		]
+	\end{code}
+
+These actions have a block that will be executed at a later time. The  
+problem here was that the command in the action block was always  
+pointing to the same command object, even at each point the command  
+variable was populated correctly.
+
+However, when the command is defined inside the block, everything  
+works as expected.
+
+\begin{code}{}
+actionsFrom: aCollectionOfOBCommandClasses on: aTarget for: aRequestor
+	^ aCollectionOfOBCommandClasses collect: [ :each |
+		| command |
+		command := each on: aTarget for: aRequestor.
+		GLMAction new
+			icon: command icon;
+			title: command label;
+			action: [:presentation | command execute ];
+			yourself
+		]
+	\end{code}
+
+
+
+
+The semantics change in various ways. The trivial example that everyone 
+knows is this:
+\begin{code}{}
+factorial := [ :n |
+	n > 1
+		ifTrue: [ n * (factorial value: n - 1) ]
+		ifFalse: [ 1 ] ].
+factorial value: 10.
+\end{code}
+Without closures you get an error, with closures you get the expected 
+result.
+
+Another significant change is the existence of local variables in blocks. 
+Without closures blocks don't have local variables, with closures they do:
+
+\begin{code}{}
+b := [ :p |
+	| t |
+	t ifNil: [ t := p ] ].
+{ b value: 1. b value: 2 }
+\end{code}
+In a non-closure image you get #(1 1) as result, because t is not a block 
+local variable even if it looks like one. In a closure image you get #(1 2)
+because t is a block local variable.
+
 
 
 %=========================================================

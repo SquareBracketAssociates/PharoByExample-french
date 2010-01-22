@@ -41,7 +41,7 @@
 \usepackage{tabularx}
 %\usepackage[bottom]{footmisc}
 \usepackage{xspace}
-%\usepackage{abbrevs} % vf only (for \newname command)
+\usepackage{abbrevs} % vf only (for \newname command)
 \usepackage{alltt}
 \usepackage{amssymb,textcomp}
 \usepackage[usenames,dvipsnames]{color}
@@ -714,6 +714,11 @@ framerule=0pt,
 \newcommand{\mantra}{\MakeLowercase{\Mantra}\xspace}
 %============================================================
 %% spécial PBE (Pharo By Example - vf)
+\newcommand{\frmwk}{\emph{framework}\xspace}
+\newname\framework{\ind{\frmwk}\footnote{Un \frmwk est un ensemble de
+bibliothèques, d'outils et de conventions permettant le développement
+d'applications.} (dit aussi ``cadre d'applications'')}[\frmwk]
+\newcommand{\frameworks}{\emph{frameworks}\xspace}
 \newcommand{\senders}{\emph{senders}\xspace}
 \newcommand{\Senders}{\emph{Senders}\xspace} % dans Environment
 \newcommand{\sender}{\emph{sender}\xspace}

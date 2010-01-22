@@ -49,8 +49,8 @@
 
 \on{Would be nice to have an example of test-driven development with SUnit from beginning to end. Perhaps this is for another chapter?}
 
-\indmain{SUnit} est un environnement simple mais pourtant puissant 
-pour la création et le déploiement de tests.
+\indmain{SUnit} est \arelire{un \framework. À la fois simple et
+  puissant, il est destiné} à la création et au déploiement de tests.
 Comme son nom l'indique, \sunit est conçu plus particulièrement pour les \emph{tests unitaires},
 mais en fait, il peut être aussi utilisé pour des tests d'intégration ou des tests fonctionnels. 
 \sunit a été développé par Ken Beck et ensuite grandement étendu par d'autres développeurs, dont notamment Joseph Pelrine, avec la prise en compte de la notion de ressource décrite dans \secref{resource}. 
@@ -496,7 +496,7 @@ ou bien l'échec des tests.} % REVOIR
 \end{figure}
 
 Vous pouvez aussi sélectionner des séries de tests à lancer et obtenir un 
-journal (en anglais, \emph{un log}) plus détaillé des
+journal (en anglais, un \emph{log}) plus détaillé des
 résultats en lançant  l'\emphind{exécuteur de tests}  \emphind{Test
   Runner} de \sunit depuis le menu \menu{World \go Test Runner}.
 L'exécuteur de tests, montré dans la \figref{test-runner}, est conçu pour faciliter 
@@ -583,8 +583,8 @@ en bas à droite.
 %\section{The \SUnit cook book}
 \section{Les recettes pour \SUnit}
 Cette section vous donne plus d'informations sur la façon d'utiliser \SUnit. Si vous avez 
-utilisé un autre environnement de test comme \JUnit~\footnote{\url{http://junit.org}}, ceci 
-vous sera familier puisque tous ces environnements sont issus de  \SUnit. 
+utilisé un autre \framework de tests comme \JUnit~\footnote{\url{http://junit.org}}, ceci 
+vous sera familier puisque tous ces \frameworks sont issus de  \SUnit. 
 Normalement, vous utiliserez l'IHM~\footnote{Interface Homme Machine.} de \SUnit pour exécuter 
 les tests à l'exception de certains cas.
 
@@ -592,7 +592,7 @@ les tests à l'exception de certains cas.
 %---------------------------------------------------------
 \subsection{Autres assertions}
 En supplément de \ct{assert:} et \ct{deny:}, il y a plusieurs autres méthodes pouvant être utilisées 
-pour spécifier des assertions. 
+pour spécifier des assertions.
 
 
 Premièrement, \mthind{TestCase}{assert:description:} et \mthind{TestCase}{deny:description:} 
@@ -679,7 +679,7 @@ Avec \JUnit{}, vous pouvez construire un \clsind{TestSuite} dans n'importe quell
 des méthodes \ct{test*}. En \st, vous pouvez faire la même chose mais vous aurez à créer une suite 
 manuellement et votre classe devra mettre en {\oe}uvre toutes les méthodes essentielles de \ct{TestCase} 
 comme \ct{assert:}.
-Nous ne vous le recommandons pas. L'environnement est déjà là~: utilisez-le.
+Nous ne vous le recommandons pas. Le \framework est déjà là~: utilisez-le.
 % In \JUnit{} you can build a \clsind{TestSuite} from an arbitrary class
 % containing \ct{test*} methods.  In \st you can do the same
 % but you will then then have to create a suite by hand and your class will
@@ -688,7 +688,7 @@ Nous ne vous le recommandons pas. L'environnement est déjà là~: utilisez-le.
 %=================================================================
 %\section{The SUnit framework}
 % Rene propose de ne pas traduire framework
-\section{L'environnement SUnit}
+\section{Le \frmwk SUnit}
 
 Comme montré dans \figref{sunit-classes}, \sunit consiste en quatre classes 
 principales~: \clsind{TestCase},\clsind{TestSuite}, \clsind{TestResult} et \clsind{TestResource}.
@@ -892,7 +892,7 @@ assertions avec des chaînes, d'une gestion des traces et de la reprise sur un t
 % description strings, logging support, and resumable test failures.
 
 %---------------------------------------------------------
-\subsection{Description des assertions avec des chaînes \arevoir{de caractères}} % CHANGE
+\subsection{Description des assertions avec des chaînes de caractères} % CHANGE
 %\subsection{Assertion description strings}
 \seclabel{descriptionStrings}
 
@@ -998,7 +998,7 @@ seul échec. Toutes les autres méthodes d'assertion que nous avons vues ne perm
 %\section{The implementation of SUnit}
 \section{La mise en {\oe}uvre de SUnit}
 
-La mise en {\oe}uvre de \sunit constitue un cas d'étude intéressant d'un \emph{framework} \st.
+La mise en {\oe}uvre de \sunit constitue un cas d'étude intéressant d'un \framework \st.
 Étudions quelques aspects clés de la mise en {\oe}uvre en suivant l'exécution d'un test.
 % The implementation of \sunit makes an interesting case study of a \st framework.
 % Let's look at some key aspects of the implementation by following the
@@ -1621,7 +1621,7 @@ Ainsi, ne pensez qu'à une seule propriété quand vous écrivez un test.
 
 Ce chapitre a expliqué en quoi les tests constituent un investissement important pour le futur de votre code.
 Nous avons expliqué, étape par étape, comment spécifier quelques tests pour la classe \ct{Set}.
-Ensuite, nous avons décrit simplement le c{\oe}ur de l'environnement \sunit en présentant les 
+Ensuite, nous avons décrit simplement le c{\oe}ur du \framework \sunit en présentant les 
 classes \ct{TestCase}, \ct{TestResult}, \ct{TestSuite} et \ct{TestResources}. Finalement, nous avons 
 détaillé \sunit en suivant l'exécution d'un test et d'une suite de tests.
 % This chapter explained why tests are an important investment in 

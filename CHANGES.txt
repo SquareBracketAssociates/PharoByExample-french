@@ -207,7 +207,7 @@ accolades
 "plage" mais puisqu'on a utilisé "intervalle" ailleurs dans le livre,
 je pense que "intervalle de classe" est préférable)
 
-NOTE de relecture (martial):
+NOTE de relecture (martial; le 13 janvier 2010):
 
 relecture/acceptation des remarques de René entre la version 30261 et la version 29770
 [les changements sont entre parenthèses]
@@ -250,3 +250,42 @@ que \ct{String} est mutable)"; j'ai mis \arelire{}
 ** @1109: "modifiable" -> "mutable"
 *    SUnit/SUnit.tex
 ** @1004: "d'un \ct{framework}" -> "d'un \emph{framework}"
+
+NOTE de relecture (martial; Fri Jan 22 15:22:53 CET 2010):
+
+* UPDATE:
+30296 -> 30557 (vérification des corrections par Martial)
+      U    Streams/Streams.tex
+** @144: remarque: est-ce que Nile est vraiment une nouvelle librairie
+pour Pharo (vrai pour Squeak)
+      U    BasicClasses/BasicClasses.tex
+** @935 & @1108: remarque: est-ce que l'on doit dire mutable ou
+modifiable? est-ce que mutable est français?
+      U    FAQ/FAQ.tex
+** remarque: 'Prémices -> Prémisses' rapporté dans SBE
+
+* STATE (update from source):
+29770 -> 30559 (mise à jour de la version officielle; pas de
+changement notable)
+** Mise à jour de Block/Block.tex
+** Mise à jour de Reflection/figures/reflect.graffle
+** Ajout des figures du chapitre Profiling + mise à jour du texte (PBE2)
+** Ajout de RewriteRules/program-checking-paper.tex
+** Changement non répercuté de Streams/Streams.tex (30278, la balise
+\nnbb étant déjà là dans la version française)
+** Changement non répercuté de Streams/figures (tant qu'il y a problème de fontes)
+
+* CHANGE
+** Remplacement de bibliothèque/framework dans SUnit/SUnit.tex &
+Seaside/Seaside.tex par \framework; utilisation du package abbrevs et
+de la commande newname pour créer l'alias. Ex:
+\newname\paris{\ind{Paris} (capitale de la France)}[Paris]
+La première définition n'apparaitra que la première fois;
+** Le terme 'environnement' est toujours remplacé par '\framework' dans
+SUnit/SUnit.tex sauf lorsque le mot 'framework' n'est pas utilisé dans
+le texte original; Le terme 'bibliothèque Seaside' a été remplacé par
+'\framework Seaside' (les librairies JavaScript (pjs et SU) gardent
+l'appellation 'bibliothèque' (du point de vue des composants Seaside,
+c'est le terme utilisé; ex: #addLibrary:...)
+** (anectdote) La définition de \framework a été enlevé de
+Preface-Omnibus
