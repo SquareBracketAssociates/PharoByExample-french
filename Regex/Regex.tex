@@ -824,82 +824,98 @@ Ci-dessous, nous avons \arelire{des exemples montrant comment les
 % Thus, empty and universal sets cannot be specified.
 
 %-----------------------------------------------------------------
-\subsection{Les classes de caractères}
+\subsection{Les classes de caractères abrégées}
 %\subsection{Character classes}
-Les \expregs{} peuvent aussi inclure les 
-Regular expressions can also include the following backquote escapes to refer to popular classes of characters: \ct{\w} to match alphanumeric characters, \ct{\d} to match digits, and \ct{\s} to match whitespace.
-Their upper-case variants, \ct{\W}, \ct{\D} and \ct{\S}, match the complementary characters (non-alphanumerics, non-digits and non-whitespace).
-We can see a summary of the syntax seen so far in \tabref{regexsyntax}.
+Les \expregs{} peuvent aussi inclure les échappements avec
+\emph{antislash} suivants appelés ``classes de caractères abrégées'':
+\ct{\w} correspondant aux caractères alphanumériques (``w'' pour
+\emph{word}), \ct{\d} correspondant aux chiffres (``d'' pour
+\emph{digit}) et \ct{\s} correspondant à l'espace (``s'' pour
+\emph{space}).
+Les variantes majuscules, \ct{\W}, \ct{\D} et \ct{\S}, correspondent
+aux caractères complémentaires (respectivement pour les caractères
+non-alphanumeriques, les non-chiffres et tous les caractères qui ne
+sont pas un espace).
+Nous pouvons voir un résumé de la syntaxe \pkgregex dans
+\tabref{regexsyntax}.
 
-\indexmain{Regex syntax}
+\indexmain{Regex!syntaxe}
 \begin{table}
 \centering
 	\begin{tabular}{ll}
 		\toprule
-		Syntax & What it represents \\
+		Syntaxe \pkgregex & Représentation \\
 		\midrule
-		\lct{a}				&	literal match of character \lct{a} \\
-		\lct{.}				&	match any char (except newline) \\
-		\lct{($\cdots$)}		&	group subexpression \\
-		\lct{{\escape}}	&	escape following special character \\
+		\lct{a}				&	concorde avec le caractère \lct{a} \\
+		\lct{.}				&	concorde avec n'importe quel caractère (sauf retour-chariot) \\
+		\lct{($\cdots$)}		&	\arevoir{sous-expression groupée} \\ %group subexpression \\
+		\lct{{\escape}}	&	caractère d'échappement \\ %escape following special character \\
 		\midrule
-		\lct{*}				&	\kleenestar\,---\,match previous regex zero or more times \\
-		\lct{+}				&	match previous regex one or more times \\
-		\lct{?}				&	match previous regex zero times or once \\
-		\lct{|}				&	match choice of left and right regex \\
+		\lct{*}				&	\kleenestar\,---\,concorde avec zéro ou plusieurs \expregs précédentes \\
+		\lct{+}				&	concorde avec une ou plusieurs \expregs précédentes \\
+		\lct{?}				&	concorde avec zéro ou une \expregs précédentes \\
+		\lct{|}				&	concorde avec l'\expreg de droite ou de gauche \\
 		\midrule
-		\lct{[abcd]}		&	match choice of characters \lct{abcd} \\
-		\lct{[{\caret}abcd]}	&	match negated choice of characters \\
-		\lct{[0-9]}		&	match range of characters \lct{0} to \lct{9} \\
+		\lct{[abcd]}		&	concorde avec un caractère de la liste \lct{abcd} \\ %match choice of characters \lct{abcd} \\
+		\lct{[{\caret}abcd]}	&	concorde avec un caractère de la liste complémentaire \\%match negated choice of characters \\
+		\lct{[0-9]}		&	concorde avec un caractère dans l'intervalle compris entre \lct{0} et \lct{9} \\
 		\midrule
-		\lct{{\escape}w}			&	match alphanumeric \\
-		\lct{{\escape}W}			&	match non-alphanumeric \\
-		\lct{{\escape}d}			&	match digit \\
-		\lct{{\escape}D}			&	match non-digit \\
-		\lct{{\escape}s}			&	match space \\
-		\lct{{\escape}S}			&	match non-space \\
+		\lct{{\escape}w}			&	concorde avec un caractère alphanumérique \\
+		\lct{{\escape}W}			&	concorde avec un caractère non-alphanumérique \\
+		\lct{{\escape}d}			&	concorde avec un chiffre \\
+		\lct{{\escape}D}			&	concorde avec un non-chiffre \\
+		\lct{{\escape}s}			&	concorde avec l'espace \\
+		\lct{{\escape}S}			&	concorde avec un caractère qui n'est pas un espace \\
 		\bottomrule
 	\end{tabular}
-	\caption{Regex Syntax in a Nutshell\tablabel{regexsyntax}}
+	\caption{Résumé de la syntaxe \pkgregex.\tablabel{regexsyntax}}
 \end{table}
 
 
-As mentioned in the introduction, regular expressions are especially useful for validating user input, and character classes turn out to be especially useful for defining such regexes.
-For example, non-negative numbers can be matched with the regex \ct{\d+}:
+Comme nous l'avons dit dans l'introduction, les \expregs sont surtout
+utiles pour valider les saisies de l'utilisateur et les classes
+abrégées sont particulièrement utiles pour définir de telles \expregs.
+Par exemple, les nombres non-négatifs peuvent être filtrés avec
+l'\expreg \ct{\d+}:
 
 \begin{code}{@TEST}
 '42' matchesRegex: '\d+' --> true
 '-1' matchesRegex: '\d+' --> false
 \end{code}
 
-Better yet, we might want to specify that non-zero numbers should not start with the digit 0:
+Nous pouvons encore vouloir préciser que les nombres non-négatifs ne
+doivent pas commencer par le chiffre 0:
+\tradalert{martial}{Better yet, we might want to specify that
+  \textbf{non-zero numbers}}
 
 \begin{code}{@TEST}
 '0' matchesRegex: '0|([1-9]\d*)'     --> true
 '1' matchesRegex: '0|([1-9]\d*)'     --> true
 '42' matchesRegex: '0|([1-9]\d*)'   --> true
-'099' matchesRegex: '0|([1-9]\d*)' --> false    "leading 0"
+'099' matchesRegex: '0|([1-9]\d*)' --> false    "!débute! par !zéro!"
 \end{code}
 
-We can check for negative and positive numbers as well:
+Nous pouvons vérifier l'expression avec des nombres négatifs et positifs:
 
 \begin{code}{@TEST}
 '0' matchesRegex: '(0|((\+|-)?[1-9]\d*))'     --> true
 '-1' matchesRegex: '(0|((\+|-)?[1-9]\d*))'   --> true
 '42' matchesRegex: '(0|((\+|-)?[1-9]\d*))'   --> true
 '+99' matchesRegex: '(0|((\+|-)?[1-9]\d*))' --> true
-'-0' matchesRegex: '(0|((\+|-)?[1-9]\d*))'   --> false    "negative zero"
-'01' matchesRegex: '(0|((\+|-)?[1-9]\d*))'   --> false    "leading zero"
+'-0' matchesRegex: '(0|((\+|-)?[1-9]\d*))'   --> false    "!zéro! !négatif!"
+'01' matchesRegex: '(0|((\+|-)?[1-9]\d*))'   --> false    "!débute! par !zéro!"
 \end{code}
 
-Floating point numbers should require at least one digit after the dot:
+Les nombres à virgule flottante exigeraient au moins un chiffre après
+le point\footnote{NdT: le point remplace la virgule dans la convention
+  informatique de la notation informatique.}: 
 
 \begin{code}{@TEST}
 '0' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'      --> true
 '0.9' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'   --> true
 '3.14' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?' --> true
 '-42' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'  --> true
-'2.' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'     --> false    "need digits after ."
+'2.' matchesRegex: '(0|((\+|-)?[1-9]\d*))(\.\d+)?'     --> false "manque des chiffres !après! ."
 \end{code}
 
 %Checking if aString is a fixed-point number, with at least one digit is required after a dot:
@@ -920,48 +936,74 @@ Floating point numbers should require at least one digit after the dot:
 %\end{code}
 %Note parentheses around some components of the expression above. As the Usage Section shows, they will allow us to obtain the actual strings that have matched them (\ie month name, day number, and year number).
 
-For dessert, here is a recognizer for a general number format: anything like \ct{999}, or \ct{999.999}, or \ct{-999.999e+21}.
+En bonus, voici un filtre pour un format générique de nombres, valable
+pour des nombres comme \ct{999}, or \ct{999.999} ou \ct{-999.999e+21}.
 \begin{code}{@TEST}
 '-999.999e+21' matchesRegex: '(\+|-)?\d+(\.\d*)?((e|E)(\+|-)?\d+)?' --> true
 \end{code}
 
-Character classes can also include the grep(1)-compatible elements listed in \tabref{charclasses}.
+Les classes abrégées peuvent aussi inclure les éléments compatibles
+\ct{grep(1)} listés dans \tabref{charclasses}.
+%Character classes can also include the grep(1)-compatible elements listed in \tabref{charclasses}.
 
-\indexmain{Regex syntax!character classes}
+\indexmain{Regex!syntaxe!classe de caractère abrégée}
 \begin{table}[htb]
 \centering
 	\begin{tabular}{lp{8cm}}
 		\toprule
-		Syntax & What it represents \\
+	Syntaxe \pkgregex & Représentation \\
 		\midrule
-\lct{[:alnum:]} & any alphanumeric \\
-\lct{[:alpha:]} & any alphabetic character\\
-\lct{[:cntrl:]} & any control character (ascii code is \lct{< 32})\\
-\lct{[:digit:]} & any decimal digit\\
-\lct{[:graph:]} & any graphical character (ascii code \lct{>= 32})\\
-\lct{[:lower:]} & any lowercase character\\
-\lct{[:print:]} & any printable character (here, the same as \lct{[:graph:]})\\
-\lct{[:punct:]} & any punctuation character\\
-\lct{[:space:]} & any whitespace character\\
-\lct{[:upper:]} & any uppercase character\\
-\lct{[:xdigit:]} & any hexadecimal character \\
+\lct{[:alnum:]} & alphanumérique \\
+\lct{[:alpha:]} & caractère alphabétique\\
+\lct{[:cntrl:]} & caractère Control (code ASCII \lct{< 32})\\
+\lct{[:digit:]} & chiffre décimal\\
+\lct{[:graph:]} & caractère graphique (code ASCII \lct{>= 32})\\
+\lct{[:lower:]} & caractère en miniscule\\
+\lct{[:print:]} & caractère imprimable (ici, le même que \lct{[:graph:]})\\
+\lct{[:punct:]} & caractère de ponctuation\\
+\lct{[:space:]} & caractère espace\\
+\lct{[:upper:]} & caractère en majuscule\\
+\lct{[:xdigit:]} & caractère hexadécimal\\
 		\bottomrule
 	\end{tabular}
-	\caption{Regex character classes\tablabel{charclasses}}
+	\caption{Les classes de caractères abrégées de \pkgregex.\tablabel{charclasses}}
 \end{table}
 
-Note that these elements are components of the character classes, \ie they have to be enclosed in an extra set of square brackets to form a valid regular expression.  For example, a non-empty string of digits would be represented as \ct{[[:digit:]]+}. The above primitive expressions and operators are common to many implementations of regular expressions.
+Notez que ces éléments font partie des classes abrégées; ils doivent
+être incluses dans un ensemble de crochets pour former une \expreg
+valide. Par exemple, un filtrage de chaîne de caractères non-vide composée
+uniquement de chiffres devrait être représenté par \ct{[[:digit:]]+}.
+Les expressions et opérateurs primitifs précédemment vus sont communs
+dans de nombreuses implémentations d'\expregs.
+% they have to be enclosed in an extra set of square brackets to form a valid regular expression.  For example, a non-empty string of digits would be represented as \ct{[[:digit:]]+}. The above primitive expressions and operators are common to many implementations of regular expressions.
 
 \begin{code}{@TEST}
 '42' matchesRegex: '[[:digit:]]+' --> true
 \end{code}
 
 %-----------------------------------------------------------------
-\subsection{Les classes de caractères spéciales}
+%\subsection{Les classes de caractères spéciales}
 %\subsection{Special character classes}
-The next primitive expression is unique to this Smalltalk implementation. A sequence of characters between colons is treated as a unary selector which is supposed to be understood by characters. A character matches such an expression if it answers true to a message with that selector. This allows a more readable and efficient way of specifying character classes. For example, \ct{[0-9]} is equivalent to \ct{:isDigit:}, but the latter is more efficient. Analogously to character sets, character classes can be negated: \ct{:CARETisDigit:} matches a character that answers \ct{false} to \ct{isDigit}, and is therefore equivalent to \ct{[CARET0-9]}.
+\subsection{Les classes spéciales}
+L'expression simple suivante est unique à l'implémentation \st. Une
+séquence de caractères entre \emph{deux-points} est traitée comme un
+sélecteur unaire \arevoir{qui peut être compris par les caractères}.
+% A sequence of characters between colons is treated as a unary
+% selector which is supposed to be understood by characters
+Un caractère correspond à une telle expression si il répond \ct{true}
+à un message \arelire{formé par ce sélecteur}.
+% A character matches such an expression if it answers true to a
+% message with that selector.
+Ceci offre une façon plus lisible et plus efficace de spécifier les
+classes de caractères. Par exemple, \ct{[0-9]} est équivalent à
+\ct{:isDigit:}, mais la dernière est plus efficace. Par analogie aux
+classes de caractères, les classes spéciales peuvent avoir un négatif:
+\ct{:CARETisDigit:} concorde avec un caractère qui répond \ct{false} à
+ \ct{isDigit} et est ainsi équivalent à  \ct{[CARET0-9]}.
 
-So far we have seen the following equivalent ways to write a regular expression that matches a non-empty string of digits: \ct{[0-9]+}, \ct{\d+}, \ct{[\d]+}, \ct{[[:digit:]]+}, \ct{:isDigit:+}.
+Nous avons donc déjà vu des façons suivantes et équivalentes pour écrire une \expreg qui
+correspond à une chaîne de caractères non-vide de chiffres:
+\ct{[0-9]+}, \ct{\d+}, \ct{[\d]+}, \ct{[[:digit:]]+} et \ct{:isDigit:+}.
 
 \begin{code}{@TEST}
 '42' matchesRegex: '[0-9]+'      --> true
@@ -978,45 +1020,53 @@ Le dernier groupe de primitives spéciales est visible dans
 \tabref{boundaries} et est utilisé pour faire le filtrage aux
 extrêmités des chaînes de caractères.
 
-\indexmain{Regex syntax!matching string boundaries}
+\indexmain{Regex!syntaxe!filtrage aux extrêmités}
 \begin{table}[htb]
 \centering
 	\begin{tabular}{lp{8cm}}
 		\toprule
-		Syntax & What it represents \\
+        Syntaxe \pkgregex & Représentation \\
 		\midrule
-		\lct{\caret} & match an empty string at the beginning of a line\\
-		\lct{\$} & match an empty string at the end of a line\\
-		\lct{{\escape}b} & match an empty string at a word boundary\\
-		\lct{{\escape}B} & match an empty string not at a word boundary\\
-		\lct{{\escape}<} & match an empty string at the beginning of a word\\
-		\lct{{\escape}>} & match an empty string at the end of a word\\
+		\lct{\caret} & concorde avec une chaîne vide en début de ligne \\
+		\lct{\$} & concorde avec une chaîne vide en fin de ligne \\
+		\lct{{\escape}b} & concorde avec une chaîne vide à une extrêmité du mot \\
+		\lct{{\escape}B} & concorde avec une chaîne vide ailleurs qu'à une extrêmité du mot \\
+		\lct{{\escape}<} & concorde avec une chaîne vide en début de mot\\
+		\lct{{\escape}>} & concorde avec une chaîne vide en fin de mot\\
 		\bottomrule
 	\end{tabular}
-	\caption{Primitives to match string boundaries\tablabel{boundaries}}
+	\caption{Les primitives pour le filtrage aux extrêmités.\tablabel{boundaries}}
 \end{table}
 
 \begin{code}{@TEST}
-'hello world' matchesRegex: '.*\bw.*' --> true      "word boundary before w"
-'hello world' matchesRegex: '.*\bo.*'  --> false    "no boundary before o"
+'hello world' matchesRegex: '.*\bw.*' --> true      "!extrêmité! de mot avant w"
+'hello world' matchesRegex: '.*\bo.*'  --> false    "pas !d'extrêmité! avant o"
 \end{code}
 
 %=================================================================
-\section{L'API \pkgregex}
+\section{L'interface de programmation \pkgregex}
 
-Up to now we have focussed mainly on the syntax of regexes.  Now we will have a closer look at the different messages understood by strings and regexes.
+Nous nous sommes attardés jusqu'ici à la présentation de la syntaxe
+des \expregs. Nous allons explorer maintenant les différents messages
+compris par les chaînes de caractères et les \expregs.
 
 %-----------------------------------------------------------------
 %\subsection{Matching prefixes and ignoring case}
-\subsection{Concordance des préfixes hors-casse}
+\subsection{Concordance des préfixes et l'ignorance de la casse}
 
-So far most of our examples have used the \ct{String} extension method \ct{matchesRegex:}.
+La plupart de nos précédents exemples ont utilisés la méthode étendue
+\ct{matchesRegex:} de la classe \ct{String}.
+% So far most of our examples have used the \ct{String} extension method \ct{matchesRegex:}.
 
-Strings also understand the following messages:
-\mthind{String}{prefixMatchesRegex:}, \mthind{String}{matchesRegexIgnoringCase:} and
+Les chaînes de caractères comprennent aussi les messages suivants:
+\mthind{String}{prefixMatchesRegex:}, \mthind{String}{matchesRegexIgnoringCase:} et
 \mthind{String}{prefixMatchesRegexIgnoringCase:}.
 
-The message \mthind{String}{prefixMatchesRegex:} is just like \mthind{String}{matchesRegex}, except that the whole receiver is not expected to match the regular expression passed as the argument; matching just a prefix of it is enough.
+Le message \mthind{String}{prefixMatchesRegex:} se présente comme
+\mthind{String}{matchesRegex} à l'exception que le \arelire{receveur complet}
+n'est pas nécessaire pour faire la concordance avec l'\expreg passée
+en argument; la concordance d'un préfixe du receveur est suffisant.
+% , except that the whole receiver is not expected to match the regular expression passed as the argument; matching just a prefix of it is enough.
 \begin{code}{@TEST}
 'abacus' matchesRegex: '(a|b)+'                                --> false
 'abacus' prefixMatchesRegex: '(a|b)+'                       --> true
@@ -1025,79 +1075,142 @@ The message \mthind{String}{prefixMatchesRegex:} is just like \mthind{String}{ma
 'Abacus' prefixMatchesRegexIgnoringCase: '(a|b)+' --> true
 \end{code}
 
+% ajout vf - martial
+\tradalert{martial}{j'ai complété d'un paragraphe pour le cas
+  ignoringcase}
+\arelire{Les messages de la forme \ct{*IgnoringCase} (en français,
+  ``ignorer la casse'') sont équivalents aux messages sans le suffixe
+  à l'exception que les premiers ne respectent pas la casse (majuscule
+ou minuscule).}
+
 %-----------------------------------------------------------------
 %\subsection{Enumeration interface}
 \subsection{Protocole d'énumération}
 
-Some applications need to access \emph{all} matches of a certain regular expression within a string.  The matches are accessible using a protocol modeled after the familiar \ct{Collection}-like enumeration protocol.
+Certaines applications ont besoin d'accéder à \emph{toutes} les
+concordances d'une certaine \expreg avec une chaîne de caractères.
+Les concordances sont accessibles via un protocole inspiré par le
+protocole d'énumeration 
+% ajout vf
+\prot{enumerating}
+familier dans les classes des paquetages de la forme \pkg{Collection-*}.
+% the familiar \ct{Collection}-like enumeration protocol.
 
-\mthind{String}{regex:matchesDo:} evaluates a one-argument \ct{aBlock} for every match of the regular expression within the receiver string.
+\mthind{String}{regex:matchesDo:} évalue un bloc à un argument pour
+chaque concordance d'une \expreg avec la chaîne-receveur.
 
 \begin{code}{@TEST | list |}
 list := OrderedCollection new.
-'Jack meet Jill' regex: '\w+' matchesDo: [:word | list add: word].
-list --> an OrderedCollection('Jack' 'meet' 'Jill')
+'Pierre voit Pauline' regex: '\w+' matchesDo: [:word | list add: word].
+list --> an OrderedCollection('Pierre' 'voit' 'Pauline')
 \end{code}
 
-\mthind{String}{regex:matchesCollect:} evaluates a one-argument \ct{aBlock} for every match of the regular expression within the receiver string. It then collects the results and answers them as a \clsind{SequenceableCollection}.
+\mthind{String}{regex:matchesCollect:} évalue un bloc à un argument
+pour chaque concordance avec l'\expreg avec la chaîne-receveur. Il
+collecte ensuite les résultats et les retourne sous la forme d'une
+ \clsind{SequenceableCollection}.
 
 \begin{code}{@TEST}
-'Jack meet Jill' regex: '\w+' matchesCollect: [:word | word size]                          --> an OrderedCollection(4 4 4)
+'Pierre voit Pauline' regex: '\w+' matchesCollect: [:word | word size]                          --> An OrderedCollection(6 4 7)
 \end{code}
 
-\mthind{String}{allRegexMatches:} returns a collection of all matches (substrings of the receiver string) of the regular expression.
+\mthind{String}{allRegexMatches:} renvoie une collection de toutes les
+concordances (avec les sous-chaînes de la chaîne-receveur) de l'\expreg.
 
 \begin{code}{@TEST}
-'Jack and Jill went up the hill' allRegexMatches: '\w+'                                            --> an OrderedCollection('Jack' 'and' 'Jill' 'went' 'up' 'the' 'hill')
+'Pierre voit Pauline en hauteur' allRegexMatches: '\w+' --> an OrderedCollection('Pierre' 'voit' 'Pauline' 'en' 'hauteur')
 \end{code}
 
 %-----------------------------------------------------------------
 \subsection{Remplacement et traduction}
 % translation
 
-It is possible to replace all matches of a regular expression with a certain string using the message \mthind{String}{copyWithRegex:matchesReplacedWith:}.
+Il est possible de remplacer toutes les concordances d'une \expreg
+avec une certain chaîne de caractères en utilisant le message  \mthind{String}{copyWithRegex:matchesReplacedWith:}.
 
 \begin{code}{@TEST}
-'Krazy hates Ignatz' copyWithRegex: '\<[[:lower:]]+\>' matchesReplacedWith: 'loves' --> 'Krazy loves Ignatz'
+'Pierre hait Jean' copyWithRegex: '\<[[:lower:]]+\>' matchesReplacedWith: 'aime' -->  'Pierre aime Jean'
 \end{code}
 
-A more general substitution is match translation. This message evaluates a block passing it each match of the regular expression in the receiver string and answers a copy of the receiver with the block results spliced into it in place of the respective matches.
+\arelire{Une forme plus générale de substitution est la traduction de
+concordance (ou \emph{match translation}). Le message suivant évalue
+un bloc en lui passant chaque concordance de l'\expreg dans la
+chaîne-receveur et retourne une copie du receveur avec les résultats
+du bloc collé entre eux à la place des concordances respectives.}
+% A more general substitution is match translation. This message evaluates a block passing it each match of the regular expression in the receiver string and answers a copy of the receiver with the block results spliced into it in place of the respective matches.
 
 \begin{code}{@TEST}
-'Krazy loves Ignatz' copyWithRegex: '\b[a-z]+\b' matchesTranslatedUsing: [:each | each asUppercase] --> 'Krazy LOVES Ignatz'
+'Pierre aime Jean' copyWithRegex: '\b[a-z]+\b' matchesTranslatedUsing:
+[:each | each asUppercase] --> 'Pierre AIME Jean'
 \end{code}
 
-All messages of enumeration and replacement protocols perform a case-sensitive match.  Case-insensitive versions are not provided as part of a \ct{String} protocol.  Instead, they are accessible using the lower-level matching interface presented in the following question.
+Tous les messages des protocoles d'énumération et de remplacement font
+leur concordance en respectant la casse. Les versions insensibles à la
+casse ne font pas partie d'un protocole de \ct{String}.
+Ils sont accessibles cependant en utilisant l'interface bas niveau
+présentée dans la section suivante.
 %-----------------------------------------------------------------
 %\subsection{Lower-level interface}
 \subsection{Interface bas niveau}
 
-When you send the message \mthind{String}{matchesRegex:} to a string, the following happens:
+Lorsque vous envoyez le message \mthind{String}{matchesRegex:} à une
+chaîne de caractères, les étapes suivantes se produisent:
 
 \begin{enumerate}
-\item A fresh instance of \clsind{RxParser} is created, and the regular expression string is passed to it, yielding the expression's syntax tree.
-\item  The syntax tree is passed as an initialization parameter to an instance of \clsind{RxMatcher}. The instance sets up some data structure that will work as a recognizer for the regular expression described by the tree.
-\item The original string is passed to the matcher, and the matcher checks for a match.
+\item une nouvelle instance de \clsind{RxParser} est créée et la
+  chaîne de caractères de l'\expreg lui est passée, donnant un arbre
+  de syntaxe de l'expression;
+\item  l'arbre de syntaxe est passé comme paramètre d'initialisation
+  d'une instance de \clsind{RxMatcher}. L'instance configure une
+  \arelire{certaine structure de données de sorte qu'elle facilite la
+    reconnaissance de l'\expreg décrite par l'arbre};
+% The instance sets up some data structure that will work as a recognizer for the regular expression described by the tree.
+\item la chaîne de caractères originale est passée au \emph{matcher}
+  % ajout - vf
+  (ou concordeur)
+  qui vérifie la concordance.
 \end{enumerate}
 
 %-----------------------------------------------------------------
 %\subsection{The Matcher}
 \subsection{La classe \ct{RxMatcher}}
 
-If you repeatedly match a number of strings against the same regular expression using one of the messages defined in \clsind{String}, the regular expression string is parsed and a new matcher is created for every match.  You can avoid this overhead by building a matcher for the regular expression, and then reusing the matcher over and over again. You can, for example, create a matcher at a class or instance initialization stage, and store it in a variable for future use.
-You can create a matcher using one of the following methods:
+Si vous testez la concordance d'un certain nombre de chaîne de
+caractères plusieurs fois avec la même \expreg en utilisant un des
+messages définis dans \clsind{String}, la chaîne de caractères de
+l'\expreg est analysée syntaxiquement
+% ajout - vf
+(nous parlons de \emph{parsing})
+et un nouveau \emph{matcher}
+% ajout - vf
+(instance de \ct{RxMatcher})
+est créé pour chaque concordance. Vous pouvez éviter cette escalade en
+construisant un \emph{matcher} pour l'\expreg et en le réutilisant
+ensuite autant de fois que nécessaire. Vous pouvez créer par exemple
+un \emph{matcher} durant la phase d'initialisation d'une classe ou
+d'une instance et stocker celui-ci dans une variable pour un
+prochain usage. Vous pouvez créer un \emph{matcher} en utilisant une
+des méthodes suivantes:
 
+\tradalert{martial}{grave erreur dans la version originale; manque les
+class pour les mthind}
 \begin{itemize}
-\item You can send \mthind{String}{asRegex} or \mthind{String}{asRegexIgnoringCase} to the string.
+\item vous pouvez envoyer \mthind{String}{asRegex} ou
+  \mthind{String}{asRegexIgnoringCase} à la chaîne de caractères;
+\item vous pouvez directement instancier la classe \ct{RxMatcher} via
+  une de ses méthodes de classe \mthind{RxMatcher class}{forString:} ou
+  \mthind{RxMatcher class}{forString:ignoreCase:} (ce que méthodes
+  utilitaires ci-dessus font).
+% which is what the convenience methods above will do).
 
-\item You can directly invoke the \ct{RxMatcher} constructor methods \mthind{RxMatcher}{forString:} or \mthind{RxMatcher}{forString:ignoreCase:} (which is what the convenience methods above will do).
 %
 %The \mthind{RxMatcher}{forString:} method is equivalent to \mthind{RxMatcher class}{forString: regexString ignoreCase: false}. A more convenient way is using one of the two matcher-created messages understood by \clsind{String}. 	 \cmind{RxMatcher}{regexString asRegex} is equivalent to \mthind{RxMatcher class}{forString: regexString}. 	 \ct{regexString asRegexIgnoringCase} is equivalent to \cmind{RxMatcher class}{forString: regexString ignoreCase: true}.
 
 %\item Sending a \mthind{RxMatcher class}{forString:ignoreCase:} message to \clsind{RxMatcher} class, with the regular expression string and a Boolean indicating whether case is ignored as arguments.
 \end{itemize}
 
-Here we send \mthind{RxMatcher}{matchesIn:} to collect all the matches found in a string:
+Nous envoyons ici \mthind{RxMatcher}{matchesIn:} pour collecter toutes
+les concordances trouvées dans une chaîne de caractères:
 
 \begin{code}{@TEST | octal hex |}
 octal := '8r[0-9A-F]+' asRegex.
@@ -1114,43 +1227,67 @@ hex matchesIn: '8r52 = 16r2A'   --> an OrderedCollection('16r2A')
 %\subsection{Matching}
 \subsection{La concordance}
 
-Un \emph{matcher} (ou concordeur) comprend ces messages\,---\,tous
+Un \emph{matcher} (ou concordeur) comprend ces messages suivants\,---\,tous
 retournant \ct{true} ou \ct{false} pour indiquer le succès ou l'échec
 d'une concordance ou d'une recherche:
 
-\mthind{RxMatcher}{matches:} -- true if the whole argument string (aString) matches.
+\mthind{RxMatcher}{matches:} \ct{aString} -- \ct{true} si l'argument-chaîne de
+caractères \ct{aString} correspond complètement.
+% if the whole argument string (aString) matches.
 
 \begin{code}{@TEST}
-'\w+' asRegex matches: 'Krazy' --> true
+'\w+' asRegex matches: 'Pierre' --> true
 \end{code}
 
-\mthind{RxMatcher}{matchesPrefix:} -- true if some prefix of the argument string (not necessarily the whole string) matches.
+\mthind{RxMatcher}{matchesPrefix:} \ct{aString} -- \ct{true} si certains préfixes
+de l'argument-chaîne de caractères \ct{aString} correspondent (et pas
+nécessairement la chaîne complète).
 
 \begin{code}{@TEST}
-'\w+' asRegex matchesPrefix: 'Ignatz hates Krazy' --> true
+'\w+' asRegex matchesPrefix: 'Pierre aime Pauline' --> true
 \end{code}
 
-\mthind{RxMatcher}{search:} \ct{aString} -- Search the string for the first occurrence of a matching substring. (Note that the first two methods only try matching from  the very beginning of the string). Using the above example with a  matcher for \ct{a+}, this method would answer success given a string \ct{'baaa'}, while the previous two would fail.
+\mthind{RxMatcher}{search:} \ct{aString} -- recherche dans la chaîne de
+caractères la première occurence d'une sous-chaîne
+correspondante\footnote{Remarquez que les deux premières méthodes
+  testent la concordance seulement depuis le début de la chaîne de caractères.}.
+% (Note that the first two methods only try matching from  the very
+beginning of the string).
+\arevoir{En utilisant l'exemple ci-dessus avec un \emph{matcher} pour \ct{a+},
+ce message pourrait répondre avec succès avec une chaîne comme
+\ct{'baaa'} alors que les deux précédents échoueraient.} % REVOIR -
+                                % martial - je fatigue, à reprendre
+% Using the above example with a  matcher for \ct{a+}, this method
+% would answer success given a string \ct{'baaa'}, while the previous two would fail.
 
 \begin{code}{@TEST}
-'\b[a-z]+\b' asRegex search: 'Ignatz hates Krazy' --> true    "finds 'hates'"
+'\b[a-z]+\b' asRegex search: 'Pierre aime Pauline' --> true    "trouve 'aime'"
 \end{code}
 
-
-The matcher also stores the outcome of the last match attempt and can report it: \mthind{RxMatcher}{lastResult} answers a Boolean: the outcome of the most recent match attempt. If no matches were attempted, the answer is unspecified.
+Le \emph{matcher} stocke aussi les résultats des dernières tentatives
+de concordance et peut les rapporter.
+% The matcher also stores the outcome of the last match attempt and
+% can report it:
+\mthind{RxMatcher}{lastResult} retourne un \ct{Boolean}: le résultat
+de l'essai le plus récent. Si aucune concordance n'a été essayée, \arelire{la
+réponse n'est pas spécifiée}.
+% the outcome of the most recent match attempt. If no matches were attempted, the answer is unspecified.
 
 \begin{code}{@TEST | number |}
 number := '\d+' asRegex.
-number search: 'Ignatz throws 5 bricks'.
+number search: 'Pauline lance 3 ballons'.
 number lastResult --> true
 \end{code}
 
-\mthind{RxMatcher}{matchesStream:}, \mthind{RxMatcher}{matchesStreamPrefix:} and \mthind{RxMatcher}{searchStream:} are analogous to the above three messages, but takes streams as their argument.
+\mthind{RxMatcher}{matchesStream:},
+\mthind{RxMatcher}{matchesStreamPrefix:} et
+\mthind{RxMatcher}{searchStream:} sont semblables aux trois messages
+précédents mais ils prennent en flux de données comme argument.
 
 \begin{code}{@TEST | ignatz |}
-ignatz := ReadStream on: 'Ignatz throws bricks at Krazy'.
+pauline := ReadStream on: 'Pauline lance des ballons sur Pierre'.
 names := '\<[A-Z][a-z]+\>' asRegex.
-names matchesStreamPrefix: ignatz --> true
+names matchesStreamPrefix: pauline --> true
 \end{code}
 
 %-----------------------------------------------------------------
@@ -1166,7 +1303,7 @@ des \arevoir{indices comptant à partir de 1, par ordre de profondeur
   vers le plus profond, et de gauche à droite}. 
 %When a regular expression is compiled, its subexpressions are assigned indices starting from 1, depth-first, left-to-right.
 
-\index{Regex!subexpression matches}
+\index{Regex!filtre de sous-expressions}
 Par exemple, l'\expreg \ct{((\d+)\s*(\w+))} a quatre sous-expressions
 incluant l'expression entière elle-même.
 \begin{code}{}
@@ -1181,30 +1318,52 @@ parenthèses de filtres (ainsi, 1 est toujours un indice valide même
 s'il n'y a pas de sous-expressions parenthésées).
 %The highest valid index is equal to 1 plus the number of matching parentheses.  (So, 1 is always a valid index, even if there are no parenthesized subexpressions.)
 
-After a successful match, the matcher can report what part of the original string matched what subexpression. It understandards these messages:
+Après une concordance réussie, le \emph{matcher} peut dire quelle
+partie de la chaîne de caractères originale a correspondu à quelle
+sous-expression. Il comprend les messages suivants:
 
-\mthind{RxMatcher}{subexpressionCount} answers the total number of subexpressions: the highest value that can be used as a subexpression index with this matcher. This value 	is available immediately after initialization and never changes.
+\mthind{RxMatcher}{subexpressionCount} renvoie le nombre total de
+sous-expressions \ie la plus grande valeur pouvant être utilisé comme
+indice de sous-expression avec ce \emph{matcher}. Cette valeur est
+disponible dès l'initialisation et ne peut jamais changer.
 
-\mthind{RxMatcher}{subexpression:} takes a valid index as its argument, and may be sent only after a successful match attempt. The method answers a substring of the original string the corresponding subexpression has matched to.
+\mthind{RxMatcher}{subexpression:} prend une valeur d'indice valide
+comme argument et peut être envoyé seulement après une concordance
+réussie. \arelire{La méthode retourne une sous-chaîne de caractères de la
+chaîne originale avec laquelle la sous-expression a correspondu.}
+% takes a valid index as its argument, and may be sent only after a successful match attempt. The method answers a substring of the original string the corresponding subexpression has matched to.
 
-\mthind{RxMatcher}{subBeginning:} and \mthind{RxMatcher}{subEnd:} answer the positions within the argument string or stream where the given subexpression match has started and ended, respectively. 
+\mthind{RxMatcher}{subBeginning:} et \mthind{RxMatcher}{subEnd:}
+répondent les positions \arelire{dans l'argument-chaîne de caractères ou dans
+l'argument-flux de données où la concordance avec la sous-expression
+donnée a débuté et fini, respectivement.}
+% where the given subexpression match has started and ended,
+% respectively.
+Ce service offre un bon moyen d'extraire des parties d'une chaîne de
+caractères dans un format complexe.
 % This facility provides a convenient way of extracting parts of input strings of complex format.
 
 \begin{code}{@TEST | items |}
 items := '((\d+)\s*(\w+))' asRegex.
 items search: 'Ignatz throws 1 brick at Krazy'.
 items subexpressionCount --> 4
-items subexpression: 1      --> '1 brick'    "complete expression"
-items subexpression: 2      --> '1 brick'    "top subexpression"
-items subexpression: 3      --> '1'             "first leaf subexpression"
-items subexpression: 4      --> 'brick'       "second leaf subexpression"
+items subexpression: 1      --> '1 ballon'    "expression !complète!"
+items subexpression: 2      --> '1 ballon'    "sous-expression racine"
+items subexpression: 3      --> '1'             "!première! branche"
+items subexpression: 4      --> 'ballon'       "seconde branche"
 items subBeginning: 3       --> 14
 items subEnd: 3                 --> 15
 items subBeginning: 4       --> 16
-items subEnd: 4                 --> 21
+items subEnd: 4                 --> 22
 \end{code}
 
-As a more elaborate example, the following piece of code uses a \ct{MMM DD, YYYY} date format recognizer to convert a date to a three-element array with year, month, and day strings:
+Comme exemple plus élaboré, le morceau de code suivant utilise un
+détecteur de format de date,
+% ajout - vf
+en notation anglo-saxonne,
+de la forme \ct{MMM DD, YYYY} pour convertir une date en un tableau à
+trois éléments contenant les chaînes de caractères pour l'année
+(\ct{YYYY}), le mois (\ct{MMM}) et le jour (\ct{DD}):
 
 \begin{code}{@TEST | date result |}
 date := '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d\d?)\s*,\s*19(\d\d)' asRegex.
@@ -1221,7 +1380,7 @@ result --> #('96' 'Aug' '6')
 \subsection{Énumération et remplacement}
 
 Les protocoles de la classe \ct{String} pour l'énumeration
-(\prot{enumeration}) et le remplacement que nous avons vus plus tôt
+ et le remplacement que nous avons vus plus tôt
 dans cette section sont en fait implémentés par le \emph{matcher}. 
 \lct{RxMatcher} implémente les méthodes suivantes pour itérer dans les
 concordances dans les chaînes de caractères:
@@ -1229,12 +1388,12 @@ concordances dans les chaînes de caractères:
 \mthind{RxMatcher}{matchesIn:},
 \mthind{RxMatcher}{matchesIn:do:},
 \mthind{RxMatcher}{matchesIn:collect:},
-\mthind{RxMatcher}{copy:replacingMatchesWith:} and
+\mthind{RxMatcher}{copy:replacingMatchesWith:} et
 \mthind{RxMatcher}{copy:translatingMatchesUsing:}.
 
 \begin{code}{@TEST | seuss aWords |}
 seuss := 'The cat in the hat is back'.
-aWords := '\<([^aeiou]|[a])+\>' asRegex.    "match words with 'a' in them"
+aWords := '\<([^aeiou]|[a])+\>' asRegex.    "concorde avec des mots avec un 'a' dedans"
 aWords matchesIn: seuss
     --> an OrderedCollection('cat' 'hat' 'back')
 aWords matchesIn: seuss collect: [:each | each asUppercase ]
@@ -1243,13 +1402,14 @@ aWords copy: seuss replacingMatchesWith: 'grinch'
     --> 'The grinch in the grinch is grinch'
 aWords copy: seuss translatingMatchesUsing: [ :each | each asUppercase ]
     --> 'The CAT in the HAT is BACK'
-\end{code}
+\end{code} % REVOIR à franciser peut-être - martial
 
-There are also the following methods for iterating over matches within streams:
+Nous avons aussi à notre disposition les méthodes suivantes pour
+itérer sur les concordances dans les flux de données:
 \mthind{RxMatcher}{matchesOnStream:},
 \mthind{RxMatcher}{matchesOnStream:do:},
 \mthind{RxMatcher}{matchesOnStream:collect:},
-\mthind{RxMatcher}{copyStream:to:replacingMatchesWith:} and
+\mthind{RxMatcher}{copyStream:to:replacingMatchesWith:} et
 \mthind{RxMatcher}{copyStream:to:translatingMatchesUsing:}.
 
 \begin{code}{@TEST | in out numMatch |}
@@ -1261,22 +1421,28 @@ numMatch
   to: out
   translatingMatchesUsing: [:each | each asNumber asFloat asString ].
 out close; contents --> '12.0 drummers, 11.0 pipers, 10.0 lords, 9.0 ladies, etc.'
-\end{code}
+\end{code} % REVOIR à franciser peut-être - martial
 
 
 %-----------------------------------------------------------------
 %\subsection{Error Handling}
 \subsection{Gestion des erreurs}
 
-Several exceptions may be raised by \ct{RxParser} when building regexes.  The exceptions have the common parent \ct{RegexError}.  You may use the usual Smalltalk exception handling mechanism to catch and handle them.
+Plusieurs exceptions peuvent être levées par \ct{RxParser} durant la
+construction des \expregs. Les exceptions ont un parent commun
+\ct{RegexError}.
+Vous pouvez utiliser le mécanisme de gestion des exceptions habituel
+en \st pour les capturer et gérer.
 
 \begin{itemize}
-
-\item \clsind{RegexSyntaxError} is raised if a syntax error is detected while parsing a regex
-
-\item \clsind{RegexCompilationError} is raised if an error is detected while building a matcher
-
-\item \clsind{RegexMatchingError} is raised if an error occurs while matching (for example, if a bad selector was specified using \ct{':<selector>:'} syntax, or because of the matcher's internal error)
+\item \clsind{RegexSyntaxError} est levé si une erreur de syntaxe est
+  détectée durant l'analyse syntaxe (ou \emph{parsing}) d'une \expreg;
+\item \clsind{RegexCompilationError} est levé si une erreur est
+  détectée à la construction d'un \emph{matcher};
+\item \clsind{RegexMatchingError} est levé si une erreur se produit
+  durant la concordance (par exemple, si un mauvais sélecteur a été
+  spécifié via la syntaxe \lct{':<sélecteur>:'} ou pour une quelconque
+  erreur interne du \emph{matcher}).
 
 %\item If a syntax error is detected while parsing expression, \cmind{RxParser}{signalSyntaxException:} is raised/signaled;
 
@@ -1297,19 +1463,44 @@ Several exceptions may be raised by \ct{RxParser} when building regexes.  The ex
 
 \index{Bykov, Vassili}
 \paragraph{Où regarder pour commencer.}
-In 90\% of the cases, the method \cmind{String}{matchesRegex:}  is all you need to access the package.
+Dans 90\% des cas, la méthode \cmind{String}{matchesRegex:} est \arelire{tout
+ce dont vous aurez besoin pour accéder au paquetage.}
+% is all you need to access the package.
 
-\clsind{RxParser} accepts a string or a stream of characters with a regular expression, and produces a syntax tree corresponding to the expression. The tree is made of instances of \clsind{Rxs*} classes.
+\clsind{RxParser} accepte une chaîne de caractères ou un flux de
+données contenant une \expreg et produit un arbre de syntaxe
+correspondant à l'expression. L'arbre est composé d'instances des
+classes de la forme \clsind{Rxs*}.
 
-\clsind{RxMatcher}  accepts a syntax tree of a regular expression built by the parser and compiles it into a matcher: a structure made of instances of \ct{Rxm*} classes. The \clsind{RxMatcher} instance can test whether a string or a positionable stream of characters matches the original regular expression, or it can search a string or a stream for substrings matching the expression. After a match is found, the matcher can report a specific string that matched the whole expression, or any parenthesized subexpression of it. All other classes support the same functionality and are used by \clsind{RxParser}, \clsind{RxMatcher}, or both.
+\clsind{RxMatcher} accepte un arbre de syntaxe d'une \expreg construit
+par l'analyseur syntaxique et le compile sous la forme d'un
+\emph{matcher} (ou concordeur): ce dernier est une structure composée
+d'instances de classes de la forme \ct{Rxm*}. 
+L'instance \clsind{RxMatcher} peut tester si une chaîne de caractères
+ou \arevoir{un \emph{positionable stream}} % REVOIR trouver mieux
+de caractères concorde avec l'\expreg originale. Elle peut aussi
+rechercher une chaîne ou un flux pour une sous-chaîne concordant avec
+l'expression. Après qu'une concordance soit trouvée, le \emph{matcher}
+peut rapporter une chaîne spécifique correspondant à l'expression
+complète ou à n'importe quelle de ses sous-expressions parenthésées.
+Toutes les autres classes supportent la même fonctionalité et sont
+utilisées par \clsind{RxParser}, \clsind{RxMatcher} ou les deux.
+%  All other classes support the same functionality and are used by \clsind{RxParser}, \clsind{RxMatcher}, or both.
 
-\paragraph{Avertissement.} The matcher is similar in spirit, but \emph{not} in design
-%--let alone the code--
-to Henry Spencer's original regular expression implementation in C.  The focus is on simplicity, not on efficiency. I didn't optimize or profile anything.
-%  I may in future\,---\,or I may not: I do this in my spare time and I don't promise anything. 
-The matcher passes H. Spencer's test suite (see ``test suite'' protocol), with quite a few extra tests added, so chances are good there are not too many bugs.  But watch out anyway.
+\paragraph{Avertissement.} Le \emph{matcher} est similaire dans
+l'esprit, mais \emph{pas} en \emph{design}
+%The matcher is similar in spirit, but \emph{not} in design
+à l'implémentation originale de \expreg par Henry Spencer en langage
+C. Le point important est la simplicité et non l'efficacité. Je n'ai
+rien optimisé ni \emph{profiler}.
+% I didn't optimize or profile anything.
+Le \emph{matcher} passe la suite de tests de H.~Spencer (voir le
+protocole ``test suite'') et quelques tests additionnels, donc il y a
+de bonnes chances qu'il n'y ait pas beaucoup de bogues. Faîtes
+attention tout de même. 
 
 \paragraph{Remerciements.}
+Depuis la première sortie du \emph{matcher}, merci 
 Since the first release of the matcher, thanks to the input from several fellow Smalltalkers, I became convinced a native Smalltalk regular expression matcher was worth the effort to keep it alive. For the advice and encouragement that made this release possible, I want to thank: Felix Hack, Eliot Miranda, Robb Shecter, David N. Smith, Francis Wolinski and anyone whom I haven't yet met or heard from, but who agrees this has not been a complete waste of time.
 % (Coding the same ''the hard way'' is an exercise to a curious reader).
 
@@ -1322,12 +1513,21 @@ Ce chapitre présente le paquetage \pkgregex pour \pharo. Les points
 principaux abordés dans ce chapitre sont:
 
 \begin{itemize}
-\item For simple matching, just send \ct{matchesRegex:} to a string
-\item When performance matters, send \ct{asRegex} to the string representing the regex, and reuse the resulting matcher for multiple matches
-\item Subexpression of a matching regex may be easily retrieved to an arbitrary depth
-\item A matching regex can also replace or translate subexpressions in a new copy of the string matched
-\item An enumeration interface is provided to access all matches of a certain regular expression
-\item Regexes work with streams as well as with strings.
+\item pour une simple concordance (ou \emph{matching}), envoyez
+  simplement \ct{matchesRegex:} à une chaîne de caractères;
+\item lorsque les performances comptent, envoyez \ct{asRegex} à la
+  chaîne de caractères représentant l'\expreg et réutilisez le
+  \emph{matcher} (ou concordeur) résultant pour de multiples
+  concordances ou filtrages;
+\item \arevoir{la sous-expression d'une \expreg correspondante peut être
+  facilement récupérée dans une certaine profondeur};
+%Subexpression of a matching regex may be easily retrieved to an arbitrary depth
+\item un \regexmatch peut aussi remplacer ou traduire des
+  sous-expressions dans une nouvelle copie de la chaîne de caractères correspondante;
+\item une interface d'énumération est fournie pour accéder à toutes
+  les concordances d'une certaine \expreg;
+\item les \expregs fonctionnent aussi bien avec les flux de données
+  qu'avec les chaînes de caractères.
 \end{itemize}
 
 
