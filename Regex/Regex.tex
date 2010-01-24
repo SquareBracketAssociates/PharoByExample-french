@@ -11,6 +11,8 @@
 % 2009-07-15 - Oscar indexing
 
 % 2010-01-24 - traduit en français par Martial
+% 2010-01-25 - relectures par Rene
+
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -47,19 +49,18 @@
 \indexmain{Expressions régulières|see{Regex}}
 Les \expregs\footnote{NdT: traduit de l'anglais ``regular expressions''
   (d'où l'abrégé \emph{Regex}), le terme exact devrait être
-  ``expressions rationnelles''.} sont très largement utilisés dans de
+  ``expressions rationnelles''.} sont très largement utilisées dans de
 nombreux langages de script tels que \ind{Perl}, \ind{Python} et
 \ind{Ruby}.
-Ils sont utiles pour identifier des chaînes de caractères
-correspondant à un certain \pattern (ou motif), pour vérifier que les
+Elles sont utiles pour identifier des chaînes de caractères
+correspondants à un certain \pattern (ou motif), pour vérifier que les
 entrées sont conformes à un format attendu et pour réécrire des
 chaînes de caractères dans un nouveau format.
 \pharo dispose aussi des \expregs grâce au paquetage \pkgind{Regex} de
 Vassili Bykov.\index{Bykov, Vassili}
 \pkgregex est installé par défaut dans \pharo. Si vous utilisez une image
 ancienne qui n'inclut pas le paquetage \pkgregex, vous pouvez
-l'installer depuis
-nllind{\sqsrc}\footnote{\url{http://www.squeaksource.com/Regex.html}}.
+l'installer depuis \ind{\sqsrc}\footnote{\url{http://www.squeaksource.com/Regex.html}}.
 
 Une \expreg\footnote{\url{http://fr.wikipedia.org/wiki/Expression_rationnelle}}
 %http://en.wikipedia.org/wiki/Regular_expression
@@ -109,7 +110,7 @@ Nous allons réaliser une application simple qui permet la génération
 d'un \sitemap pour une site web que nous aurions localement stocké sur
 notre disque dur. Le \sitemap contiendra les liens vers chaque fichier
 HTML sur le site web en utilisant le titre de la page comme texte du
-lien. Les liens devront en outre refléter la structure de répertoires
+lien. Les liens devront en outre refléter la structure en répertoires
 du site web.
 
 %-----------------------------------------------------------------
@@ -237,7 +238,7 @@ chaîne de caractères.}
 'x' matchesRegex: '\.' --> false
 \end{code}
 
-Vérifiez maintenant notre \expreg fonctionne pour trouver des fichiers
+Vérifiez maintenant que notre \expreg fonctionne pour trouver des fichiers
 HTML.
 
 \begin{code}{@TEST}
@@ -369,8 +370,8 @@ pouvant être \ct{e}, \ct{l} or \ct{o}.} % CHANGE : ajout - vf : "à un"
 % matches any of the characters \ct{e}, \ct{l} or \ct{o}.
 L'opérateur \ct{+} est comme la \kleenestar, mis à part qu'il
 correspond exactement à \emph{une} ou plusieurs instances de l'\expreg
-qui le précéde. Il correspondera ici à la sous-chaîne \ct{'ello} qui
-sera remplacé par la lettre \ct{i} pour générer une nouvelle chaîne de
+qui le précède. Il correspondra ici à la sous-chaîne \ct{'ello} qui
+sera remplacée par la lettre \ct{i} pour générer une nouvelle chaîne de
 caractères.
 \index{Regex!syntaxe!@\ct{+}}
 
@@ -500,7 +501,7 @@ WebPage>>title
 % \end{code}
 
 Deux cas subtils sont à prendre en compte ici.
-Premièrement, le code HTML ne s'intéresse pas de savoir si les balises
+Premièrement, le code HTML ne s'intéresse pas à savoir si les balises
 sont en miniscule ou en majuscule donc nous devons faire en sorte que
 notre \expreg soit insensible à la casse en l'instanciant avec le
 message \ct{asRegexIgnoringCase}.
@@ -516,7 +517,7 @@ et \ct{\W} correspond à \arevoir{n'importe quel caractère non
   alpha-numérique}; \ct{[\w\W]} correspond donc à \arevoir{n'importe
   quel caractère \emph{incluant le retour-chariot}} (Si nous nous
   attendons à ce que les titres contiennent des
-  \arelire{retours-chariot}, nous devriez utiliser la même technique
+  \arelire{retours-chariot}, nous devrons utiliser la même technique
   dans la sous-expression).
 
 Nous pouvons tester maintenant notre extracteur de titre et nous
@@ -652,7 +653,7 @@ WebDir selectHome makeToc
 \sectionindex{La syntaxe des \expregs}
 %\section{Regex syntax}\indexmain{Regex syntax}
 
-Nous allons voir plus en détails la syntaxe des \expreg telle qu'elle
+Nous allons voir plus en détail la syntaxe des \expreg telle qu'elle
 est supportée par le paquetage \pkgregex.
 
 L'\expreg la plus simple est un caractère unique. Elle correspond
@@ -675,7 +676,7 @@ plus complexes.
 % ``invisible''\,---\,yet it is arguably the most common.
 
 \indexmain{Regex!syntaxe!@\ct{*}}
-Nous avons déjà vu l'\ind{\kleenestar} (\ct{*}) et l'opérateur \ct{+}.
+Nous avons déjà vu la \ind{\kleenestar} (\ct{*}) et l'opérateur \ct{+}.
 Une \expreg suivie par une \kleenestar correspond à un certain nombre
 (incluant $0$) de concordances de l'expression originale. Par exemple:
 \begin{code}{@TEST}
@@ -791,7 +792,7 @@ reconnaissance de nombre binaire:
 \end{code}
 
 Si le premier caractère après le crochet ouvrant est \ct{CARET},
-la classe de caractères est inversé: la concordance se fait donc sur
+la classe de caractères est inversée: la concordance se fait donc sur
 un caractère qui \emph{n'est pas} entre les crochets:
 % the set is inverted: it matches any single character \emph{not} appearing between the brackets:
 \begin{code}{@TEST}
@@ -804,7 +805,7 @@ un caractère qui \emph{n'est pas} entre les crochets:
 Pour des raisons de commodité, une classe de caractères peut inclure
 des intervalles: deux caractères séparés par un tiret (\ct{-})
 % separated by a hyphen (\ct{-}).
-forment ce que nous appelons intervalle de classe.
+forment ce que nous appelons un intervalle de classe.
 Cet intervalle est équivalent à la liste complète de tous les
 caractères entre ces deux caractères:  \ct{'[0-9]'} est la même chose
 que  \ct{'[0123456789]'}.
@@ -972,11 +973,11 @@ Les classes abrégées peuvent aussi inclure les éléments compatibles
 \end{table}
 
 Notez que ces éléments font partie des classes abrégées; ils doivent
-être incluses dans un ensemble de crochets pour former une \expreg
+être inclus dans un ensemble de crochets pour former une \expreg
 valide. Par exemple, un filtrage de chaîne de caractères non-vide composée
 uniquement de chiffres devrait être représenté par \ct{[[:digit:]]+}.
 Les expressions et opérateurs primitifs précédemment vus sont communs
-dans de nombreuses implémentations d'\expregs.
+à de nombreuses implémentations d'\expregs.
 % they have to be enclosed in an extra set of square brackets to form a valid regular expression.  For example, a non-empty string of digits would be represented as \ct{[[:digit:]]+}. The above primitive expressions and operators are common to many implementations of regular expressions.
 
 \begin{code}{@TEST}
@@ -992,7 +993,7 @@ séquence de caractères entre \emph{deux-points} est traitée comme un
 sélecteur unaire \arevoir{qui peut être compris par les caractères}.
 % A sequence of characters between colons is treated as a unary
 % selector which is supposed to be understood by characters
-Un caractère correspond à une telle expression si il répond \ct{true}
+Un caractère correspond à une telle expression s'il répond \ct{true}
 à un message \arelire{formé par ce sélecteur}.
 % A character matches such an expression if it answers true to a
 % message with that selector.
@@ -1017,12 +1018,12 @@ correspond à une chaîne de caractères non-vide de chiffres:
 
 %-----------------------------------------------------------------
 %\subsection{Matching boundaries}
-\subsection{Filtrage aux extrêmités}
+\subsection{Filtrage aux extrémités}
 Le dernier groupe de primitives spéciales est visible dans
 \tabref{boundaries} et est utilisé pour faire le filtrage aux
-extrêmités des chaînes de caractères.
+extrémités des chaînes de caractères.
 
-\indexmain{Regex!syntaxe!filtrage aux extrêmités}
+\indexmain{Regex!syntaxe!filtrage aux extrémités}
 \begin{table}[htb]
 \centering
 	\begin{tabular}{lp{8cm}}
@@ -1031,18 +1032,18 @@ extrêmités des chaînes de caractères.
 		\midrule
 		\lct{\caret} & concorde avec une chaîne vide en début de ligne \\
 		\lct{\$} & concorde avec une chaîne vide en fin de ligne \\
-		\lct{{\escape}b} & concorde avec une chaîne vide à une extrêmité du mot \\
-		\lct{{\escape}B} & concorde avec une chaîne vide ailleurs qu'à une extrêmité du mot \\
+		\lct{{\escape}b} & concorde avec une chaîne vide à une extrémité du mot \\
+		\lct{{\escape}B} & concorde avec une chaîne vide ailleurs qu'à une extrémité du mot \\
 		\lct{{\escape}<} & concorde avec une chaîne vide en début de mot\\
 		\lct{{\escape}>} & concorde avec une chaîne vide en fin de mot\\
 		\bottomrule
 	\end{tabular}
-	\caption{Les primitives pour le filtrage aux extrêmités.\tablabel{boundaries}}
+	\caption{Les primitives pour le filtrage aux extrémités.\tablabel{boundaries}}
 \end{table}
 
 \begin{code}{@TEST}
-'hello world' matchesRegex: '.*\bw.*' --> true      "!extrêmité! de mot avant w"
-'hello world' matchesRegex: '.*\bo.*'  --> false    "pas !d'extrêmité! avant o"
+'hello world' matchesRegex: '.*\bw.*' --> true      "!extrémité! de mot avant w"
+'hello world' matchesRegex: '.*\bo.*'  --> false    "pas !d'extrémité! avant o"
 \end{code}
 
 %=================================================================
@@ -1284,7 +1285,7 @@ number lastResult --> true
 \mthind{RxMatcher}{matchesStream:},
 \mthind{RxMatcher}{matchesStreamPrefix:} et
 \mthind{RxMatcher}{searchStream:} sont semblables aux trois messages
-précédents mais ils prennent en flux de données comme argument.
+précédents mais ils prennent un flux de données comme argument.
 
 \begin{code}{@TEST | ignatz |}
 pauline := ReadStream on: 'Pauline lance des ballons sur Pierre'.
@@ -1300,7 +1301,7 @@ Suite à une tentative de concordance réussie, vous pouvez demander
 quelle partie de la chaîne de caractères originale a correspondu à
 quelle partie de l'\expreg. Une sous-expression est une partie
 parenthésée d'une \expreg ou l'expression entière.
-Lorsque une \expreg est compilée, ses sous-expressions sont affectés à
+Lorsqu'une \expreg est compilée, ses sous-expressions sont affectés à
 des \arevoir{indices comptant à partir de 1, par ordre de profondeur
   vers le plus profond, et de gauche à droite}. 
 %When a regular expression is compiled, its subexpressions are assigned indices starting from 1, depth-first, left-to-right.
@@ -1384,7 +1385,7 @@ result --> #('96' 'Aug' '6')
 Les protocoles de la classe \ct{String} pour l'énumeration
  et le remplacement que nous avons vus plus tôt
 dans cette section sont en fait implémentés par le \emph{matcher}. 
-\lct{RxMatcher} implémente les méthodes suivantes pour itérer dans les
+\lct{RxMatcher} implémente les méthodes suivantes pour itérer les
 concordances dans les chaînes de caractères:
 %iterating over matches within strings:
 \mthind{RxMatcher}{matchesIn:},
@@ -1504,8 +1505,8 @@ attention tout de même.
 \paragraph{Remerciements.}
 Depuis la première sortie du \emph{matcher}, je souhaiterais remercier
 les nombreux \emph{Smalltalkers} pour leurs messages; je suis
-convaincu qu'un \emph{matcher} d'\expreg natif en \st vaut l'effort de
-le garder en vie. Pour les conseils et l'encouragement qui ont rendu
+convaincu qu'un \emph{matcher} d'\expreg natif en \st vaut l'effort 
+d'être gardé en vie. Pour les conseils et l'encouragement qui ont rendu
 possible cette version, j'aimerais remercier:
 % Since the first release of the matcher, thanks to the input from
 % several fellow Smalltalkers, I became convinced a native Smalltalk
@@ -1513,8 +1514,8 @@ possible cette version, j'aimerais remercier:
 % the advice and encouragement that made this release possible, I want
 % to thank:
 Felix Hack, Eliot Miranda, Robb Shecter, David N. Smith, Francis
-Wolinski et tout ce que je n'ai pas rencontré ou entendu mais qui sont
-d'accord que ce n'aura pas été une perte de temps.
+Wolinski et tout ceux que je n'ai pas rencontré ou entendu mais qui sont
+d'accord que cet effort n'aura pas été une perte de temps.
 % and anyone whom I haven't yet met or heard from, but who agrees this has not been a complete waste of time.
 % (Coding the same ''the hard way'' is an exercise to a curious reader).
 
