@@ -202,10 +202,26 @@ Page' d'après WebDirTest
 littérature française) pour "? , + et *" ; ce terme est redit avec les
 accolades 
 - backslash -> \emph{antislash}
-- character set -> classe de caractères
+- character set -> classe de caractères (on trouve aussi jeu de
+caractères dans la littérature)
 - character range -> intervalle de classe (on trouve aussi le terme de
 "plage" mais puisqu'on a utilisé "intervalle" ailleurs dans le livre,
 je pense que "intervalle de classe" est préférable)
+- character class -> (pas 'classe de caractères' parce que c'est
+utilisé normalement pour les 'set' entre []) classe abrégée
+- special character class -> classe spéciale (sélecteur Smalltalk) ou
+métacaractère (toutes les balises et opérateurs)
+(IMPORTANT:
+http://www.vulgarisation-informatique.com/expressions-regulieres.php
+character set   -> classe de caractères
+character class -> classe de caractères abrégée ou classe abrégée
+special character class -> classe spéciale ou métacaractère
+)
+- newline -> retour-chariot
+- to profile -> \emph{profiler}; le terme sera défini dans le chapitre
+de PBE2 intitulé Profiling; le terme de profilage commence à être
+commun en info, psycho, crimino...
+- 
 
 NOTE de relecture (martial; le 13 janvier 2010):
 

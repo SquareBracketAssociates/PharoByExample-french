@@ -23,14 +23,11 @@ Les parties I,II,III,IV sont en cours de modifications (martial)
 
 Répartition des taches:
 
-- Seaside: 
+- Seaside:
   + index: Seaside!forms serait mieux en Seaside!XHTML!form
 
 - Regex: 
-  + en cours de traduction
-  + revoir l'index
-  + voir dans les chapitres antérieurs comme BasicClasses: appariement
-  <-> concordance (faire un choix)
+  + voir dans les chapitres antérieurs comme BasicClasses: appariement <-> concordance (faire un choix)
 
 - Reflection:
 

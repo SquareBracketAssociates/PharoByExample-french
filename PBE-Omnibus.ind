@@ -244,7 +244,7 @@
     \subitem (classe), \hyperpage{418}
   \item Bryant, Avi, \hyperpage{311}
   \item Bykov, Vassili, \hyperpage{193}, \hyperpage{351}, 
-		\hyperpage{372}
+		\hyperpage{373}
   \item ByteArray
     \subitem (classe), \hyperpage{233}
   \item bytecode, \hyperpage{414}
@@ -1477,24 +1477,25 @@
   \item Refactoring Browser, \hyperpage{416}, \hyperpage{437}
   \item reflection, \hyperpage{407}
   \item Regex
+    \subitem filtre de sous-expressions, \hyperpage{370}
     \subitem priorit\IeC {\'e} des op\IeC {\'e}rateurs, \hyperpage{361}
-    \subitem subexpression matches, \hyperpage{370}
-    \subitem syntaxe
+    \subitem syntaxe, \hyperpage{363}
       \subsubitem caract\IeC {\`e}re d'\IeC {\'e}chappement\xspace  , 
 		\hyperpage{362}
+      \subsubitem classe de caract\IeC {\`e}re abr\IeC {\'e}g\IeC {\'e}e, 
+		\hyperpage{365}
       \subsubitem classe de caract\IeC {\`e}res, \hyperpage{362}
+      \subsubitem filtrage aux extr\IeC {\^e}mit\IeC {\'e}s, 
+		\hyperpage{366}
       \subsubitem intervalle de classe, \hyperpage{363}
   \item \textsf  {Regex} (paquetage), \hyperpage{193}, \hyperpage{212}, 
 		\hyperpage{351}
-  \item Regex syntax, \hyperpage{363}
-    \subitem character classes, \hyperpage{365}
-    \subitem matching string boundaries, \hyperpage{366}
   \item RegexCompilationError
-    \subitem (classe), \hyperpage{372}
+    \subitem (classe), \hyperpage{373}
   \item RegexMatchingError
-    \subitem (classe), \hyperpage{372}
+    \subitem (classe), \hyperpage{373}
   \item RegexSyntaxError
-    \subitem (classe), \hyperpage{372}
+    \subitem (classe), \hyperpage{373}
   \item regular expression package, 
 		\see{paquetage, expressions r\IeC {\'e}guli\IeC {\`e}res}{212}
   \item \textsf  {removing} (protocole), \hyperpage{200}
@@ -1507,58 +1508,59 @@
     \subitem implicite, \hyperpage{59}
   \item Ruby, \hyperpage{351}
   \item RxMatcher
-    \subitem (classe), \hyperpage{368}, \hyperpage{372}
+    \subitem (classe), \hyperpage{369}, \hyperpage{373}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{copy:replacingMatchesWith:}, 
-		\hyperpage{371}
+		\hyperpage{372}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{copy:translatingMatchesUsing:}, 
-		\hyperpage{371}
+		\hyperpage{372}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{copyStream:to:replacingMatchesWith:}, 
-		\hyperpage{371}
+		\hyperpage{372}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{copyStream:to:translatingMatchesUsing:}, 
-		\hyperpage{371}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{forString:}, 
-		\hyperpage{368}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{forString:ignoreCase:}, 
-		\hyperpage{368}
+		\hyperpage{372}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{lastResult}, 
-		\hyperpage{369}
+		\hyperpage{370}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matches:}, 
 		\hyperpage{369}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesIn:}, 
-		\hyperpage{368}, \hyperpage{371}
+		\hyperpage{369}, \hyperpage{372}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesIn:collect:}, 
-		\hyperpage{371}
+		\hyperpage{372}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesIn:do:}, 
-		\hyperpage{371}
+		\hyperpage{372}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesOnStream:}, 
-		\hyperpage{371}
+		\hyperpage{372}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesOnStream:collect:}, 
-		\hyperpage{371}
+		\hyperpage{372}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesOnStream:do:}, 
-		\hyperpage{371}
+		\hyperpage{372}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesPrefix:}, 
-		\hyperpage{357}, \hyperpage{369}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesStream:}, 
-		\hyperpage{369}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesStreamPrefix:}, 
-		\hyperpage{369}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{search:}, 
-		\hyperpage{369}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{searchStream:}, 
-		\hyperpage{369}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{subBeginning:}, 
-		\hyperpage{370}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{subEnd:}, 
-		\hyperpage{370}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{subexpression:}, 
 		\hyperpage{357}, \hyperpage{370}
-    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{subexpressionCount}, 
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesStream:}, 
 		\hyperpage{370}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesStreamPrefix:}, 
+		\hyperpage{370}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{search:}, 
+		\hyperpage{370}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{searchStream:}, 
+		\hyperpage{370}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{subBeginning:}, 
+		\hyperpage{371}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{subEnd:}, 
+		\hyperpage{371}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{subexpression:}, 
+		\hyperpage{357}, \hyperpage{371}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{subexpressionCount}, 
+		\hyperpage{371}
+  \item RxMatcher class
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{forString:}, 
+		\hyperpage{369}
+    \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{forString:ignoreCase:}, 
+		\hyperpage{369}
   \item RxParser
     \subitem (classe), \hyperpage{355}, \hyperpage{368}, 
-		\hyperpage{372}
+		\hyperpage{373}
   \item Rxs*
-    \subitem (classe), \hyperpage{372}
+    \subitem (classe), \hyperpage{373}
 
   \indexspace
 
@@ -1604,7 +1606,7 @@
   \item Sensor
     \subitem (classe), \hyperpage{105}
   \item SequenceableCollection
-    \subitem (classe), \hyperpage{199}, \hyperpage{367}
+    \subitem (classe), \hyperpage{199}, \hyperpage{368}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{doWithIndex:}, 
 		\hyperpage{213}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{first}, 
@@ -1693,9 +1695,9 @@
     \subitem (classe), \hyperpage{21, 22}, \hyperpage{26}, 
 		\hyperpage{59}, \hyperpage{178}, \hyperpage{191}, 
 		\hyperpage{201}, \hyperpage{210}, \hyperpage{213}, 
-		\hyperpage{368}, \hyperpage{433}
+		\hyperpage{369}, \hyperpage{433}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{allRegexMatches:}, 
-		\hyperpage{367}
+		\hyperpage{368}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{anySatisfy:}, 
 		\hyperpage{212}
     \subitem appariement de cha\IeC {\^\i }nes, \hyperpage{211}
@@ -1708,9 +1710,9 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{asMorph}, 
 		\hyperpage{239}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{asRegex}, 
-		\hyperpage{368}
+		\hyperpage{369}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{asRegexIgnoringCase}, 
-		\hyperpage{358}, \hyperpage{368}
+		\hyperpage{358}, \hyperpage{369}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{asUppercase}, 
 		\hyperpage{21}, \hyperpage{26}, \hyperpage{212}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{at:put:}, 
@@ -1722,7 +1724,7 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{copyReplaceAll:}, 
 		\hyperpage{211}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{copyWithRegex:matchesReplacedWith:}, 
-		\hyperpage{356}, \hyperpage{359}, \hyperpage{367}
+		\hyperpage{356}, \hyperpage{359}, \hyperpage{368}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{expandMacros}, 
 		\hyperpage{212}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{expandMacrosWith:}, 
@@ -1740,18 +1742,18 @@
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{match:}, 
 		\hyperpage{193}, \hyperpage{211}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesRegex}, 
-		\hyperpage{366}
+		\hyperpage{367}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesRegex:}, 
 		\hyperpage{351}, \hyperpage{354, 355}, \hyperpage{360}, 
-		\hyperpage{368}, \hyperpage{372}
+		\hyperpage{368}, \hyperpage{373}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{matchesRegexIgnoringCase:}, 
-		\hyperpage{366}
+		\hyperpage{367}
     \subitem pattern matching, 
 		\see{String, appariement de cha\IeC {\^\i }nes}{211}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{prefixMatchesRegex:}, 
-		\hyperpage{366}
+		\hyperpage{367}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{prefixMatchesRegexIgnoringCase:}, 
-		\hyperpage{366}
+		\hyperpage{367}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{regex:matchesCollect:}, 
 		\hyperpage{367}
     \subitem \lstinline [mathescape=false,backgroundcolor=\color  {white},basicstyle={\sffamilyFB  \upshape  }]{regex:matchesDo:}, 

@@ -6,6 +6,9 @@ ajouter ici)
 ***********************
 *** Comment by chapters
 **TODO (must be sent to SBE mailing list):
+* Regex:
+- not very 'by Example'
+- some mistake to report (see PharoFrench/Regex/Regex.tex annotation)
 * Morphic:
 - the redClick/yellowClick-thing method should be replaced by another
 name/convention in Pharo code in order to have the same names:
@@ -14,6 +17,10 @@ click/metaclick/actionclick
 - PharoBook/Metaclasses/figures/InspectingColor.png may be
 PharoFrench/Metaclasses/figures/InspectingColor.png (using the newest
 Inspector in a 0.1 preprint image)
+* (Environment, Morphic, FirstApp, QuickTour)
+- track 'cross' or \sf{X}, the word used for the three bubbles on the
+top of each window must be the same as red bubble, yellow
+bubble... replaced the close button etc...
 
 **SENT/DONE (advice/previous update):
 * BasicClasses:
