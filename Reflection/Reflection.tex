@@ -103,7 +103,7 @@ Afin d'activer le rafraîchissement de la fenêtre, évaluer \ct!self contentsCh
 Comment fonctionne l'inspecteur ?
 En \st, toutes les variables d'instances sont protégées.
 En théorie, il est impossible d'y accéder depuis un autre objet si la classe ne définit pas d'accesseur.
-In practice, the inspector can access instance variables without needing accessors, because it uses the reflective abilities of \st.
+En pratique, l'inspecteur peut accéder aux variables sans avoir besoin d'accesseurs, parce qu'il utilise les capacités réflexives de \st.
 In \st, classes define instance variables either by name or by numeric indices.
 The inspector uses methods defined by the \ct!Object! class to access them: \lct{instVarAt: \emph{index}} and \lct{instVarNamed: \emph{aString}} can be used to get the value of the instance variable at position \lct{\emph{index}} or identified by \lct{\emph{aString}}, respectively; to assign new values to these instance variables, it uses \ct!instVarAt:put:! and \ct!instVarNamed:put:!.
 \mthindex{Object}{instVarAt:}
@@ -212,7 +212,7 @@ Development tools, however, are not normal applications, since their domain is t
 %\on{let's not mention this if we don't actually write such a chapter!}
 
 %-----------------------------------------------------------------
-\subsection{Code metrics}
+\subsection{Métriques de code}
 
 Let's see how we can use \st's introspection features to quickly extract some code metrics.
 Code \ind{metrics} measure such aspects as the depth of the inheritance hierarchy, the number of direct or indirect subclasses, the number of methods or of instance variables in each class, or the number of locally defined methods or instance variables.
@@ -242,7 +242,7 @@ This informs us about the relation between the class and its superclasses.
 In the next sections we will see how to exploit our knowledge of the runtime structure to answer such questions.
 
 %======================================
-\section{Browsing code}
+\section{Parcourir le code}
 
 In \st, everything is an object. In particular, classes are objects that provide useful features for navigating through their instances.
 Most of the messages we will look at now are implemented in \ct{Behavior}, so they are understood by all classes.
@@ -344,7 +344,7 @@ SystemNavigation default browseAllSelect: [:method | method sendsToSuper ].
 \end{code}
 
 %======================================
-\section{Classes, method dictionaries and methods}
+\section{Classes, dictionnaires de méthodes et méthodes}
 
 Since classes are objects, we can inspect or explore them just like any other object.
 
