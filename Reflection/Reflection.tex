@@ -411,7 +411,7 @@ There is a convenience method \clsmthind{CompiledMethod}{methodReference} to ret
 \end{code}
 
 %======================================
-\section{Browsing environments}
+\section{Environnements de navigation du code}
 
 Although \clsind{SystemNavigation} offers some useful ways to programmatically query and browse system code, there is a better way.  The \ind{Refactoring Browser}, which is integrated into \pharo, provides both interactive and programmatic ways to pose complex queries.
 
@@ -862,19 +862,19 @@ Method wrappers can be used to perform any kind of suitable behaviour before or 
 %======================================
 \section{Pragmas}
 
-A \emphind{pragma} is an annotation that specifies data about a program, but is not involved in the execution of the program. Pragmas have no direct effect on the operation of the method they annotate.
-Pragmas have a number of uses, among them:
+Un \emphind{pragma} est une annotation qui donne des information sur un programme, mais qui n'est pas directement impliqué dans l'exécution de ce programme. Les pragmas n'ont pas d'effet direct lors du déroulement d'une méthode annotée.
+Les pragmas sont très utiles notamment pour :
 \begin{itemize}
-\item Information for the compiler: \indmain{pragmas} can be used by the compiler to make a method call a primitive function. This function has to be defined by the virtual machine or by an external plugging.
-\item Runtime processing: Some pragmas are available to be examined at runtime.
+\item Donner de l'information au compilateur : les \indmain{pragmas} peuvent être utilisés par le compilateur pour qu'une méthode appelle une fonction primitive. Cette fonction doit être définie par la machine virtuelle ou au moyen d'un greffon externe.
+\item Donner de l'information à l'exécution.
 \end{itemize}
 
-Pragmas can be applied to a program's method declarations only. A method may declare one or more pragmas, and the pragmas have to be declared prior any Smalltalk statement. Each pragma is in effect a static message send with literal arguments.
+Les pragmas s'utilisent uniquement lors de la déclaration des méthodes d'un programme. Une méthode peut déclarer un ou plusieurs pragmas qui sont écrits avant toutes expressions Smalltalk. En réalité, un pragma défini une sorte de message statique avec des arguments qui sont des litéraux.
 
-We briefly saw pragmas when we introduced primitives earlier in this chapter. A primitive is nothing more than a pragma declaration. 
+Nous avons déjà parlé brièvement des pragmas lorsque nous avons briévement introduit la notion de primitives précédemment dans ce chapitre. Une primitive n'est rien moins qu'une déclaration de pragma. 
 Consider \ct{<primitive: 73>} as contained in \ct{instVarAt:}. The pragma's selector is \ct{primitive:} and its arguments is an immediate literal value, \ct{73}. 
 
-The compiler is probably the bigger user of pragmas. SUnit is another tool that makes use of annotations. SUnit is able to estimate the coverage of an application from a test unit. One may want to exclude some methods from the coverage. This is the case of the \ct!documentation! method in \ct!SplitJointTest class!:
+Le compilateur Smalltalk est probablement l'un des utilisateurs les plus important des pragmas. SUnit is another tool that makes use of annotations. SUnit is able to estimate the coverage of an application from a test unit. One may want to exclude some methods from the coverage. This is the case of the \ct!documentation! method in \ct!SplitJointTest class!:
 
 \begin{code}{}
 SplitJointTest class>>>documentation
@@ -918,10 +918,10 @@ A variant of \ct{allNamed:in:} may be found on the class side of \ct{Pragma}.
 
 A pragma knows in which method it is defined (using \ct{method}), the name of the method (\ct{selector}), the class that contains the method (\ct{methodClass}), its number of arguments (\ct{numArgs}), about the literals the pragma has for arguments (\ct{hasLiteral:} and \ct{hasLiteralSuchThat:}). 
 
-\lr{Typically pragmas are performed on an interpreter object that understands the pragma message.}
+%\lr{Typically pragmas are performed on an interpreter object that understands the pragma message.}
 
 %======================================
-\section{Chapter summary}
+\section{Résumé du chapitre}
 
 Reflection refers to the ability to query, examine and even modify the metaobjects of the run-time system as ordinary objects.
 
