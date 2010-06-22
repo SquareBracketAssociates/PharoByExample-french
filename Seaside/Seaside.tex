@@ -14,8 +14,8 @@
 % 2009-05-06 - Oscar converted to Pharo; fixed review comments
 % 2009-11-18 - Martial started the french translation
 % 2010-01-08 - Rene started the first rereading
-% 
-% sync avec la version: 29667
+% 2010-06-22 - Martial update
+% sync avec la version: 33691
 %
 %=================================================================
 \ifx\wholebook\relax\else
@@ -200,7 +200,7 @@ Vous devriez voir une page web semblable à celle de \figref{seasideStartup}.
 Cette page est une petite application Seaside nommée
 \subind{Seaside}{counter}: elle affiche un
 compteur qui peut être incrémenté et décrementé en cliquant sur les
-liens \link{++} et \link{--\,--}.
+liens \link{++} et \link{{-}{-}}.
 
 \noindent
 \dothis{Amusez-vous un peu avec l'application ``counter'' en cliquant sur
@@ -269,7 +269,7 @@ Dans le coin supérieur droit, le
  \link{R} et le  \link{S} vous laissent basculer entre la vue du
  code rendue et celle du code source.
 Essayez donc en cliquant sur ces différents liens.
-Remarquez que les liens \link{++} et \link{--} sont aussi actifs dans
+Remarquez que les liens \link{++} et \link{{-}{-}} sont aussi actifs dans
 la vue du code source.
 \mb{More and more browsers, Safari/Firefox, provide pretty-print code view!}
 \arevoir{Observez d'ailleurs le formatage en couleurs du code source fourni
@@ -502,7 +502,7 @@ classe \ct{initialize} est utilisée pour cela (voir
 \figref{WACounter}).
 
 \ct{WACounter} définit deux méthodes, \ct{increase} et \ct{decrease},
-qui seront déclenchés par les liens \link{++} et \link{--\,--} sur la
+qui seront déclenchés par les liens \link{++} et \link{{-}{-}} sur la
 page web.
 Cette classe définit aussi une variable d'instance 
  \ct{count} pour enregistrer l'état du compteur.
@@ -2074,7 +2074,7 @@ Vous pouvez aussi ajouter la bibliothèque de manière programmatique
 \begin{code}{}
 MyCalculator class>>>initialize
 	(self registerAsApplication: 'rpn')
-		addLibrary: SULibrary}}
+		addLibrary: SULibrary
 \end{code}
 
 \begin{figure}[ht]

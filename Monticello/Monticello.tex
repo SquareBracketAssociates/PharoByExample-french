@@ -14,7 +14,7 @@
 % french adaptation (merge with SBE chapter startup) - martial
 % Thu Sep 10 23:16:50 CEST 2009
 
-% synchro avec: 29309
+% synchro avec: 31695
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -213,7 +213,7 @@ La bonne manière de le faire consiste à définir un
 paquetage\,---\,nommé \ct{Perfect}\,---\,contenant
 \ct{PerfectTest} et toutes les classes et méthodes à venir. Pour le
 moment, il n'y a pas de tel paquetage. Nous n'avons qu'une
-\emph{catégorie} nommé \arevoir{justement}% (not coincidentally)
+\emph{catégorie} nommée \arevoir{justement}% (not coincidentally)
 \ct{Perfect}. %This is perfect (ugh!), since \MC will map categories
               %to packages for us.
 C'est suffisant: \MC va \arevoir{transformer} les catégories en
@@ -1112,9 +1112,8 @@ Vous risqueriez d'avoir des problèmes puisque
 %-----------------------------------------------------------------
 \subsection{Initialisation de classe}
 
-\alex{Where are the two emph\{\} for?}
-\emph{classe!initialisation}
-\emph{Monticello!initialisation de classe}
+\index{classe!initialisation}
+\index{Monticello!initialisation de classe}
 Lorsque \MC charge un paquetage dans une image, toute classe
 définissant la méthode  \ct{initialize} dans le côté classe se verra
 envoyer le message  \ct{initialize}. 
@@ -1177,6 +1176,25 @@ sera ajoutée si elle n'existait pas.}
 %\alex{Probably, but this seems to be broken with \MC}
 
 %=================================================================
+\section{Récupérer un \changeset de deux versions}
+\tradalert{martial}{c'est une nouvelle section: traduite pas relue}
+
+%:\alex{Change set were seen in Chapter 6, page 135 of the version 1 of PBE}
+Une version Monticello est un cliché d'un ou plusieurs paquetages. Une version contient l'ensemble complet des définitions des classes et méthodes qui constituent les \arelire{paquetages sous-jacents}.
+Il est utile quelquefois d'avoir un ``\emph{patch}'' de deux versions. Un \emph{patch} (que nous pourrions traduire par ``rustine'') est l'ensemble des effets de bord nécessaires dans le système pour transformer une version A en une autre version B.
+
+Le \changeset est un mécanisme inclus dans \pharo pour définir des \emph{patches}\footnote{NdT: \emph{patches} est le pluriel de \emph{patch}.}-système. Le nouveau \changeset peut être créé et édité via le \emph{Change Sorter}. Cet outil est disponible depuis l'option \menu{World\go{}Tools}.
+
+La différence entre deux versions Monticello peut être récupérée facilement en créant un nouveau \changeset avant de charger une seconde version d'un paquetage.
+Pour illuster cela, nous allons récupérer les différences entre la version 1 et la version 2 du paquetage \pkg{Perfect}:
+%The difference between two Monticello versions may be easily captured by creating a new change set before loading a second version of a package. As an illustration, we will capture the differences between version 1 and 2 of the \pkg{Perfect} package:
+\begin{enumerate}
+\item chargez la version 1 de \pkg{Perfect} depuis le navigateur Monticello;
+\item ouvrez un Change Sorter et créez un nouveau \changeset. Appelons-le \lct{DiffPerfect};
+\item chargez la version 2;
+\item dans le Change Sorter, observez maintenant la différence entre la version 1 et la version 2. Sauvegardez le \changeset sur le système de fichiers en \actclickant dessus et en sélectionnant l'option \menu{file out}. Un fichier \menu{DiffPerfect.X.cs} apparaît désormais à côté de votre fichier-image \pharo.
+\end{enumerate}
+
 \section{Les variétés de dépôts}%{Kinds of repositories}
 \seclabel{monti:repositories}
 
@@ -1309,6 +1327,22 @@ développeur\,---\,le mainteneur du paquetage, par exemple\,---\,ou une
 liste de diffusion telle que pharo-project.
 Toutes versions sauvegardées dans un tel dépôt sera envoyées à cette
 adresse email. Les dépôts SMTP sont en écriture seule.
+
+\tradalert{martial}{nouveau paragraphe: traduit pas relu}
+\paragraph{Ajout programmatique de dépôts}
+Pour des besoins spécifiques, il peut être nécessaire de ajouter de nouveaux dépôts façon programmatique. Ceci se produit lorsque vous gérez la \arevoir{configuration d'un vaste ensemble de paquetages Monticello distribués} ou simplement, durant la personnalisation des entrées disponibles dans le Monticello Browser. Par exemple, le morceau de code suivant ajoute de manière programmatique des nouveaux dépôts-répertoire.
+%Programmatically adding repositories} For particular purposes, it may be necessary to programmatically add new repositories. This happens when managing configuration and large set of distributed monticello packages or simply customizing the entries available in the Monticello browser. For example, the following code spinet programmatically adds new directory repositories
+
+\begin{code}
+| repo |
+{'/path/to/repositories/project-1/'. 
+'/path/to/repositories/project-2/'. 
+'/path/to/repositories/project-3/'. } do: 
+[ :path |
+	repo := MCDirectoryRepository new directory: 
+		(FileDirectory on: path).
+	MCRepositoryGroup default addRepository: repo ].
+\end{code}
 
 %\paragraph{\sqmap Release} This is a write-only repository used for publishing releases of a package to \sqmap. To configure the repository enter the name of the package on \sqmap, your \sqmap initials and your \sqmap password. Now any versions saved to the repository will be uploaded to your \sqmap account, and registered as a new release with \sqmap.  
 

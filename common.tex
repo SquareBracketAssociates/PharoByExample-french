@@ -2,7 +2,8 @@
 % $Date$ Wed Oct 10 13:34:55 CEST 2007
 % $Revision$ source: SBE 12715 
 % Last Changed Date: 2007-10-08 21:32:45 +0200 (Mon, 08 Oct 2007)
-% sync avec la version: 29516 - Mon Nov 16 19:12:49 2009
+% revision: dpollet - 2010-05-16 14:05:40 +0200 (Sun, 16 May 2010)
+% sync avec la version: 33691 - Tue Jun 22 11:51:51 CEST 2010
 %=============================================================
 % NB: documentclass must be set in main document.
 % Allows book to be generated in multiple formats.
@@ -14,7 +15,7 @@
 %\usepackage[scaled=0.85]{bookmanx} % needs another scale factor if used with \renewcommand{\sfdefault}{cmbr}
 \usepackage{palatino}
 \usepackage[scaled=0.85]{helvet}
-\usepackage{microtype}
+\usepackage[protrusion,expansion=false]{microtype}
 \usepackage{graphicx}
 \usepackage{theorem}
 \usepackage[utf8]{inputenc}
@@ -453,7 +454,7 @@ pdfsubject={Informatique, Computer Science}
     {>>>}{{\sep}}1
     {^}{{$\uparrow$}}1
     {~}{{$\sim$}}1
-    {-}{{\textminus}}1 %{-}{\hspace{-0.13em}}{-}}1  % the goal is to make - the same width as +
+    {-}{{\texttt{-}}}1 %{\textminus}}1 %{-}{\hspace{-0.13em}}{-}}1  % the goal is to make - the same width as +
     % {+}{\sf+}1 %{\raisebox{0.08ex}{+}}}1      % and to raise + off the baseline to match -
     {-->}{{\quad$\longrightarrow$\quad}}3
 	, % Don't forget the comma at the end!

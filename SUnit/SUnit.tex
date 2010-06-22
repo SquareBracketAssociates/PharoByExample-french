@@ -11,7 +11,7 @@
 % relu par Rene Mages (Sat Jan 9 8:57;55 CET 2010)
 % $Author: oscar $ % $Date: 2009-08-28 10:41:41 +0200 (Fri, 28 Aug
 % 2009) $ % $Revision: 28654 $
-% sync avec la revision: 29460
+% sync avec la revision: 33691
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -347,7 +347,7 @@ TestCase subclass: #ExampleSetTest
 % TestCase subclass: #ExampleSetTest
 % 	instanceVariableNames: 'full empty'
 % 	classInstanceVariableNames: ''
-% 	category: 'MyTest'
+% 	category: 'MySetTest'
 % \end{classdef}
 
 Nous utiliserons la classe \ct{ExampleSetTest} pour regrouper tous les tests relatifs
@@ -517,7 +517,7 @@ Les classes abstraites sont en italique et la hiérarchie des classes de test es
 \end{figure}
 
 
-\dothis{Ouvrez le Test Runner, sélectionnez la catégorie \menu{MyTest} et cliquez le bouton \button{Run Selected}.}
+\dothis{Ouvrez le Test Runner, sélectionnez la catégorie \menu{MySetTest} et cliquez le bouton \button{Run Selected}.}
 
 % ON: With OB, you don't need this.
 %Vous pouvez aussi exécuter votre test en évaluant un \menu{print it} sur le code suivant~: \ct{(ExampleSetTest selector: #testRemove) run}. L'expression suivante est équivalente mais plus concise~: \ct{ExampleSetTest run: #testRemove}. Il nous est habituel d'inclure un commentaire exécutable à notre méthode de test ce qui nous permet de les exécuter avec un \menu{do it} depuis le \ct{System Browser}, comme il est montré dans \mthref{ExampleSetTestTestRemoveii}.

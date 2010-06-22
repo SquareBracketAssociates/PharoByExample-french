@@ -23,13 +23,16 @@ Les parties I,II,III,IV sont en cours de modifications (martial)
 
 Répartition des taches:
 
+- figures: (en cours par Martial)
+  + conversion en png des graffles
+
 - Seaside:
   + index: Seaside!forms serait mieux en Seaside!XHTML!form
 
 - Regex: 
   + voir dans les chapitres antérieurs comme BasicClasses: appariement <-> concordance (faire un choix)
 
-- Reflection:
+- Reflection: (en cours de traduction par Serge)
 
 - Exceptions:  
   + ATTENDRE

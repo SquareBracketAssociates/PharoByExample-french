@@ -8,7 +8,7 @@
 % relecture : Rene Mages (12 jan 2010) de la version #30229
 % - oscar - 28661 - $Date: 2009-08-28 11:31:14 +0200 (Fri, 28 Aug
 % 2009) $
-% sync avec la revision: 29170
+% sync avec la revision: 33691
 \ifx\wholebook\relax\else
 % --------------------------------------------
 % Lulu:
@@ -290,7 +290,7 @@ arbitraire définie par le créateur de la collection.
 	Un \clsind{String}, un \clsind{CharacterArray} ou \clsind{Symbol} ne contiennent cependant que des caractères de classe \ct{Character}.
 	Un \clsind{Array} pourra inclure un mélange de différents objets
  mais un tableau d'octets \lct{ByteArray} ne comprendra que des 
-octets \ct{Byte}; tout comme un \clsind{IntegerArray} n'a que des entiers \ct{Integer}s et qu'un \clsind{FloatArray} ne peut contenir que des réels à virgule flottante de classe \ct{Float}.
+octets \lct{Byte}; tout comme un \clsind{IntegerArray} n'a que des entiers \ct{Integer}s et qu'un \clsind{FloatArray} ne peut contenir que des réels à virgule flottante de classe \ct{Float}.
 	Une liste chaînée \clsind{LinkedList} est contrainte à ne 
 pouvoir contenir que des éléments qui sont conformes au protocole
 \prot{Link \go accessing}.
@@ -670,7 +670,7 @@ pouvons aussi convertir un dictionnaire en tableau d'associations.
 
 \needlines{5}
 \begin{code}{@TEST | colors |}
-colors := Dictionary newFrom: { #blue->Color blue. #red->Color red. #yellow->Color yellow }.
+colors := Dictionary newFrom: { #blue->Color blue . #red->Color red . #yellow->Color yellow }.
 colors removeKey: #blue.
 colors associations --> {#yellow->Color yellow . #red->Color red}
 \end{code}
