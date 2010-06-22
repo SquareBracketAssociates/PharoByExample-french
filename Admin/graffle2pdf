@@ -1,8 +1,11 @@
 #!/usr/bin/env ruby
+# coding: utf-8
 #
 # Usage: graffle2pdf in.graffle out.pdf
 
-OMNIGRAFFLE =  "OmniGraffle Professional 5"
+# adaptation fr by martial
+
+OMNIGRAFFLE =  "OmniGraffle Professional" # works with OG4.1 on 10.6.3 (Adobe Unit Types.osax linking changes but it's ok)
 
 MAKERULE = <<EOF
 
@@ -69,3 +72,4 @@ end
 # 
 # open = omnigraffle.documents.path.get
 # puts open
+#

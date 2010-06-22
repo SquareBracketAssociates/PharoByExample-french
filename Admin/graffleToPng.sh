@@ -20,6 +20,8 @@ done
 SCRIPT=`dirname $0`
 for f in `find "${searchRootDir:=.}" -name \*.graffle`; do
    dest="${f/%.graffle/.png}"
+   odt_alternative="${f/%.graffle/.odt}"
+   [ -f "$odt_alternative" ] && break # if .odt file, do nothing (see Collections/figures)
    if [ -f "$dest" ]; then
       echo "Already exists: $dest"
    else
