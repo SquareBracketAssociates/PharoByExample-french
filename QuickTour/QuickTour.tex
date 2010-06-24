@@ -8,15 +8,16 @@
 % collapse a window --> ranger la fenetre (et pas reduire, si vous
 % voyez cette erreur, SVP merci de corriger)
 %%%%%%%%%%%%%%%%%%%%%%
-% relecture: Rene Mages (fusion par martial: Wed Dec 26 17:28:17 CET 2007)
-% relecture: Rene Mages (Sat Jan 12 17:28:17 CET 2008)
-% note de martial: revoir les index pour les termes liés à Morphic
+% relecture: Rene Mages (fusion par martial: Wed Dec 26 17:28:17 CEST 2007)
+% relecture: Rene Mages (Sat Jan 12 17:28:17 CEST 2008)
+% note de Martial: revoir les index pour les termes liés à Morphic
 % adaptation pour PBE - 28729
-% relecture: Rene Mages (Thu Jan 7 11:22:22 CET 2010)
+% relecture: Rene Mages (Thu Jan 7 11:22:22 CEST 2010)
 % sync avec la version: 29170
 % sync avec la version: 29247 changement des icônes pour squeak.exe
-% mise à jour: martial (Tue Jun 22 11:51:51 CEST 2010)
+% mise à jour: Martial (Tue Jun 22 11:51:51 CEST 2010)
 % sync avec la version: 33691
+% relecture: Rene Mages  (Thu Jun 24 13:22:22 CEST 2010)
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -53,8 +54,7 @@
 \chalabel{quick}
 
 Nous vous proposons dans ce chapitre une première visite de \pharo afin de vous familiariser avec son environnement.
-De nombreux aspects seront abordés; il est conseillé d'avoir une
-machine prête à l'emploi pour suivre ce chapitre. 
+De nombreux aspects seront abordés; il est conseillé d'avoir une machine prête à l'emploi pour suivre ce chapitre. 
 
 Cette icône \dothisicon{} dans le texte signalera les étapes où vous devrez essayer quelque chose par vous-même.
 Vous apprendrez à lancer \pharo et les différentes manières d'utiliser l'environnement et les outils de base.
@@ -81,8 +81,7 @@ constituent une installation courante de \pharo; voir \figref{download})
   est particulière à chaque \arelire{couple système d'exploitation et
     processeur}. Des machines virtuelles pré-compilées sont disponibles pour la plupart des
   systèmes (Linux, \macosx, Win32). Dans \figref{download}, \arelire{vous
-pouvez voir que la machine virtuelle pour la plateforme choisie   
-avez par exemple l'icône de la machine virtuelle pour le système est
+pouvez voir que la machine virtuelle pour la plateforme choisie est
 appelée \textit{Pharo.exe}.} % CHANGE 29247
 %martial: ajout des index dans la vf
 \index{machine virtuelle}
@@ -104,8 +103,8 @@ avec \squeak.}}
   \pharo{} en fonctionnement, figé à un instant donné. 
 Il est composé de deux fichiers: le premier nommé avec l'extension
 \emph{.}\emphind{image} contient l'état de tous les objets du système
-dont les classes et les méthodes (qui sont aussi des
-objets). Le second avec l'extension \emph{.}\emphind{changes} contient
+dont les classes et les méthodes (qui sont aussi des objets). 
+Le second avec l'extension \emph{.}\emphind{changes} contient
 le journal de toutes les modifications apportées au code source du
 système (contenu dans le fichier source).
 \arelire{Dans \figref{download}, ces fichiers sont appelés
@@ -186,8 +185,7 @@ Les options du menu World (``Monde'' en anglais) présentées dans
 
 \dothis{Cliquez à l'aide de la souris dans l'arrière plan de la
   fenêtre principale pour afficher le menu World, puis sélectionnez
-  \menu{Workspace} pour créer un nouvel espace de
-  travail ou Workspace.}
+  \menu{Workspace} pour créer un nouvel espace de travail ou Workspace.}
 
 \begin{figure}[tbh]
 	\centering
@@ -256,7 +254,7 @@ permettant des actions telles que \emph{changer la taille} ou
 \emph{faire pivoter l'objet}, comme vous pouvez le voir sur
 \figref{threeButtons:metaclick}~\footnote{Notez que les icônes
     Morphic sont inactives par défaut dans \pharo, mais vous pouvez
-    les désactiver via le Preferences Browser que nous verrons plus
+    les activer via le Preferences Browser que nous verrons plus
     loin.}. % CHANGE 29247
 En survolant lentement une icône avec le pointeur de votre souris,
 une bulle d'aide en affichera un descriptif de sa fonction.
@@ -475,7 +473,7 @@ certains seront supprimés et l'espace-mémoire utilisé sera récupéré
 En quittant \pharo vous sauvegardez un instantané de tous vos objets. 
 En sauvegardant (par ``Save''), vous remplacerez l'image courante par 
 l'instantané de votre session. Pour préserver l'image courante, vous 
-devez enregister sous un nouveau nom comme nous venons de le faire.
+devez enregistrer sous un nouveau nom comme nous venons de le faire.
 
 Chaque fichier \emph{.image} est accompagné d'un fichier \emph{.changes}.
 Ce fichier contient un journal de toutes les modifications que vous avez 
@@ -548,7 +546,7 @@ des messages du système. C'est un genre de ``console''.
 % ON: I think the transcript has been made thread-safe now, right?
 
 %%%% martial: Sat Dec 15 14:13:47 CET 2007
-Les fenêtres de Workspace ou espace de travail sont destinées à
+Les fenêtres Workspace (ou espace de travail) sont destinées à
 y saisir vos expressions de code \st à expérimenter.
 Vous pouvez aussi les utiliser simplement pour taper une quelconque
 note de texte à retenir, comme une liste de choses à faire (en
@@ -628,13 +626,11 @@ générique par \short{\emph{touche}}).
   cette fois-ci le raccourci-clavier: \short{d}.}
 \index{raccourci-clavier!do it}
 
-En plus de \menu{do it}, vous aurez noté la présence de
-\menu{print it} 
+En plus de \menu{do it}, vous aurez noté la présence de \menu{print it} 
 %ajout
 (pour évaluer et afficher le résultat dans le même espace de travail), 
 de \menu{inspect it} (pour inspecter) et de \menu{explore it} (pour
-explorer). 
-Jetons un coup d'\oe il à ceux-ci.
+explorer). Jetons un coup d'\oe il à ceux-ci.
 
 \dothis{Entrez l'expression \ct{3 + 4} dans le Workspace. Maintenant
   évaluez en faisant un \menu{do it} avec le raccourci-clavier.}
@@ -835,12 +831,12 @@ Nous pouvons voir un navigateur de classes sur \figref{classBrowser}.
 La barre de titre indique que nous sommes en train de parcourir la
 classe \clsind{Object}.
 
-à l'ouverture du Browser, tous les panneaux sont vides excepté
-le premier à gauche.
+à l'ouverture du Browser, tous les panneaux sont vides excepté le premier à gauche.
 Ce premier panneau liste tous les \emph{paquetages} 
 % vf
 (en anglais, \emph{packages}) connus; 
 ils contiennent des groupes de classes apparentées.
+% Rene : hesitation entre apparentées et parentes (voire connexes)
 %\index{catégorie}
 
 \dothis{\clickz{} sur le paquetage \scatind{Kernel}.}
@@ -869,10 +865,10 @@ Dès lors, vous voyez dans la partie inférieure du Browser
 le code source de la méthode \ct{printString} partagé par tous
 les objets 
 %ajout
-(tous dérivés de la classe Object, exception faite de ceux qui la surcharge).
+(tous dérivés de la classe Object, exception faite de ceux qui la surchargent).
 
 %=================================================================
-\section{Trouver les classes}
+\section{Trouver des classes}
 
 Il existe plusieurs moyens de trouver une classe dans \pharo.
 Tout d'abord, comme nous l'avons vu plus haut, nous pouvons savoir (ou
@@ -1004,10 +1000,10 @@ navigateur ira directement à cette classe sans montrer aucune liste
 de classes à choisir.
 
 %=================================================================
-\section{Trouver les méthodes}
+\section{Trouver des méthodes}
 \seclabel{quick:methodFinder}
 
-Vous pouvez parfois deviner le nom de la méthode ou, tout au moins,
+Vous pouvez parfois deviner le nom de la méthode, ou tout au moins
 une partie de son nom plus facilement que le nom d'une classe.
 Par exemple, si vous êtes intéressé par la connaissance du temps
 actuel, vous pouvez vous attendre à ce qu'il y ait 
@@ -1093,7 +1089,7 @@ panneau inférieure vous apprendra \arelire{comment faire}. % CHANGE
 %=================================================================
 \section{Définir une nouvelle méthode}
 \seeindex{développement orienté tests}{Test Driven Development}
-L'avènement de la méthodologie de développement orienté tests
+L'avènement de la méthodologie de développement orientée tests
 ou \emphind{Test Driven Development}\cite{Beck03a} a changé la
 façon d'écrire du code.
 L'idée derrière cette technique aussi appelée TDD se résume par l'écriture
@@ -1106,7 +1102,7 @@ code \emph{avant} celle du code proprement dit.
 
 %says something loudly and with emphasis
 Supposons que nous voulions écrire une méthode qui ``hurle quelque
-chose''. Qu'est-ce que cela veut dire au juste? Quelle serait le nom
+chose''. Qu'est-ce que cela veut dire au juste? Quel serait le nom
 le plus convenable pour une telle méthode? Comment pourrions-nous
 être sûrs que les programmeurs en charge de la maintenance future
 du code auront une description sans ambigu\"{\i}té de ce que ce code
