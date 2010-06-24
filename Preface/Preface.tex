@@ -9,6 +9,7 @@
 % relecture: martial boniou: Mon Feb 11 11:58:24 CET 2008
 % adaptation pour Pharo: martial - Thu Sep 10 23:36:52 CEST 2009 
 % relecture: rene mages : Sat Jan 9 18:18:18 CET 2010
+% relecture: rene mages : Thu Jun 24 18:18:18 CET 2010
 % $Author: mars $ $Date: 2009-09-09 12:48:45 +0200 (Wed, 09 Sep 2009)
 % $ $Revision: 29014 $
 % sync: 29170
@@ -48,8 +49,9 @@
 
 \pharo est une implémentation moderne, libre et complète du
 langage de programmation \st et de son environnement. \pharo est
-dérivé de \squeak\cite{Inga97a}, une ré-programmation du classique
-système \st-80. Alors que \squeak fut développé principalement en tant que
+un \emph{fork}\footnote{Projet dérivé.} de \squeak\cite{Inga97a}, 
+une réécriture du classique système \st-80. 
+Alors que \squeak fut développé principalement en tant que
 plateforme pour le développement de logiciels éducatifs
 expérimentaux, \pharo tend à offrir une plateforme,
 à la fois, \emph{open-source} et épurée pour le développement de
@@ -65,6 +67,8 @@ a débuté en mars 2008 depuis un \emph{fork}\footnote{Embranchement à
 partir duquel le code d'un logiciel sert de base à un nouveau produit.}
 de \squeak 3.9 et la première version 1.0 \emph{beta} a été publiée le
 31 juillet 2009. % CHANGE
+
+% Rene : il nous faut harmoniser les deux \emph{fork} des lignes 52 et 66
 
 Bien que dépourvu de nombreux paquetages présents dans \squeak, \pharo
 est fourni avec beaucoup de fonctionalités optionnelles dans \squeak.
@@ -82,7 +86,9 @@ un ensemble de projets innovants, des applications multimédias et
 Il est important de préciser le fait suivant concernant \pharo: 
 \pharo ne devrait pas être qu'une simple copie du passé mais véritablement
 une \emph{réinvention} de Smalltalk. \arevoir{Les approches en \emph{big bang}
-fonctionnent rarement.} \pharo encourage les changements évolutifs et
+fonctionnent rarement.} 
+% Rene : au lieu de big bang nous pourrions peut-être employer l'expression "tabula rasa" ou "table rase" 
+\pharo encourage les changements évolutifs et
 incrémentaux. Nous voulons être capable d'expérimenter via les
 nouvelles fonctionalités et autre bibliothèques. Par \emph{évolution},
 nous disons que \pharo tolèrent les erreurs et n'a pas pour objectif
@@ -97,7 +103,7 @@ Le succès de \pharo dépend des contributions de sa communauté.
 %This book is based on \emph{Squeak by Example}\footnote{\sbe}, an open-source introduction to \squeak.
 %The book has been liberally adapted and revised to reflect the differences between \pharo and \squeak.
 %This book presents the various aspects of \pharo, starting with the basics, and proceeding to more advanced topics.
-Ce livre est basé sur \emph{Squeak Par l'Exemple}\footnote{\spe;
+Ce livre est fondé sur \emph{Squeak Par l'Exemple}\footnote{\spe;
   traduction française de Squeak By Example (\sbe).}, une introduction
 à \squeak éditée en \emph{open-source}. Il a néanmoins été librement
 adapté pour refléter les différences entre \pharo et \squeak. Ce livre 
@@ -106,7 +112,7 @@ de base et en poursuivant vers des sujets plus avancés.
 
 Ce livre ne vous apprendra pas à programmer. Le lecteur doit avoir quelques 
 notions concernant les langages de programmation. Quelques connaissances 
-sur la programmation objet seront utiles.
+sur la programmation orientée objet seront utiles.
 
 Ce livre introduit l'environnement de programmation, le langage et
 les outils de \pharo. Vous serez confronté à de nombreuses bonnes
@@ -202,7 +208,7 @@ l'expression et en utilisant l'option \menu{print it} du menu contextuel:
 % mise a jour (12/2007)
 Si vous voulez découvrir \pharo en vous amusant avec ces morceaux de
 code, sachez que vous pouvez charger un fichier texte avec la
-totalité des codes d'exemple via le site web du livre: \ppe. 
+totalité des codes d'exemples via le site web du livre: \ppe. 
 
 La deuxième convention que nous utilisons est l'icône
 \dothisicon{} pour vous indiquer que vous avez quelque chose à faire: 
@@ -283,3 +289,4 @@ l'équipe de traducteurs et de relecteurs suivantes: \arelire{A VENIR.}
    \end{document}
 \fi
 %=============================================================
+
