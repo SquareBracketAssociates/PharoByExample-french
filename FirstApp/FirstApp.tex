@@ -12,6 +12,7 @@
 % relecture: Martial Boniou (01/30/2008) version 15374
 % adaptation pour PBE - martial - (09/20/2009) version 29552
 % relecture: Rene Mages (10/01/2010) version 30222
+% relecture: Rene Mages  (25/06/2010) version 33735
 
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -41,12 +42,14 @@
 \chapter{\titreFirstapp}
 \chalabel{firstApp}
 
-Dans ce chapitre, nous allons développer un jeu simple \arelire{de
-  réflexion}, le jeu \ind{Lights Out}~\footnote{En anglais,
+Dans ce chapitre, nous allons développer un jeu simple de
+réflexion, le jeu \ind{Lights Out}~\footnote{En anglais,
   \url{http://en.wikipedia.org/wiki/Lights_Out_(game)}.
 % martial - TODO ajouter une définition en français
 }. 
-En cours de route, nous allons faire la démonstration de la plupart des outils que les développeurs \pharo utilisent pour construire et déboguer leurs programmes et comment les programmes sont échangés entre les développeurs. Nous verrons notamment le navigateur de classes, l'inspecteur d'objet, le débogueur et le navigateur de \ind{paquetage}{}s \ind{Monticello}. 
+En cours de route, nous allons faire la démonstration de la plupart des outils que \arelire{les développeurs \pharo utilisent pour}
+% Rene propose de supprimer pharo à la ligne précedente.
+construire et déboguer leurs programmes et comment les programmes sont échangés entre les développeurs. Nous verrons notamment le navigateur de classes, l'inspecteur d'objet, le débogueur et le navigateur de \ind{paquetage}{}s \ind{Monticello}. 
 Le développement avec \st est efficace: vous découvrirez que vous passerez beaucoup plus de temps à écrire du code et beaucoup moins à gérer le processus de développement. 
 Ceci est en partie du au fait que \st est un langage très simple, et d'autre part que les outils qui forment l'environnement de programmation sont très intégrés avec le langage.
 
@@ -82,12 +85,12 @@ Nous allons maintenant voir comment créer des paquetages (ou \emph{packages}), 
 \index{catégorie!création}
 \index{package!création}
 
-\dothis{\arelire{Ouvrez un Browser et \actclickz{} sur le panneau des paquetages.
-Sélectionnez \menu{create package}\footnote{Nous supposons que le
-  Package Browser est installé en tant que navigateur de classes par
-  défaut. Si le Browser ne ressemble pas à celui de la
-  \figref{addPackage}, vous aurez besoin de changer le navigateur par
-  défaut. Voyez \faqref{packageBrowser}.}.}}
+\dothis{Ouvrez un Browser et \actclickz{} sur le panneau des paquetages.
+Sélectionnez \menu{create package}\footnote{Nous supposons que le 
+Browser est installé en tant que navigateur de classes par défaut. 
+Si le Browser ne ressemble pas à celui de la
+\figref{addPackage}, vous aurez besoin de changer le navigateur par
+défaut. Voyez \faqref{packageBrowser}.}.}
 
 \begin{figure}[htb]
 \begin{minipage}[b]{0.48\textwidth}
@@ -126,7 +129,7 @@ classe appelée \ct{Object}, lui demandant de créer une sous-classe
 appelée \ct{NameOfSubClass}.  La nouvelle classe n'a pas de variables
 et devrait appartenir à la catégorie \scat{PBE-LightsOut}.
 
-\subsection{\arelire{Des catégories et des paquetages}}
+\subsection{\arelire{A propos des catégories et des paquetages}}
 \seclabel{categoriesPackages}
 
 Historiquement, \st{} ne connaît que les \emph{catégories}. Vous
@@ -205,8 +208,7 @@ Pour effectivement envoyer ce message, vous devez faire \menu{accept}.
 
 \dothis{Acceptez la nouvelle définition de classe.}
 \Actclickz{} et sélectionnez \menu{accept} ou encore utilisez le
-raccourci-clavier \short{s} (pour
-``save'' 
+raccourci-clavier \short{s} (pour ``save'' 
 %ajout
 \cad sauvegarder).
 Ce message sera envoyé à \ct{SimpleSwitchMorph}, ce qui aura pour
@@ -317,7 +319,8 @@ Par exemple, envoyer \ct{self label: ''} affecte le label de cet objet avec la c
 
 L'expression \ct{0@0 corner: 16@16} nécessite probablement plus d'explications.
 \ct{0@0} représente un objet \clsind{Point} dont les coordonnées $x$ et $y$ ont été fixées à 0.
-En fait, \ct{0@0} envoie le message \ct{@}% Yuck... the following should be \mthind{Number}{@} 
+En fait, \ct{0@0} envoie le message \ct{@} au
+% Yuck... the following should be \mthind{Number}{@} 
 %%% THIS IS BROKEN -- don't do it! (on)
 %\def\atsign{\textsf{@}}%
 %{\makeatletter
@@ -326,7 +329,7 @@ En fait, \ct{0@0} envoie le message \ct{@}% Yuck... the following should be \mth
 %	\protected@write\@indexfile{}%
 %    {\string\indexentry{Number!\string\atsign|hyperpage}{\thepage}}%
 %	\makeatother}
-au nombre \ct{0} avec l'argument \ct{0}.
+nombre \ct{0} avec l'argument \ct{0}.
 L'effet produit sera que le nombre \ct{0} va demander à la classe \ct{Point} de créer une nouvelle instance de coordonnées (0,0).
 Puis, nous envoyons à ce nouveau point le message \ct{corner: 16@16}, ce qui cause la création d'un \clsind{Rectangle} de coins \ct{0@0} et \ct{16@16}.
 Ce nouveau rectangle va être affecté à la variable \ct{bounds} héritée de la super-classe.
@@ -350,10 +353,8 @@ dire:  ``Utilise des bords carrés!'' (d'où \ct{useSquareCorners}),
 \section{Inspecter un objet}
 
 Vous pouvez tester l'effet du code que vous avez écrit en créant un
-nouvel objet \ct{LOCell} et en l'inspectant
-% ajout - vf
-\arelire{avec l'inspecteur nommé Inspector}.
-
+nouvel objet \ct{LOCell} et en l'inspectant avec l'inspecteur nommé Inspector.
+% ajout -vf avec l'inspecteur nomme Inspector
 \dothis{Ouvrez un espace de travail (Workspace). Tapez l'expression \ct{LOCell new} et choisissez \menu{inspect it}.}
 
 \begin{figure}[htbp]
@@ -381,19 +382,19 @@ travail. C'est très utile car, dans cet espace de travail, la
 
 % \dothis{Tapez le texte \ct{self openInWorld} dans la zone du bas et
 %  choisissez \menu{do it} via le menu.}
-\dothis{\arelire{Sélectionnez LOCell à la racine de la fenêtre de
+\dothis{Sélectionnez LOCell à la racine de la fenêtre de
     l'inspecteur. Saisissez l'expression 
 \ct{self bounds: (200@200 corner: 250@250)} dans le panneau inférieur et faîtes un
-    \menu{do it} (via le menu contextuel ou le raccourci-clavier).}}
-\arelire{%
- La variable \ct{bounds} devrait changer dans l'inspecteur. 
+    \menu{do it} (via le menu contextuel ou le raccourci-clavier).}
+
+La variable \ct{bounds} devrait changer dans l'inspecteur. 
 Saisissez maintenant \ct{self openInWorld} dans
   ce même panneau et évaluez le code avec \menu{do it}. La cellule
   doit apparaître près du coin supérieur gauche, là où les coordonnées
   \ct{bounds} doivent le faire apparaître.
 \Metaclickz{} sur la cellule afin de faire apparaître son
 \subind{Morphic}{halo} Morphic.
-}
+
 Déplacez la cellule avec la poignée marron (à 
 %côte de celle en haut à droite
 gauche de l'icône du coin supérieur droit) et redimensionnez-la avec la poignée jaune (en bas à droite).
@@ -418,7 +419,7 @@ rose pâle (en haut à gauche).}
 Créons maintenant l'autre classe dont nous avons besoin dans le jeu; nous l'appellerons \clsind{LOGame}.
 
 \dothis{Faites apparaître le modèle de définition de classe dans la fenêtre principale du navigateur.}
-\arelire{Pour cela, \clickz{} sur le nom du paquetage.}
+Pour cela, \clickz{} sur le nom du paquetage.
 Éditez le code de telle sorte qu'il puisse être lu comme suit puis faites \menu{accept}.
 
 \needlines{6}
@@ -588,7 +589,7 @@ C'est pour cela que le navigateur offre un protocole virtuel
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=\textwidth]{Categorize} 
-   \caption{Catégoriser \arelire{automatiquement} toutes les méthodes
+   \caption{Catégoriser \arelire{de façon automatique} toutes les méthodes
      non catégorisées.\figlabel{categorize}}
 \end{figure}
 
@@ -894,19 +895,19 @@ ne se situe pas dans une méthode erronée mais dans l'initialisation de l'objet
 
 \dothis{Exécutez \ct{LOGame new openInWorld} de nouveau.}
 Le jeu doit maintenant se dérouler sans problèmes
-\arelire{\ldots{} ou presque! S'il vous arrive de bouger la souris
+\ldots{} ou presque! S'il vous arrive de bouger la souris
   entre le moment où vous \clickz{} et le moment où vous relâchez le
   bouton de la souris, la cellule sur laquelle se trouve la souris
   sera aussi changée. Ceci résulte du comportement hérité de
   \ct{SimpleSwitchMorph}. Nous pouvons simplement corriger celà en
-  surchargeant \ct{mouseMove:} pour lui dire de ne rien faire:} % CHANGE
+  surchargeant \ct{mouseMove:} pour lui dire de ne rien faire: % CHANGE
 
 % \needlines{6}
 \begin{method}[mouseMove:]{Surcharger les actions associées aux déplacements de la souris}
 LOGame>>>mouseMove: anEvent
 \end{method}
 
-\arelire{Et voilà!} % CHANGE
+Et voilà! % CHANGE
 
 %\sd{It would be good to have a word about the debugger buttons into, step.... Or to have a separate chapter, we would use the material I wrote for my turtle book, please check it.}
 %\on{I think that is too much for this chapter. It will come soon enough.}
@@ -920,16 +921,16 @@ probablement envie de le sauvegarder quelque part de telle sorte à
 pouvoir le partager avec des amis. Bien sûr, vous pouvez sauvegarder
 l'ensemble de votre image \pharo et montrer votre premier programme
 en l'exécutant, mais vos amis ont probablement leur propre code dans
-leurs images et ne veulent pas sans passer pour utiliser votre image.
+leurs images et ne veulent pas s'en passer pour utiliser votre image.
 Nous avons donc besoin de pouvoir extraire le code source d'une image
 \pharo afin que d'autres développeurs puissent le charger dans leurs images.
 
 La façon la plus simple de le faire est d'effectuer une exportation ou
-sortie-fichier (\emph{filing out}) de votre code. \arevoir{Le menu activé en
-\actclickant{} dans le panneau des paquetages vous permet de
-générer un fichier correspondant au paquetage
-\scat{PBE-LightsOut} tout entier via l'option
-\menu{various \go{} file out}.} % CHANGE ATTENDRE REVOIR : devrait être des packages
+sortie-fichier (\emph{filing out}) de votre code. 
+Le menu activé en \actclickant{} dans le panneau des paquetages vous permet de
+générer un fichier correspondant au paquetage \scat{PBE-LightsOut} tout entier 
+via l'option \menu{various \go{} file out}.
+% CHANGE ATTENDRE REVOIR : devrait être des packages
 Le fichier résultant est plus lisible par tout un chacun, même si son
 contenu est plutôt destiné aux machines qu'aux hommes.
 Vous pouvez envoyer par email ce fichier à vos amis et ils peuvent le
@@ -945,8 +946,8 @@ de fichiers File List Browser.
 \index{fichier!exportation}
 
 \dothis{%
-\arelire{\Actclickz{} sur le paquetage
-  \scat{PBE-LightsOut} et choisissez \menu{various \go{} file out} pour exporter le contenu.}}
+\Actclickz{} sur le paquetage
+  \scat{PBE-LightsOut} et choisissez \menu{various \go{} file out} pour exporter le contenu.}
 Vous devriez trouver maintenant un fichier PBE-LightsOut.st dans le même
 répertoire où votre image a été sauvegardée.
 Jetez un coup d'\oe il à ce fichier avec un éditeur de texte.
@@ -1077,7 +1078,7 @@ lorsque nous ajoutons un dépôt au moyen de Monticello.
 Une fois que votre projet a été créé sur \sqsrc, vous devez indiquer au système \pharo de l'utiliser.
 
 \dothis{Avec le paquetage \ct{PBE-LightsOut} sélectionné, cliquez sur le
-  boutton \button{+Repository} dans le navigateur Monticello.}  Vous
+  bouton \button{+Repository} dans le navigateur Monticello.}  Vous
 verrez une liste des différents types de dépôts disponibles; pour
 ajouter un dépôt \sqsrc, sélectionner le menu \menu{HTTP}. Une
 boîte de dialogue vous permettra de rentrer les informations
@@ -1095,7 +1096,7 @@ MCHttpRepository
 \end{code}   
 
 \noindent
-Si vous passez en paramètre des initiales et un mot de passe vide,
+Si vous passez en paramètres des initiales et un mot de passe vide,
 vous pouvez toujours charger le projet, mais vous ne serez pas
 autorisé à le mettre à jour:
 
@@ -1125,9 +1126,9 @@ apparaître dans la partie droite du navigateur Monticello.
 Pour charger un paquetage dans votre image, vous devez d'abord
 sélectionner une version particulière. Vous pouvez faire cela dans le
 navigateur de dépôts \emph{Repository Browser}, que vous pouvez ouvrir
-\arelire{avec le bouton \button{Open} ou en \actclickant{}
+avec le bouton \button{Open} ou en \actclickant{}
 % ajout - vf
-pour choisir \menu{open repository} dans le menu contextuel.} % CHANGE
+pour choisir \menu{open repository} dans le menu contextuel. % CHANGE
 Une fois que vous avez sélectionné une version, vous pouvez la
 charger dans votre image.
 
