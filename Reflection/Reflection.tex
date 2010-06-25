@@ -138,7 +138,7 @@ Although it is possible to modify the code of primitive methods, beware that thi
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{allInstanceVariables}
-	\caption{Displaying all instance variables of a \ct!Workspace!.\figlabel{allInstanceVariables}}
+	\caption{Afficher toutes les variables d'instance d'un \ct!Workspace!.\figlabel{allInstanceVariables}}
 \end{figure}
 
 \figref{allInstanceVariables} shows how to display the values of the instance variables of an arbitrary instance (\ct!w!) of class \ct!Workspace!.
@@ -330,7 +330,7 @@ SystemNavigation default browseAllImplementorsOf: #ifTrue:
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{implementors}
-	\caption{Browse all implementations of \ct!\#ifTrue:!.\figlabel{implementors}}
+	\caption{Parcourir toutes les implémentations de \ct!\#ifTrue:!.\figlabel{implementors}}
 \end{figure}
 
 Particularly useful are the methods \ct{browseAllSelect:} and \lct{browseMethodsWithSourceString:}.  Here are two different ways to browse all methods in the system that perform super sends (the first way is rather brute force; the second way is better and eliminates some false positives):
@@ -344,12 +344,12 @@ SystemNavigation default browseAllSelect: [:method | method sendsToSuper ].
 %======================================
 \section{Classes, dictionnaires de méthodes et méthodes}
 
-Since classes are objects, we can inspect or explore them just like any other object.
+Comme les classes sont des objets, il est possible de les inspecter ou de les explorer de la même manière que les objets.
 
 \mthindex{Object}{explore}
-\dothis{Evaluate \ct{Point explore}.}
+\dothis{\'Evaluer \ct{Point explore}.}
 
-In \figref{CompiledMethod}, the \ind{explorer} shows the structure of class \clsind{Point}.
+Dans \figref{CompiledMethod}, l' \ind{explorer} montre la structure de la classe \clsind{Point}.
 You can see that the class stores its methods in a dictionary, indexing them by their selector.
 The selector \ct{#*} points to the decompiled \ind{bytecode} of \ct!Point>>>*!.
 
