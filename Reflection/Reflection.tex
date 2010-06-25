@@ -177,7 +177,7 @@ This method iterates over the indices of instance variables that the class defin
 (The method \ct!instSize! returns the number of all named instance variables that a class defines.)
 
 %-----------------------------------------------------------------
-\subsection{Querying classes and interfaces}
+\subsection{Faire des requêtes sur les classes et interfaces}
 
 The development tools in \pharo (code browser, debugger, inspector...) all use the reflective features we have seen so far.
 
@@ -242,18 +242,18 @@ In the next sections we will see how to exploit our knowledge of the runtime str
 %======================================
 \section{Parcourir le code}
 
-In \st, everything is an object. In particular, classes are objects that provide useful features for navigating through their instances.
-Most of the messages we will look at now are implemented in \ct{Behavior}, so they are understood by all classes.
+En \st, tout est objet. Les classe sont par en particulier des objets qui fournissent des mécanismes utiles afin de parcourir leurs instances.
+La plupart des messages que nous allons voir maintenant sont implémentés dans la classe \ct{Behavior}. Ils sont donc compris de toutes les classes.
 
-As we saw previously, you can obtain an instance of a given class by sending it the message \ct!#someInstance!.
+Comme nous avons vu précédemment, nous pouvons obtenir une instance particulière d'une classe donnée en lui envoyant le message \ct!#someInstance!.
 \mthindex{Behavior}{someInstance}
 \begin{code}{@TEST} % Possibly fragile!
 Point someInstance --> 0@0
 \end{code}
 
-You can also gather all the instances with \ct!#allInstances!, or the number of alive instances in memory with \ct!#instanceCount!.
+Vous pouvons également rassembler toutes les instances avec \ct!#allInstances! ou déterminer le nombre d'instances en mémoire avec \ct!#instanceCount!.
 
-\alex{In a Pharo0.1-10342dev09.96.3, I have "ByteString instanceCount --> 63607"}
+%\alex{In a Pharo0.1-10342dev09.96.3, I have "ByteString instanceCount --> 63607"}
 \mthindex{Behavior}{allInstances}
 \mthindex{Behavior}{instanceCount}
 \mthindex{Behavior}{allSubInstances}
@@ -263,12 +263,12 @@ ByteString instanceCount    --> 104565
 String allSubInstances size -->  101675
 \end{code}
 
-These features can be very useful when debugging an application, because you can ask a class to enumerate those of its methods exhibiting specific properties.
+Ces caractéristiques peuvent être très utiles lors du deboguage d'une application, car il est possible de demander à une classe d'énumérer les méthodes possédant des propriétés spécifiques.
 \begin{itemize}
-\item \mthind{Behavior}{whichSelectorsAccess:} returns the list of all selectors of methods that read or write the instance variable named by the argument
-\item \mthind{Behavior}{whichSelectorsStoreInto:} returns the selectors of methods that modify the value of an instance variable
-\item \mthind{Behavior}{whichSelectorsReferTo:} returns the selectors of methods that send a given message
-\item \mthind{Behavior}{crossReference} associates each message with the set of methods that send it.
+\item \mthind{Behavior}{whichSelectorsAccess:} retourne la liste de tous les sélecteurs de méthodes qui lisent ou écrivent dans une variable dont le nom est passé en argument
+\item \mthind{Behavior}{whichSelectorsStoreInto:} retourne les sélecteurs des méthodes qui modifient la valeur d'une variable d'instance
+\item \mthind{Behavior}{whichSelectorsReferTo:} retourne les sélecteurs des méthodes qui envoie un certain message
+\item \mthind{Behavior}{crossReference} associe chaque message avec l'ensemble des méthodes qui l'envoie.
 \end{itemize}
 
 \begin{code}{} % TOO FRAGILE TO TEST
@@ -458,12 +458,12 @@ Here we ask each compiled method for its (Refactoring Browser) parse tree, in or
 Have a look at the \prot{querying} protocol of the class \ct{RBProgramNode} to see some the things we can ask of parse trees.
 
 %======================================
-\section{Accessing the run-time context}
+\section{Accéder au contexte d'exécution}
 
 We have seen how \st's reflective capabilities let us query and explore objects, classes and methods.  But what about the run-time environment?
 
 %-----------------------------------------------------------------
-\subsection{Method contexts}
+\subsection{Contextes des méthodes}
 
 In fact, the run-time context of an executing method is in the virtual machine --- it is not in the image at all!
 On the other hand, the \ind{debugger} obviously has access to this information, and we can happily explore the run-time context, just like any other object.
@@ -522,7 +522,7 @@ Showing how to use block to build exception and such a kind of point. I think th
 we should have a Reflection applied chapter}
 \lr{I would love to help writing such a chapter}
 %-----------------------------------------------------------------
-\subsection{Intelligent breakpoints}
+\subsection{Points d'arrêts intelligents}
 
 \mthindex{Object}{halt}
 The \st way to set a breakpoint is to evaluate \ct{self halt} at an interesting point in a method.  This will cause \ct{thisContext} to be reified, and a \ind{debugger} window will open at the breakpoint.
@@ -577,7 +577,7 @@ If this is the case, then it raises an exception which, by default, summons the 
 It is also possible to supply a boolean or a boolean block as an argument to \ct{haltIf:}, but these cases are straightforward and do not make use of \ct{thisContext}.
 
 %======================================
-\section{Intercepting messages not understood}
+\section{Intercepter les messages non compris}
 \seclabel{msgnotunderstood}
 
 So far we have used the reflective features of \st mainly to query and explore objects, classes, methods and the run-time stack. Now we will look at how to use our knowledge of the \st system structure to intercept messages and modify behaviour at run-time.
@@ -691,7 +691,7 @@ Point>>>rect: aPoint
 Although messages can be intercepted by proxies using this technique, one should be aware of the inherent limitations of using a proxy.  In \secref{wrapper} we will see another, more general approach for intercepting messages.
 
 %-----------------------------------------------------------------
-\subsection{Generating missing methods}
+\subsection{Générer des méthodes manquantes}
 
 The other most common application of intercepting not understood messages is to dynamically load or generate the missing methods.
 Consider a very large library of classes with many methods.  Instead of loading the entire library, we could load a stub for each class in the library. The stubs know where to find the source code of all their methods.  The stubs simply trap all messages not understood, and dynamically load the missing methods on-demand.  At some point, this behaviour can be deactivated, and the loaded code can be saved as the minimal necessary subset for the client application.
