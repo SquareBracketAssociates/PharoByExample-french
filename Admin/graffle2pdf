@@ -5,7 +5,7 @@
 
 # adaptation fr by martial
 
-OMNIGRAFFLE =  "OmniGraffle Professional" # works with OG4.1 on 10.6.3 (Adobe Unit Types.osax linking changes but it's ok)
+OMNIGRAFFLE =  "OmniGraffle Professional 5" # works with OG4.1 on 10.6.3 (Adobe Unit Types.osax linking changes but it's ok)
 
 MAKERULE = <<EOF
 
@@ -40,6 +40,9 @@ end run
 
 on isOpen(aDoc)
 	tell application "#{OMNIGRAFFLE}"
+    -- change scale and DPI here
+    set export scale of current export settings to 1
+    set resolution of current export settings to "4.16"
 		repeat with doc in documents
 			if («class ppth» of doc as string) = aDoc then return true
 		end repeat
