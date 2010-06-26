@@ -8,6 +8,7 @@
 % relecture par Rene Mages : (Sun, 13 Jan 2008) de la version #14938
 % adaptation pour PBE - martial - Thu Sep 10 22:45:08 CEST 2009 
 % relecture par Rene Mages (Fri, 8 Jan 2010) de la version #30178
+% relecture par Rene Mages (Sat, 26 Jun 2010) de la version #33750
 % $Id: Syntax.tex 28624 2009-08-27 10:59:05Z oscar $
 % sync: 29170
 %=================================================================
@@ -59,8 +60,8 @@ La syntaxe de \pharo (\ie les expressions) est minimaliste; pour l'essentiel, co
 Les expressions sont construites à partir d'un nombre très réduit de primitives.
 \st dispose seulement de 6 mots-clés et d'aucune syntaxe pour les structures de contrôle, ni pour les déclarations de nouvelles classes.
 En revanche, tout ou presque est réalisable en envoyant des messages à des objets.
-Par exemple, à la place de la structure de contrôle conditionnelle \emph{si-alors-sinon}, \st envoie des messages comme \ct{ifTrue:} à des \arevoir{objets booléens}.
-% rene propose la suppresion de :  de la classe \clsind{Boolean} (ne figure pas dans le texte original).
+Par exemple, à la place de la structure de contrôle conditionnelle \emph{si-alors-sinon}, \st envoie des messages comme \ct{ifTrue:} à des \arevoir{objets de la classe \clsind{Boolean}}.
+% Rene propose de traduire :  Boolean objects par objets de la classe \clsind{Boolean} .
 Les nouvelles \mbox{(sous-)classes} sont créées en envoyant un message à leur super-classe.
 
 %=================================================================
@@ -79,7 +80,7 @@ Les expressions sont composées des blocs constructeurs suivants:
 \index{littéral!objet}
 \seeindex{pseudo-variable}{variable, pseudo}
 \seeindex{objet!littéral}{littéral, objet}
-
+% Rene : il faudrait que Latex nous autorise à placer la table apres l'enumeration ...
 \begin{table}\centering
 	\begin{tabular}{ll}
 		\toprule
@@ -159,7 +160,7 @@ obtenues en envoyant des messages ad hoc à la classe
 \clsind{Character}, tel que \ct{Character space} \cmindex{Character class}{space} et \ct{Character tab}\cmindex{Character class}{tab}.
 		
 \item[Les chaînes de caractères.] Les apostrophes sont utilisées pour définir un  littéral \subind{littéral}{chaîne}.
-Si vous désirez une chaine comportant une apostrophe, il suffira de doubler l'apostrophe, comme dans \ct{'aujourd''hui'}.
+Si vous désirez qu'une chaine comporte une apostrophe, il suffira de doubler l'apostrophe, comme dans \ct{'aujourd''hui'}.
 
 \item[Les symboles.] Ils ressemblent à des chaînes de caractères, en ce sens qu'ils comportent une suite de caractères.  
 Mais contrairement à une chaîne, un \subind{littéral}{symbole} doit être globalement unique.
@@ -172,18 +173,20 @@ Il y a seulement un objet symbole \ct{#Bonjour} mais il peut y avoir plusieurs o
 \item[Les tableaux définis à la compilation.] Ils sont définis par \ct{#( )}, les objets littéraux 
 sont séparés par des espaces.
 À l'intérieur des parenthèses, tout doit être constant durant la compilation.
-Par exemple,  \arelire{\ct{#(27 (true false) abc)}}~\footnote{\arelire{Notez que c'est la
-même chose que \ct{#(27 #(true false) #abc)}.}} est un
-\subind{littéral}{tableau} littéral de trois éléments: l'entier \ct{27}, le tableau à la compilation contenant deux booléens et le symbole \ct{#abc}.
+Par exemple, \ct{#(27 (true false) abc)}~\footnote{Notez que c'est la même chose 
+que \ct{#(27 #(true false) #abc)}.} est un \subind{littéral}{tableau} littéral de 
+trois éléments: l'entier \ct{27}, le tableau à la compilation contenant deux 
+booléens et le symbole \ct{#abc}.
+
 \seeindex{tableau!littéral}{littéral, tableau}
 
 \item[Les tableaux définis à l'exécution.] Les accolades \ct|{ }|
   définissent un tableau (\subind{tableau}{dynamique}) à l'exécution.
 Ses éléments sont des expressions séparées par des points.
 Ainsi \ct|{ 1. 2. 1+2 }| définit un tableau dont les éléments sont 1, 2 et le résultat de l'évaluation de 1+2
-(la notation entre accolades est \arelire{particulière à \pharo et à
-\squeak}. % CHANGE
+(la notation entre accolades est particulière aux dialectes \pharo et à \squeak de \st. 
 Dans d'autres \st{}s vous devez explicitement construire des tableaux dynamiques).
+% CHANGE
 
 \item[Les commentaires.] Ils sont encadrés par des guillemets.
 \ct{"Bonjour le commentaire"} est un \ind{commentaire} et non une
@@ -238,7 +241,7 @@ méthode. % CHANGE
 %\seeindex{message binaire}{message, binaire}
 
 \item[Les messages à mots-clés.] Ce sont des mots-clés multiples (comme \ct{raisedTo:modulo:}), chacun se terminant par un deux-points (:) et ayant un seul argument. 
-Dans l'expression \ct{2 raisedTo: 6 modulo: 10}, le \emph{sélecteur de message} \ct{raisedTo:modulo:} prend les deux arguments \ct{6} et \ct{10}, chacun suivant le \lct{:}. Nous envoyons le message au receveur \ct{2}.
+Dans l'expression \ct{2 raisedTo: 6 modulo: 10}, le \emph{sélecteur de message} \ct{raisedTo: modulo:} prend les deux arguments \ct{6} et \ct{10}, chacun suivant le \lct{:}. Nous envoyons le message au receveur \ct{2}.
 \index{message!sélecteur}
 \index{message!à mots-clés}
 %\seeindex{message de mot-clé}{message, mot-clé}
@@ -308,7 +311,7 @@ Il y a trois types de messages dans \pharo.
   \item Les messages \emph{binaires}: messages avec un seul argument.
   	\ct{1 + 2} envoie le message \ct{+} avec l'argument \ct{2} à l'objet \ct{1}.
   \item Les messages à \emph{mots-clés}: messages qui comportent un nombre arbitraire d'arguments.
-  	\ct{2 raisedTo: 6 modulo: 10} envoie le message comprenant le sélecteur 	\ct{raisedTo: modulo:} et les arguments \ct{6} et \ct{10} vers l'objet \ct{2}.
+  	\ct{2 raisedTo: 6 modulo: 10} envoie le message comprenant le sélecteur \ct{raisedTo: modulo:} et les arguments \ct{6} et \ct{10} vers l'objet \ct{2}.
 \end{enumerate}
 
 Les sélecteurs des messages unaires sont constitués de caractères alphanumériques et débutent par une lettre minuscule. 
@@ -417,7 +420,8 @@ Sur le plan de la syntaxe, une méthode comporte:
     où, mais conventionnellement, un commentaire doit être placé au début afin d'expliquer le but de la méthode);
   \item les déclarations des variables locales (\ie \ct{cr} et
     \ct{count}); 
-  \item un nombre quelconque d'expressions separées par des points; dans notre exemple, il y en a quatre.
+  \item un nombre quelconque d'expressions séparées par des points; dans notre exemple, il y en a \arevoir{quatre}.
+% Rene : en fait ce n'est pas quatre mais trois ( l'erreur est presente dans l'edition anglaise )
 \end{enumerate}
 
 L'évaluation de n'importe quelle expression précédée
@@ -478,7 +482,6 @@ arguments:
 [ :x :y | | z | z := x+ y. z ] value: 1 value: 2 --> 3
 \end{code}
 
-% Rene : la traduction de ces deux phrases est à controler (merci).
 Les blocs sont en fait des \emph{fermetures} lexicales, puisqu'ils
 peuvent faire référence à des variables de leur environnement
 immédiat. Le bloc suivant fait référence à la variable \ct{x} voisine:
@@ -494,9 +497,8 @@ x := 1.
 \end{code}
 
 Les blocs sont des instances de la classe \clsind{BlockClosure}; ce
-sont donc des objets, de sorte qu'ils peuvent être affectés
-à des variables et être passés comme arguments à
-l'instar de tout autre objet.
+sont donc des objets, de sorte qu'ils peuvent être affectés à des 
+variables et être passés comme arguments à l'instar de tout autre objet.
 
 % CHANGE - retrait de la note de Mise en garde sur squeak 3.9 et les
 % fermetures lexicales
@@ -572,7 +574,7 @@ n := 1.
 n --> 1024
 \end{code}
 % mark
-Nous pouvons aussi envoyer le message \mthind{Number}{to:do:} à un
+Nous pouvons aussi envoyer le message \mthind{Number}{to: do:} à un
 nombre qui deviendra alors la valeur initiale d'un compteur de boucle.
 Le premier argument est la borne supérieure; le second est un bloc qui 
 prend la valeur courante du compteur de boucle comme argument:
@@ -588,9 +590,8 @@ n --> 55
 
 Les collections comprennent un grand nombre de classes différentes
 dont beaucoup acceptent le même protocole.
-Les messages les plus importants pour itérer sur des collections 
-sont 
-\mthind{Collection}{do:}, \mthind{Collection}{collect:}, \mthind{Collection}{select:}, \mthind{Collection}{reject:}, \mthind{Collection}{detect:} ainsi que  \mthind{Collection}{inject:into:}.
+Les messages les plus importants pour itérer sur des collections sont 
+\mthind{Collection}{do:}, \mthind{Collection}{collect:}, \mthind{Collection}{select:}, \mthind{Collection}{reject:}, \mthind{Collection}{detect:} ainsi que  \mthind{Collection}{inject: into:}.
 Ces messages définissent des itérateurs d'ordre supérieur qui nous permettent d'écrire du code très compact.
 
 Une instance \clsind{Interval} (\ie un intervalle) est une collection qui 
@@ -638,7 +639,7 @@ voyelle~\footnote{Note du traducteur: les voyelles accentuées ne sont
 Finalement, vous devez garder à l'esprit que les collections
 acceptent aussi l'équivalent de l'opérateur \emph{fold}
 issu de la programmation fonctionnelle au travers de 
-la méthode \ct{inject:into:}.
+la méthode \ct{inject: into:}.
 Cela vous amène à générer un résultat cumulatif
 utilisant une expression qui accepte une valeur initiale puis 
 injecte chaque élément de la collection.
@@ -670,13 +671,12 @@ l'allocation de la mémoire (\mthind{Behavior}{new} et \mthind{Behavior}{new:}),
 la manipulation de bits (\mthind{Integer}{bitAnd:},
 \mthind{Integer}{bitOr:} et \mthind{Integer}{bitShift:}),
 l'arithmétique des pointeurs et des entiers (\ct{+}, \ct{-},  \ct{<},  \ct{>}, \ct{*}, \ct{/ }, \ct{=}, \ct{==}\ldots)
-et l'accès des tableaux (\mthind{Object}{at:}, \mthind{Object}{at:put:}).
+et l'accès des tableaux (\mthind{Object}{at:}, \mthind{Object}{at: put:}).
 \seeindex{new@{\ct{new}}}{\ct{Behavior>>>new}}
 
 Les primitives sont invoquées avec la syntaxe  \ct{<primitive: aNumber>} (aNumber étant un nombre).
 Une méthode qui invoque une telle primitive peut aussi embarquer
-du code \st qui sera évalué  \emph{seulement} en cas d'échec
-de la primitive.
+du code \st qui sera évalué  \emph{seulement} en cas d'échec de la primitive.
 
 Examinons le code pour \cmind{SmallInteger}{+}.
 Si la primitive échoue, l'expression \ct{super + aNumber} sera
@@ -712,7 +712,7 @@ Si la primitive échoue, l'expression \ct{super + aNumber} sera
 %\end{method}
 
 
-\arelire{Dans \pharo,} la syntaxe avec <....> est aussi utilisée
+Dans \pharo,la syntaxe avec <....> est aussi utilisée
 pour les annotations de méthode que l'on appelle des
 \emph{pragmas}. % REVOIR dans PBE, il y a toujours 'Since \pharo 3.9' 2009-09-10
 
