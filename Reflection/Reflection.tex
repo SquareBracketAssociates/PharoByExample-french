@@ -154,13 +154,13 @@ SketchMorph allInstances select: [:c | (c instVarNamed: 'owner') isWorldMorph]
 \subsection{Parcourir les variables d'instances}
 
 \mthindex{Object}{instanceVariableValues}
-Let us consider the message \ct!instanceVariableValues!, which returns a collection of all values of instance variables defined by this class, excluding the inherited instance variables.
-For instance:
+Considérons le message \ct!instanceVariableValues!, qui retourne une collection de toutes les valeurs des variables d'instances définies dans la classe, en excluant les variables d'instances héritées.
+Par exemple :
 \begin{code}{@TEST}
 (1@2) instanceVariableValues --> an OrderedCollection(1 2)
 \end{code}
 
-The method is implemented in \ct{Object} as follows:
+La méthode est implémentée dans \ct{Object} de la manière qui suit :
 \needlines{9}
 \begin{code}{}
 Object>>>instanceVariableValues
@@ -173,18 +173,18 @@ Object>>>instanceVariableValues
 	^ c
 \end{code}
 
-This method iterates over the indices of instance variables that the class defines, starting just after the last index used by the superclasses.
-(The method \ct!instSize! returns the number of all named instance variables that a class defines.)
+Cette méthode parcourt par indice les variables d'instances que la classe définit, à partir du dernier index utilisé par les superclasses.
+(La méthode \ct!instSize! retourne le nombre des variables d'instances nommées que la classe définit.)
 
 %-----------------------------------------------------------------
 \subsection{Faire des requêtes sur les classes et interfaces}
 
-The development tools in \pharo (code browser, debugger, inspector...) all use the reflective features we have seen so far.
+Les outils de développement \pharo (navigateur de code, débogueur, inspecteur, ...) utilisent tous les mécanismes réflexifs que nous avons vu jusqu'à présent.
 
-Here are a few other messages that might be useful to build development tools:
+Voici quelques messages supplémentaires qui peuvent être utile afin de construire des outils de développement :
 
-\lct{isKindOf: \emph{aClass}} returns true if the receiver is instance of \lct{\emph{aClass}} or of one of its superclasses.
-For instance:
+\lct{isKindOf: \emph{aClass}} retourne vrai si le receveur est une instance de \lct{\emph{aClass}} ou d'une de ces superclasses.
+Par exemple :
 \begin{code}{@TEST}
 1.5 class                     --> Float
 1.5 isKindOf: Number --> true
@@ -193,11 +193,11 @@ For instance:
 \mthindex{Object}{class}
 \mthindex{Object}{isKindOf:}
 
-\lct{respondsTo: \emph{aSymbol}} returns true if the receiver has a method whose selector is \lct{\emph{aSymbol}}.
-For instance:
+\lct{respondsTo: \emph{aSymbol}} retourne vrai si le receveur a une méthode dont le sélecteur est \lct{\emph{aSymbol}}.
+Par exemple :
 \needlines{3}
 \begin{code}{@TEST}
-1.5 respondsTo: #floor      --> true    "since Number implements floor"
+1.5 respondsTo: #floor      --> true    "car Number !implémente! floor"
 1.5 floor                            --> 1
 Exception respondsTo: #, --> true    "exception classes can be grouped"
 \end{code}
@@ -214,7 +214,7 @@ Development tools, however, are not normal applications, since their domain is t
 \subsection{Métriques de code}
 
 Voyons maintenant comment nous pouvons utiliser les mécanismes d'introspection de \st pour rapidement pouvoir construire des métriques de code. Code \ind{metrics} measure such aspects as the depth of the inheritance hierarchy, the number of direct or indirect subclasses, the number of methods or of instance variables in each class, or the number of locally defined methods or instance variables.
-Here are a few metrics for the class \ct!Morph!, which is the superclass of all graphical objects in \pharo, revealing that it is a huge class, and that it is at the root of a huge hierarchy. Maybe it needs some refactoring! 
+Voici quelques résultats de métriques pour la classe \ct!Morph!, qui est la superclasse de tous les objets graphiques de \pharo, révélant qu'il s'agit d'une classe d'une taille conséquente et qu'elle est la racine d'une hiérarchie importante. Peut-être qu'elle nécessiterait d'être refactoriser !
 
 \mthindex{Behavior}{allSuperclasses}
 \mthindex{Behavior}{allSelectors}
@@ -225,24 +225,23 @@ Here are a few metrics for the class \ct!Morph!, which is the superclass of all 
 \mthindex{Behavior}{allSubclasses}
 \mthindex{ClassDescription}{linesOfCode}
 \begin{code}{}
-Morph allSuperclasses size.  -->       2 "inheritance depth"
-Morph allSelectors size.        --> 1378 "number of methods"
-Morph allInstVarNames size. -->      6 "number of instance variables"
-Morph selectors size.             -->  998 "number of new methods"
-Morph instVarNames size.     -->      6 "number of new variables"
-Morph subclasses size.          -->    45 "direct subclasses"
-Morph allSubclasses size.      -->  326 "total subclasses"
-Morph linesOfCode.               --> 5968 "total lines of codeBANG"
+Morph allSuperclasses size.  -->       2 "profondeur d'!héritage!"
+Morph allSelectors size.        --> 1378 "nombre de !méthodes!"
+Morph allInstVarNames size. -->      6 "nombre de variables d'instances"
+Morph selectors size.             -->  998 "nombre de nouvelles !méthodes!"
+Morph instVarNames size.     -->      6 "nombre de nouvelles variables"
+Morph subclasses size.          -->    45 "sous-classes directes"
+Morph allSubclasses size.      -->  326 "total de sous-classes"
+Morph linesOfCode.               --> 5968 "nombre total de lignes de codeBANG"
 \end{code}
 
-One of the most interesting metrics in the domain of object-oriented languages is the number of methods that extend methods inherited from the superclass.
-This informs us about the relation between the class and its superclasses.
-In the next sections we will see how to exploit our knowledge of the runtime structure to answer such questions.
+Une des métriques les plus intéressantes dans le domaine de la programmation par objet est le nombre de méthodes qui étendent les méthodes héritées de la superclasse. Ceci nous informe de la relation entre une classe et ses superclasses.
+Dans les prochaines sections, nous verrons comment exploiter notre connaissance des mécanisems d'exécution pour répondre à de telles questions.
 
 %======================================
 \section{Parcourir le code}
 
-En \st, tout est objet. Les classe sont par en particulier des objets qui fournissent des mécanismes utiles afin de parcourir leurs instances.
+En \st, tout est objet. Les classes sont en particulier des objets qui fournissent des mécanismes utiles afin de parcourir leurs instances.
 La plupart des messages que nous allons voir maintenant sont implémentés dans la classe \ct{Behavior}. Ils sont donc compris de toutes les classes.
 
 Comme nous avons vu précédemment, nous pouvons obtenir une instance particulière d'une classe donnée en lui envoyant le message \ct!#someInstance!.
@@ -281,7 +280,7 @@ Point crossReference --> an Array(
 		...)
 \end{code}
 
-The following messages take inheritance into account:
+Les messages qui suivent prennent en compte l'héritage :
 \begin{itemize}
 \item \mthind{Behavior}{whichClassIncludesSelector:} returns the superclass that implements the given message
 \item \mthind{Behavior}{unreferencedInstanceVariables} returns the list of instance variables that are neither used in the receiver class nor any of its subclasses
@@ -294,14 +293,14 @@ Rectangle unreferencedInstanceVariables            --> #()
 
 \clsind{SystemNavigation} is a facade that supports various useful methods for querying and browsing the source code of the system.
 \ct{SystemNavigation} \mthind{SystemNavigation class}{default} returns an instance you can use to navigate the system.
-For example:
+Par exemple :
 
 \mthindex{SystemNavigation}{allClassesImplementing:}
 \begin{code}{@TEST}
 SystemNavigation default allClassesImplementing: #yourself --> {Object}
 \end{code}
 
-The following messages should also be self-explanatory:
+Les messages suivants devraient être également compréhensibles par eux-même :
 
 \mthindex{SystemNavigation}{allSentMessages}
 \mthindex{SystemNavigation}{allUnsentMessages}
@@ -358,15 +357,15 @@ The selector \ct{#*} points to the decompiled \ind{bytecode} of \ct!Point>>>*!.
 	\caption{Explorer class \ct!Point! and the bytecode of its \ct!\#*! method.\figlabel{CompiledMethod}}
 \end{figure}
 
-Let us consider the relationship between classes and methods.
-In \figref{MethodsAsObjects} we see that classes and metaclasses have the common superclass \ct{Behavior}. This is where \mthind{Behavior}{new} is defined, amongst other key methods for classes.
-Every class has a method dictionary, which maps method selectors to \ind{compiled methods}.
+Examinons la relation entre classes et méthodes.
+Dans \figref{MethodsAsObjects} nous voyons que classes et méta-classes ont en commun la superclasse \ct{Behavior}. C'est où la méthode \mthind{Behavior}{new} est définit parmi d'autres méthodes clés pour les classes.
+Chaque classe a un dictionnaire de méthode, qui associe chaque sélecteurs de méthodes à des \ind{méthodes compilées}.
 Each compiled method knows the class in which it is installed.
 In \figref{CompiledMethod} we can even see that this is stored in an association in \ct{literal5}.
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{MethodsAsObjects}
-	\caption{Classes, method dictionaries and compiled methods\figlabel{MethodsAsObjects}}
+	\caption{Classes, dictionnaires de méthodes et méthodes compilées\figlabel{MethodsAsObjects}}
 \end{figure}
 
 We can exploit the relationships between classes and methods to pose queries about the system.
