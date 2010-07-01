@@ -1,11 +1,11 @@
 #!/bin/bash
 #
 # call Omnigraffle to convert figures to PNG
-# do an export by hand first, to check the correct resolution (300dpi)
-# and export settings (all objects, no transparent background)
+# do an export by hand first, to check the correct export settings
+# (all objects, no transparent background)
 
 
-params=`getopt dn $*`
+params=`getopt dnf $*`
 [ $? == 0 ] || { echo Usage: `basename $0` [-n] [-f] [-d] [searchRootDir]; exit 1; }
 set -- ${params/--}
 for param; do

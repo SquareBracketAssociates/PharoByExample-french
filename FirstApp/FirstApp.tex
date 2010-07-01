@@ -49,6 +49,7 @@ réflexion, le jeu \ind{Lights Out}~\footnote{En anglais,
 }. 
 En cours de route, nous allons faire la démonstration de la plupart des outils que \arelire{les développeurs \pharo utilisent pour}
 % Rene propose de supprimer pharo à la ligne précedente.
+% Martial: comme tu veux, ça ne me dérange pas; ça rappelle que les méthodologies et les outils sont associés aux dév. Pharo et pas au dév. Haskell.
 construire et déboguer leurs programmes et comment les programmes sont échangés entre les développeurs. Nous verrons notamment le navigateur de classes, l'inspecteur d'objet, le débogueur et le navigateur de \ind{paquetage}{}s \ind{Monticello}. 
 Le développement avec \st est efficace: vous découvrirez que vous passerez beaucoup plus de temps à écrire du code et beaucoup moins à gérer le processus de développement. 
 Ceci est en partie du au fait que \st est un langage très simple, et d'autre part que les outils qui forment l'environnement de programmation sont très intégrés avec le langage.
@@ -87,7 +88,7 @@ Nous allons maintenant voir comment créer des paquetages (ou \emph{packages}), 
 
 \dothis{Ouvrez un Browser et \actclickz{} sur le panneau des paquetages.
 Sélectionnez \menu{create package}\footnote{Nous supposons que le 
-Browser est installé en tant que navigateur de classes par défaut. 
+\aretirer{Package} Browser est installé en tant que navigateur de classes par défaut. 
 Si le Browser ne ressemble pas à celui de la
 \figref{addPackage}, vous aurez besoin de changer le navigateur par
 défaut. Voyez \faqref{packageBrowser}.}.}
@@ -129,7 +130,7 @@ classe appelée \ct{Object}, lui demandant de créer une sous-classe
 appelée \ct{NameOfSubClass}.  La nouvelle classe n'a pas de variables
 et devrait appartenir à la catégorie \scat{PBE-LightsOut}.
 
-\subsection{\arelire{A propos des catégories et des paquetages}}
+\subsection{\arelire{À propos des catégories et des paquetages}}
 \seclabel{categoriesPackages}
 
 Historiquement, \st{} ne connaît que les \emph{catégories}. Vous
@@ -353,7 +354,7 @@ dire:  ``Utilise des bords carrés!'' (d'où \ct{useSquareCorners}),
 \section{Inspecter un objet}
 
 Vous pouvez tester l'effet du code que vous avez écrit en créant un
-nouvel objet \ct{LOCell} et en l'inspectant avec l'inspecteur nommé Inspector.
+nouvel objet \ct{LOCell} et en l'inspectant avec l'inspecteur nommé \arelire{Inspector}.
 % ajout -vf avec l'inspecteur nomme Inspector
 \dothis{Ouvrez un espace de travail (Workspace). Tapez l'expression \ct{LOCell new} et choisissez \menu{inspect it}.}
 
