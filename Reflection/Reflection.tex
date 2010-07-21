@@ -48,22 +48,22 @@
 %\alex{I addressed lukas comments using editorial macros. Please, if you read this, remove this comment and remove the editorial macros, else their purpose is diminished}
 
 \indexmain{reflection}
-\st est un langage de programmation réflexif. En résumé, cela signifie que les programmes ont la possibilité d'agir sur leur propre exécution et structure.
+\st est un langage de programmation réflexif. Brièvement, cela signifie que les programmes ont la possibilité d'agir sur leur propre exécution et structure.
 % \lr{not only on execution, also on the static model}
-More technically, this means that the \emphind{metaobjects} of the runtime system can be \emph{reified} as ordinary objects, which can be queried and inspected.
-The metaobjects in \st are classes, metaclasses, method dictionaries, compiled methods, the run-time stack, and so on.
-This form of reflection is also called \emphind{introspection}, and is supported by many modern programming languages.
+Plus techniquement, cela signifie que les \emphind{méta-objets} du système en cours d'exécution peuvent être \emph{réifiés} sous forme d'objets ordinaires qui peuvent alors recevoir des requêtes et être inspecter.
+Les méta-objets dans \st sont les classes, méta-classes, dictionnaires de méthodes, méthodes compilées, pile d'exécution, etc ...
+Cette forme de réflexivité est également appelée \emphind{introspection} et est disponible dans de nombreux langages de programmation.
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{reflect}
 	\caption{Réification et réflexivité.\figlabel{reflect}} % \lr{not referenced, not sure if I understand it}
 \end{figure}
+Inversement il est possible en \st de modifier les méta-objets réifiés et que leurs modifications soient prises en compte lors de l'exécution du système (voir \figref{reflect}).
+Ceci est appelé \emph{intercession} et est principalement utilisé dans les langages de programmation dynamique et de manière plus limitée dans les langages statiques.
 
-Conversely, it is possible in \st to modify reified metaobjects and \emph{reflect} these changes back to the runtime system (see \figref{reflect}).
-This is also called \emph{intercession}, and is supported mainly by dynamic programming languages, and only to a very limited degree by static languages.
+Un programme qui manipule d'autres programmes (ou même lui-même) est un \emphind{méta-programme}.
+Pour qu'un langage de programmation soit réflexif, il faut qu'il supporte à la fois l'\ind{introspection} et l'\ind{intercession}.
 
-A program that manipulates other programs (or even itself) is a \emphind{metaprogram}.
-For a programming language to be reflective, it should support both \ind{introspection} and \ind{intercession}.
 Introspection is the ability to \emph{examine} the data structures that define the language, such as objects, classes, methods and the execution stack.
 Intercession is the ability to \emph{modify} these structures, in other words to change the language semantics and the behavior of a program from within the program itself.
 \emph{Structural reflection} is about examining and modifying the structures of the run-time system, and \emphind{behavioural reflection} is about modifying the interpretation of these structures.
