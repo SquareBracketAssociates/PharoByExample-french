@@ -13,6 +13,7 @@
 %
 % adaptation pour PBE - martial - Thu Sep 10 20:18:24 CEST 2009 
 % relecture par Rene Mages : Tue Jan 12 17:17:17 2010
+% relecture par Rene Mages : Tue Aug  8 17:17:17 2010
 % $Author: oscar $ $Date: 2009-08-28 11:02:05 +0200 (Fri, 28 Aug 2009) $ $Revision: 28659 $
 % sync avec la version: 29660
 %=================================================================
@@ -693,7 +694,7 @@ Mais il reste quelques questions auxquelles nous devons prendre soin de répondr
 \begin{itemize}
   \item \emph{Que se passe-t-il lorsque une méthode ne renvoie pas explicitement une valeur?}
   \item \emph{Que se passe-t-il quand une classe réimplémente une méthode d'une super-classe?}
-  \item \emph{Qu'elle différence y a-t-il entre les envois faits à \pvind{self} et ceux faits à \pvind{super}?}
+  \item \emph{Quelle différence y a-t-il entre les envois faits à \pvind{self} et ceux faits à \pvind{super}?}
   \item \emph{Que se passe-t-il lorsqu'aucune méthode est trouvée?}
 \end{itemize}
 
@@ -868,7 +869,7 @@ Morph>>>constructorString
 
 \arelire{La méthode \cmind{Morph}{constructorString} envoie
   \ct{printConstructorOn:indent:} à \self.
-Ce message est \arevoir{recherché} dans la hièrarchie en commençant dans la classe
+Ce message est \arevoir{recherché} dans la hiérarchie en commençant dans la classe
 \lct{EllipseMorph} et finalement trouvé dans \ct{Morph}.}
 %This message is also looked up, starting in the class \lct{EllipseMorph}, and found in \ct{Morph}.
 \arelire{Cette méthode en retour envoie à \self le message
@@ -877,9 +878,11 @@ Ce message est \arevoir{recherché} dans la hièrarchie en commençant dans la c
 Encore une fois, \ct{fullPrintOn:} est \arevoir{recherché}
 depuis la classe
 \ct{EllipseMorph} et \mthind{BorderedMorph}{fullPrintOn:} est
-trouvée dans \ct{BorderedMorph} (revoir
+trouvé dans \ct{BorderedMorph} (revoir
 \figref{constructorStringLookup})} % CHANGE
-
+% rene : il manque la traduction de :
+% What is critical to notice is that the self send causes the method lookup to start 
+% again in the class of the receiver, namely the class of anEllipse.
 \important{Un envoi à \self déclenche le départ de la recherche \emph{dynamique} de méthode dans la classe du receveur.}
 
 \needlines{4}
@@ -978,7 +981,7 @@ Transcript show: 'Pharo est extra' ; cr
 \end{code} % A REVOIR 'Pharo is fun and powerful'
 
 \noindent
-Avant vous lanciez la commande \menu{do it}, ouvrez un Transcript en 
+Avant de lancer la commande \menu{do it}, ouvrez un Transcript en 
 sélectionnant \menu{World \go Tools \ldots \go Transcript}. % CHANGE
 
 \hint{Écrire dans le Transcript est lent, surtout quand la fenêtre Transcript est ouverte. 
@@ -1114,13 +1117,13 @@ Il semble en effet inopportun d'ajouter une variable d'instance \ct{name}
  
 \subsubsection{L'initialisation de classe}
 
-La présence de variables de classe lève une question: comment les initialiser?
+La présence de variables de classe soulève une question: comment les initialiser?
 
 Une solution est l'\subind{classe}{initialisation} dite paresseuse (ou \emph{lazy initialization} en anglais).
 Cela est possible avec l'introduction d'un message d'accès qui
 initialise la variable, durant l'exécution, si celle-ci n'a pas été
 encore initialisée.
-Ceci nous oblige à utiliser la méthode d'accès tout le temps et de ne jamais
+Ceci nous oblige à utiliser la méthode d'accès tout le temps et à ne jamais
 faire appel à la variable de classe directement.
 De plus, notons que le coût de l'envoi d'un accesseur et le test d'initialisation sont à prendre en compte.
 Ceci va à l'encontre de notre motivation à utiliser une variable de classe, parce qu'en réalité elle n'est plus partagée.
