@@ -1,10 +1,11 @@
 % $Author: oscar $
 % $Date: 2007-09-23 11:56:47 +0200 (Sun, 23 Sep 2007) $
-% $Revision: 12130 $
+% $Revisionn: 12130 $
 % traduit par Martial 
 % relecture par Rene (Fri, 21 Dec 2007)
 % relecture par Rene (Sun, 13 Jan 2008)
 % relecture par Rene (Fri,  8 Jan 2010)
+% relecture par Rene (Mon,  9 Aug 2010)
 % update: Tue Dec 25 12:52:59 CET 2007
 % adaptation pour PBE: martial - Wed Sep  9 22:33:36 CEST 2009 from
 % $Author: oscar $ % $Date: 2009-08-16 16:37:09 +0200 (Sun, 16 Aug
@@ -39,7 +40,7 @@
 \newcommand{\stream}{\emph{stream}\xspace}
 \newcommand{\streams}{\emph{streams}\xspace}
 % remarque generale: beaucoup de commentaires et de chaines de caracteres dans les codes ont ete traduites dans ce chapitre
-\chapter{Stream: les flux de données}\chalabel{streams}
+\chapter{Streams: les flux de données}\chalabel{streams}
 
 \ew{Streams are presented as a way to navigate collection. From my point of view, stream are important not to navigate collection, but to produce/consume data:
 (a)	memory constraint. Data can not hold into memory and must be processed in a stream fashion, e.g: encryption
@@ -353,7 +354,7 @@ string. -->   '#(1 2 3) size = 3'
 \end{code}%$
 
 La méthode \mthind{SequenceableCollection class}{streamContents:} \seclabel{streamContents} crée une collection et un \stream sur cette collection.
-Elle exécute ensuite le bloc que vous lui donné en passant le \stream comme argument de bloc. Quand le bloc se termine, \ct{streamContents:}
+Elle exécute ensuite le bloc que vous lui donnez en passant le \stream comme argument de bloc. Quand le bloc se termine, \ct{streamContents:}
 renvoie le contenu de la collection.
 
 Les méthodes de \ct{WriteStream} suivantes sont spécialement utiles dans ce contexte:
