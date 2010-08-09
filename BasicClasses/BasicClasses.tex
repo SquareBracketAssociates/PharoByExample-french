@@ -7,6 +7,7 @@
 % relecture : Rene Mages (sat, 9 jan 2008) de la version #14856
 % export Pharo : Martial Boniou à partir de la revision 28661 - oscar
 % relecture : Rene Mages (mon, 11 jan 2010) de la version #30227
+% relecture : Rene Mages (mon,  9 aug 2010) de la version #34378
 % 2009-08-28 11:31:14 +0200 (Fri, 28 Aug 2009) $
 %=================================================================
 \ifx\wholebook\relax\else
@@ -36,7 +37,7 @@
 %=================================================================
 \chapter{Les classes de base}
 \chalabel{basic}
-Une grande partie de la magie de \st ne réside pas dans son langage mais dans ses bibliothèques de classes. Pour programmer efficacement en \st, vous devez apprendre comment les bibliothèques de classes servent le langage et l'environnement. Les bibliothèques de classes sont entièrement écrites en \st et peuvent facilement être étendues, puisqu'un paquetage peut ajouter une nouvelle fonctionnalité à une classe même s'il ne définit pas cette classe. 
+Une grande partie de la magie de \st ne réside pas dans son langage mais dans ses bibliothèques de classes. Pour programmer efficacement en \st, vous devez apprendre comment les bibliothèques de classes servent le langage et l'environnement. Les bibliothèques de classes sont entièrement écrites en \st et peuvent facilement être étendues, puisqu'un~ paquetage peut ajouter une nouvelle fonctionnalité à une classe même s'il ne définit pas cette classe. 
 
 %martial: typo: 'methodes-cle' et 'classes-cle' mais bien 'classes et
 %methodes cles' (cles est ici adjectifs)
@@ -125,11 +126,11 @@ exécute les méthodes définies dans \ct{Object}.
 Browser new printString --> 'a Browser'
 \end{code}
 
-\arelire{La classe \ct{Color} montre un exemple de spécialisation de 
+La classe \ct{Color} montre un exemple de spécialisation de 
 \mthind{Color}{printOn:}. Elle imprime le nom de la classe suivi par
 le nom de la méthode de classe utilisée pour générer cette couleur,
 comme le montre le code ci-dessous qui imprime une instance de cette
-classe.} % CHANGE
+classe. % CHANGE
 
 % \needlines{7}
 %martial: caption plus coherent que 'printOn: redefinition.'
@@ -586,10 +587,10 @@ ProtoObject>>>initialize
    "Subclasses should redefine this method to perform initializations on instance creation"
 \end{method}
 
-\arelire{Ceci est important parce que, dans \pharo, 
+Ceci est important parce que, dans \pharo, 
  la méthode \mthind{Behavior}{new}, définie pour chaque classe du
 système, envoie \ct{initialize} aux instances nouvellement
-créées.}
+créées.
 
 \begin{method}{Modèle pour la méthode de classe \lct{new}. Le commentaire dit: ``Répond une nouvelle instance initialisée du receveur (qui est une classe) sans aucune variables indexées. Échoue si la classe est indexée''}
 Behavior>>>new
@@ -960,9 +961,9 @@ Bien que \ct{String} n'hérite pas de \clsind{Magnitude}, la classe supporte les
 '*or*' match: 'zorro' --> true
 \end{code}
 
-\arelire{Si vous avez besoin d'un meilleur support pour les expressions
-régulières, vous pouvez jeter un \oe il sur le paquetage
-\pkgind{Regex} de Vassili Bykov.} % CHANGE
+Si vous avez besoin d'un meilleur support pour les expressions
+régulières, vous pouvez jeter un coup \oe il sur le paquetage
+\pkgind{Regex} de Vassili Bykov. % CHANGE
 \index{Bykov, Vassili}
 \index{paquetage!expressions régulières}
 
@@ -1131,5 +1132,4 @@ Nous avons vu que:
 %%% TeX-PDF-mode: t
 %%% ispell-local-dictionary: "english"
 %%% End:
-ry: "english"
 %%% End:
