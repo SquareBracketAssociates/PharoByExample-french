@@ -3,12 +3,13 @@
 % traduit par Alain Plantec
 % relu par Martial Boniou (Sat Nov 24 14:53:40 CET 2007)  
 % $Revision: 12130 $
-% relu par Rene Mages (Fri Dec 21 8:57;55 CET 2007)
+% relu par Rene Mages (Fri Dec 21 8:57:55 CET 2007)
 % $Revision: 14579 $ (fusion le: Wed Dec 26 18:15:25 CET 2007)
 % relu par Rene Mages (Sun Jan 13 11:22:33 CET 2008)
 % relu par Martial Boniou (Mon Feb  4 17:35:46 CET 2008)
 % adaptation pour Pharo : martial - Fri Sep 11 13:23:52 CEST 2009 
-% relu par Rene Mages (Sat Jan 9 8:57;55 CET 2010)
+% relu par Rene Mages (Sat Jan 9 8:57:55 CET 2010)
+% relu par Rene Mages (Mon Aug 9 8:57:55 CET 2010)
 % $Author: oscar $ % $Date: 2009-08-28 10:41:41 +0200 (Fri, 28 Aug
 % 2009) $ % $Revision: 28654 $
 % sync avec la revision: 33691
@@ -49,8 +50,8 @@
 
 \on{Would be nice to have an example of test-driven development with SUnit from beginning to end. Perhaps this is for another chapter?}
 
-\indmain{SUnit} est \arelire{un \framework. À la fois simple et
-  puissant, il est destiné} à la création et au déploiement de tests.
+\indmain{SUnit} est un \framework. À la fois simple et
+  puissant, il est destiné à la création et au déploiement de tests.
 Comme son nom l'indique, \sunit est conçu plus particulièrement pour les \emph{tests unitaires},
 mais en fait, il peut être aussi utilisé pour des tests d'intégration ou des tests fonctionnels. 
 \sunit a été développé par Ken Beck et ensuite grandement étendu par d'autres développeurs, dont notamment Joseph Pelrine, avec la prise en compte de la notion de ressource décrite dans \secref{resource}. 
@@ -288,7 +289,7 @@ essayez donc! Nous trouvons qu'écrire les tests avant le code nous
 aide à déterminer ce que nous voulons coder, nous aide à savoir quand 
 nous avons terminé et nous aide à conceptualiser la fonctionnalité 
 d'une classe et à concevoir son interface.
-De plus, le développement \flqq{}\emph{test d'abord}\frqq{} (\ct{test-first}) 
+De plus, le développement \flqq{}\emph{tester d'abord}\frqq{} (\ct{test-first}) 
 nous donne le courage d'avancer rapidement parce que nous n'avons pas peur 
 d'oublier quelque chose d'important. 
 % \ind{eXtreme Programming} advocates writing tests before writing code.  This may seem to go
@@ -478,14 +479,13 @@ Notez l'utilisation de la méthode \mthind{TestCase}{deny:} pour garantir que qu
 %---------------------------------------------------------
 %\subsection{Step 4: run the tests}
 \subsection{Étape 4: exécuter les tests}
-\arelire{%
-L'exécution des tests se fait le plus simplement en utilisant
+L'exécution la plus simple des tests s'effectue en utilisant
 directement le Browser. \Actclickz{} sur le paquetage, le nom de la
 classe ou une méthode de tests et, de là, sélectionnez
 \menu{run the tests (t)}.
 Les méthodes de tests seront alors, entièrement ou partiellement,
 signalées par une puce rouge ou verte selon le succès complet, partiel
-ou bien l'échec des tests.} % REVOIR
+ou bien l'échec des tests. % REVOIR
 
 \begin{figure}[tbh]
   \begin{center}
@@ -499,7 +499,7 @@ Vous pouvez aussi sélectionner des séries de tests à lancer et obtenir un
 journal (en anglais, un \emph{log}) plus détaillé des
 résultats en lançant  l'\emphind{exécuteur de tests}  \emphind{Test
   Runner} de \sunit depuis le menu \menu{World \go Test Runner}.
-L'exécuteur de tests, montré dans la \figref{test-runner}, est conçu pour faciliter 
+L'exécuteur de tests, montré dans \figref{test-runner}, est conçu pour faciliter 
 l'exécution de groupes de tests.
 Le panneau le plus à gauche présente toutes les catégories qui
 contiennent des classes de test (\ie  sous-classes de
@@ -624,7 +624,7 @@ ExampleSetTest>>>testIllegal
 	self should: [empty at: 5 put: #zork] raise: Error
 \end{method}
 
-\sunit est portable~: il peut être utilisé avec tous les dialectes de \st. Afin de rendre \sunit portable, ses développeurs ont retiré les parties dépendantes des dialectes. La méthode de classe \cmind{TestResult class}{error} retourne la classe erreur du système de façon indépendante du dialecte. Vous pouvez en profiter aussi~: si vous voulez écrire des tests qui fonctionnent quelque soit le dialecte de \st, vous pouvez écrire \tmthref{ESTtestIllegal} ainsi:
+\sunit est portable~: il peut être utilisé avec tous les dialectes de \st. Afin de rendre \sunit portable, ses développeurs ont retiré les parties dépendantes des dialectes. La méthode de classe \cmind{TestResult class}{error} retourne la classe erreur du système de façon indépendante du dialecte. Vous pouvez en profiter aussi~: si vous voulez écrire des tests qui fonctionnent quel que soit le dialecte de \st, vous pouvez écrire \tmthref{ESTtestIllegal} ainsi:
 
 
 \needlines{4}
@@ -643,11 +643,11 @@ ExampleSetTest>>>testIllegal
 \subsection{Exécuter un test simple}
 Normalement, vous exécuterez vos tests avec l'exécuteur de tests
 (\ct{TestRunner}).
-\arelire{Vous pouvez aussi le lancer en faisant un \menu{do it} du code}
+Vous pouvez aussi le lancer en faisant un \menu{print it} du code
   \ct{TestRunner open}. % CHANGE REVOIR - martial - simplifié car PBE se trompe:
 %Si vous ne voulez pas lancer l'exécuteur de tests depuis le menu \menu{open\,\ldots}, vous pouvez évaluer  \ct{TestRunner open} à l'aide d'un \menu{print it}.
+% rene confirme : ce n'est pas \menu{do it} mais bien \menu{print it} 
 %\index{Tools flap}
-
 Vous pouvez exécuter un simple test de la façon suivante:
 
 
@@ -690,7 +690,7 @@ Nous ne vous le recommandons pas. Le \framework est déjà là~: utilisez-le.
 % Rene propose de ne pas traduire framework
 \section{Le \frmwk SUnit}
 
-Comme montré dans \figref{sunit-classes}, \sunit consiste en quatre classes 
+Comme l'illustre \figref{sunit-classes}, \sunit consiste en quatre classes 
 principales~: \clsind{TestCase},\clsind{TestSuite}, \clsind{TestResult} et \clsind{TestResource}.
 La notion de \emph{ressource de test} a été introduite dans \sunit~3.1 pour représenter 
 une ressource coûteuse à installer mais qui peut être utilisée par toute une série de tests. 
@@ -765,7 +765,7 @@ feuilles\,---\,voir les \textit{Design Patterns} pour plus d'informations sur ce
 
 La classe \clsindmain{TestResult} représente les résultats de
 l'exécution d'un \ct{TestSuite}. Elle mémorise le nombre de tests
-passés, le nombre de tests en échec et le \arelire{nombre d'erreurs signalées.} % CHANGE
+passés, le nombre de tests en échec et le nombre d'erreurs signalées. % CHANGE
 % The class \clsindmain{TestResult} represents the results of a
 % \ct{TestSuite} execution.  It records the number of tests passed,
 % the number of tests failed, and the number of errors raised.
@@ -1067,7 +1067,7 @@ TestResult>>>runCase: aTestCase
 \end{method}
 
 La méthode \ct{TestCase>>>runCase} envoie les messages
-\mthind{TestCase}{setUp} et \mthind{TestCase}{tearDown} comme montré
+\mthind{TestCase}{setUp} et \mthind{TestCase}{tearDown} comme indiqué
 ci-dessous.
 \needlines{3} % CHANGE
 \begin{method}[testcaseruncase]{Modèle de méthode de test}
