@@ -16,6 +16,7 @@
 %% Review: Rene Mages - Sat Jan 12 18:55:44 2008 (3600 CET)
 %% Adaptation pour PharoBook: Martial Boniou - Tue Nov 17 11:45:22 2009
 %% Relecture pour PharoBook: Rene Mages - Mon Jan 18 11:45:22 2010
+%% Relecture pour PharoBook: Rene Mages - Mon Aug  9 11:45:22 2010
 %% Sync avec la version: 33691
 %% Keywords:
 %% Compatibility: 
@@ -156,7 +157,6 @@ nous vous proposons d'isoler une option du menu World et de vous
 en faire un bouton hors du menu.
 
 \dothis{Afficher le menu World. 
-\arelire{%
 \Metaclickz{} une première fois sur le menu World
   de manière à afficher son \emph{halo}\footnote{Rappelez-vous que
     vous devez avoir l'option \button{halosEnabled} activée dans le
@@ -164,7 +164,7 @@ en faire un bouton hors du menu.
     \ct{Preferences enable: \#halosEnabled} dans un espace de
     travail.} Morphic.
 \Metaclickz{} à nouveau sur l'option de menu que vous voulez détacher,
-disons \menu{Workspace} pour afficher son halo.} % CHANGE
+disons \menu{Workspace} pour afficher son halo. % CHANGE
  Déplacez celui-ci n'importe où sur l'écran en glissant
   la poignée noire \grabHandle{},
  comme le montre \figref{detachingMenu}.}
@@ -229,7 +229,7 @@ Voyons comment obtenir un rectangle de couleur plutôt que ce
 %Let's change this so that we get a coloured rectangle instead.
 
 \dothis{Ouvrez un navigateur de classes sur la classe \ct{Color} et
-  ajoute la méthode suivante
+  ajoutez la méthode suivante
 %ajout
 dans le protocole \ct{creation}:}
 \begin{method}{Obtenir un morph d'une instance de \ct{Color}}
@@ -392,7 +392,7 @@ lui-même sur ce canevas dans ses limites. %
 Utilisons cette connaissance pour créer un morph en forme de croix.
 \index{morph!sous-classer}
 
-\dothis{Définissez \arelire{via le Browser} une nouvelle
+\dothis{Définissez \arelire{via le Browser } une nouvelle
   classe \clsind{CrossMorph} héritée de \ct{Morph}:}
 \begin{classdef}{Définir la classe \ct{CrossMorph}}
 Morph subclass: #CrossMorph
@@ -671,7 +671,7 @@ morph sous le pointeur de la souris le message
 \ct{handlesMouseDown:}. Si un morph répond \ct{true}, Morphic lui
 envoie immédiatemment le message \mthind{Morph}{mouseDown:}. Lorsque
 le bouton de la souris est relâché, Morphic envoie
-\mthind{Morph}{mouseUp:}  à ces mêmes morphs qui avaient répondus
+\mthind{Morph}{mouseUp:}  à ces mêmes morphs qui avaient répondu
 positivement. Si tous les morphs retournent \ct{false}, Morphic entame
 une opération de
 %saisissement dans la version d'Hilaire (c'est en fait une emotion
@@ -694,9 +694,9 @@ CrossMorph>>>handlesMouseDown: anEvent
 
 Supposons que vous vouliez que la couleur de la croix passe au rouge
 (\ct{Color red})
-à chaque \arelire{fois que vous \clickz} et qu'elle passe au jaune
+à chaque fois que vous \clickz et qu'elle passe au jaune
 (\ct{Color yellow})
-lorsque \arelire{vous \actclickz sur celle-ci}. 
+lorsque vous \actclickz sur celle-ci. 
 Nous devons créer la \mthref{mouseDown}.
 
 %% REVOIR IMPORTANT
@@ -734,6 +734,11 @@ et \mthind{MouseEvent}{yellowButtonPressed} \arelire{pour celle du
   \actclickbtn}.
  Parcourez cette classe pour en savoir plus sur les autres méthodes disponibles pour la gestion
 des événements souris.} % ATTENDRE - martial - je n'aime pas trop l'abandon des conventions de couleurs de la souris dans le livre si le système les garde CONFUS! 
+%The anEvent argument of mouseDown: is an instance of MouseEvent, which
+%is a subclass of MorphicEvent. MouseEvent defines the redButtonPressed and
+%yellowButtonPressed methods. Browse this class to see what other methods
+%it provides to interrogate the mouse event.
+
 
 \subsection{Les événements clavier}
 
@@ -840,7 +845,7 @@ simples animations grâce à quatre méthodes:
 \item \mthind{Morphic}{stopStepping} arrête l'animation.
 \end{itemize}
 
-à ces méthodes s'ajoutent une méthode de test
+à ces méthodes s'ajoute une méthode de test
 \mthind{Morphic}{isStepping} pour savoir si le morph est en cours
 d'animation.% currently being stepped.
 \index{Morphic!animation}
@@ -1283,10 +1288,10 @@ DieMorph>>>step
 \end{methods}
 Désormais, notre dé ``roule''!
 
-Pour démarrer ou arrêter  l'animation par un \arelire{\clickbtn de souris}, nous
+Pour démarrer ou arrêter  l'animation par un \clickbtn de souris, nous
 utiliserons ce que nous avons préalablement appris sur les événements souris.
 Nous activons la réception des événements de la souris et nous
-décrivons notre gestion \arelire{du \clickbtn} dans la
+décrivons notre gestion du \clickbtn dans la
 méthode \ct{mouseDown:}.       
 %ou \mthind{Morph}{mouseDown:}
 
@@ -1390,8 +1395,7 @@ C'est tout ce dont nous avons besoin!
 %=================================================================
 \section{Résumé du chapitre}
 
-Morphic est une librairie graphique dans laquelle les éléments de
-% Rene :  framework plutot que librairie
+Morphic comporte une librairie graphique grâce à laquelle les éléments de
 l'interface graphique peuvent être composés dynamiquement.
 Vous pouvez:
 \begin{itemize}
