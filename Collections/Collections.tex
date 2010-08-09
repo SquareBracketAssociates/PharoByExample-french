@@ -6,6 +6,7 @@
 % relecture : Rene Mages (9 jan 2008) de la version #14859
 % adaptation pour PBE: martial Tue Sep  8 19:56:33 CEST 2009 
 % relecture : Rene Mages (12 jan 2010) de la version #30229
+% relecture : Rene Mages ( 9 aug 2010) de la version #34381
 % - oscar - 28661 - $Date: 2009-08-28 11:31:14 +0200 (Fri, 28 Aug
 % 2009) $
 % sync avec la revision: 33691
@@ -341,7 +342,7 @@ des éléments du \ct{Bag} et pour valeurs leur nombre d'occurences.
   \item Les listes chaînées LinkedList utilisent une
 représentation standard simplement chaînée.
   \clsindex{LinkedList}
-  \item Les intervalles \ct{Interval} sont représentées 
+  \item Les intervalles \ct{Interval} sont représentés 
 par trois entiers qui enregistrent les deux points extrêmes et la taille de pas.
   \clsindex{Interval}
 \end{enumerate}
@@ -363,7 +364,7 @@ Les protocoles principaux de collections sont: \mthind{Collection}{at:}, \mthind
 Chaque collection implémente ou non de tels protocoles et quand elle 
 le fait, elle les interpréte pour être en adéquation avec leurs sémantiques.
 Nous vous suggérons de naviguer dans les classes elles-même pour
-identifier par vous même les protocoles spécifiques et plus avancés.
+identifier par vous-même les protocoles spécifiques et plus avancés.
 \seeindex{do:@\ct{do:}}{Collection, \ct{do:}}
 \seeindex{at:@\ct{at:}}{Collection, \ct{at:}}
 \seeindex{at:put:@\ct{at:put:}}{Collection, \ct{at:put:}}
@@ -678,7 +679,7 @@ colors associations --> {#yellow->Color yellow . #red->Color red}
 \paragraph{IdentityDictionary.}
 Alors qu'un dictionnaire utilise le résultat des messages \ct{=} et \ct{hash} pour déterminer si deux clés sont identiques, la classe \clsindmain{IdentityDictionary} utilise l'identité (\cad le message \mthind{ProtoObject}{==}) de la clé au lieu de celle de ses valeurs, \ie qu'il considère deux clés comme égales \emph{seulement} si elles sont le même objet.
 
-Souvent les symboles de classe \ct{Symbol} sont utilisés comme clés, dans les cas où le choix de \ct{IdentityDictionary} s'impose, car un symbole est toujours certain d'être globalement unique. Si d'un autre côté, vos clés sont des chaînes de caractères \ct{String}, il est préférable d'utiliser un \ct{Dictionary} ou sinon vous pourriez avoir des ennuis:
+Souvent les symboles de classe \ct{Symbol} sont utilisés comme clés, dans les cas où le choix de \ct{IdentityDictionary} s'impose, car un symbole est toujours certain d'être globalement unique. Si d'un autre côté, vos clés sont des chaînes de caractères \ct{String}, il est préférable d'utiliser un \ct{Dictionary} sinon vous pourriez avoir des ennuis:
 
 \begin{code}{@TEST | a b trouble |}
 a := 'foobar'.
@@ -952,8 +953,9 @@ de caractères à apparier.
 \end{code}
 
 Des techniques d'appariements plus avancées par filtre 
-offrant les même possibilités que Perl sont disponibles dans le
-paquetage \pkgind{Regex}. % CHANGE
+offrant les mêmes possibilités que Perl sont disponibles dans le
+paquetage \arevoir{\pkgind{Regex}.} % CHANGE
+% Rene propose :  s / Regex / VB-Regex / 
 \index{paquetage!expressions régulières}
 \seeindex{regular expression package}{paquetage, expressions régulières}
 
@@ -1045,7 +1047,7 @@ La méthode \mthind{Collection}{do:} est un itérateur de collections basique.
 Il applique son argument (un bloc avec un simple argument) à chaque
 élément du receveur.
 L'exemple suivant imprime toutes les chaînes de caractères
-contenu dans le receveur vers le Transcript.
+contenues dans le receveur vers le Transcript.
 
 \begin{code}{}
 #('bob' 'joe' 'toto') do: [:each | Transcript show: each; cr].
@@ -1229,8 +1231,9 @@ Le premier argument est une valeur initiale et le second est un bloc-argument
 Une application triviale de  \ct{inject:into:} consiste à produire 
 la somme de nombres stockés dans une collection.
 %?En se référant à Gauss,
+% A la mémoire du mathématicien Gauss,
 %Following Gauss,
-Selon Gauss, nous pouvons écrire, en \pharo, cette expression pour sommer les 100 premiers entiers:
+A la mémoire du mathématicien Gauss, nous pouvons écrire, en \pharo, cette expression pour sommer les 100 premiers entiers:
 \begin{code}{@TEST}
 (1 to: 100) inject: 0 into: [:sum :each | sum + each ] --> 5050
 \end{code}
@@ -1356,14 +1359,15 @@ grâce à une syntaxe spéciale: \ct{#( ... )}.  Les tableaux dynamiques
 sont créés avec la syntaxe \ct|{ ... }|.
   \item Un dictionnaire \ct{Dictionary} compare ses clés par égalité.
 C'est plus utile lorsque les clés sont des instances de \ct{String}. 
-Un \ct{IdentityDictionary} utilise l'identité entre objets pour comparer les clés. Il est souhaitable que des \ct{Symbol}s soient utilisés comme clés \arevoir{ou que la correspondance soit établie sur les valeurs.}
+Un \ct{IdentityDictionary} utilise l'identité entre objets pour comparer les clés. Il est souhaitable que des \ct{Symbol}s soient utilisés comme clés \arevoir{ou que la correspondance soit établie entre les références d'objets et les valeurs.}
 % cette phrase ci-dessus est a revoir: 
 % It is more suitable when Symbols are used as keys, or when mapping object references to values.
 
   \item Les chaînes de caractères de classe \ct{String} comprennent
 aussi les messages habituels de la collection. En plus, un \ct{String} 
 supporte une forme simple d'appariement de formes ou \emph{pattern-matching}. 
-Pour des applications plus avancées, vous aurez besoin du paquetage d'expressions régulières RegEx.
+Pour des applications plus avancées, vous aurez besoin du paquetage d'expressions régulières \arevoir{Regex}.
+% Rene propose : s / Regex / VB-Regex /
   \item Le message de base pour l'itération est \ct{do:}. Il est 
 utile pour du code impératif tel que la modification de chaque élément d'une collection ou l'envoi d'un message sur chaque élément.
   \item Au lieu d'utiliser \ct{do:}, il est d'usage d'employer \ct{collect:}, \ct{select:}, \ct{reject:}, \ct{includes:}, \ct{inject:into:} et d'autres messages de haut niveau pour un traitement uniforme des collections.
