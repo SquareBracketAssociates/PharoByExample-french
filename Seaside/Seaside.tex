@@ -13,8 +13,9 @@
 % 2009-04-18 - Jorge Ressia reviewed
 % 2009-05-06 - Oscar converted to Pharo; fixed review comments
 % 2009-11-18 - Martial started the french translation
-% 2010-01-08 - Rene started the first rereading
+% 2010-01-08 - Rene Mages started the first rereading
 % 2010-06-22 - Martial update
+% 2010-08-10 - Rene Mages finished the second rereading
 % sync avec la version: 33691
 %
 %=================================================================
@@ -62,7 +63,7 @@ Deux des applications basées sur Seaside les plus connues sont
  \ind{SqueakSource}\footnote{\url{http://SqueakSource.com}} et \ind{Dabble DB}\footnote{\url{http://DabbleDB.com}}.
 Seaside n'est pas commun dans le sens qu'il est résolument orienté
 objet: il n'y a aucune structure de type \emph{template} XHTML, aucun
-flux de contrôle complexe par des pages web, ni même encodage de
+flux de contrôle complexe par des pages web, ni même d'encodage de
 l'état dans les URLs. Vous envoyez simplement des messages aux
 objets. Quelle merveilleuse idée!
 
@@ -81,7 +82,7 @@ problèmes, le principal étant la gestion du flux de contrôle ``inversé''.
 % control flow
 C'est pour cette raison que beaucoup d'applications web tentent
 d'interdire l'usage du bouton \backbtn (ou ``back'' en anglais, nommé
-\emph{précédent(e)} sur certaines navigateurs) du fait de la
+\emph{précédent(e)} sur certains navigateurs) du fait de la
 difficulté de garder une trace de l'état d'une session.
 Diffuser des flux de contrôle significatifs entre plusieurs pages web 
 est souvent lourd et la diffusion de plusieurs flux peut être difficile.
@@ -101,8 +102,8 @@ qui allège le développement web de plusieurs façons.
 Tout d'abord, le flux de contrôle
 % control flow
 peut être exprimé naturellement en utilisant les envois de messages.
-\arevoir{Seaside garde une trace de la correspondance entre page web et 
-un point précis dans l'exécution de l'application web.}
+Seaside garde une trace de la correspondance entre page web et 
+un point précis dans l'exécution de l'application web.
 % Seaside keeps track of which web page corresponds to which point in
 % the execution of the web application.
 Donc le bouton \backbtn du navigateur web fonctionnement correctement.
@@ -114,6 +115,7 @@ En tant que développeur, vous aurez le choix de permettre le
 navigation en \backbtn{} annulera les effets de bord.
 % backtracking of state, so that navigation ``back'' in time will undo side-effects.
 Vous pouvez autrement utiliser le \arelire{support de transaction}
+% Rene n'a pas trouvé de meilleure traduction que "support de transaction"
 inclus dans Seaside pour empêcher les utilisateurs d'annuler les
 effets de bord permanents lorsqu'ils utilisent le bouton \backbtn.
 Vous n'avez pas à encoder l'information de l'état dans
@@ -143,7 +145,7 @@ Télécharger le logiciel ``Seaside \subind{Seaside}{One-Click
   Experience}'' depuis le \subind{Seaside}{site
   web}\footnote{\url{http://seaside.st}} est la façon la plus simple
 pour commencer avec Seaside.
-Il s'agit d'une \arevoir{version ``clé en main''}
+Il s'agit d'une version ``clé en main''
 % proposition de René : version packagée
 % proposition de Martial: version ``clé en main'': idée de paquet ("bundle") et de "prêt à l'emploi"
 % prepackaged version 
@@ -203,8 +205,7 @@ compteur qui peut être incrémenté et décrementé en cliquant sur les
 liens \link{++} et \link{{-}{-}}.
 
 \noindent
-\dothis{Amusez-vous un peu avec l'application ``counter'' en cliquant sur
-  ces liens.
+\dothis{Amusez-vous un peu avec l'application ``counter'' en cliquant sur ces liens.
 Utiliser le bouton \backbtn du navigateur pour revenir à l'état
 précédent et cliquer ensuite sur \link{++}.
 Remarquez comment le compteur est correctement incrémenté depuis
@@ -235,10 +236,10 @@ Internet car il utilise le service de validation W3C.
 
 
 Les applications Seaside sont construites à l'aide de
-\arevoir{``composants'' connectables}.
+\arevoir{``composants'' interconnectables}.
 % pluggable ``components''.
 Ces composants sont en réalité des objets Smalltalk ordinaires.
-Leur seule particularité est qu'elles doivent être des instances des
+Leur seule particularité est qu'ils doivent être des instances de
 classes héritées de la classe du \framework Seaside appelée
 \ct{WAComponent}.
 Nous pouvons explorer les composants et leurs classes dans l'image
@@ -257,7 +258,7 @@ Pharo ou directement, depuis l'interface web, en utilisant les halos.
 page web comme celle de \figref{counterHalos}.
 Dans le coin supérieur gauche, le texte \ct{WACounter} nous indique le
 nom de la classe du composant Seaside qui implémente le comportement
-de cette page. \arelire{À côté de ce texte,} il y a trois icônes
+de cette page. À droite de ce texte, il y a trois icônes
 cliquables.
 Le premier, représentant un crayon, active un navigateur de classes
 Seaside sur la classe \ct{WACounter}. Le second icône avec une loupe
@@ -272,9 +273,9 @@ Essayez donc en cliquant sur ces différents liens.
 Remarquez que les liens \link{++} et \link{{-}{-}} sont aussi actifs dans
 la vue du code source.
 \mb{More and more browsers, Safari/Firefox, provide pretty-print code view!}
-\arevoir{Observez d'ailleurs le formatage en couleurs du code source fourni
-par les halos Seaside \aretirer{avec} la vue du code source non-formatée fournie
-par votre navigateur.}}
+Comparez d'ailleurs le formatage en couleurs du code source fourni
+par les halos Seaside avec la vue du code source non-formatée fournie
+par votre navigateur.
 
 Le navigateur de classes Seaside et l'inspecteur d'objets peuvent être
 très pratiques lorsque le serveur tourne sur un autre ordinateur,
@@ -295,8 +296,8 @@ l'image \pharo dans laquelle votre serveur est en activité.
 
 \dothis{Cliquez sur le lien 
  Object Inspector représenté par l'icône de loupe du halo
-pour ouvrir un inspecteur d'objets sur \arelire{l'objet-compteur
-  Smalltalk} et évaluez \ct{self halt} (en cliquant sur 
+pour ouvrir un inspecteur d'objets sur l'objet-compteur
+ Smalltalk et évaluez \ct{self halt} (en cliquant sur 
 \button{doit}). % REVOIR
 La page web s'arrêtera de charger. Allez maintenant dans votre image
 Seaside. Vous devriez voir une fenêtre \arevoir{de pré-débogueur} % ATTENDRE changement dans le debugger de Pharo?
@@ -335,12 +336,11 @@ l'implémentation de \ct{WAMultiCounter}.
 Vous devriez voir trois méthodes du côté classe (\ct{canBeRoot},
 \ct{description} et \ct{initialize}) ainsi que trois méthodes du côté
 instance (\ct{children}, \ct{initialize} et \ct{renderContentOn:}).
-\arelire{Remarquez qu'une application est simplement un composant
+Remarquez qu'une application est simplement un composant
 qui peut être à la racine de la hiérarchie de composants; cette
 possibilité de devenir racine, et donc application, est indiquée en
 définissant une méthode de classe \ct{canBeRoot} (en anglais, ``peut
-être racine'') pour qu'elle réponde
-\ct{true}.}}
+être racine'') pour qu'elle réponde \ct{true}.}
 \index{Seaside!multicounter}
 
 Vous pouvez utiliser l'interface web Seaside, copier ou enlever une
@@ -410,9 +410,8 @@ configuration. Si vous enlevez l'application
 
 %\ab{This section was too long\,---\,18 pages.  It also contained several self-references (``see section 1.3''). So I broke into smaller sections, by promoting some of the subsections and subsubsections.}
 
-Comme nous l'avons mentionné précédemment, les \arelire{applications
-%de
-Seaside} sont bâties sur une agrégation de
+Comme nous l'avons mentionné précédemment, les applications de
+Seaside sont bâties sur une agrégation de
   \subind{Seaside}{composants}\,---\,en anglais \emph{component}.
 %As we mentioned in the previous section, Seaside applications are built out of \emph{\subind{Seaside}{components}.}
 Regardons comment Seaside fonctionne en programmant le composant
@@ -425,8 +424,8 @@ Tout composant Seaside doit hériter directement ou indirectement de
 \dothis{Définissez une sous-classe de \ct{WAComponent} appelée
   \ct{HelloWorld}.}
 
-Les composants doivent savoir comment faire \arelire{leur propre rendu
-  visuel}.
+Les composants doivent savoir comment faire leur propre rendu
+  visuel.
 Ceci est fait habituellement en implémentant la méthode
 \mthind{WAPresenter}{renderContentOn:} qui prend comme argument une
 instance de  \clsind{WAHtmlCanvas}; ce dernier sait comment faire le
@@ -446,7 +445,7 @@ WAHelloWorld>>>renderContentOn: html
 Nous devons dire maintenant à Seaside que ce composant est destiné à
 être autonome
 % ajout vf - plus clair
-\arelire{(donc une possible racine de l'arborescence de composants).} % CHANGE
+(donc une possible racine de l'arborescence de composants). % CHANGE
 
 \dothis{Écrivez la méthode de classe suivante pour \ct{WAHelloWorld}.}
 
@@ -494,7 +493,7 @@ l'application ``hello world''.
 \end{center}
 \end{figure}
 
-La classe  \clsind{WACounter} est une \arelire{application autonome},
+La classe  \clsind{WACounter} est une application autonome,
 ainsi \ct{WACounter class} doit répondre \ct{true} au message 
  \mthind{WAComponent class}{canBeRoot}.
 Elle doit aussi être enregistrée en tant qu'application; sa méthode de
@@ -518,7 +517,7 @@ partie de son état doit être suivie.
 Un composant permet le \backtracking en implémentant la méthode
 d'instance \ct{states}:
 % \ab{note that xspace messes up again, by inserting a space at the start of this line}
-\ct{states} devrait répondre un tableau contenant tous les objets à
+\ct{states} devrait retourner un tableau contenant tous les objets à
 suivre. Dans notre cas, l'objet \ct{WACounter} s'ajoute lui-même à la
 table Seaside des objets à suivre pour le \backtracking en retournant
 \ct{Array with: self}.
@@ -526,7 +525,7 @@ table Seaside des objets à suivre pour le \backtracking en retournant
 \paragraph{\emph{Avertissement.}}
 Il y a un point subtil mais important à surveiller lorsque vous
 déclarez des objets pour le \backtracking.
-Seaside suit l'état en faisant une \arelire{\emph{copie}}
+Seaside suit l'état en faisant une \emph{copie}
 % \emph{copy} % REVOIR - martial - nom de méthode??
 de tous les objets déclarés dans le tableau \ct{states}.
 Ceci se fait via l'objet
@@ -537,14 +536,15 @@ en tant que clés et des \arelire{copies superficielles
 (\ie{} en \ct{shallowCopy})} en tant que valeurs.
 \arelire{S'il y a \backtracking{} de l'état d'une application vers une
   capture particulière de l'état, l'état de chaque objet entré dans ce
-dictionnaire est écrasé par la copie sauvegardée dans la capture.}
+dictionnaire est écrasé par la copie sauvegardée dans l'image du système.}
 %If the state of an application is backtracked to a particular snapshot, the state of each object entered into the snapshot dictionary is overwritten by the copy saved in the snapshot.
-
+% rene propose de traduire snapshot par image du système
 \tradalert{martial}{revoir ce paragraphe.}
+
 
 Voilà le point critique:
 Dans le cas de \ct{WACounter}, vous pourriez vous dire que l'état à
-être suivi est une valeur numérique\,---\,la valeur de la variable
+suivre est une valeur numérique\,---\,la valeur de la variable
 d'instance \ct{count}.
 Cependant, la méthode \ct{states} répondant \ct{Array with: count} ne
 marche pas.
@@ -572,7 +572,7 @@ précédente.
 %=================================================================
 \section{Le rendu XHTML}
 
-Le but d'une application web est la création, ou ``rendu'', de pages web.
+Le but d'une application web est la création, ou le ``rendu'', de pages web.
 Comme nous l'avons dit dans \secref{components}, chaque composant
 Seaside est responsable de son propre rendu.
 % REVOIR - ajout vf (cette phrase n'existe pas dans PBE
@@ -605,7 +605,7 @@ classe \mthind{WAComponent class}{canBeRoot} pour qu'elle réponde
 \ct{true}.
 De plus, c'est un composant \emph{composite}. Seaside a besoin d'une
 déclaration de ses composants enfants faite via la méthode
-\ct{children} qui répond un tableau de tous les composants que
+\ct{children} qui retourne un tableau de tous les composants que
 l'application contient.
 Le rendu de ce composant se fait en faisant le rendu de ces
 sous-composants séparés par une barre horizontale.
@@ -627,7 +627,7 @@ l'initialisation, il n'y a rien d'autre pour faire l'application
 
 Comme nous l'avons vu sur ces exemples, Seaside n'utilise pas de
 patrons ou \emph{templates} pour générer les pages web.
-Au lieu de ça, il génère le code XHTML de manière programmatique.
+Au lieu de cela, il génère le code XHTML de manière programmatique.
 Tout composant Seaside devrait surcharger la méthode
  \mthind{WAPresenter}{renderContentOn:}. C'est ce message qui sera
  envoyé par Seaside pour chaque composant nécessitant d'être rendu.
@@ -642,6 +642,7 @@ Un canevas HTML est analogue au canevas graphique utilisé par Morphic
 (et la plupart des autres bibliothèques graphiques) pour
 \arevoir{abstraire le graphisme des détails dépendants des
   périphériques}.
+% Rene propose : s / abstraire / séparer /
 % An html canvas is analogous to the graphics canvas used by Morphic (and most other drawing frameworks) to abstract away from the device-dependent details of drawing.
  
 Voici quelques-unes des méthodes de rendu les plus simples:
@@ -742,7 +743,7 @@ sur les feuilles de style CSS, rendez-vous à \secref{css}).
 Notez aussi que l'argument du message à mots-clés \ct{with:} n'a pas
 besoin d'être une chaîne de caractères litéral: ce peut être un autre
 composant ou même\,---\,comme dans l'exemple suivant\,---\,un
-bloc contenant \arevoir{des actions de rendu appliquées plus tard}.
+bloc contenant des actions différées de rendu.
 %block containing further rendering actions.
 
 Le composant \ct{SeasideHtmlDemo} fait la démonstration des \brushes{}
@@ -761,7 +762,7 @@ SeasideHtmlDemo>>>renderContentOn: html
 	self renderLinkWithCallbackOn: html
 \end{code}
 
-La division de longue méthode de rendu en plusieurs méthodes adjointes
+La division d'une longue méthode de rendu en plusieurs méthodes adjointes
 est une pratique commune: c'est ce que nous avons fait ici.
 %It is common practice to break up long rendering methods into many helper methods, as we have done here.
 
@@ -803,7 +804,7 @@ XHTML devraient être affichés (voir \secref{css}).
 
 \localcode{renderDivsAndSpans}
 
-Finalement nous avons un simple exemple d'un lien, crée en liant un
+Finalement nous avons un simple exemple d'un lien, créé en liant un
 simple \subind{Seaside}{\callback} (ou fonction de rappel) à une
 ``ancre'' (en anglais, ``\emph{anchor}'').
 Cliquez sur le lien aura pour conséquence de basculer le texte entre
@@ -859,9 +860,8 @@ SeasideFormDemo>>>renderContentOn: html
 
 En raison de sa nature complexe, le formulaire est rendu en utilisant
 un bloc.
-\arevoir{%
 Notez que tous les changements d'état se produisent dans les
-\callbacks et non dans les parties de code liées au rendu.} 
+\callbacks et non dans les parties de code liées au rendu.
 % REVOIR - martial - déjà dit plus haut dans \important
 %Note that all the state changes happen in the callbacks, not as part of the rendering.
 
@@ -885,8 +885,8 @@ Dans le cas présent d'une zone de saisie de texte,
   d'instance.}
 %this saves us the trouble of having to define a callback that updates the field as well as having to bind the default contents of the html input field to the current value of the instance variable.
 En utilisant \ct{on: #heading of: self}, la variable \ct{heading} est
-mise à jour automatiquement à chaque fois l'utilisateur \arevoir{change le
-texte de la zone de saisie.}
+mise à jour automatiquement à chaque fois que l'utilisateur change le
+texte de la zone de saisie.
 %variable is updated automatically whenever the user updates the text input field.
 
 Le même message est utilisé deux fois encore dans cet exemple pour
@@ -906,8 +906,8 @@ ou allez simplement sur la page
 navigateur web.
 Sélectionnez \menu{WAInputTest} 
 % ajout vf
-\arelire{(cliquez sur le bouton \button{Restart} si vous avez
-  désactivé le support JavaScript de votre navigateur web)} % CHANGE -
+(cliquez sur le bouton \button{Restart} si vous avez
+  désactivé le support JavaScript de votre navigateur web) % CHANGE -
                                 % ajout vf - automatique si JavaScript
  pour voir la plupart des types d'éléments de formulaire.
 
@@ -930,12 +930,12 @@ Les feuilles de style en cascade ou
 Seaside utilise les CSS pour éviter l'encombrement de votre code de
 rendu par la mise en page.
 
-Vous pouvez mettre un feuille de style CSS pour vos composants web en
+Vous pouvez mettre une feuille de style CSS pour vos composants web en
 définissant la méthode \ct{style} qui devrait retourner les règles CSS
 de ce composant sous forme d'une chaîne de caractères.
 Les styles de tous les composants affichés sur un page web sont
 assemblés. Ainsi chaque composant peut avoir son propre style.
-Une meilleur approche serait de définir une classe abstraite pour
+Une meilleure approche serait de définir une classe abstraite pour
 votre application web définissant un style commun pour toutes ses
 sous-classes. % martial - ( un trait aussi )
 
@@ -949,7 +949,7 @@ serveur autonome
 dédié à ces fichiers.
 
 Si vous n'êtes pas déjà familier avec les CSS, veuillez lire
-\arelire{la brève introduction aux feuilles de style CSS}.
+une brève introduction aux feuilles de style CSS.
 
 En utilisant les CSS, vous définirez différentes classes aux éléments
 de texte et de paragraphe de vos pages web et vous déclarerez toutes
@@ -962,10 +962,10 @@ Vous devriez définir alors définir des noms symboliques pour ces
 classes, tels que ``highlight'' (\emph{subbrillance} en français) pour
 le texte à mettre en surbrillance, et préciser dans votre feuille de
 style comment le texte en surbrillance doit être affiché.
-Un feuille de style comprend simplement un ensemble de règles qui
+Une feuille de style comprend simplement un ensemble de règles qui
 décrivent le format des éléments XHTML donnés. 
 Chaque règle se scinde en deux parties: un \emph{sélecteur} qui
-dit sur quels éléments XHTML la règle s'applique et une
+précise sur quels éléments XHTML la règle s'applique et une
 \emph{déclaration} qui liste un certain nombre d'attributs pour ce ou
 ces éléments.
 
@@ -1028,19 +1028,19 @@ plusieurs fois dans un page, un attribut \emph{id} doit identifier un
 exemple, ou encore une date modifiée ou un auteur.
 Remarquez qu'un élément XHTML particulier peut avoir de multiples
 classes; dans ce cas, tous les attributs d'affichage seront appliqués
-\arelire{séquentiellement}.
+séquentiellement.
 %all the applicable display attributes will be applied in sequence.
 
 % This style sheet expects at most one element to specify the \emph{author} of the web page.
 
 Des conditions au sélecteur peuvent être ajoutées. Ainsi le sélecteur
-\ct{div.subcomponent} correspondera seulement à un élément XHTML qui
+\ct{div.subcomponent} correspondra seulement à un élément XHTML qui
 est à la fois un élément \emph{div} \emph{et} un élément de classe
 ``subcomponent''.
 
 Il est aussi possible de préciser des éléments imbriqués, bien que
 cela soit rarement nécessaire. Par exemple, le sélecteur
-``\ct{paragraphe span}'' correspondera à un élément \emph{span} inclus dans un
+``\ct{paragraphe span}'' correspondra à un élément \emph{span} inclus dans un
 paragraphe (élément \ct{p}) mais excluera ceux inclus dans un élément
 \emph{div}.
 
@@ -1049,7 +1049,7 @@ CSS que vous pourrez consulter pour en apprendre plus.
 Pour une démonstration spectaculaire du pouvoir des CSS, nous vous
 recommandons de voir le site CSS Zen
 Garden\footnote{\url{http://www.csszengarden.com/}} qui présente
-comment un même contenu peut avoir un rendu totallement différent
+comment un même contenu peut avoir un rendu totalement différent
 uniquement en changeant de feuille de style.
 
 %-----------------------------------------------------------------
@@ -1068,8 +1068,8 @@ Deux mécanismes peuvent être utilisés:
 où \ct{caller} est le composant appelant et \ct{callee} est le
 composant appelé.
 Le composant appelant est temporairement remplacé par le composant
-appelé jusqu'à ce que le \arelire{composant appelé lui rende la main
-  en envoyant \ct{answer:} (\ie la réponse).}
+appelé jusqu'à ce que le composant appelé lui rende la main
+  en envoyant \ct{answer:} (\ie la réponse).
 %until the callee returns control by sending \ct{answer:}.
 L'appelant est généralement \ct{self} mais ce peut être un autre
 composant visible;
@@ -1077,6 +1077,7 @@ composant visible;
   \item une modélisation des tâches (ou \emph{workflow}) peut être définie
     sous forme de \subind{Seaside}{\task}{\emph{s}}~\footnote{En
       français, \emph{tâche}.}.
+% rene : \emph{s} provoque une erreur (voir le pdf en page 278)
     C'est un type particulier de composant, sous-classe de
     \clsind{WATask} (et non pas de \clsind{WAComponent}).\seclabel{task}
 Au lieu de définir \ct{renderContentOn:}, ce composant ne définit
@@ -1132,7 +1133,7 @@ Ils peuvent être envoyés sans problème depuis un
 \subind{Seaside}{\callback} ou depuis la méthode \mthind{WATask}{go}
 d'une \task.}
 
-Le composant \ct{SeasideEditAnswerDemo} est aussi remarquable simple.
+Le composant \ct{SeasideEditAnswerDemo} est aussi remarquablement simple.
 Il se contente d'afficher un formulaire avec une zone de saisie.
 Le bouton \emph{submit} 
 % ajout - vf
@@ -1239,14 +1240,14 @@ protocole \prot{convenience} de la classe \clsind{WAComponent}.
 
 Une \subind{Seaside}{task} (ou \emph{tâche}) est un composant qui est
 sous-classe de \clsind{WATask}.
-Elle ne fait le rendu du rien elle-même mais appelle simplement
+Elle n'effectue aucun rendu elle-même mais appelle simplement
 d'autres composants dans un flux de contrôle défini en implémentant la
 méthode \mthind{WATask}{go}.
 
 
-\clsind{WAConvenienceTest} est une simple exemple de l'utilisation
-d'une \task définie dans \arelire{la catégorie
-  \scat{Seaside-Tests-Functional}}. % REVOIR - en attendant une
+\clsind{WAConvenienceTest} est un simple exemple de l'utilisation
+d'une \task définie dans la catégorie
+  \scat{Seaside-Tests-Functional}. % REVOIR - en attendant une
                                 % version packagée de One-Click...
 Pour voir son effet, pointez votre navigateur web sur l'URL
 \url{http://localhost:8080/seaside/tests/alltests} et sélectionnez
@@ -1312,13 +1313,13 @@ web en ayant des composants qui enregistrent leur état pour le
 \backtracking:
 % Seaside can keep track of the correspondence between the state of components and individual web pages by having components register their state for backtracking:
 tout ce qu'un composant a besoin de faire, c'est d'implémenter la
-méthode \ct{states} pour répondre un tableau de tous les objets dont
+méthode \ct{states} pour retourner un tableau de tous les objets dont
 l'état doit être suivi.
 
 Cependant, certaines fois, nous ne voudrions pas avoir de \backtracking
 de l'état: nous aimerions seulement \emph{prévenir} l'utilisateur
-qu'il risque \arelire{d'effacer accidentellement des effets qui
-  devraient être permanents}.
+qu'il risque d'effacer accidentellement des effets qui
+  devraient être permanents.
 %from accidentally undoing effects that should be permanent.
 Ce problème est souvent appelé ``le problème du panier'' (en anglais, ``the
 shopping cart problem'').
@@ -1469,7 +1470,7 @@ Essayez de naviguer en arrière et en avant dans la transaction parent
 et enfant (\emph{child}) en cliquant sur le bouton \backbtn et
 en cliquant ensuite sur le bouton \button{ok}.
 %Try to navigate back and forth within the parent and child transaction by clicking the \button{back} button and then clicking \button{ok}.
-Remarquez que, dès qu'un \transaction{} est complète, vous ne pouvez
+Remarquez que, dès qu'une \transaction{} est complète, vous ne pouvez
 plus revenir dans la \transaction, sans
 générer une erreur en cliquant sur \button{ok}.}
 
@@ -1533,7 +1534,7 @@ et pour faire plusieurs opérations arithmétiques telles que l'addition (\emph{
 la soustraction (\emph{substract}), la multiplication (\emph{multiply}) 
 et la division (\emph{divide}) des valeurs au sommet de la pile.
 
-\dothis{Écrivez des tests pour les opérations de la pile et
+\dothis{Écrivons des tests pour les opérations de la pile et
   implémentons ensuite ces opérations. Voici un exemple de test
 % ajout - vf 
 (avec la classe \ct{MyStackMachineTest}, instance de \ct{TestCase},
@@ -1559,7 +1560,7 @@ ce prérequis n'est pas atteint\footnote{C'est une bonne idée d'utiliser \ct{Ob
 % ajout - vf
 dans \ct{MyStackMachine}
 pour écrire les préconditions requises pour une opération. Cette méthode lévera un 
-\ct{AssertionFailure} si l'utilisateur essaye d'utiliser la machine à pile dans un état invalide.}.
+\ct{AssertionFailure} si l'utilisateur essaie d'utiliser la machine à pile dans un état invalide.}.
 %You might consider using some helper methods for the arithmetic operations to check that there are two numbers on the stack before doing anything, and raising an error if this precondition is not fulfilled.\footnote{It's a good idea to use \ct{Object>>>assert:} to specify the preconditions for an operation.
 Si vous faites ainsi, la plupart de vos méthodes tiendront sur une ou deux lignes.
 
@@ -1691,10 +1692,9 @@ Changez maintenant la méthode de rendu de \ct{keypad} pour que le
 nombre \ct{0} soit mis sur la pile dans le cas où celle-ci est vide
 %Change the rendering method of the keypad to ensure that the number 0 is pushed on the stack in case it is empty.
 (définissez et utilisez \ct{MyKeypad>>>ensureMyStackMachineNotEmpty}).
-Faites en sorte que \ct{keypad} affiche un table vide de classe
+Faites en sorte que \ct{keypad} affiche une table vide de classe
 ``keypad''.
-Le calculateur devrait afficher une seule cellule contenant la valeur
-0.
+Le calculateur devrait afficher une seule cellule contenant la valeur 0.
 Si vous activez les halos, vous devriez voir quelque chose comme suit:}
 
 \begin{figure}[ht]
@@ -1748,7 +1748,7 @@ Utiliser ces deux méthodes pour écrire le \ct{keypad} comme suit
 \arelire{(en laissant la méthode \ct{setClearMode})} % REVOIR -
                                 % martial - à reporter dans la VO
                                 % parce que pas gagné! 
-avant de vous attardez aux opérateurs arithmétiques):}
+avant de vous attarder aux opérateurs arithmétiques):}
 
 \needlines{4}
 \begin{code}{}
@@ -1961,7 +1961,7 @@ Les extensions \sau{} suivent la même approche que Seaside
 lui-même\,---\,configurez des objets Smalltalk pour modéliser votre
 application et le code \jscript{} nécessaire sera généré pour vous.
 
-Jetons un \oe il sur un simple exemple pour voir comment le support
+Jetons un coup d'\oe il sur un simple exemple pour voir comment le support
 \jscript{} côté client peut rendre le réactivité de notre calculatrice
 RPN plus naturelle.
 %of how client-side Javascript support can make our RPN calculator behave more naturally.
@@ -2022,7 +2022,7 @@ MyKeypad>>>renderStackButton: text callback: aBlock colSpan: anInteger on: html
 				with: [ html html: text ] ]
 \end{code}
 
-\mthind{WATagBrush}{onClick:} indique une gestionnaire d'événements
+\mthind{WATagBrush}{onClick:} indique un gestionnaire d'événements
 \ind{\jscript}.
 %\ind{JavaScript} event handler.
 \ct{html updater} renvoie un \updater \ie une instance de
@@ -2036,11 +2036,11 @@ il s'agit du contenu de l'élément \emph{div} d'attribut \emph{id}
 ``display''.
 Un bloc est passé en argument à \ct{callback:} pour se déclencher
 quand l'utilisateur cliquera sur le bouton.
-L'argument de bloc \ct{r} est \arelire{une nouvelle interface de rendu ou
-  \emph{renderer}} qui peut être utilisé pour le rendu du composant
+L'argument de bloc \ct{r} est une nouvelle interface de rendu ou
+  \emph{renderer} qui peut être utilisée pour le rendu du composant
 \ct{display}
-(remarquez que \arelire{même si le code HTML est toujours accessible,
-  il n'est plus valide au moment où ce \callback est évalué}).
+(remarquez que même si le code HTML est toujours accessible,
+  il n'est plus valide au moment où ce \callback est évalué).
 %(Even though html is still accessible, it is not valid anymore at the
 %time this callback block is evaluated).
 Avant de faire le rendu du composant \ct{display}, nous évaluons
@@ -2050,7 +2050,7 @@ Avant de faire le rendu du composant \ct{display}, nous évaluons
 \callback d'origine du lien, ce qui engendrerait un rafraîchissement
 complet. %JavaScript engine
 Nous pouvons aussi retirer l'ancre d'origine \ct{callback:}, mais en
-le laissant, nous sommes sûrs que la calculatrice marchera même si le
+la laissant, nous sommes sûrs que la calculatrice marchera même si le
 \jscript est désactivé.
 
 \dothis{Essayez la calculatrice à nouveau et remarquez que le
@@ -2186,8 +2186,7 @@ Vous ne devez jamais changer l'état de l'application durant la phase de rendu;
 %Control flows can be programmed
 peuvent être programmés en envoyant \ct{x call: y} où le composant
 \ct{x} sera remplacé par \ct{y} jusqu'à ce qu'\ct{y} réponde en
-envoyant le message \ct{answer:} \arelire{avec un résultat dans un
-  \callback}.
+envoyant le message \ct{answer:} avec un résultat dans un \callback.
 %by sending \ct{answer:} with a result in a callback.
 Le receveur de \ct{call:} est habituellement \ct{self} mais peut être
 de façon générale n'importe quel composant visible;
@@ -2196,10 +2195,10 @@ de façon générale n'importe quel composant visible;
 nommé \emph{task}\,---\,instance d'une sous-classe de \ct{WATask}. Il
 devrait implémenter la méthode \ct{go} pour appeler avec le message
 \ct{call:} une série de composants dans une séquence de tâches;
-  \item Vous pouvez vous \arelire{simplifier le travail de création
+  \item Vous pouvez vous simplifier le travail de création
     d'interactions simples en utilisant les méthodes utilitaires de
     \ct{WAComponent} telles que \ct{request}, \ct{inform:},
-    \ct{confirm:} et \ct{chooseFrom:caption:};}
+    \ct{confirm:} et \ct{chooseFrom:caption:};
   \item Pour interdire à l'utilisateur de se servir du bouton \backbtn
     de son navigateur web pour accéder un état d'exécution passé de
     l'application web, vous pouvez isoler des parties de la séquence
