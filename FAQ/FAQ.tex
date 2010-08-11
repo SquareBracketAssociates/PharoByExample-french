@@ -2,12 +2,13 @@
 % $Date: 2007-09-23 11:56:47 +0200 (dim, 23 sep 2007) $
 % $Revision: 12130 $
 % Traduction: Benoît TUDURI 18-10-2007
-%% Relecture: Martial Boniou - Fri Nov  9  16:49:46 CET 2007
-%% Relecture: Rene Mages     - Fri Jan  10 22:23:44 CET 2008
-%% Relecture: Martial Boniou - Wed Jan 30 23:21:34 CET 2008
+% Relecture: Martial Boniou - Fri Nov  9  16:49:46 CET 2007
+% Relecture: Rene Mages     - Fri Jan  10 22:23:44 CET 2008
+% Relecture: Martial Boniou - Wed Jan 30 23:21:34 CET 2008
 % adaptation pour Pharo: martial - Fri Sep 11 10:50:59 CEST 2009 from
 % $Author: oscar $ % $Date: 2009-09-09 09:57:42 +0200 (Wed, 09 Sep 2009) $ % $Revision: 29006 $
 % martial: remplacement de la faq:omnibrowser en faq:packagebrowser pour la selection via "choose new default browser"
+% Relecture: Rene Mages     - Thu Aug  12 22:23:44 CET 2010
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -66,11 +67,11 @@ Où puis-je trouver la dernière version de Pharo?
 Quelle image de \pharo devrais-je utiliser avec ce livre?
 \end{faq}
 \answer
-\arelire{Vous pouvez utiliser n'importe quelle image de \pharo mais nous vous
+Vous pouvez utiliser n'importe quelle image de \pharo mais nous vous
 recommandons d'utiliser l'image préparée sur le site web de \pharo par
 l'exemple: {\ppe}.
 Vous risqueriez d'avoir des comportements surprenants lors de la saisie
-des exercices en utilisant une autre image.} % CHANGE
+des exercices en utilisant une autre image. % CHANGE
 
 %=================================================================
 \section{Collections}
@@ -110,20 +111,19 @@ Le navigateur de classes ne ressemble pas à celui décrit dans le
 livre. Que se passe-t-il?
 \end{faq}
 \answer
-\arelire{Vous utilisez probablement une image disposant d'une version
+Vous utilisez probablement une image disposant d'une version
 différente d'\ind{OmniBrowser}
 (abrégé en OB) % ajout: martial: Fri Sep 11 11:41:49 CEST 2009
 installé comme Browser par défaut.
 Dans ce livre, nous présumons que le navigateur Omnibrowser
 \emph{Package Browser} (navigateur par paquetages) est installé par
 défaut.
-Vous pouvez changer cela en \clickant sur la \arevoir{bulle grise}
+Vous pouvez changer cela en \clickant sur la bulle grise (le bouton si vous voulez...)
 à droite de la barre de titre du navigateur, puis en sélectionnant
 dans le menu du Browser ``Choose new default Browser'' (en français,
-\emph{choisissez le nouveau Browser par défaut}). Dans la liste de
-navigateurs proposée, \clickz sur O2PackageBrowserAdaptor. 
-Le prochain navigateur de classes que vous ouvrirez sera le Package Browser.
-} %CHANGE
+\emph{choisissez le nouveau Browser par défaut}). Dans la liste des
+navigateurs proposés, \clickz sur O2PackageBrowserAdaptor. 
+Le prochain navigateur de classes que vous ouvrirez sera le Package Browser. %CHANGE
 
 \begin{figure}[tbh]
 	\centering
@@ -348,8 +348,8 @@ Comment puis-je enregistrer le navigateur comme navigateur par défaut~?
 \end{faq}
 \answer
 %Click the menu icon in the top left of the Browser window.
-\Clickz{} sur l'icône du menu situé \arelire{à droite dans la barre de
-titre} de la fenêtre du Browser. % REVOIR (erreur dans PBE)
+\Clickz{} sur l'icône (une bulle grise) du menu situé à droite dans la barre de
+titre de la fenêtre du Browser. % REVOIR (erreur dans PBE)
 %% à côté de \aretirer{la croix de destruction de la fenêtre}. % martial - ce n'est plus une croix mais une bulle rouge 
 %% ajout (pour la traduction)
 Choisissez \menu{Register this Browser as default} pour enregistrer le navigateur courant comme navigateur par défaut ou bien, sélectionnez \menu{Choose new default Browser} pour obtenir un menu flottant d'où vous pourrez faire votre choix parmi les différentes classes de Browser.
@@ -370,7 +370,8 @@ Choisissez \menu{Register this Browser as default} pour enregistrer le navigateu
 
 \begin{faq}
 %Where is the documentation for the RegEx package?
-Où est la documentation pour le paquetage RegEx~?
+Où est la documentation pour le \arevoir{paquetage RegEx~?}
+% rene : paquetage VB-Regex ?
 \end{faq}
 \answer
 %Look at the \menu{DOCUMENTATION} protocol of \ct{RxParser class} in the \menu{VB-Regex} category.
