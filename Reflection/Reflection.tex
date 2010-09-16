@@ -64,12 +64,12 @@ Ceci est appelé \emph{intercession} et est principalement utilisé dans les lan
 Un programme qui manipule d'autres programmes (ou même lui-même) est un \emphind{méta-programme}.
 Pour qu'un langage de programmation soit réflexif, il faut qu'il supporte à la fois l'\ind{introspection} et l'\ind{intercession}.
 
-Introspection is the ability to \emph{examine} the data structures that define the language, such as objects, classes, methods and the execution stack.
-Intercession is the ability to \emph{modify} these structures, in other words to change the language semantics and the behavior of a program from within the program itself.
-\emph{Structural reflection} is about examining and modifying the structures of the run-time system, and \emphind{behavioural reflection} is about modifying the interpretation of these structures.
+L'introspection est la capacité afin \emph{d'examiner} les structures de données qui définissent le programme comme les objets, classes, méthodes ou pile d'exécution.
+L'intercession est la capacité de modifier ces structures, en d'autre terme de changer la sémantique du langage et le comportement d'un programme depuis le programme lui-même.
+La \emph{réflexivité structurelle} s'intéresse à l'exploration et à la modification des structures lors du l'exécution du système, alors que la \emph{réflexivité de comportement} concerne l'interprétation de ces structures.
 
 Dans ce chapitre, nous allons principalement nous intéresser à la \ind{réflexivité structurelle}.
-We will explore many practical examples illustrating how \st supports introspection and metaprogramming.
+Nous illustrerons avec plusieurs exemples pratiques comme \st supporte l'introspection et la méta-programmation.
 
 %======================================
 \section{Introspection}
@@ -115,7 +115,7 @@ Par exemple, vous pouvez changer la valeur de la variable d'instance \ct!content
 w instVarNamed: 'contents' put: 'howdy!'; contentsChanged
 \end{code}
 
-\important{\emph{Caveat:} Although these methods are useful for building development tools, using them to develop conventional applications is a bad idea: these reflective methods break the encapsulation boundary of your objects and can therefore make your code much harder to understand and maintain.}
+\important{\emph{Caveat:} Bien que ces méthodes sont utiles pour construire les outils de l'environnement de développement, les utiliser dans le cadre d'une application conventionnelle est une mauvaise idée: ces méthodes réflexives rompent l'encapsulation des objets et peuvent rendre votre code plus difficile à comprendre et à maintenir.}
 % \lr{Why? The access does not show up when looking for all readers/writers in the code browser.}
 
 \ct!instVarAt:! et \ct!instVarAt:put:! sont des \ind{méthodes primitives}, c'est-à-dire qu'elles sont implémentées comme des opérations primitives de la machine virtuelle \pharo.
