@@ -131,21 +131,19 @@ Object>>>instVarAt: index
 	^self basicAt: index - self class instSize		
 \end{code}
 
-Typically, the code after the primitive invocation is not executed.
-It is executed only if the primitive fails. In this specific case, if we try to access a variable that does not exist, then the code following the primitive will be tried.
-This also allows the debugger to be started on primitive methods.
-Although it is possible to modify the code of primitive methods, beware that this can be risky business for the stability of your \pharo system.
+Généralement le code après l'invocation de la primitive n'est pas exécuté. Il est exécuté seulement si la primitive échoue. Dans le cas qui nous intéresse, si on essaie d'accéder à une variable qui n'existe pas, alors le code qui suit la primitive sera essayé. Ceci permet aussi d'utiliser le débogueur sur des méthodes primitives.
+Bien qu'il est possible de modifier le code des méthodes primitives, ceci est risqué pour la stabilité de votre image \pharo.
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{allInstanceVariables}
 	\caption{Afficher toutes les variables d'instance d'un \ct!Workspace!.\figlabel{allInstanceVariables}}
 \end{figure}
 
-\figref{allInstanceVariables} shows how to display the values of the instance variables of an arbitrary instance (\ct!w!) of class \ct!Workspace!.
-The method \ct!allInstVarNames! returns all the names of the instance variables of a given class.
+\figref{AllInstanceVariables} montre comment afficher les valeurs des variables d'instances d'une instance (\ct!w!)  de la classe \ct!Workspace!.
+La méthode \ct!allInstVarNames! retourne l'ensemble des noms de variables d'instances d'une classe donnée.
 
-In the same spirit, it is possible to gather instances that have specific properties.
-For instance, to get all instances of class \ct!SketchMorph! whose instance variable \ct!owner! is set to the world morph (\ie images currently displayed), try this expression:
+De la même façon, il est possible de collecter les instances qui ont certaines propriétés.
+Par exemple, pour avoir toutes les instances de la classe \ct!SketchMorph! dont la variable d'instance \ct!owner! est initialisée avec un morph de type world (\ie les morphs qui sont affichés à chaque instant à l'écran), essayer cette expression:
 \begin{code}{}
 SketchMorph allInstances select: [:c | (c instVarNamed: 'owner') isWorldMorph]
 \end{code}
