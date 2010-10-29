@@ -212,7 +212,7 @@ Development tools, however, are not normal applications, since their domain is t
 %-----------------------------------------------------------------
 \subsection{Métriques de code}
 
-Voyons maintenant comment nous pouvons utiliser les mécanismes d'introspection de \st pour rapidement pouvoir construire des métriques de code. Code \ind{metrics} measure such aspects as the depth of the inheritance hierarchy, the number of direct or indirect subclasses, the number of methods or of instance variables in each class, or the number of locally defined methods or instance variables.
+Voyons maintenant comment nous pouvons utiliser les mécanismes d'introspection de \st pour rapidement pouvoir construire des métriques de code. Les \ind{métriques} de code mesure certains aspects comme la profondeur de l'arbre d'héritage, le nombre de sous-classes directes ou indirectes, le nombre de méthodes ou de variables d'instances de chaque classe ou enfin le nombre local de méthodes ou de variables d'instances.
 Voici quelques résultats de métriques pour la classe \ct!Morph!, qui est la superclasse de tous les objets graphiques de \pharo, révélant qu'il s'agit d'une classe d'une taille conséquente et qu'elle est la racine d'une hiérarchie importante. Peut-être qu'elle nécessiterait d'être refactoriser !
 
 \mthindex{Behavior}{allSuperclasses}
