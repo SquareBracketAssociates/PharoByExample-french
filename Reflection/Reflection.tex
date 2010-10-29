@@ -359,15 +359,15 @@ The selector \ct{#*} points to the decompiled \ind{bytecode} of \ct!Point>>>*!.
 Examinons la relation entre classes et méthodes.
 Dans \figref{MethodsAsObjects} nous voyons que classes et méta-classes ont en commun la superclasse \ct{Behavior}. C'est où la méthode \mthind{Behavior}{new} est définit parmi d'autres méthodes clés pour les classes.
 Chaque classe a un dictionnaire de méthode, qui associe chaque sélecteurs de méthodes à des \ind{méthodes compilées}.
-Each compiled method knows the class in which it is installed.
-In \figref{CompiledMethod} we can even see that this is stored in an association in \ct{literal5}.
+Chaque méthode compilée connait la classe dans laquelle elle est installée.
+Dans \figref{CompiledMethod}, qu'elle est conservée au moyen d'une association dans \ct{literal5}.
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{MethodsAsObjects}
 	\caption{Classes, dictionnaires de méthodes et méthodes compilées\figlabel{MethodsAsObjects}}
 \end{figure}
 
-We can exploit the relationships between classes and methods to pose queries about the system.
+On peut exploiter les relations qu'établissent classes et méthdodes, pour effectuer des requêtes sur le système.
 For example, to discover which methods are newly introduced in a given class, \ie do not override superclass methods, we can navigate from the class to the \ind{method dictionary} as follows:
 \mthindex{Behavior}{methodDict}
 \begin{code}{}
