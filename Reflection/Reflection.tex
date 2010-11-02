@@ -69,7 +69,7 @@ L'intercession est la capacité de modifier ces structures, en d'autre terme de 
 La \emph{réflexivité structurelle} s'intéresse à l'exploration et à la modification des structures lors du l'exécution du système, alors que la \emph{réflexivité de comportement} concerne l'interprétation de ces structures.
 
 Dans ce chapitre, nous allons principalement nous intéresser à la \ind{réflexivité structurelle}.
-Nous illustrerons avec plusieurs exemples pratiques comme \st supporte l'introspection et la méta-programmation.
+Nous illustrerons avec plusieurs exemples pratiques comment \st supporte l'introspection et la méta-programmation.
 
 %======================================
 \section{Introspection}
@@ -310,12 +310,11 @@ SystemNavigation default allUnsentMessages size      --> 6431
 SystemNavigation default allUnimplementedCalls size --> 270
 \end{code}
 
-Note that messages implemented but not sent are not necessarily useless, since they may be sent implicitly (\eg using \ct{perform:}).
-Messages sent but not implemented, however, are more problematic, because the methods sending these messages will fail at runtime.
-They may be a sign of unfinished implementation, obsolete APIs, or missing libraries.
+Notons que les messages implémentés mais non envoyés ne sont pas nécessairement inutiles, car ils peuvent être envoyés implicitement (\eg en utilisant \ct{perform:}).
+Les messages envoyés mais non implémentés sont plus problématiques, car les méthodes envoyant ces messages vont échoués à l'exécution. Ceci peut être le signe d'une implémentation non finie, d'une API obsolète ou bien de librairies manquantes.
 
 \mthindex{SystemNavigation}{allCallsOn:}
-\ct!SystemNavigation default allCallsOn: #Point! returns all messages sent explicitly to \ct!Point! as a receiver.
+\ct!SystemNavigation default allCallsOn: #Point! retourne tous les messages envoyés explicitement à \ct!Point! comme receveur du message.
 
 All these features are integrated in the programming environment of \pharo, in particular in the code browsers.
 As you are surely already aware, there are convenient keyboard shortcuts for browsing all i\underline{m}plementors (\short{m}) and se\underline{n}ders (\short{n}) of a given message.
