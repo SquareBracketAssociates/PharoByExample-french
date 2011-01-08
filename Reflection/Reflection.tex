@@ -212,7 +212,7 @@ Les outils de développements ne sont pas considérés comme des applications co
 \subsection{Métriques de code}
 
 Voyons maintenant comment nous pouvons utiliser les mécanismes d'introspection de \st pour rapidement pouvoir construire des métriques de code. Les \ind{métriques} de code mesure certains aspects comme la profondeur de l'arbre d'héritage, le nombre de sous-classes directes ou indirectes, le nombre de méthodes ou de variables d'instances de chaque classe ou enfin le nombre local de méthodes ou de variables d'instances.
-Voici quelques résultats de métriques pour la classe \ct!Morph!, qui est la superclasse de tous les objets graphiques de \pharo, révélant qu'il s'agit d'une classe d'une taille conséquente et qu'elle est la racine d'une hiérarchie importante. Peut-être qu'elle nécessiterait d'être refactoriser !
+Voici quelques résultats de métriques pour la classe \ct!Morph!, qui est la superclasse de tous les objets graphiques de \pharo, révélant qu'il s'agit d'une classe d'une taille conséquente et qu'elle est la racine d'une hiérarchie importante. Peut-être qu'elle nécessiterait d'être refactorisé !
 
 \mthindex{Behavior}{allSuperclasses}
 \mthindex{Behavior}{allSelectors}
@@ -459,23 +459,19 @@ Have a look at the \prot{querying} protocol of the class \ct{RBProgramNode} to s
 %======================================
 \section{Accéder au contexte d'exécution}
 
-We have seen how \st's reflective capabilities let us query and explore objects, classes and methods.  But what about the run-time environment?
+Nous avons vu comment les capacités réflexives de \st, nous permettent d'interroger et d'explorer les objets, les classe et les méthodes. Qu'en est-il de l'environnement d'exécution ?
 
 %-----------------------------------------------------------------
 \subsection{Contextes des méthodes}
 
-In fact, the run-time context of an executing method is in the virtual machine --- it is not in the image at all!
-On the other hand, the \ind{debugger} obviously has access to this information, and we can happily explore the run-time context, just like any other object.
-How is this possible?
+En fait, le contexte d'exécution d'une méthode se trouve dans la machine virtuelle et pas dans l'image. Mais visiblement, le \ind{débogueur} a accès à cette information et on explorer le contexte d'exécution, comme n'importe quel autre objet ? Comment cela est possible ?
 
-Actually, there is nothing magical about the debugger.
-The secret is the pseudo-variable \pvind{thisContext}, which we have encountered only in passing before.
-Whenever \ct{thisContext} is referred to in a running method, the entire run-time context of that method is reified and made available to the image as a series of chained \clsind{MethodContext} objects.
+En fait, il n'y rien de magique avec le débogueur.
+Le secret réside dans la pseudo-variable \pvind{thisContext}, que nous avons brièvement rencontré précédemment.
+Lorsque l'on accède à \ct{thisContext} dans une méthode qui s'exécute, tout le contexte d'exécution de cette méthode est réifié et rendu disponible dans l'image comme une liste chainée d'objets \clsind{MethodContext}.
+Nous pouvons facilement expérimenter ce mécanisme par nous même.
 
-We can easily experiment with this mechanism ourselves.
-
-\dothis{Change the definition of \ct{Integer>>>factorial} by inserting the underlined expression as shown below:}
-
+\dothis{Changer la définition de \ct{Integer>>>factorial} en insérant l'expression souligné ci-dessous:}
 \mthindex{Object}{halt}
 \begin{code}{}
 Integer>>>factorial
@@ -485,19 +481,19 @@ Integer>>>factorial
 	self error: 'Not valid for negative integers'
 \end{code}
 
-\dothis{Now evaluate \ct{3 factorial} in a workspace. You should obtain both a debugger window and an explorer, as shown in \figref{exploringThisContext}.}
+\dothis{Maintenant évaluons \ct{3 factorial} dans un espace de travail. Nous devons normalement obtenir une fenêtre de déboguage et un explorateur comme on peut le voir dans \figref{exploringThisContext}.}
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{exploringThisContext}
-	\caption{Exploring \lct{thisContext}.\figlabel{exploringThisContext}}
+	\caption{Explorer \lct{thisContext}.\figlabel{exploringThisContext}}
 \end{figure}
 
-Welcome to the poor-man's debugger!
-If you now browse the class of the explored object (\ie by evaluating \ct{self browse} in the bottom pane of the explorer) you will discover that it is an instance of the class \lct{MethodContext}, as is each \ct{sender} in the chain.
+Bienvenue dans le débogueur du pauvre ! 
+Si maintenant nous parcourons la classe de l'objet exploré (\ie en évaluant \ct{self browse} dans le panneau du bas de l'explorateur), vous aller découvrir que c'est une instance de la classe \lct{MethodContext}, comme tous les \ct{envoyeurs} dans la chaîne.
 % All of these objects have been created dynamically in the image by the \st virtual machine at the point where \ct{thisContext} was referred to in the \ct{factorial} method. \lr{Not actually. In all the currently available VMs the context objects are created with every method activation, no matter if they are accessed using \ct{thisContext} or not.}
 
-\ct{thisContext} is not intended to be used for day-to-day programming, but it is essential for implementing tools like debuggers, and for accessing information about the call stack.
-You can evaluate the following expression to discover which methods make use of \ct{thisContext}:
+\ct{thisContext} n'est pas destiné à être utilisé dans la programmation de tous les jours, mais il est essentiel pour réaliser des outils comme des débogueurs et lorsque l'on a besoin d'accéder à des information concernant la pile d'appels de méthodes.
+On peut évaluer l'expression suivante pour découvrir quelles méthodes utilisent \ct{thisContext}:
 
 \begin{code}{}
 SystemNavigation default browseMethodsWithSourceString: 'thisContext'
@@ -723,7 +719,7 @@ Let us step through what happens the first time the message \ct{x} is sent to ou
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{DynamicAccessors}
-	\caption{Dynamically creating accessors.\figlabel{DynamicAccessors}}
+	\caption{Création dynamique d'accesseurs.\figlabel{DynamicAccessors}}
 	% \alex{not sure whether the figure is highly necessary. The code is rather simple and the figure complete to follow in my opinion.}}
 	% \on{trust me, it is useful to see all the steps.}
 \end{figure}
