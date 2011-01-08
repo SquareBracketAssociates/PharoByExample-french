@@ -318,8 +318,9 @@ Les messages envoyés mais non implémentés sont plus problématiques, car les 
 Toutes ces fonctionnalités sont intégrées dans l'environnement de programmation \pharo, en particulier dans les navigateurs de code.
 Comme vous avez déjà pu vous en apercevoir, il existe des raccourcis claviers pour parcourir tous les i\underline{m}plémenteurs (\short{m}) and e\underline{n}voyeurs (\short{n}) d'un message particulier.
 
-What is perhaps not so well known is that there are many such pre-packaged queries implemented as methods of the \ct{SystemNavigation} class in the \prot{browsing} protocol.
-For example, you can programmatically browse all implementors of the message \ct{ifTrue:} by evaluating:
+Ce qui est moins connu est qu'il existe un certain nombres de méthodes pour faire des requêtes similaires dans le protocole \prot{browsing} dans la classe \ct{SystemNavigation}.
+
+Par exemple, vous pouvez parcourir de manière programmatique tous les implémenteurs du message \ct{ifTrue:} en évaluant:
 \mthindex{SystemNavigation}{browseAllImplementorsOf:}
 \begin{code}{}
 SystemNavigation default browseAllImplementorsOf: #ifTrue:
@@ -330,7 +331,8 @@ SystemNavigation default browseAllImplementorsOf: #ifTrue:
 	\caption{Parcourir toutes les implémentations de \ct!\#ifTrue:!.\figlabel{implementors}}
 \end{figure}
 
-Particularly useful are the methods \ct{browseAllSelect:} and \lct{browseMethodsWithSourceString:}.  Here are two different ways to browse all methods in the system that perform super sends (the first way is rather brute force; the second way is better and eliminates some false positives):
+Des méthodes qui sont particulièrement utiles sont les méthodes \ct{browserAllSelect:} et \lct{browserMethodsWithSourceString:}. 
+Voici deux différentes façons de parcourir les méthodes d'un système qui font utilisent des appels à super (la première façon est plutôt brutale; la deuxième est meilleur et élimine certain faux positifs):
 \mthindex{SystemNavigation}{browseMethodsWithSourceString:}
 \mthindex{SystemNavigation}{browseAllSelect:}
 \begin{code}{}
