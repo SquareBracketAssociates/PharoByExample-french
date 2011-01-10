@@ -509,7 +509,8 @@ Object>>>subclassResponsibility
 	self error: 'My subclass should have overridden ', thisContext sender selector printString
 \end{code}
 
-Par convention, les méthodes \st qui envoient le message \ct{self subclassResponsibility} sont considérées comme abstraites. But how does \clsmthind{Object}{subclassResponsibility} provide a useful error message indicating which abstract method has been invoked?  Very simply, by asking \ct{thisContext} for the sender.
+Par convention, les méthodes \st qui envoient le message \ct{self subclassResponsibility} sont considérées comme abstraites. Mais
+comment \clsmthind{Object}{subclassResponsibility} indique un message d'erreur utile indiquant quelle méthode abstraite a été appelée ? Simplement, en interrogant la pseudo-variable \ct{thisContext} de l'envoyeur du message.
 
 %\lr{I think co-routines and continuations should at least mentioned here. Another very practical application that is simple and could be shown here is the ``escaper''. Store the current context into a temp or inst-var \ct{target := thisContext} and jump back to that stack frame at a later point in time using \ct{target return: 123}.}
 %\sd{lukas maybe we should have another chapter showing such kind of beasts. I would love to read it. Showing how to use block to build exception and such a kind of point. I think that this chapter should be an introduction may be we should have a Reflection applied chapter}
@@ -518,13 +519,13 @@ Par convention, les méthodes \st qui envoient le message \ct{self subclassRespo
 \subsection{Points d'arrêts intelligents}
 
 \mthindex{Object}{halt}
-The \st way to set a breakpoint is to evaluate \ct{self halt} at an interesting point in a method.  This will cause \ct{thisContext} to be reified, and a \ind{debugger} window will open at the breakpoint.
-Unfortunately this poses problems for methods that are intensively used in the system.
+La façon \st de mettre des points d'arrêts dans un programme consiste à évaluer \ct{self halt} aux endroits correspondants. Ceci va provoquer la réification de \ct{thisContext} et une fenêtre de \ind{déboguage} va s'ouvrir sur ce point d'arrêt.
+Malheureusement ceci peut poser des problèmes pour des méthodes qui sont utilisées partout dans le système.
 
-Suppose, for instance, that we want to explore the execution of \ct{OrderedCollection>>>add:}.
-Setting a breakpoint in this method is problematic.
+Supposons par exemple, que nous voulons explorer l'exécution de \ct{OrderedCollection>>>add:}.
+Mettre un point d'arrêt sur cette méthode est problématique.
 
-\dothis{Take a \emph{fresh} image and set the following breakpoint:}
+\dothis{Prendre une \emph{nouvelle} image et ajouter le point d'arrêt suivant :}
 \needlines{3}
 \begin{code}{}
 OrderedCollection>>>add: newObject
@@ -532,24 +533,24 @@ OrderedCollection>>>add: newObject
 	^self addLast: newObject
 \end{code}
 
-Notice how your image immediately freezes!  We do not even get a debugger window.
-The problem is clear once we understand that (i) \ct{OrderedCollection>>>add:} is used by many parts of the system, so the breakpoint is triggered very soon after we accept the change, but (ii) \emph{the debugger itself} sends \ct{add:} to an instance of \ct{OrderedCollection}, preventing the debugger from opening!
-What we need is a way to \emph{conditionally halt} only if we are in a context of interest.
-This is exactly what \clsmthind{Object}{haltIf:} offers.
+Nous remarquons que notre image se fige instantanément ! Nous n'avons même pas eu de fenêtre de déboguage.
+Le problème devient évident lorsque nous comprenons que (i) \ct{OrderedCollection>>>add:} est utilisé en de nombreux endroit du système, de telle sorte que le point d'arrêt est déclenché peut après que nous ayons accepté cette modification et (ii) que le \emph{débogueur lui-même} envoie le message \ct{add:} à une instance de \ct{OrderedCollection}, l'empéchant d'ouvrir la fenêtre de déboguage !
+Ce dont nous avons besoin est de pouvoir faire \emph{un point d'arrêt conditionnel} seulement lorsque nous sommes dans le contexte qui nous intéresse.
+C'est exactement ce qu'offre \clsmthind{Object}{haltIf:}.
 
-Suppose now that we only want to halt if \ct{add:} is sent from, say, the context of \ct{OrderedCollectionTest>>>testAdd}.
+Supposons maintenant que nous voulons arrêter le programme seulement si le message \ct{add} est envoyé dans le contexte de \ct{OrderedCollectionTest>>>testAdd}.
 
-\dothis{Fire up a fresh image again, and set the following breakpoint:}
+\dothis{Ouvrir une nouvelle image de nouveau et mettre le point d'arrêt ci-dessous :}
 \begin{code}{}
 OrderedCollection>>>add: newObject
 	!\underline{self haltIf: \#testAdd.}!
 	^self addLast: newObject
 \end{code}
 
-This time the image does not freeze. Try running the \ct{OrderedCollectionTest}.
-(You can find it in the \scat{CollectionsTests-Sequenceable} category.)
+Cette fois ci, l'image ne se fige pas. Essayer d'exécuter \ct{OrderedCollectionTest}.
+(Vous pouvez trouver cette classe dans la catégorie \scat{CollectionsTests-Sequenceable}.)
 
-How does this work?  Let's have a look at \clsmthind{Object}{haltIf:}:
+Comment cela fonctionne-t-il ? Regardons le code de \clsmthind{Object}{haltIf:}:
 \begin{code}{}
 Object>>>haltIf: condition
 	| cntxt |
@@ -564,10 +565,9 @@ Object>>>haltIf: condition
 	...
 \end{code}
 
-Starting from \ct!thisContext!, \ct!haltIf:! goes up through the execution stack, checking if the name of the calling method is the same as the one passed as parameter.
-If this is the case, then it raises an exception which, by default, summons the debugger.
+À partir de \ct!thisContext!, \ct!haltIf:! parcourt la pile d'exécution en vérifiant que le nom de la méthode appelante est le même que celle passé en paramètre. Si c'est le cas, la méthode déclenche une exception qui par défaut déclenche le débogueur.
 
-It is also possible to supply a boolean or a boolean block as an argument to \ct{haltIf:}, but these cases are straightforward and do not make use of \ct{thisContext}.
+Il est également possible de fournir une valeur booléenne ou un bloc qui retourne un booléen comme argument de \ct{haltIf:}, mais dans ce cas, cela devient plus simple et on n'utilise pas \ct{thisContext}.
 
 %======================================
 \section{Intercepter les messages non compris}
