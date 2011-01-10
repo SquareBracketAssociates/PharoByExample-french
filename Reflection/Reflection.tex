@@ -464,7 +464,7 @@ Nous avons vu comment les capacités réflexives de \st, nous permettent d'inter
 %-----------------------------------------------------------------
 \subsection{Contextes des méthodes}
 
-En fait, le contexte d'exécution d'une méthode se trouve dans la machine virtuelle et pas dans l'image. Mais visiblement, le \ind{débogueur} a accès à cette information et on explorer le contexte d'exécution, comme n'importe quel autre objet ? Comment cela est possible ?
+En fait, le contexte d'exécution d'une méthode se trouve dans la machine virtuelle et pas dans l'image. Mais visiblement, le \ind{débogueur} a accès à cette information et on peut explorer le contexte d'exécution, comme n'importe quel autre objet ? Comment cela est possible ?
 
 En fait, il n'y rien de magique avec le débogueur.
 Le secret réside dans la pseudo-variable \pvind{thisContext}, que nous avons brièvement rencontré précédemment.
@@ -499,8 +499,8 @@ On peut évaluer l'expression suivante pour découvrir quelles méthodes utilise
 SystemNavigation default browseMethodsWithSourceString: 'thisContext'
 \end{code}
 
-As it turns out, one of the most common applications is to discover the sender of a message.
-Here is a typical application:
+Comme on pourrait s'en douter, une des applications les plus répandues est de découvrir l'envoyeur d'un message.
+Voici une application courante :
 \begin{code}{}
 Object>>>subclassResponsibility
 	"This message sets up a framework for the behavior of the class' subclasses.
@@ -509,13 +509,11 @@ Object>>>subclassResponsibility
 	self error: 'My subclass should have overridden ', thisContext sender selector printString
 \end{code}
 
-By convention, methods in \st that send \ct{self subclassResponsibility} are considered to be abstract.  But how does \clsmthind{Object}{subclassResponsibility} provide a useful error message indicating which abstract method has been invoked?  Very simply, by asking \ct{thisContext} for the sender.
+Par convention, les méthodes \st qui envoient le message \ct{self subclassResponsibility} sont considérées comme abstraites. But how does \clsmthind{Object}{subclassResponsibility} provide a useful error message indicating which abstract method has been invoked?  Very simply, by asking \ct{thisContext} for the sender.
 
-\lr{I think co-routines and continuations should at least mentioned here. Another very practical application that is simple and could be shown here is the ``escaper''. Store the current context into a temp or inst-var \ct{target := thisContext} and jump back to that stack frame at a later point in time using \ct{target return: 123}.}
-\sd{lukas maybe we should have another chapter showing such kind of beasts. I would love to read it.
-Showing how to use block to build exception and such a kind of point. I think that this chapter should be an introduction may be
-we should have a Reflection applied chapter}
-\lr{I would love to help writing such a chapter}
+%\lr{I think co-routines and continuations should at least mentioned here. Another very practical application that is simple and could be shown here is the ``escaper''. Store the current context into a temp or inst-var \ct{target := thisContext} and jump back to that stack frame at a later point in time using \ct{target return: 123}.}
+%\sd{lukas maybe we should have another chapter showing such kind of beasts. I would love to read it. Showing how to use block to build exception and such a kind of point. I think that this chapter should be an introduction may be we should have a Reflection applied chapter}
+%\lr{I would love to help writing such a chapter}
 %-----------------------------------------------------------------
 \subsection{Points d'arrêts intelligents}
 
