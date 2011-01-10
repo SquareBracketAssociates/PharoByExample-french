@@ -573,10 +573,10 @@ Il est également possible de fournir une valeur booléenne ou un bloc qui retou
 \section{Intercepter les messages non compris}
 \seclabel{msgnotunderstood}
 
-So far we have used the reflective features of \st mainly to query and explore objects, classes, methods and the run-time stack. Now we will look at how to use our knowledge of the \st system structure to intercept messages and modify behaviour at run-time.
+Pour l'instant, nous avons utilisé les capacités réflexives de \st principalement pour interroger et explorer les objets, classes, méthodes et pile d'exécution du système. Nous allons maintenant voir comment utiliser notre connaissance de \st pour intercepter des messages et modifier le comportement du système à l'exécution.
 
-When an object receives a message, it first looks in the method dictionary of its class for a corresponding method to respond to the message.
-If no such method exists, it will continue looking up the class hierarchy, until it reaches \ct{Object}. If still no method is found for that message, the object will \emph{send itself} the message \ct{doesNotUnderstand:} with the message selector as its argument.
+Lorsque un objet reçoit un message, il regarde d'abord dans son dictionnaire de méthodes pour la méthode correspondante pour répondre au message.
+Si aucune méthode correspondante n'existe, il va continuer son exploration en remontant dans la hiérarchie de classe, jusqu'à atteindre la classe \ct{Object}. If still no method is found for that message, the object will \emph{send itself} the message \ct{doesNotUnderstand:} with the message selector as its argument.
 The process then starts all over again, until \clsmthind{Object}{doesNotUnderstand:} is found, and the debugger is launched.
 
 But what if \ct{doesNotUnderstand:} is overridden by one of the subclasses of \ct{Object} in the lookup path?
@@ -585,7 +585,7 @@ As it turns out, this is a convenient way of realizing certain kinds of very dyn
 Two very common applications of this technique are (1) to implement \ind{lightweight proxies} for objects, and (2) to dynamically compile or load missing code.
 
 %-----------------------------------------------------------------
-\subsection{Lightweight proxies}
+\subsection{Proxy légers}
 
 In the first case, we introduce a ``\ind{minimal object}'' to act as a proxy for an existing object.
 Since the proxy will implement virtually no methods of its own, any message sent to it will be trapped by \ct{doesNotUnderstand:}. By implementing this message, the proxy can then take special action before delegating the message to the real subject it is the proxy for.
