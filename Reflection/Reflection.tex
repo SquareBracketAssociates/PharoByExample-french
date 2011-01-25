@@ -50,7 +50,7 @@
 \indexmain{reflection}
 \st est un langage de programmation réflexif. Brièvement, cela signifie que les programmes ont la possibilité d'agir sur leur propre exécution et structure.
 % \lr{not only on execution, also on the static model}
-Plus techniquement, cela signifie que les \emphind{méta-objets} du système en cours d'exécution peuvent être \emph{réifiés} sous forme d'objets ordinaires qui peuvent alors recevoir des requêtes et être inspecter.
+Plus techniquement, cela signifie que les \emphind{méta-objets} du système en cours d'exécution peuvent être \emph{réifiés} sous forme d'objets ordinaires qui peuvent alors recevoir des requêtes et être inspectés.
 Les méta-objets dans \st sont les classes, méta-classes, dictionnaires de méthodes, méthodes compilées, pile d'exécution, etc ...
 Cette forme de réflexivité est également appelée \emphind{introspection} et est disponible dans de nombreux langages de programmation.
 
@@ -64,9 +64,9 @@ Ceci est appelé \emph{intercession} et est principalement utilisé dans les lan
 Un programme qui manipule d'autres programmes (ou même lui-même) est un \emphind{méta-programme}.
 Pour qu'un langage de programmation soit réflexif, il faut qu'il supporte à la fois l'\ind{introspection} et l'\ind{intercession}.
 
-L'introspection est la capacité afin \emph{d'examiner} les structures de données qui définissent le programme comme les objets, classes, méthodes ou pile d'exécution.
+L'introspection est la capacité \emph{d'examiner} les structures de données qui définissent le programme comme les objets, classes, méthodes ou pile d'exécution.
 L'intercession est la capacité de modifier ces structures, en d'autre terme de changer la sémantique du langage et le comportement d'un programme depuis le programme lui-même.
-La \emph{réflexivité structurelle} s'intéresse à l'exploration et à la modification des structures lors du l'exécution du système, alors que la \emph{réflexivité de comportement} concerne l'interprétation de ces structures.
+La \emph{réflexivité structurelle} s'intéresse à l'exploration et à la modification des structures lors de l'exécution du système, alors que la \emph{réflexivité de comportement} concerne l'interprétation de ces structures.
 
 Dans ce chapitre, nous allons principalement nous intéresser à la \ind{réflexivité structurelle}.
 Nous illustrerons avec plusieurs exemples pratiques comment \st supporte l'introspection et la méta-programmation.
@@ -74,7 +74,7 @@ Nous illustrerons avec plusieurs exemples pratiques comment \st supporte l'intro
 %======================================
 \section{Introspection}
 
-En utilisant un inspecteur, il est possible d'examiner un objet, de changer les valeurs de ces variables d'instances et même de lui envoyer un message.
+En utilisant un inspecteur, il est possible d'examiner un objet, de changer les valeurs de ses variables d'instances et même de lui envoyer un message.
 
 \dothis{Évaluer le code qui suit dans un workspace:}
 \begin{code}{| w |}
@@ -84,7 +84,7 @@ w inspect
 \end{code}
 
 Ceci va ouvrir un deuxième workspace et un inspecteur.
-L'inspecteur montre l'état interne de ce nouveau workspace : la liste de ces variables d'instances dans la partie gauche (\ct!dependents!, \ct!contents!, \ct!bindings!...) et la valeur de la variable d'instance sélectionnée dans la partie droite.
+L'inspecteur montre l'état interne de ce nouveau workspace : la liste de ses variables d'instances dans la partie gauche (\ct!dependents!, \ct!contents!, \ct!bindings!...) et la valeur de la variable d'instance sélectionnée dans la partie droite.
 La variable d'instance \ct!contents! représente ce que le workspace affiche dans sa zone de texte. Ainsi si vous la sélectionnez, la partie droite montrera une chaîne de caractères vide.
 
 \begin{figure}[ht]\centering
@@ -92,9 +92,9 @@ La variable d'instance \ct!contents! représente ce que le workspace affiche dan
 	\caption{Inspecter un \ct!Workspace!.\figlabel{workspaceInspector}}
 \end{figure}
 
-\dothis{Maintenant tapez \ct!'hello'! à la place de la chaîne de caractères vide, puis ensuite faire \emph{accept}.}
-La valeur de la variable \ct!contents! change, mais la fenêtre du workspace n'en sera pas notifié, c'est-à-dire qu'elle ne ré-affiche pas son contenu.
-Afin d'activer le rafraîchissement de la fenêtre, évaluer \ct!self contentsChanged! dans la partie inférieure de l'inspecteur.
+\dothis{Maintenant tapez \ct!'hello'! à la place de la chaîne de caractères vide, puis ensuite faites \emph{accept}.}
+La valeur de la variable \ct!contents! change, mais la fenêtre du workspace n'en sera pas notifiée, c'est-à-dire qu'elle ne ré-affiche pas son contenu.
+Afin d'activer le rafraîchissement de la fenêtre, évaluez \ct!self contentsChanged! dans la partie inférieure de l'inspecteur.
 
 %-----------------------------------------------------------------
 \subsection{Accéder aux variables d'instances}
@@ -115,7 +115,7 @@ Par exemple, vous pouvez changer la valeur de la variable d'instance \ct!content
 w instVarNamed: 'contents' put: 'howdy!'; contentsChanged
 \end{code}
 
-\important{\emph{Caveat:} Bien que ces méthodes sont utiles pour construire les outils de l'environnement de développement, les utiliser dans le cadre d'une application conventionnelle est une mauvaise idée: ces méthodes réflexives rompent l'encapsulation des objets et peuvent rendre votre code plus difficile à comprendre et à maintenir.}
+\important{\emph{Caveat:} Bien que ces méthodes soient utiles pour construire les outils de l'environnement de développement, les utiliser dans le cadre d'une application conventionnelle est une mauvaise idée: ces méthodes réflexives rompent l'encapsulation des objets et peuvent rendre votre code plus difficile à comprendre et à maintenir.}
 % \lr{Why? The access does not show up when looking for all readers/writers in the code browser.}
 
 \ct!instVarAt:! et \ct!instVarAt:put:! sont des \ind{méthodes primitives}, c'est-à-dire qu'elles sont implémentées comme des opérations primitives de la machine virtuelle \pharo.
@@ -132,7 +132,7 @@ Object>>>instVarAt: index
 \end{code}
 
 Généralement le code après l'invocation de la primitive n'est pas exécuté. Il est exécuté seulement si la primitive échoue. Dans le cas qui nous intéresse, si on essaie d'accéder à une variable qui n'existe pas, alors le code qui suit la primitive sera essayé. Ceci permet aussi d'utiliser le débogueur sur des méthodes primitives.
-Bien qu'il est possible de modifier le code des méthodes primitives, ceci est risqué pour la stabilité de votre image \pharo.
+Bien qu'il soit possible de modifier le code des méthodes primitives, ceci est risqué pour la stabilité de votre image \pharo.
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{allInstanceVariables}
@@ -143,7 +143,7 @@ Bien qu'il est possible de modifier le code des méthodes primitives, ceci est r
 La méthode \ct!allInstVarNames! retourne l'ensemble des noms de variables d'instances d'une classe donnée.
 
 De la même façon, il est possible de collecter les instances qui ont certaines propriétés.
-Par exemple, pour avoir toutes les instances de la classe \ct!SketchMorph! dont la variable d'instance \ct!owner! est initialisée avec un morph de type world (\ie les morphs qui sont affichés à chaque instant à l'écran), essayer cette expression:
+Par exemple, pour avoir toutes les instances de la classe \ct!SketchMorph! dont la variable d'instance \ct!owner! est initialisée avec un morph de type world (\ie les morphs qui sont affichés à chaque instant à l'écran), essayez cette expression:
 \begin{code}{}
 SketchMorph allInstances select: [:c | (c instVarNamed: 'owner') isWorldMorph]
 \end{code}
@@ -179,9 +179,9 @@ Cette méthode parcourt par indice les variables d'instances que la classe défi
 
 Les outils de développement \pharo (navigateur de code, débogueur, inspecteur, ...) utilisent tous les mécanismes réflexifs que nous avons vu jusqu'à présent.
 
-Voici quelques messages supplémentaires qui peuvent être utile afin de construire des outils de développement :
+Voici quelques messages supplémentaires qui peuvent être utiles afin de construire des outils de développement :
 
-\lct{isKindOf: \emph{aClass}} retourne vrai si le receveur est une instance de \lct{\emph{aClass}} ou d'une de ces superclasses.
+\lct{isKindOf: \emph{aClass}} retourne vrai si le receveur est une instance de \lct{\emph{aClass}} ou d'une de ses superclasses.
 Par exemple :
 \begin{code}{@TEST}
 1.5 class                     --> Float
@@ -291,6 +291,10 @@ Rectangle unreferencedInstanceVariables            --> #()
 
 \clsind{SystemNavigation} is a facade that supports various useful methods for querying and browsing the source code of the system.
 \ct{SystemNavigation} \mthind{SystemNavigation class}{default} returns an instance you can use to navigate the system.
+
+\clsind{SystemNavigation} est une façade qui comporte plusieurs méthodes utiles pour examiner et parcourir le code source du système.
+\ct{SystemNavigation} \mthind{SystemNavigation class}{default} retourne une instance que vous pouvez utiliser pour naviguer dans le système. 
+
 Par exemple :
 
 \mthindex{SystemNavigation}{allClassesImplementing:}
@@ -310,15 +314,15 @@ SystemNavigation default allUnimplementedCalls size --> 270
 \end{code}
 
 Notons que les messages implémentés mais non envoyés ne sont pas nécessairement inutiles, car ils peuvent être envoyés implicitement (\eg en utilisant \ct{perform:}).
-Les messages envoyés mais non implémentés sont plus problématiques, car les méthodes envoyant ces messages vont échoués à l'exécution. Ceci peut être le signe d'une implémentation non finie, d'une API obsolète ou bien de librairies manquantes.
+Les messages envoyés mais non implémentés sont plus problématiques, car les méthodes envoyant ces messages vont échouer à l'exécution. Ceci peut être le signe d'une implémentation non finie, d'une API obsolète ou bien de librairies manquantes.
 
 \mthindex{SystemNavigation}{allCallsOn:}
 \ct!SystemNavigation default allCallsOn: #Point! retourne tous les messages envoyés explicitement à \ct!Point! comme receveur du message.
 
 Toutes ces fonctionnalités sont intégrées dans l'environnement de programmation \pharo, en particulier dans les navigateurs de code.
-Comme vous avez déjà pu vous en apercevoir, il existe des raccourcis claviers pour parcourir tous les i\underline{m}plémenteurs (\short{m}) and e\underline{n}voyeurs (\short{n}) d'un message particulier.
+Comme vous avez déjà pu vous en apercevoir, il existe des raccourcis claviers pour parcourir tous les i\underline{m}plémenteurs (\short{m}) et e\underline{n}voyeurs (\short{n}) d'un message particulier.
 
-Ce qui est moins connu est qu'il existe un certain nombres de méthodes pour faire des requêtes similaires dans le protocole \prot{browsing} dans la classe \ct{SystemNavigation}.
+Ce qui est moins connu est qu'il existe un certain nombre de méthodes pour faire des requêtes similaires dans le protocole \prot{browsing} dans la classe \ct{SystemNavigation}.
 
 Par exemple, vous pouvez parcourir de manière programmatique tous les implémenteurs du message \ct{ifTrue:} en évaluant:
 \mthindex{SystemNavigation}{browseAllImplementorsOf:}
@@ -332,7 +336,7 @@ SystemNavigation default browseAllImplementorsOf: #ifTrue:
 \end{figure}
 
 Des méthodes qui sont particulièrement utiles sont les méthodes \ct{browserAllSelect:} et \lct{browserMethodsWithSourceString:}. 
-Voici deux différentes façons de parcourir les méthodes d'un système qui font utilisent des appels à super (la première façon est plutôt brutale; la deuxième est meilleur et élimine certain faux positifs):
+Voici deux différentes façons de parcourir les méthodes d'un système qui utilisent des appels à super (la première façon est plutôt brutale; la deuxième est meilleure et élimine certains faux positifs):
 \mthindex{SystemNavigation}{browseMethodsWithSourceString:}
 \mthindex{SystemNavigation}{browseAllSelect:}
 \begin{code}{}
@@ -348,28 +352,29 @@ Comme les classes sont des objets, il est possible de les inspecter ou de les ex
 \mthindex{Object}{explore}
 \dothis{\'Evaluer \ct{Point explore}.}
 
-Dans \figref{CompiledMethod}, l' \ind{explorer} montre la structure de la classe \clsind{Point}.
-You can see that the class stores its methods in a dictionary, indexing them by their selector.
-The selector \ct{#*} points to the decompiled \ind{bytecode} of \ct!Point>>>*!.
+Dans \figref{CompiledMethod}, l'\ind{explorateur} montre la structure de la classe \clsind{Point}.
+Vous pouvez remarquer que la classe stocke ses méthodes dans un dictionnaire, indexées par leur sélecteur.
+Le sélecteur \ct{#*} pointe vers le \ind{bytecode} décompilé de \ct!Point>>>*!.
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=.5\linewidth]{CompiledMethod}
-	\caption{Explorer class \ct!Point! and the bytecode of its \ct!\#*! method.\figlabel{CompiledMethod}}
+	\caption{l'explorateur de la classe \ct!Point! et le bytecode de sa méthode \ct!\#*! method.\figlabel{CompiledMethod}}
 \end{figure}
 
 Examinons la relation entre classes et méthodes.
-Dans \figref{MethodsAsObjects} nous voyons que classes et méta-classes ont en commun la superclasse \ct{Behavior}. C'est où la méthode \mthind{Behavior}{new} est définit parmi d'autres méthodes clés pour les classes.
-Chaque classe a un dictionnaire de méthode, qui associe chaque sélecteurs de méthodes à des \ind{méthodes compilées}.
+Dans \figref{MethodsAsObjects} nous voyons que classes et méta-classes ont en commun la superclasse \ct{Behavior}. C'est dans cette superclasse que la méthode \mthind{Behavior}{new} est définie, parmi d'autres méthodes clés pour ces classes.
+Chaque classe possède un dictionnaire de méthode, qui associe chaque sélecteur de méthodes à sa \ind{méthode compilée}.
 Chaque méthode compilée connait la classe dans laquelle elle est installée.
-Dans \figref{CompiledMethod}, qu'elle est conservée au moyen d'une association dans \ct{literal5}.
+Dans \figref{CompiledMethod}, nous pouvons même remarquer que l'information est conservée au moyen d'une association dans \ct{literal5}.
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{MethodsAsObjects}
 	\caption{Classes, dictionnaires de méthodes et méthodes compilées\figlabel{MethodsAsObjects}}
 \end{figure}
 
-On peut exploiter les relations qu'établissent classes et méthdodes, pour effectuer des requêtes sur le système.
-For example, to discover which methods are newly introduced in a given class, \ie do not override superclass methods, we can navigate from the class to the \ind{method dictionary} as follows:
+On peut exploiter les relations établies entre classes et méthodes, pour effectuer des requêtes sur le système.
+Par exemple, pour connaitre quelles méthodes viennent d'être introduites dans une classe donnée, \ie celles qui ne surchargent pas les méthodes de la superclasse, nous pouvons naviguer depuis la classe vers le dictionnaire de méthodes de cette manière :
+
 \mthindex{Behavior}{methodDict}
 \begin{code}{}
 [:aClass| aClass methodDict keys select: [:aMethod |
@@ -377,21 +382,23 @@ For example, to discover which methods are newly introduced in a given class, \i
   --> an IdentitySet(#threeDigitName #printStringBase:nDigits: ...)
 \end{code}
 
-A compiled method does not simply store the bytecode of a method.
-It is also an object the provides numerous useful methods for querying the system.
-One such method is \ct{isAbstract} (which tells if the method sends \ct{subclassResponsibility}).
-We can use it to identify all the abstract methods of an abstract class
+Une méthode compilée ne stocke pas simplement le bytecode de la méthode.
+C'est aussi un objet qui fournit de nombreuses méthodes utiles pour interroger le système. 
+Une de ces méthodes se nomme \ct{isAbstract} (qui nous renseigne si la méthode envoie \ct{subclassResponsibility}).
+Nous pouvons l'utiliser pour identifier toutes les méthodes abstraites d'une classe abstraite.
+
 \needlines{4}
 \begin{code}{}
 [:aClass| aClass methodDict keys select: [:aMethod |
   (aClass>>aMethod) isAbstract ]] value: Number
   --> an IdentitySet(#storeOn:base: #printOn:base: #+ #- #* #/ ...)
 \end{code}
-Note that this code sends the \ct{>>} message to a class to obtain the compiled method for a given selector.
+
+Remarquez que ce code envoie le message \ct{>>} à la classe pour obtenir la méthode compilée d'un sélecteur donné.
 
 % As a slightly more complex example, we can browse 
 
-To browse the super-sends within a given hierarchy, for example within the Collections hierarchy, we can pose a more sophisticated query:
+Pour parcourir les méthodes d'une classe-mère au sein d'une hiérarchie donnée, par exemple de la hiérarchie de Collections, nous pouvons poser une requête plus sophistiquée : 
 \begin{code}{}
 class := Collection.
 SystemNavigation default
@@ -401,9 +408,10 @@ SystemNavigation default
       thenCollect: [:assoc | MethodReference class: each selector: assoc key]])
   name: 'Supersends of ' , class name , ' and its subclasses'
 \end{code}
-Note how we navigate from classes to method dictionaries to compiled methods to identify the methods we are interested in.
-A \ct{MethodReference} is a lightweight proxy for a compiled method that is used by many tools.
-There is a convenience method \clsmthind{CompiledMethod}{methodReference} to return the method reference for a compiled method.
+Remarquez comment nous naviguons en partant des classes pour aller vers les dictionnaires de méthodes puis vers les méthodes compilées pour identifier les méthodes recherchées. 
+Une \ct{MethodReference} est un proxy léger pour une méthode compilée, utilisé par de nombreux outils.
+Il existe une méthode adaptée \clsmthind{CompiledMethod}{methodReference} qui retourne la référence de la méthode pour une méthode compilée.
+
 \begin{code}{@TEST}
 (Object>>#=) methodReference methodSymbol --> #=
 \end{code}
@@ -411,28 +419,28 @@ There is a convenience method \clsmthind{CompiledMethod}{methodReference} to ret
 %======================================
 \section{Environnements de navigation du code}
 
-Although \clsind{SystemNavigation} offers some useful ways to programmatically query and browse system code, there is a better way.  The \ind{Refactoring Browser}, which is integrated into \pharo, provides both interactive and programmatic ways to pose complex queries.
+Même si \clsind{SystemNavigation} offre quelques façons utiles d'interroger le système par programmes et de parcourir le code système, il existe une meilleure manière. Le \ind{Refactoring Browser}, qui est intégré dans \pharo, permet de poser des questions complexes à la fois de manière interactive et par programme.
 
-Suppose we are interested to discover which methods in the \lct{Collection} hierarchy send a message to \super which is different from the method's selector.
-This is normally considered to be a bad \ind{code smell}, since such a \super-send should normally be replaced by a \self-send. (Think about it --- you only \emph{need} \super to extend a method you are overriding; all other inherited methods can be accessed by sending to \self!)
+Supposons que nous voulions découvrir quelle méthode dans la hiérarchie \lct{Collection} envoie un message à \super qui soit différent depuis le sélecteur de méthodes. Ceci est généralement considéré comme un mauvais \ind{code smell}, puisque un tel \super-send devrait normalement être remplacé par un \self-send. (Pensez à cela --- vous ne devriez avoir besoin de \super que pour étendre une méthode que vous êtes en train de surcharger; toutes les autres méthodes héritées peuvent être accédées par un \self! )
 
-The refactoring browser provides us with an elegant way to restrict our query to just the classes and methods we are interested in.
+Le Refactoring Browser nous permet de manière élégante de restreindre nos interrogations uniquement aux classes et méthodes qui nous intéressent. 
 
-\dothis{Open a browser on the class \ct{Collection}.
-\actclick on the class name and select \menu{refactoring scope>subclasses with}.
-This will open a new Browser Environment on just the \ct{Collection} hierarchy.
-Within this restricted scope select \menu{refactoring scope>super-sends} to open a new environment with all methods that perform super-sends within the \ct{Collectuon} hierarchy.
-Now \click on any method and select \menu{refactor>code critics}.
-Navigate to \menu{Lint checks>Possible bugs>Sends different super message} and \actclick to select \menu{browse}.}
 
-In \figref{sendDifferentSuper} we can see that 19 such methods have been found within the \ct{Collection} hierarchy, including \ct{Collection>>>printNameOn:}, which sends \ct{super printOn:}.
+\dothis{Ouvrir un Browser sur la classe \ct{Collection}.
+\actclick sur le nom de la classe et sélectionner \menu{refactoring scope>subclasses with}.
+Ceci ouvrira un nouveau browser Environnement sur la hierarchie \ct{Collection}.
+Dans ce champ restreint sélectionner \menu{refactoring scope>super-sends} pour ouvrir un nouvel environnement avec toutes les méthodes qui font des super-sends dans la hiérarchie \ct{Collection}. Maintenant \click sur n'importe quelle méthode et sélectionner \menu{refactor>code critics}.
+Naviguer dans \menu{Lint checks>Possible bugs>Sends different super message} et \actclick pour sélectionner \menu{browse}.}
+
+Dans \figref{sendDifferentSuper} nous pouvons voir que 19 méthodes de la sorte ont été trouvées dans la hiérarchie \ct{Collection}, incluant \ct{Collection>>>printNameOn:}, laquelle envoie \ct{super printOn:}.
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{sendDifferentSuper}
-	\caption{Finding methods that send a different super message.\figlabel{sendDifferentSuper}}
+	\caption{Trouver les méthodes qui envoient un message différent de super.
+ 	\figlabel{sendDifferentSuper}}
 \end{figure}
 
-Browser environments can also be created programmatically.
-Here, for example, we create a new \clsind{BrowserEnvironment} for \clsind{Collection} and its subclasses, select the super-sending methods, and open the resulting environment.
+Un environnement de navigation du code peut aussi être créé par programme.
+Ici, par exemple, nous créons un nouveau \clsind{BrowserEnvironment} pour \clsind{Collection} et ses sous-classes, nous sélectionnons les méthodes super-sending et nous ouvrons l'environnement résultant.
 \needlines{4}
 \begin{code}{}
 ((BrowserEnvironment new forClasses: (Collection withAllSubclasses))
@@ -441,9 +449,9 @@ Here, for example, we create a new \clsind{BrowserEnvironment} for \clsind{Colle
 	open.
 \end{code}{}
 
-Note how this is considerably more compact than the earlier, equivalent example using \ct{SystemNavigation}.
+Notez à quel point ce moyen est considérablement plus compact que les exemples précédents utilisant \ct{SystemNavigation}.
 
-Finally, we can find just those methods that send a different super message programmatically as follows:
+Finallement, nous pouvons trouver uniquement les méthodes qui envoient un message différent de super comme ceci :
 \needlines{6}
 \begin{code}{}
 ((BrowserEnvironment new forClasses: (Collection withAllSubclasses))
@@ -453,13 +461,16 @@ Finally, we can find just those methods that send a different super message prog
 	label: 'Collection methods sending different super';
 	open
 \end{code}
-Here we ask each compiled method for its (Refactoring Browser) parse tree, in order to find out whether the super messages differ from the method's selector.
-Have a look at the \prot{querying} protocol of the class \ct{RBProgramNode} to see some the things we can ask of parse trees.
+Dans cet exemple nous demandons à chaque méthode compilée son arbre d'analyse (Refactoring Browser), dans le but de trouver quels super messages diffèrent des sélecteurs de méthodes.  
+Regardez le protocole \prot{querying} de la classe \ct{RBProgramNode} pour voir un certain nombre de choses que nous pouvons demander aux arbres d'analyse. 
+
+% Here we ask each compiled method for its (Refactoring Browser) parse tree, in order to find out whether the super messages differ from the method's selector.
+% Have a look at the \prot{querying} protocol of the class \ct{RBProgramNode} to see some the things we can ask of parse trees.
 
 %======================================
 \section{Accéder au contexte d'exécution}
 
-Nous avons vu comment les capacités réflexives de \st, nous permettent d'interroger et d'explorer les objets, les classe et les méthodes. Qu'en est-il de l'environnement d'exécution ?
+Nous avons vu comment les capacités réflexives de \st, nous permettent d'interroger et d'explorer les objets, les classes et les méthodes. Qu'en est-il de l'environnement d'exécution ?
 
 %-----------------------------------------------------------------
 \subsection{Contextes des méthodes}
@@ -469,9 +480,9 @@ En fait, le contexte d'exécution d'une méthode se trouve dans la machine virtu
 En fait, il n'y rien de magique avec le débogueur.
 Le secret réside dans la pseudo-variable \pvind{thisContext}, que nous avons brièvement rencontré précédemment.
 Lorsque l'on accède à \ct{thisContext} dans une méthode qui s'exécute, tout le contexte d'exécution de cette méthode est réifié et rendu disponible dans l'image comme une liste chainée d'objets \clsind{MethodContext}.
-Nous pouvons facilement expérimenter ce mécanisme par nous même.
+Nous pouvons facilement expérimenter ce mécanisme par nous-même.
 
-\dothis{Changer la définition de \ct{Integer>>>factorial} en insérant l'expression souligné ci-dessous:}
+\dothis{Changer la définition de \ct{Integer>>>factorial} en insérant l'expression soulignée ci-dessous:}
 \mthindex{Object}{halt}
 \begin{code}{}
 Integer>>>factorial
