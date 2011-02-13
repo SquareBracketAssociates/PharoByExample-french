@@ -65,7 +65,7 @@ Un programme qui manipule d'autres programmes (ou même lui-même) est un \emphi
 Pour qu'un langage de programmation soit réflexif, il faut qu'il supporte à la fois l'\ind{introspection} et l'\ind{intercession}.
 
 L'introspection est la capacité \emph{d'examiner} les structures de données qui définissent le programme comme les objets, classes, méthodes ou pile d'exécution.
-L'intercession est la capacité de modifier ces structures, en d'autre terme de changer la sémantique du langage et le comportement d'un programme depuis le programme lui-même.
+L'intercession est la capacité de modifier ces structures, en d'autres termes de changer la sémantique du langage et le comportement d'un programme depuis le programme lui-même.
 La \emph{réflexivité structurelle} s'intéresse à l'exploration et à la modification des structures lors de l'exécution du système, alors que la \emph{réflexivité de comportement} concerne l'interprétation de ces structures.
 
 Dans ce chapitre, nous allons principalement nous intéresser à la \ind{réflexivité structurelle}.
@@ -103,8 +103,8 @@ Comment fonctionne l'inspecteur ?
 En \st, toutes les variables d'instances sont protégées.
 En théorie, il est impossible d'y accéder depuis un autre objet si la classe ne définit pas d'accesseur.
 En pratique, l'inspecteur peut accéder aux variables sans avoir besoin d'accesseurs, parce qu'il utilise les capacités réflexives de \st.
-En \st, les classes définissent les variables d'instances soient par nom ou au moyen d'indices numériques.
-L'inspecteur utilisent des méthodes définies dans la classe \ct!Object! afin d'y accéder :  \lct{instVarAt: \emph{index}} et \lct{instVarNamed: \emph{aString}} peuvent être utilisé pour avoir respectivement la valeur de la variable d'instance à la position \lct{\emph{index}} ou identifié par \lct{\emph{aString}}; pour associer de nouvelles valeurs à ces variables d'instances, on utilise \ct!instVarAt:put:! et \ct!instVarNamed:put:!.
+En \st, les classes définissent les variables d'instances soit par nom soit au moyen d'indices numériques.
+L'inspecteur utilise des méthodes définies dans la classe \ct!Object! afin d'y accéder :  \lct{instVarAt: \emph{index}} et \lct{instVarNamed: \emph{aString}} peuvent être utilisées pour avoir respectivement la valeur de la variable d'instance à la position \lct{\emph{index}} ou identifié par \lct{\emph{aString}}; pour associer de nouvelles valeurs à ces variables d'instances, on utilise \ct!instVarAt:put:! et \ct!instVarNamed:put:!.
 \mthindex{Object}{instVarAt:}
 \mthindex{Object}{instVarNamed:}
 \mthindex{Object}{instVarAt:put:}
@@ -115,7 +115,7 @@ Par exemple, vous pouvez changer la valeur de la variable d'instance \ct!content
 w instVarNamed: 'contents' put: 'howdy!'; contentsChanged
 \end{code}
 
-\important{\emph{Caveat:} Bien que ces méthodes soient utiles pour construire les outils de l'environnement de développement, les utiliser dans le cadre d'une application conventionnelle est une mauvaise idée: ces méthodes réflexives rompent l'encapsulation des objets et peuvent rendre votre code plus difficile à comprendre et à maintenir.}
+\important{\emph{Mise en garde:} Bien que ces méthodes soient utiles pour construire les outils de l'environnement de développement, les utiliser dans le cadre d'une application conventionnelle est une mauvaise idée: ces méthodes réflexives rompent l'encapsulation des objets et peuvent rendre votre code plus difficile à comprendre et à maintenir.}
 % \lr{Why? The access does not show up when looking for all readers/writers in the code browser.}
 
 \ct!instVarAt:! et \ct!instVarAt:put:! sont des \ind{méthodes primitives}, c'est-à-dire qu'elles sont implémentées comme des opérations primitives de la machine virtuelle \pharo.
@@ -201,7 +201,7 @@ Exception respondsTo: #, --> true    "exception classes can be grouped"
 \end{code}
 \mthindex{Object}{respondsTo:}
 
-\important{\emph{Caveat:} Bien que tous ces outils soient particulièrement utiles pour construire des outils de développements, ils ne sont pas appropriés pour une application classique.
+\important{\emph{Mise en garde:} Bien que tous ces outils soient particulièrement utiles pour construire des outils de développements, ils ne sont pas appropriés pour une application classique.
 Demander à un objet sa classe ou bien l'interroger pour connaître les messages qu'il comprend, sont un signe indiquant une mauvaise conception objet, puisque généralement cela signifie une violation du principe d'encapsulation.
 Les outils de développements ne sont pas considérés comme des applications comme les autres, puisque leur domaine d'applications porte sur le logiciel. Ces outils doivent nécessairement accéder aux détails internes du code.}
 
@@ -451,7 +451,7 @@ Ici, par exemple, nous créons un nouveau \clsind{BrowserEnvironment} pour \clsi
 
 Notez à quel point ce moyen est considérablement plus compact que les exemples précédents utilisant \ct{SystemNavigation}.
 
-Finallement, nous pouvons trouver uniquement les méthodes qui envoient un message différent de super comme ceci :
+Finalement, nous pouvons trouver uniquement les méthodes qui envoient un message différent de super comme ceci :
 \needlines{6}
 \begin{code}{}
 ((BrowserEnvironment new forClasses: (Collection withAllSubclasses))
@@ -503,7 +503,7 @@ Bienvenue dans le débogueur du pauvre !
 Si maintenant nous parcourons la classe de l'objet exploré (\ie en évaluant \ct{self browse} dans le panneau du bas de l'explorateur), vous aller découvrir que c'est une instance de la classe \lct{MethodContext}, comme tous les \ct{envoyeurs} dans la chaîne.
 % All of these objects have been created dynamically in the image by the \st virtual machine at the point where \ct{thisContext} was referred to in the \ct{factorial} method. \lr{Not actually. In all the currently available VMs the context objects are created with every method activation, no matter if they are accessed using \ct{thisContext} or not.}
 
-\ct{thisContext} n'est pas destiné à être utilisé dans la programmation de tous les jours, mais il est essentiel pour réaliser des outils comme des débogueurs et lorsque l'on a besoin d'accéder à des information concernant la pile d'appels de méthodes.
+\ct{thisContext} n'est pas destiné à être utilisé dans la programmation de tous les jours, mais il est essentiel pour réaliser des outils comme des débogueurs et lorsque l'on a besoin d'accéder à des informations concernant la pile d'appels de méthodes.
 On peut évaluer l'expression suivante pour découvrir quelles méthodes utilisent \ct{thisContext}:
 
 \begin{code}{}
@@ -872,7 +872,7 @@ Les pragmas sont très utiles notamment pour :
 \item Donner de l'information à l'exécution.
 \end{itemize}
 
-Les pragmas s'utilisent uniquement lors de la déclaration des méthodes d'un programme. Une méthode peut déclarer un ou plusieurs pragmas qui sont écrits avant toutes expressions Smalltalk. En réalité, un pragma défini une sorte de message statique avec des arguments qui sont des litéraux.
+Les pragmas s'utilisent uniquement lors de la déclaration des méthodes d'un programme. Une méthode peut déclarer un ou plusieurs pragmas qui sont écrits avant toutes expressions Smalltalk. En réalité, un pragma défini une sorte de message statique avec des arguments qui sont des littéraux.
 
 Nous avons déjà parlé brièvement des pragmas lorsque nous avons briévement introduit la notion de primitives précédemment dans ce chapitre. Une primitive n'est rien moins qu'une déclaration de pragma. 
 Considérons par exemple \ct{<primitive: 73>} qui se trouve dans la méthode \ct{instVarAt:}. Le sélecteur du pragma est \ct{primitive:} et son argument est le littéral \ct{73}. 
@@ -911,7 +911,7 @@ Instances de la classe \clsind{Pragma}, les pragmas sont donc de véritables obj
 (Float>>#+) pragmas --> an Array(<primitive: 41>)
 \end{code}
 
-Les méthodes définissant une requête particulière peuvent être retrouvés à partir d'une classe. La classe \ct!SplitJoinTest! contient certaines méthodes de classes annotées avec \ct!<ignoreForCoverage>! :
+Les méthodes définissant une requête particulière peuvent être retrouvées à partir d'une classe. La classe \ct!SplitJoinTest! contient certaines méthodes de classes annotées avec \ct!<ignoreForCoverage>! :
 
 \begin{code}{@TEST}
 Pragma allNamed: #ignoreForCoverage in: SplitJoinTest class  --> an Array(<ignoreForCoverage> <ignoreForCoverage> <ignoreForCoverage>)
