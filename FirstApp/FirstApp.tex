@@ -13,7 +13,7 @@
 % adaptation pour PBE - martial - (09/20/2009) version 29552
 % relecture: Rene Mages (10/01/2010) version 30222
 % relecture: Rene Mages  (25/06/2010) version 33735
-
+% relecture: Rene Mages  (11/04/2011) 
 \ifx\wholebook\relax\else
 % --------------------------------------------
 % Lulu:
@@ -47,7 +47,7 @@ réflexion, le jeu \ind{Lights Out}~\footnote{En anglais,
   \url{http://en.wikipedia.org/wiki/Lights_Out_(game)}.
 % martial - TODO ajouter une définition en français
 }. 
-En cours de route, nous allons faire la démonstration de la plupart des outils que \arelire{les développeurs \pharo utilisent pour}
+En cours de route, nous allons faire la démonstration de la plupart des outils que les développeurs \pharo utilisent pour
 % Rene propose de supprimer pharo à la ligne précedente.
 % Martial: comme tu veux, ça ne me dérange pas; ça rappelle que les méthodologies et les outils sont associés aux dév. Pharo et pas au dév. Haskell.
 construire et déboguer leurs programmes et comment les programmes sont échangés entre les développeurs. Nous verrons notamment le navigateur de classes, l'inspecteur d'objet, le débogueur et le navigateur de \ind{paquetage}{}s \ind{Monticello}. 
@@ -88,7 +88,7 @@ Nous allons maintenant voir comment créer des paquetages (ou \emph{packages}), 
 
 \dothis{Ouvrez un Browser et \actclickz{} sur le panneau des paquetages.
 Sélectionnez \menu{create package}\footnote{Nous supposons que le 
-\aretirer{Package} Browser est installé en tant que navigateur de classes par défaut. 
+Browser est installé en tant que navigateur de classes par défaut. 
 Si le Browser ne ressemble pas à celui de la
 \figref{addPackage}, vous aurez besoin de changer le navigateur par
 défaut. Voyez \faqref{packageBrowser}.}.}
@@ -130,7 +130,7 @@ classe appelée \ct{Object}, lui demandant de créer une sous-classe
 appelée \ct{NameOfSubClass}.  La nouvelle classe n'a pas de variables
 et devrait appartenir à la catégorie \scat{PBE-LightsOut}.
 
-\subsection{\arelire{À propos des catégories et des paquetages}}
+\subsection{À propos des catégories et des paquetages}
 \seclabel{categoriesPackages}
 
 Historiquement, \st{} ne connaît que les \emph{catégories}. Vous
@@ -354,7 +354,7 @@ dire:  ``Utilise des bords carrés!'' (d'où \ct{useSquareCorners}),
 \section{Inspecter un objet}
 
 Vous pouvez tester l'effet du code que vous avez écrit en créant un
-nouvel objet \ct{LOCell} et en l'inspectant avec l'inspecteur nommé \arelire{Inspector}.
+nouvel objet \ct{LOCell} et en l'inspectant avec l'inspecteur nommé Inspector.
 % ajout -vf avec l'inspecteur nomme Inspector
 \dothis{Ouvrez un espace de travail (Workspace). Tapez l'expression \ct{LOCell new} et choisissez \menu{inspect it}.}
 
@@ -801,7 +801,7 @@ Dans la partie supérieure de la fenêtre du débogueur, nous pouvons
 voir la pile d'exécution, affichant toutes les méthodes actives; en
 sélectionnant l'une d'entre elles, nous voyons dans le panneau du
 milieu le code \st en cours d'exécution dans cette méthode, avec
-la partie qui a déclenchée l'erreur en caractère gras.
+la partie qui a déclenché l'erreur en caractère gras.
 
 \dothis{Cliquez sur la ligne nommée
 \ct{LOGame>>>toggleNeighboursOfCellAt:at:} (près du haut).}
@@ -955,7 +955,7 @@ Jetez un coup d'\oe il à ce fichier avec un éditeur de texte.
 
 \dothis{Ouvrez une nouvelle image \pharo et utilisez l'outil File
   Browser (\menu{Tools \go{} File Browser}) pour faire une importation
-  de fichier via l'option de menu  \menu{file in} dans le fichier
+  de fichier via l'option de menu  \menu{file in} du fichier
   PBE-LightsOut.st. Vérifiez que le jeu fonctionne maintenant dans une
   nouvelle image.}
 
