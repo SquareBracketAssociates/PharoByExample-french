@@ -14,6 +14,7 @@
 % adaptation pour PBE - martial - Thu Sep 10 20:18:24 CEST 2009 
 % relecture par Rene Mages : Tue Jan 12 17:17:17 2010
 % relecture par Rene Mages : Tue Aug  8 17:17:17 2010
+% relecture par Rene Mages : Mon Apr 11 17:17:17 2011
 % $Author: oscar $ $Date: 2009-08-28 11:02:05 +0200 (Fri, 28 Aug 2009) $ $Revision: 28659 $
 % sync avec la version: 29660
 %=================================================================
@@ -92,7 +93,7 @@ Par exemple, les entiers sont véritablement des objets (de classe Integer). Dè
 \end{code}
 
 La représentation de \ct{20 factorial} est certainement différente de la représentation de \ct{7}, mais aucune partie du code\,---\,pas même l'implémentation de 
-\ct{factorial}~\footnote{En anglais, factorielle.}
+\ct{factorial}~\footnote{En français, factorielle.}
 \,---\,n'a besoin de le savoir puisque ce sont des objets tous deux.
 
 \needlines{3}
@@ -292,7 +293,7 @@ sans avoir à créer un objet additionnel dans un premier temps.
 % coutumier -> commun
 En fait, beaucoup d'entre elles contiennent un commentaire pour les rendre plus compréhensibles pour l'utilisateur qui les exécute.
 
-\dothis{Naviguez dans la méthode \ct{Color class>>>showColorCube}, double-cliquez à l'intérieur des guillements englobant le commentaire \ct{"Color showColorCube"} et tape au clavier \short{d}.}
+\dothis{Naviguez dans la méthode \ct{Color class>>>showColorCube}, double-cliquez à l'intérieur des guillemets englobant le commentaire \ct{"Color showColorCube"} et tape au clavier \short{d}.}
 Vous verrez l'effet de l'exécution de cette méthode.  (Sélectionnez \menu{World \go \ind{restore display}~(r)} pour annuler les effets.)
 
 Pour les familiers de \ind{Java} et \ind{C++},  les méthodes de classe peuvent être assimilées aux méthodes statiques. 
@@ -400,7 +401,7 @@ WebServer class
 	instanceVariableNames: 'uniqueInstance'
 \end{classdef}
 
-Par conséquence, la classe \ct{WebServer} a désormais un autre variable d'instance, en plus des variables héritées telles que \ct{superclass} et \ct{methodDict}.
+Par conséquence, la classe \ct{WebServer} a désormais une autre variable d'instance, en plus des variables héritées telles que \ct{superclass} et \ct{methodDict}.
 
 Nous pouvons maintenant définir une \subind{classe}{méthode} de classe que nous appellerons \ct{uniqueInstance} comme dans \tmthref{uniqueInstance}. 
 Pour commencer, cette méthode vérifie si \ct{uniqueInstance} a été initialisée ou non: dans ce dernier cas,
@@ -817,7 +818,7 @@ BorderedMorph>>>initialize
 \important{Une méthode \ct{initialize} devrait toujours commencer par la ligne \ct{super initialize}.}
 
 %---------------------------------------------------------
-\subsection{Self et super}
+\subsection{Envois à self et à super}
 
 Nous avons besoin des \subpvind{super}{envoi}{}s sur \super pour 
 réutiliser le comportement hérité qui pourrait sinon être
@@ -826,7 +827,7 @@ Cependant, la technique habituelle de composition de méthodes,
 héritées ou non, est basée sur l'\subpvind{self}{envoi} à
 \self.
 
-Comment l'envoi à \self diffère de celle avec \super?
+Comment l'envoi à \self diffère de celui à \super?
 Comme \self, \super représente le receveur du message.
 La seule différence est dans la méthode de \subind{méthode}{recherche}.
 Au lieu de faire partir la recherche depuis la classe du receveur,
@@ -867,22 +868,32 @@ Morph>>>constructorString
 	^ String streamContents: [:s | self printConstructorOn: s indent: 0]
 \end{method}
 
-\arelire{La méthode \cmind{Morph}{constructorString} envoie
-  \ct{printConstructorOn:indent:} à \self.
-Ce message est \arevoir{recherché} dans la hiérarchie en commençant dans la classe
-\lct{EllipseMorph} et finalement trouvé dans \ct{Morph}.}
-%This message is also looked up, starting in the class \lct{EllipseMorph}, and found in \ct{Morph}.
-\arelire{Cette méthode en retour envoie à \self le message
+% \arelire{La méthode \cmind{Morph}{constructorString} envoie
+%  \ct{printConstructorOn:indent:} à \self.
+% Ce message est \arevoir{recherché} dans la hiérarchie en commençant dans la classe
+% \lct{EllipseMorph} et finalement trouvé dans \ct{Morph}.}
+% This message is also looked up, starting in the class \lct{EllipseMorph}, and found in \ct{Morph}.
+% \arelire{Cette méthode en retour envoie à \self le message
+% \lct{printConstructorOn:indent:nodeDict:}, qui, à son tour, envoie
+% \ct{fullPrintOn:} à \self.
+% Encore une fois, \ct{fullPrintOn:} est \arevoir{recherché} depuis la classe
+% \ct{EllipseMorph} et \mthind{BorderedMorph}{fullPrintOn:} 
+% est trouvé dans \ct{BorderedMorph} 
+% (revoir\figref{constructorStringLookup})} % CHANGE
+
+La méthode \cmind{Morph}{constructorString} envoie le message
+\ct{printConstructorOn:indent:} à \self. La méthode correspondante à ce
+message est alors recherchée dans la hiérarchie de classes d'abord en
+en commençant dans la classe \lct{EllipseMorph} et finalement trouvé dans \ct{Morph}.
+Cette méthode en retour envoie à \self le message
 \lct{printConstructorOn:indent:nodeDict:}, qui, à son tour, envoie
-\ct{fullPrintOn:} à \self.
-Encore une fois, \ct{fullPrintOn:} est \arevoir{recherché}
-depuis la classe
-\ct{EllipseMorph} et \mthind{BorderedMorph}{fullPrintOn:} est
-trouvé dans \ct{BorderedMorph} (revoir
-\figref{constructorStringLookup})} % CHANGE
-% rene : il manque la traduction de :
-% What is critical to notice is that the self send causes the method lookup to start 
-% again in the class of the receiver, namely the class of anEllipse.
+\ct{fullPrintOn:} à \self. Encore une fois, \ct{fullPrintOn:} est recherché
+depuis la classe \ct{EllipseMorph} et \mthind{BorderedMorph}{fullPrintOn:} 
+est trouvé dans \ct{BorderedMorph} 
+(revoir\figref{constructorStringLookup}) % CHANGE
+Ce qui est crucial à observer est le fait qu'un envoi à self provoque une recherche de méthode
+qui débute dans la classe du receveur, à savoir la classe de anEllipse.
+
 \important{Un envoi à \self déclenche le départ de la recherche \emph{dynamique} de méthode dans la classe du receveur.}
 
 \needlines{4}
