@@ -132,7 +132,7 @@ le nom de la méthode de classe utilisée pour générer cette couleur,
 comme le montre le code ci-dessous qui imprime une instance de cette
 classe. % CHANGE
 
-\newpage
+\needlines{8}
 \begin{method}[zork]{Redéfinir \ct{printOn:}}
 Color>>>printOn: aStream
 	| name |
@@ -422,7 +422,7 @@ Object>>>copy
     "Answer another instance just like the receiver.
     Subclasses typically override postCopy;
     they typically do not override shallowCopy."
-    ^self shallowCopy postCopy
+    ^ self shallowCopy postCopy
 \end{method}
 
 %ajout
@@ -462,7 +462,7 @@ l'enlève de la pile''):
 Stack>>>pop
     "Return the first element and remove it from the stack."
     self assert: [ self isEmpty not ].
-    ^self linkedList removeFirst element
+    ^ self linkedList removeFirst element
 \end{method}
 
 Il ne faut pas confondre \ct{Object>>>assert:} avec \cmind{TestCase}{assert:}, 
@@ -624,11 +624,11 @@ Les méthodes \mthind{Magnitude}{<} et \mthind{Magnitude}{=} sont abstraites. Le
 \begin{method}{Méthodes de comparaison abstraites}
 Magnitude>>> < aMagnitude 
     "Answer whether the receiver is less than the argument."
-    ^self subclassResponsibility
+    ^ self subclassResponsibility
 
 Magnitude>>> > aMagnitude 
     "Answer whether the receiver is greater than the argument."
-    ^aMagnitude < self
+    ^ aMagnitude < self
 \end{method}
 \cmindex{Magnitude}{>}
 
@@ -1020,10 +1020,10 @@ Les implémentations dans les sous-classes concrètes sont toutes les deux trivi
 
 \begin{method}{Implémentations de \ct{ifTrue:ifFalse:}} % REVOIR
 True>>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock 
-    ^trueAlternativeBlock value
+    ^ trueAlternativeBlock value
 
 False>>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock 
-    ^falseAlternativeBlock value
+    ^ falseAlternativeBlock value
 \end{method}
 \cmindex{True}{ifTrue:}
 \cmindex{False}{ifTrue:}
@@ -1040,7 +1040,7 @@ manière pour \ct{True} et \ct{False}. Par exemple:
 \begin{method}{Implémenter la négation}
 True>>>not
     "Negation--answer false since the receiver is true."
-    ^false
+    ^ false
 \end{method}
 \cmindex{True}{not}
 

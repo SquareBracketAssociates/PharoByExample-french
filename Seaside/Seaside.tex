@@ -1282,7 +1282,7 @@ choix (généré par la méthode utilitaire \mthind{WAComponent}{confirm:}).
 \begin{code}{}
 WAConvenienceTest>>>confirmCheese
     "Ce fromage est-il votre !préféré!?"
-	^self confirm: 'Is ', cheese,  ' your favorite cheese?'
+	^ self confirm: 'Is ', cheese,  ' your favorite cheese?'
 \end{code}
 
 \emph{In fine}, un dialogue \clsind{WAFormDialog} est appelé (via la

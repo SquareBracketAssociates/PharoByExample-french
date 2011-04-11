@@ -851,7 +851,7 @@ TestResource subclass: #MyTestResource
 
 MyTestCase class>>>resources
 	"associe la ressource avec cette classe de test"
-	^{ MyTestResource }
+	^ { MyTestResource }
 \end{classdef}
 % \begin{classdef}[mytestresource]{An example of a TestResource subclass}
 % TestResource subclass: #MyTestResource
@@ -859,7 +859,7 @@ MyTestCase class>>>resources
 % 
 % MyTestCase class>>>resources
 % 	"associate the resource with this class of test cases"
-% 	^{ MyTestResource }
+% 	^ { MyTestResource }
 % \end{classdef}
 
 %\needlines{10}
@@ -875,7 +875,7 @@ MyTestCase class>>>resources
 
 %MyTestCase class>>>resources
 %	"associate the resource with this class of test cases"
-%	^{ MyTestResource }
+%	^ { MyTestResource }
 %\end{classdef}
 
 % \on{Do we really need the empty setUp and tearDown methods here?}
@@ -1030,7 +1030,7 @@ TestCase>>>run
 	| result |
 	result := TestResult new.
 	self run: result.
-	^result
+	^ result
 \end{method}
 
 % Note that in a future release, the class of the \ct{TestResult} to
@@ -1088,7 +1088,7 @@ contenant tous les tests définis dans la classe {\ct{MyTestCase}. Le c{\oe}ur d
 
 \begin{method}[testcasetestselectors]{Auto-construction de la suite de test}
 TestCase>>>testSelectors 
-	^self selectors asSortedCollection asOrderedCollection select: [:each | 
+	^ self selectors asSortedCollection asOrderedCollection select: [:each | 
 		('test*' match: each) and: [each numArgs isZero]]
 \end{method}
 \cmindex{MyTestCase class}{buildSuiteFromSelectors}
@@ -1102,9 +1102,9 @@ Toutes les ressources sont alors libérées.
 TestSuite>>>run
 	| result |
   self resources do: [ :res |
-		res isAvailable ifFalse: [^res signalInitializationError]].
+		res isAvailable ifFalse: [^ res signalInitializationError]].
 	[self run: result] ensure: [self resources do: [:each | each reset]].
-	^result
+	^ result
 \end{method}
 
 \lr{Methods 7.15 and 7.17: use \#ensure: instead of \#sunitEnsure:, this has been changed in 3.9}
@@ -1131,12 +1131,12 @@ initialisée et la méthode \mthind{TestResource}{setUp} est invoquée.
 \needlines{4}
 \begin{method}[testresourceisavailable]{Disponibilité de la ressource de test}
 TestResource class>>>isAvailable
-	^self current notNil and: [self current isAvailable]
+	^ self current notNil and: [self current isAvailable]
 \end{method}
 \begin{method}[testresourcecurrent]{Création de la ressource de test}
 TestResource class>>>current
 	current isNil ifTrue: [current := self new].
-	^current
+	^ current
 \end{method}
 \begin{method}[restresourceinitialize]{Initialisation de la ressource de test}
 TestResource>>>initialize
@@ -1324,7 +1324,7 @@ Ainsi, ne pensez qu'à une seule propriété quand vous écrivez un test.
 %suite that is running.
 %\begin{method}[xxx]{xxx}
 %SharedSetUpTestCase class>>>suiteClass
-%	^SharedSetUpTestSuite
+%	^ SharedSetUpTestSuite
 %\end{method}
 %\begin{method}[xxx]{xxx}
 %SharedSetUpTestCase class>>>sharedSetUp
@@ -1398,7 +1398,7 @@ Ainsi, ne pensez qu'à une seule propriété quand vous écrivez un test.
 %follows.
 %\begin{method}[xxx]{xxx}
 %runIndividually
-%	^runIndividually
+%	^ runIndividually
 %\end{method}
 %\begin{method}[xxx]{xxx}
 %SharedSetUpTestCase>>>armTearDownCounter
@@ -1496,12 +1496,12 @@ Ainsi, ne pensez qu'à une seule propriété quand vous écrivez un test.
 %\begin{method}[xxx]{xxx}
 %SharedSetUpTestSuite>>>run: aResult
 %	self checkAndArmSharedSetUp.
-%	^super run: aResult
+%	^ super run: aResult
 %\end{method}
 %\begin{method}[xxx]{xxx}
 %SharedSetUpTestSuite>>>run
 %	self checkAndArmSharedSetUp.
-%	^super run
+%	^ super run
 %\end{method}
 %Finally the method \ct{addTest:} is specialized so that it marks
 %all its tests with the fact that they are executed in a
@@ -1532,7 +1532,7 @@ Ainsi, ne pensez qu'à une seule propriété quand vous écrivez un test.
 %\begin{method}[xxx]{xxx}
 %TestCase class>>>buildSuite
 %	| suite |
-%	^self isAbstract
+%	^ self isAbstract
 %		ifTrue:
 %			[suite := self suiteClass new.
 %			suite name: self name asString.
@@ -1546,7 +1546,7 @@ Ainsi, ne pensez qu'à une seule propriété quand vous écrivez un test.
 %\end{method}
 %\begin{method}[xxx]{xxx}
 %TestCase class>>>buildSuiteFromMethods: testMethods
-%	^testMethods
+%	^ testMethods
 %		inject: ((self suiteClass new)
 %				name: self name asString;
 %				yourself)
@@ -1605,7 +1605,7 @@ Ainsi, ne pensez qu'à une seule propriété quand vous écrivez un test.
 %%		 cr
 
 %% MyTestCase class>>>resources
-%%	 ^Array with: MyTestResource
+%%	 ^ Array with: MyTestResource
 
 %% MyTestResource>>>setUp
 %%	 Transcript
@@ -1660,5 +1660,4 @@ détaillé \sunit en suivant l'exécution d'un test et d'une suite de tests.
 %%% mode: latex
 %%% TeX-master: t
 %%% TeX-PDF-mode: t
-%%% ispell-local-dictionary: "english"
 %%% End:

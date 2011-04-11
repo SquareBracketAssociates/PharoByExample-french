@@ -511,7 +511,7 @@ dans \tmthref{MagnitudeLessThan}.
 \begin{method}[MagnitudeLessThan]{\ct{Magnitude>>><}. Le commentaire dit: ``répond si le receveur est inférieur à l'argument''}
 Magnitude>>>< aMagnitude 
 	"Answer whether the receiver is less than the argument."
-	^self subclassResponsibility
+	^ self subclassResponsibility
 \end{method}
 
 \noindent
@@ -520,7 +520,7 @@ A contrario, la méthode \mthind{Magnitude}{>=} est concrète; elle est définie
 \begin{method}[Magnitude>=]{\ct{Magnitude>>>>=}. Le commentaire dit: ``répond si le receveur est plus grand ou égal à l'argument''}
 >= aMagnitude 
 	"Answer whether the receiver is greater than or equal to the argument."
-	^(self < aMagnitude) not
+	^ (self < aMagnitude) not
 \end{method}
 Il en va de même des autres méthodes de comparaison.
 
@@ -529,7 +529,7 @@ Il en va de même des autres méthodes de comparaison.
 \begin{method}[CharacterLessThan]{\ct{Character>>><}. Le commentaire dit: ``répond vrai si la valeur du receveur est inférieure à la valeur du l'argument''}
 Character>>>< aCharacter 
 	"Answer true if the receiver's value < aCharacter's value."
-	^self asciiValue < aCharacter asciiValue
+	^ self asciiValue < aCharacter asciiValue
 \end{method}
 
 %---------------------------------------------------------
@@ -1267,7 +1267,6 @@ en regroupant ces dernières en \emph{traits}.
 %%% mode: latex
 %%% TeX-master: t
 %%% TeX-PDF-mode: t
-%%% ispell-local-dictionary: "english"
 %%% End:
 
 %---------------------------------------------------------
