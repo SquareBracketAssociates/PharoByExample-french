@@ -262,7 +262,7 @@ ByteString instanceCount    --> 104565
 String allSubInstances size -->  101675
 \end{code}
 
-Ces caractéristiques peuvent être très utiles lors du déboguage d'une application, car il est possible de demander à une classe d'énumérer les méthodes possédant des propriétés spécifiques.
+Ces caractéristiques peuvent être très utiles lors du débogage d'une application, car il est possible de demander à une classe d'énumérer les méthodes possédant des propriétés spécifiques.
 \begin{itemize}
 \item \mthind{Behavior}{whichSelectorsAccess:} retourne la liste de tous les sélecteurs de méthodes qui lisent ou écrivent dans une variable dont le nom est passé en argument;
 \item \mthind{Behavior}{whichSelectorsStoreInto:} retourne les sélecteurs des méthodes qui modifient la valeur d'une variable d'instance;
@@ -480,14 +480,14 @@ Regardez le protocole \prot{querying} de la classe \ct{RBProgramNode} pour voir 
 %======================================
 \section{Accéder au contexte d'exécution}
 
-Nous avons vu comment les capacités réflexives de \st, nous permettent d'interroger et d'explorer les objets, les classes et les méthodes. Qu'en est-il de l'environnement d'exécution ?
+Nous avons vu comment les capacités réflexives de \st, nous permettent d'interroger et d'explorer les objets, les classes et les méthodes. Qu'en est-il de l'environnement d'exécution?
 
 %-----------------------------------------------------------------
 \subsection{Contextes des méthodes}
 
-En fait, le contexte d'exécution d'une méthode se trouve dans la machine virtuelle et pas dans l'image. Mais visiblement, le \ind{débogueur} a accès à cette information et on peut explorer le contexte d'exécution, comme n'importe quel autre objet ? Comment cela est possible ?
+En fait, le contexte d'exécution d'une méthode se trouve dans la machine virtuelle et pas dans l'image. Mais visiblement, le \ind{débogueur} a accès à cette information et on peut explorer le contexte d'exécution, comme n'importe quel autre objet? Comment cela est possible?
 
-En fait, il n'y rien de magique avec le débogueur.
+En fait, il n'y a rien de magique avec le débogueur.
 Le secret réside dans la pseudo-variable \pvind{thisContext}, que nous avons brièvement rencontré précédemment.
 Lorsque l'on accède à \ct{thisContext} dans une méthode qui s'exécute, tout le contexte d'exécution de cette méthode est réifié et rendu disponible dans l'image comme une liste chainée d'objets \clsind{MethodContext}.
 Nous pouvons facilement expérimenter ce mécanisme par nous-même.
@@ -502,15 +502,15 @@ Integer>>>factorial
 	self error: 'Not valid for negative integers'
 \end{code}
 
-\dothis{Maintenant évaluons \ct{3 factorial} dans un espace de travail. Nous devons normalement obtenir une fenêtre de déboguage et un explorateur comme on peut le voir dans \figref{exploringThisContext}.}
+\dothis{Maintenant évaluons \ct{3 factorial} dans un espace de travail. Nous devons normalement obtenir une fenêtre de débogage et un explorateur comme on peut le voir dans \figref{exploringThisContext}.}
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{exploringThisContext}
 	\caption{Explorer \ct{thisContext}.\figlabel{exploringThisContext}}
 \end{figure}
 
-Bienvenue dans le débogueur du pauvre ! 
-Si maintenant nous parcourons la classe de l'objet exploré (\ie en évaluant \ct{self browse} dans le panneau du bas de l'explorateur), vous aller découvrir que c'est une instance de la classe \lct{MethodContext}, comme tous les \ct{envoyeurs} dans la chaîne.
+Bienvenue dans le débogueur du pauvre! 
+Si maintenant nous parcourons la classe de l'objet exploré (\ie en évaluant \ct{self browse} dans le panneau du bas de l'explorateur), vous aller découvrir que c'est une instance de la classe \lct{MethodContext}, comme \arelire{tous les \senders} \aretirer{(ou \emph{envoyeurs})} dans la chaîne.
 % All of these objects have been created dynamically in the image by the \st virtual machine at the point where \ct{thisContext} was referred to in the \ct{factorial} method. \lr{Not actually. In all the currently available VMs the context objects are created with every method activation, no matter if they are accessed using \ct{thisContext} or not.}
 
 \ct{thisContext} n'est pas destiné à être utilisé dans la programmation de tous les jours, mais il est essentiel pour réaliser des outils comme des débogueurs et lorsque l'on a besoin d'accéder à des informations concernant la pile d'appels de méthodes.
@@ -520,7 +520,7 @@ On peut évaluer l'expression suivante pour découvrir quelles méthodes utilise
 SystemNavigation default browseMethodsWithSourceString: 'thisContext'
 \end{code}
 
-Comme on pourrait s'en douter, une des applications les plus répandues est de découvrir l'envoyeur d'un message.
+Comme on pourrait s'en douter, une des applications les plus répandues est de découvrir le \sender d'un message.
 Voici une application courante :
 \begin{code}{}
 Object>>>subclassResponsibility
@@ -530,8 +530,13 @@ Object>>>subclassResponsibility
 	self error: 'My subclass should have overridden ', thisContext sender selector printString
 \end{code}
 
+% ajout vf
+\arelire{%
+Le commentaire de la méthode dit que ``ce message change le comportement des sous-classes de la classe (qui reçoit ce message) et informe la sous-classe de la nécessité d'implémenter la méthode''.% AJOUT
+}
+% fin ajout vf
 Par convention, les méthodes \st qui envoient le message \ct{self subclassResponsibility} sont considérées comme abstraites. Mais
-comment \clsmthind{Object}{subclassResponsibility} indique un message d'erreur utile indiquant quelle méthode abstraite a été appelée ? Simplement, en interrogant la pseudo-variable \ct{thisContext} de l'envoyeur du message.
+comment \mbox{\clsmthind{Object}{subclassResponsibility}} indique un message d'erreur utile indiquant quelle méthode abstraite a été appelée? Simplement, en interrogant la pseudo-variable \ct{thisContext} du \sender du message.
 
 %\lr{I think co-routines and continuations should at least mentioned here. Another very practical application that is simple and could be shown here is the ``escaper''. Store the current context into a temp or inst-var \ct{target := thisContext} and jump back to that stack frame at a later point in time using \ct{target return: 123}.}
 %\sd{lukas maybe we should have another chapter showing such kind of beasts. I would love to read it. Showing how to use block to build exception and such a kind of point. I think that this chapter should be an introduction may be we should have a Reflection applied chapter}
@@ -540,7 +545,7 @@ comment \clsmthind{Object}{subclassResponsibility} indique un message d'erreur u
 \subsection{Points d'arrêts intelligents}
 
 \mthindex{Object}{halt}
-La façon \st de mettre des points d'arrêts dans un programme consiste à évaluer \ct{self halt} aux endroits correspondants. Ceci va provoquer la réification de \ct{thisContext} et une fenêtre de \ind{déboguage} va s'ouvrir sur ce point d'arrêt.
+La façon \st de mettre des points d'arrêts dans un programme consiste à évaluer \ct{self halt} aux endroits correspondants. Ceci va provoquer la réification de \ct{thisContext} et une fenêtre de \ind{débogage} va s'ouvrir sur ce point d'arrêt.
 Malheureusement ceci peut poser des problèmes pour des méthodes qui sont utilisées partout dans le système.
 
 Supposons par exemple, que nous voulons explorer l'exécution de \ct{OrderedCollection>>>add:}.
@@ -554,8 +559,8 @@ OrderedCollection>>>add: newObject
 	^ self addLast: newObject
 \end{code}
 
-Nous remarquons que notre image se fige instantanément ! Nous n'avons même pas eu de fenêtre de déboguage.
-Le problème devient évident lorsque nous comprenons que (i) \ct{OrderedCollection>>>add:} est utilisé en de nombreux endroit du système, de telle sorte que le point d'arrêt est déclenché peut après que nous ayons accepté cette modification et (ii) que le \emph{débogueur lui-même} envoie le message \ct{add:} à une instance de \ct{OrderedCollection}, l'empéchant d'ouvrir la fenêtre de déboguage !
+Nous remarquons que notre image se fige instantanément ! Nous n'avons même pas eu de fenêtre de débogage.
+Le problème devient évident lorsque nous comprenons que (i) \ct{OrderedCollection>>>add:} est utilisé en de nombreux endroit du système, de telle sorte que le point d'arrêt est déclenché peut après que nous ayons accepté cette modification et (ii) que le \emph{débogueur lui-même} envoie le message \ct{add:} à une instance de \ct{OrderedCollection}, l'empéchant d'ouvrir la fenêtre de débogage!
 Ce dont nous avons besoin est de pouvoir faire \emph{un point d'arrêt conditionnel} seulement lorsque nous sommes dans le contexte qui nous intéresse.
 C'est exactement ce qu'offre \clsmthind{Object}{haltIf:}.
 
@@ -568,10 +573,9 @@ OrderedCollection>>>add: newObject
 	^ self addLast: newObject
 \end{code}
 
-Cette fois ci, l'image ne se fige pas. Essayer d'exécuter \ct{OrderedCollectionTest}.
-(Vous pouvez trouver cette classe dans la catégorie \scat{CollectionsTests-Sequenceable}.)
+Cette fois ci, l'image ne se fige pas. Essayer d'exécuter \ct{OrderedCollectionTest}\,--\,que vous pouvez trouver dans la catégorie \mbox{\scat{CollectionsTests-Sequenceable}.}
 
-Comment cela fonctionne-t-il ? Regardons le code de \clsmthind{Object}{haltIf:}:
+Comment cela fonctionne-t-il? Regardons le code de \mbox{\clsmthind{Object}{haltIf:}:}
 \begin{code}{}
 Object>>>haltIf: condition
 	| cntxt |
@@ -586,34 +590,45 @@ Object>>>haltIf: condition
 	...
 \end{code}
 
-À partir de \ct!thisContext!, \ct!haltIf:! parcourt la pile d'exécution en vérifiant que le nom de la méthode appelante est le même que celle passé en paramètre. Si c'est le cas, la méthode déclenche une exception qui par défaut déclenche le débogueur.
+À partir de \ct!thisContext!, \ct!haltIf:! parcourt la pile d'exécution en vérifiant que le nom de la méthode appelante est le même que celle passé en paramètre. Si c'est le cas, la méthode déclenche une exception qui, par défaut, déclenche le débogueur.
 
-Il est également possible de fournir une valeur booléenne ou un bloc qui retourne un booléen comme argument de \ct{haltIf:}, mais dans ce cas, cela devient plus simple et on n'utilise pas \ct{thisContext}.
+Il est également possible de fournir une valeur booléenne ou un bloc qui retourne un booléen comme argument de \ct{haltIf:}, mais dans ce cas, cela devient plus simple et nous n'utilisons plus \ct{thisContext}.
 
 %======================================
 \section{Intercepter les messages non compris}
 \seclabel{msgnotunderstood}
+% traduction de martial à partir de ce point
 
 Pour l'instant, nous avons utilisé les capacités réflexives de \st principalement pour interroger et explorer les objets, classes, méthodes et pile d'exécution du système. Nous allons maintenant voir comment utiliser notre connaissance de \st pour intercepter des messages et modifier le comportement du système à l'exécution.
 
 Lorsque un objet reçoit un message, il regarde d'abord dans son dictionnaire de méthodes pour la méthode correspondante pour répondre au message.
-Si aucune méthode correspondante n'existe, il va continuer son exploration en remontant dans la hiérarchie de classe, jusqu'à atteindre la classe \ct{Object}. If still no method is found for that message, the object will \emph{send itself} the message \ct{doesNotUnderstand:} with the message selector as its argument.
-The process then starts all over again, until \clsmthind{Object}{doesNotUnderstand:} is found, and the debugger is launched.
+Si aucune méthode correspondante n'existe, il va continuer son exploration en remontant dans la hiérarchie de classe, jusqu'à atteindre la classe \ct{Object}.
+Si toujours aucune méthode n'est trouvée pour ce message, l'objet \emph{s'enverra à lui-même} %send itself
+le message \ct{doesNotUnderstand:} avec le selecteur du message comme argument.
+La recherche reprend alors encore jusqu'à ce que la méthode
+\clsmthind{Object}{doesNotUnderstand:} soit trouvée; puis le débogueur se lance.
 
-But what if \ct{doesNotUnderstand:} is overridden by one of the subclasses of \ct{Object} in the lookup path?
-As it turns out, this is a convenient way of realizing certain kinds of very dynamic behaviour. An object that does not understand a message can, by overriding \ct{doesNotUnderstand:}, fall back to an alternative strategy for responding to that message.
+Mais que se passerait-il si la méthode \ct{doesNotUnderstand:} est surchargée 
+par une des sous-classes de \ct{Object} situées dans \arevoir{le chemin de recherche}? %lookup path?
+Il s'avère qu'il s'agit d'une méthode pratique pour construire certains types de comportement très dynamique. Un objet qui ne comprend pas un message peut, par la surcharge de \ct{doesNotUnderstand:}, se retrouver dans une stratégie alternative pour répondre à ce message.
 
-Two very common applications of this technique are (1) to implement \ind{lightweight proxies} for objects, and (2) to dynamically compile or load missing code.
+L'implémentation de \ind{proxies légers}~\footnote{Ndt: un \emph{proxy}, des \emph{proxies}.} pour objets et la compilation dynamique ou le chargement de code manquant sont deux applications très courantes de cette technique.
+% Two very common applications of this technique are (1) to implement \ind{lightweight proxies} for objects, and (2) to dynamically compile or load missing code.
 
 %-----------------------------------------------------------------
-\subsection{Proxy légers}
+\subsection{\emph{Proxy} légers}
 
-In the first case, we introduce a ``\ind{minimal object}'' to act as a proxy for an existing object.
-Since the proxy will implement virtually no methods of its own, any message sent to it will be trapped by \ct{doesNotUnderstand:}. By implementing this message, the proxy can then take special action before delegating the message to the real subject it is the proxy for.
+Dans ce cas, nous introduisons un ``\ind{objet minimal}''
+%``\ind{minimal object}''
+agissant comme un \emph{proxy} pour un objet existant.
+Puisque le \emph{proxy} n'implémentera virtuellement aucune méthode de lui-même, tout message qui lui sera envoyé sera capturé par la méthode
+ \ct{doesNotUnderstand:}. En implémentant cette dernière, le \emph{proxy} peut alors prendre des mesures spéciales avant de déléguer le message à l'objet réél que cache ce \emph{proxy}.
+%By implementing this message, the proxy can then take special action before delegating the message to the real subject it is the proxy for.
 
-Let us have a look at how this may be implemented\footnote{You can also load \pkg{PBE-Reflection} from \url{http://www.squeaksource.com/PharoByExample/}}.
+Jetons un \oe il sur une solution proposée pour programmer ceci~\footnote{Vous pouvez télécharger le paquetage \pkg{PBE-Reflection} sur \url{http://www.squeaksource.com/PharoByExample/}}.
 
-We define a \ct{LoggingProxy} as follows:
+Nous définissons \arelire{un \emph{proxy} de journalisation} ou \ct{LoggingProxy} ainsi:
+
 \begin{code}{}
 ProtoObject subclass: #LoggingProxy
 	instanceVariableNames: 'subject invocationCount'
@@ -621,15 +636,18 @@ ProtoObject subclass: #LoggingProxy
 	poolDictionaries: ''
 	category: 'PBE-Reflection'
 \end{code}
-Note that we subclass \ct{ProtoObject} rather than \ct{Object} because we do not want our proxy to inherit over 400 methods (!) from \ct{Object}.
+Notez que nous sous-classons la classe \ct{ProtoObject} plutôt que la classe
+\ct{Object} parce que nous ne voulons pas que notre \emph{proxy} hérite de \emph{400 méthodes et plus} de notre classe \ct{Object}.
 
 \begin{code}{}
 Object methodDict size --> 408
 \end{code}
 
-Our proxy has two instance variables: the \ct{subject} it is a proxy for, and a \ct{count} of the number of messages it has intercepted.
-We initialize the two instance variables and we provide an accessor for the message count.
-Initially the \ct{subject} variable points to the proxy object itself.
+Notre \emph{proxy} a deux variables d'instance:
+\ct{subject} représentant notre objet pour lequel notre \emph{proxy} est destiné et, un compteur de messages interceptés que nous nommons \ct{count}.
+Nous initialisons ces deux variables d'instance et nous ajoutons un accesseur pour notre compteur.
+Au départ, \ct{subject} pointe sur l'objet \emph{proxy} lui-même.
+
 \begin{code}{}
 LoggingProxy>>>initialize
 	invocationCount := 0.
@@ -641,7 +659,8 @@ LoggingProxy>>>invocationCount
 	^ invocationCount
 \end{code}
 
-We simply intercept all messages not understood, print them to the Transcript, update the message count, and forward the message to the real subject.
+Nous interceptons tout simplement les messages non-compris et les imprimerons dans la fenêtre Transcript; puis nous metterons à jour le compteur de messages et transmetterons le message à l'objet réél \ct{subject}.
+
 \begin{code}{}
 LoggingProxy>>>doesNotUnderstand: aMessage 
 	Transcript show: 'performing ', aMessage printString; cr.
@@ -649,15 +668,17 @@ LoggingProxy>>>doesNotUnderstand: aMessage
 	^ aMessage sendTo: subject
 \end{code}
 
-Here comes a bit of magic.
-We create a new \ct{Point} object and a new \ct{LoggingProxy} object, and then we tell the proxy to \mthind{ProtoObject}{become:} the point object:
+C'est ici qu'opère la magie!
+Nous créons un nouvel objet \ct{Point} que nous appelerons \ct{point} et un nouvel objet \ct{LoggingProxy}. Nous disons ensuite au \emph{proxy} de devenir (en anglais ``\emph{become}'') ce \ct{point} via le message \mbox{\mthind{ProtoObject}{become:}:}
 \seeindex{\ct{become:}}{\ct{ProtoObject>>>become:}}
 \begin{code}{}
 point := 1@2.
 LoggingProxy new !\underline{become:}! point.
 \end{code}
 
-This has the effect of swapping all references in the image to the point to now refer to the proxy, and vice versa. Most importantly, the proxy's \ct{subject} instance variable will now refer to the point!
+\arelire{Cela a pour effet d'échanger toutes les références dans l'image entre
+le \ct{point} et le \emph{proxy}. Plus important encore, la variable d'instance \ct{subject} du \emph{proxy} se réfère désormais au \ct{point}.}
+% This has the effect of swapping all references in the image to the point to now refer to the proxy, and vice versa. Most importantly, the proxy's \ct{subject} instance variable will now refer to the point!
 
 \begin{code}{}
 point invocationCount --> 0
@@ -665,29 +686,49 @@ point + (3@4)             --> 4@6
 point invocationCount --> 1
 \end{code}
 
-This works nicely in most cases, but there are some shortcomings:
+Ceci fonctionne dans la plupart des cas mais il y a des insuffisances:
 \begin{code}{}
 point class --> LoggingProxy
 \end{code}
-Curiously, the method \ct{class} is not even implemented in \ct{ProtoObject} but in \ct{Object}, which \ct{LoggingProxy} does not inherit from!
-The answer to this riddle is that \ct{class} is never sent as a message but is directly answered by the virtual machine.\footnote{\ct{yourself} is also never truly sent.
-Other messages that may be directly interpreted by the VM, depending on the receiver, include:
+Curieusement, la méthode \ct{class} n'est pas implémentée dans 
+\ct{ProtoObject} mais dans \ct{Object} que notre \ct{LoggingProxy} n'hérite pas!
+La réponse à cette énigme est que \ct{class} n'est jamais envoyé comme message mais \arevoir{est directement répondu} par la machine virtuelle~\footnote{\ct{yourself} aussi n'est jamais vraiment envoyé.
+Les autres messages qui peuvent être interprétés par la machine virtuelle selon le receveur sont:
 \ct{+- < > <= >= = ~= * / \ ==}
 \ct{@ bitShift: // bitAnd: bitOr:}
 \ct{at: at:put: size}
 \ct{next nextPut: atEnd}
 \ct{blockCopy: value value: do: new new: x y}.
-Selectors that are never sent, because they are inlined by the compiler and transformed to comparison and jump \emph{bytecodes}:
+\arevoir{Les sélecteurs ne sont jamais envoyés parce qu'ils sont codés directement par le compilateur et transformés en \emph{bytecodes}} % REVOIR voir comment bien formuler ça
+%% Selectors that are never sent, because they are inlined by the compiler and transformed to comparison and jump \emph{bytecodes}:
 \ct{ifTrue: ifFalse: ifTrue:ifFalse: ifFalse:ifTrue:}
 \ct{and: or:}
 \ct{whileFalse: whileTrue: whileFalse whileTrue}
 \ct{to:do: to:by:do:}
 \ct{caseOf: caseOf:otherwise:}
 \ct{ifNil: ifNotNil:  ifNil:ifNotNil: ifNotNil:ifNil:}
-Attempts to send these messages to non-boolean objects can be intercepted and execution can be resumed with a valid boolean value by overriding \ct{mustBeBoolean} in the receiver or by catching the \ct{NonBooleanReceiver} exception.
-}% NB: Notes by Lukas Renggli
+\arelire{%
+Des tentatives pour envoyer ces messages à des objets non-booléens peuvent être interceptées et leur exécution peuvent être reprise avec un booléen valide en surchargeant la méthode \ct{mustBeBoolean} dans le receveur ou en capturant l'exception \ct{NonBooleanReceiver}.}
+%% Attempts to send these messages to non-boolean objects can be intercepted and execution can be resumed with a valid boolean value by overriding \ct{mustBeBoolean} in the receiver or by catching the \ct{NonBooleanReceiver} exception.
+}.
+%%  The answer to this riddle is that \ct{class} is never sent as a message but is directly answered by the virtual machine.\footnote{\ct{yourself} is also never truly sent.
+%% Other messages that may be directly interpreted by the VM, depending on the receiver, include:
+%% \ct{+- < > <= >= = ~= * / \ ==}
+%% \ct{@ bitShift: // bitAnd: bitOr:}
+%% \ct{at: at:put: size}
+%% \ct{next nextPut: atEnd}
+%% \ct{blockCopy: value value: do: new new: x y}.
+%% Selectors that are never sent, because they are inlined by the compiler and transformed to comparison and jump \emph{bytecodes}:
+%% \ct{ifTrue: ifFalse: ifTrue:ifFalse: ifFalse:ifTrue:}
+%% \ct{and: or:}
+%% \ct{whileFalse: whileTrue: whileFalse whileTrue}
+%% \ct{to:do: to:by:do:}
+%% \ct{caseOf: caseOf:otherwise:}
+%% \ct{ifNil: ifNotNil:  ifNil:ifNotNil: ifNotNil:ifNil:}
+%% Attempts to send these messages to non-boolean objects can be intercepted and execution can be resumed with a valid boolean value by overriding \ct{mustBeBoolean} in the receiver or by catching the \ct{NonBooleanReceiver} exception.
+%% }% NB: Notes by Lukas Renggli
 
-Even if we can ignore such special message sends, there is another fundamental problem which cannot be overcome by this approach: \self-sends cannot be intercepted:
+Même si nous pouvons ignorer de tels envois de messages spéciaux, il existe un autre problème fondamental qui ne peut pas être surmonter par cette approche: les envois à \self \aretirer{(\self-sends)} ne peuvent pas être interceptés:
 \begin{code}{}
 point := 1@2.
 LoggingProxy new become: point.
@@ -696,16 +737,20 @@ point rect: (3@4)        --> 1@2 corner: 3@4
 point invocationCount --> 1
 \end{code}
 
-Our proxy has been cheated out of two \self-sends in the \ct{rect:} method:
+Notre \emph{proxy} a été privé de deux envois à \self dans la méthode \mbox{\ct{rect:}:} 
+% idée auto-envoi à \self ??
+%% Our proxy has been cheated out of two \self-sends in the \ct{rect:} method:
 \begin{code}{}
 Point>>>rect: aPoint 
 	^ Rectangle  origin: (self min: aPoint) corner: (self max: aPoint)
 \end{code}
 
-Although messages can be intercepted by proxies using this technique, one should be aware of the inherent limitations of using a proxy.  In \secref{wrapper} we will see another, more general approach for intercepting messages.
+Bien que les messages puissent être interceptés par des \emph{proxies} basés sur cette technique, nous devons faire attention aux inhérentes limites de ce procédé. Dans \secref{wrapper}, nous verrons une autre approche plus générique pour l'interception de messages.
 
 %-----------------------------------------------------------------
 \subsection{Générer des méthodes manquantes}
+% stop traduction
+\tradalert{martial}{a faire}
 
 The other most common application of intercepting not understood messages is to dynamically load or generate the missing methods.
 Consider a very large library of classes with many methods.  Instead of loading the entire library, we could load a stub for each class in the library. The stubs know where to find the source code of all their methods.  The stubs simply trap all messages not understood, and dynamically load the missing methods on-demand.  At some point, this behaviour can be deactivated, and the loaded code can be saved as the minimal necessary subset for the client application.
