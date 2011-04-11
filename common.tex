@@ -124,7 +124,7 @@
 % changements d'url rencontres dans la VO:
 \newcommand{\squeakdev}{\url{http://www.squeaksource.com/ImageForDevelopers}\xspace} %ou
 %\newcommand{\squeakdev}{\url{squeak.ofset.org/squeak-dev}\xspace}
-\newcommand{\bam}{\lct{Bounc\-ing\-Atoms\-Morph}\xspace} % REVOIR
+\newcommand{\bam}{\ct{Bounc\-ing\-Atoms\-Morph}\xspace}
 %=============================================================
 %:Markup macros for proof-reading
 \usepackage[normalem]{ulem} % for \sout
@@ -462,10 +462,9 @@ pdfsubject={Informatique, Computer Science}
 }[keywords,comments,strings]
 % ajout pour les échappements dans les codes
 % indispensable pour mettre le code en emphase (cf. Model.tex) 
-\newcommand{\codeify}[1]{\NoAutoSpaceBeforeFDP#1\AutoSpaceBeforeFDP}
-%\renewcommand{\codeify}[1]{#1} % TEST
+\newcommand{\nospace}[1]{{\NoAutoSpaceBeforeFDP{}#1}}
 \newcommand{\normcomment}[1]{\emph{#1}} %cf. Streams
-\newcommand{\normcode}[1]{\emph{\codeify{#1}}} %cf. Streams
+\newcommand{\normcode}[1]{\emph{\nospace{#1}}} %cf. Streams
 \newcommand{\emcode}[1]{\textbf{\normcode{#1}}} % Martial 11/2007
 \lstset{language=Smalltalk,
 	basicstyle=\sffamily,
@@ -486,10 +485,9 @@ pdfsubject={Informatique, Computer Science}
 % apb 2007.8.28 added the \upshape declaration to avoid getting italicized code in \dothis{ } sections.
 % In-line code (latex enabled)
 % Use this only in special situations where \ct does not work
-% (within section headings ...):
+% (within section headings, captions (figures, method environment) ...):
 
-% [squeak-fr] Modification de \lct suivant les indications de Martial Boniou
-\newcommand{\lct}[1]{\textsf{\textup{#1}}}
+\newcommand{\lct}[1]{\textsf{\textup{\nospace{#1}}}} % nospace => remove spaces added by babel-french before :, ? etc.. IMPORTANT: should not be used neither in sections nor in captions (as used in method environment ...); in this case: use \ct
 % Use these for system categories and protocols:
 \newcommand{\scat}[1]{\emph{\textsf{#1}}\xspace}
 \newcommand{\pkg}[1]{\emph{\textsf{#1}}\xspace}
@@ -708,8 +706,7 @@ framerule=0pt,
 % Mac OS X
 \newcommand{\macosx}{\mbox{Mac OS X}\xspace}
 % code en francais (uniquement dans le chapitre BasicClasses)
-\newcommand{\codefrench}[1]{\NoAutoSpaceBeforeFDP\texttt{#1}\AutoSpaceBeforeFDP\xspace}
-%\renewcommand{\codefrench}[1]{\texttt{#1}} % TEST
+\newcommand{\codefrench}[1]{\texttt{\nospace{#1}}\xspace}
 % mantra du modele objet
 \newcommand{\Mantra}{Tout est objet\xspace}
 \newcommand{\mantra}{\MakeLowercase{\Mantra}\xspace}
