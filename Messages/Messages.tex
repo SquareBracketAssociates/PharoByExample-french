@@ -8,9 +8,8 @@
 % relecture par Rene Mages : Thr Jan 10 12:11:33 2008
 % adaptation pour PBE - martial - Fri Sep 11 17:52:08 CEST 2009 
 % relecture par Rene Mages : Sun Jan 10 12:11:33 2010
+% relecture par Rene Mages : Mon Apr 11 12:11:33 2011
 % $Author: oscar $ % $Date: 2009-08-27 12:59:05 +0200 (Thu, 27 Aug 2009) $ 
-% $Revision: 28624 $
-% synchro avec: 31695
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -115,8 +114,9 @@ première à être évaluée afin de voir l'ordre d'envoi des messages.
 %\caption{\ct{aMorph color: Color yellow} is composed of two expressions: \ct{Color yellow} and \ct{aMorph color: Color yellow}.\figlabel{ellipse}}
 %\end{figure}
 
-\Figref{ellipse} représente deux envois de messages, \ct{Color yellow} et \ct{aMorph color: Color yellow}, de telle sorte qu'il y a
-deux ellipses. L'expression \ct{Color yellow} est d'abord évalué
+\Figref{ellipse} représente deux envois de messages, \ct{Color yellow} et \ct{aMorph color: Color yellow}, 
+de telle sorte qu'il y a deux ellipses. 
+L'expression \ct{Color yellow} est d'abord évaluée
 en premier, ainsi son ellipse est numérotée à \ct{1}. Il y a
 deux receveurs: \ct{aMorph} qui reçoit le message \ct{color: ...}
 et \ct{Color} qui reçoit le message \ct{yellow} 
@@ -633,7 +633,7 @@ aDict
 \end{code}
 
 \important{
-Les caractères \ct{[}, \ct{]}, et \ct{(}, \ct{)} délimitent des zones distinctes. Dans ces zones, un message à mots-clés est la plus longue séquence de mots qui se termine par (\ct{\:}) qui n'est pas coupé par les caracères (\ct{.}),  ou \ct{\;}. 
+Les caractères \ct{[}, \ct{]}, et \ct{(}, \ct{)} délimitent des zones distinctes. Dans ces zones, un message à mots-clés est la plus longue séquence de mots qui se termine par (\ct{\:}) qui n'est pas coupé par les caractères (\ct{.}),  ou \ct{\;}. 
 Lorsque les caractères \ct{[}, \ct{]}, et \ct{(}, \ct{)} entourent des mots avec des deux points, ces mots participent au message à mots-clés local à cette zone.}
 
 \on{Sounds terribly complicated.} %martial: d'accord
