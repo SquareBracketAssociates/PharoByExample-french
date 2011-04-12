@@ -47,7 +47,7 @@
 
 %\alex{I addressed lukas comments using editorial macros. Please, if you read this, remove this comment and remove the editorial macros, else their purpose is diminished}
 
-% martial TODO: super-send&self-send&super-sending à remplacer par la bonne expression / index
+% martial TODO: super-send&self-send&super-sending à remplacer par la bonne expression (comme SBE normalement) / revoir: couverture de tests / index / ré-envoie vs renvoie
 
 \indexmain{reflection}
 \st est un langage de programmation réflexif. En bref, cela signifie que les programmes ont la possibilité d'agir à la fois sur leur propre exécution et leur propre structure.
@@ -379,7 +379,7 @@ Dans \figref{CompiledMethod}, nous pouvons même remarquer que l'information est
 	\caption{Classes, dictionnaires de méthodes et méthodes compilées\figlabel{MethodsAsObjects}}
 \end{figure}
 
-On peut exploiter les relations établies entre classes et méthodes pour effectuer des requêtes sur le système.
+Nous pouvons exploiter les relations établies entre classes et méthodes pour effectuer des requêtes sur le système.
 Par exemple, pour connaitre quelles méthodes viennent d'être introduites dans une classe donnée\,---\,autrement dit celles qui ne surchargent pas les méthodes de la super-classe\,---\,nous pouvons naviguer depuis la classe vers le dictionnaire de méthodes de cette manière :
 
 \mthindex{Behavior}{methodDict}
@@ -514,7 +514,7 @@ Si maintenant nous parcourons la classe de l'objet exploré (\ie en évaluant \c
 % All of these objects have been created dynamically in the image by the \st virtual machine at the point where \ct{thisContext} was referred to in the \ct{factorial} method. \lr{Not actually. In all the currently available VMs the context objects are created with every method activation, no matter if they are accessed using \ct{thisContext} or not.}
 
 \ct{thisContext} n'est pas destiné à être utilisé dans la programmation de tous les jours, mais il est essentiel pour réaliser des outils comme des débogueurs et lorsque l'on a besoin d'accéder à des informations concernant la pile d'appels de méthodes.
-On peut évaluer l'expression suivante pour découvrir quelles méthodes utilisent \ct{thisContext}:
+Nous pouvons évaluer l'expression suivante pour découvrir quelles méthodes utilisent \ct{thisContext}:
 
 \begin{code}{}
 SystemNavigation default browseMethodsWithSourceString: 'thisContext'
@@ -749,15 +749,20 @@ Bien que les messages puissent être interceptés par des \emph{proxies} basés 
 
 %-----------------------------------------------------------------
 \subsection{Générer des méthodes manquantes}
-% stop traduction
-\tradalert{martial}{a faire}
 
-The other most common application of intercepting not understood messages is to dynamically load or generate the missing methods.
-Consider a very large library of classes with many methods.  Instead of loading the entire library, we could load a stub for each class in the library. The stubs know where to find the source code of all their methods.  The stubs simply trap all messages not understood, and dynamically load the missing methods on-demand.  At some point, this behaviour can be deactivated, and the loaded code can be saved as the minimal necessary subset for the client application.
+Charger ou générer dynamiquement des méthodes manquantes est 
+l'autre application le plus courante de l'interception des messages non-compris.
+Considérons une grande bibliothèque de classes disposant du grand nombre de méthodes. Plutôt que de charger la bibliothèque dans son entier, nous pouvons charger
+des morceaux pour chaque classe de la bibliothèque;
+%ajout vf
+en informatique des réseaux, nous parlons de \emph{stub}.
+Ces \emph{stubs} savent où trouver le code source de toutes leurs méthodes Ils piègent simplement tous les messages non-compris et chargent dynamiquement les méthodes manquantes à la demande.  
+
+Consider a very large library of classes with many methods.  Instead of loading the entire library, we could load a stub for each class in the library. The stubs know where to find the source code of all their methods.  The stubs simply trap all messages not understood, and dynamically load the missing methods on-demand.  At some point, this behaviour can be deactivated, and the loaded code can be saved as the minimal necessary subset for the client application. À un certain moment, ce comportement peut être désactivé et le code chargé peut être enregistré en tant que sous-ensemble minimal utile pour l'application cliente.
 
 %\on{Stef sez: check ObjectOut -- I looked, but this seems to be very old. Depends on SqueakPage.}
 
-Let us look at a simple variant of this technique where we have a class that automatically adds accessors for its instance variables on-demand:
+Observons une simple variante de cette technique dans le cas où nous avons une classe qui ajoutent automatiquement des accesseurs à la demande pour ces variables d'instances:
 % \lr{the last statement should return the result of the message, otherwise you cannot proceed with the debugger} \alex{all redefinition of doesNotUnderstand: includes a return statement. However, I do not see your comment lukas, I tried to insert a 'self halt' in the method, I was able to proceed. I added the return in the function} \lr{Of course it depends on the exact circumstances. If you perform a message on self that returns self it does not matter, but in any other case a forgotten return can introduce strange side effects. There was no return in the listing below, but now there is and the problem is solved.}
 
 \begin{code}{}
@@ -770,16 +775,22 @@ DynamicAcccessors>>>doesNotUnderstand: aMessage
 			^ aMessage sendTo: self ].
 	^ super doesNotUnderstand: aMessage
 \end{code}
-Any message not understood is trapped here. If an instance variable with the same name as the message sent exists, then we ask our class to compile an accessor for that instance variables and we re-send the message.
+Tout message non-compris est capturé ici. Si une variable d'instance avec le même nom que le message exists alors nous pouvons demander à notre classe de compiler un accesseur pour cette variable d'instance et nous pouvons envoyer ce message à nouveau
+% ajout vf
+à cette même instance de classe.
+%Any message not understood is trapped here. If an instance variable with the same name as the message sent exists, then we ask our class to compile an accessor for that instance variables and we re-send the message.
 
-Suppose the class \ct{DynamicAcccessors} has an (uninitialized) instance variable \ct{x} but no pre-defined accessor. Then the following will generate the accessor dynamically and retrieve the value:
+Supposons que la classe \ct{DynamicAcccessors} a une variable d'instance
+(non-initialisée) \ct{x} mais qu'elle ne définit pas d'accesseur.
+Le code suivant va ainsi générer dynamiquement l'accesseur et va récupérer la valeur de cette variable d'instance.
 \needlines{2}
 \begin{code}{}
 myDA := DynamicAccessors new.
 myDA x --> nil
 \end{code}
 
-Let us step through what happens the first time the message \ct{x} is sent to our object (see \figref{DynamicAccessors}).
+Regardons pas à pas ce qu'il se passe la première fois que le message 
+\ct{x} est envoyé à notre objet en nous appuyant sur \figref{DynamicAccessors}).
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{DynamicAccessors}
@@ -788,11 +799,11 @@ Let us step through what happens the first time the message \ct{x} is sent to ou
 	% \on{trust me, it is useful to see all the steps.}
 \end{figure}
 
-(1) We send \ct{x} to \ct{myDA}, (2) the message is looked up in the class, and (3) not found in the class hierarchy. (4) This causes \ct{self doesNotUnderstand: #x} to be sent back to the object, (5) triggering a new lookup. This time \ct{doesNotUnderstand:} is found immediately in \ct{DynamicAccessors}, (6) which asks its class to compile the string \ct{'x ^ x'}. The \ct{compile} method is looked up (7), and (8) finally found in \ct{Behavior}, which (9-10) adds the new compiled method to the method dictionary of \ct{DynamicAccessors}. Finally, (11-13) the message is resent, and this time it is found.
+Nous envoyons (1) le message \ct{x} à \ct{myDA}; (2) le message est recherché dans la classe et (3) n'est pas trouvé non plus dans la hiérarchie de la classe. (4) Ceci entraîne en retour l'envoi du message \ct{self doesNotUnderstand: #x} à l'objet (5) déclenchant ainsi une nouvelle recherche. Cette fois, \ct{doesNotUnderstand:} est immédiatemment trouvé dans la classe \ct{DynamicAccessors} (6) qui demande à sa classe de compiler la chaîne de caractères \ct{'x ^ x'}. La méthode \ct{compile} est recherchée (7) jusqu'à être finalement trouvée (8) dans la classe \ct{Behavior} qui (9-10) ajoute la nouvelle méthode compilée au dictionnaire de méthodes de \ct{DynamicAccessors}. Finalement (11-13) le message est ré-envoyé; cette fois, il est trouvé.
 
-The same technique can be used to generate setters for instance variables, or other kinds of boilerplate code, such as visiting methods for a Visitor.
+La même technique peut être utilisée pour générer des mutateurs pour les variables d'instance ou d'autres types de code réutilisable tels que les méthodes de visites d'une classe de conception de type \emph{Visitor}~\footnote{NdT: un des modèles de conception classiques connues sous l'appelation ``Design Patterns'' et faisant office de référence en matière de programmation objet.}.
 
-Note the use of \clsmthind{Object}{perform:} in step (13) which can be used to send messages that are composed at run-time:
+Notez que la méthode \clsmthind{Object}{perform:} à l'étape (13) peut être utilisée pour envoyer les messages composés à l'exécution:
 \begin{code}{@TEST}
 5 perform: #factorial                                             --> 120
 6 perform: ('fac', 'torial') asSymbol                       --> 720
@@ -800,20 +811,29 @@ Note the use of \clsmthind{Object}{perform:} in step (13) which can be used to s
 \end{code}
 
 %======================================
-\section{Objects as method wrappers}
+\section{Des objets comme \emph{wrappers} de méthode}
 \seclabel{wrapper}
 
-We have already seen that compiled methods are ordinary objects in \st, and they support a number of methods that allow the programmer to query the run-time system.
-What is perhaps a bit more surprising, is that \emph{any object} can play the role of a compiled method. All it has to do is respond to the method \ct{run:with:in:} and a few other important messages.
+Nous avons déjà vu qu'en \st, les méthodes compilées sont de simples objets et qu'il existe un grand nombre de méthodes qui permettent au programmeur d'interroger le système d'exécution.
+\arelire{%
+Ce qui peut paraître en peu surprenant, c'est qu'\emph{aucun objet} ne peut jouer le rôle de méthode compilée. Tout ce qu'il peut faire, c'est répondre à quelques messages importants tels que \ct{runs:with:in:}.}
+%% What is perhaps a bit more surprising, is that \emph{any object} can play the role of a compiled method. 
+%% All it has to do is respond to the method \ct{run:with:in:} and a few other important messages.
 
-\dothis{Define an empty class \ct{Demo}. Evaluate \ct{Demo new answer42} and notice how the usual ``Message Not Understood'' error is raised.}
+\dothis{Définissez une classe vide \ct{Demo}. Imprimez \ct{Demo new answer42}~\footnote{NdT: \arelire{référence au roman de science-fiction humoristique, le ``Guide du Routard Intergalactique'' par Douglas Adams dans lequel la réponse (\emph{answer}) à la question du \emph{pourquoi de l'univers} est $42$}.} 
+%ajout vf
+via \menu{print it}
+et constatez l'habituelle erreur ``Message Not Understood'' être levée.}
+%% {and notice how the usual ``Message Not Understood'' error is raised.}
 
-Now we will install a plain \st object in the method dictionary of our \ct{Demo} class.
+Maintenant nous pouvons installer un simple \st objet
+dans le dictionnaire de méthodes de notre classe \ct{Demo}.
 
-\dothis{Evaluate \lct{Demo methodDict at: \#answer42 put: ObjectsAsMethodsExample new.}
-Now try again to print the result of \ct{Demo new answer42}. This time we get the answer \ct{42}.}
+\dothis{Évaluez l'expression \lct{Demo methodDict at: \#answer42 put: ObjectsAsMethodsExample new.}
+Essayez maintenant d'imprimer à nouveau le résultat de \ct{Demo new answer42}.
+Cette fois-ci nous pouvons obtenir la réponse \ct{42}.}
 
-If we take look at the class \clsind{ObjectsAsMethodsExample} we will find the following methods:
+Si nous nous penchons sur la classe \clsind{ObjectsAsMethodsExample} nous y trouvons les méthodes suivantes:
 %\alex{I would prefer having return 42 in the run:with:in: method, and not having answer42 defined in ObjectsAsMethodsExample, this could be confusing I imagine}
 %\on{ObjectsAsMethodsExample is part of the standard pharo image -- it is not in PBE-Reflection}
 \needlines{5}
@@ -825,30 +845,42 @@ run: oldSelector with: arguments in: aReceiver
 	^ self perform: oldSelector withArguments: arguments
 \end{code}
 
-When our \ct{Demo} instance receives the message \ct{answer42}, method lookup proceeds as usual, however the virtual machine will detect that in place of a compiled method, an ordinary \st object is trying to play this role.
-The VM will then send this object a new message \ct{run:with:in:} with the original method selector, arguments and receiver as arguments.
-Since \ct{ObjectsAsMethodsExample} implements this method, it intercepts the message and delegates it to itself.
+Lorsque notre instance de \ct{Demo} reçoit le message \ct{answer42}, la recherche de la méthode se fait normalement mais la machine virtuelle détecte qu'en lieu et place d'une méthode compilée, un objet ordinaire \st tente de jouer ce rôle.
+La machine virtuelle enverra alors à cet objet une nouveau message \ct{run:with:in:} avec les sélecteur de méthode, arguments et receveur originels comme arguments.
+Puisque la classe \ct{ObjectsAsMethodsExample} implémente cette méthode, elle intercepte le message et \arelire{se le délègue à elle-même}. % REVOIR un peu lourd 
+%% this method, it intercepts the message and delegates it to itself.
 
-We can now remove the fake method as follows:
+
+Nous pouvons maintenant enlever la fausse méthode ainsi:
 \begin{code}{}
 Demo methodDict removeKey: #answer42 ifAbsent: []
 \end{code}
 
-If we take a closer look at \ct{ObjectsAsMethodsExample}, we will see that its superclass also implements the methods \ct{flushcache}, \ct{methodClass:} and \lct{selector:}, but they are all empty.  These messages may be sent to a compiled methods, so they need to be implemented by an object pretending to be a compiled method.  (\ct{flushcache} is the most important method to be implemented; others may be required depending on whether the method is installed using \clsmthind{Behavior}{addSelector:withMethod:} or directly using \clsmthind{MethodDictionary}{at:put:}.)
+Si nous regardons attentivement la classe \ct{ObjectsAsMethodsExample}, nous verrons que sa super-classe implémente aussi les méthodes \ct{flushcache}, \ct{methodClass:} et \lct{selector:} mais qu'elles sont vides.
+Elles peuvent être \arevoir{attachées} % REVOIR: martial: et pas envoyés !?
+à des méthodes compilées et doivent donc être implémentées dans un objet prétendant être une méthode compilée (\ct{flushCache} est la plus important méthode à être implémentée; les autres peuvent être requises selon que la méthode est installée par \clsmthind{Behavior}{addSelector:withMethod:} ou directement par \clsmthind{MethodDictionary}{at:put:}).
+%% , but they are all empty.  These messages may be sent to a compiled methods, so they need to be implemented by an object pretending to be a compiled method.  (\ct{flushcache} is the most important method to be implemented; others may be required depending on whether the method is installed using \clsmthind{Behavior}{addSelector:withMethod:} or directly using \clsmthind{MethodDictionary}{at:put:}.)
 
 %-------------------------------------------------------------------------
-\subsection{Using methods wrappers to perform test coverage}
+\subsection{Utiliser les \emph{wrappers} de méthode pour effectuer la couverture de tests}
+%% {to perform test coverage}
 
-Method wrappers are a well-known technique for intercepting messages \cite{Bran98a}.
-In the original implementation\footnote{http://www.squeaksource.com/MethodWrappers.html}, a method wrapper is an instance of a subclass of \ct{CompiledMethod}. When installed, a method wrapper can perform special actions before or after invoking the original method.
-When uninstalled, the original method is returned to its rightful position in the method dictionary.
+Les \emph{wrappers}~\footnote{NdT: \arelire{Appelés ainsi parce qu'ils s'enroulent (en anglais, \emph{wrap}) autour des méthodes}.} de méthode sont une technique bien connue pour intercepter les messages~\cite{Bran98a}.
+Dans l'implémentation originale~\footnote{http://www.squeaksource.com/MethodWrappers.html}, un \emph{wrapper} de méthode est une instance d'une sous-classe de \ct{CompiledMethod}.
+Une fois installé, un \emph{wrapper} peut effectuer des actions spéciales avant ou après l'exécution % REVOIR martial > 'invoking' dans VO (À SIGNALER)
+de la méthode originale.
+%% When installed, a method wrapper can perform special actions before or after invoking the original method.
+Lorsqu'il est désinstallé, la méthode originale est retrouve sa place dans le dictionnaire de méthodes.
+%% When uninstalled, the original method is returned to its rightful position in the method dictionary.
 
-In Pharo, \ind{method wrappers} can be implemented more easily by implementing \ct{run:with:in:} instead of by subclassing \ct{CompiledMethod}. In fact, there exists a lightweight implementation of objects as method wrappers\footnote{http://www.squeaksource.com/ObjectsAsMethodsWrap.html}, but it is not part of standard Pharo at the time of this writing.
+Dans \pharo, les \ind{wrappers de méthodes} peuvent être écrits plus simplement 
+en implémentant \ct{run:with:in:} au lieu de sous-classer la classe \ct{CompiledMethod}.
+En fait, il existe une implémentation allégée d'objets comme \emph{wrappers}~\footnote{http://www.squeaksource.com/ObjectsAsMethodsWrap.html} mais elle ne fait pas partie intégrante de la version officielle de \pharo à l'heure où ce livre est écrit.
 
-Nevertheless, the Pharo Test Runner uses precisely this technique to evaluate test coverage.
-Let's have a quick look at how it works.
+N'importe comment, le Test Runner de \pharo utilise précisement cette technique pour évaluer la \emph{couverture de tests} (en anglais \emph{test coverage}).
+Regardons comment tout cela fonctionne.
 
-The entry point for test coverage is the method \clsmthind{TestRunner}{runCoverage}:
+Le point d'entrée de la couverture de tests est la méthode \clsmthind{TestRunner}{runCoverage}:
 \begin{code}{}
 TestRunner>>>runCoverage
 	| packages methods |
@@ -856,7 +888,8 @@ TestRunner>>>runCoverage
 	self collectCoverageFor: methods
 \end{code}
 
-The method \clsmthind{TestRunner}{collectCoverageFor:} clearly illustrates the coverage checking algorithm:
+La méthode \clsmthind{TestRunner}{collectCoverageFor:} illustre clairement \arelire{l'algorithme de validation % ou vérification ?
+de la couverture de tests}:
 \begin{code}{}
 TestRunner>>>collectCoverageFor: methods
 	| wrappers suite |
@@ -872,13 +905,14 @@ TestRunner>>>collectCoverageFor: methods
 			[ UIManager default inform: 'Congratulations. Your tests cover all code under analysis.' ]
 		ifFalse: ...
 \end{code}
-A wrapper is created for each method to be checked, and each wrapper is installed.
-The tests are run, and all wrappers are uninstalled.
-Finally the user obtains feedback concerning the methods that have not been covered.
+Un \emph{wrapper} est créé et installé pour chaque méthode à valider.
+Après que les tests furent lancés, tous les \emph{wrappers} sont désinstallés.
+En retour, l'utilisateur est informé des méthodes qui n'ont pas été couvertes. 
+%% Finally the user obtains feedback concerning the methods that have not been covered.
 
-How does the wrapper itself work?
-The \ct{TestCoverage} wrapper has three instance variables, \ct{hasRun}, \ct{reference} and \ct{method}.
-They are initialized as follows:
+Comment le \emph{wrapper} fonctionne?
+Le \emph{wrapper} \ct{TestCoverage} a trois variables d'instance: \ct{hasRun}, \ct{reference} et \ct{method}.
+Elles sont initialisées comme suit:
 \begin{code}{}
 TestCoverage class>>>on: aMethodReference
 	^ self new initializeOn: aMethodReference
@@ -889,7 +923,7 @@ TestCoverage>>>initializeOn: aMethodReference
 	method := reference compiledMethod
 \end{code}
 
-The install and uninstall methods simply update the method dictionary in the obvious way:
+Les méthodes d'installation et de désinstallation mettent à jour tout simplement le dictionnaire des méthodes de façon évidente:
 \begin{code}{}
 TestCoverage>>>install
 	reference actualClass methodDictionary
@@ -902,7 +936,8 @@ TestCoverage>>>uninstall
 		put: method
 \end{code}
 \noindent
-and the \ct{run:with:in:} method simply updates the \ct{hasRun} variable, uninstalls the wrapper (since coverage has been verified), and resends the message to the original method
+et la méthode \ct{run:with:in:} met à jour la variable \ct{hasRun}, désinstalle le \emph{wrapper} (puisque la couverture a été vérifiée) et \arevoir{ré-envoie le message à la méthode originale}. % REVOIR martial: bizarre!
+%% and resends the message to the original method
 \begin{code}{}
 run: aSelector with: anArray in: aReceiver
 	self mark; uninstall.
@@ -911,35 +946,40 @@ run: aSelector with: anArray in: aReceiver
 mark
 	hasRun := true
 \end{code}
-(Have a look at \clsmthind{ProtoObject}{withArgs:executeMethod:} to see how a method displaced from its method dictionary can be invoked.)
+En apparté, vous pouvez jeter un \oe il à la méthode de classe
+\clsmthind{ProtoObject}{withArgs:executeMethod:} pour voir comment
+une méthode hors de dictionnaire de méthode peut être 
+appelée.
+%% to see how a method displaced from its method dictionary can be invoked.
 
-That's all there is to it!
-
-Method wrappers can be used to perform any kind of suitable behaviour before or after the normal operation of a method.  Typical applications are instrumentation (collecting statistics about the calling patterns of methods), checking optional pre- and post-conditions, and memoization (optionally cacheing computed values of methods).
+C'est tout!
+%That's all there is to it!
+Les \emph{wrappers} de méthode peuvent être utilisés pour effectuer toutes sortes d'actions avant ou après les opérations d'une méthode.  Les applications classiques sont \arelire{l'instrumentation du code source (collecter des données statistiques sur les appels de méthodes), les clauses optionnelles pré-conditionnelles ou post-conditionnelles de vérification et la \emph{mémoization} %% wikipedia
+(mise en cache facultative de valeurs résultantes de méthodes)}.
 
 %======================================
-\section{\Pragmas}
+\section{Les \pragmas}
 
-Un \emphind{pragma} est une annotation qui donne des informations sur un programme, mais qui n'est pas directement impliqué dans l'exécution de ce programme. Les \pragmas n'ont pas d'effet direct lors du déroulement d'une méthode annotée.
-Les \pragmas sont très utiles notamment pour :
+Un \emphind{pragma} est une annotation qui donne des informations sur un programme mais qui n'est pas directement impliqué dans l'exécution de ce programme. Les \pragmas n'ont pas d'effet direct lors du déroulement d'une méthode annotée.
+Les \pragmas sont très utiles notamment pour:
 \begin{itemize}
-\item Donner de l'information au compilateur : les \indmain{pragmas} peuvent être utilisés par le compilateur pour qu'une méthode appelle une fonction primitive. Cette fonction doit être définie par la machine virtuelle ou au moyen d'un greffon externe.
-\item Donner de l'information à l'exécution.
+\item donner de l'information au compilateur: les \indmain{pragmas} peuvent être utilisés par le compilateur pour qu'une méthode appelle une fonction primitive. Cette fonction doit être définie par la machine virtuelle ou au moyen d'un greffon externe;
+\item donner de l'information à l'exécution.
 \end{itemize}
 
-Les \pragmas s'utilisent uniquement lors de la déclaration des méthodes d'un programme. Une méthode peut déclarer un ou plusieurs \pragmas qui sont écrits avant toutes expressions Smalltalk. En réalité, un \pragma défini une sorte de message statique avec des arguments qui sont des littéraux.
+Les \pragmas s'utilisent uniquement lors de la déclaration des méthodes d'un programme. Une méthode peut déclarer un ou plusieurs \pragmas qui sont écrits avant toutes expressions \st. En réalité, un \pragma défini une sorte de message statique avec des arguments qui sont des littéraux.
 
 Nous avons déjà parlé brièvement des \pragmas lorsque nous avons briévement introduit la notion de primitives précédemment dans ce chapitre. Une primitive n'est rien moins qu'une déclaration de \pragma. 
 Considérons par exemple \ct{<primitive: 73>} qui se trouve dans la méthode \ct{instVarAt:}. Le sélecteur du \pragma est \ct{primitive:} et son argument est le littéral \ct{73}. 
 
-Le compilateur Smalltalk est probablement l'un des utilisateurs les plus important des \pragmas. SUnit est un autre outil qui utilise les annotations. SUnit est capable de déterminer la couverture d'une application à partir d'un test unitaire. Il est parfois souhaitable d'exclure certaines méthodes de ce calcul de couverture. C'est par exemple le cas de la méthode \ct!documentation! dans la classe \ct!SplitJointTest! :
+Le compilateur \st est probablement l'un des utilisateurs les plus important des \pragmas. \sunit est un autre outil qui utilise les annotations. \sunit est capable de déterminer la couverture d'une application à partir d'un test unitaire. Il est parfois souhaitable d'exclure certaines méthodes de ce calcul de couverture. C'est par exemple le cas de la méthode \ct!documentation! dans la classe \ct!SplitJointTest! :
 
 \begin{code}{}
 SplitJointTest class>>>documentation
 	<ignoreForCoverage>
 	"self showDocumentation"
 	
-	^ 'This package provides function.... "
+	^ 'This package provides function... "
 \end{code}
 
 En annotant une méthode par un \pragma \ct!<ignoreForCoverage>!, il est possible de limiter le champ d'application du calcul de la couverture.
@@ -961,44 +1001,53 @@ En annotant une méthode par un \pragma \ct!<ignoreForCoverage>!, il est possibl
 Instances de la classe \clsind{Pragma}, les \pragmas sont donc de véritables objets. Une méthode compilée peut retourner une réponse au message \mthind{CompiledMethod}{pragmas}. Cette méthode retourne un tableau de \pragmas.
 
 \begin{code}{@TEST}
-(SplitJoinTest class >> #showDocumentation) \pragmas
+(SplitJoinTest class >> #showDocumentation) pragmas
   --> an Array(<ignoreForCoverage>)
-(Float>>#+) \pragmas --> an Array(<primitive: 41>)
+(Float>>#+) pragmas --> an Array(<primitive: 41>)
 \end{code}
 
 Les méthodes définissant une requête particulière peuvent être retrouvées à partir d'une classe. La classe \ct!SplitJoinTest! contient certaines méthodes de classes annotées avec \ct!<ignoreForCoverage>! :
 
 \begin{code}{@TEST}
-\Pragma allNamed: #ignoreForCoverage in: SplitJoinTest class  --> an Array(<ignoreForCoverage> <ignoreForCoverage> <ignoreForCoverage>)
+Pragma allNamed: #ignoreForCoverage in: SplitJoinTest class  --> an Array(<ignoreForCoverage> <ignoreForCoverage> <ignoreForCoverage>)
 \end{code}
 
 Une variante de la méthode \ct{allNamed:in:} peut être trouvée dans les méthodes de classe de \ct{Pragma}.
 
-Un \pragma sait dans quelle méthode il a été défini (en utilisant \ct{method}), le nom de la méthode (\ct{selector}), la classe qui contient la méthode (\ct{methodClass}), le nombre de ses arguments (\ct{numArgs}) et quel littéral à été défini comme argument du \pragma (\ct{hasLiteral:} et \ct{hasLiteralSuchThat:}).
+Un \pragma sait dans quelle méthode il a été défini \mbox{(en utilisant \ct{method})}, le nom de la méthode (\ct{selector}), la classe qui contient la méthode \mbox{(\ct{methodClass})}, le nombre de ses arguments (\ct{numArgs}) et quel littéral a été défini comme argument du \pragma (\ct{hasLiteral:} et \ct{hasLiteralSuchThat:}).
 
 %\lr{Typically \pragmas are performed on an interpreter object that understands the \pragma message.}
 
 %======================================
 \section{Résumé du chapitre}
 
-Reflection refers to the ability to query, examine and even modify the metaobjects of the run-time system as ordinary objects.
+Le réflexivité se définit par la faculté d'interroger, examiner et même modifier les méta-objets du système d'exécution tels que de simples objets. Nous avons vu que:
 
 \begin{itemize}
-\item The Inspector uses \ct{instVarAt:} and related methods to query and modify ``private'' instance variables of objects.
-\item Send \ct{Behavior>>>allInstances} to query instances of a class.
-\item The messages \ct{class}, \ct{isKindOf:}, \ct{respondsTo:} \etc  are useful for gathering metrics or building development tools, but they should be avoided in regular applications: they violate the encapsulation of objects and make your code harder to understand and maintain.
-\item \ct{SystemNavigation} is a utility class holding many useful queries for navigation and browsing the \ct class hierarchy. For example, use \ct{SystemNavigation default browseMethodsWithSourceString: 'pharo'.} to find and browse all methods with a given source string. (Slow, but thorough!)
-\item Every \st class points to an instance of \ct{MethodDictionary} which maps selectors to instances of \ct{CompiledMethod}. A compiled method knows its class, closing the loop.
-\item \ct{MethodReference} is a leightweight proxy for a compiled method, providing additional convenience methods, and used by many \st tools. 
-\item \ct{BrowserEnvironment}, part of the Refactoring Browser infrastructure, offers a more refined interface than \ct{SystemNavigation} for querying the system, since the result of a query can be used as a the scope of a new query. Both GUI and programmatic interfaces are available.
-\item \ct{thisContext} is a pseudo-variable that reifies the run-time stack of the virtual machine. It is mainly used by the debugger to dynamically construct an interactive view of the stack. It is also especially useful for dynamically determining the sender of a message.
-\item Intelligent breakpoints can be set using \ct{haltIf:}, taking a method selector as its argument. \ct{haltIf:} halts only if the named method occurs as a sender in the run-time stack.
-\item A common way to intercept messages sent to a given target is to use a ``minimal object'' as a proxy for that target. The proxy implements as few methods as possible, and traps all message sends by implementing \ct{doesNotunderstand:}. It can then perform some additional action and then forward the message to the original target.
-\item Send \ct{become:} to swap the references of two objects, such as a proxy and its target.
-\item Beware, some messages, like \ct{class} and \ct{yourself} are never really sent, but are interpreted by the VM.  Others, like \ct{+}, \ct{-} and \ct{ifTrue:} may be directly interpreted or inlined by the VM depending on the receiver.
-\item Another typical use for overriding \ct{doesNotUnderstand:} is to lazily load or compile missing methods.
-\item \ct{doesNotUnderstand:} cannot trap \self-sends.
-\item A more rigorous way to intercept messages is to use an object as a method wrapper. Such an object is installed in a method dictionary in place of a compiled method. It should implement \ct{run:with:in:} which is sent by the VM when it detects an ordinary object instead of a compiled method in the method dictionary. This technique is used by the SUnit Test Runner to collect coverage data.
+\item L'inspecteur utilise \ct{instVarAt:} et les méthodes connexes pour observer et modifier les variables d'instance ``privées'' des objets.
+\item Nous pouvons envoyer \ct{Behavior>>>allInstances} pour requêter les instances d'une classe.
+\item Les messages \ct{class}, \ct{isKindOf:}, \ct{respondsTo:}\etc sont utiles pour recueillir des métriques ou construire des outils de développement tout en gardant à l'esprit qu'il faut éviter d'utiliser ces messages dans des applications courantes: ils violent l'encapsulation des objets et rendent le code plus complexe à comprendre et à maintenir.
+\item \ct{SystemNavigation} est une classe utilitaire contenant de nombreuses requêtes utiles pour la navigation dans la hiérarchie de classes. Par exemple, utiliser \ct{SystemNavigation default browseMethodsWithSourceString: 'pharo'.} permet de localiser et de parcourir (lentement!) toutes les méthodes avec une chaîne de caractère \emph{source} donnée.
+\item Toutes les classes \st pointent vers une instance de \ct{MethodDictionary} qui associe les sélecteurs aux méthodes compilées, instances de \ct{CompiledMethod}. Une méthode compilée connaît sa classe (ce qui boucle la boucle).
+\item \ct{MethodReference} est version allégée d'un \emph{proxy} pour une méthode compilée, disposant de méthodes de commodités additionnelles; il est utilisé par de nombreux outils \st.
+\item \ct{BrowserEnvironment}, partie prenante de l'infrastructure du Refactoring Browser, offre une interface plus raffinée que \ct{SystemNavigation} pour interroger le système \arelire{puisque le résultat d'une requête peut être utilisé comme champ d'une nouvelle requête.} Les interfaces disponibles sont à la fois graphique et programmatique.
+%% since the result of a query can be used as a the scope of a new query. Both GUI and programmatic interfaces are available.
+\item \ct{thisContext} est une \emph{pseudo-variable} qui réifie la pile d'exécution de la machine virtuelle. Elle est essentiellement utilisée par le débogueur pour construire dynamiquement une vue interactive de la pile. Elle est aussi spécialement utile pour déterminer dynamiquement le \sender d'un message.
+\item Les points d'arrêts intelligents peuvent être disposés en utilisant \ct{haltIf:} avec un sélecteur de méthode comme argument.
+\ct{haltIf:} suspend seulement si la méthode nommée apparaît comme \sender dans une pile d'exécution.
+%% occurs as a sender in the run-time stack.
+\item Une méthode courante pour intercepter les messages envoyés à une cible donnée consiste à utiliser un ``objet minimal'' comme \emph{proxy} de cette object-cible. Le \emph{proxy} implémente aussi peu de méthodes que possible et capture tous les messages envoyés en implementant \ct{doesNotunderstand:}. Il peut effectuer ensuite certaines actions complémentaires et faire suivre le message à la cible d'origine.
+\item Nous pouvons envoyer \ct{become:} pour intervertir les références de deux objets tels qu'un \emph{proxy} et sa cible.
+\item Nous devons faire attention au fait que certains messages tels que \ct{class} et \ct{yourself} ne sont jamais véritablement envoyés mais sont interprétés par la machine virtuelle. D'autres messages comme \ct{+}, \ct{-} et \ct{ifTrue:} peuvent être directement \arelire{interprétés ou en ligne} dans la machine virtuelle en fonction du receveur.
+%% inlined by the VM depending on the receiver.
+\item Le chargement paresseux ou la compilation de méthodes manquantes est une
+autre utilisation typique de la surcharge de \ct{doesNotUnderstand:}.
+\item \ct{doesNotUnderstand:} ne peut pas capturer les envois à \self.
+\item Utiliser un objet comme un \emph{wrapper} de méthode est une technique plus rigoureuse pour intercepter les messages. De tels objets sont installés dans un dictionnaire de méthodes à la place d'une méthode compilée.
+Ces \emph{wrappers} doivent implémenter \ct{run:with:in:} qui est envoyé par la machine virtuelle quand elle détecte un objet ordinaire au lieu d'une méthode compilée dans le dictionnaire de méthodes. 
+%% ERREUR dans VO pragma vs wrappers
+% ajout vf only
+\item \arelire{Les \pragmas apportent à \pharo un moyen d'expression fantastique. Ces annotations sont utilisées par le Test Runner de \sunit pour collecter les données de couverture des tests passés.}
 \end{itemize}
 
 %=========================================================
