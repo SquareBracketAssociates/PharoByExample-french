@@ -8,6 +8,7 @@
 % adaptation pour PBE - martial - Tue Sep  8 21:34:54 CEST 2009 
 % relecture : par Rene Mages  (Sun 10 Jan 2010) de la version 30225
 % relecture : par Rene Mages  (Sun 8 Aug 2010) de la version 34361
+% relecture : par Rene Mages  (Wed 13 Apr 2011) 
 % $Author: black$ $Date: 2009-09-06 15:31:38 +0200 (Sun, 06 Sep 2009) $
 % $Revision: 28940 $
 % $Revision: 29158 $
@@ -79,7 +80,7 @@ La technique traditionnelle, aussi supportée par tous les dialectes \st consist
 fichier d'exportation \emph{fileout} ou une archive d'échange dit \changeset. Il s'agit 
 principalement de fichiers textes encodés pouvant être importés dans un autre système.
 Une technique plus récente de \pharo est le chargement de code dans un dépôt de versions sur un serveur.
-Elle est plus efficace surtout en travail coopératif et est rendu possible via un outil nommé \ind{Monticello}.
+Elle est plus efficace surtout en travail coopératif et est rendue possible via un outil nommé \ind{Monticello}.
 %\seeindex{change set}{file, filing out}
 \seeindex{change set}{fichier, exportation}
 %\index{file!filing out}
@@ -303,7 +304,7 @@ vous pouvez remplir et éditer, comme indiqué par
 \end{figure}
 
 %---------------------------------------------------------
-\subsection{\arelire{Naviguer dans l'espace de code}} % CHANGE
+\subsection{Naviguer dans l'espace de code} % CHANGE
 \seclabel{ButtonBar}
 
 Le navigateur de classes fournit plusieurs outils pour l'exploration et 
@@ -312,7 +313,7 @@ Ces outils sont accessibles en \actclickant dans divers menus
 contextuels ou (pour les outils les plus communs) via des
 raccourcis-clavier.
 
-\subsubsection{\arelire{Ouvrir une nouvelle fenêtre de Browser}}
+\subsubsection{Ouvrir une nouvelle fenêtre de Browser}
 \seclabel{browsing}
 
 Vous aurez besoin parfois d'ouvrir de multiples navigateurs de classes.
@@ -413,12 +414,21 @@ quelle} fenêtre de texte. % CHANGE text window
 
 %% REVOIR martial: c'est totalement faux dans l'image Core actuelle
 %% rene : c'est vrai avec l'image https://gforge.inria.fr/frs/download.php/27023/PBE-1.0.zip
-\arevoir{Si vous regardez bien les \senders de
-  \ct{drawOn:} dans \ct{AtomMorph>>>drawOn:}, vous verrez qu'il s'agit
-  d'un \subpvind{super}{envoi}{} à \super. Nous savons ainsi que la
-  méthode qui sera exécutée est dans la superclasse de \ct{AtomMorph}.
+% \arevoir{Si vous regardez bien les \senders de
+%  \ct{drawOn:} dans \ct{AtomMorph>>>drawOn:}, vous verrez qu'il s'agit
+%  d'un \subpvind{super}{envoi}{} à \super. Nous savons ainsi que la
+%  méthode qui sera exécutée est dans la superclasse de \ct{AtomMorph}.
+% Quelle est cette classe? \Actclickz sur \menu{browse~\go~hierarchy~implementors} et vous 
+% verrez qu'il s'agit de \ct{EllipseMorph}.}
+% \index{Browser!bouton!hierarchy} % CHANGE Browser!bouton!hierarchy
+% \seeindex{navigateur de classes!hiérarchie}{Browser, hierarchy} % CHANGE
+
+Si vous regardez bien les \senders de
+\ct{drawOn:} dans \ct{AtomMorph>>>drawOn:}, vous verrez qu'il s'agit
+d'un \subpvind{super}{envoi}{} à \super. Nous savons ainsi que la
+méthode qui sera exécutée est dans la superclasse de \ct{AtomMorph}.
 Quelle est cette classe? \Actclickz sur \menu{browse~\go~hierarchy~implementors} et vous 
-verrez qu'il s'agit de \ct{EllipseMorph}.}
+verrez qu'il s'agit de \ct{EllipseMorph}.
 \index{Browser!bouton!hierarchy} % CHANGE Browser!bouton!hierarchy
 \seeindex{navigateur de classes!hiérarchie}{Browser, hierarchy} % CHANGE
 
@@ -433,8 +443,8 @@ pour que le navigateur sache quelle méthode sera exécutée à l'envoi d'un mes
 
 C'est pourquoi, le navigateur de ``\senders'' (\ie le Browser des
 méthodes émettrices) nous montre exactement ce que son nom
-suggère: tous  les \senders d'un message ayant \arelire{pour nom} le
-sélecteur choisi. %CHANGE martial: la phrase trop lourde 
+suggère: tous  les \senders d'un message relatifs à un sélecteur donné. 
+%CHANGE martial: la phrase trop lourde 
 % rene: tous les "senders" d'un message relatifs à un selecteur donné
 Ce navigateur devient grandement indispensable quand vous avez besoin
 de comprendre le \emph{rôle} d'une méthode: il vous permet de
@@ -469,7 +479,7 @@ liste déroulante des \arevoir{\drawOnImplNumber} % 90 dans l'original
 % rene : ni 90 ni 63 mais 77
 % rene : il me semble préférable de s'éloigner un peu de l'original et
 %        ne plus préciser le nombre exact
-% martial: j'ai mis une variable globale
+% martial: j'ai mis une variable globale (ligne 761 de common.tex)
 classes qui implémentent une méthode \ct{drawOn:}.
 Ceci ne devrait pas être si surprenant qu'il y ait tant de classes
 implémentant cette méthode: \ct{drawOn:} est le message qui est
@@ -730,19 +740,20 @@ L'option de menu probablement la plus utile est \menu{find class\ldots (f)}
 dans le panneau des paquetages. 
 Elle permet de trouver une classe.
 % ajout
-\aretirer{Bien que les catégories soient utiles pour arranger le code que nous 
+Bien que les catégories soient utiles pour arranger le code que nous 
 sommes en train de développer, la plupart d'entre nous ne connaissent pas
 la catégorisation de tout le système, et c'est beaucoup plus rapide
 en tapant \short{f} suivi par les premiers caractères du nom d'une 
 classe que de deviner dans quel paquetage elle peut bien être.
-\menu{recent classes\ldots (r)} vous aide aussi à retrouver rapidement
+\menu{recent classes\ldots } vous aide aussi à retrouver rapidement
 une classe parmi celles que vous avez visitées récemment, même si vous
-avez oublié son nom.} % FAUX dans la VO
+avez oublié son nom.
+% FAUX dans la VO
 % rene : tout semble fonctionne (mais il faut supprimer (r) dans \menu{recent classes\ldots (r)}  
 \index{classe!recherche}
 \index{classe!récente}
 
-Vous pouvez aussi rechercher une classe ou méthode en particulier en
+Vous pouvez aussi rechercher une classe ou une méthode en particulier en
 saisissant son nom dans la boîte de requête située dans la partie 
 supérieure gauche de votre navigateur. Quand vous tapez
 sur la touche ``entrée'', une requête sera envoyée au système et son
@@ -922,8 +933,8 @@ mc := PackageInfo named: 'Monticello'
 \end{code}
 
 Il est possible maintenant de faire une introspection de ce paquetage.
-Par exemple, \arelire{imprimer via \menu{print it} le code \ct{mc
-    classes} dans l'espace de travail} nous retourne la longue liste
+Par exemple, imprimer via \menu{print it} le code \ct{mc
+    classes} dans l'espace de travail nous retourne la longue liste
 des classes qui font le paquetage Monticello.  
 L'expression \ct{mc coreMethods}
 nous renvoie une liste de \mbox{\ct{MethodReference}{s}} ou références de méthodes
@@ -939,7 +950,7 @@ sur celles déjà existantes, il est possible d'utiliser
 \ct{PackageInfo} pour analyser du code plus ancien qui n'a pas 
 été explicitement adapté pour pouvoir y répondre.} % REVOIR -
 % martial : FAUX? DANS PBE
-% rene propose : de remplacer \pharo  par \squeak
+% rene : nous pourrions remplacer \pharo par \st
 
 \dothis{Imprimer le code \ct{(PackageInfo named: 'Collections') externalSubclasses}; 
 cette expression répond une liste de toutes les sous-classes de \ct{Collection}
@@ -947,7 +958,7 @@ qui ne sont \emph{pas} dans le paquetage \ct{Collections}.}
 
 %---------------------------------------------------------
 
-\subsection{\arevoir{Les fondamentaux de Monticello}}
+\subsection{Les fondamentaux de Monticello}
 % les fondamentaux, les bases
 
 \ind{Monticello} est nommé ainsi d'après la villégiature 
@@ -1224,9 +1235,8 @@ qui a été créée en évaluant l'expression
 \ct{TimeStamp now}.
 La barre de titre de la fenêtre affiche  \arevoir{la représentation imprimée} de l'objet
 en cours d'inspection.
-Si vous sélectionnez \menu{self} dans le panneau supérieur de gauche,
-% rene : comment selectionner self ?
-le panneau de droite affichera la description de l'objet en chaîne de caractères ou \emph{printstring} de l'objet.
+Si vous sélectionnez la ligne la plus haute dans le panneau supérieur de gauche,
+le panneau de droite affichera la description de l'objet en chaîne de caractères ou \emph{printString} de l'objet.
 % Si vous sélectionnez \menu{all inst vars} dans le panneau de gauche,
 % celui de droite vous présentera une liste de 
 % toutes les variables d'instance de l'objet accompagnées de leur
@@ -1278,8 +1288,8 @@ sera augmentée d'un jour.
 %\pharo évaluera l'expression et assignera le résultat à la variable
 %d'instance.
 
-Il y a des variantes spécifiques de l'inspecteur pour les dictionnaires sous-classes 
-de Dictionaries, pour les collections ordonnées sous-classes de OrderedCollections, 
+Il y a des variantes spécifiques de l'inspecteur pour les dictionnaires (sous-classes 
+de Dictionaries), pour les collections ordonnées (sous-classes de OrderedCollections), 
 pour les CompiledMethods (objet des méthodes compilées) et pour quelques autres classes 
 facilitant ainsi l'examen du contenu de ces objets spéciaux.
 
@@ -1314,12 +1324,14 @@ que nous venons juste d'inspecter.
 \end{minipage}
 \end{figure}
 
-\dothis{Sélectionnez \menu{self} dans le panneau gauche de notre
+% rene : pourquoi ne pas remplacer self par "la plus haute ligne" ?
+\dothis{Sélectionnez \arevoir{\menu{self}} dans le panneau gauche de notre
 inspecteur et choisissez \menu{explore (I)} dans le menu contextuel
 obtenu en \actclickant.}
 La fenêtre \ind{Explorer} apparaît alors comme sur
  \figref{exploreTimeStampNow}.
-Si vous cliquez sur le petit triangle à gauche de \ct{root} (racine, en anglais), la vue changera comme dans \figref{exploreTimeStampNow2} qui
+Si vous cliquez sur le petit triangle à gauche de \ct{root} (racine, en anglais), 
+la vue changera comme dans \figref{exploreTimeStampNow2} qui
 nous montre les variables d'instance de l'objet que nous explorons.
 Cliquez sur le triangle proche d'\ct{offset} et vous verrez
 \emph{ses} variables d'instance.
@@ -1508,6 +1520,7 @@ Dans \figref{debuggerDetectIfNone},
 % Il n'y a donc rien de surprenant à voir le message d'erreur correspondant.}
 %\on{no longer true!}
 
+% rene : il nous faudrait clarifier l'explication 
 \arevoir{Comme nous pouvons le voir sur la méthode plus bas sur la
   pile, \ct{exceptionBlock} est \ct{[self errorNotFound: ...]}. Il n'y
 a donc rien de surprenant à voir le message d'erreur correspondant.}
@@ -1928,8 +1941,8 @@ en  \actclickant{} sur les élements correspondants.
 
 Le Change Sorter vous permet de voir simultanément deux
 \changesets: un \changeset à gauche et un autre à droite.
-Cette \arevoir{disposition offre} les principales fonctions du Change Sorter 
-% rene propose :  \arevoir{agencement offre} 
+Cette fonctionalité offre les principales fonctions du Change Sorter 
+% rene propose :  \arevoir{disposition offre} 
 telles que la possibilité de déplacer ou copier les changements d'un \changeset à un autre,
 comme nous pouvons le voir sur \figref{changeSorter},
 dans le menu contextuel accessible en \actclickant.
@@ -1985,7 +1998,7 @@ quand les choses tournent mal.
 Même si le fichier fonctionne, un \changeset peut annuler silencieusement 
 un changement fait par un autre.
 
-à l'inverse, les paquetages (dits aussi packages) de Monticello représentent le code d'une manière 
+À l'inverse, les paquetages (dits aussi packages) de Monticello représentent le code d'une manière 
 déclarative: ils décrivent l'état que l'image devrait avoir une fois le chargement
 effectué.
 Ceci permet à Monticello de vous avertir des conflits (quand deux paquetages ont des
@@ -1993,7 +2006,7 @@ objectifs incompatibles)
 %require contradictory final states
 et vous permet de charger une série de paquetages dans un ordre de dépendances.
 
-Malgré de ces imperfections, les \changesets reste utiles; vous pouvez, en particulier, en trouver sur Internet pour en observer le contenu, voire les utiliser.
+Malgré ces imperfections, les \changesets reste utiles; vous pouvez, en particulier, en trouver sur Internet pour en observer le contenu, voire les utiliser.
 Maintenant que nous avons vu comment exporter des \changesets avec le Change Sorter,
 nous allons voir comment les importer.
 Cette étape requiert l'usage d'un autre outil, le File List Browser.
@@ -2088,7 +2101,7 @@ Il affichera les méthodes de chaque classe
 ainsi que les différences entre la version actuelle et celle dans le fichier; ce que
 nous montre \figref{fileContentsBrowser}.
 Les options du menu contextuel de chacun des quatre panneaux supérieurs vous
-permettra de charger (en anglais, \emph{file in}) le \changeset complet, la classe, 
+permettront de charger (en anglais, \emph{file in}) le \changeset complet, la classe, 
 le protocole ou la méthode correspondante.
 
 %=========================================================
@@ -2183,13 +2196,10 @@ disponibles dans l'environnement.
 
 \begin{itemize}
   \item Le navigateur de classes standard ou \emph{Browser} est votre principale interface pour naviguer dans les catégories, les classes, les protocoles et les méthodes existants et pour en définir de nouveaux.
-Ce navigateur offre plusieurs \arevoir{boutons} pour accéder % REVOIR erreur dans PBE menu? plutôt
-directement aux \senders (\ie{} les méthodes émettrices) ou
-  aux \implementors (\ie{} les méthodes contenantes) d'un message, aux versions d'une méthode, 
+Ce navigateur offre plusieurs onglets pour accéder directement aux \senders (\ie{} les méthodes émettrices) ou aux \implementors (\ie{} les méthodes contenantes) d'un message, aux versions d'une méthode, 
 \etc.
   \item Plusieurs navigateurs différents existent
-(tel que OmniBrowser et le \arevoir{Refactoring Browser}) % REVOIR
-                                % kesako dans Pharo 
+(comme l'OmniBrowser )  
 et plusieurs sont spécialisés (comme le Hierarchy Browser) pour fournir différentes vues sur les classes et les méthodes.
   \item Depuis n'importe quel outil, vous pouvez sélectionner en surlignant le nom d'une classe ou celui d'une méthode pour obtenir immédiatemment
 un navigateur en utilisant le raccourci-clavier \short{b}.
