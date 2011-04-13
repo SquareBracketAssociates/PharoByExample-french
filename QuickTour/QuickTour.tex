@@ -59,44 +59,45 @@ La création des méthodes, des objets et les envois de messages seront égaleme
 
 %=================================================================
 \section{Premiers pas}
+\tradalert{martial}{nouvelle section}
+\pharo est librement disponible au \ind{téléchargement} depuis la page \pharowebdownload du site web de \pharo.
+Pour bien démarrer, il vous faudra trois archives~\footnote{Vous pourriez y télécharger une archive nommée ``one-click image'' en cliquant sur le premier lien disant ``Download Pharo'' mais nous avons pris le parti de bien détaillé dès le début les fichiers nécessaires au bon fonctionnement de \pharo.}: une archive \emph{image} (contenant deux fichiers, l'image proprement dite et le fichier de \emphind{changes}) disponible dans le paragraphe \emph{Pharo 1.* image}, 
+un fichier nommé \emphind{source}{}\emph{s} disponible dans le paragraphe \emph{Sources file} et enfin, un programme exécutable appelé machine virtuelle selon votre système d'exploitation dans le paragraphe \emph{Virtual Machines}.
 
-\pharo est librement disponible au \ind{téléchargement} depuis le site
-web: \pharoweb. % CHANGE
-Vous devez y télécharger 3 archives (pour 4 fichiers principaux qui
-constituent une installation courante de \pharo; voir \figref{download}) 
+Dans le cas du présent livre, nous n'aurons besoin que de télécharger le programme exécutable puisque l'archive image et le fichier source que nous utiliserons seront ceux présents sur le site du \pbe. % CHANGE pour ppe dès que possible
+Sachez que si vous avez déjà une autre version de \pharo qui fonctionne sur votre
+machine, la plupart des exemples d'introduction de ce livre
+fonctionneront. Il n'est donc pas nécessaire de mettre à jour \pharo\,---\,même si nous vous recommandons le télécharger de l'image fournie avec le livre pour un apprentissage étape par étape afin de ne pas être surpris par quelques différences dans l'apparence ou le comportement que nous décrirons.
 
-\begin{figure}[htb]
-\centerline {\includegraphics[width=\textwidth]{annotatedDownload-flat}}
-\caption{Les fichiers à télécharger de \pharo \arelire{pour une des
-    plateformes supportées}. \figlabel{download}}
-\end{figure}
+\index{téléchargement}
+\seclabel{sbeImage}             % OBSOLETE
+\dothis{Téléchargez et décompressez la machine virtuelle \pharo sur votre ordinateur depuis la page \pharowebdownload. Téléchargez et décompressez l'archive ``Pharo By Example image'' depuis le lien de la section \emph{Download Pharo} dans la colonne de droite de la page \pbe.} % CHANGE pour ppe dès que possible
+
+Cette dernière archive contient trois fichiers importantes: l'image, le fichier \emph{sources} et le fichier \emph{changes}. Avec la machine virtuelle, vous devriez donc avoir quatre fichiers tel que nous pouvons le voir sur \figref{download}. \pharo{} se compose ainsi:
 
 \begin{enumerate}
-
-\item La \emphind{machine virtuelle} (abrégée en VM pour
-  \emph{virtual machine}) est la seule partie de l'environnement qui
+\item d'une \emphind{machine virtuelle} (abrégée en VM pour
+  \emph{virtual machine}): c'est la seule partie de l'environnement qui
   est particulière à chaque \arelire{couple système d'exploitation et
     processeur}. Des machines virtuelles pré-compilées sont disponibles pour la plupart des
   systèmes (Linux, \macosx, Win32). Dans \figref{download}, \arelire{vous
 pouvez voir que la machine virtuelle pour la plateforme choisie est
-appelée \textit{Pharo.exe}.} % CHANGE 29247
+appelée \textit{Pharo.exe} ou \textit{SqueakVMblabla}~\footnote{Basé sur \sq{}, \pharo utilise par défault une machine virtuelle similaire. A l'avenir d'autres machines pourrait être disponible. Attention toutefois à ne pas essayer la machine virtuelle Cog qui ne fonctionne pas avec l'image du livre.}.
+} % CHANGE 29247
 %martial: ajout des index dans la vf
 \index{machine virtuelle}
 \seeindex{VM}{machine virtuelle}
 
-  \item Le fichier \emphind{source} contient le code source du système
+  \item du fichier \emphind{source}: il contient le code source du système
     \pharo. Ce fichier ne change pas très fréquement. Dans \figref{download}, il
     correspond au fichier
-    \emph{SqueakV39.sources}\footnote{\arelire{\pharo est
-dérivé de \squeak{} 3.9 et partage actuellement la machine virtuelle
-avec \squeak.}}
-.
+    \emph{PharoV10.sources}.
 %ajout fr index
 \index{fichier!source}
 \seeindex{fichier-source}{fichier, source}
-\seeindex{SqueakV39.sources}{fichier, source}
+\seeindex{PharoV10.sources}{fichier, source}
 
-\item L'\emphind{image} \emph{système}  est un cliché d'un système
+\item de l'\emphind{image} \emph{système}: il s'agit d'un cliché d'un système
   \pharo{} en fonctionnement, figé à un instant donné. 
 Il est composé de deux fichiers: le premier nommé avec l'extension
 \emph{.}\emphind{image} contient l'état de tous les objets du système
@@ -104,28 +105,19 @@ dont les classes et les méthodes (qui sont aussi des objets).
 Le second avec l'extension \emph{.}\emphind{changes} contient
 le journal de toutes les modifications apportées au code source du
 système (contenu dans le fichier source).
-\arelire{Dans \figref{download}, ces fichiers sont appelés
-  \emph{pharo.image} et \emph{pharo.changes}.}
+Dans \figref{download}, ces fichiers sont appelés
+  \emph{PBE.image} et \emph{PBE.changes}.
 %ajout fr index
 \index{fichier!image}
 \index{fichier!changes}
 \end{enumerate}
 
-\dothis{Téléchargez et installez \pharo sur votre ordinateur.}
-\arelire{Nous vous recommandons d'utiliser l'image fournie sur la page web du
-livre\footnote{\ppe}.}
-\index{téléchargement}
-\seclabel{sbeImage} %????
+\begin{figure}[htb]
+\centerline {\includegraphics[width=\textwidth]{annotatedDownload-flat}}
+\caption{Exemple de fichiers à télécharger de \pharo pour Windows et \macosx}.\figlabel{download}}
+\end{figure}
 
-
-Sachez que si vous avez déjà une autre version de \pharo qui fonctionne sur votre
-machine, la plupart des exemples d'introduction de ce livre
-fonctionneront. Il n'est donc pas nécessaire de mettre à jour \pharo.
-Dès lors, ne soyez pas surpris de constater parfois des différences dans l'apparence ou le comportement que nous décrirons.
-% D'un autre côté, si vous téléchargez \pharo pour la première fois,
-% vous devriez rapatrier et utiliser l'image \emph{\pharo par l'Exemple}.
-
-Pendant que vous travaillez avec \pharo les fichiers \emph{.image} et \emph{.changes} sont modifiés, vous devez vous assurer qu'ils sont accessibles en écriture.
+Pendant que vous travaillez avec \pharo, les fichiers \emph{.image} et \emph{.changes} sont modifiés; vous devez donc vous assurer qu'ils sont accessibles en écriture.
 Conservez toujours ces deux fichiers ensemble, \cad dans le même dossier.
 Et surtout, ne tentez pas de les modifier avec un éditeur de texte, \pharo les utilise pour stocker vos objets de travail et vos changements dans le code source.
 Faire une copie de sauvegarde de vos images téléchargées et de vos
@@ -1393,3 +1385,5 @@ syntaxe sans que vous puissiez encore la comprendre suffisamment à ce stade.
 %%% TeX-PDF-mode: t
 %%% End:
 
+
+% LocalWords:  cliquant télécharger Téléchargez
