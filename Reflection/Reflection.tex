@@ -45,11 +45,9 @@
 %=================================================================
 \chapter{La réflexivité}\chalabel{reflection}
 
-%\alex{I addressed lukas comments using editorial macros. Please, if you read this, remove this comment and remove the editorial macros, else their purpose is diminished}
+%\alex{I addressed lukas comments using editorial macros. Please, if you read this, remove this comment and remove the editorial macros, else their purpose is divinisait}
 
-% martial TODO: super-send&self-send&super-sending à remplacer par la bonne expression (comme SBE normalement) / revoir: couverture de tests / index / ré-envoie vs renvoie
-
-\indexmain{reflection}
+\indexmain{réflexivité}
 \st est un langage de programmation réflexif. En bref, cela signifie que les programmes ont la possibilité d'agir à la fois sur leur propre exécution et leur propre structure.
 % \lr{not only on execution, also on the static model}
 Plus techniquement, cela signifie que les \emphind{méta-objets} du système en cours d'exécution peuvent être \emph{réifiés} sous forme d'objets ordinaires qui peuvent alors recevoir des requêtes et être inspectés.
@@ -61,9 +59,9 @@ Cette forme de réflexivité est également appelée \emphind{introspection}: el
 	\caption{Réification et réflexivité.\figlabel{reflect}} % \lr{not referenced, not sure if I understand it}
 \end{figure}
 Inversement, il est possible en \st de modifier les méta-objets réifiés et que leurs modifications soient prises en compte lors de l'exécution du système (voir \figref{reflect}).
-Ceci est appelé \emph{intercession} et est principalement utilisé dans les langages de programmation dynamique et de manière plus limitée dans les langages statiques.
+Nous parlons d'\emph{intercession}: elle est principalement utilisée dans les langages de programmation dynamique et de manière plus limitée dans les langages statiques.
 
-Un programme qui manipule d'autres programmes (ou même lui-même) est un \emphind{méta-programme}.
+Un programme qui manipule d'autres programmes (dont lui-même) est un \emphind{méta-programme}.
 Pour qu'un langage de programmation soit réflexif, il faut qu'il supporte à la fois l'\ind{introspection} et l'\ind{intercession}. L'introspection est la capacité \emph{d'examiner} les structures de données qui définissent le programme comme les objets, classes, méthodes ou pile d'exécution. L'intercession est la capacité de modifier ces structures, en d'autres termes de changer la sémantique du langage et le comportement d'un programme depuis le programme lui-même.
 La \emph{réflexivité structurelle} s'intéresse à l'exploration et à la modification des structures lors de l'exécution du système, alors que la \emph{réflexivité de comportement} concerne l'interprétation de ces structures.
 
@@ -117,7 +115,7 @@ w instVarNamed: 'contents' put: 'howdy!'; contentsChanged
 \important{\emph{Mise en garde:} Bien que ces méthodes soient utiles pour construire les outils de l'environnement de développement, les utiliser dans le cadre d'une application conventionnelle est une mauvaise idée: ces méthodes réflexives rompent l'encapsulation des objets et peuvent rendre votre code plus difficile à comprendre et à maintenir.}
 % \lr{Why? The access does not show up when looking for all readers/writers in the code browser.}
 
-\ct!instVarAt:! et \ct!instVarAt:put:! sont des \ind{méthodes primitives}, \ie qu'elles sont implémentées comme des opérations primitives de la machine virtuelle \pharo.
+\ct!instVarAt:! et \ct!instVarAt:put:! sont des \subind{méthode}{primitive}, \ie qu'elles sont implémentées comme des opérations primitives de la machine virtuelle \pharo.
 Si vous consultez le code de ces méthodes, vous constaterez l'emploi de cette
 syntaxe spéciale
 \ct!<primitive: N>! où \ct!N! est un entier:
@@ -360,16 +358,17 @@ Comme les classes sont des objets, il est possible de les inspecter ou de les ex
 \dothis{\'Evaluer \ct{Point explore}.}
 
 Dans \figref{CompiledMethod}, l'\ind{explorateur} montre la structure de la classe \clsind{Point}.
-Vous pouvez remarquer que la classe stocke ses méthodes dans un dictionnaire, indexées par leur sélecteur.
-Le sélecteur \ct{#*} pointe vers le \emphind{bytecode} décompilé de \ct!Point>>>*!.
-
-\begin{figure}[ht]\centering
+\begin{figure}[ht]\centering    % figure déplacée pour plus de
+                                % lisibilité 
 	\includegraphics[width=.5\linewidth]{CompiledMethod}
 	\caption{L'explorateur de la classe \ct!Point! et le \emph{bytecode} de sa méthode \ct!\#*!.\figlabel{CompiledMethod}}
 \end{figure}
 
+Vous pouvez remarquer que la classe stocke ses méthodes dans un dictionnaire, indexées par leur sélecteur.
+Le sélecteur \ct{#*} pointe vers le \emphind{bytecode} décompilé de \ct!Point>>>*!.
+
 Examinons la relation entre classes et méthodes.
-Dans \figref{MethodsAsObjects}, nous voyons que classes et méta-classes ont en commun la super-classe \ct{Behavior}. C'est dans cette super-classe que la méthode \mthind{Behavior}{new} est définie, parmi d'autres \arevoir{méthodes-clé} pour ces classes. \tradalert{martial}{revoir si methodes-cle ou methodes cles; cf. reforme orthographe} % REVOIR
+Dans \figref{MethodsAsObjects}, nous voyons que classes et méta-classes ont en commun la super-classe \ct{Behavior}. C'est dans cette super-classe que la méthode \mthind{Behavior}{new} est définie, parmi d'autres \arevoir{méthodes-clé} pour ces classes. \tradalert{martial}{orthographe} % REVOIR
 Chaque classe possède un dictionnaire de méthode qui associe chaque sélecteur de méthodes à sa \ind{méthode compilée}.
 Chaque méthode compilée connaît la classe dans laquelle elle est installée.
 Dans \figref{CompiledMethod}, nous pouvons même remarquer que l'information est conservée au moyen d'une association dans \ct{literal5}.
@@ -428,7 +427,7 @@ Il existe une méthode adaptée \clsmthind{CompiledMethod}{methodReference} qui 
 
 Même si \clsind{SystemNavigation} offre quelques façons utiles d'interroger le système par programmes et de parcourir le code système, il existe une meilleure manière. Le \ind{Refactoring Browser}, qui est intégré à \pharo, permet de poser des questions complexes à la fois de manière interactive et par programme.
 
-Supposons que nous voulions découvrir quelle méthode dans la hiérarchie \lct{Collection} envoie un message à \super qui soit différent depuis le sélecteur de méthodes. Ceci est généralement considéré comme un \ind{mauvais code}~\footnote{NdT: \arelire{nous pouvons entendre dans la culture informaticienne la notion de \emph{code smell} pour se référer au fait que le mauvais code \emph{ne sent pas bon}.}}, puisque \arevoir{un tel \super-send devrait normalement être remplacé par un \self-send}~\footnote{Pensez à cela --- vous ne devriez avoir besoin de \super que pour étendre une méthode que vous êtes en train de surcharger; toutes les autres méthodes héritées peuvent être accédées par un \self!}. % CHANGE plus elegant en footnote
+Supposons que nous voulions découvrir quelle méthode dans la hiérarchie \lct{Collection} envoie un message à \super qui soit différent depuis le sélecteur de méthodes. Ceci est généralement considéré comme un \ind{mauvais code}~\footnote{NdT: \arelire{nous pouvons entendre dans la culture informaticienne la notion de \emph{code smell} pour se référer au fait que le mauvais code \emph{ne sent pas bon}.}} \arelire{puisqu'un tel envoi à \super devrait normalement être remplacé par un envoi à \self}~\footnote{Pensez à cela --- vous ne devriez avoir besoin de \super que pour étendre une méthode que vous êtes en train de surcharger; toutes les autres méthodes héritées peuvent être accédées par un \self!}. % CHANGE plus elegant en footnote
 \seeindex{code smell}{mauvais code}
 
 Le Refactoring Browser nous permet de manière élégante de restreindre nos interrogations uniquement aux classes et méthodes qui nous intéressent. 
@@ -436,7 +435,7 @@ Le Refactoring Browser nous permet de manière élégante de restreindre nos int
 \dothis{Ouvrir un Browser sur la classe \ct{Collection}.
 \Actclick sur le nom de la classe et sélectionner \mbox{\menu{refactoring scope>subclasses with}.}
 Ceci ouvrira un nouveau BrowserEnvironnement sur la hiérarchie \mbox{\ct{Collection}.}
-Dans ce champ restreint, sélectionner \menu{refactoring scope>super-sends} pour ouvrir un nouvel environnement avec toutes les méthodes qui font des super-sends dans la hiérarchie \ct{Collection}. Maintenant \click sur n'importe quelle méthode et sélectionner \menu{refactor>code critics}.
+Dans ce champ restreint, sélectionner \menu{refactoring scope>super-sends} pour ouvrir un nouvel environnement avec toutes les méthodes qui font des envois à \super dans la hiérarchie \ct{Collection}. Maintenant \click sur n'importe quelle méthode et sélectionner \menu{refactor>code critics}.
 Naviguer dans \menu{Lint checks>Possible bugs>Sends different super message}~\footnote{Ndt:
 % ajout martial
 \arelire{``Lint checks'' peut se traduire par ``vérifications par analyse lexicale''.}%
@@ -450,7 +449,7 @@ Dans \figref{sendDifferentSuper}, nous pouvons voir que 19 méthodes de la sorte
 \end{figure}
 
 Un environnement de navigation du code peut aussi être créé par programme.
-Ici, par exemple, nous créons un nouveau \clsind{BrowserEnvironment} pour \clsind{Collection} et ses sous-classes, nous sélectionnons les méthodes super-sending et nous ouvrons l'environnement résultant.
+Ici, par exemple, nous créons un nouveau \clsind{BrowserEnvironment} pour \clsind{Collection} et ses sous-classes, nous sélectionnons les méthodes qui envoient à \super et nous ouvrons l'environnement résultant.
 \needlines{4}
 \begin{code}{}
 ((BrowserEnvironment new forClasses: (Collection withAllSubclasses))
@@ -471,7 +470,7 @@ Finalement, nous pouvons trouver uniquement les méthodes qui envoient un messag
 	label: 'Collection methods sending different super';
 	open
 \end{code}
-Dans cet exemple, nous demandons à chaque méthode compilée son arbre d'analyse (Refactoring Browser), dans le but de trouver quels \arelire{messages à \super} diffèrent des sélecteurs de méthodes.  
+Dans cet exemple, nous demandons à chaque méthode compilée son arbre d'analyse (Refactoring Browser), dans le but de trouver quels messages à destination de \super diffèrent des sélecteurs de méthodes.
 Regardez le protocole \prot{querying} de la classe \ct{RBProgramNode} pour voir un \arelire{certain nombre d'exemples de ce que nous pouvons demander} aux arbres d'analyse. 
 
 % Here we ask each compiled method for its (Refactoring Browser) parse tree, in order to find out whether the super messages differ from the method's selector.
@@ -510,7 +509,7 @@ Integer>>>factorial
 \end{figure}
 
 Bienvenue dans le débogueur du pauvre! 
-Si maintenant nous parcourons la classe de l'objet exploré (\ie en évaluant \ct{self browse} dans le panneau du bas de l'explorateur), vous aller découvrir que c'est une instance de la classe \lct{MethodContext}, comme \arelire{tous les \senders} \aretirer{(ou \emph{envoyeurs})} dans la chaîne.
+Si maintenant nous parcourons la classe de l'objet exploré (\ie en évaluant \ct{self browse} dans le panneau du bas de l'explorateur), vous aller découvrir que c'est une instance de la classe \lct{MethodContext}, comme tous les \senders en série.
 % All of these objects have been created dynamically in the image by the \st virtual machine at the point where \ct{thisContext} was referred to in the \ct{factorial} method. \lr{Not actually. In all the currently available VMs the context objects are created with every method activation, no matter if they are accessed using \ct{thisContext} or not.}
 
 \ct{thisContext} n'est pas destiné à être utilisé dans la programmation de tous les jours, mais il est essentiel pour réaliser des outils comme des débogueurs et lorsque l'on a besoin d'accéder à des informations concernant la pile d'appels de méthodes.
@@ -728,7 +727,7 @@ Des tentatives pour envoyer ces messages à des objets non-booléens peuvent êt
 %% Attempts to send these messages to non-boolean objects can be intercepted and execution can be resumed with a valid boolean value by overriding \ct{mustBeBoolean} in the receiver or by catching the \ct{NonBooleanReceiver} exception.
 %% }% NB: Notes by Lukas Renggli
 
-Même si nous pouvons ignorer de tels envois de messages spéciaux, il existe un autre problème fondamental qui ne peut pas être surmonter par cette approche: les envois à \self \aretirer{(\self-sends)} ne peuvent pas être interceptés:
+Même si nous pouvons ignorer de tels envois de messages spéciaux, il existe un autre problème fondamental qui ne peut pas être surmonter par cette approche: les envois à \self ne peuvent pas être interceptés:
 \begin{code}{}
 point := 1@2.
 LoggingProxy new become: point.
@@ -738,7 +737,6 @@ point invocationCount --> 1
 \end{code}
 
 Notre \emph{proxy} a été privé de deux envois à \self dans la méthode \mbox{\ct{rect:}:} 
-% idée auto-envoi à \self ??
 %% Our proxy has been cheated out of two \self-sends in the \ct{rect:} method:
 \begin{code}{}
 Point>>>rect: aPoint 
@@ -799,7 +797,7 @@ Regardons pas à pas ce qu'il se passe la première fois que le message
 	% \on{trust me, it is useful to see all the steps.}
 \end{figure}
 
-Nous envoyons (1) le message \ct{x} à \ct{myDA}; (2) le message est recherché dans la classe et (3) n'est pas trouvé non plus dans la hiérarchie de la classe. (4) Ceci entraîne en retour l'envoi du message \ct{self doesNotUnderstand: #x} à l'objet (5) déclenchant ainsi une nouvelle recherche. Cette fois, \ct{doesNotUnderstand:} est immédiatemment trouvé dans la classe \ct{DynamicAccessors} (6) qui demande à sa classe de compiler la chaîne de caractères \ct{'x ^ x'}. La méthode \ct{compile} est recherchée (7) jusqu'à être finalement trouvée (8) dans la classe \ct{Behavior} qui (9-10) ajoute la nouvelle méthode compilée au dictionnaire de méthodes de \ct{DynamicAccessors}. Finalement (11-13) le message est ré-envoyé; cette fois, il est trouvé.
+Nous envoyons (1) le message \ct{x} à \ct{myDA}; (2) le message est recherché dans la classe et (3) n'est pas trouvé non plus dans la hiérarchie de la classe. (4) Ceci entraîne en retour l'envoi du message \ct{self doesNotUnderstand: #x} à l'objet (5) déclenchant ainsi une nouvelle recherche. Cette fois, \ct{doesNotUnderstand:} est immédiatemment trouvé dans la classe \ct{DynamicAccessors} (6) qui demande à sa classe de compiler la chaîne de caractères \ct{'x ^ x'}. La méthode \ct{compile} est recherchée (7) jusqu'à être finalement trouvée (8) dans la classe \ct{Behavior} qui (9-10) ajoute la nouvelle méthode compilée au dictionnaire de méthodes de \ct{DynamicAccessors}. Finalement (11-13) le message est renvoyé au nouveau; cette fois, il est trouvé.
 
 La même technique peut être utilisée pour générer des mutateurs pour les variables d'instance ou d'autres types de code réutilisable tels que les méthodes de visites d'une classe de conception de type \emph{Visitor}~\footnote{NdT: un des modèles de conception classiques connues sous l'appelation ``Design Patterns'' et faisant office de référence en matière de programmation objet.}.
 
@@ -936,7 +934,7 @@ TestCoverage>>>uninstall
 		put: method
 \end{code}
 \noindent
-et la méthode \ct{run:with:in:} met à jour la variable \ct{hasRun}, désinstalle le \emph{wrapper} (puisque la couverture a été vérifiée) et \arevoir{ré-envoie le message à la méthode originale}. % REVOIR martial: bizarre!
+et la méthode \ct{run:with:in:} met à jour la variable \ct{hasRun}, désinstalle le \emph{wrapper} (puisque la couverture a été vérifiée) et \arevoir{refait un envoi du message avec la méthode originale}. % REVOIR martial: bizarre!
 %% and resends the message to the original method
 \begin{code}{}
 run: aSelector with: anArray in: aReceiver
@@ -1079,3 +1077,11 @@ Ces \emph{wrappers} doivent implémenter \ct{run:with:in:} qui est envoyé par l
 %((w select: [:each | each executed not ])
 %	collect: [:each | each wrappedClass name, '>>', each selector name ]) explore.
 %\end{code}
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% ispell-local-dictionary: "fr"
+%%% TeX-master: t
+%%% TeX-PDF-mode: t
+%%% End:
