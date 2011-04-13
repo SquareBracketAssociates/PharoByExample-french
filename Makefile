@@ -18,8 +18,8 @@ BOOK2=PBE2
 OMNIBUS=PBE-Omnibus
 
 # --------------------------------------------------------------------------------
-all : omnibus
-	${PDFVIEW} ${OMNIBUS}.pdf
+all : pbe1
+	${PDFVIEW} ${BOOK1}.pdf
 
 # NB: be sure to use texlive and to set the TEXINPUTS variable accordingly
 # See README.txt

@@ -132,9 +132,8 @@ le nom de la méthode de classe utilisée pour générer cette couleur,
 comme le montre le code ci-dessous qui imprime une instance de cette
 classe. % CHANGE
 
-% \needlines{7}
-%martial: caption plus coherent que 'printOn: redefinition.'
-\begin{method}[zork]{Redéfinir printOn:}
+\needlines{8}
+\begin{method}[zork]{Redéfinir \ct{printOn:}}
 Color>>>printOn: aStream
 	| name |
 	(name := self name) ifNotNil: 
@@ -197,7 +196,7 @@ Rappelez-vous que les tableaux littéraux ne peuvent contenir que des littéraux
 #(10@10 100@100) --> #(10 #@ 10 100 #@ 100)
 \end{code}
 
-Beaucoup de spécialisations de la méthode \ct{printOn:} implémentent le comportement d'auto-évaluation. Les implémentations de \cmind{Point}{printOn:} et \cmind{Interval}{printOn:} sont auto-évaluées.
+Beaucoup de spécialisations de la méthode \ct{printOn:} implémentent le comportement d'auto-évaluation. Les implémentations de \cmind{Point}{printOn:} et \mbox{\cmind{Interval}{printOn:}} sont auto-évaluées.
 
 \begin{method}[Self-evaluating points]{Auto-évaluation de \ct{Point}}
 Point>>>printOn: aStream 
@@ -423,7 +422,7 @@ Object>>>copy
     "Answer another instance just like the receiver.
     Subclasses typically override postCopy;
     they typically do not override shallowCopy."
-    ^self shallowCopy postCopy
+    ^ self shallowCopy postCopy
 \end{method}
 
 %ajout
@@ -463,7 +462,7 @@ l'enlève de la pile''):
 Stack>>>pop
     "Return the first element and remove it from the stack."
     self assert: [ self isEmpty not ].
-    ^self linkedList removeFirst element
+    ^ self linkedList removeFirst element
 \end{method}
 
 Il ne faut pas confondre \ct{Object>>>assert:} avec \cmind{TestCase}{assert:}, 
@@ -582,7 +581,7 @@ devront redéfinir cette méthode pour faire des initialisations
 dans la phase de création d'instance.
 
 %FIXME ``as an empty hook method``
-\begin{method}{La méthode générique \lct{initialize}}
+\begin{method}{La méthode générique \ct{initialize}}
 ProtoObject>>>initialize
    "Subclasses should redefine this method to perform initializations on instance creation"
 \end{method}
@@ -592,7 +591,7 @@ Ceci est important parce que, dans \pharo,
 système, envoie \ct{initialize} aux instances nouvellement
 créées.
 
-\begin{method}{Modèle pour la méthode de classe \lct{new}. Le commentaire dit: ``Répond une nouvelle instance initialisée du receveur (qui est une classe) sans aucune variables indexées. Échoue si la classe est indexée''}
+\begin{method}{Modèle pour la méthode de classe \ct{new}. Le commentaire dit: ``Répond une nouvelle instance initialisée du receveur (qui est une classe) sans aucune variables indexées. Échoue si la classe est indexée''}
 Behavior>>>new
     "Answer a new initialized instance of the receiver (which is a class) with no indexable variables. Fail if the class is indexable."
     ^ self basicNew initialize
@@ -625,11 +624,11 @@ Les méthodes \mthind{Magnitude}{<} et \mthind{Magnitude}{=} sont abstraites. Le
 \begin{method}{Méthodes de comparaison abstraites}
 Magnitude>>> < aMagnitude 
     "Answer whether the receiver is less than the argument."
-    ^self subclassResponsibility
+    ^ self subclassResponsibility
 
 Magnitude>>> > aMagnitude 
     "Answer whether the receiver is greater than the argument."
-    ^aMagnitude < self
+    ^ aMagnitude < self
 \end{method}
 \cmindex{Magnitude}{>}
 
@@ -701,7 +700,7 @@ Les méthodes de \emph{troncature} incluent entre autres,
 1 + 2.5     --> 3.5             "Addition de deux nombres"
 3.4 * 5      --> 17.0           "Multiplication de deux nombres"
 8 / 2         --> 4                 "Division de deux nombres"
-10 - 8.3   --> 1.7              "Soustraction de deux nombres"
+10 - 8.3   --> 1.7             "Soustraction de deux nombres"
 12 = 11    --> false           !"Égalité entre deux nombres"!
 12 ~= 11 --> true            !"Teste si deux nombres sont différents"!
 12 > 9      --> true            "Plus grand que"
@@ -1019,12 +1018,12 @@ comme arguments.
 La méthode est abstraite dans \ct{Boolean}.
 Les implémentations dans les sous-classes concrètes sont toutes les deux triviales:
 
-\begin{method}{Implémentations de \lct{ifTrue:ifFalse:}}
+\begin{method}{Implémentations de \ct{ifTrue:ifFalse:}} % REVOIR
 True>>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock 
-    ^trueAlternativeBlock value
+    ^ trueAlternativeBlock value
 
 False>>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock 
-    ^falseAlternativeBlock value
+    ^ falseAlternativeBlock value
 \end{method}
 \cmindex{True}{ifTrue:}
 \cmindex{False}{ifTrue:}
@@ -1041,7 +1040,7 @@ manière pour \ct{True} et \ct{False}. Par exemple:
 \begin{method}{Implémenter la négation}
 True>>>not
     "Negation--answer false since the receiver is true."
-    ^false
+    ^ false
 \end{method}
 \cmindex{True}{not}
 
@@ -1053,9 +1052,9 @@ vrai (\ct{true}, instance de \ct{True}).
 La classe \ct{Boolean} offre plusieurs méthodes utiles, comme \mthind{Boolean}{ifTrue:}, \mthind{Boolean}{ifFalse:}, \mthind{Boolean}{ifFalse:ifTrue}. Vous avez également le choix entre les conjonctions et disjonctions optimisées ou paresseuses.
 
 \begin{code}{@TEST}
-(1>2) & (3<4)              --> false    !"doit évaluer les deux cotés"!
-(1>2) and: [ 3<4 ]        --> false    !"évalue seulement le receveur"!
-(1>2) and: [ (1/0) > 0 ] --> false    !"le bloc passé en argument n'est jamais évalué, ainsi, pas d'exception"!
+(1>2) & (3<4)              --> false     "doit !évaluer! les deux !côtés!"
+(1>2) and: [ 3<4 ]        --> false     "!évalue! seulement le receveur"
+(1>2) and: [ (1/0) > 0 ] --> false    "le bloc !passé! en argument n'est jamais !évalué!, ainsi, pas d'exception"
 \end{code}
 
 Dans le premier exemple, les deux sous-expressions booléennes sont
@@ -1130,6 +1129,5 @@ Nous avons vu que:
 %%% mode: latex
 %%% TeX-master: t
 %%% TeX-PDF-mode: t
-%%% ispell-local-dictionary: "english"
 %%% End:
 %%% End:

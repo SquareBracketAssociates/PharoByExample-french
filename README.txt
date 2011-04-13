@@ -5,6 +5,8 @@ Pour les nouveaux arrivants, compiler avec latex ou pdflatex demo.tex
 fichier common.tex)
 
 TRES IMPORTANT: (martial)
+- Compilation en TeXLive 2009 ok (problème avec TeXLive-2010-64, manque
+les uline/uwave en MacTeX)
 - Tous les changements importants des parties I, II, III et IV de la
 version Omnibus sont reportés en bleu via la balise \arelire{}. Je
 vous invite à baliser les zones incertaines des nouveaux chapitres

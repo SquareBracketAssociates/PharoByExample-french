@@ -1042,7 +1042,7 @@ Ceci vous permet de faire un code plus robuste et plus compact.
 \index{Collection!itération}
 
 %---------------------------------------------------------
-\subsection{L'itération par (\lct{do:})}
+\subsection{L'itération par (\ct{do:})}
 La méthode \mthind{Collection}{do:} est un itérateur de collections basique.
 Il applique son argument (un bloc avec un simple argument) à chaque
 élément du receveur.
@@ -1110,7 +1110,7 @@ colors associationsDo: [:value | Transcript show: value;cr].  "affiche les assoc
 \end{code}
 
 %---------------------------------------------------------
-\subsection{Collecter les résultats avec \lct{collect:}}
+\subsection{Collecter les résultats avec \ct{collect:}}
 Si vous voulez traiter les éléments d'une collection et produire
 une nouvelle collection en résultat, vous devez utiliser plutôt le
 message \ct{collect:} ou d'autres méthodes d'itérations au lieu
@@ -1197,7 +1197,7 @@ une condition particulière:
 \end{code}
 
 %---------------------------------------------------------
-\subsection{Identifier un élément avec \lct{detect:}}
+\subsection{Identifier un élément avec \ct{detect:}}
 
 La méthode \mthind{OrderedCollection}{detect:} renvoie le premier
 élément du receveur qui rend vrai le test passé en bloc-argument.
@@ -1216,7 +1216,7 @@ Smalltalk allClasses detect: [:each | '*cobol*' match: each asString] ifNone: [ 
 \end{code} % CHANGE: cobol remplace java
 
 %---------------------------------------------------------
-\subsection{Accumuler les résultats avec \lct{inject:into:}}
+\subsection{Accumuler les résultats avec \ct{inject:into:}}
 Les langages de programmation fonctionnelle offrent souvent une fonction d'ordre
 supérieure appelée \emph{fold} ou \emph{reduce} pour accumuler un résultat
 en appliquant un opérateur binaire de manière itérative sur tous les
@@ -1325,7 +1325,7 @@ Alors nous redéfinissons non seulement
 \ct{=} mais aussi \ct{hash} comme suit:
 \index{dictionnaire!surcharger \ct{=} et \ct{hash}}
 
-\begin{method}{Redéfinir \lct{=} et \lct{hash}.}
+\begin{method}{Redéfinir \ct{=} et \ct{hash}.}
 Book>>>= aBook
    self class = aBook class ifFalse: [^ false].
    ^ title = aBook title and: [ authors = aBook authors]
