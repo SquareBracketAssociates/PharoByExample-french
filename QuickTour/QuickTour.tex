@@ -59,7 +59,7 @@ La création des méthodes, des objets et les envois de messages seront égaleme
 
 %=================================================================
 \section{Premiers pas}
-\tradalert{martial}{nouvelle section}
+\tradalert{martial}{nouvelle section}\\
 \pharo est librement disponible au \ind{téléchargement} depuis la page \pharowebdownload du site web de \pharo.
 Pour bien démarrer, il vous faudra trois archives~\footnote{Vous pourriez y télécharger une archive nommée ``one-click image'' en cliquant sur le premier lien disant ``Download Pharo'' mais nous avons pris le parti de bien détaillé dès le début les fichiers nécessaires au bon fonctionnement de \pharo.}: une archive \emph{image} (contenant deux fichiers, l'image proprement dite et le fichier de \emphind{changes}) disponible dans le paragraphe \emph{Pharo 1.* image}, 
 un fichier nommé \emphind{source}{}\emph{s} disponible dans le paragraphe \emph{Sources file} et enfin, un programme exécutable appelé machine virtuelle selon votre système d'exploitation dans le paragraphe \emph{Virtual Machines}.
@@ -73,7 +73,7 @@ fonctionneront. Il n'est donc pas nécessaire de mettre à jour \pharo\,---\,mê
 \seclabel{sbeImage}             % OBSOLETE
 \dothis{Téléchargez et décompressez la machine virtuelle \pharo sur votre ordinateur depuis la page \pharowebdownload. Téléchargez et décompressez l'archive ``Pharo By Example image'' depuis le lien de la section \emph{Download Pharo} dans la colonne de droite de la page \pbe.} % CHANGE pour ppe dès que possible
 
-Cette dernière archive contient trois fichiers importantes: l'image, le fichier \emph{sources} et le fichier \emph{changes}. Avec la machine virtuelle, vous devriez donc avoir quatre fichiers tel que nous pouvons le voir sur \figref{download}. \pharo{} se compose ainsi:
+Cette dernière archive contient trois fichiers importantes: l'image, le fichier \emph{sources} et le fichier \emph{changes}. Avec la machine virtuelle, vous devriez donc avoir quatre fichiers tels que nous pouvons le voir sur \figref{download}. Ainsi \pharo{} se compose:
 
 \begin{enumerate}
 \item d'une \emphind{machine virtuelle} (abrégée en VM pour
@@ -82,7 +82,7 @@ Cette dernière archive contient trois fichiers importantes: l'image, le fichier
     processeur}. Des machines virtuelles pré-compilées sont disponibles pour la plupart des
   systèmes (Linux, \macosx, Win32). Dans \figref{download}, \arelire{vous
 pouvez voir que la machine virtuelle pour la plateforme choisie est
-appelée \textit{Pharo.exe} ou \textit{SqueakVMblabla}~\footnote{Basé sur \sq{}, \pharo utilise par défault une machine virtuelle similaire. A l'avenir d'autres machines pourrait être disponible. Attention toutefois à ne pas essayer la machine virtuelle Cog qui ne fonctionne pas avec l'image du livre.}.
+appelée \textit{Pharo.exe} ou \textit{SqueakVMblabla}~\footnote{Basé sur \squeak{}3.9, \pharo utilise par défault une machine virtuelle similaire. A l'avenir d'autres machines pourrait être disponible. Attention toutefois à ne pas essayer la machine virtuelle Cog qui ne fonctionne pas avec l'image du livre.}.
 } % CHANGE 29247
 %martial: ajout des index dans la vf
 \index{machine virtuelle}
@@ -114,7 +114,7 @@ Dans \figref{download}, ces fichiers sont appelés
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=\textwidth]{annotatedDownload-flat}}
-\caption{Exemple de fichiers à télécharger de \pharo pour Windows et \macosx}.\figlabel{download}}
+\caption{Exemple de fichiers à télécharger de \pharo pour Windows et \macosx.}\figlabel{download}
 \end{figure}
 
 Pendant que vous travaillez avec \pharo, les fichiers \emph{.image} et \emph{.changes} sont modifiés; vous devez donc vous assurer qu'ils sont accessibles en écriture.
