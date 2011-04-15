@@ -6,6 +6,7 @@
 % relecture par Rene (Sun, 13 Jan 2008)
 % relecture par Rene (Fri,  8 Jan 2010)
 % relecture par Rene (Mon,  9 Aug 2010)
+% relecture par Rene (Sat, 16 Apr 2011)
 % update: Tue Dec 25 12:52:59 CET 2007
 % adaptation pour PBE: martial - Wed Sep  9 22:33:36 CEST 2009 from
 % $Author: oscar $ % $Date: 2009-08-16 16:37:09 +0200 (Sun, 16 Aug
@@ -52,7 +53,7 @@ une séquence d'éléments comme des
 % sequenced
 collections, des fichiers ou des flux réseau.
 Les \streams peuvent être en lecture ou en écriture ou les deux.
-La lecture et l'écriture est toujours relative à la position actuelle
+La lecture et l'écriture est toujours relative à la position courante
 dans le \stream. Les \streams peuvent être facilement convertis en
 collections 
 %ajout d'apres la remarque de lukas
@@ -738,7 +739,7 @@ Il est très facile de passer par conversion de \streams à collections et vice-
 \begin{itemize}
   \item Les flux peuvent être soit en lecture, soit en écriture, soit à la fois en lecture-écriture.
   \item Pour convertir une collection en un \stream, définissez un \stream
-sur une collection grâce au message \ct{on:}, \eg \ct{ReadStream on: (1 to: 1000)}, ou via les messages \ct{readStream}, \etc sur la collection.
+sur une collection grâce au message \ct{on:}, \eg \ct{ReadStream on: (1 to: 1000)}, ou via les messages \ct{readStream}, \etc ... sur la collection.
   \item Pour convertir un \stream en collection, envoyer le message \ct{contents}.
   \item Pour concaténer des grandes collections, il est plus efficace d'abandonner l'emploi de l'opérateur virgule \ct{,} et de créer un \stream et y adjoindre les collections avec le message \ct{nextPutAll:} puis extraire enfin le résultat en lui envoyant \ct{contents}.
   \item Par défaut, les \streams de fichiers sont à base de caractères.
