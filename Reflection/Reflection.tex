@@ -1035,7 +1035,7 @@ Le réflexivité se définit par la faculté d'interroger, d'examiner et même d
 %% occurs as a sender in the run-time stack.
 \item Une méthode courante pour intercepter les messages envoyés à une cible donnée consiste à utiliser un ``objet minimal'' comme \emph{proxy} de cette object-cible. Le \emph{proxy} implémente aussi peu de méthodes que possible et capture tous les messages envoyés en implementant \ct{doesNotunderstand:}. Il peut effectuer ensuite certaines actions complémentaires et faire suivre le message à la cible d'origine.
 \item Nous pouvons envoyer \ct{become:} pour intervertir les références de deux objets tels qu'un \emph{proxy} et sa cible.
-\item Nous devons faire attention au fait que certains messages tels que \ct{class} et \ct{yourself} ne sont jamais véritablement envoyés mais sont interprétés par la machine virtuelle. D'autres messages comme \ct{+}, \ct{-} et \ct{ifTrue:} peuvent être directement \arelire{interprétés ou en ligne} dans la machine virtuelle en fonction du receveur.
+\item Nous devons faire attention au fait que certains messages tels que \ct{class} et \ct{yourself} ne sont jamais véritablement envoyés mais sont interprétés par la machine virtuelle. D'autres messages comme \ct{+}, \ct{-} et \ct{ifTrue:} peuvent être directement interprétés ou \emph{inline} dans la machine virtuelle en fonction du receveur.
 %% inlined by the VM depending on the receiver.
 \item Le chargement paresseux ou la compilation de méthodes manquantes est une
 autre utilisation typique de la surcharge de \ct{doesNotUnderstand:}.
