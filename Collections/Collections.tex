@@ -402,7 +402,7 @@ Vous pouvez aussi utiliser la méthode \ct{addAll:} pour ajouter tous les élém
 
 \begin{code}{@TEST}
 (1 to: 5) asOrderedCollection addAll: '678'; yourself --> an OrderedCollection(1 2 3 4 5 $6 $7 $8)
-\end{code}
+\end{code}%$
 
 \noindent
 Prenez garde au fait que \mthind{Collection}{addAll:} renvoie aussi ses arguments et non pas le receveur!
@@ -545,8 +545,8 @@ Soyez attentif au fait que le code modifie les tableaux littéraux!
 Le compilateur essaie d'allouer l'espace nécessaire aux tableaux littéraux.
 à moins que vous ne copiez le tableau, la seconde fois que vous évaluez
 le code, votre tableau ``littéral'' pourrait ne pas avoir la valeur que vous
-attendez.
-(sans clonage, la seconde fois, le tableau littéral \ct{#(1 2 3 4 5 6)} sera en fait \ct{#(1 2 33 4 5 6)}!)
+attendez
+(sans clonage, la seconde fois, le tableau littéral \ct{#(1 2 3 4 5 6)} sera en fait \ct{#(1 2 33 4 5 6)}).
 Les tableaux dynamiques n'ont pas ce problème.
 
 %---------------------------------------------------------
@@ -583,7 +583,7 @@ un tableau \ct{Array} (ou n'importe quelle autre collection) en envoyant le mess
 \begin{code}{@TEST}
 #(1 2 3) asOrderedCollection --> an OrderedCollection(1 2 3)
 'hello' asOrderedCollection --> an OrderedCollection($h $e $l $l $o)
-\end{code}
+\end{code}%$
 
 %\paragraph{A word about automatic growth.}
 %Note that while \ct{OrderedCollection} grows automatically when you add new elements it can be better to create an \ct{OrderedCollection} with a good approximation of the numbers of elements it will contain. The following code creates an ordered collection whose size is equal to the number of classes in \pharo and adds all the classes to it.
@@ -611,8 +611,7 @@ Interval from: 1 to: 100 --> (1 to: 100)
 \end{code}
 
 \noindent
-L'imprimé ou l'affichage en mode \mthind{Interval class}{printString} de
-cet intervalle nous révèle que la classe nombre \ct{Number} (représentant les nombres) dispose d'une méthode de convenance appelée \mthind{Number}{to:} (dans le sens de l'expression ``jusqu'à'') pour générer les intervalles:
+\arelire{La représentation textuelle (affiché grâce à la méthode \mthind{Interval class}{printString}) de cet intervalle} nous révèle que la classe nombre \ct{Number} (représentant les nombres) dispose d'une méthode de convenance appelée \mthind{Number}{to:} (dans le sens de l'expression ``jusqu'à'') pour générer les intervalles:
 
 \begin{code}{}
 (Interval from: 1 to: 100) = (1 to: 100) --> true
@@ -761,7 +760,7 @@ Le receveur est d'abord converti en un \ct{Set}, ainsi ces opérations fonctionn
 (1 to: 6) union: (4 to: 10)  --> a Set(1 2 3 4 5 6 7 8 9 10)
 'hello' intersection: 'there' --> 'he'
 #Smalltalk includes: $k     --> true
-\end{code}
+\end{code}%$
 
 Comme nous l'avons expliqué plus haut les éléments de \ct{Set} sont
 accessibles en utilisant des \emph{méthodes d'itérations (itérateurs)} (voir \secref{iterators}).
@@ -800,7 +799,7 @@ Cet exemple répond à la FAQ suivante:
 
 \begin{code}{@TEST}
 'hello' asSortedCollection --> a SortedCollection($e $h $l $l $o)
-\end{code}
+\end{code}%$
 
 Comment retrouver une chaîne de caractères \ct{String} depuis ce résultat?
 Malheureusement \ct{asString} retourne une représentation descriptive en \ct{printString}; ce n'est bien sûr pas ce que nous voulons :
@@ -862,7 +861,7 @@ mais les méthodes habituelles de création de collection fonctionnent aussi.
 String with: $A                               --> 'A'
 String with: $h with: $i with: $BANG       --> 'hiBANG'
 String newFrom: #($h $e $l $l $o) --> 'hello'
-\end{code}
+\end{code}%$
 
 En fait, \ct{String} est abstrait.
 Lorsque vous instanciez un \ct{String}, vous obtenez en réalité soit
@@ -1057,7 +1056,9 @@ contenues dans le receveur vers le Transcript.
 telles que \mbox{\mthind{Collection}{do:without:},} 
 \mbox{\mthind{SequenceableCollection}{doWithIndex:}} 
 et \mthind{OrderedCollection}{reverseDo:};
-pour les collections indexées (\ct{Array}, \ct{OrderedCollection}, \ct{SortedCollection}), la méthode \mthind{SequenceableCollection}{doWithIndex:} 
+pour les collections indexées (\mbox{\ct{Array},} 
+\mbox{\ct{OrderedCollection},} \mbox{\ct{SortedCollection}),}
+la méthode \mthind{SequenceableCollection}{doWithIndex:} 
 vous donne accès aussi à l'indice courant.
 Cette méthode est reliée à \ct{to:do:} qui est définie dans la classe
 \ct{Number}.
@@ -1325,7 +1326,7 @@ Alors nous redéfinissons non seulement
 \ct{=} mais aussi \ct{hash} comme suit:
 \index{dictionnaire!surcharger \ct{=} et \ct{hash}}
 
-\begin{method}{Redéfinir \ct{=} et \ct{hash}.}
+\begin{method}{Redéfinir \ct{=} et \ct{hash}}
 Book>>>= aBook
    self class = aBook class ifFalse: [^ false].
    ^ title = aBook title and: [ authors = aBook authors]

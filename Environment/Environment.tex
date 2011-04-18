@@ -275,7 +275,7 @@ la classe. En fait, l'existence de celle-ci vous permet de vous
 référer à toutes les classes existantes en utilisant leur nom.
 \index{classe!création}
 \seeindex{classe!création}{Browser, définir une classe}
-\index{Browser}{définir une classe} % CHANGE
+\index{Browser!définir une classe}
 \seeindex{navigateur de classes!définition d'une classe}{Browser, définir une classe}
 
 Voyez-vous pourquoi le nom d'une nouvelle classe doit apparaître
@@ -292,7 +292,7 @@ vous pouvez remplir et éditer, comme indiqué par
 \figref{SystemBrowserMethodTemplate}.
 \index{méthode!création}
 \seeindex{méthode!création}{Browser, définir une méthode}
-\seeindex{Browser}{définir une méthode} % CHANGE
+\index{Browser!définir une méthode}
 \seeindex{navigateur de classes!définition d'une méthode}{Browser, définir une méthode}
 
 \begin{figure}[htbp]
@@ -1226,10 +1226,11 @@ de
 % and the following word, and that space happens to come out at the start of a line.
 qui a été créée en évaluant l'expression 
 \ct{TimeStamp now}.
-La barre de titre de la fenêtre affiche  \arevoir{la représentation imprimée} de l'objet
+La barre de titre de la fenêtre affiche  \arelire{la représentation textuelle} de l'objet
 en cours d'inspection.
 Si vous sélectionnez la ligne la plus haute dans le panneau supérieur de gauche,
-le panneau de droite affichera la description de l'objet en chaîne de caractères ou \emph{printString} de l'objet.
+le panneau de droite affichera \arelire{la description textuelle de l'objet,
+dite aussi \emph{printString} de l'objet.}
 % Si vous sélectionnez \menu{all inst vars} dans le panneau de gauche,
 % celui de droite vous présentera une liste de 
 % toutes les variables d'instance de l'objet accompagnées de leur
@@ -1259,7 +1260,7 @@ self - TimeStamp today
 dans ce panneau-espace de travail, le résultat sera un objet 
 \clsind{Duration} qui représente l'intervalle temporel entre 
 %midnight today and the instant at which you evaluated  \ct{TimeStamp now} and created the \ct{TimeStamp} object that you are inspecting.
-la date d'aujourd'hui (en anglais, today, le nom du message envoyé) à
+la date d'aujourd'hui (en anglais, \ct{today}, le nom du message envoyé) à
 minuit et le moment où vous avez évalué \ct{TimeStamp now}
 et ainsi créé l'objet \ct{TimeStamp} que vous inspectez.
 Vous pouvez aussi essayer d'evaluer \ct{TimeStamp now - self}; 
@@ -1283,17 +1284,17 @@ sera augmentée d'un jour.
 
 Il y a des variantes spécifiques de l'inspecteur pour les dictionnaires (sous-classes 
 de Dictionaries), pour les collections ordonnées (sous-classes de OrderedCollections), 
-pour les CompiledMethods (objet des méthodes compilées) et pour quelques autres classes 
+pour les CompiledMethods (objets des méthodes compilées) et pour quelques autres classes 
 facilitant ainsi l'examen du contenu de ces objets spéciaux.
 
 %---------------------------------------------------------
 \subsection{Object Explorer}
 
-L'\emph{Object Explorer} ou \ind{explorateur} d'objets est sur le plan
+\arevoir{L'\emph{Object Explorer} ou \ind{explorateur} d'objets est sur le plan
 conceptuel semblable à l'inspecteur mais présente ses informations
 de manière différente.
 Pour voir la différence, nous allons \emph{explorer} le même objet
-que nous venons juste d'inspecter.
+que nous venons juste d'inspecter.} % martial: OBSOLETE ou pas
 
 \begin{figure}[tbp]
 \begin{minipage}{0.48\textwidth}
@@ -1318,8 +1319,11 @@ que nous venons juste d'inspecter.
 \end{figure}
 
 % rene : pourquoi ne pas remplacer self par "la plus haute ligne" ?
-\dothis{Sélectionnez \arevoir{\menu{self}} dans le panneau gauche de notre
-inspecteur et choisissez \menu{explore (I)} dans le menu contextuel
+% martial : bonne idée mais ce n'est plus (explore (I) mais Explore Pointers (e)) 
+\dothis{Sélectionnez %\arevoir{\menu{self}} dans le panneau gauche de notre
+la plus haut ligne dans le panneau gauche de notre
+inspecteur et choisissez % \menu{explore (I)} dans le menu contextuel
+\menu{Explore Pointers (e)} dans le menu contextuel
 obtenu en \actclickant.}
 La fenêtre \ind{Explorer} apparaît alors comme sur
  \figref{exploreTimeStampNow}.

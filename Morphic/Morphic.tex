@@ -7,9 +7,9 @@
 %% Maintainer: Martial Boniou
 %% Created: 2007-11-09 08:07:45 +0100 (Fri, 09 Nov 2007)
 %% Version: 13642
-%% Last-Updated: Thu Apr 14 15:00:50 2011 (+0200)
+%% Last-Updated: Mon Apr 18 22:18:18 2011 (+0200)
 %%           By: Martial Boniou
-%%     Update #: 851
+%%     Update #: 859
 %% URL:
 %% https://www.iam.unibe.ch/scg/svn_repos/SqueakByExample/FrenchBook/Morphic/Morphic.tex
 %% Review: Rene Mages - Fri Dec 21 22:18:36 2007 (3600 CET)
@@ -662,7 +662,7 @@ position, autrement dit, en s'animant eux-mêmes.
 Quand un bouton de la souris est pressé, Morphic envoie à chaque
 morph sous le pointeur de la souris le message
 \ct{handlesMouseDown:}. Si un morph répond \ct{true}, Morphic lui
-envoie immédiatemment le message \mthind{Morph}{mouseDown:}. Lorsque
+envoie immédiatemment le message \mbox{\mthind{Morph}{mouseDown:}.} Lorsque
 le bouton de la souris est relâché, Morphic envoie
 \mthind{Morph}{mouseUp:}  à ces mêmes morphs qui avaient répondu
 positivement. Si tous les morphs retournent \ct{false}, Morphic entame
@@ -687,7 +687,7 @@ CrossMorph>>>handlesMouseDown: anEvent
 Supposons que vous vouliez que la couleur de la croix passe au rouge
 (\ct{Color red})
 à chaque fois que vous \clickz et qu'elle passe au jaune
-(\ct{Color yellow})
+\mbox{(\ct{Color yellow})}
 lorsque vous \actclickz sur celle-ci. 
 Nous devons créer la \mthref{mouseDown}.
 
@@ -722,7 +722,7 @@ L'argument \ct{anEvent} de \ct{mouseDown:} est une instance de
 \ct{MouseEvent} définit les méthodes
 \mthind{MouseEvent}{redButtonPressed} pour la gestion du \arelire{\clickbtn} 
 et \mthind{MouseEvent}{yellowButtonPressed} \arelire{pour celle du
-  \actclickbtn}.
+  \actclickbtn}. % REVOIR martial: encore des vestiges de Squeak
  Parcourez cette classe pour en savoir plus sur les autres méthodes disponibles pour la gestion
 des événements souris. 
 % ATTENDRE - martial - je n'aime pas trop l'abandon des conventions de couleurs de la souris dans le livre si le système les garde CONFUS! 
@@ -1039,6 +1039,7 @@ DroppedMorph>>>initialize
 Nous voulons que le morph déposé ait un nouveau comportement 
 lorsqu'il est rejeté par le receveur; cette fois-ci, il restera
 attaché au pointeur de la souris:
+\needlines{7}
 \begin{method}{Réagir lorsque le morph est rejeté lors du dépôt}
 DroppedMorph>>>rejectDropMorphEvent: anEvent
 	| h |
@@ -1141,7 +1142,7 @@ Nous définissons ensuite la méthode d'instance \ct{faces:} pour
 affecter la variable d'instance\,---\,il s'agit d'une méthode
 d'accès de type mutateur\,---\, en vérifiant que le paramètre est
 bien valide:
-\begin{method}{Affecter le nombre correspondant à la face visible de dé}
+\begin{method}{Affecter le nombre correspondant à la face visible du dé}
 DieMorph>>>faces: aNumber
 	"Affecter le !numéro! de la face"
 	(aNumber isInteger

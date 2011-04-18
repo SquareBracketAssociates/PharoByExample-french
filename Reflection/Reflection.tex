@@ -561,7 +561,7 @@ Le problème devient évident lorsque nous comprenons que (i) \ct{OrderedCollect
 Ce dont nous avons besoin est de pouvoir faire \emph{un point d'arrêt conditionnel} seulement lorsque nous sommes dans le contexte qui nous intéresse.
 C'est exactement ce qu'offre \clsmthind{Object}{haltIf:}.
 
-Supposons maintenant que nous voulons arrêter le programme seulement si le message \ct{add} est envoyé dans le contexte de \ct{OrderedCollectionTest>>>testAdd}.
+Supposons que nous voulons arrêter le programme seulement si le message \ct{add} est envoyé dans le contexte de \ct{OrderedCollectionTest>>>testAdd}.
 
 \dothis{Ouvrir une nouvelle image de nouveau et mettre le point d'arrêt ci-dessous :}
 \begin{code}{}
@@ -619,7 +619,7 @@ Dans ce cas, nous introduisons un ``\ind{objet minimal}''
 %``\ind{minimal object}''
 agissant comme un \emph{proxy} pour un objet existant.
 Puisque le \emph{proxy} n'implémentera virtuellement aucune méthode de lui-même, tout message qui lui sera envoyé sera capturé par la méthode
- \ct{doesNotUnderstand:}. En implémentant cette dernière, le \emph{proxy} peut alors prendre des mesures spéciales avant de déléguer le message à l'objet réél que cache ce \emph{proxy}.
+ \ct{doesNotUnderstand:}. En implémentant cette dernière, le \emph{proxy} peut alors prendre des mesures spéciales avant de déléguer le message à l'objet réel que cache ce \emph{proxy}.
 %By implementing this message, the proxy can then take special action before delegating the message to the real subject it is the proxy for.
 
 Jetons un \oe il sur une solution proposée pour programmer ceci~\footnote{Vous pouvez télécharger le paquetage \pkg{PBE-Reflection} sur \url{http://www.squeaksource.com/PharoByExample/}}.
@@ -691,23 +691,59 @@ Curieusement, la méthode \ct{class} n'est pas implémentée dans
 \ct{ProtoObject} mais dans \ct{Object} que notre \ct{LoggingProxy} n'hérite pas!
 La réponse à cette énigme est que \ct{class} n'est jamais envoyé comme message mais est directement géré par la machine virtuelle~\footnote{\ct{yourself} aussi n'est jamais vraiment envoyé.
 Les autres messages qui peuvent être interprétés par la machine virtuelle selon le receveur sont:
-\ct{+- < > <= >= = ~= * / \ ==}
-\ct{@ bitShift: // bitAnd: bitOr:}
-\ct{at: at:put: size}
-\ct{next nextPut: atEnd}
-\ct{blockCopy: value value: do: new new: x y}.
+\mbox{\ct{+},}
+\mbox{\ct{-},}
+\mbox{\ct{<},}
+\mbox{\ct{>},}
+\mbox{\ct{<=},}
+\mbox{\ct{>=},}
+\mbox{\ct{=},}
+\mbox{\ct{\~=},}
+\mbox{\ct{*},}
+\mbox{\ct{/},}
+\mbox{\lct{\textbackslash},}
+\mbox{\ct{==},}
+\mbox{\ct{@},}
+\mbox{\ct{bitShift:},}
+\mbox{\ct{//},}
+\mbox{\ct{bitAnd:},}
+\mbox{\ct{bitOr:},}
+\mbox{\ct{at:},}
+\mbox{\ct{at:put:},}
+\mbox{\ct{size},}
+\mbox{\ct{next},}
+\mbox{\ct{nextPut:},}
+\mbox{\ct{atEnd},}
+\mbox{\ct{blockCopy:},}
+\mbox{\ct{value},}
+\mbox{\ct{value:},}
+\mbox{\ct{do:},}
+\mbox{\ct{new},}
+\mbox{\ct{new:},}
+\arevoir{\mbox{\ct{x}} et \mbox{\ct{y}.}}
 Les sélecteurs ne sont jamais envoyés parce qu'ils sont codés directement par le compilateur et transformés en \emph{bytecodes} % REVOIR voir comment bien formuler ça
 %% Selectors that are never sent, because they are inlined by the compiler and transformed to comparison and jump \emph{bytecodes}:
-\ct{ifTrue: ifFalse: ifTrue:ifFalse: ifFalse:ifTrue:}
-\ct{and: or:}
-\ct{whileFalse: whileTrue: whileFalse whileTrue}
-\ct{to:do: to:by:do:}
-\ct{caseOf: caseOf:otherwise:}
-\ct{ifNil: ifNotNil:  ifNil:ifNotNil: ifNotNil:ifNil:}
+\mbox{\ct{ifTrue:},}
+\mbox{\ct{ifFalse:},}
+\mbox{\ct{ifTrue:ifFalse:},}
+\mbox{\ct{ifFalse:ifTrue:},}
+\mbox{\ct{and:},}
+\mbox{\ct{or:},}
+\mbox{\ct{whileFalse:},}
+\mbox{\ct{whileTrue:},}
+\mbox{\ct{whileFalse},}
+\mbox{\ct{whileTrue,}}
+\mbox{\ct{to:do:},}
+\mbox{\ct{to:by:do:},}
+\mbox{\ct{caseOf:},}
+\mbox{\ct{caseOf:otherwise:},}
+\mbox{\ct{ifNil:},}
+\mbox{\ct{ifNotNil:},}
+\mbox{\ct{ifNil:ifNotNil:}} et
+\mbox{\ct{ifNotNil:ifNil:}}.
 \arelire{%
-Des tentatives pour envoyer ces messages à des objets non-booléens peuvent être interceptées et leur exécution peuvent être reprise avec un booléen valide en surchargeant la méthode \ct{mustBeBoolean} dans le receveur ou en capturant l'exception \ct{NonBooleanReceiver}.}
+Des tentatives pour envoyer ces messages à des objets non-booléens peuvent être interceptées et leur exécution peuvent être reprise avec un booléen valide en surchargeant la méthode \ct{mustBeBoolean} dans le receveur ou en capturant l'exception \ct{NonBooleanReceiver}.}}.
 %% Attempts to send these messages to non-boolean objects can be intercepted and execution can be resumed with a valid boolean value by overriding \ct{mustBeBoolean} in the receiver or by catching the \ct{NonBooleanReceiver} exception.
-}.
 %%  The answer to this riddle is that \ct{class} is never sent as a message but is directly answered by the virtual machine.\footnote{\ct{yourself} is also never truly sent.
 %% Other messages that may be directly interpreted by the VM, depending on the receiver, include:
 %% \ct{+- < > <= >= = ~= * / \ ==}
@@ -934,7 +970,7 @@ TestCoverage>>>uninstall
 		put: method
 \end{code}
 \noindent
-et la méthode \ct{run:with:in:} met à jour la variable \ct{hasRun}, désinstalle le \emph{wrapper} (puisque la couverture a été vérifiée) et \arevoir{refait un envoi du message avec la méthode originale}. % REVOIR martial: bizarre!
+La méthode \ct{run:with:in:} quant à elle met à jour la variable \ct{hasRun}, désinstalle le \emph{wrapper} (puisque la couverture a été vérifiée) et \arevoir{refait un envoi du message avec la méthode originale}. % REVOIR martial: bizarre!
 %% and resends the message to the original method
 \begin{code}{}
 run: aSelector with: anArray in: aReceiver

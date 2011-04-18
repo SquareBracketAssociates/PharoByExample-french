@@ -223,10 +223,10 @@ negative. --> true
 negative ifTrue: [stream next].       "ignore le !caractère! moins"
 number := stream upToEnd.
 number. --> '143'
-\end{code}
+\end{code}%$
 \noindent
 Ce code affecte la variable booléenne \ct{negative} en fonction du signe du nombre dans le \stream et \ct{number} est assigné à sa valeur absolue. 
-La méthode \mthind{ReadStream}{upToEnd} (qui en français se traduirait par ``jusqu'à la fin'') renvoie tout depuis la position courante jusqu'à
+La méthode \mbox{\mthind{ReadStream}{upToEnd}} (qui en français se traduirait par ``jusqu'à la fin'') renvoie tout depuis la position courante jusqu'à
 la fin du flux de données et positionne ce dernier à sa fin.
 Ce code peut être simplifié grâce à \mthind{PositionableStream}{peekFor:} qui déplace le pointeur si et seulement si l'élément est égal au paramètre passé en argument.
 
@@ -234,7 +234,7 @@ Ce code peut être simplifié grâce à \mthind{PositionableStream}{peekFor:} qu
 stream := '-143' readStream.
 (stream peekFor: $-) --> true
 stream upToEnd         --> '143'
-\end{code}
+\end{code}%$
 \noindent
 \ct{peekFor:} retourne aussi un booléen indiquant si le paramètre est égal à l'élément courant.
 
@@ -281,7 +281,7 @@ stream position.  --> 0
 stream skipTo: $e.                        "le flux est !après! e"
 stream next.        --> $f
 stream contents. --> 'abcdef'
-\end{code}
+\end{code}%$
 
 Comme vous pouvez le voir, la lettre \ct{e} a été sautée.
 
@@ -698,8 +698,8 @@ FileStream
 \end{code}
 
 Voici un autre exemple créant une image dans un fichier nommé
-``test.pgm''. Vous pouvez ouvrir ce fichier avec votre programme de
-dessin préféré.
+``test.pgm'' que vous pourrez ouvrir avec votre outil graphique
+préféré.
 
 % The following does not assert anything, but @TEST is used to ensure
 % that no error is thrown.

@@ -375,7 +375,7 @@ Il est indispensable que votre classe soit une sous-classe de \ct{TestCase}.
 \subsection{Étape 2: initialiser le contexte du test}
 
 La méthode \mthind{TestCase}{setUp} (en anglais, \emph{configurer}) définit le contexte dans lequel les tests vont s'exécuter, un peu comme la méthode \ct{initialize}. \ct{setUp} est invoquée avant l'exécution de chaque méthode de test définie dans la classe de test.
-\index{SUnit!set up method}
+\index{SUnit!méthode \ct{setUp}}
 \seeindex{test!SUnit}{SUnit}
 
 %martial: phrase a revoir
@@ -438,7 +438,7 @@ s'est déjà exécutée.
 % that the \ct{setUp} method has already run.
 
 %\begin{method}[testIncludes]{Testing set membership}
-\begin{method}[testIncludes]{Tester l'appartenance à un Set}
+\begin{method}[testIncludes]{Tester l'appartenance à un \ct{Set}}
 ExampleSetTest>>>testIncludes
 	self assert: (full includes: 5).
 	self assert: (full includes: 6)
@@ -1026,7 +1026,7 @@ La méthode \cmind{TestCase}{run} crée une instance de \clsind{TestResult} qui 
 % (See \figref{sunit-scenario}.)
 
 \needlines{6}
-\begin{method}[tastecaserun]{Exécuter un cas de test}
+\begin{method}[testcaserun]{Exécuter un cas de test}
 TestCase>>>run
 	| result |
 	result := TestResult new.
@@ -1040,7 +1040,7 @@ TestCase>>>run
 
 La méthode \cmind{TestCase}{run:} envoie le message \mthind{TestResult}{runCase:} au résultat de test de classe \clsind{TestResult}~:
 
-\begin{method}[testcaserun:]{Passage du cas de test au TestResult}
+\begin{method}[testcaserun:]{Passage du cas de test au \ct{TestResult}}
 TestCase>>>run: aResult
 	aResult runCase: self
 \end{method}
@@ -1099,6 +1099,7 @@ ressources sont disponibles avec \ct{areAllResourcesAvailable} puis envoie elle-
 message \mthind{TestSuite}{run:} qui exécute tous les tests de la suite. 
 Toutes les ressources sont alors libérées.
 
+\needlines{7}
 \begin{method}[testsuiterun]{Exécuter une suite de tests}
 TestSuite>>>run
 	| result |

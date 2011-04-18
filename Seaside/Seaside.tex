@@ -61,7 +61,7 @@ web aussi facilement que se fait l'écriture d'applications classiques.
 %once mastered, Seaside makes web applications almost as easy to write as desktop applications.
 
 Deux des applications basées sur Seaside les plus connues sont 
- \ind{SqueakSource}\footnote{\url{http://SqueakSource.com}} et \ind{Dabble DB}\footnote{\url{http://DabbleDB.com}}.
+ \ind{SqueakSource}\footnote{\url{http://SqueakSource.com}} et \arevoir{\ind{Dabble DB}}\footnote{\url{http://DabbleDB.com}}.
 Seaside n'est pas commun dans le sens qu'il est résolument orienté
 objet: il n'y a aucune structure de type \emph{template} XHTML, aucun
 flux de contrôle complexe par des pages web, ni même d'encodage de
@@ -255,8 +255,9 @@ Pharo ou directement, depuis l'interface web, en utilisant les halos.
 \end{center}
 \end{figure}
 
-\dothis{Sélectionnez \button{Toggle Halos}}. Vous devriez voir une 
-page web comme celle de \figref{counterHalos}.
+\dothis{Sélectionnez \button{Toggle Halos}.}
+
+Vous devriez voir une page web comme celle de \figref{counterHalos}.
 Dans le coin supérieur gauche, le texte \ct{WACounter} nous indique le
 nom de la classe du composant Seaside qui implémente le comportement
 de cette page. À droite de ce texte, il y a trois icônes
@@ -1663,6 +1664,7 @@ classe \ct{MyCalculator} et initialisez-les dans
 \ct{MyCalculator>>>initialize} (sans oublier d'envoyer 
  \lct{super initialize}).}
 
+\needlines{12}
 \dothis{%
 Passez l'instance partagée de la machine à pile à l'objet \ct{keypad}
 et à l'objet \ct{display} dans la même méthode
@@ -1687,7 +1689,7 @@ afficher la valeur du sommet de la pile.
 Utilisez une table HTML avec la classe ``keypad'' contenant une ligne
 avec une seule cellule de classe ``stackcell''
 % ajout - vf - martial - plus clair comme ça:
-dans \ct{MyDisplay>>>renderContentOn:}.
+dans \mbox{\ct{MyDisplay>>>renderContentOn:}.}
 Changez maintenant la méthode de rendu de \ct{keypad} pour que le
 nombre \ct{0} soit mis sur la pile dans le cas où celle-ci est vide
 %Change the rendering method of the keypad to ensure that the number 0 is pushed on the stack in case it is empty.
@@ -1800,8 +1802,8 @@ mis à jour
 valeur sortie de la pile, sinon ça ne marchera pas!).
 
 
-\dothis{Now we must implement \ct{MyKeypad>>>stackOp:}
-Something like this will do the trick:}
+\dothis{Nous devons implémenter désormais \mbox{\ct{MyKeypad>>>stackOp:}}.
+Le code suivant peut faire l'affaire:}
 
 \begin{code}{}
 MyKeypad>>>stackOp: op

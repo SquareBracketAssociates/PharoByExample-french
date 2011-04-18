@@ -98,7 +98,7 @@ Si nous naviguons dans les catégories des méthodes d'instance de \ct{Object}, 
 %-----------------------------------------------------------------
 %titre de sous-section = mot-cle sans article
 \subsection{Impression}
-Tout objet en \st peut renvoyer une forme imprimée de lui-même. Vous pouvez sélectionner 
+Tout objet en \st peut renvoyer une représentation textuelle de lui-même. Vous pouvez sélectionner 
 n'importe quelle expression dans un Workspace et sélectionner le menu \menu{print it}: 
 ceci exécute l'expression et demande à l'objet renvoyé de s'imprimer. En réalité le 
 message \ct{printString} est envoyé à l'objet retourné. La méthode \mthind{Object}{printString}, 
@@ -163,7 +163,7 @@ sympathique d'être eux-mêmes leur propre valeur. Par exemple, la
 valeur de l'objet \ct{true} est lui-même, \ie l'objet
 \ct{true}. Nous appelons de tels objets des \emph{objets}
 \emphsubind{objet}{auto-évalué}{}\emph{s}. 
-Vous pouvez voir une version  \emph{imprimée} de la valeur d'un objet 
+Vous pouvez voir une représentation textuelle de la valeur d'un objet 
 quand vous imprimez l'objet dans un \ct{Workspace}. Voici quelques exemples 
 de telles expressions auto-évaluées. 
 
@@ -985,7 +985,7 @@ et \mthind{String}{translateToLowercase}
 %ajout
 (pour mettre en minuscule).
 %martial: peut-etre a redefinir \ind{shortcut constructor methods}
-\seeindex{shortcut constructor method}{constructeur-raccourci}
+% \seeindex{shortcut constructor method}{constructeur-raccourci}
 
 Pour plus d'informations sur les chaînes de caractères et les
 collections, rendez-vous au chapitre \ref{cha:collections}.
@@ -1019,7 +1019,7 @@ comme arguments.
 La méthode est abstraite dans \ct{Boolean}.
 Les implémentations dans les sous-classes concrètes sont toutes les deux triviales:
 
-\begin{method}{Implémentations de \ct{ifTrue:ifFalse:}} % REVOIR
+\begin{method}{Implémentations de \ct{ifTrue:ifFalse:}}
 True>>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock 
     ^ trueAlternativeBlock value
 
