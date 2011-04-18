@@ -7,6 +7,7 @@
 % adaptation pour PBE: martial Tue Sep  8 19:56:33 CEST 2009 
 % relecture : Rene Mages (12 jan 2010) de la version #30229
 % relecture : Rene Mages ( 9 aug 2010) de la version #34381
+% relecture : Rene Mages ( 15 apr 2011) 
 % - oscar - 28661 - $Date: 2009-08-28 11:31:14 +0200 (Fri, 28 Aug
 % 2009) $
 % sync avec la revision: 33691
@@ -954,8 +955,7 @@ de caractères à apparier.
 
 Des techniques d'appariements plus avancées par filtre 
 offrant les mêmes possibilités que Perl sont disponibles dans le
-paquetage \arevoir{\pkgind{Regex}.} % CHANGE
-% Rene propose :  s / Regex / VB-Regex / 
+paquetage \pkgind{Regex}. % CHANGE
 \index{paquetage!expressions régulières}
 \seeindex{regular expression package}{paquetage, expressions régulières}
 
@@ -1359,15 +1359,13 @@ grâce à une syntaxe spéciale: \ct{#( ... )}.  Les tableaux dynamiques
 sont créés avec la syntaxe \ct|{ ... }|.
   \item Un dictionnaire \ct{Dictionary} compare ses clés par égalité.
 C'est plus utile lorsque les clés sont des instances de \ct{String}. 
-Un \ct{IdentityDictionary} utilise l'identité entre objets pour comparer les clés. Il est souhaitable que des \ct{Symbol}s soient utilisés comme clés \arevoir{ou que la correspondance soit établie entre les références d'objets et les valeurs.}
+Un \ct{IdentityDictionary} utilise l'identité entre objets pour comparer les clés. Il est plus approprié que des \ct{Symbol}s soient utilisés comme clés \arevoir{ou bien que la correspondance soit établie entre les références d'objets et les valeurs.}
 % cette phrase ci-dessus est a revoir: 
 % It is more suitable when Symbols are used as keys, or when mapping object references to values.
-
   \item Les chaînes de caractères de classe \ct{String} comprennent
 aussi les messages habituels de la collection. En plus, un \ct{String} 
 supporte une forme simple d'appariement de formes ou \emph{pattern-matching}. 
 Pour des applications plus avancées, vous aurez besoin du paquetage d'expressions régulières \arevoir{Regex}.
-% Rene propose : s / Regex / VB-Regex /
   \item Le message de base pour l'itération est \ct{do:}. Il est 
 utile pour du code impératif tel que la modification de chaque élément d'une collection ou l'envoi d'un message sur chaque élément.
   \item Au lieu d'utiliser \ct{do:}, il est d'usage d'employer \ct{collect:}, \ct{select:}, \ct{reject:}, \ct{includes:}, \ct{inject:into:} et d'autres messages de haut niveau pour un traitement uniforme des collections.

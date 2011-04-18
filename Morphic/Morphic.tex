@@ -17,6 +17,7 @@
 %% Adaptation pour PharoBook: Martial Boniou - Tue Nov 17 11:45:22 2009
 %% Relecture pour PharoBook: Rene Mages - Mon Jan 18 11:45:22 2010
 %% Relecture pour PharoBook: Rene Mages - Mon Aug  9 11:45:22 2010
+%% Relecture pour PharoBook: Rene Mages - Sat Apr 16 11:45:22 2011
 %% Sync avec la version: 33691
 %% Keywords:
 %% Compatibility: 
@@ -201,7 +202,7 @@ Vous pouvez manipuler cet objet graphique en \metaclickant{}.
 
 \subsection{Personnaliser sa représentation}
 
-Revenons maintenant au code qui a créé ce morph.% 
+Revenons maintenant au code qui a créé ce morph. 
 % martial - 'orange' remplace 'tan' dans la VO de PBE/SBE
 Tout repose sur la méthode qui fabrique un morph à partir d'une
 chaîne de caractères:
@@ -386,7 +387,7 @@ lui-même sur ce canevas dans ses limites. %
 Utilisons cette connaissance pour créer un morph en forme de croix.
 \index{morph!sous-classer}
 
-\dothis{Définissez \arelire{via le Browser } une nouvelle
+\dothis{Définissez via le Browser une nouvelle
   classe \clsind{CrossMorph} héritée de \ct{Morph}:}
 \begin{classdef}{Définir la classe \ct{CrossMorph}}
 Morph subclass: #CrossMorph
@@ -440,10 +441,8 @@ surface de la croix sensible à la souris.
 %However, you will notice that the sensitive zone\,---\,where you can click to grab the morph\,---\,is still the whole bounding box.  Let's fix this.
 
 Lorsque la librairie Morphic a besoin de trouver quels morphs se
-% Rene propose le framework Morphic 
 trouvent sous le curseur, elle envoie le message \ct{containsPoint:}
- à tous les morphs qui ont leur boîte englobante sous le
-pointeur de la souris. 
+ à tous les morphs qui ont leur boîte englobante sous le pointeur de la souris. 
 %ajout
 Cette méthode répond vrai lorsque le point-argument est contenu dans la
 forme définie.
@@ -668,8 +667,7 @@ le bouton de la souris est relâché, Morphic envoie
 \mthind{Morph}{mouseUp:}  à ces mêmes morphs qui avaient répondu
 positivement. Si tous les morphs retournent \ct{false}, Morphic entame
 une opération de
-%saisissement dans la version d'Hilaire (c'est en fait une emotion
-%vive et soudaine
+%saisissement dans la version d'Hilaire (c'est en fait une emotion vive et soudaine)
 saisie en prévision du glisser-déposer.
 Comme nous allons le voir, les messages \ct{mouseDown:} et \ct{mouseUp}
 sont envoyés avec un argument\,---\,un objet de classe
@@ -715,11 +713,10 @@ de façon assez rapide.
 \ab{However, the \ct{self changed} message seems to be entirely unnecessary; the colour changes instantly without it.}
 
 Notez aussi qu'une fois qu'un morph gère les événements \subind{événement}{souris}, vous ne pouvez plus l'attraper avec la souris pour le déplacer.
-Dès lors, vous devez utiliser le halo Morphic en \arelire{\metaclickant}: les poignées \arelire{supérieures noire \grabHandle{} et marron \moveHandle{}}
-vous permettent respectivement de prendre et déplacer ce morph.
+Dès lors, vous devez utiliser le halo Morphic en \metaclickant: les poignées supérieures noire \grabHandle{} et marron \moveHandle{} vous permettent respectivement de prendre et déplacer ce morph.
 \seeindex{souris!événement}{événement, souris}
 
-\arevoir{L'argument \ct{anEvent} de \ct{mouseDown:} est une instance de
+L'argument \ct{anEvent} de \ct{mouseDown:} est une instance de
 \mbox{\clsind{MouseEvent},} sous-classe de \ct{MorphicEvent}.
 %\lct{Mor\-phic\-Event}{.} 
 \ct{MouseEvent} définit les méthodes
@@ -727,7 +724,8 @@ vous permettent respectivement de prendre et déplacer ce morph.
 et \mthind{MouseEvent}{yellowButtonPressed} \arelire{pour celle du
   \actclickbtn}.
  Parcourez cette classe pour en savoir plus sur les autres méthodes disponibles pour la gestion
-des événements souris.} % ATTENDRE - martial - je n'aime pas trop l'abandon des conventions de couleurs de la souris dans le livre si le système les garde CONFUS! 
+des événements souris. 
+% ATTENDRE - martial - je n'aime pas trop l'abandon des conventions de couleurs de la souris dans le livre si le système les garde CONFUS! 
 %The anEvent argument of mouseDown: is an instance of MouseEvent, which
 %is a subclass of MorphicEvent. MouseEvent defines the redButtonPressed and
 %yellowButtonPressed methods. Browse this class to see what other methods
@@ -860,7 +858,7 @@ CrossMorph>>>step
 Pour démarrer l'animation, vous pouvez ouvrir un inspecteur sur
 votre objet \ct{CrossMorph}: cliquez sur la poignée de débogage 
 \debugHandle{} du halo Morphic de votre croix 
-\arelire{(en \metaclickant{})} puis choisissez \menu{inspect morph} dans le
+(en \metaclickant{}) puis choisissez \menu{inspect morph} dans le
 menu flottant. Entrez l'expression \ct{self startStepping} dans le
 mini-espace de travail situé dans le bas de l'inspecteur et faites
 un \menu{do it}.
@@ -918,8 +916,8 @@ UIManager default request: 'Quel est votre nom?' initialAnswer: 'sans nom'
 \end{figure}
 
 Pour afficher le menu flottant (en anglais, \emph{pop-up menu}), 
-\arelire{utilisez une des méthodes \ct{chooseFrom:} (voir
-  \figref{popup}):}
+utilisez une des méthodes \ct{chooseFrom:} (voir
+  \figref{popup}):
 \begin{code}{}
 UIManager default
 	chooseFrom: #('cercle' 'ovale' '!\normcode{carré}!' 'rectangle' 'triangle')
@@ -1396,7 +1394,7 @@ Vous pouvez:
   \item convertir un objet en \emph{morph} et l'afficher
     sur l'écran de \pharo, le \emph{world}, en lui envoyant le message
     \ct{asMorph openInWorld};
-  \item faire apparaître le halo Morphic en \arelire{\metaclickant}
+  \item faire apparaître le halo Morphic en \metaclickant
   sur un morph et manipuler ce morph
     grâce aux poignées du halo. Ces poignées ont des ballons
     d'aide (ou \emph{help balloons}) qui détaillent leur action;

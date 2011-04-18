@@ -16,6 +16,7 @@
 % 2010-01-08 - Rene Mages started the first rereading
 % 2010-06-22 - Martial update
 % 2010-08-10 - Rene Mages finished the second rereading
+% 2011-04-17 - Rene mages finished the third rereading
 % sync avec la version: 33691
 %
 %=================================================================
@@ -114,7 +115,7 @@ En tant que développeur, vous aurez le choix de permettre le
 \backtracking (\ie le chaînage arrière) de l'état ou non, ainsi la
 navigation en \backbtn{} annulera les effets de bord.
 % backtracking of state, so that navigation ``back'' in time will undo side-effects.
-Vous pouvez autrement utiliser le \arelire{support de transaction}
+Vous pouvez autrement utiliser le "support de transaction"
 % Rene n'a pas trouvé de meilleure traduction que "support de transaction"
 inclus dans Seaside pour empêcher les utilisateurs d'annuler les
 effets de bord permanents lorsqu'ils utilisent le bouton \backbtn.
@@ -135,7 +136,7 @@ Seaside supporte les feuilles de style en cascade
 
 Finalement, Seaside offre une interface web pratique pour le
 développement en facilitant la programmation itérative, le débogage
-interactif et la recompilation et l'extension des applications alors
+interactif et la recompilation ainsi quel'extension des applications alors
 que le serveur reste en activité.
 
 %=================================================================
@@ -236,7 +237,7 @@ Internet car il utilise le service de validation W3C.
 
 
 Les applications Seaside sont construites à l'aide de
-\arevoir{``composants'' interconnectables}.
+``composants'' interconnectables (ou en anglais : pluggable ``components'').
 % pluggable ``components''.
 Ces composants sont en réalité des objets Smalltalk ordinaires.
 Leur seule particularité est qu'ils doivent être des instances de
@@ -300,9 +301,8 @@ pour ouvrir un inspecteur d'objets sur l'objet-compteur
  Smalltalk et évaluez \ct{self halt} (en cliquant sur 
 \button{doit}). % REVOIR
 La page web s'arrêtera de charger. Allez maintenant dans votre image
-Seaside. Vous devriez voir une fenêtre \arevoir{de pré-débogueur} % ATTENDRE changement dans le debugger de Pharo?
-affichant un objet \ct{WACounter} exécutant un \ct{halt} (voir
-\figref{haltingCounter}).
+Seaside. Vous devriez voir une fenêtre de pré-déboguage % ATTENDRE changement dans le debugger de Pharo?
+affichant un objet \ct{WACounter} exécutant un \ct{halt} (voir \figref{haltingCounter}).
 Examinez cette exécution dans le débogueur
 % ajout vf - rappel
 en cliquant sur la première ligne de la pile,
@@ -538,7 +538,8 @@ en tant que clés et des \arelire{copies superficielles
   capture particulière de l'état, l'état de chaque objet entré dans ce
 dictionnaire est écrasé par la copie sauvegardée dans l'image du système.}
 %If the state of an application is backtracked to a particular snapshot, the state of each object entered into the snapshot dictionary is overwritten by the copy saved in the snapshot.
-% rene propose de traduire snapshot par image du système
+% rene : propose de traduire snapshot par image du système
+% rene : cette traduction me semble en conformité avec la VO ( relecture avril 2011 )
 \tradalert{martial}{revoir ce paragraphe.}
 
 
@@ -607,7 +608,7 @@ De plus, c'est un composant \emph{composite}. Seaside a besoin d'une
 déclaration de ses composants enfants faite via la méthode
 \ct{children} qui retourne un tableau de tous les composants que
 l'application contient.
-Le rendu de ce composant se fait en faisant le rendu de ces
+Le rendu de ce composant s'effectue en faisant le rendu de ces
 sous-composants séparés par une barre horizontale.
 En dehors des méthodes d'instance et de classe destinées à
 l'initialisation, il n'y a rien d'autre pour faire l'application
@@ -640,9 +641,8 @@ Par convention, le paramètre de canevas HTML est appelé
  \ct{html}.
 Un canevas HTML est analogue au canevas graphique utilisé par Morphic
 (et la plupart des autres bibliothèques graphiques) pour
-\arevoir{abstraire le graphisme des détails dépendants des
-  périphériques}.
-% Rene propose : s / abstraire / séparer /
+\arevoir{abstraire le graphisme des détails dépendants des périphériques}.
+% Rene propose : s / abstraire / séparer ou soustraire /
 % An html canvas is analogous to the graphics canvas used by Morphic (and most other drawing frameworks) to abstract away from the device-dependent details of drawing.
  
 Voici quelques-unes des méthodes de rendu les plus simples:
@@ -694,9 +694,8 @@ de \brushes simples inclus dans Seaside\footnote{Le code source de
   \mthref{renderdemo} se trouve dans le paquetage \ct{PBE-SeasideDemo}
   dans le projet
   \url{http://www.squeaksource.com/PharoByExample}.
-  \frsays{\arevoir{NdT: Les textes
-  ont été traduits dans le présent ouvrage. Attendez-vous à ce que la
-  version du code d'exemple que vous téléchargerez soit en anglais.}}{}}.
+  \frsays{NdT: Les textes ont été traduits dans le présent ouvrage. Attendez-vous à ce que la
+  version du code d'exemple que vous téléchargerez soit en anglais.}}.
 % REVOIR une version francaise du repository de code à prévoir!?!
 Le composant racine \ct{SeasideDemo} fait simplement le rendu
 de ses sous-composants qui sont instances de
@@ -741,7 +740,9 @@ Le sous-composant est rendu sous la forme de \emph{div} XHTML avec
 ``subcomponent'' comme nom de classe \ind{CSS} (pour en savoir plus
 sur les feuilles de style CSS, rendez-vous à \secref{css}).
 Notez aussi que l'argument du message à mots-clés \ct{with:} n'a pas
-besoin d'être une chaîne de caractères litéral: ce peut être un autre
+besoin d'être une chaîne de caractères littéraux: ce peut être un autre
+% rene : pluriel de littéral (voir article de Serge dans Unixgarden 
+% http://www.unixgarden.com/index.php/programmation/la-syntaxe-du-langage-smalltalk
 composant ou même\,---\,comme dans l'exemple suivant\,---\,un
 bloc contenant des actions différées de rendu.
 %block containing further rendering actions.
@@ -872,9 +873,8 @@ de texte à la variable \ct{heading}.
 Les ancres (\ie{} les liens) et les boutons prennent en charge, eux
 aussi, ce message.
 Le premier argument est le nom d'une variable d'instance pour laquelle
-des méthodes d'accès
-ont été définies; le second argument est l'objet auquel appartient
-cette variable d'instance.
+des méthodes d'accès ont été définies; le second argument est l'objet auquel 
+appartient cette variable d'instance.
 Les messages accesseur et mutateur avec la convention de noms usuelle
 (\ie{} \ct{heading} et \ct{heading:} respectivement) 
 doivent être compris par l'objet.
@@ -884,9 +884,9 @@ Dans le cas présent d'une zone de saisie de texte,
   contenu par défaut de l'entrée à la valeur actuelle de la variable
   d'instance.}
 %this saves us the trouble of having to define a callback that updates the field as well as having to bind the default contents of the html input field to the current value of the instance variable.
-En utilisant \ct{on: #heading of: self}, la variable \ct{heading} est
-mise à jour automatiquement à chaque fois que l'utilisateur change le
-texte de la zone de saisie.
+% rene : rien à redire à cette traduction ( je laisse la balise arelire pour une dernière relecture )
+En utilisant \ct{on: #heading of: self}, la variable \ct{heading} est mise à jour 
+automatiquement à chaque fois que l'utilisateur change le texte de la zone de saisie.
 %variable is updated automatically whenever the user updates the text input field.
 
 Le même message est utilisé deux fois encore dans cet exemple pour
@@ -895,8 +895,8 @@ couleur dans le formulaire HTML et pour attacher l'état de la case à
 cocher (ou \emph{checkbox}) à la variable \ct{checked}.
 Vous pouvez trouver beaucoup d'autres exemples dans les tests
 fonctionnels de Seaside.
-Jetez un coup d'\oe{}il à la \arelire{catégorie
-  \scat{Seaside-Tests-Functional}} % REVOIR - martial - ne devrait-on
+Jetez un coup d'\oe{}il à la catégorie \scat{Seaside-Tests-Functional} 
+                                % REVOIR - martial - ne devrait-on
                                 % pas parler de paquetage/catégorie et
                                 % non catégorie seule depuis Pharo
                                 % (besoin d'une image One-Click
@@ -1075,7 +1075,7 @@ L'appelant est généralement \ct{self} mais ce peut être un autre
 composant visible;
 \seeindex{Seaside!tâche}{Seaside, \task}
   \item une modélisation des tâches (ou \emph{workflow}) peut être définie
-    sous forme de \subind{Seaside}{\task}{\emph{s}}~\footnote{En
+    sous forme de \subind{Seaside}{\task}{}{\emph{s}}~\footnote{En
       français, \emph{tâche}.}.
 % rene : \emph{s} provoque une erreur (voir le pdf en page 278)
     C'est un type particulier de composant, sous-classe de
@@ -1379,7 +1379,7 @@ présente la modélisation des tâches suivante:
 \end{enumerate}
 
 Si vous activez les \subind{Seaside}{halos}, vous verrez que le
-composant racine de l'application ``Sushi Store'' est un instance de
+composant racine de l'application ``Sushi Store'' est une instance de
 \clsind{WAStore}.
 Ce composant ne fait rien d'autre que le rendu d'une barre de titre et
 de l'objet \ct{task}; ce dernier est une variable d'instance de
@@ -1511,11 +1511,11 @@ sur \figref{stackMachine}.
 \end{center}
 \end{figure}
 
-Nous commençons par implémenter la machine à piles et ses tests.
+Nous commençons par implémenter la machine à pile et ses tests.
 
 \dothis{Définissez une nouvelle classe \ct{MyStackMachine} 
 % ajout - vf
-\arelire{dans une nouvelle catégorie de votre choix et} % rappel
+dans une nouvelle catégorie de votre choix et % rappel
 avec une variable d'instance \ct{contents} initialisée comme une
 nouvelle collection ordonnée, instance de \ct{OrderedCollection}.}
 
@@ -1609,8 +1609,8 @@ quatre classes suivantes;
 C'est une sous-classe de \lct{MyDisplay}.
 \end{itemize}
 
-\dothis{Définissez la classe \ct{MyRPNWidget} \arevoir{dans la catégorie
-    \ct{MyCalculator}}. % REVOIR - martial - je pense qu'il faudrait
+\dothis{Définissez la classe \ct{MyRPNWidget} dans la catégorie
+    \ct{MyCalculator}. % REVOIR - martial - je pense qu'il faudrait
                         % faire un paquetage avec les deux catégories
                         % Core pour MyStackMachine et Display pour
                         % MyRPNWidget etc
@@ -1745,7 +1745,7 @@ Utiliser ces deux méthodes pour écrire le \ct{keypad} comme suit
 (une astuce: commencez par faire en sorte que les chiffres et du bouton
 ``Enter'' fonctionnent 
 % ajout - vf
-\arelire{(en laissant la méthode \ct{setClearMode})} % REVOIR -
+(en laissant la méthode \ct{setClearMode}) % REVOIR -
                                 % martial - à reporter dans la VO
                                 % parce que pas gagné! 
 avant de vous attarder aux opérateurs arithmétiques):}
@@ -1833,13 +1833,13 @@ Adaptez la méthode \ct{MyKeypad>>>type:} pour se comporter
 différemment suivant le mode actuel de saisie.
 Introduisez une variable d'instance \ct{mode} pouvant prendre trois
 valeurs \lct{\#typing} (lorsque vous saisissez), \lct{\#push} (après que
-vous ayez effectué une opération de calcul \arevoir{et que la saisie
-  devrait forcer l'entrée de la valeur sur la pile}) 
+vous ayez effectué une opération de calcul et que la saisie
+  devrait forcer l'entrée de la valeur sur la pile) 
 %after you have performed a calculator operation and typing should
 %force the top value to be pushed)
 ou \lct{\#clear} (après que vous ayez cliqué sur le bouton \menu{Enter}
-et que \arevoir{le sommet de la pile devrait se mettre dans l'état
-  initial avant la prochaine saisie}).
+et que le sommet de la pile devrait se mettre dans l'état
+  initial avant la prochaine saisie).
 % and the top value should be cleared before typing).
 La nouvelle méthode \ct{type:} pourrait ressembler à ceci:}
 
@@ -1879,7 +1879,7 @@ instance de \ct{MyDisplay} en une nouvelle instance de la classe
 \ct{MyDisplayStack} dont le travail consiste à afficher la pile
 entière.
 Lorsque ce composant signale que le travail est fini (en envoyant
-\ct{self answer}), l'instance originel de \ct{MyDisplay} reviendra
+\ct{self answer}), l'instance originelle de \ct{MyDisplay} reviendra
 dans le \arelire{flux}.
 %then control will return to the original instance of \ct{MyDisplay}.
 
@@ -1977,9 +1977,7 @@ de la partie \ct{display} de la page existante.
   éléments un attribut \emph{id} unique.
 %To address the display from JavaScript code we must first give it a unique id.
 Changez la méthode de rendu de la calculatrice\footnote{Si
-  vous n'avez pas implémenté le tutoriel vous-même, vous pouvez \aretirer{%
-  télécharger l'exemple complet \scat{PBE-SeasideRPN} depuis
-  \url{http://www.squeaksource.com/PharoByExample} et} appliquer les
+  vous n'avez pas implémenté le tutoriel vous-même, vous pouvez appliquer les
 modifications suggérées aux classes en \ct{RPN*} au lieu des classes
 en \ct{My*}.} comme suit:}
 
@@ -2152,7 +2150,7 @@ Si vous surchargez \ct{description}, il est possible de retourner une
 nom descriptif pour l'application qui sera affiché dans l'éditeur de
 configuration}; % ATTENDRE - martial: pas vu du tout, ça!
   \item Pour gérer le chaînage arrière ou \backtracking, un composant
-    devait disposer d'une méthode \ct{states} renvoyant un tableau des
+    devrait disposer d'une méthode \ct{states} renvoyant un tableau des
     objets dont l'état sera restauré quand l'utilisateur clique sur le
     bouton \backbtn de son navigateur web;
   \item Le rendu d'un composant se fait via la méthode

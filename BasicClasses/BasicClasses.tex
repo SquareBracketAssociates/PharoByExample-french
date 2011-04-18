@@ -8,6 +8,7 @@
 % export Pharo : Martial Boniou à partir de la revision 28661 - oscar
 % relecture : Rene Mages (mon, 11 jan 2010) de la version #30227
 % relecture : Rene Mages (mon,  9 aug 2010) de la version #34378
+% relecture : Rene Mages (fri,  15 apr 2011) de la version #34378
 % 2009-08-28 11:31:14 +0200 (Fri, 28 Aug 2009) $
 %=================================================================
 \ifx\wholebook\relax\else
@@ -60,7 +61,7 @@ et ses sous-classes, \ct{Character}, \ct{String}, \ct{Symbol} et \ct{Boolean}.
 %=================================================================
 \section{Object}
 
-Dans tous les cas, \clsindmain{Object} est la racine de la hiérarchie d'héritage. En réalité, dans \pharo , la vraie racine de la hiérarchie est \clsind{ProtoObject} qui est utilisée pour définir les entités minimales qui se font passer pour des objets, mais nous pouvons ignorer ce point pour l'instant.
+Dans tous les cas, \clsindmain{Object} est la racine de la hiérarchie d'héritage. En réalité, dans \pharo , la véritable racine de la hiérarchie est \clsind{ProtoObject} qui est utilisée pour définir les entités minimales qui se font passer pour des objets, mais nous pouvons ignorer ce point pour l'instant.
 % (more on this later in the chapter on reflection).
 
 La classe \ct{Object} peut être trouvée dans la catégorie
@@ -120,7 +121,7 @@ Par exemple, la classe \clsind{Browser} ne redéfinit pas la
 méthode \ct{printOn:} et, envoyer le message \ct{printString} à
 une %
 %ajout
-de ces instances %
+de ses instances %
 exécute les méthodes définies dans \ct{Object}. 
 \begin{code}{@TEST}
 Browser new printString --> 'a Browser'
@@ -783,7 +784,7 @@ et beaucoup d'autres.
 
 La classe \clsindmain{SmallInteger} est particulière dans le sens que ses instances sont représentées de manière compacte --- au lieu d'être stockées comme référence, une instance de \ct{SmallInteger} est directement représentée en utilisant les bits qui seraient normalement utilisés pour contenir la référence.  Le premier bit de la référence à un objet indique si l'objet est une instance de SmallInteger ou non.
 
-Les méthodes de classe \mthind{SmallInteger}{minVal} et \mthind{SmallInteger}{maxVal} nous donne la plage de valeurs d'une instance de \ct{SmallInteger}:
+Les méthodes de classe \mthind{SmallInteger}{minVal} et \mthind{SmallInteger}{maxVal} nous donnent la plage de valeurs d'une instance de \ct{SmallInteger}:
 
 \begin{code}{@TEST}
 SmallInteger maxVal = ((2 raisedTo: 30) - 1)      --> true
