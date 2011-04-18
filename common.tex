@@ -674,6 +674,13 @@ framerule=0pt,
 \setcounter{totalnumber}{20}
 \setcounter{dbltopnumber}{9}
 %=============================================================
+%:Footnotes in tabular environment (spécificité française)
+\newcounter{notetab}            % cf. www.trustonme.net/didactels/248.html
+\newcommand{\zero}{\setcounter{notetab}{0}}
+\newcommand{\ntm}{\footnotemark\addtocounter{notetab}{1}}
+\newcommand{\initnt}{\addtocounter{footnote}{-\value{notetab}}}
+\newcommand{\ntt}[1]{\addtocounter{footnote}{1}\footnotetext{#1}}
+%=============================================================
 %% [Squeak-fr]
 % pour identifier les zones de texte à corriger d'urgence!
 \newcommand{\arevoir}[1]{\ugh{#1}} % peut ne pas être correct ou trop approximatif

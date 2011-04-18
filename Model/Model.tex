@@ -168,14 +168,14 @@ Les variables d'instance peuvent être accédées par
 nom dans toutes les méthodes d'instance de la classe qui les définit
 ainsi que dans les méthodes définies dans les sous-classes de cette classe.
 Cela signifie que les variables d'instance en \st sont semblables aux
-variables \emph{protégées} (protected) en C++ et en Java. Cependant,
+variables \emph{protégées} \mbox{(\texttt{protected})} en C++ et en Java. Cependant,
 nous préférons dire qu'elles sont privées parce qu'il n'est pas d'usage en \st d'accéder à une variable d'instance directement depuis une sous-classe. 
 \subsubsection{Exemple}
 La méthode \cmind{Point}{dist:} (\mthref{dist:}) calcule la distance entre le receveur et un autre point. Les variables d'instance \ct{x} et \ct{y} du receveur sont accédées directement par le corps de la méthode. Cependant, les variables d'instance de l'autre point doivent être accédées en lui envoyant les messages \ct{x} et \ct{y}.
 % rene : s/messasges/messages/ ligne 172
 
 \needlines{7}
-\begin{method}[dist:]{la distance entre deux points. le nom arbitraire aPoint est utilisé dans le sens de \emph{a point} qui, en anglais, signifie un point}
+\begin{method}[dist:]{La distance entre deux points. le nom arbitraire \ct{aPoint} est utilisé dans le sens de \emph{a point} qui, en anglais, signifie ``un point''}
 Point>>>dist: aPoint 
 	"Retourne la distance entre aPoint et le receveur."
 	| dx dy |
@@ -244,9 +244,7 @@ aide à parcourir à la fois classes et méta-classes comme si elles
 n'étaient qu'une seule entité avec deux ``côtés'': le ``\subind{Browser}{côté instance}'' et le ``\subind{Browser}{côté classe}'', comme le montre la \figref{Buttons}. 
 \damien{something wrong here. The text between quotes is not generated}
 % true: \ind should replace \index there! (martial)
-En cliquant sur le 
-bouton \button{instance}, vous voyez la présentation de la classe \ct{Color}, \ie vous pouvez naviguer dans les méthodes qui sont exécutées quand les messages sont envoyés à une instance de
-\ct{Color}, comme la couleur blue (correspondant au bleu). En appuyant
+En \clickant{} sur le bouton \button{instance}, vous voyez la présentation de la classe \ct{Color} et vous donc pouvez naviguer dans les méthodes qui sont exécutées quand les messages de même nom sont envoyés à une instance de \ct{Color}, comme par exemple \lct{blue} (correspondant à la couleur bleu). En appuyant
 sur le bouton \button{class} (pour classe), vous naviguez dans la classe \ct{Color class}, autrement dit vous voyez les méthodes qui seront exécutées en envoyant les messages directement à la classe \ct{Color} elle-même.
 Par exemple, \ct{Color blue} envoie le message \ct{blue} (pour \emph{bleu}) à la classe \clsind{Color}.
 Vous trouverez donc la méthode \ct{blue} définie côté classe de la classe \ct{Color} et non du côté instance.
@@ -268,11 +266,11 @@ Vous définissez une classe en remplissant le patron (ou \emph{template} en angl
 dans le \subind{Browser}{côté instance}.
 Quand vous acceptez ce patron, le système crée non seulement la classe
 que vous définissez mais aussi la méta-classe correspondante.
-Vous pouvez naviguer dans la méta-classe en cliquant sur le bouton \button{class}.
+Vous pouvez naviguer dans la méta-classe en \clickant{} sur le bouton \button{class}.
 Du patron employé pour la création de la méta-classe, seule la
 liste des noms des variables d'instance vous est proposée pour une édition directe.  
 
-Une fois que vous avez créé une classe, cliquer sur
+Une fois que vous avez créé une classe, \click{} sur
 le bouton \button{instance} vous permet d'éditer et de parcourir les
 méthodes qui seront possédées par les instances de cette classe (et de ses sous-classes). Par exemple, nous pouvons voir dans \figref{Buttons} que 
 la méthode \ct{hue} est définie pour les instances de la classe \ct{Color}.
@@ -334,7 +332,7 @@ Dog subclass: #Hyena
 \end{classdef}
 
 Supposons que nous ayons des méthodes de classe de \ct{Dog} pour initialiser sa variable \ct{count} à \ct{0} et pour incrémenter cette dernière quand de nouvelles instances sont créées:
-\begin{method}[dogcount]{Comptabiliser les nouvelles instances de Dog via count}
+\begin{method}[dogcount]{Comptabiliser les nouvelles instances de \ct{Dog} via \ct{Dog class>>>count}}
 Dog class>>>initialize
 	super initialize.
 	count := 0.
@@ -384,7 +382,7 @@ avec les variables de classe de \st dont nous parlerons dans \secref{classVars}:
 Le patron de conception~\footnote{En anglais, nous parlons de \emph{Design Patterns}.} nommé \ind{Singleton}~\cite{Alpe98a} offre un exemple-type de l'usage de variables d'instance de classe et de méthodes de classe.
 Imaginez que nous souhaitions d'une part, créer une classe \ct{WebServer} et d'autre part, s'assurer qu'il n'a qu'une et une seule instance en faisant appel au patron Singleton.
 
-En cliquant sur le bouton \button{instance} dans le navigateur de classe, nous définissons la classe \clsind{WebServer} comme suit (\clsref{singleton}).
+En \clickant{} sur le bouton \button{instance} dans le navigateur de classe, nous définissons la classe \clsind{WebServer} comme suit (\clsref{singleton}).
 
 \begin{classdef}[singleton]{Un classe Singleton}
 Object subclass: #WebServer
@@ -394,7 +392,7 @@ Object subclass: #WebServer
 	category: 'Web'
 \end{classdef}
 
-Ensuite, en cliquant sur le bouton \button{class}, nous pouvons ajouter une variable d'instance \ct{uniqueInstance} au \subind{Browser}{côté classe}.
+Ensuite, en \clickant{} sur le bouton \button{class}, nous pouvons ajouter une variable d'instance \ct{uniqueInstance} au \subind{Browser}{côté classe}.
 
 \begin{classdef}[webserver]{Le côté classe de la classe Singleton}
 WebServer class 	
@@ -408,8 +406,9 @@ Pour commencer, cette méthode vérifie si \ct{uniqueInstance} a été initialis
 la méthode crée une instance et l'assigne à la variable d'instance de classe \ct{uniqueInstance}.  
 \emph{In fine}, la valeur de \ct{uniqueInstance} est retournée.
 Puisque \ct{uniqueInstance} est une variable d'instance de classe, cette méthode peut directement y accéder.
-    
-\begin{method}[uniqueInstance]{uniqueInstance (côté classe)}
+
+\needlines{4}
+\begin{method}[uniqueInstance]{\ct{WebServer class>>>uniqueInstance} (côté classe)}
 WebServer class>>>uniqueInstance
      uniqueInstance ifNil: [uniqueInstance := self new].
      ^ uniqueInstance
@@ -421,7 +420,7 @@ La seconde fois, l'instance précédemment créée sera retournée au lieu d'y a
 Remarquons que la clause conditionnelle à l'intérieur du code de création
 de \tmthref{uniqueInstance} est écrite \ct{self new} et non 
 \mbox{\ct{WebServer new}.}
-Quelle en est la différence?   Comme la méthode \ct{uniqueInstance} est définie dans \ct{WebServer class}, vous pouvez penser qu'elles sont identiques.    En fait, tant que personne ne crée une sous-classe de \ct{WebServer}, elles sont pareilles. Mais en supposant que \ct{ReliableWebServer} est une sous-classe de \ct{WebServer} et qu'elle hérite de la méthode \ct{uniqueInstance},
+Quelle en est la différence?   Comme la méthode \ct{uniqueInstance} est définie dans \mbox{\ct{WebServer class},} vous pouvez penser qu'elles sont identiques.    En fait, tant que personne ne crée une sous-classe de \ct{WebServer}, elles sont pareilles. Mais en supposant que \ct{ReliableWebServer} est une sous-classe de \ct{WebServer} et qu'elle hérite de la méthode \ct{uniqueInstance},
 nous devrions nous attendre à ce que \ct{ReliableWebServer uniqueInstance} réponde un \ct{ReliableWebServer}. L'utilisation de \self assure que cela arrivera car il sera lié à la classe correspondante.
 Du reste, notez que \ct{WebServer} et \ct{ReliableWebServer} ont chacune
 leur propre variable d'instance de classe nommée \ct{uniqueInstance}.  
@@ -503,7 +502,7 @@ des objets pouvant être comparables les uns avec les autres. Les
 sous-classes de \ct{Magnitude} devraient implémenter les méthodes
 \ct{<}, \ct{=} et \ct{hash}~\footnote{Relatif au code de hachage.}.
 Grâce à ces messages, \ct{Magnitude} définit d'autres méthodes telles que
-\ct{>}, \ct{>=}, \ct{<=}, \ct{max:}, \ct{min:} \ct{between:and:} et
+\mbox{\ct{>},} \mbox{\ct{>=},} \mbox{\ct{<=},} \mbox{\ct{max:},} \mbox{\ct{min:},} \ct{between:and:} et
 d'autres encore pour comparer des objets.
 Ces méthodes sont héritées par les sous-classes.
 La méthode \mthind{Magnitude}{<} est abstraite et est définie comme
@@ -525,7 +524,7 @@ A contrario, la méthode \mthind{Magnitude}{>=} est concrète; elle est définie
 \end{method}
 Il en va de même des autres méthodes de comparaison.
 
-\clsind{Character} est une sous-classe de \ct{Magnitude}; elle surcharge la méthode \mthind{Object}{subclassResponsibility} de \ct{<} avec sa propre version de \ct{<} (voir \mthref{CharacterLessThan}).  \ct{Character} définit aussi les méthodes \ct{=} et \ct{hash}; elles héritent les méthodes \ct{>=}, \ct{<=}, \ct{~=} et autres de la classe \ct{Magnitude}.
+\clsind{Character} est une sous-classe de \ct{Magnitude}; elle surcharge la méthode \mthind{Object}{subclassResponsibility} de \ct{<} avec sa propre version de \ct{<} (voir \mthref{CharacterLessThan}).  \ct{Character} définit aussi les méthodes \ct{=} et \ct{hash}; elles héritent entre autre des méthodes \mbox{\ct{>=},} \ct{<=} et \ct{~=} de la classe \ct{Magnitude}.
 
 \begin{method}[CharacterLessThan]{\ct{Character>>><}. Le commentaire dit: ``répond vrai si la valeur du receveur est inférieure à la valeur du l'argument''}
 Character>>>< aCharacter 
@@ -558,7 +557,7 @@ Les \emph{traits} peuvent contenir des méthodes, mais aucune variable d'instanc
 Supposons que nous voulons ajouter une méthode \ct{author} (auteur en anglais) à différentes classes sans lien hiérarchique;
 nous le ferions ainsi:
 
-\begin{method}[author]{Définir la méthode author}
+\begin{method}[author]{Définir la méthode \ct{TAuthor>>>author}}
 TAuthor>>>author
     "Returns author initials"
 	^ 'on'    "oscar nierstrasz"
@@ -719,6 +718,7 @@ anEllipse defaultColor --> Color yellow
 \noindent
 La classe \ct{EllipseMorph} implémente \ct{defaultColor}, donc la méthode adéquate est trouvée immédiatement.
 
+\needlines{5}
 \begin{method}[defaultColor]{Une méthode implémentée localement. Le commentaire dit: ``retourne la couleur par défaut; le style de remplissage pour le receveur''}
 EllipseMorph>>>defaultColor
 	"answer the default color/fill style for the receiver"
@@ -734,7 +734,7 @@ Morph>>>openInWorld
 	"Add this morph to the world."
 
   self openInWorld: self currentWorld
-\end{method} % REVOIR CHANGE (allusion à MVC retirée)
+\end{method}
 \cmindex{Morph}{openInWorld}
 
 \begin{figure}[htb]
@@ -784,7 +784,7 @@ C'est une convention en \st, ainsi résumé par Kent Beck se référant à la \e
 \subsection{Surcharge et extension.}
 
 Si nous revenons à la hiérarchie de classe \ct{EllipseMorph} dans \figref{openInWorldLookup}, nous voyons que les classes \ct{Morph} et \mbox{\ct{EllipseMorph}} implémentent toutes deux \ct{defaultColor}.
-En fait, si nous ouvrons un nouvel élément graphique \emph{Morph} (\ct{Morph new openInWorld}), nous constatons que nous obtenons un morph bleu, là où l'ellipse (\ct{EllipseMorph}) est jaune (yellow) par défaut.
+En fait, si nous ouvrons un nouvel élément graphique \emph{Morph} (\ct{Morph new openInWorld}), nous constatons que nous obtenons un morph bleu, là où l'ellipse (\ct{EllipseMorph}) est jaune \mbox{(\lct{yellow})} par défaut.
 \index{méthode!surcharge}
 \index{méthode!extension}
 \seeindex{surcharge}{méthode, surcharge}
@@ -803,12 +803,12 @@ Cependant, les méthodes \ct{initialize} de chacune des super-classes
 de la chaîne d'héritage fournissent déjà la connaissance nécessaire. 
 La sous-classe n'a pas à s'occuper d'initialiser les variables d'instance héritées!
 
-C'est une bonne pratique d'envoyer \ct{super initialize} avant tout autre considération lorsque nous créons une méthode d'\ind{initialisation}:
+Envoyer \ct{super initialize} avant tout autre considération lors de la création d'une méthode d'\ind{initialisation} est une bonne pratique:
 \arevoir{}% subpvindex
 \subpvindex{super}{\ct{initialize}}
 
 \needlines{6}
-\begin{method}[morphinit]{Super initialize. Le commentaire dit: ``initialise l'état du receveur''}
+\begin{method}[morphinit]{Initialisation de la super-classe. Le commentaire dit: ``initialise l'état du receveur''}
 BorderedMorph>>>initialize
 	"initialize the state of the receiver"
 	super initialize.
@@ -950,7 +950,7 @@ Comme cette méthode n'est pas trouvée, la \ind{machine virtuelle} veillera
 
 Ceci est un envoi dynamique de message tout à fait normal. Ainsi
 la recherche recommence depuis la classe \ct{EllipseMorph}, mais
-cette fois-ci en cherchant la méthode \ct{doesNotUnderstand:}~\footnote{Le nom du message peut se traduire par: \emph{ne comprend pas}.}.
+cette fois-ci en cherchant la méthode \ct{doesNotUnderstand:}~\footnote{Le nom du message peut se traduire par: \emph{``ne comprend pas''}.}.
 Il apparaît que \ct{Object} implémente \ct{doesNotUnderstand:}.
 Cette méthode créera un nouvel objet \ct{MessageNotUnderstood} (en français: Message incompréhensible) capable de démarrer Debugger, le débogueur, dans le contexte actuel de l'exécution.
 
@@ -1139,7 +1139,7 @@ faire appel à la variable de classe directement.
 De plus, notons que le coût de l'envoi d'un accesseur et le test d'initialisation sont à prendre en compte.
 Ceci va à l'encontre de notre motivation à utiliser une variable de classe, parce qu'en réalité elle n'est plus partagée.
 
-\begin{method}[colorclasscolornames]{Color class>>colorNames}
+\begin{method}[colorclasscolornames]{\ct{Color class>>>colorNames}}
 Color class>>>colorNames	
 	ColorNames ifNil: [self initializeNames].
 	^ ColorNames
@@ -1149,7 +1149,7 @@ Color class>>>colorNames
 Une autre solution consiste à surcharger la méthode \ct{initialize}.
 
 \needlines{3}
-\begin{method}[colorclassinit]{Color class>>initialize}
+\begin{method}[colorclassinit]{\ct{Color class>>>initialize}}
 Color class>>>initialize	
 	!\ldots!
 	self initializeNames
@@ -1198,8 +1198,9 @@ du dictionnaire \emph{directement} dans le corps de la méthode, \ie
 en utilisant la syntaxe de variable plutôt qu'une recherche explicite
 dans le dictionnaire.
 Par exemple, nous pouvons écrire la méthode suivante.
-  
-\begin{method}[texttestcr]{Text>>testCR}
+
+\needlines{3}
+\begin{method}[texttestcr]{\ct{Text>>>testCR}}
 Text>>>testCR 	
       ^ CR == Character cr
 \end{method}

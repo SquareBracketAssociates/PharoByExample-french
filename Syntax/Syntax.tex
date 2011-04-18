@@ -81,7 +81,8 @@ Les expressions sont composées des blocs constructeurs suivants:
 \seeindex{pseudo-variable}{variable, pseudo}
 \seeindex{objet!littéral}{littéral, objet}
 
-% martial: affichage du table forcé
+% martial: footnote in tabular suppported in common.tex
+\zero
 \begin{table}[h]\centering
 	\begin{tabular}{ll}
 		\toprule
@@ -106,7 +107,7 @@ Les expressions sont composées des blocs constructeurs suivants:
 		\lct{| x y |}				&	une déclaration de 2 variables \lct{x} et \lct{y}	\\
 		\lct{x := 1}				&	affectation de 1 à \lct{x} \\
 		\lct{[ x + y ]}			&	un bloc qui évalue \lct{x+y} \\
-		\lct{<primitive: 1>}		&	une primitive de la VM~\footnote{Machine Virtuelle.} ou annotation\\
+		\lct{<primitive: 1>}		&	une primitive de la VM~\ntm\xspace ou annotation\\
 		\midrule
 		\lct{3 factorial}			&	un message unaire \\
 		\lct{3 + 4}					&	un message binaire \\
@@ -121,13 +122,15 @@ Les expressions sont composées des blocs constructeurs suivants:
 	\end{tabular}
 \caption{Résumé de la syntaxe de \pharo \tablabel{syntax}}
 \end{table}
+\initnt
+\ntt{VM est l'abrégé de \emph{``Virtual Machine''} \ie{} ``Machine Virtuelle''.} % footnote for tabular protected context
 
 Dans \tabref{syntax}, nous pouvons voir des exemples divers d'éléments syntaxiques.
 
 \begin{description}
 \item[Les variables locales.] \ct{startPoint} est un nom de variable ou identifiant.
 Par convention, les identifiants sont composés de mots au format
-d'écriture \emph{casse chameau} (``\ind{camelCase}''): chaque mot
+d'écriture dit \emph{casse de chameau} (``\ind{camelCase}''): chaque mot
 excepté le premier débute par une lettre majuscule.
 La première lettre d'une variable d'instance, d'une méthode ou d'un bloc argument 
 ou d'une variable temporaire doit être en minuscule.

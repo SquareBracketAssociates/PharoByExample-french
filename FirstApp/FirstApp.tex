@@ -240,9 +240,9 @@ passer un peu de temps sur votre classe.
   acceptez-le; vous aurez tout le loisir de l'améliorer par la suite.}
 
 \begin{figure}[h!t]
-%\ifluluelse
-%	{\centerline {\includegraphics[width=\textwidth]{LOCell}}}
-%	{\centerline {\includegraphics[scale=0.7]{LOCell}}}
+\ifluluelse
+	{\centerline {\includegraphics[width=\textwidth]{LOCell}}}
+	{\centerline {\includegraphics[scale=0.7]{LOCell}}}
 %martial: description de la frame de commentaire ajoute pour les non-anglophones
 \caption{La classe nouvellement créée \ct{LOCell}. Le panneau
   inférieur est le panneau de commentaires; par défaut, il dit:
@@ -265,7 +265,7 @@ Sélectionnez-le et remplacez-le par le texte de \tmthref{scbecellinitialize}.
 \index{Browser!définir une méthode}
 
 \needlines{10}
-\begin{numMethod}[scbecellinitialize]{Initialiser les instances de \ct{LOCell}.}
+\begin{numMethod}[scbecellinitialize]{Initialiser les instances de \ct{LOCell}}
 initialize
    super initialize.
    self label: ''.
@@ -343,7 +343,7 @@ noms de méthodes de telle sorte que le code \st peut être lu comme
 de l'anglais simplifié (\emph{English pidgin}).  
 % Rene prefere ne plus utiliser : (ou parler \textit{petit-nègre}).
 Vous devriez être capable d'imaginer l'objet se parlant à lui-même et
-dire:  ``Utilise des bords carrés!'' (d'où \ct{useSquareCorners}),
+dire:  ``Utilise des bords carrés!'' (d'où \mbox{\ct{useSquareCorners}),}
 ``Éteins les cellules!'' (en anglais, \ct{turnOff}).
 % martial: note provisoire pour Serge: les phrases entre guillemets
 % etaient ecrites avec des \ct{} or ces balises sont pour le
@@ -360,7 +360,7 @@ nouvel objet \ct{LOCell} et en l'inspectant avec l'inspecteur nommé Inspector.
 
 \begin{figure}[htbp]
    \centering
-%   \includegraphics[width=\textwidth]{LOCellInspector} 
+   \includegraphics[width=\textwidth]{LOCellInspector} 
    \caption{L'inspecteur utilisé pour examiner l'objet LOCell.\figlabel{LOCellInspector}}
 \end{figure}
 
@@ -404,9 +404,9 @@ conséquence (il faudra peut-être \actclick{} sur \menu{refresh} pour voir les 
 
 \begin{figure}[htbp]
 \centering
-%\ifluluelse
-%	{\includegraphics[width=\textwidth]{LOCellResize} }
-%	{\includegraphics[scale=0.7]{LOCellResize} }
+\ifluluelse
+	{\includegraphics[width=\textwidth]{LOCellResize} }
+	{\includegraphics[scale=0.7]{LOCellResize} }
 \caption{Redimensionner la cellule.\figlabel{cellresize}}
 \end{figure}
 
@@ -594,7 +594,7 @@ C'est pour cela que le navigateur offre un protocole virtuel
      non catégorisées.\figlabel{categorize}}
 \end{figure}
 
-Si vous avez suivi l'exemple jusqu'à présent, le troisième panneau doit contenir le protocole \protind{as yet unclassified}~\footnote{NdT: non encore classifié.}.
+Si vous avez suivi l'exemple jusqu'à présent, le troisième panneau doit contenir le protocole \protind{as yet unclassified}~\footnote{NdT: pas encore classées.}. % ie méthodes pas encore classées
 
 \dothis{\Actclickz{} dans le panneau des protocoles et sélectionnez
   \menu{various \go{} categorize automatically} afin de régler ce
@@ -632,7 +632,7 @@ si le programme évolue de telle sorte que la constante dépende d'autres
 propriétés, la méthode peut être modifiée pour calculer la valeur.
 
 \needlines{10}
-\begin{method}[newCellAt:at:]{Une méthode d'aide à l'initialisation}
+\begin{method}[newCellAt:at:]{Une méthode auxiliaire pour l'initialisation}
 LOGame>>>newCellAt: i at: j
    "!Crée! une cellule !à! la position (i,j) et l'ajoute dans ma !représentation! graphique !à! la position correcte. Retourne une nouvelle cellule"
    | c origin |
@@ -726,12 +726,12 @@ manière avec un ``\ct{:}'' à la fin; ici nous avons donc
 %%Les méthodes d'accès en lecture et écriture sont appelés des méthodes \emphind{accesseurs} et par convention elles doivent être placées dans le protocole \protind{accessing}.
 Une méthode d'accès (en lecture ou en écriture) est appelée
 en anglais \emphind{accessor} et par convention, elle doit être
-placée dans le protocole \protind{accessing}.
+placée dans le protocole \mbox{\protind{accessing}}.
 En \st, \emph{toutes} les variables d'instances sont privées à
 l'objet qui les possède, ainsi la seule façon pour un autre objet de
 lire ou de modifier ces variables en \st se fait au travers de
-ces méthodes d'accès comme ici~\footnote{En fait, les variables
-  d'instances peuvent être accédées également dans les sous-classes.}.
+ces méthodes d'accès comme \mbox{ici~\footnote{En fait, les variables
+  d'instances peuvent être accédées également dans les sous-classes.}.}
 
 \dothis{Allez à la classe \ct{LOCell}, définissez \ct{LOCell>>>mouseAction:} et mettez-la dans le protocole \prot{accessing}.}
 
@@ -740,7 +740,8 @@ sera appelée automatiquement par l'infrastructure (ou \emph{framework})
 graphique si le bouton de la souris est pressé lorsque le pointeur de
 celle-ci est au-dessus d'une cellule sur l'écran.
 
-\begin{method}[sbecellmouseup]{Un gestionnaire d'événement}
+\needlines{5}
+\begin{method}[sbecellmouseup]{Un gestionnaire d'événements}
 LOCell>>>mouseUp: anEvent
    mouseAction value
 \end{method}

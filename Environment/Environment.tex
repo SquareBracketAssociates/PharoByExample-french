@@ -186,10 +186,10 @@ dans ce paquetage. % CHANGE
 \end{figure}
 
 De même, si vous sélectionnez une des classes de ce second panneau,
-disons, \menu{Model} (voir  \figref{SystemBrowserModel}), le troisième
+disons \menu{Model} (voir  \figref{SystemBrowserModel}), le troisième
 panneau vous affichera tous les \emph{protocoles} définis pour cette
-classe ainsi qu'un protocole virtuel \prot{-{}-all-{}-} (désignant l'ensemble 
-des catégories). Ce dernier est sélectionné par défaut. 
+classe ainsi qu'un protocole virtuel \mbox{\prot{-{}-all-{}-}} (désignant l'ensemble 
+des méthodes). Ce dernier est sélectionné par défaut. 
 Les protocoles sont une façon de catégoriser les méthodes;
 ils rendent la recherche des méthodes plus facile et détaillent
 le comportement d'une classe en le découpant en petites divisions 
@@ -200,7 +200,8 @@ Si vous sélectionnez enfin un nom de méthode, le code source de la
 méthode correspondante apparaît dans le grand panneau inférieur
 du navigateur. Là, vous pouvez voir, éditer et sauvegarder la version éditée.
 Si vous sélectionnez la classe
-\menu{Model}, le protocole \protind{dependents} et la méthode \menu{myDependents}, 
+\mbox{\menu{Model},} le protocole \mbox{\protind{dependents}} et la méthode 
+\mbox{\menu{myDependents},} 
 le navigateur devrait ressembler à \figref{SystemBrowserMyDependents}.
 \protindex{all}
 \cmindex{Model}{myDependents}
@@ -247,7 +248,7 @@ Un paquetage ou un protocole, ça n'est qu'un nom et son contenu.
    \figlabel{SystemBrowserClassCreation}}
 \end{figure}
 
-à l'opposé, créer une classe ou une méthode nouvelle nécessite 
+À l'opposé, créer une classe ou une méthode nouvelle nécessite 
 l'écriture de code \st.
 Si vous \clickz sur le paquetage actuellement sélectionné dans le
 panneau de gauche, le panneau inférieur affichera un patron de création de classe
@@ -281,7 +282,7 @@ Voyez-vous pourquoi le nom d'une nouvelle classe doit apparaître
 comme un \clsind{Symbol} (\ie préfixé avec \ct{#}) dans le
 patron de création de classe, mais qu'après la création
 de classe, le code peut s'y référer en utilisant
-son nom comme identifiant (\ie sans le \ct{#})?
+son nom comme identifiant (\ie sans le \ct{#}).
 
 Le processus de création d'une nouvelle méthode
 est similaire. Premièrement sélectionnez la classe dans laquelle vous
@@ -291,7 +292,7 @@ vous pouvez remplir et éditer, comme indiqué par
 \figref{SystemBrowserMethodTemplate}.
 \index{méthode!création}
 \seeindex{méthode!création}{Browser, définir une méthode}
-\index{Browser}{définir une méthode} % CHANGE
+\seeindex{Browser}{définir une méthode} % CHANGE
 \seeindex{navigateur de classes!définition d'une méthode}{Browser, définir une méthode}
 
 \begin{figure}[htbp]
@@ -423,7 +424,7 @@ quelle} fenêtre de texte. % CHANGE text window
 % \index{Browser!bouton!hierarchy} % CHANGE Browser!bouton!hierarchy
 % \seeindex{navigateur de classes!hiérarchie}{Browser, hierarchy} % CHANGE
 
-Si vous regardez bien les \senders de \ct{drawOn:} dans \ct{AtomMorph>>>drawOn:}, vous verrez que la méthode implémente un \subpvind{super}{envoi}{} à \super. Nous savons ainsi que la méthode qui sera exécutée est dans la superclasse de \ct{AtomMorph}. Quelle est cette classe? \Actclickz sur \menu{browse~\go~hierarchy~implementors} et vous verrez qu'il s'agit de \ct{EllipseMorph}.
+Si vous regardez bien les \senders de \ct{drawOn:} dans \mbox{\ct{AtomMorph>>>drawOn:},} vous verrez que la méthode implémente un \subpvind{super}{envoi}{} à \super. Nous savons ainsi que la méthode qui sera exécutée est dans la superclasse de \ct{AtomMorph}. Quelle est cette classe? \Actclickz sur \menu{browse~\go~hierarchy~implementors} et vous verrez qu'il s'agit de \ct{EllipseMorph}.
 \index{Browser!bouton!hierarchy} % CHANGE Browser!bouton!hierarchy
 \seeindex{navigateur de classes!hiérarchie}{Browser, hierarchy} % CHANGE
 
@@ -555,9 +556,9 @@ Le triangle pointant vers le haut vous indique que
  (\ie \ct{Morph>>>drawOn:}) et triangle pointant vers le bas vous
  indique que cette méthode est surchargée dans ses sous-classes (vous
  pouvez aussi \click sur les icônes pour naviguer vers ces méthodes).
-Sélectionnez maintenant \menu{browse \go inheritance.
+Sélectionnez maintenant \menu{browse \go inheritance}.
 L'Inheritance Browser vous montre la hiérarchie de méthodes
-surchargées (voir \figref{OBinheritanceBrowser}).}
+surchargées (voir \figref{OBinheritanceBrowser}).
 
 \begin{figure}[tbp]
 	\begin{center}
@@ -592,7 +593,7 @@ méthodes de la classe sélectionnée. % CHANGE à vérifier
 Sur \figref{OBinheritanceBrowser}, la vue hiérarchique dans le navigateur 
 % rene : s /hierarchyBrowser/OBinheritanceBrowser/
 montre que \clsind{ImageMorph} est la super-classe directe de
-\clsind{Morph}.
+\mbox{\clsind{Morph}.}
 \index{Browser!bouton!hierarchy} % REVOIR
 
 \begin{figure}[btp]
@@ -618,7 +619,7 @@ utilisée.
 Vous naviguez au travers des méthodes d'accès de toutes les variables
 d'instance ou de classe via ce \emph{navigateur de poursuite} et, en
 retour, visitez les méthodes qui envoyent ces accesseurs, et
-ainsi de suite (voir{chasingBrowser}).
+ainsi de suite (voir \figref{chasingBrowser}).
 
 \begin{figure}[btp]
 	\begin{center}
@@ -695,7 +696,7 @@ Les menus contextuels proposent un grand nombre de refactorisations (ou
 \emph{refactoring}) classiques. \Actclickz sur l'un des quatre panneaux
 supérieurs pour voir les opérations de refactorisation actuellement
 disponibles (voir \figref{refactoring}).
-à l'origine, cette fonction était disponible uniquement
+À l'origine, cette fonction était disponible uniquement
 par un navigateur spécifique nommé Refactoring Browser, mais
 elle peut désormais être accessible depuis n'importe quel
 navigateur. % CHANGE
@@ -706,7 +707,7 @@ navigateur. % CHANGE
 		{\includegraphics[width=\textwidth]{refactoring}}
 		{\includegraphics[width=0.7\textwidth]{refactoring}}
 	\end{center}
-	\caption{Refactoring operations.}
+	\caption{Le refactorisation à la souris.}
 	\figlabel{refactoring}
 \end{figure} % REVOIR
 %---------------------------------------------------------
@@ -725,7 +726,7 @@ sélectionné; dans le celui des classes, des protocoles ou des
 méthodes, il exporte respectivement la classe entière, le protocole
 entier ou la méthode affichée. % CHANGE REVOIR
 Bien qu'apparemment évident, ce peut être une source de confusion pour
-les débutants. 
+les débutants.
 \index{fichier!filing in}
 \index{fichier!importation}
 \index{fichier!filing out}
@@ -841,7 +842,7 @@ Supposons que nous soyons en train de développer une librairie pour
 nous faciliter l'utilisation d'une base de données relationnelles depuis
 \pharo. Vous avez décidé d'appeler votre librairie (ou \emph{framework})
 \ct{PharoLink} et vous avez créé une série de catégories
-contenant toutes les classes que vous avez écrites, \eg la catégorie
+contenant toutes les classes que vous avez écrites, par exemple la catégorie
 \ct{'PharoLink-Connections'} contient les classes
 \ct{OracleConnection MySQLConnection PostgresConnection} et la catégorie
 \ct{'PharoLink-Model'} contient les classes
@@ -907,7 +908,7 @@ est ignorée dans la règle \ref{env:extensions}
 % dans CamelCase (nom anglais de cette technique de formatage de nom).
 est que, conventionnellement les noms de protocoles sont typiquement
 (mais pas nécessairement) en minuscules (et peuvent inclure des espaces); alors que 
-les noms de catégories utilisent un format d'écriture en forme chameau comme par 
+les noms de catégories utilisent un format d'écriture dit \emph{casse de chameau} comme par 
 exemple AlanKay, LargePositiveInteger ou CamelCase (d'ailleurs CamelCase est 
 le nom anglais de ce type de format de noms).
 \index{écriture en chameau}
@@ -1740,7 +1741,7 @@ Ainsi, par exemple, nous pourrions éditer la méthode \ct{suffix} comme suit:
 \index{processus!interruption}
 
 \needspace{11ex}
-\begin{method}[suffix]{Insérer une pause par \ct{halt} dans la méthode \ct{suffix}.}
+\begin{method}[suffix]{Insérer une pause par \ct{halt} dans la méthode \ct{suffix}}
 suffix
 	"disons que je suis un nom de fichier et que je fournis mon suffixe, la partie suivant le dernier point"
 	| dot dotPosition |

@@ -1115,7 +1115,7 @@ utiliser, nous le transformons en méthode de test:
 \index{SUnit}
 
 \needlines{3}
-\begin{method}[testShout]{Un test pour la méthode shout}
+\begin{method}[testShout]{Un test pour la méthode \ct{shout}}
 testShout
 	self assert: ('Pas de panique' shout = 'PAS DE PANIQUEBANG')
 \end{method} % BANG is the escape for !
@@ -1282,7 +1282,7 @@ déjà existant des méthodes de conversion et appelé
 \menu{converting}. à la place du patron de création de méthode,
 saisissez le texte de \tmthref{shout} et faites \menu{accept}
 (saisissez \caret pour obtenir un \mbox{\ct{^}})}
-\begin{method}[shout]{La méthode shout}
+\begin{method}[shout]{La méthode \ct{shout}}
 shout
 	^ self asUppercase, 'BANG'
 \end{method}
