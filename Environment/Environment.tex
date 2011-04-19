@@ -1428,24 +1428,26 @@ une notification \clsind{PreDebugWindow} s'ouvre comme sur
 	\figlabel{PreDebugWindow}
 \end{figure}
 
+\tradalert{martial}{modif récente 2011-04-19}\\
 Le \ct{PreDebugWindow} nous indique dans sa barre de titre
 qu'une erreur s'est produite et nous affiche une trace de la pile d'exécution
-ou \emphind{stack trace} des messages qui ont conduit à l'erreur.
-En démarrant depuis la base de la trace
-%ajout
-(en haut de la liste),
- \ct{UndefinedObject>>>DoIt} représente le code qui vient d'être compilé
-et lancé quand nous avons sélectionné \ct{'readme.txt' suffix} 
-dans notre espace de travail et que nous avons
-demandé à \pharo de l'imprimer sur cet espace par \menu{print it}.
-Ce code envoya, bien sûr, le message \ct{suffix} à
+ou \emphind{stack trace} des messages qui ont conduit à l'erreur:
+% ajout vf martial
+\arelire{la dernière exécution est représentée par la plus haute ligne sur la pile.
+En descendant la trace (donc en remontan le temps), nous tombons sur la ligne
+ \ct{UndefinedObject>>>DoIt} qui représente le code qui vient d'être compilé
+et lancé quand nous avons demandé à \pharo d'imprimer 
+le code \ct{'readme.txt' suffix} dans notre espace de travail
+par \menu{print it}.}
+Ce code a envoyé le message \ct{suffix} à
 l'objet \clsind{ByteString} (\ct{'readme.txt'}).
-S'en suit l'exécution de la méthode \ct{suffix} héritée de la
+S'en est suivi l'exécution de la méthode \ct{suffix} héritée de la
 classe \ct{String};
-toutes ces informations sont encodées dans la ligne suivante de la trace,
+toutes ces informations sont disponibles dans la ligne précédente de la trace,
 \ct{ByteString(String)>>>suffix}.
-En visitant la pile, nous pouvons voir que \ct{suffix} envoie
-à son tour \ct{detect:}\ldots et \ct{detect:ifNone} émet \ct{errorNotFound}.
+En remontant la pile, nous pouvons voir que \ct{suffix} envoie
+à son tour \ct{detect:}; cette dernière méthode envoie à son tour \ct{detect:ifNone} qui émet 
+\ct{errorNotFound}.
 \clsindex{UndefinedObject}
 
 \begin{figure}[btp]
@@ -1458,9 +1460,11 @@ En visitant la pile, nous pouvons voir que \ct{suffix} envoie
 	\figlabel{debuggerDetectIfNone}
 \end{figure}
 
-Pour trouver \emph{pourquoi} le point (dot) n'a pas été trouvé,
-nous avons besoin du débogueur lui-même; dès lors, il suffit de
-cliquer sur le bouton \button{Debug}.
+Pour trouver \emph{pourquoi} le point (\ct{dot}) n'a pas été trouvé,
+nous avons besoin du débogueur lui-même que nous pouvons appeler en
+\clickant{} sur le bouton \button{Debug}
+%ajout vf martial
+\arelire{ou en \clickant{} sur une ligne de la pile}.
 
 % \dothis{Vous pouvez aussi ouvrir Debugger en \clickant
 % sur n'importe quelle ligne du \emph{stack trace}. 
@@ -1509,44 +1513,44 @@ Vous pouvez toujours annuler vos changements en utilisant
 \index{raccourci clavier!cancel}
 
 L'inspecteur de droite affiche les variables temporaires du contexte courant.
-Dans \figref{debuggerDetectIfNone},
-\ct{value} a été envoyé au paramètre \ct{exceptionBlock}.
-
-% \dothis{Pour voir la valeur actuelle de ce paramètre, cliquez sur \ct{exceptionBlock} dans cet inspecteur de contexte.
-% Cela vous informera que \ct{exceptionBlock} est \ct{[self errorNotFound: ...]}.
-% Il n'y a donc rien de surprenant à voir le message d'erreur correspondant.}
-%\on{no longer true!}
-
-% rene : il nous faudrait clarifier l'explication 
-\arevoir{Comme nous pouvons le voir sur la méthode plus bas sur la
-  pile, \ct{exceptionBlock} est \ct{[self errorNotFound: ...]}. Il n'y
+\arelire{%
+% ajout vf martial
+Sur \figref{debuggerDetectIfNone},
+nous voyons 
+dans le panneau de méthode au centre du débogueur que le message
+\ct{value} a été envoyé au paramètre-bloc \ct{exceptionBlock} passé en argument de la
+méthode \ct{detect:ifNone:};
+ce paramètre se retrouve bien dans notre troisième colonne de variables temporaires.}
+% rene : il nous faudrait clarifier l'explication
+% martial: et voilà! (j'ai préféré rattaché au paragraphe du haut)
+\arelire{Comme nous pouvons le voir sur la méthode \ct{detect:} plus bas sur la
+  pile, notre paramètre \ct{exceptionBlock} est \ct{[self errorNotFound: aBlock]}. Il n'y
 a donc rien de surprenant à voir le message d'erreur correspondant.}
-% As we can see one method lower in the stack trace, the \ct{exceptionBlock} is \ct{[self errorNotFound: ...]}, so, it is not surprising that we see the corresponding error message.
 
-Du coup, si vous voulez ouvrir un inspecteur complet sur une des variables
+Si vous voulez ouvrir un inspecteur complet sur une des variables
 affichées dans les mini-inspecteurs, vous n'avez qu'à double-cliquer
 sur le nom de la variable ou alors sélectionner le nom de la variable et 
 \actclickz pour choisir
- \menu{inspect (i)} ou \menu{explore (I)}:
-utile si vous voulez suivre 
-%erreur a signaler au SBE original: if you want to want to watch..
-le changement d'une variable lorsque vous exécutez un autre code.
+ \menu{inspect (i)} ou \menu{explore (I)}: % ce raccourci-clavier ``I'' est toujours valable ici
+utile si vous voulez suivre le changement d'une variable lorsque vous exécutez un autre code.
 \index{raccourci clavier!inspect it}
 \index{raccourci clavier!explore it}
 
+\arelire{% modif
 En revenant sur le panneau de méthode, nous voyons que nous
 nous attendions à trouver \ct{dot} dans la chaîne de caractère
-\ct{'readme.txt'} à l'antépénultième (soit l'avant-avant-dernière) 
-ligne de la méthode et que l'exécution n'aurait jamais du atteindre
-la dernière ligne.
+\ct{'readme.txt'} à l'avant-dernière 
+ligne de la méthode et que l'exécution n'aurait jamais du atteindre 
+la dernière ligne.}
 \pharo ne nous permet pas de lancer une exécution en arrière mais
-il permet de relancer une méthode, ce qui marche parfaitement dans
-notre code qui ne mute pas les objets mais qui en crée de nouveaux.
+il permet de \emph{relancer une méthode}, ce qui marche parfaitement dans
+notre code qui ne change pas les objets mais qui en crée de nouveaux.
 
-\dothis{Cliquez sur le bouton \button{Restart} et vous verrez que 
-le \emph{locus} de l'exécution retournera dans l'état premier de la méthode courante.
-La sélection bleue englobe maintenant le message suivant à envoyer: 
-{\ct{do:}} (voir \figref{RestartDetectIfNone}).}
+\dothis{\arelire{En restant sur la ligne \ct{detect:ifNone:}, cliquez sur 
+le bouton \button{Restart} et vous verrez que 
+l'exécution retournera dans l'état premier de la méthode courante.}
+La sélection bleue englobe maintenant le message  
+\mbox{\ct{do:}} (voir \figref{RestartDetectIfNone}).}
 
 \begin{figure}[btp]
 	\begin{center}
@@ -1560,29 +1564,32 @@ La sélection bleue englobe maintenant le message suivant à envoyer:
 
 Les boutons \button{Into} et \button{Over} offrent deux façons différentes de 
 parcourir l'exécution pas-à-pas.
-Si vous cliquez sur le bouton \button{Over}, \pharo exécutera sauf erreur
-l'envoi du message actuel (dans notre cas \ct{do:}) d'un pas (en anglais, \emph{step}).
-Ainsi \button{Over} nous amènera sur 
-%to the next message-send in the current method,
-le prochain message à envoyer dans la méthode courante. Ici nous
-passons à \ct{value}\,---\,c'est exactement l'endroit d'où nous avons démarré
+Si vous cliquez sur le bouton \button{Over} \arelire{(en français, ``par dessus'')},
+\pharo exécutera sauf erreur l'envoi du message actuel (dans notre cas \ct{do:}) d'un
+seul pas (en anglais, \emph{step}).
+Ainsi \button{Over} nous amènera sur le prochain message à envoyer dans la méthode courante.
+Ici nous passons à \ct{value}\,---\,c'est exactement l'endroit d'où nous avons démarré
 et ça ne nous aide pas beaucoup.
 En fait, nous avons besoin de trouver pourquoi \ct{do:} ne trouve pas
 le caractère que nous cherchons.
 
 \dothis{Après avoir \clicke sur le bouton \button{Over}, \clickz sur le 
-bouton \button{Restart} pour obtenir la situation vue dans \figref{RestartDetectIfNone}.}
+bouton \button{Restart} pour revenir encore une fois au début de la méthode
+dans le même état que sur \figref{RestartDetectIfNone}.}
+
+%ajout vf
+\arelire{Après ce coup pour rien, essayons de parcourir l'exécution autrement. Pour ce faire, nous utiliserons le bouton \button{Into} (en français, ``dedans'') permettant de rentrer dans la méthode pour une exécution pas-à-pas.}
 
 \dothis{Cliquez sur le bouton \button{Into}; \pharo ira dans la méthode correspondante 
 au message surligné par la sélection bleue; dans ce cas, \ct{Collection>>>do:}.}
 
-Cependant, ceci ne nous aide pas plus: nous pouvons être confiant dans le fait
-que la méthode \ct{Collection>>>do:} n'est pas erronée. 
-Le bug est plutôt dans \emph{ce que} nous demandons à \pharo de faire.
+\arelire{Malheureusement,} ceci ne nous aide pas plus: nous pouvons être confiant
+dans le fait que la méthode \ct{Collection>>>do:} n'est pas erronée. 
+Le bug se situe plutôt dans \emph{ce que} nous demandons à \pharo de faire.
 %\emph{what}
-\button{Through} est le bouton approprié à ce cas: nous
+\button{Through} (en français, ``à travers'') est le bouton approprié à ce cas: nous
 voulons ignorer les détails de \ct{do:} lui-même et se focaliser sur
-l'exécution du bloc argument. 
+l'\emph{exécution du bloc}, argument de \ct{do:}.
 
 \dothis{Sélectionnez encore la méthode \ct{detect:ifNone:} et
 \clickz{} sur le bouton \button{Restart} pour revenir à l'état de
@@ -1593,11 +1600,19 @@ Sélectionnez \ct{each} dans le mini-inspecteur de contexte (en bas à droite).
 Vous remarquez que \ct{each} décompte depuis \ct{10} au fur et à mesure de
 l'exécution de la méthode \ct{do:}.}
 
-Quand \ct{each} est \ct{7}, nous nous attendons à ce que le bloc \ct{ifTrue:} soit 
-exécuté, mais ce n'est pas le cas.
-Pour voir ce qui ne marche pas, allez \emph{dans} l'exécution de 
-\ct{value:} par le bouton \button{Into} 
-comme illustré par \figref{steppingIntoValue}.
+Quand \ct{each} est \ct{7} 
+% ajout vf 
+\arelire{(normalement après sept \clickbtn{}s sur \button{Through}\,--\,si vous êtes perdus vous pouvez toujours redémarrer en \clickant{} sur le bouton \button{Restart}),}
+nous nous attendons à ce que le bloc \ct{ifTrue:} soit exécuté, mais ce n'est pas le cas:
+% ajout vf
+\arelire{si vous \clickz{} encore sur le bouton \button{Through}, vous passerez à \ct{6} comme
+si notre point (\ct{dot}) n'était pas vu.}
+Pour voir ce qui ne marche pas, \arelire{rendez-vous
+après septième \clickbtn sur le bouton \button{Through} dans l'état illustré par
+\figref{steppingIntoValue}. De là, allez \emph{dans} l'exécution de 
+\ct{value:}:
+% ajout vf
+\clickz{} pour ce faire sur le bouton \button{Into}}.
 
 \begin{figure}[btp]
 	\begin{center}
@@ -1605,16 +1620,18 @@ comme illustré par \figref{steppingIntoValue}.
 		{\includegraphics[width=\textwidth]{steppingIntoValue}}
 		{\includegraphics[width=0.7\textwidth]{steppingIntoValue}}
 	\end{center}
-	\caption{Debugger après un \emph{pas} dans la méthode \ct{do:}
-      plusieurs fois grâce au bouton \button{Through}.}
+	\caption{Debugger après un \emph{pas} \arelire{\button{Into}} dans la méthode
+      \ct{do:} plusieurs fois grâce au bouton \button{Through}.}
 	\figlabel{steppingIntoValue}
 \end{figure}
 
-Après avoir cliqué sur le bouton \button{Into}, 
-nous nous trouvons dans la position illustrée par \figref{dotIsAString}.
+\arelire{%
+Après avoir \clicke{} sur le bouton \button{Into}, 
+vous obtiendrez une fenêtre de Debugger dans la même position que sur
+\figref{dotIsAString}.}
 Tout d'abord, il semble que nous soyons \emph{revenus} à la méthode 
 \ct{suffix} mais c'est parce que nous exécutons désormais le bloc
-que \ct{suffix} fourni en argument à \ct{detect:}.
+que \ct{suffix} fourni en argument au message \ct{detect:}.
 %\on{does not work any more! the debugger does not know about block variables!}  
 % Si vous sélectionnez \ct{i} dans le mini-inspecteur contextuel, 
 % vous pouvez voir sa valeur actuelle, qui devrait être \ct{7} 
@@ -1629,7 +1646,7 @@ Si vous sélectionnez \ct{dot} dans l'inspecteur contextuel,
 vous verrez que sa valeur est \ct{'.'}.
 Vous constatez maintenant qu'ils ne sont pas égaux: le septième caractère
 de \ct{'readme.txt'} est pourtant un objet \ct{Character} (donc un caractère), 
-alors que \ct{dot} est un \ct{String} (\ie une chaîne de caractères).
+alors que \ct{dot} est un \ct{String} (\ie une chaîne de caractères entre \emph{quotes}).
 
 \begin{figure}[btp]
 	\begin{center}
@@ -1660,10 +1677,14 @@ recommencer la recherche.
  \end{figure}
 
 \dothis{Changez le code directement dans le débogueur de 
-façon à ce que l'affectation est la forme
-\ct{dot := FileDirectory dot first} et \menu{accept}ez la
-modification.}
+façon à ce que l'affectation soit de la forme
+\ct{dot := FileDirectory dot first}:
+%ajout vf
+\arelire{%
+\ct{SequenceableCollection>>>first} renvoie le élément de la collection donc ici le premier caractère de la chaîne de caractères et ainsi, \ct{dot} correspond bien au caractère \ct{.} désormais}.
+Acceptez la modifications via l'option \menu{accept} du menu contextuel.}
 % rene propose : \menu{accept} pour accepter la modification  ?
+% martial : pas utile; à ce stade le lecteur connait bien accept/print it/do it; bon! c'est fait
 
 Puisque nous sommes en train d'exécuter le code dans un bloc à
 l'intérieur d'un \lct{detect:}, plusieurs trames de la pile 
@@ -1702,7 +1723,7 @@ En plus, si vous ajoutez \tmthref{testSuffix} à la classe
 pouvez très facilement revenir pour déboguer l'actuelle erreur.
 % very quickly get back to debugging the error.
 \sunit ouvre Debugger sur l'assertion fautive mais là vous
-avez simplement besoin de descendre d'une ligne dans la liste-pile,
+avez simplement besoin de descendre d'une ligne dans la pile,
 % you need only go back down the stack one frame,
 redémarrez le test avec le bouton \button{Restart} et allez
 dans la méthode \ct{suffix} par le bouton \button{Into}. Vous
