@@ -62,7 +62,7 @@ d'autres navigateurs. % CHANGE
 
 Bien entendu, vous pouvez occasionnellement rencontrer
 des situations dans lesquelles votre programme ne marche pas comme voulu.
-\pharo a un excellent débogueur, mais comme la plupart des outils puissants, il peut s'avérer déroutant au début.
+\pharo a un excellent débogueur, mais comme la plupart des outils puissants, il peut s'avérer déroutant au premier abord.
 Nous vous en parlerons au travers de sessions de débogages et vous
 montrerons certaines de ses possibilités.
 
@@ -89,7 +89,6 @@ Elle est plus efficace surtout en travail coopératif et est rendue possible via
 Finalement, en travaillant, vous pouvez trouver un \emph{bug} (dit aussi bogue) dans \pharo;
 nous vous expliquerons aussi comment reporter les bugs
 et comment soumettre les corrections de bugs ou \emph{bug fixes}.
-\ab{Or I would, if I knew how.   We should do this, or remove the paragraph.}
 
 %=========================================================
 \section{Une vue générale}
@@ -914,7 +913,7 @@ le nom anglais de ce type de format de noms).
 \index{écriture en chameau}
 \seeindex{CamelCase}{écriture en chameau}
 % martial: au-dessus, dans la correction de rene, je n'ai mis
-% LargePositiveInteger a la place de SmallTalk parce que ce n'est pas
+% LargePositiveInteger a la place de Smalltalk parce que ce n'est pas
 % (plus) la convention d'ecriture
 
 La classe \ct{PackageInfo} implémente ces règles et vous pouvez mieux les 
@@ -933,17 +932,12 @@ Par exemple, imprimer via \menu{print it} le code \ct{mc classes} dans l'espace 
 nous renvoie une liste de \mbox{\ct{MethodReference}{s}} ou références de méthodes
 pour toutes les méthodes de ces classes.
 La requête \ct{mc extensionMethods} est peut-être une des plus
-intéressantes: elle retourne la liste de toutes les méthodes contenues
-dans le paquetage \ct{Monticello} qui ne sont pas dans une classe de
-\lct{Monticello}. % CHANGE
+intéressantes : elle retourne la liste de toutes les méthodes contenues
+dans le paquetage \ct{Monticello} qui ne sont pas dans la catégorie \lct{Monticello}. 
 
-\arevoir{Les paquetages sont des ajouts à \pharo relativement récents
-mais, puisque les conventions de nommage de paquetage sont basées
-sur celles déjà existantes, il est possible d'utiliser
+La notion de paquetage Monticello est relativement nouvelle en \pharo, mais puisque les conventions de nommage des paquetages sont les mêmes que celles des catégories, il est possible d'utiliser
 \ct{PackageInfo} pour analyser du code plus ancien qui n'a pas 
-été explicitement adapté pour pouvoir y répondre.} % REVOIR -
-% martial : FAUX? DANS PBE
-% rene : nous pourrions remplacer \pharo par \st
+été explicitement adapté pour pouvoir y répondre.
 
 \dothis{Imprimer le code \ct{(PackageInfo named: 'Collections') externalSubclasses}; 
 cette expression répond une liste de toutes les sous-classes de \ct{Collection}
@@ -1411,7 +1405,7 @@ suffix
 \end{method}
 
 Bien sûr, nous sommes certain qu'une méthode si triviale fonctionnera.
-Ainsi plutôt que d'écrire un test \emph{SUnit} 
+Ainsi plutôt que d'écrire un test unitaire avec \emph{SUnit} 
 %ajout
 (que nous verrons dans \charef{SUnit}),
 nous entrons simplement \ct{'readme.txt' suffix} dans un Workspace
