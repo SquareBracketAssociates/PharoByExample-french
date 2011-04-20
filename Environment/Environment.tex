@@ -1427,12 +1427,11 @@ Le \ct{PreDebugWindow} nous indique dans sa barre de titre
 qu'une erreur s'est produite et nous affiche une trace de la pile d'exécution
 ou \emphind{stack trace} des messages qui ont conduit à l'erreur:
 % ajout vf martial
-\arelire{la dernière exécution est représentée par la plus haute ligne sur la pile.
-En descendant la trace (donc en remontan le temps), nous tombons sur la ligne
+la dernière exécution est représentée par la plus haute ligne sur la pile.
+En descendant la trace (donc en remontant le temps), nous tombons sur la ligne
  \ct{UndefinedObject>>>DoIt} qui représente le code qui vient d'être compilé
 et lancé quand nous avons demandé à \pharo d'imprimer 
-le code \ct{'readme.txt' suffix} dans notre espace de travail
-par \menu{print it}.}
+le code \ct{'readme.txt' suffix} dans notre espace de travail par \menu{print it}.
 Ce code a envoyé le message \ct{suffix} à
 l'objet \clsind{ByteString} (\ct{'readme.txt'}).
 S'en est suivi l'exécution de la méthode \ct{suffix} héritée de la
