@@ -1470,7 +1470,7 @@ La barre de titre et le panneau supérieur sont très similaires
 Cependant, le Debugger combine la trace de la pile avec un navigateur de
 méthode, ainsi quand vous sélectionnez une ligne dans le \emph{stack
 trace}, la méthode correspondante s'affiche dans le panneau inférieur.
-Vous devez absolument comprendre que l'exécution qui a causée l'erreur
+Vous devez absolument comprendre que l'exécution qui a causé l'erreur
 est toujours dans l'image mais dans un état suspendu.
 Chaque ligne de la trace représente une tranche de la pile
 d'exécution qui contient toutes les informations nécessaires
@@ -1506,19 +1506,17 @@ Vous pouvez toujours annuler vos changements en utilisant
 \index{raccourci clavier!cancel}
 
 L'inspecteur de droite affiche les variables temporaires du contexte courant.
-\arelire{%
 % ajout vf martial
 Sur \figref{debuggerDetectIfNone},
-nous voyons 
-dans le panneau de méthode au centre du débogueur que le message
+nous voyons dans le panneau de méthode au centre du débogueur que le message
 \ct{value} a été envoyé au paramètre-bloc \ct{exceptionBlock} passé en argument de la
 méthode \ct{detect:ifNone:};
-ce paramètre se retrouve bien dans notre troisième colonne de variables temporaires.}
+ce paramètre se retrouve bien dans notre troisième colonne de variables temporaires.
 % rene : il nous faudrait clarifier l'explication
 % martial: et voilà! (j'ai préféré rattaché au paragraphe du haut)
-\arelire{Comme nous pouvons le voir sur la méthode \ct{detect:} plus bas sur la
+Comme nous pouvons le voir sur la méthode \ct{detect:} plus bas sur la
   pile, notre paramètre \ct{exceptionBlock} est \ct{[self errorNotFound: aBlock]}. Il n'y
-a donc rien de surprenant à voir le message d'erreur correspondant.}
+a donc rien de surprenant à voir le message d'erreur correspondant.
 
 Si vous voulez ouvrir un inspecteur complet sur une des variables
 affichées dans les mini-inspecteurs, vous n'avez qu'à double-cliquer
@@ -1529,19 +1527,17 @@ utile si vous voulez suivre le changement d'une variable lorsque vous exécutez 
 \index{raccourci clavier!inspect it}
 \index{raccourci clavier!explore it}
 
-\arelire{% modif
 En revenant sur le panneau de méthode, nous voyons que nous
 nous attendions à trouver \ct{dot} dans la chaîne de caractère
-\ct{'readme.txt'} à l'avant-dernière 
-ligne de la méthode et que l'exécution n'aurait jamais du atteindre 
-la dernière ligne.}
+\ct{'readme.txt'} à l'avant-dernière ligne de la méthode et que 
+l'exécution n'aurait jamais du atteindre la dernière ligne.
 \pharo ne nous permet pas de lancer une exécution en arrière mais
 il permet de \emph{relancer une méthode}, ce qui marche parfaitement dans
 notre code qui ne change pas les objets mais qui en crée de nouveaux.
 
-\dothis{\arelire{En restant sur la ligne \ct{detect:ifNone:}, cliquez sur 
+\dothis{En restant sur la ligne \ct{detect:ifNone:}, cliquez sur 
 le bouton \button{Restart} et vous verrez que 
-l'exécution retournera dans l'état premier de la méthode courante.}
+l'exécution retournera dans l'état premier de la méthode courante.
 La sélection bleue englobe maintenant le message  
 \mbox{\ct{do:}} (voir \figref{RestartDetectIfNone}).}
 
@@ -1561,7 +1557,7 @@ Si vous cliquez sur le bouton \button{Over} \arelire{(en français, ``par dessus
 \pharo exécutera sauf erreur l'envoi du message actuel (dans notre cas \ct{do:}) d'un
 seul pas (en anglais, \emph{step}).
 Ainsi \button{Over} nous amènera sur le prochain message à envoyer dans la méthode courante.
-Ici nous passons à \ct{value}\,---\,c'est exactement l'endroit d'où nous avons démarré
+Ici nous passons à \ct{value}\,---\,c'est exactement l'endroit depuis lequel nous avons démarré
 et ça ne nous aide pas beaucoup.
 En fait, nous avons besoin de trouver pourquoi \ct{do:} ne trouve pas
 le caractère que nous cherchons.
@@ -1571,12 +1567,12 @@ bouton \button{Restart} pour revenir encore une fois au début de la méthode
 dans le même état que sur \figref{RestartDetectIfNone}.}
 
 %ajout vf
-\arelire{Après ce coup pour rien, essayons de parcourir l'exécution autrement. Pour ce faire, nous utiliserons le bouton \button{Into} (en français, ``dedans'') permettant de rentrer dans la méthode pour une exécution pas-à-pas.}
+Après ce coup pour rien, essayons de parcourir l'exécution autrement. Pour ce faire, nous utiliserons le bouton \button{Into} (en français, ``dedans'') permettant de rentrer dans la méthode pour une exécution pas-à-pas.
 
 \dothis{Cliquez sur le bouton \button{Into}; \pharo ira dans la méthode correspondante 
 au message surligné par la sélection bleue; dans ce cas, \ct{Collection>>>do:}.}
 
-\arelire{Malheureusement,} ceci ne nous aide pas plus: nous pouvons être confiant
+Malheureusement, ceci ne nous aide pas plus: nous pouvons être confiant
 dans le fait que la méthode \ct{Collection>>>do:} n'est pas erronée. 
 Le bug se situe plutôt dans \emph{ce que} nous demandons à \pharo de faire.
 %\emph{what}
@@ -1595,17 +1591,17 @@ l'exécution de la méthode \ct{do:}.}
 
 Quand \ct{each} est \ct{7} 
 % ajout vf 
-\arelire{(normalement après sept \clickbtn{}s sur \button{Through}\,--\,si vous êtes perdus vous pouvez toujours redémarrer en \clickant{} sur le bouton \button{Restart}),}
+(normalement après sept \clickbtn{}s sur \button{Through}\,--\,si vous êtes perdus vous pouvez toujours redémarrer en \clickant{} sur le bouton \button{Restart}),
 nous nous attendons à ce que le bloc \ct{ifTrue:} soit exécuté, mais ce n'est pas le cas:
 % ajout vf
-\arelire{si vous \clickz{} encore sur le bouton \button{Through}, vous passerez à \ct{6} comme
-si notre point (\ct{dot}) n'était pas vu.}
-Pour voir ce qui ne marche pas, \arelire{rendez-vous
+si vous \clickz{} encore sur le bouton \button{Through}, vous passerez à \ct{6} comme
+si notre point (\ct{dot}) n'était pas vu.
+Pour voir ce qui ne marche pas, rendez-vous
 après septième \clickbtn sur le bouton \button{Through} dans l'état illustré par
 \figref{steppingIntoValue}. De là, allez \emph{dans} l'exécution de 
 \ct{value:}:
 % ajout vf
-\clickz{} pour ce faire sur le bouton \button{Into}}.
+\clickz{} pour ce faire sur le bouton \button{Into}.
 
 \begin{figure}[btp]
 	\begin{center}
@@ -1618,10 +1614,9 @@ après septième \clickbtn sur le bouton \button{Through} dans l'état illustré
 	\figlabel{steppingIntoValue}
 \end{figure}
 
-\arelire{%
 Après avoir \clicke{} sur le bouton \button{Into}, 
 vous obtiendrez une fenêtre de Debugger dans la même position que sur
-\figref{dotIsAString}.}
+\figref{dotIsAString}.
 Tout d'abord, il semble que nous soyons \emph{revenus} à la méthode 
 \ct{suffix} mais c'est parce que nous exécutons désormais le bloc
 que \ct{suffix} fourni en argument au message \ct{detect:}.
@@ -1673,12 +1668,11 @@ recommencer la recherche.
 façon à ce que l'affectation soit de la forme
 \ct{dot := FileDirectory dot first}:
 %ajout vf
-\arelire{%
-\ct{SequenceableCollection>>>first} renvoie le élément de la collection donc ici le premier caractère de la chaîne de caractères et ainsi, \ct{dot} correspond bien au caractère \ct{.} désormais}.
+\ct{SequenceableCollection>>>first} renvoie le élément de la collection donc ici le premier caractère de la chaîne de caractères et ainsi, \ct{dot} correspond bien au caractère \ct{.} désormais.
 Acceptez la modifications via l'option \menu{accept} du menu contextuel.}
 % rene propose : \menu{accept} pour accepter la modification  ?
 % martial : pas utile; à ce stade le lecteur connait bien accept/print it/do it; bon! c'est fait
-
+% rene : merci martial
 Puisque nous sommes en train d'exécuter le code dans un bloc à
 l'intérieur d'un \lct{detect:}, plusieurs trames de la pile 
 devront être abandonnées de manière à valider le changement.
@@ -1688,16 +1682,14 @@ et, à condition de \click{} sur \menu{yes}, \pharo sauvegardera
 
 %\dothis{Cliquez sur le bouton \button{Restart} et ensuite \button{Proceed}; Debugger disparaîtra et l'évaluation de l'expression \ct{'readme.txt' suffix} sera complète et affichera la réponse \ct{'.txt'}}
 
-\arelire{L'évaluation de l'expression \ct{'readme.txt' suffix} sera complète et affichera la réponse \ct{'.txt'}.} 
+L'évaluation de l'expression \ct{'readme.txt' suffix} sera complète et affichera la réponse \ct{'.txt'}.
 
-Est-ce pour autant une réponse correcte?  Malheureusement nous ne pouvons
-répondre avec certitude.
+Est-ce pour autant une réponse correcte?  Malheureusement nous ne pouvons répondre avec certitude.
 %Unfortunately, we can't say for sure.  
 Le suffixe devrait-il être \ct{.txt} ou \ct{txt}?
 Le commentaire dans la méthode \ct{suffix} n'est pas très précis.
 % note de martial: commentaire traduit car en reference
-La façon d'éviter ce type de problème est d'écrire
-un test \ind{SUnit} pour définir la réponse.
+La façon d'éviter ce type de problème est d'écrire un test \ind{SUnit} pour définir la réponse.
 
 \begin{method}[testSuffix]{Un simple test pour la méthode \ct{suffix}}
 testSuffixFound
@@ -1806,7 +1798,7 @@ Nous en apprendrons plus sur SUnit dans \charef{SUnit}.
 connu sous le nom de \emph{threads}) tournent simultanément dans
 votre image.
 %fonctionnent de façon concourrante dans votre image.
-Dans l'avenir la machine virtuelle de \pharo bénéficiera davantage
+A l'avenir la machine virtuelle de \pharo bénéficiera davantage
 des multi-processeurs lorsqu'ils seront disponibles, mais le partage
 d'accès est actuellement programmé sur le principe de 
 tranches temporelles (ou \emph{time-slice}).
@@ -1831,7 +1823,7 @@ dans l'ordre de leur priorité depuis le \emph{timer interrupt watcher}
 %?
 (système de surveillance d'interruption d'horloge) de priorité
 80 au \emph{idle process} ou processus inactif du système de priorité 10.
-Bien sûr, sur un système mono-processeur, le seul processus pouvant être 
+Bien sûr, avec un système mono-processeur, le seul processus pouvant être 
 lancé en phase de visualisation est le \emph{UI~\footnote{UI désigne 
 \emph{User Interface}; en français, interface utilisateur.} process} 
 ou processus graphique;
@@ -2017,7 +2009,7 @@ objectifs incompatibles)
 %require contradictory final states
 et vous permet de charger une série de paquetages dans un ordre de dépendances.
 
-Malgré ces imperfections, les \changesets reste utiles; vous pouvez, en particulier, en trouver sur Internet pour en observer le contenu, voire les utiliser.
+Malgré ces imperfections, les \changesets restent utiles; vous pouvez, en particulier, en trouver sur Internet pour en observer le contenu, voire les utiliser.
 Maintenant que nous avons vu comment exporter des \changesets avec le Change Sorter,
 nous allons voir comment les importer.
 Cette étape requiert l'usage d'un autre outil, le File List Browser.
@@ -2185,11 +2177,10 @@ Habituellement vous ne voudriez pas charger (c'est-à-dire re-exécuter) ses exp
 Cependant, il existe une exception.
 Créer une classe apparaît comme un \menu{doIt}.
 \emph{Avant de charger les méthodes d'une classe, la classe doit exister.}
-Donc, si vous avez créer des nouvelles classes, chargez \emph{en premier lieu} 
+Donc, si vous avez créé des nouvelles classes, chargez \emph{en premier lieu} 
 les \emph{doIts} créateur de classes, ensuite utilisez \menu{remove doIts} 
 %ajout
-(pour ne pas charger les expressions d'un espace de travail)
-et enfin charger les méthodes.
+(pour ne pas charger les expressions d'un espace de travail) et enfin charger les méthodes.
 %\lr{Maybe mention that class renames are not logged and completely screw up the change-set mechanism. (p. 174)}
 
 Quand j'en ai fini avec le recouvrement (en anglais, \emph{recover}), 
