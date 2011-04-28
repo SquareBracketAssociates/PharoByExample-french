@@ -688,7 +688,7 @@ Ceci fonctionne dans la plupart des cas mais il y a des insuffisances:
 point class --> LoggingProxy
 \end{code}
 Curieusement, la méthode \ct{class} n'est pas implémentée dans 
-\ct{ProtoObject} mais dans \ct{Object} que notre \ct{LoggingProxy} n'hérite pas!
+\ct{ProtoObject} mais dans \ct{Object} dont \ct{LoggingProxy} n'hérite pas!
 La réponse à cette énigme est que \ct{class} n'est jamais envoyé comme message mais est directement géré par la machine virtuelle~\footnote{\ct{yourself} aussi n'est jamais vraiment envoyé.
 Les autres messages qui peuvent être interprétés par la machine virtuelle selon le receveur sont:
 \mbox{\ct{+},}
@@ -720,7 +720,7 @@ Les autres messages qui peuvent être interprétés par la machine virtuelle sel
 \mbox{\ct{do:},}
 \mbox{\ct{new},}
 \mbox{\ct{new:},}
-\arevoir{\mbox{\ct{x}} et \mbox{\ct{y}.}}
+\mbox{\ct{x}} et \mbox{\ct{y}.}
 Les sélecteurs ne sont jamais envoyés parce qu'ils sont codés directement par le compilateur et transformés en \emph{bytecodes} % REVOIR voir comment bien formuler ça
 %% Selectors that are never sent, because they are inlined by the compiler and transformed to comparison and jump \emph{bytecodes}:
 \mbox{\ct{ifTrue:},}
@@ -741,8 +741,8 @@ Les sélecteurs ne sont jamais envoyés parce qu'ils sont codés directement par
 \mbox{\ct{ifNotNil:},}
 \mbox{\ct{ifNil:ifNotNil:}} et
 \mbox{\ct{ifNotNil:ifNil:}}.
-\arelire{%
-Des tentatives pour envoyer ces messages à des objets non-booléens peuvent être interceptées et leur exécution peuvent être reprise avec un booléen valide en surchargeant la méthode \ct{mustBeBoolean} dans le receveur ou en capturant l'exception \ct{NonBooleanReceiver}.}}.
+
+Des tentatives pour envoyer ces messages à des objets non-booléens peuvent être interceptées et leur exécution peuvent être reprise avec un booléen valide en surchargeant la méthode \ct{mustBeBoolean} dans le receveur ou en capturant l'exception \ct{NonBooleanReceiver}.}.
 %% Attempts to send these messages to non-boolean objects can be intercepted and execution can be resumed with a valid boolean value by overriding \ct{mustBeBoolean} in the receiver or by catching the \ct{NonBooleanReceiver} exception.
 %%  The answer to this riddle is that \ct{class} is never sent as a message but is directly answered by the virtual machine.\footnote{\ct{yourself} is also never truly sent.
 %% Other messages that may be directly interpreted by the VM, depending on the receiver, include:
