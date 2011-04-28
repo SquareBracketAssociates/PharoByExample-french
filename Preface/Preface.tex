@@ -50,16 +50,16 @@
 
 \pharo est une implémentation moderne, libre et complète du
 langage de programmation \st et de son environnement. \pharo est
-un \emph{fork}\footnote{\arelire{Projet dérivé d'une version d'un logiciel pré-existant.}} de \squeak\cite{Inga97a}, 
-une réécriture du classique système \st-80. 
+un \emph{fork}\footnote{Un fork, ou embranchement, est un nouveau logiciel créé à partir du code source d'un logiciel existant. Cela suppose que les droits accordés par les auteurs le permettent : ils doivent autoriser l'utilisation, la modification et la redistribution du code source. C'est pour cette raison que les forks se produisent facilement dans le domaine des logiciels libres. (Extrait de Wikipedia)} de \squeak \cite{Inga97a}, 
+une réécriture de l'environnement \st-80 original. 
 Alors que \squeak fut développé principalement en tant que
 plateforme pour le développement de logiciels éducatifs
 expérimentaux, \pharo tend à offrir une plateforme,
 à la fois, \emph{open-source} et épurée pour le développement de
 logiciels professionnels et aussi, stable et robuste pour la recherche 
 et le développement dans le domaine des langages et environnement dynamiques. 
-\pharo est le système de référence de \arelire{Seaside: le \framework 
-destiné au développement web.} % CHANGE
+\pharo est l'implémentation Smalltalk de référence de Seaside: le \framework 
+destiné au développement web.
 
 \pharo résout les problèmes de licence inhérent à \squeak. 
 Contrairement aux versions précédentes de \squeak, le noyau
@@ -69,7 +69,7 @@ a débuté en mars 2008 depuis un \emph{fork} de la version 3.9 de \squeak et la
 
 Bien que dépourvu de nombreux paquetages présents dans \squeak, \pharo
 est fourni avec beaucoup de fonctionalités optionnelles dans \squeak.
-Par exemple, les fontes \truetype sont inclus dans \pharo. \pharo
+Par exemple, les fontes \truetype sont inclues dans \pharo. \pharo
 dispose aussi du support pour de véritables fermetures lexicales ou
 \emph{block closures}. Les élements d'interface utilisateurs ont été
 revus et simplifiés. % CHANGE
@@ -82,13 +82,9 @@ un ensemble de projets innovants, des applications multimédias et
 % There is an important aspect behind \pharo: \pharo should not just be a copy of the past but really \emph{reinvent} Smalltalk. Big-bang approaches rarely succeed. \pharo will really favor evolutionary and incremental changes. We want to be able to experiment with important new features or libraries. Evolution means that \pharo accepts mistakes and is not not aiming for the next perfect solution in one big step\,---\,even if we would love it. \pharo will favor small incremental changes but a multitude of them. The success of \pharo depends on the contributions of its community.
 Il est important de préciser le fait suivant concernant \pharo: 
 \pharo ne devrait pas être qu'une simple copie du passé mais véritablement
-une \emph{réinvention} de Smalltalk. 
-\arelire{Pour autant, les approches en \emph{tabula rasa} fonctionnent rarement.}
-%\arevoir{Les approches en \emph{big bang} fonctionnent rarement.} 
-% Rene : au lieu de big bang nous pourrions peut-être employer l'expression "tabula rasa" ou "table rase" 
-\pharo encourage les changements évolutifs et
-incrémentaux. Nous voulons être capable d'expérimenter via les
-nouvelles fonctionalités et autres bibliothèques. Par \emph{évolution},
+une \emph{réinvention} de Smalltalk. Pour autant, les approches où l'on fait table rase du passé fonctionnent rarement.
+Au contraire, \pharo encourage les changements évolutifs et
+incrémentaux. Nous voulons qu'il soit possible d'expérimenter via de nouvelles fonctionalités et bibliothèques. Par \emph{évolution},
 nous disons que \pharo tolère les erreurs et n'a pas pour objectif
 de devenir la prochaine solution de rêve d'un bond\,---\,même si nous
 le désirons.
@@ -267,13 +263,14 @@ les facilités d'hébergement web de ce livre.
 
 Nous remercions aussi la communauté \squeak pour son soutien et son
 enthousiasme sur ce projet et pour sa communication quant à l'aide à
-la correction de la première édition de la version originale %ajout
-de ce livre. % REVOIR
+la correction de la première édition de la version originale 
+de ce livre.
 
 \section*{Remerciements pour l'édition française}
 
-L'édition française de ce livre a été réalisée par
-l'équipe de traducteurs et de relecteurs suivante: \arelire{A VENIR.}
+L'édition française de ce livre a été réalisée par l'équipe de traducteurs : 
+Martial Boniou, René Mages et Serge Stinckwich. Nous remercions également Karine Mordal-Manet pour sa relecture de certaines parties du livre et de Mathieu Chappuis, Luc Fabresse, Alain Plantec et Benoît Tuduri pour leur participation à la traduction de la version Squeak de ce livre.
+
 %% REVOIR
 %Martial Boniou,  Mathieu Chappuis, Luc Fabresse, René Mages, Nicolas Petton, Alain Plantec, Serge Stinckwich et Benoît Tuduri.
 %Cette équipe remercie l'association OFSET\footnote{OFSET est une organisation française à but non lucratif de type association loi 1901. Elle a été créée pour répondre à la faiblesse du développement de logiciels libres éducatifs pour le système GNU. Elle fait la promotion de toutes les sortes de développements et de localisations nécessaires aux systèmes éducatifs à travers le monde.} (\url{www.ofset.org}) qui héberge notamment le Wiki de la communauté francophone de Squeak, ainsi que le magazine Gnu/Linux Magazine France (\url{www.gnulinuxmag.com}) qui nous a autorisé en reprendre en partie certains articles sur Smalltalk parus dans ses colonnes.
