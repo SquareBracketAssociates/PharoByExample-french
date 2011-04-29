@@ -93,7 +93,7 @@
 \newboolean{lulu} % version lulu
 \setboolean{lulu}{false}
 \newboolean{deployment} % version de déploiement
-\setboolean{deployment}{false}  % true pour enlever les couleurs et
+\setboolean{deployment}{true}  % true pour enlever les couleurs et
                                 % annotations de traduction
 \newcommand{\ifluluelse}[2]{\ifthenelse{\boolean{lulu}}{#1}{#2}}
 \newcommand{\ifdeploy}[1]{\ifthenelse{\boolean{deployment}}{#1}{}}      % vf only
@@ -688,7 +688,7 @@ framerule=0pt,
                                 % incertitude mineure
 \newcommand{\aretirer}[1]{\del{#1}} % à enlever ou remplacer
 % ALERTE traducteurs
-\newcommand{\tradalert}[2]{\fix~\uppercase{#1:~\emph{#2}}} % affiche
+\newcommand{\tradalert}[2]{\fix~\uppercase{#1:~\emph{#2}}\\} % affiche
                                 % une balise avec le nom de traducteur
                                 % signalant un message d'alerte
 \ifdeploy{%
