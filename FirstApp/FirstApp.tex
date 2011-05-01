@@ -14,6 +14,7 @@
 % relecture: Rene Mages (10/01/2010) version 30222
 % relecture: Rene Mages  (25/06/2010) version 33735
 % relecture: Rene Mages  (11/04/2011) 
+% relecture: Rene Mages  (01/05/2011)
 \ifx\wholebook\relax\else
 % --------------------------------------------
 % Lulu:
@@ -81,7 +82,7 @@ Nous allons voir maintenant comment définir ces deux classes en utilisant les o
 
 Nous avons déjà vu le \ind{Browser}
 dans \charef{quick}, où nous avons appris à naviguer dans les classes
-et méthodes, et à définir de nouvelles méthodes.
+et les méthodes, et à définir de nouvelles méthodes.
 Nous allons maintenant voir comment créer des paquetages (ou \emph{packages}), des catégories et des classes.
 \index{catégorie!création}
 \index{package!création}
@@ -92,6 +93,8 @@ Browser est installé en tant que navigateur de classes par défaut.
 Si le Browser ne ressemble pas à celui de la
 \figref{addPackage}, vous aurez besoin de changer le navigateur par
 défaut. Voyez \faqref{packageBrowser}.}.}
+% rene : Voyez la FAQ ??, p. ??.  donc probleme avec \faqref
+
 
 \begin{figure}[htb]
 \begin{minipage}[b]{0.48\textwidth}
@@ -143,8 +146,8 @@ est une collection de classes apparentées \emph{et de méthodes
 Monticello.
 Par convention, les noms de paquetages et les noms de catégories sont
 les mêmes.
-La plupart du temps, nous n'accordons pas de différence mais, dans ce
-livre, nous serons attentifs à utiliser la terminologie exacte car il
+D'ordinaire nous ne faisons pas de différence mais dans ce
+livre nous serons attentifs à utiliser la terminologie exacte car il
 y a des cas où la différence est cruciale.
 Vous en apprendrez plus lorsque nous aborderons le travail avec
 Monticello.
@@ -194,7 +197,7 @@ Cette nouvelle définition consiste en une expression \st qui envoie un message 
 Nous indiquons également que les instances de cette nouvelle classe doivent avoir une variable d'instance \ct{mouseAction}, que nous utiliserons pour définir l'action que la cellule doit effectuer lorsque l'utilisateur clique dessus avec la souris.
 
 \emph{À ce point, nous n'avons encore rien construit.}
-Notez que le bord du panneau du modèle de la classe est passé en rouge
+Notez que le bord du panneau du modèle de la classe est passé au rouge
 (voir \figref{acceptClassDef}).
 Cela signifie qu'il y a des \emph{modifications non sauvegardées}.
 Pour effectivement envoyer ce message, vous devez faire \menu{accept}.
