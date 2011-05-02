@@ -61,30 +61,32 @@ La création des méthodes, des objets et les envois de messages seront égaleme
 %=================================================================
 \section{Premiers pas}
 \tradalert{martial}{nouvelle section}
-\pharo est librement disponible au \ind{téléchargement} depuis la page \pharowebdownload du site web de \pharo.
-Pour bien démarrer, il vous faudra trois archives~\footnote{Vous pourriez y télécharger une archive nommée ``one-click image'' en cliquant sur le premier lien disant ``Download Pharo'' mais nous avons pris le parti de bien détaillé dès le début les fichiers nécessaires au bon fonctionnement de \pharo.}: une archive \emph{image} (contenant deux fichiers, l'image proprement dite et le fichier de \emphind{changes}) disponible dans le paragraphe \emph{Pharo 1.* image}, 
+\pharo est librement disponible au \ind{téléchargement} depuis la page \mbox{\pharowebdownload} du site web de \pharo.
+Pour bien démarrer, il vous faudra trois archives: une archive \emph{image} (contenant deux fichiers, l'image proprement dite et le fichier de \emphind{changes}) disponible dans le paragraphe \emph{Pharo 1.* image}, 
 un fichier nommé \emphind{source}{}\emph{s} disponible dans le paragraphe \emph{Sources file} et enfin, un programme exécutable appelé machine virtuelle selon votre système d'exploitation dans le paragraphe \emph{Virtual Machines}.
 
-Dans le cas du présent livre, nous n'aurons besoin que de télécharger le programme exécutable puisque l'archive image et le fichier source que nous utiliserons seront ceux présents sur le site du \pbe. % CHANGE pour ppe dès que possible
+Dans le cas du présent livre, nous aurons seulement besoin de télécharger une archive unique contenant tout le nécessaire.
 Sachez que si vous avez déjà une autre version de \pharo qui fonctionne sur votre
 machine, la plupart des exemples d'introduction de ce livre
-fonctionneront. Il n'est donc pas nécessaire de mettre à jour \pharo\,---\,même si nous vous recommandons le téléchargement de l'image fournie avec le livre pour un apprentissage étape par étape afin de ne pas être surpris par les quelques différences qui pourraient apparaître dans l'apparence ou le comportement que nous décrirons.
+fonctionneront mais, en raison de subtils changements dans l'interface et les outils proposées dans une version actuelle de \pharo, nous vous recommandons le téléchargement du fichier \mbox{``\pharooneclick''}~\footnote{``PBE'' est l'acronyme de \emph{``Pharo By Example''}, titre original de ``Pharo Par l'Exemple''.} disponible sur le site \ppe: vous aurez alors une image en parfait accord avec le livre.
 
 \index{téléchargement}
 \seclabel{sbeImage}             % OBSOLETE
-\dothis{Téléchargez et décompressez la machine virtuelle \pharo sur votre ordinateur depuis la page \pharowebdownload. Téléchargez et décompressez l'archive ``Pharo By Example image'' depuis le lien de la section \emph{Download Pharo} dans la colonne de droite de la page \pbe.} % CHANGE pour ppe dès que possible
+\dothis{Depuis le site \ppe{}, téléchargez et décompressez l'archive \pharo nommé \pharooneclick{} sur votre ordinateur.} % CHANGE pour ppe dès que possible
 
-Cette dernière archive contient trois fichiers importantes: l'image, le fichier \emph{sources} et le fichier \emph{changes}. Avec la machine virtuelle, vous devriez donc avoir quatre fichiers tels que nous pouvons le voir sur \figref{download}. Ainsi \pharo{} se compose:
+Le dossier résultant de la décompression de l'archive contient quatre fichiers importants: la machine virtuelle selon votre système d'exploitation, l'image, le fichier \emph{sources} et le fichier \emph{changes}. Si vous êtes utilisateur de \macosx, nous vous inquiétez pas de ne voir qu'un seul fichier; il s'agit d'un exécutable en \emph{bundle} que vous pouvez explorer en cliquant dessus avec le bouton droit et en choisissant l'option du menu contextuel dite ``Afficher le contenu du paquet''.
+
+Avec la machine virtuelle, vous devriez donc avoir quatre fichiers tels que nous pouvons le voir sur \figref{download}. Ainsi \pharo{} se compose:
 
 \begin{enumerate}
 \item d'une \emphind{machine virtuelle} (abrégée en VM pour
   \emph{virtual machine}): c'est la seule partie de l'environnement qui
   est particulière à chaque \arelire{couple système d'exploitation et
     processeur}. Des machines virtuelles pré-compilées sont disponibles pour la plupart des
-  systèmes (Linux, \macosx, Win32). Dans \figref{download}, \arelire{vous
-pouvez voir que la machine virtuelle pour la plateforme choisie est
-appelée \textit{Pharo.exe} ou \textit{SqueakVMblabla}~\footnote{Basé sur \squeak{}3.9, \pharo utilise par défault une machine virtuelle similaire. A l'avenir d'autres machines pourrait être disponible. Attention toutefois à ne pas essayer la machine virtuelle Cog qui ne fonctionne pas avec l'image du livre.}.
-} % CHANGE 29247
+  systèmes (Linux, \macosx, Win32). Dans \figref{download}, vous
+pouvez voir que la machine virtuelle pour la plateforme Windows est
+appelée \textit{pharo.exe}. En naviguant dans le répertoires \textsf{Contents/Linux}, les utilisateurs
+trouveront un fichier binaire nommé \textit{squeakvm}~\footnote{Basé sur \squeak{}3.9, \pharo utilise par défault une machine virtuelle similaire.}: il s'agit de la machine virtuelle qui est appelée via le script \emph{shell} \textit{pharo.sh}.
 %martial: ajout des index dans la vf
 \index{machine virtuelle}
 \seeindex{VM}{machine virtuelle}
@@ -114,41 +116,38 @@ Dans \figref{download}, ces fichiers sont appelés
 \end{enumerate}
 
 \begin{figure}[htb]
-\centerline {\includegraphics[width=\textwidth]{annotatedDownload-flat}}
-\caption{Exemple de fichiers à télécharger de \pharo pour Windows et \macosx.}\figlabel{download}
+\centerline {\includegraphics[width=\textwidth]{annotatedDownload-flat-oneclick}}
+\caption{Fichiers de \pharo de l'archive \pharooneclick{} vus par les systèmes Windows et \macosx. Les fichiers \emph{PBE.image} et \emph{PBE.changes} doivent être modifiables en écriture.}\figlabel{download}
 \end{figure}
 
-Pendant que vous travaillez avec \pharo, les fichiers \emph{.image} et \emph{.changes} sont modifiés; vous devez donc vous assurer qu'ils sont accessibles en écriture.
-Conservez toujours ces deux fichiers ensemble, \cad dans le même dossier.
-Et surtout, ne tentez pas de les modifier avec un éditeur de texte, \pharo les utilise pour stocker vos objets de travail et vos changements dans le code source.
+Ces trois derniers fichiers résident discrètement dans le répertoire \textsf{Contents/Resources}.
+Pendant que vous travaillez avec \pharo, les fichiers \emph{.image} et \emph{.changes} sont modifiés; si vous êtes amenés à utiliser d'autres images, vous devez donc vous assurer qu'ils sont accessibles en écriture et qu'ils sont toujours ensemble, \cad dans le même dossier.
+Ne tentez pas de les modifier avec un éditeur de texte, \pharo les utilise pour stocker vos objets de travail et vos changements dans le code source.
 Faire une copie de sauvegarde de vos images téléchargées et de vos
 fichiers \emph{changes} est une bonne idée; vous pourrez ainsi
 toujours démarrer à partir d'une image propre et y recharger votre code.
-
 Les fichiers \emphind{source}{}\emph{s} et l'exécutable de la VM peuvent être
 en lecture seule\,---\,il est donc possible de les partager entre plusieurs utilisateurs.
-Ces quatre fichiers peuvent résider dans le même dossier, mais vous pouvez également placer la machine virtuelle et les fichiers sources dans un dossier partagé distinct.
-Vous pouvez adapter l'installation de \pharo à vos habitudes de travail
-et à votre système d'exploitation.
 
 %-----------------------------------------------------------------
 \begin{figure}[htb]
 %\centerline {\includegraphics[width=0.6\textwidth]{download}}
 \centerline {\includegraphics[width=0.95\textwidth]{startup}}
-\caption{Une image \arevoir{\ppe} fraîchement démarrée.\figlabel{startup}}
+\caption{Une image PBE fraîchement démarrée.\figlabel{startup}}
 \end{figure}
 
 \index{lancement de \pharo}
 
-\paragraph{Lancement.} Pour lancer \pharo, selon votre système: glissez
-le fichier \emph{.}\emphind{image} sur l'icône de l'exécutable de la
-machine virtuelle, ou double-cliquez sur le fichier
-\emph{.}\emphind{image}, ou encore, depuis une ligne de commande,
-tapez le nom du fichier binaire correspondant à la machine virtuelle
-suivi du chemin d'accès au fichier \emph{.}\emphind{image} (si vous
-avez installé plusieurs machines virtuelles, le système ne choisira
-pas forcément celle qui convient, il sera préférable de
-glisser-déposer l'image sur la VM ou d'utiliser la ligne de commande).
+\paragraph{Lancement.} Pour lancer \pharo:
+
+\begin{itemize}
+\item si vous êtes sous Windows, cliquez sur \textit{pharo.exe} à la racine du répertoire \textsf{\pharooneclick{}.app}.
+Le fichier \textit{pharo.ini} contient diverses options de lancement tels que \textit{ImageFile} permettant de pointer vers une image particulière. Veillez à ne pas toucher ou déplacer ce fichier.
+\item  si vous êtes sous Linux, vous pouvez au choix cliquez sur \textit{pharo.sh} ou lancer depuis votre terminal la commande \textsf{.\/pharo.sh} depuis la racine du répertoire \textsf{\pharooneclick{}.app}. Si vous ouvrez le script \emph{shell} avec un éditeur, vous verrez que la commande exécute la machine virtuelle avec l'image \emph{PBE.image} du répertoire \textsf{Contents/Resources}.
+\item si vous êtes sous \macosx, cliquez sur le fichier \textit{\pharooneclick} (ou \textit{\pharooneclick{}.app} suivant votre configuration). En affichant le contenu de paquet, vous avez du voir le fichier de propriétés \emph{Info.plist} à la racine du répertoire \textsf{Contents}. C'est là que la magie opère. Si vous ouvrez ce dernier fichier avec le programme \emph{Property List Editor}, vous verrez que notre application \textit{\pharooneclick} cache le lancement d'une machine nommée \emph{Squeak VM Opt} sur le fichier \emph{PBE.image}.
+\end{itemize}
+
+Ainsi cette archive dite ``\emph{OneClick}'' (\ie{} un \emph{\clickbtn{}}) nous évite de faire un \emph{glissé-déposé} de notre image \emph{PBE.image} sur le programme exécutable de notre machine virtuelle ou d'écrire notre propre script de lancement: tout ce passe en un \clickbtn de souris.
 
 Une fois lancé, \pharo vous présente une large fenêtre qui peut contenir des
 espaces de travail nommés \emphind{Workspace} (voir \figref{startup}).
