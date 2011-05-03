@@ -681,7 +681,7 @@ fois).
 
 %=============================================================
 \section{Séquences d'expression}
-Les expressions (\ie envois de message, affectations\ldots) séparées par des points sont évaluées en séquence.
+Les expressions (\ie envois de message, affectations, \ldots) séparées par des points sont évaluées en séquence.
 Notez qu'il n'y a pas de point entre la définition d'un variable et l'expression qui suit.
 La valeur d'une séquence est la valeur de la dernière
 expression. Les valeurs retournées par toutes les expressions
@@ -735,15 +735,13 @@ envoyé au même receveur.
 \begin{code}{}
 Point new setX: 25 setY: 35; isZero --> false
 \end{code}
-
 %=============================================================
 \section{Résumé du chapitre}
 
 \begin{itemize}
 \item Un message est toujours envoyé à un objet nommé le \emph{receveur} qui peut être le résultat d'autres envois de messages.
 
-\item Les messages unaires sont des messages qui ne nécessitent pas d'arguments.\\
-Ils sont de la forme \lct{receveur \textbf{sélecteur}}.
+\item Les messages unaires sont des messages qui ne nécessitent pas d'arguments. Ils sont de la forme \lct{receveur \textbf{sélecteur}}.
 
 \item Les messages binaires sont des messages qui concernent deux objets, le receveur et un autre objet \emph{et} dont le sélecteur est composé de un ou deux caractères de la liste suivante: \ct{+}, \ct{-}, \ct{*}, \ct{/}, \ct{|}, \texttt{\&}, \ct{=}, \ct{>}, \ct{<}, \texttt{\~}, et \ct{@}.\\
 Ils sont de la forme: \lct{receveur \textbf{sélecteur} argument}.
@@ -758,8 +756,8 @@ Ils sont de la forme:
 
 \item \textbf{Règle trois.} Lorsque les messages sont de même nature, l'ordre d'évaluation est de gauche à droite.
 
-\item En \st, les opérateurs arithmétiques traditionnels comme +
-  ou * ont la même priorité. \ct{+} et \ct{*} ne sont que des
+\item En \st, les opérateurs arithmétiques traditionnels comme \ct{+}
+  ou \ct{*} ont la même priorité. \ct{+} et \ct{*} ne sont que des
   messages binaires; donc \ct{*} n'a aucune priorité sur
   \ct{+}. Vous devez utiliser les parenthèses pour obtenir un
   résultat différent.
