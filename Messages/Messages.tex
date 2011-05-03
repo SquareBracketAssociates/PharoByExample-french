@@ -47,7 +47,7 @@ ce chapitre ou bien d'y revenir un peu plus tard.
 %=============================================================
 \section{Identifier les messages}
 
-En \st, exception faite des éléments syntaxiques rencontrés dans
+Avec \st, exception faite des éléments syntaxiques rencontrés dans
 \charef{syntax} (\ct+:= ^ . ; # () {} [ : | ]+), tout se passe par envoi de messages.
 Comme en \ind{C++}, vous pouvez définir vos opérateurs comme \ct{+} pour vos propres 
 classes, mais tous les opérateurs ont la même précédence.
@@ -57,7 +57,7 @@ d'avoir une forme unaire avec une surcharge différente.
 
 Avec \st, l'ordre dans lequel les messages sont envoyés est
 déterminé par le type de message. Il n'y a que trois formes de
-messages: les messages \emphsubind{message}{unaire},
+messages : les messages \emphsubind{message}{unaire},
 \emphsubind{message}{binaire} et \emphsubind{message}{à mots-clés}.
  Les messages unaires sont toujours envoyés en premier, puis
 les messages binaires et enfin ceux à mots-clés. Comme dans la
@@ -68,7 +68,7 @@ nécessaire de réfléchir à ces règles.
 
 Comme la plupart des calculs en \st sont effectués par des envois de 
 messages, identifier correctement les messages est crucial. La terminologie 
-suivante va nous être utile:
+suivante va nous être utile :
 
 \begin{itemize}
   \item Un message est composé d'un \emphsubind{message}{sélecteur} et d'arguments optionnels,
@@ -185,7 +185,7 @@ objet. Dans \ct{Pen new go: 100}, le message \ct{go: 100} est envoyé
 %=============================================================
 \section{Trois sortes de messages}
 
-\st définit quelques règles simples pour déterminer l'ordre dans lequel 
+\st utilise quelques règles simples pour déterminer l'ordre dans lequel 
 les messages sont envoyés. Ces règles sont basées sur la distinction établie 
 entre les 3 formes d'envoi de messages: 
 \begin{itemize}
@@ -219,7 +219,7 @@ Object class --> Object class  "La classe de Object est Object class (BANG)"
 \end{code}
 % ON: I changed the examples to things we can test
 
-\important{Les messages unaires sont des messages qui ne nécessitent pas d'argument.\\
+\important{Les messages unaires sont des messages qui ne nécessitent pas d'argument.
 Ils suivent le moule syntaxique: \lct{receveur \textbf{sélecteur}}}
 
 %-------------------------------------------------------------
