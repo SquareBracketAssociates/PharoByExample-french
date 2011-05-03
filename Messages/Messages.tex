@@ -47,7 +47,7 @@ ce chapitre ou bien d'y revenir un peu plus tard.
 %=============================================================
 \section{Identifier les messages}
 
-En \st, exception faite des éléments syntaxiques rencontrés dans
+Avec \st, exception faite des éléments syntaxiques rencontrés dans
 \charef{syntax} (\ct+:= ^ . ; # () {} [ : | ]+), tout se passe par envoi de messages.
 Comme en \ind{C++}, vous pouvez définir vos opérateurs comme \ct{+} pour vos propres 
 classes, mais tous les opérateurs ont la même précédence.
@@ -57,7 +57,7 @@ d'avoir une forme unaire avec une surcharge différente.
 
 Avec \st, l'ordre dans lequel les messages sont envoyés est
 déterminé par le type de message. Il n'y a que trois formes de
-messages: les messages \emphsubind{message}{unaire},
+messages : les messages \emphsubind{message}{unaire},
 \emphsubind{message}{binaire} et \emphsubind{message}{à mots-clés}.
  Les messages unaires sont toujours envoyés en premier, puis
 les messages binaires et enfin ceux à mots-clés. Comme dans la
@@ -68,7 +68,7 @@ nécessaire de réfléchir à ces règles.
 
 Comme la plupart des calculs en \st sont effectués par des envois de 
 messages, identifier correctement les messages est crucial. La terminologie 
-suivante va nous être utile:
+suivante va nous être utile :
 
 \begin{itemize}
   \item Un message est composé d'un \emphsubind{message}{sélecteur} et d'arguments optionnels,
@@ -185,7 +185,7 @@ objet. Dans \ct{Pen new go: 100}, le message \ct{go: 100} est envoyé
 %=============================================================
 \section{Trois sortes de messages}
 
-\st définit quelques règles simples pour déterminer l'ordre dans lequel 
+\st utilise quelques règles simples pour déterminer l'ordre dans lequel 
 les messages sont envoyés. Ces règles sont basées sur la distinction établie 
 entre les 3 formes d'envoi de messages: 
 \begin{itemize}
@@ -219,7 +219,7 @@ Object class --> Object class  "La classe de Object est Object class (BANG)"
 \end{code}
 % ON: I changed the examples to things we can test
 
-\important{Les messages unaires sont des messages qui ne nécessitent pas d'argument.\\
+\important{Les messages unaires sont des messages qui ne nécessitent pas d'argument.
 Ils suivent le moule syntaxique: \lct{receveur \textbf{sélecteur}}}
 
 %-------------------------------------------------------------
@@ -557,7 +557,7 @@ comme nous le voyons dans l'\egref{mathcorrect}.
 \end{center}
 \end{figure}
 
-\important{En \st, les opérateurs arithmétiques comme + et * n'ont
+\important{En \st, les opérateurs arithmétiques comme \ct{+} et \ct{*} n'ont
   pas des priorités différentes. \ct{+} et \ct{*} ne sont que des
   messages binaires; donc \ct{*} n'a pas priorité sur
   \ct{+}. Utiliser des parenthèses pour obtenir le résultat désiré.}
@@ -681,7 +681,7 @@ fois).
 
 %=============================================================
 \section{Séquences d'expression}
-Les expressions (\ie envois de message, affectations\ldots) séparées par des points sont évaluées en séquence.
+Les expressions (\ie envois de message, affectations, \ldots) séparées par des points sont évaluées en séquence.
 Notez qu'il n'y a pas de point entre la définition d'un variable et l'expression qui suit.
 La valeur d'une séquence est la valeur de la dernière
 expression. Les valeurs retournées par toutes les expressions
@@ -735,15 +735,13 @@ envoyé au même receveur.
 \begin{code}{}
 Point new setX: 25 setY: 35; isZero --> false
 \end{code}
-
 %=============================================================
 \section{Résumé du chapitre}
 
 \begin{itemize}
 \item Un message est toujours envoyé à un objet nommé le \emph{receveur} qui peut être le résultat d'autres envois de messages.
 
-\item Les messages unaires sont des messages qui ne nécessitent pas d'arguments.\\
-Ils sont de la forme \lct{receveur \textbf{sélecteur}}.
+\item Les messages unaires sont des messages qui ne nécessitent pas d'arguments. Ils sont de la forme \lct{receveur \textbf{sélecteur}}.
 
 \item Les messages binaires sont des messages qui concernent deux objets, le receveur et un autre objet \emph{et} dont le sélecteur est composé de un ou deux caractères de la liste suivante: \ct{+}, \ct{-}, \ct{*}, \ct{/}, \ct{|}, \texttt{\&}, \ct{=}, \ct{>}, \ct{<}, \texttt{\~}, et \ct{@}.\\
 Ils sont de la forme: \lct{receveur \textbf{sélecteur} argument}.
@@ -758,8 +756,8 @@ Ils sont de la forme:
 
 \item \textbf{Règle trois.} Lorsque les messages sont de même nature, l'ordre d'évaluation est de gauche à droite.
 
-\item En \st, les opérateurs arithmétiques traditionnels comme +
-  ou * ont la même priorité. \ct{+} et \ct{*} ne sont que des
+\item En \st, les opérateurs arithmétiques traditionnels comme \ct{+}
+  ou \ct{*} ont la même priorité. \ct{+} et \ct{*} ne sont que des
   messages binaires; donc \ct{*} n'a aucune priorité sur
   \ct{+}. Vous devez utiliser les parenthèses pour obtenir un
   résultat différent.
