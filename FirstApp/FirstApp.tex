@@ -653,7 +653,7 @@ LOGame>>>newCellAt: i at: j
 \dothis{Ajoutez les méthodes \ct{LOGame>>>cellsPerSide} et \ct{LOGame>>>newCellAt:at:}.}
 Confirmez que les sélecteurs \ct{toggleNeighboursOfCellAt:at:} et \ct{mouseAction:} s'épellent correctement.
 
-\Tmthref{newCellAt:at:} retourne une nouvelle cellule \ct{LOCell} à la position \ct{(i,j)} dans la matrice (\clsind{Matrix}) de cellules.
+\Tmthref{newCellAt:at:} retourne une nouvelle cellule \ct{LOCell} à la position \mbox{\ct{(i,j)}{}} dans la matrice (\clsind{Matrix}) de cellules.
 La dernière ligne définit l'action de la souris (\ct{mouseAction}) associée à la cellule comme le \emph{bloc}
 \mbox{\ct{[self toggleNeighboursOfCellAt:i at:j]}.}
 %martial: callback = fonction de rappel ? (plus francais)
@@ -729,7 +729,7 @@ manière avec un ``\ct{:}'' à la fin; ici nous avons donc
 %%Les méthodes d'accès en lecture et écriture sont appelés des méthodes \emphind{accesseurs} et par convention elles doivent être placées dans le protocole \protind{accessing}.
 Une méthode d'accès (en lecture ou en écriture) est appelée
 en anglais \emphind{accessor} et par convention, elle doit être
-placée dans le protocole \mbox{\protind{accessing}}.
+placée dans le protocole \mbox{\protind{accessing}{}.}
 En \st, \emph{toutes} les variables d'instances sont privées à
 l'objet qui les possède, ainsi la seule façon pour un autre objet de
 lire ou de modifier ces variables en \st se fait au travers de
@@ -912,7 +912,7 @@ Le jeu doit maintenant se dérouler sans problèmes
 LOGame>>>mouseMove: anEvent
 \end{method}
 
-Et voilà! % CHANGE
+\noindent{} Et voilà! % CHANGE
 
 %\sd{It would be good to have a word about the debugger buttons into, step.... Or to have a separate chapter, we would use the material I wrote for my turtle book, please check it.}
 %\on{I think that is too much for this chapter. It will come soon enough.}

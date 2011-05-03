@@ -951,7 +951,7 @@ Comme cette méthode n'est pas trouvée, la \ind{machine virtuelle} veillera
 Ceci est un envoi dynamique de message tout à fait normal. Ainsi
 la recherche recommence depuis la classe \ct{EllipseMorph}, mais
 cette fois-ci en cherchant la méthode \ct{doesNotUnderstand:}~\footnote{Le nom du message peut se traduire par: \emph{``ne comprend pas''}.}.
-Il apparaît que \ct{Object} implémente \ct{doesNotUnderstand:}.
+Il apparaît que \lct{Object} implémente \ct{doesNotUnderstand:}.
 Cette méthode créera un nouvel objet \ct{MessageNotUnderstood} (en français: Message incompréhensible) capable de démarrer Debugger, le débogueur, dans le contexte actuel de l'exécution.
 
 Pourquoi prenons-nous ce chemin sinueux pour gérer une erreur si évidente?

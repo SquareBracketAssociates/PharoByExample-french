@@ -38,7 +38,7 @@
 % --------------------------------------------
     \graphicspath{{figures/} {../figures/}}
 	\begin{document}
-	% \renewcommand{\nnbb}[2]{} % Disable editorial comments
+	\renewcommand{\nnbb}[2]{} % Disable editorial comments
 	\sloppy
 \fi
 
@@ -381,6 +381,7 @@ Dans \figref{CompiledMethod}, nous pouvons même remarquer que l'information est
 Nous pouvons exploiter les relations établies entre classes et méthodes pour effectuer des requêtes sur le système.
 Par exemple, pour connaitre quelles méthodes viennent d'être introduites dans une classe donnée\,---\,autrement dit celles qui ne surchargent pas les méthodes de la super-classe\,---\,nous pouvons naviguer depuis la classe vers le dictionnaire de méthodes de cette manière :
 
+\needlines{4}
 \mthindex{Behavior}{methodDict}
 \begin{code}{}
 [:aClass| aClass methodDict keys select: [:aMethod |
@@ -436,7 +437,7 @@ Le Refactoring Browser nous permet de manière élégante de restreindre nos int
 \Actclick sur le nom de la classe et sélectionner \mbox{\menu{refactoring scope>subclasses with}.}
 Ceci ouvrira un nouveau BrowserEnvironnement sur la hiérarchie \mbox{\ct{Collection}.}
 Dans ce champ restreint, sélectionner \menu{refactoring scope>super-sends} pour ouvrir un nouvel environnement avec toutes les méthodes qui font des envois à \super dans la hiérarchie \ct{Collection}. Maintenant \click sur n'importe quelle méthode et sélectionner \menu{refactor>code critics}.
-Naviguer dans \menu{Lint checks>Possible bugs>Sends different super message}~\footnote{Ndt:
+Naviguer dans \menu{Lint checks>Possible bugs>Sends different super message}~\footnote{NdT:
 % ajout martial
 \arelire{``Lint checks'' peut se traduire par ``vérifications par analyse lexicale''.}%
 } et \actclick pour sélectionner \menu{browse}.}
@@ -609,7 +610,7 @@ Mais que se passerait-il si la méthode \ct{doesNotUnderstand:} est surchargée
 par une des sous-classes de \ct{Object} situées dans le chemin de recherche? %lookup path?
 Il s'avère qu'il s'agit d'une méthode pratique pour construire certains types de comportements très dynamiques. Un objet qui ne comprend pas un message peut, par la surcharge de \ct{doesNotUnderstand:}, se retrouver dans une stratégie alternative pour répondre à ce message.
 
-L'implémentation de \ind{proxies légers}~\footnote{Ndt: un \emph{proxy}, des \emph{proxies}.} pour objets et la compilation dynamique ou le chargement de code manquant sont deux applications très courantes de cette technique.
+L'implémentation de \ind{proxies légers}~\footnote{NdT: un \emph{proxy}, des \emph{proxies}.} pour objets et la compilation dynamique ou le chargement de code manquant sont deux applications très courantes de cette technique.
 % Two very common applications of this technique are (1) to implement \ind{lightweight proxies} for objects, and (2) to dynamically compile or load missing code.
 
 %-----------------------------------------------------------------
@@ -623,7 +624,6 @@ Puisque le \emph{proxy} n'implémentera virtuellement aucune méthode de lui-mê
 %By implementing this message, the proxy can then take special action before delegating the message to the real subject it is the proxy for.
 
 Jetons un \oe il sur une solution proposée pour programmer ceci~\footnote{Vous pouvez télécharger le paquetage \pkg{PBE-Reflection} sur \url{http://www.squeaksource.com/PharoByExample/}}.
-
 Nous définissons un \emph{proxy} de journalisation ou \ct{LoggingProxy} ainsi:
 
 \begin{code}{}
@@ -854,7 +854,7 @@ Ce qui peut paraître un peu surprenant, c'est qu'\emph{aucun objet} ne peut jou
 %% What is perhaps a bit more surprising, is that \emph{any object} can play the role of a compiled method. 
 %% All it has to do is respond to the method \ct{run:with:in:} and a few other important messages.
 
-\dothis{Définissez une classe vide \ct{Demo}. Imprimez \ct{Demo new answer42}~\footnote{NdT: référence au roman de science-fiction humoristique, le ``Guide du Routard Intergalactique'' par Douglas Adams dans lequel la réponse (\emph{answer}) à la question du \emph{pourquoi de l'univers} est $42$}.
+\dothis{Définissez une classe vide \ct{Demo}. Imprimez \ct{Demo new answer42}~\footnote{NdT: référence au roman de science-fiction humoristique, le ``Guide du Voyageur Galactique'' par Douglas Adams dans lequel la réponse (\emph{answer}) à ``la Vie, l'Univers et le Reste'' est $42$.}.
 %ajout vf
 via \menu{print it}
 et constatez comment l'habituelle erreur ``Message Not Understood'' est levée.}
@@ -863,7 +863,7 @@ et constatez comment l'habituelle erreur ``Message Not Understood'' est levée.}
 Maintenant nous pouvons installer un simple \st objet
 dans le dictionnaire de méthodes de notre classe \ct{Demo}.
 
-\dothis{Évaluez l'expression \lct{Demo methodDict at: \#answer42 put: ObjectsAsMethodsExample new.}
+\dothis{Évaluez l'expression \lct{Demo methodDict at: \#answer42 put:}~\mbox{\ct{ObjectsAsMethodsExample new.}}
 Essayez maintenant d'imprimer à nouveau le résultat de \ct{Demo new answer42}.
 Cette fois-ci nous pouvons obtenir la réponse \ct{42}.}
 

@@ -166,7 +166,7 @@ toute classe possède une super-classe.
 La super-classe de \clsind{TranslucentColor} est \clsind{Color} et la super-classe de \ct{Color} est \clsind{Object}:
 \begin{code}{@TEST}
 TranslucentColor superclass --> Color
-Color superclass                   --> Object
+Color superclass                          --> Object
 \end{code}
 
 Comme tout se produit par \subind{message}{envoi} de messages
@@ -443,7 +443,7 @@ Les instances de la classe \ct{Metaclass} sont les méta-classes anonymes; chacu
 
 
 \ct{Metaclass} représente le comportement commun des méta-classes.
-Elle fournit des méthodes pour la création d'instances (\ct{sub\-class\-Of:}) permettant de créer des instances initialisées de l'unique instance \ct{Metaclass} pour l'initialisation des variables de classe, la compilation de méthodes et l'obtention d'informations à propos des classes (liens d'héritage, variables d'instance, \etc).
+Elle fournit des méthodes pour la création d'instances (\ct{subclassOf:}) permettant de créer des instances initialisées de l'unique instance \ct{Metaclass} pour l'initialisation des variables de classe, la compilation de méthodes et l'obtention d'informations à propos des classes (liens d'héritage, variables d'instance, \etc).
 
 % It provides methods for instance creation (\ct{sub\-class\-Of:})
 % creating initialized instances of the metaclass's sole instance,
@@ -478,7 +478,7 @@ Si vous comparez les figures \ref{fig:metaclassclass} et \ref{fig:metaclassclass
 
 Les exemples suivants montrent comment il est possible d'interroger la hiérarchie de classes afin de démontrer que \figref{metaclassclassclass} est correcte.
 %martial: j'ai enleve les parentheses
-En réalité, vous verrez que nous avons dit un pieux mensonge\,---\,\ct{Object class superclass -->} {\clsind{ProtoObject class}, et non \ct{Class}. En \pharo, il faut aller une super-classe plus haut dans la hiérarchie pour atteindre \ct{Class}.
+En réalité, vous verrez que nous avons dit un pieux mensonge\,---\,\lct{Object class superclass}{}\mbox{\ct{-->}~\clsind{ProtoObject class},} et non \ct{Class}. En \pharo, il faut aller une super-classe plus haut dans la hiérarchie pour atteindre \ct{Class}.
 
 \needlines{2}
 \begin{example}{La hiérarchie des classes}{@TEST}
@@ -491,7 +491,7 @@ Color superclass			        --> Object
 \begin{example}{La hi{é}rarchie parall{è}le des méta-classes}{@TEST}
 TranslucentColor class superclass          --> Color class
 Color class superclass                     --> Object class
-Object class superclass superclass         --> Class    "!Attention: saute ProtoObject class!"
+Object class superclass superclass         --> Class    "Attention: saute ProtoObject class"
 Class superclass                           --> ClassDescription
 ClassDescription superclass                --> Behavior
 Behavior superclass                        --> Object
@@ -539,7 +539,7 @@ Puisque les méta-classes sont aussi des classes, elles doivent hériter de  \ct
 	
 
 \item La méta-classe de \ct{Metaclass} est une instance de \ct{Metaclass}.
-	La relation \emph{instance-de} forme une boucle fermée, donc \ct{Metaclass class class --> Metaclass}.
+	La relation \emph{instance-de} forme une boucle fermée, donc \lct{Metaclass class class}{}\mbox{\ct{--> Metaclass}.}
 \end{enumerate}
 
 %=================================================================

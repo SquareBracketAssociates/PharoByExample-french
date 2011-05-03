@@ -266,7 +266,7 @@ Soit vous devez maintenir {\sc Shift} \emph{Ctrl} ou {\sc Shift}
 % \end{wrapfigure}
 % \newpage
 
-\dothis{Saisissez \ct{Time now}
+\dothis{Saisissez \ct{Time now}{}
 %ajout 
 (expression retournant l'heure actuelle) dans le Workspace.
 Puis \actclickz{} dans le Workspace et sélectionnez
@@ -373,21 +373,21 @@ gauche de votre image \pharo.
 
 Vous venez tout simplement d'évaluer votre première expression \st. 
 %You have just evaluated your first \st expression!
-Vous avez juste envoyé le message \ct{new} à la classe \bam 
+Vous avez juste envoyé le message \ct{new}{} à la classe \bam 
 ce qui résulte de la création d'une nouvelle instance qui à 
 son tour \arevoir{reçoit le message}
-\ct{openInWorld}. % REVOIR dans le texte orig. pas de notion de
+\mbox{\ct{openInWorld}{}.} % REVOIR dans le texte orig. pas de notion de
 % receveur mais on parle uniquement d'envoyer (dur à reformuler) - martial
 % You just sent the message \ct{new} to the \bam class, resulting in a new \bam instance, followed by the message \ct{openInWorld} to this instance.
 La classe \bam{} a décidé de ce qu'il fallait faire avec le message
-\ct{new}: elle recherche dans ses \emph{méthodes} pour répondre de
-façon appropriée au message \ct{new}
+\ct{new}{}: elle recherche dans ses \emph{méthodes} pour répondre de
+façon appropriée au message \ct{new}{}
 % vf
 \arevoir{(\ie{} ``nouveau'' en français; ce que nous traduirons par
   \emph{nouvelle instance})}.
 % The \bam class decided what to do with the \ct{new} message, that is, it looked up its \emph{methods} for handling \ct{new} message and reacted appropriately.
 De même, l'instance \bam recherchera dans ses méthodes comment
-répondre à \ct{openInWorld}.
+répondre à \mbox{\ct{openInWorld}{}.}
 % Similarly the \bam instance looked up its method for responding to \ct{openInWorld} and took appropriate action.
 
 Si vous discutez avec des habitués de \st, vous constaterez rapidement
@@ -485,7 +485,7 @@ suivre les évolutions du code et de le partager entre plusieurs développeurs.
 \dothis{\arelire{\Metaclickz{} (en utilisant les touches de
     modifications appropriées conjointement avec votre souris) sur la fenêtre
   d'\bamfr\footnote{Souvenez-vous que vous pourriez avoir besoin
-    d'activer l'option \ct{halosEnabled} dans le Preference
+    d'activer l'option \ct{halosEnabled}{} dans le Preference
     Browser.}.}} % CHANGE 29247
 
 %martial: le choix des noms 'poignee' 'icone' ... pourra etre change
@@ -620,21 +620,21 @@ En plus de \menu{do it}, vous aurez noté la présence de \menu{print it}
 de \menu{inspect it} (pour inspecter) et de \menu{explore it} (pour
 explorer). Jetons un coup d'\oe il à ceux-ci.
 
-\dothis{Entrez l'expression \ct{3 + 4} dans le Workspace. Maintenant
+\dothis{Entrez l'expression \ct{3 + 4}{} dans le Workspace. Maintenant
   évaluez en faisant un \menu{do it} avec le raccourci-clavier.}
 
 Ne soyez pas surpris que rien ne se passe!
-Ce que vous venez de faire, c'est d'envoyer le message \ct{+} avec
-l'argument \ct{4} au nombre \ct{3}. Le résultat \ct{7} aura
-normalement été calculé et retourné, mais puisque votre espace de
+Ce que vous venez de faire, c'est d'envoyer le message \ct{+}{} avec
+l'argument \ct{4}{} au nombre \mbox{\ct{3}{}.}
+Le résultat \lct{7} aura normalement été calculé et retourné, mais puisque votre espace de
 travail Workspace ne savait que faire de ce résultat, la réponse a
 simplement été jetée dans le vide. Si vous voulez voir le
 résultat, vous devriez faire \menu{print it} au lieu
 de \menu{do it}. En fait, \menu{print it} compile l'expression,
-l'exécute et envoie le message \ct{printString} au résultat puis
+l'exécute et envoie le message \ct{printString}{} au résultat puis
 affiche la chaîne de caractère résultante.
 
-\dothis{Sélectionnez \ct{3+4} et faites \menu{print it} (\short{p}).}
+\dothis{Sélectionnez \ct{3 + 4}{} et faites \menu{print it} (\short{p}).}
 Cette fois, nous pouvons lire le résultat que nous attendions (voir
 \figref{printit}).
 \index{raccourci-clavier!print it}
@@ -652,14 +652,14 @@ Cette fois, nous pouvons lire le résultat que nous attendions (voir
 3 + 4 --> 7
 \end{code}
 \noindent
-Nous utilisons la notation \ct{-->} comme convention dans tout le
+Nous utilisons la notation \ct{-->}{} comme convention dans tout le
 livre pour indiquer qu'une expression particulière donne un certain
 résultat quand vous l'évaluez avec \menu{print it}.
 
-\dothis{Effacez le texte surligné ``\ct{7}''; comme \pharo devrait l'avoir
+\dothis{Effacez le texte surligné \mbox{``\ct{7}{}'';} comme \pharo devrait l'avoir
   sélectionné pour vous, vous n'avez qu'à presser sur la touche
   de suppression (suivant votre type de clavier \texttt{Suppr.} ou
-  \texttt{Del.}). Sélectionnez \ct{3+4} à nouveau et, cette fois,
+  \texttt{Del.}). Sélectionnez \ct{3 + 4}{} à nouveau et, cette fois,
   faites une inspection avec \menu{inspect it} (\short{i}).}
 %ajout
 \index{raccourci-clavier!inspect it}
@@ -669,11 +669,11 @@ résultat quand vous l'évaluez avec \menu{print it}.
 \noindent
 Vous devriez maintenant voir une nouvelle fenêtre appelée
 \emphind{inspecteur} avec pour titre 
- \ct{SmallInteger: 7} (voir \figref{inspectit}).
+ \ct{SmallInteger: 7}{} (voir \figref{inspectit}).
 L'inspecteur ou (sous son nom de classe) Inspector est un outil
 extrêmement utile: il vous permet de naviguer et d'interagir avec
 n'importe quel objet du système.
-Le titre nous dit que \ct{7} est une instance de la classe
+Le titre nous dit que \ct{7}{} est une instance de la classe
 \clsind{SmallInteger} 
 %ajout
 (classe des entiers sur 31 bits).
@@ -688,32 +688,32 @@ expressions envoyant des messages à l'objet.
 \caption{Inspecter un objet.\figlabel{inspectit}}
 \end{figure}
 
-\dothis{Saisissez \ct{self squared} dans le panneau inférieur de
-  l'inspecteur que vous aviez ouvert sur l'entier \ct{7} et faites un
+\dothis{Saisissez \ct{self squared}{} dans le panneau inférieur de
+  l'inspecteur que vous aviez ouvert sur l'entier \ct{7}{} et faites un
   \menu{print it}.
 %ajout
-Le message \ct{squared} (carré) va élever le nombre \ct{7} lui-même (\ct{self}).}
+Le message \ct{squared}{} (carré) va élever le nombre \ct{7}{} lui-même \mbox{(\ct{self}{}).}}
 
 \needlines{2}
 \dothis{Fermez l'inspecteur. Saisissez dans un Workspace le
-  mot-expression \ct{Object} et explorez-le via \menu{explore it}
+  mot-expression \ct{Object}{} et explorez-le via \menu{explore it}
   (\short{I}, i majuscule).}
 \index{raccourci-clavier!explore it}
 \index{explorateur}
 \seeindex{Explorer}{explorateur}
 
 Vous devriez voir maintenant une fenêtre intitulée \clsind{Object}
-contenant le texte \mbox{$\triangleright$ \ct{root: Object}}.
+contenant le texte \mbox{$\triangleright$ \mbox{\ct{root: Object}}{}.}
 Cliquez sur le triangle pour l'ouvrir (voir \figref{exploreit}).
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=0.7\textwidth]{ExploreIt}}
-\caption{Explorer \ct{Object}.\figlabel{exploreit}}
+\caption{Explorer \mbox{\ct{Object}{}.}\figlabel{exploreit}}
 \end{figure}
 
 Cet explorateur (ou Explorer) est similaire à l'inspecteur mais il
 offre une vue arborescente d'un objet complexe.
-Dans notre cas, l'objet que nous observons est la classe \ct{Object}.
+Dans notre cas, l'objet que nous observons est la classe \mbox{\ct{Object}{}.}
 Nous pouvons voir directement toutes les informations stockées dans
 cette classe et naviguer facilement dans toutes ses parties.
 
@@ -812,7 +812,7 @@ nous allons utiliser ici. % REVOIR (toujours vrai?)
 	{\centerline {\includegraphics[width=\textwidth]{ClassBrowser1}}}
 	{\centerline {\includegraphics[width=0.7\textwidth]{ClassBrowser1}}}
 \caption{Le navigateur de classes (ou Browser) affichant la
-  méthode \ct{printString} de la classe Object.
+  méthode \ct{printString}{} de la classe Object.
 \figlabel{classBrowser}}
 \end{figure}
 
@@ -851,7 +851,7 @@ l'affichage.
 
 \dothis{Sélectionnez la méthode \mthind{Object}{printString}.}
 Dès lors, vous voyez dans la partie inférieure du Browser
-le code source de la méthode \ct{printString} partagé par tous
+le code source de la méthode \ct{printString}{} partagé par tous
 les objets 
 %ajout
 (tous dérivés de la classe Object, exception faite de ceux qui la surchargent).
@@ -868,7 +868,7 @@ jusqu'à elle via le navigateur de classes.
 \index{classe!recherche}
 \seeindex{classe!trouver}{classe, recherche}
 
-Une seconde technique consiste à envoyer le message \ct{browse}
+Une seconde technique consiste à envoyer le message \ct{browse}{}
 (ce mot a le sens de ``naviguer'') à la classe, ce qui a pour effet
 d'ouvrir un navigateur de classes sur celle-ci
 %ajout
@@ -876,27 +876,27 @@ d'ouvrir un navigateur de classes sur celle-ci
 Supposons que nous voulions naviguer dans la classe \clsind{Boolean}
 (la classe des booléens).
 
-\dothis{Saisissez \ct{Boolean browse} dans un Workspace et faites un \menu{do it}.}
-Un navigateur s'ouvrira sur la classe \ct{Boolean} (voir \figref{browseBoolean}).
+\dothis{Saisissez \ct{Boolean browse}{} dans un Workspace et faites un \menu{do it}.}
+Un navigateur s'ouvrira sur la classe \ct{Boolean}{} (voir \figref{browseBoolean}).
 Il existe aussi un \ind{raccourci-clavier} \short{b} (browse) que vous
 pouvez utiliser dans n'importe quel outil où vous trouvez un nom de
 classe;
 \index{raccourci-clavier!browse it}
 sélectionnez le nom de la classe 
 %ajout
-(\parex \ct{Boolean})
+(\parex \mbox{\ct{Boolean}{})}
 puis tapez \short{b}.
 
-\dothis{Utilisez le raccourci-clavier pour naviguer dans la classe \ct{Boolean}.}
+\dothis{Utilisez le raccourci-clavier pour naviguer dans la classe \mbox{\ct{Boolean}{}.}}
 
 \begin{figure}[hbt]
 	{\centerline {\includegraphics[width=\textwidth]{Kernel-objects-boolean}}}
 \caption{Le navigateur de classes affichant la définition de la
-  classe \ct{Boolean}.\figlabel{browseBoolean}}
+  classe \mbox{\ct{Boolean}{}.}\figlabel{browseBoolean}}
 \end{figure}
 
 Remarquez que nous voyons une \emph{définition de classe}
-quand la classe \ct{Boolean} est sélectionnée mais sans qu'aucun
+quand la classe \mbox{\ct{Boolean}{}} est sélectionnée mais sans qu'aucun
 protocole ni aucune méthode ne le soit
 % martial: on utilise le PLURIEL lorsque l’action ou l’état peut être
 % rapporté aux deux sujets ; et le SINGULIER, lorsqu’il ne peut être
@@ -904,10 +904,10 @@ protocole ni aucune méthode ne le soit
 (voir \figref{browseBoolean}).
 Ce n'est rien de plus qu'un message \st ordinaire qui est envoyé à
 la classe parente lui réclamant de créer une sous-classe.
-Ici nous voyons qu'il est demandé à la classe \ct{Object} de
-créer une sous-classe nommée \ct{Boolean} sans aucune variables
+Ici nous voyons qu'il est demandé à la classe \ct{Object}{} de
+créer une sous-classe nommée \ct{Boolean}{} sans aucune variables
 d'instance, ni variables de classe ou ``pool dictionaries'' et de 
-mettre la classe \ct{Boolean} dans la catégorie \scatind{Kernel-Objects}.
+mettre la classe \ct{Boolean}{} dans la catégorie \scatind{Kernel-Objects}.
 % The lower pane shows the \emph{class comment} --- a piece of plain text describing the class.
 Si vous \clickz{} sur le bouton \button{?} en bas du panneau
 de classes, vous verrez le \subind{classe}{commentaire} de classe
@@ -943,7 +943,7 @@ dans un panneau dédié comme le montre \figref{classComment}. % CHANGE
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{classComment}}
-\caption{Le commentaire de classe de \ct{Boolean}.
+\caption{Le commentaire de classe de \mbox{\ct{Boolean}{}.}
 \figlabel{classComment}}
 \end{figure}
 
@@ -963,7 +963,7 @@ dans la boîte de dialogue et acceptez cette entrée.}
 \noindent
 Une liste de classes dont le nom contient ``time'' vous sera
 présentée (voir \figref{findit}). Choisissez-en une, disons,
-\ct{Time}; 
+\mbox{\ct{Time}{};} 
 %martial: ca fait longtemps qu'il n'y a plus ce comportement
 un navigateur l'affichera avec un commentaire de classe
 suggérant d'autres classes pouvant être utiles. Si vous voulez
@@ -1012,7 +1012,7 @@ Saisissez ``now'' dans le panneau supérieur gauche et cliquez sur
 Le chercheur de méthodes Method Finder affichera une liste de tous
 les noms de méthodes contenant la sous-chaîne de caractères ``now''.  
 
-Pour défiler jusqu'à \ct{now} lui-même, tapez ``\ct{n}''; cette
+Pour défiler jusqu'à \ct{now}{} lui-même, tapez \mbox{``\ct{n}{}'';} cette
 astuce fonctionne sur toutes les zones à défilement de n'importe
 quelle fenêtre. En sélectionnant ``now'', le panneau de droite
 vous présentera les classes qui définissent une méthode
@@ -1023,7 +1023,7 @@ celle-ci.
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=0.7\textwidth]{methodFinder-now}}
 \caption{Le Method Finder affichant toutes les classes qui
-  définissent une méthode appelée \ct{now}.
+  définissent une méthode appelée \mbox{\ct{now}{}.}
 \figlabel{MethodFinder}}
 \end{figure}
 
@@ -1032,9 +1032,9 @@ existe bien sans savoir comment elle s'appelle.
 Le Method Finder peut encore vous aider! Par exemple, partons de la
 situation suivante: vous voulez trouvez une méthode qui transforme
 une chaîne de caractères en sa version majuscule, \cad qui
-transforme \ct{'eureka'} en \ct{'EUREKA'}.
+transforme \ct{'eureka'}{} en \mbox{\ct{'EUREKA'}{}.}
 
-\dothis{Saisissez \ct{'eureka' . 'EUREKA'} dans le Method Finder,
+\dothis{Saisissez \ct{'eureka' . 'EUREKA'}{} dans le Method Finder,
   comme le montre \figref{methodFinder-example1}.}
 \noindent
 Le Method Finder vous suggère une méthode qui fait ce
@@ -1048,7 +1048,7 @@ alors sur le bouton~\button{Proceed}.}}.
 Un astérisque au début d'une ligne dans le panneau de droite du
 Method Finder vous indique que cette méthode est celle qui a été
 effectivement utilisée pour obtenir le résultat requis.
-Ainsi, l'astérisque devant \ct{String asUppercase} vous fait savoir
+Ainsi, l'astérisque devant \ct{String asUppercase}{} vous fait savoir
 que la méthode \mthind{String}{asUppercase} 
 %ajout
 (traduisible par ``en tant que majuscule'')
@@ -1059,7 +1059,7 @@ a été exécutée et a renvoyé le résultat voulu.
 Les méthodes qui n'ont pas d'astérisque ne sont que d'autres
 méthodes que celles qui retournent le résultat attendu.
 \cmind{Character}{asUppercase} n'a pas été exécutée dans notre
-exemple, parce que \ct{'eureka'} n'est pas un caractère de classe \clsind{Character}.
+exemple, parce que \ct{'eureka'}{} n'est pas un caractère de classe \clsind{Character}.
 
 \begin{figure}[hbt]
 	{\centerline {\includegraphics[width=\textwidth]{MethodFinder-example1}}}
@@ -1070,7 +1070,7 @@ exemple, parce que \ct{'eureka'} n'est pas un caractère de classe \clsind{Chara
 Vous pouvez aussi utiliser le Method Finder pour trouver des
 méthodes avec plusieurs arguments; par exemple, si vous recherchez
 une méthode qui trouve le plus grand commun diviseur de deux
-entiers, vous pouvez essayer de saisir \ct{25. 35. 5} comme exemple.
+entiers, vous pouvez essayer de saisir \ct{25. 35. 5}{} comme exemple.
 Vous pouvez aussi donner au Method Finder de multiples exemples pour
 restreindre le champ des recherches; le texte d'aide situé dans le
 panneau inférieure vous apprendra comment faire. % CHANGE
@@ -1102,7 +1102,7 @@ l'exemple suivant:
 %martial: j'ai change figures/testShoutConfirm.png et j'ai remplace
 %"Don't panic" par "Pas de panique"
 \begin{quote}
-Quand nous envoyons le message \ct{shout} (qui veut dire ``crier'' en anglais)
+Quand nous envoyons le message \ct{shout}{} (qui veut dire ``crier'' en anglais)
 à la chaîne de caractères ``Pas de panique'', le résultat
 devrait être ``PAS DE PANIQUE!''.
 \end{quote}
@@ -1115,14 +1115,14 @@ utiliser, nous le transformons en méthode de test:
 \index{SUnit}
 
 \needlines{3}
-\begin{method}[testShout]{Un test pour la méthode \ct{shout}}
+\begin{method}[testShout]{Un test pour la méthode \ct{shout}{}}
 testShout
 	self assert: ('Pas de panique' shout = 'PAS DE PANIQUEBANG')
 \end{method} % BANG is the escape for !
 
 Comment créons-nous une nouvelle méthode dans \pharo? Premièrement,
 nous devons décider quelle classe va accueillir la méthode.
-Dans ce cas, la méthode \ct{shout} que nous testons ira dans la
+Dans ce cas, la méthode \ct{shout}{} que nous testons ira dans la
 classe \clsind{String}
 %ajout
 car c'est la classe des chaînes de caractères et ``Pas de panique'' en est une.
@@ -1131,12 +1131,12 @@ nommée \clsind{StringTest}.
 
 \begin{figure}[hbt]
 	{\centerline {\includegraphics[width=\textwidth]{StringTest-newMethodTemplate}}}
-\caption{Le patron de la nouvelle méthode dans la classe \ct{StringTest}.
+\caption{Le patron de la nouvelle méthode dans la classe \mbox{\ct{StringTest}{}.}
 \figlabel{newMethodTemplate}}
 \end{figure}
 
 \dothis{Ouvrez un navigateur de classes sur la classe
-  \ct{StringTest}. Sélectionnez un protocole approprié pour notre
+  \mbox{\ct{StringTest}{}.} Sélectionnez un protocole approprié pour notre
   méthode; dans notre cas, \menu{tests - converting} 
 %ajout
 (signifiant tests de conversion, puisque notre méthode modifiera le texte en retour),
@@ -1171,13 +1171,13 @@ votre nom sans espaces ni point de séparation.
 %\figlabel{initials}}
 %\end{figure}
 
-Puisqu'il n'y a pas encore de méthode nommée \ct{shout}, le 
+Puisqu'il n'y a pas encore de méthode nommée \mbox{\ct{shout}{},} le 
 Browser vous demandera confirmation que c'est bien le nom que vous
 désirez\,---\,il vous suggèrera d'ailleurs d'autres noms de
 méthodes existantes dans le système (voir \figref{testShoutConfirm}).
 Ce comportement du navigateur est utile si vous aviez effectivement
 fait une erreur de frappe. Mais ici, nous voulons \emph{vraiment}
-écrire \ct{shout} puisque c'est la méthode que nous voulons
+écrire \mbox{\ct{shout}{}} puisque c'est la méthode que nous voulons
 créer. Dès lors, nous n'avons qu'à confirmer cela en
 sélectionnant la première option parmi celles du menu, comme vous
 le voyez sur \figref{testShoutConfirm}. 
@@ -1203,7 +1203,7 @@ le voyez sur \figref{testShoutConfirm}.
 
 \begin{figure}[htb]
  	{\centerline {\includegraphics[width=\textwidth]{testShoutConfirm}}}
- \caption{Accepter la méthode \ct{testShout} dans la classe \ct{StringTest}.
+ \caption{Accepter la méthode \ct{testShout}{} dans la classe \mbox{\ct{StringTest}{}.}
  \figlabel{testShoutConfirm}}
  \end{figure}
 
@@ -1217,13 +1217,13 @@ le voyez sur \figref{testShoutConfirm}.
 
 \dothis{Sélectionnez \scat{CollectionsTests-Text} et
 le panneau juste à droite vous affichera alors toutes les classes de test
-de cette catégorie dont la classe \ct{StringTest}.
+de cette catégorie dont la classe \mbox{\ct{StringTest}{}.}
 Les classes sont déjà sélectionnées dans cette catégorie; \clickz{}
 alors sur \menu{Run Selected} pour lancer tous ces tests.} % CHANGE
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{testRunnerOnStringTest}}
-\caption{Lancer les tests de \ct{String}.
+\caption{Lancer les tests de \mbox{\ct{String}{}.}
 \figlabel{testRunnerTestShout}}
 \end{figure}
 
@@ -1232,13 +1232,13 @@ Vous devriez voir un message comme celui de
 lors de l'exécution des tests. La liste des tests qui donne
 naissance à une erreur est affichée dans le panneau inférieur de
 droite; comme vous pouvez le voir, c'est bien
-\ct{StringTest>>>#testShout} le coupable
-(remarquez que la notation \ct{StringTest>>>#testShout} est la 
-convention \st pour identifier la méthode de la classe \ct{StringTest}).
+\ct{StringTest>>>#testShout}{} le coupable
+(remarquez que la notation \ct{StringTest>>>#testShout}{} est la 
+convention \st pour identifier la méthode de la classe \mbox{\ct{StringTest}{}).}
 Si vous \clickz{} sur cette ligne de texte, le test erroné sera
 lancé à nouveau mais, cette fois-ci, de telle façon que vous
 voyez l'erreur surgir:
-``\ct{MessageNotUnderstood: ByteString>>>shout}''.
+\mbox{``\ct{MessageNotUnderstood: ByteString>>>shout}{}''.}
 \seeindex{\ct{>>}}{Behavior, \ct{>>}}
 \cmindex{Behavior}{>>}
 
@@ -1258,7 +1258,7 @@ L'erreur était bien sûr attendue; lancer le test génère une
 erreur parce que nous n'avons pas encore écrit la méthode qui dit
 aux chaînes de caractères comment hurler 
 %ajout pour le francais
-\cad comment répondre au message \ct{shout}.
+\cad comment répondre au message \mbox{\ct{shout}{}.}
 De toutes façons, c'est une bonne pratique de s'assurer que le test
 échoue; cela confirme que nous avons correctement
 configuré notre machine à tests % testing machinery
@@ -1281,8 +1281,8 @@ Définissons maintenant la méthode qui fera du test un succès!
 déjà existant des méthodes de conversion et appelé
 \menu{converting}. à la place du patron de création de méthode,
 saisissez le texte de \tmthref{shout} et faites \menu{accept}
-(saisissez \caret pour obtenir un \mbox{\ct{^}})}
-\begin{method}[shout]{La méthode \ct{shout}}
+(saisissez \caret pour obtenir un \mbox{\ct{^}{})}}
+\begin{method}[shout]{La méthode \ct{shout}{}}
 shout
 	^ self asUppercase, 'BANG'
 \end{method}
@@ -1292,7 +1292,7 @@ caractères, donc, le corps de cette méthode ajoute un point
 d'exclamation à la version majuscule
 %martial: ajout pour rappeler au francais que uppercase eleve au majuscule
 (obtenue avec la méthode \mthind{String}{asUppercase})
-de l'objet \ct{String} auquel le message \ct{shout} a été
+de l'objet \ct{String}{} auquel le message \ct{shout}{} a été
 envoyé.
 Le $\uparrow$ dit à \pharo que l'expression qui suit est la réponse
 que la méthode doit retourner; dans notre cas, il s'agit de la
@@ -1320,7 +1320,7 @@ Vous l'avez bien mérité.
 
 \begin{figure}[hbt]
 	{\centerline{\includegraphics[width=0.7\textwidth]{String-Shout}}}
-\caption{La méthode \ct{shout} dans la classe \ct{String}.\figlabel{String-shout}}
+\caption{La méthode \ct{shout}{} dans la classe \mbox{\ct{String}{}.}\figlabel{String-shout}}
 \end{figure}
 
 %=================================================================

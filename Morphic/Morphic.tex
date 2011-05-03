@@ -7,9 +7,9 @@
 %% Maintainer: Martial Boniou
 %% Created: 2007-11-09 08:07:45 +0100 (Fri, 09 Nov 2007)
 %% Version: 13642
-%% Last-Updated: Fri Apr 29 11:28:09 2011 (+0200)
+%% Last-Updated: Tue May  3 15:04:43 2011 (+0200)
 %%           By: Martial Boniou
-%%     Update #: 862
+%%     Update #: 871
 %% URL:
 %% https://www.iam.unibe.ch/scg/svn_repos/SqueakByExample/FrenchBook/Morphic/Morphic.tex
 %% Review: Rene Mages - Fri Dec 21 22:18:36 2007 (3600 CET)
@@ -86,7 +86,7 @@
 % --------------------------------------------
     \graphicspath{{figures/} {../figures/}}
 	\begin{document}
-	% \renewcommand{\nnbb}[2]{} % Disable editorial comments
+	 \renewcommand{\nnbb}[2]{} % Disable editorial comments
 	\sloppy
 \fi
 %=================================================================
@@ -247,7 +247,7 @@ de nouvelles sous-classes de \ct{Morph}.
 
 Qu'il soit affiché à l'écran ou non, tout morph a une position
 et une taille. Tous les morphs sont inclus, par commodité, dans une
-boîte englobante, \cad une région rectangulaire occupant un
+boîte englobante, \mbox{\cad} une région rectangulaire occupant un
 certain espace de l'écran. Dans le cas des formes irrégulières,
 leur position et leur taille correspondent à celles du plus petit
 rectangle qui englobe la forme. Cette boîte englobante définit
@@ -776,6 +776,8 @@ pointeur de la souris entre dans l'espace du morph ou sort de celui-ci.
   \ct{CrossMorph} peut activer et libérer la mise au point sur le
   clavier. Créez ensuite une troisième méthode pour gérer
   l'interaction via la saisie des touches.}
+
+\needlines{3}
 \begin{method}{Activer la mise au point sur le clavier lorsque la souris entre dans l'espace du morph}
 CrossMorph>>>mouseEnter: anEvent
 	anEvent hand newKeyboardFocus: self
@@ -944,6 +946,7 @@ Morph subclass: #ReceiverMorph
 \end{classdef}
 
 %\dothis{Now define the initialization method in the usual way:}
+\needlines{4}
 \begin{method}{Initialiser un objet \ct{ReceiverMorph}}
 ReceiverMorph>>>initialize
 	super initialize.
@@ -1110,6 +1113,7 @@ Nous allons définir la \emph{méthode de classe} \ct{faces: n} dans
 le côté classe de \clsind{DieMorph} pour pouvoir créer un
 nouveau dé à \ct{n} faces.
 
+\needlines{3}
 \begin{method}{Créer un nouveau dé avec un nombre de faces déterminé}
 DieMorph class>>>faces: aNumber
 	^ self new faces: aNumber
@@ -1297,7 +1301,7 @@ DieMorph>>>mouseDown: anEvent
 \end{methods}
 
 %ajout
-Maintenant notre dé ``roule'' ou se fige quand nous cliquons dessus.
+\noindent{} Maintenant notre dé ``roule'' ou se fige quand nous cliquons dessus.
 
 % That's all for the essentials of Morphic!
 
@@ -1349,9 +1353,8 @@ DieMorph>>>drawOn: aCanvas
 	(self perform: ('face' , dieValue asString) asSymbol)
 		do: [:aPoint | self drawDotOn: theCanvas at: aPoint]
 \end{method}
-\noindent
 
-C'est tout ce dont nous avons besoin! 
+\noindent C'est tout ce dont nous avons besoin! 
 
 \begin{figure}[ht]
 	\centerline{\includegraphics[scale=0.7]{multiMorphs}}

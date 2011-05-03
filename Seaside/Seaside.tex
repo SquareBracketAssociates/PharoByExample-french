@@ -43,7 +43,7 @@
     {{figures/lang/en/}}%
     {{figures/} {../figures/}}
 	\begin{document}
-	% \renewcommand{\nnbb}[2]{} % Disable editorial comments
+	\renewcommand{\nnbb}[2]{} % Disable editorial comments
 	\sloppy
 \fi
 %=================================================================
@@ -97,7 +97,7 @@ est souvent lourd et la diffusion de plusieurs flux peut être difficile.
 \index{Seaside!transactions}
 \index{Seaside!composant}
 %\index{Seaside!components}
-Seaside est un \framework orienté composant
+Seaside est un \framework{} orienté composant
 % component-based 
 qui allège le développement web de plusieurs façons.
 Tout d'abord, le flux de contrôle
@@ -142,15 +142,17 @@ que le serveur reste en activité.
 %=================================================================
 \section{Démarrer avec Seaside}
 
-Télécharger le logiciel ``Seaside \subind{Seaside}{One-Click
-  Experience}'' depuis le \subind{Seaside}{site
-  web}\footnote{\url{http://seaside.st}} est la façon la plus simple
+Télécharger la dernière version du logiciel ``Seaside \subind{Seaside}{One-Click
+  Experience} 2.8'' depuis le \subind{Seaside}{site
+  web}\footnote{\url{http://www.seaside.st/download/pharo}} est la façon la plus simple
 pour commencer avec Seaside.
 Il s'agit d'une version ``clé en main''
 % proposition de René : version packagée
 % proposition de Martial: version ``clé en main'': idée de paquet ("bundle") et de "prêt à l'emploi"
 % prepackaged version 
-de Seaside 2.8 pour \ind{Mac OS X}, \ind{Linux} et \ind{Windows}.
+de Seaside 2.8 pour \ind{Mac OS X}, \ind{Linux} et \ind{Windows},
+% ajout vf - one click
+\arelire{tout comme le système ``\emph{OneClick}'' de \pharo{} que nous avons utilisé jusqu'ici.}
 Le site web de Seaside liste aussi de nombreux liens vers des
 ressources complémentaires dont de la documentation et des
 tutoriels (en anglais).
@@ -1005,7 +1007,7 @@ td {
 \caption{La feuille de style commune \ct{SeasideDemoWidget}.
 \figlabel{democss}}
 \end{figure}
-\figref{democss} illustre l'exemple d'une simple feuille de style pour
+\Figref{democss} illustre l'exemple d'une simple feuille de style pour
 l'application ``Rendering Demo'' vue plus tôt dans
 \figref{RenderingDemo}.
 La première règle signale une préférence pour les fontes à utiliser
@@ -1153,7 +1155,7 @@ SeasideEditAnswerDemo>>>renderContentOn: html
 		]
 \end{code}{}
 
-C'est tout!
+\noindent{} C'est tout!
 
 Seaside prend soin du flux de contrôle et du rendu de tous les
 composants.
@@ -1657,7 +1659,7 @@ Définissez \ct{MyKeypad} et \ct{MyDisplay} comme sous-classes
 de \lct{MyRPNWidget}.
 Tous ces trois composants auront besoin d'accéder à une instance
 commune de la machine à pile; définissez donc la variable d'instance 
-\ct{stackMachine} et une méthode d'initialisation
+\lct{stackMachine} et une méthode d'initialisation
 \ct{setMyStackMachine:} dans la classe mère \ct{MyRPNWidget}.
 Ajoutez les variables d'instance \ct{keypad} et \ct{display} à la
 classe \ct{MyCalculator} et initialisez-les dans
@@ -1925,7 +1927,7 @@ un tableau contenant
 le contenu \ct{contents} de la machine de pile.
 Vérifiez que le \backtracking{} fonctionne correctement désormais!}
 
-Détendez-vous et prenez un rafraîchissant: vous l'avez bien mérité!
+\noindent{} Détendez-vous et prenez un rafraîchissement: vous l'avez bien mérité!
 %Sit back and enjoy a tall glass of something cool!
 
 
@@ -1999,7 +2001,7 @@ le composant \ct{display}.
 %pressed, the keyboard needs to know the display component.
 Ajoutez une variable d'instance \ct{display} à la classe \ct{MyKeypad}
 et une méthode d'initialisation \ct{MyKeypad>>>setDisplay:} et
-utilisez-la dans la méthode \ct{MyCalculator>>initialize}.
+utilisez-la dans la méthode \ct{MyCalculator>>>initialize}.
 Nous sommes maintenant capable d'adjoindre du code \jscript aux
 boutons en mettant à jour
 \ct{MyKeypad>>>renderStackButton:callback:colSpan:on:} comme suit:}
@@ -2023,9 +2025,9 @@ MyKeypad>>>renderStackButton: text callback: aBlock colSpan: anInteger on: html
 \end{code}
 
 \mthind{WATagBrush}{onClick:} indique un gestionnaire d'événements
-\ind{\jscript}.
+\mbox{\ind{\jscript{}}.}
 %\ind{JavaScript} event handler.
-\ct{html updater} renvoie un \updater \ie une instance de
+\lct{html updater} renvoie un \updater \ie une instance de
 \ct{SUUpdater}, un objet Smalltalk représentant l'objet JavaScript
 Ajax.Updater (\url{http://www.prototypejs.org/api/ajax/updater}).
 Cet objet fait une requête AJAX et met à jour, par le texte en
@@ -2100,6 +2102,7 @@ composant \ct{display} \emph{uniquement}.
 de la mise à jour de l'élément DOM correspondant.
 Regardons le code source généré, principalement le code \jscript.
 
+\needlines{6}
 \begin{code}{}
 new Ajax.Updater(
 	'display',
@@ -2113,11 +2116,11 @@ Pour des exemples plus avancés, nous vous invitons à visiter la page
 \url{http://localhost:8080/seaside/tests/scriptaculous} avec votre
 navigateur web.
 
-\paragraph{\emph{Astuces.}}
-En cas de soucis du côté serveur, servez-vous du débogueur
+\hint{%
+En cas de souci du côté serveur, servez-vous du débogueur
 Smalltalk. Pour parer aux problèmes côté client, utiliser FireFox
 (\url{http://www.mozilla.com}) et FireBug, son débogueur \jscript
-(\url{http://www.getfirebug.com/}) en \emph{plugin}.
+(\url{http://www.getfirebug.com/}) en \emph{plugin}.}
 
 %=================================================================
 \section{Résumé du chapitre}
