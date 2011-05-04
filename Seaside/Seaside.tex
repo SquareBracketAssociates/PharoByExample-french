@@ -17,6 +17,7 @@
 % 2010-06-22 - Martial update
 % 2010-08-10 - Rene Mages finished the second rereading
 % 2011-04-17 - Rene mages finished the third rereading
+% 2011-05-04 - Rene mages finished the last rereading
 % sync avec la version: 33691
 %
 %=================================================================
@@ -77,7 +78,7 @@ un formulaire ou en cliquant sur un bouton.
 Mais le web fonctionne d'une autre manière: le navigateur de
 l'utilisateur fait des requêtes au serveur et le serveur répond avec
 une nouvelle page web.
-Dès lors les \frameworks destinées au
+Dès lors les \frameworks destinés au
 \ind{développement d'applications web} doivent contourner une foule de
 problèmes, le principal étant la gestion du flux de contrôle ``inversé''.
 % control flow
@@ -136,7 +137,7 @@ Seaside supporte les feuilles de style en cascade
 
 Finalement, Seaside offre une interface web pratique pour le
 développement en facilitant la programmation itérative, le débogage
-interactif et la recompilation ainsi quel'extension des applications alors
+interactif et la recompilation ainsi que l'extension des applications alors
 que le serveur reste en activité.
 
 %=================================================================
@@ -230,7 +231,7 @@ web (pour fermer la vue \button{Configure}, cliquez sur le \link{x}
 dans le côté supérieur droit de la page).
 \button{Toggle Halos} propose d'explorer l'état de l'application
 lancée sur le serveur Seaside.
-\button{Profiler} et \button{Memory} offre une information détaillée 
+\button{Profiler} et \button{Memory} offrent une information détaillée 
 à propos des performances à l'exécution de l'application.
 \button{XHTML} peut être utilisé pour valider la page web générée;
 ce lien ne fonctionne que lorsque la page est accessible depuis
@@ -504,7 +505,7 @@ classe \ct{initialize} est utilisée pour cela (voir
 \figref{WACounter}).
 
 \ct{WACounter} définit deux méthodes, \ct{increase} et \ct{decrease},
-qui seront déclenchés par les liens \link{++} et \link{{-}{-}} sur la
+qui seront déclenchées par les liens \link{++} et \link{{-}{-}} sur la
 page web.
 Cette classe définit aussi une variable d'instance 
  \ct{count} pour enregistrer l'état du compteur.
@@ -644,8 +645,8 @@ Par convention, le paramètre de canevas HTML est appelé
  \ct{html}.
 Un canevas HTML est analogue au canevas graphique utilisé par Morphic
 (et la plupart des autres bibliothèques graphiques) pour
-\arevoir{abstraire le graphisme des détails dépendants des périphériques}.
-% Rene propose : s / abstraire / séparer ou soustraire /
+que le graphisme soit indépendant des périphériques.
+% Martial : abstraire le graphisme des détails dépendants des périphériques.
 % An html canvas is analogous to the graphics canvas used by Morphic (and most other drawing frameworks) to abstract away from the device-dependent details of drawing.
  
 Voici quelques-unes des méthodes de rendu les plus simples:
@@ -716,7 +717,7 @@ SeasideDemo>>>children
 	^ { htmlDemo . formDemo . editDemo . dialogDemo }
 \end{code}
 
-Remarquez qu'il y a deux différentes façons d'instancier le \brush
+Remarquez qu'il y a deux façons différentes d'instancier le \brush
 d'en-tête nommé \ct{heading}:
 soit vous placez le texte directement en argument du message
 \ct{heading:}
@@ -767,7 +768,7 @@ SeasideHtmlDemo>>>renderContentOn: html
 \end{code}
 
 La division d'une longue méthode de rendu en plusieurs méthodes adjointes
-est une pratique commune: c'est ce que nous avons fait ici.
+est une pratique courante: c'est ce que nous avons fait ici.
 %It is common practice to break up long rendering methods into many helper methods, as we have done here.
 
 \important{Ne mettez pas tout votre code de rendu dans une seule
@@ -882,10 +883,10 @@ Les messages accesseur et mutateur avec la convention de noms usuelle
 (\ie{} \ct{heading} et \ct{heading:} respectivement) 
 doivent être compris par l'objet.
 Dans le cas présent d'une zone de saisie de texte, 
-\arelire{cela nous évite le problème d'avoir à définir un \callback
-  pour mettre à jour le champ de saisie et d'avoir à attacher le
-  contenu par défaut de l'entrée à la valeur actuelle de la variable
-  d'instance.}
+cela nous évite le problème d'avoir à définir un \callback
+pour mettre à jour le champ de saisie et d'avoir à attacher le
+contenu par défaut de l'entrée à la valeur actuelle de la variable
+d'instance.
 %this saves us the trouble of having to define a callback that updates the field as well as having to bind the default contents of the html input field to the current value of the instance variable.
 % rene : rien à redire à cette traduction ( je laisse la balise arelire pour une dernière relecture )
 En utilisant \ct{on: #heading of: self}, la variable \ct{heading} est mise à jour 
@@ -962,7 +963,7 @@ que d'écrire ces propriétés directement sous forme d'attributs de ces
 Les entités-paragraphes sont appelées \emph{div}s et les
 entités-textes sont appelées \emph{span}s.
 Vous devriez définir alors définir des noms symboliques pour ces
-classes, tels que ``highlight'' (\emph{subbrillance} en français) pour
+classes, tels que ``highlight'' (\emph{surbrillance} en français) pour
 le texte à mettre en surbrillance, et préciser dans votre feuille de
 style comment le texte en surbrillance doit être affiché.
 Une feuille de style comprend simplement un ensemble de règles qui
@@ -1026,7 +1027,7 @@ est la suivante: plusieurs éléments peuvent avoir la même classe mais
 seul un élément peut avoir un attribut \emph{id} donné (\ie{} un
 \emph{id}{entifant}).
 Ainsi, alors qu'une classe comme \ct{highlight} peut être utilisée
-plusieurs fois dans un page, un attribut \emph{id} doit identifier un
+plusieurs fois dans une page, un attribut \emph{id} doit identifier un
 élément \emph{unique} sur la page, comme un menu particulier par
 exemple, ou encore une date modifiée ou un auteur.
 Remarquez qu'un élément XHTML particulier peut avoir de multiples
@@ -1036,7 +1037,7 @@ séquentiellement.
 
 % This style sheet expects at most one element to specify the \emph{author} of the web page.
 
-Des conditions au sélecteur peuvent être ajoutées. Ainsi le sélecteur
+Des conditions peuvent être ajoutées au selecteur. Ainsi le sélecteur
 \ct{div.subcomponent} correspondra seulement à un élément XHTML qui
 est à la fois un élément \emph{div} \emph{et} un élément de classe
 ``subcomponent''.
@@ -1169,7 +1170,7 @@ rembobinés à moins d'avoir pris des dispositions complémentaires).
 %\subsection{Convenience methods}
 
 Puisque certains dialogues de type \emph{call--answer} sont très
-communs, Seaside fournit des méthodes utilitaires pour vous éviter
+courants, Seaside fournit des méthodes utilitaires pour vous éviter
 l'écriture des composants tels que \ct{SeasideEditAnswerDemo}.
 Les dialogues générés sont montrés sur \figref{dialogs}.
 Nous pouvons voir que ces méthodes utilitaires sont utilisées dans la
@@ -1966,7 +1967,7 @@ lui-même\,---\,configurez des objets Smalltalk pour modéliser votre
 application et le code \jscript{} nécessaire sera généré pour vous.
 
 Jetons un coup d'\oe il sur un simple exemple pour voir comment le support
-\jscript{} côté client peut rendre le réactivité de notre calculatrice
+\jscript{} côté client peut rendre la réactivité de notre calculatrice
 RPN plus naturelle.
 %of how client-side Javascript support can make our RPN calculator behave more naturally.
 Actuellement tout clic sur un chiffre entraîne une requête pour
@@ -2170,7 +2171,7 @@ configuration}; % ATTENDRE - martial: pas vu du tout, ça!
   \item Si vous envoyez des messages en cascade à un \brush qui
     contient le message \ct{with:}, ce \ct{with:} devra être le
     dernier message envoyé.
-Le message \ct{with:} envoie le contenu \emph{et} le fait le rendu du résultat;
+  \arevoir{Le message \ct{with:} envoie le contenu \emph{et} le fait le rendu du résultat;}
   \item Les actions devrait apparaître uniquement dans des \callbacks
     (ou fonctions de rappel).
 Vous ne devez jamais changer l'état de l'application durant la phase de rendu;
@@ -2181,7 +2182,7 @@ Vous ne devez jamais changer l'état de l'application durant la phase de rendu;
     au \brush;
   \item Vous pouvez définir la feuille de style CSS pour une
     hiérarchie de composants en définissant la méthode \ct{style} de
-    sorte à ce qu'elle retourne une chaîne de caractères contenant la
+    sorte qu'elle retourne une chaîne de caractères contenant la
     feuille de style (pour les applications officiellement déployées,
     il est commun de se référer à une feuille de style externe se
     trouvant à une URL statique);
