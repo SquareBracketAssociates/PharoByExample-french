@@ -6,9 +6,10 @@
 % relecture: Martial Boniou (sun, 23 dec 2007) de la version #14626 
 % relecture : Rene Mages (sat, 9 jan 2008) de la version #14856
 % export Pharo : Martial Boniou à partir de la revision 28661 - oscar
-% relecture : Rene Mages (mon, 11 jan 2010) de la version #30227
-% relecture : Rene Mages (mon,  9 aug 2010) de la version #34378
-% relecture : Rene Mages (fri,  15 apr 2011) de la version #34378
+% relecture : Rene Mages (mon, 11 jan 2010) 
+% relecture : Rene Mages (mon,  9 aug 2010) 
+% relecture : Rene Mages (fri,  15 apr 2011) 
+% relecture : Rene Mages (wed,   4 may 2011) 
 % 2009-08-28 11:31:14 +0200 (Fri, 28 Aug 2009) $
 %=================================================================
 \ifx\wholebook\relax\else
@@ -746,7 +747,7 @@ Float infinity isInfinite --> true
 %-----------------------------------------------------------------
 \subsection{Fraction}
 
-Les \clsind{fractions} sont représentées par des variables d'instance pour le numérateur et le dénominateur, qui devraient être des entiers. Les \ct{fractions} sont normalement créées par division d'entiers (plutôt qu'en utilisant le constructeur \cmind{Fraction}{numerator:denominator:}):
+Les \clsind{fractions} sont représentées par des variables d'instance pour le numérateur et le dénominateur, qui doivent être des entiers. Les \ct{fractions} sont normalement créées par division d'entiers (plutôt qu'en utilisant le constructeur \cmind{Fraction}{numerator:denominator:}):
 
 \begin{code}{@TEST}
 6/8             --> (3/4)
@@ -770,13 +771,13 @@ concrète de beaucoup de méthodes abstraites de la classe
 \ct{Number}, il ajoute également quelques méthodes spécifiques
 aux entiers, telles que \mthind{Integer}{factorial}
 %ajout
-(fractionnelle),
+(factorielle),
 \mthind{Integer}{atRandom}
 %ajout
 (nombre aléatoire entre 1 et le receveur),
 \mthind{Integer}{isPrime}
 %ajout
-(test de nombre premier), 
+(test de primalité), 
 \mthind{Integer}{gcd:} 
 %ajout
 (le plus grand dénominateur commun)
@@ -916,7 +917,7 @@ Une autre sous-classe importante de \ct{String} est
 \clsindmain{Symbol}.  La différence fondamentale est qu'il n'y a
 toujours qu'une instance unique de \ct{Symbol} pour une valeur
 donnée  (ceci est quelques fois appelé ``la propriété de
-l'instance unique'').  à l'opposé, deux chaînes construites
+l'instance unique''). À l'opposé, deux chaînes construites
 séparément  et contenant la même séquence de caractères
 seront souvent des objets différents.
 
