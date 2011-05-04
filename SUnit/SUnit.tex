@@ -11,6 +11,7 @@
 % relu par Rene Mages (Sat Jan  9 8:57:55 CET 2010)
 % relu par Rene Mages (Mon Aug  9 8:57:55 CET 2010)
 % relu par Rene Mages (Thu Apr 14 8:57:55 CET 2011)
+% relu par Rene Mages (Wed May  4 8:57:55 CET 2011)
 % $Author: oscar $ % $Date: 2009-08-28 10:41:41 +0200 (Fri, 28 Aug
 % 2009) $ % $Revision: 28654 $
 % sync avec la revision: 33691
@@ -243,7 +244,7 @@ de les exécuter pendant la nuit.
 
 \item Les tests doivent vous raconter une histoire.  Chaque test doit couvrir un aspect d'une partie 
 de code. Un test doit agir comme un scénario que vous ou quelqu'un d'autre peut lire de façon à comprendre 
-une partie de fonctionnalité.\label{prop:oneAspect} 
+partiellement une fonctionnalité.\label{prop:oneAspect} 
 
 % \item Tests should tell a story.  Each test should cover one aspect of a 
 %   piece of code.  A test should act as a scenario that you or some else can
@@ -444,7 +445,7 @@ ExampleSetTest>>>testIncludes
 	self assert: (full includes: 6)
 \end{method}
 
-Le second test nommé \ct{testOccurrences} vérifie que le nombre d'occurences de~5 dans 
+Le second test nommé \ct{testOccurrences} vérifie que le nombre d'occurrences de~5 dans 
 le \ct{Set} \ct{full} est égal à un, même si nous ajoutons un autre élément~5 au \ct{Set}.
 % The second test, named \ct{testOccurrences}, verifies that the
 % number of occurrences of~5 in \ct{full} set is equal to one, even if we
@@ -784,9 +785,9 @@ pas non plus importer.
 % Performing \ct{setUp} before each test and \ct{tearDown} afterwards helps to reinforce this independence. 
 
 Malgré tout, il y a certains cas pour lesquels la préparation du contexte nécessaire est simplement 
-trop lent pour qu'il soit réalisable
+trop lente pour qu'elle soit réalisable
 % plutôt que praticable 
-de le faire avant l'exécution de chaque test. De plus, si nous savons que les tests n'altèrent pas 
+à faire avant l'exécution de chaque test. De plus, si nous savons que les tests n'altèrent pas 
 les ressources qu'ils utilisent, alors il est prohibitif de les initialiser pour chaque test; il est 
 suffisant de les initialiser une seule fois pour chaque suite de tests. Supposez, par exemple, 
 qu'une suite de tests ait besoin d'interroger une base de données ou d'effectuer certaines analyses 
@@ -1249,7 +1250,9 @@ ainsi ils doivent être séparés des vrais tests unitaires.
 \item[Les règles de Black.]
 Pour tous les tests du système, vous devriez être en mesure d'identifier une propriété 
 pour laquelle le test renforce votre confiance. Il est évident qu'il ne devrait pas y avoir de 
-propriété importante que vous ne testez pas. Cette règle établit le fait moins évident qu'il ne 
+propriété importante que vous ne testiez pas. 
+% rene : testiez (et non testez) puisqu'il s'agit du subjonctif présent
+Cette règle établit le fait moins évident qu'il ne 
 devrait pas y avoir de tests sans valeur ajoutée de nature à accroître votre confiance envers 
 une propriété utile.
 Par exemple, il n'est pas bon d'avoir plusieurs tests pour la même propriété.
