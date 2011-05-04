@@ -9,6 +9,7 @@
 % relecture : par Rene Mages  (Sun 10 Jan 2010) de la version 30225
 % relecture : par Rene Mages  (Sun 8 Aug 2010) de la version 34361
 % relecture : par Rene Mages  (Wed 13 Apr 2011) 
+% relecture : par Rene Mages  (Wed  4 May 2011) 
 % $Author: black$ $Date: 2009-09-06 15:31:38 +0200 (Sun, 06 Sep 2009) $
 % $Revision: 28940 $
 % $Revision: 29158 $
@@ -78,7 +79,7 @@ de texte vous oblige à agir explicitement pour exporter votre programme depuis 
 
 La technique traditionnelle, aussi supportée par tous les dialectes \st consiste à créer un 
 fichier d'exportation \emph{fileout} ou une archive d'échange dit \changeset. Il s'agit 
-principalement de fichiers textes encodés pouvant être importés dans un autre système.
+principalement de fichiers textes encodés pouvant être importés par un autre système.
 Une technique plus récente de \pharo est le chargement de code dans un dépôt de versions sur un serveur.
 Elle est plus efficace surtout en travail coopératif et est rendue possible via un outil nommé \ind{Monticello}.
 %\seeindex{change set}{file, filing out}
@@ -338,12 +339,12 @@ est souvent utile; elle marche depuis n'importe quelle fenêtre de texte.}
 
 \Actclick sur \menu{browse \ldots \go senders (n)} dans le
 panneau des méthodes vous renvoie une liste de toutes les méthodes
-pouvant utiliser la méthode sélectionnée. En prenant le Browser
+pouvant utiliser la méthode sélectionnée. À partir du Browser
 ouvert sur \ct{Morph}, \clickz sur la méthode  \mthind{Morph}{drawOn:}
 dans le panneau des méthodes; le corps de \ct{drawOn:} s'affiche dans
 la partie inférieure du navigateur.
 Si vous sélectionnez \menu{senders (n)} (voir \figref{SendersOfDrawOn}), un 
-menu apparaîtra avec \ct{drawOn:} comme premier élement de
+menu apparaîtra avec \ct{drawOn:} comme premier élément de
 la pile,  suivi de tous les messages que 
 \ct{drawOn:} envoie (voir \figref{SendersOfDrawOn2}). %CHANGE
 Sélectionner un message dans ce menu ouvrira un navigateur avec la
@@ -524,7 +525,7 @@ Les boutons offrent aussi l'affichage des différences entre la méthode sélect
 %ce que les différences liées au formatage ne soient pas prises en compte.
 
 Le \ind{Versions Browser} existe pour que vous ne vous inquiétez jamais
-de la préservation de code que vous pensiez ne plus avoir besoin: effacez-le simplement. 
+de la préservation de code dont vous pensiez ne plus avoir besoin: effacez-le simplement. 
 Si vous vous rendez compte que vous en avez \emph{vraiment} besoin, 
 vous pouvez toujours revenir à l'ancienne version ou copier le morceau de 
 code utile de la version antérieure pour le coller dans une autre méthode.
@@ -1046,7 +1047,7 @@ d'explorer leur contenu consiste à faire appel à Monticello lui-même.
 Pour créer un paquetage avec Monticello, vous n'avez que deux choses à faire:
 écrire du code et le mentionner à Monticello.
 
-\dothis{Créez une paquetage appelé \scat{PBE-Monticello}, et mettez-y
+\dothis{Créez un paquetage appelé \scat{PBE-Monticello}, et mettez-y
 une paire de classes, comme vu sur \figref{MCnewcategory}. 
 Créez une méthode dans une classe existante, par exemple
 \ct{Object}, et mettez-la dans le 
@@ -1076,7 +1077,7 @@ Pour mentionner à Monticello l'existence de votre paquetage,
 cliquez sur le bouton \button{+Package} et tapez le nom du paquetage,
 dans notre cas ``PBE''.
 Monticello ajoutera \ct{PBE} à sa liste de paquetages;
-l'entrée du paquetage sera marquée avec une astérisque pour
+l'entrée du paquetage sera marquée avec un astérisque pour
 montrer que la version présente dans votre image n'a pas
 été encore écrite dans le dépôt.
 Remarquez que vous devriez avoir maintenant deux paquetages;
@@ -1422,7 +1423,7 @@ une notification \clsind{PreDebugWindow} s'ouvre comme sur
 	\figlabel{PreDebugWindow}
 \end{figure}
 
-\tradalert{martial}{modif récente 2011-04-19}
+% \tradalert{martial}{modif récente 2011-04-19}
 Le \ct{PreDebugWindow} nous indique dans sa barre de titre
 qu'une erreur s'est produite et nous affiche une trace de la pile d'exécution
 ou \emphind{stack trace} des messages qui ont conduit à l'erreur:
@@ -1553,7 +1554,7 @@ La sélection bleue englobe maintenant le message
 
 Les boutons \button{Into} et \button{Over} offrent deux façons différentes de 
 parcourir l'exécution pas-à-pas.
-Si vous cliquez sur le bouton \button{Over} \arelire{(en français, ``par dessus'')},
+Si vous cliquez sur le bouton \button{Over} (en français, ``par dessus''),
 \pharo exécutera sauf erreur l'envoi du message actuel (dans notre cas \ct{do:}) d'un
 seul pas (en anglais, \emph{step}).
 Ainsi \button{Over} nous amènera sur le prochain message à envoyer dans la méthode courante.
@@ -1668,8 +1669,8 @@ recommencer la recherche.
 façon à ce que l'affectation soit de la forme
 \ct{dot := FileDirectory dot first}:
 %ajout vf
-\ct{SequenceableCollection>>>first} renvoie le élément de la collection donc ici le premier caractère de la chaîne de caractères et ainsi, \ct{dot} correspond bien au caractère \ct{.} désormais.
-Acceptez la modifications via l'option \menu{accept} du menu contextuel.}
+\ct{SequenceableCollection>>>first} renvoie le premier élément de la collection donc ici le premier caractère de la chaîne de caractères et ainsi, \ct{dot} correspond bien au caractère \ct{.} désormais.
+Acceptez la modification via l'option \menu{accept} du menu contextuel.}
 % rene propose : \menu{accept} pour accepter la modification  ?
 % martial : pas utile; à ce stade le lecteur connait bien accept/print it/do it; bon! c'est fait
 % rene : merci martial
@@ -1955,13 +1956,12 @@ Vous pouvez vous demander pourquoi vous devez accorder de l'importance à la com
 d'un \changeset: la réponse est que les \changesets fournissent un mécanisme simple
 pour exporter du code depuis \pharo vers le système de fichiers d'où il peut
 être importé dans une autre image \pharo ou vers un autre \st que \pharo.
-L'exportation de \changeset est connu sous le nom ``filing-out'' et peut être réalisé
+L'exportation de \changeset est connu sous le nom ``filing-out'' et peut être réalisée
 en utilisant le menu contextuel obtenu en \actclickant{} sur n'importe quel \changeset, classe ou
 méthode dans n'importe quel navigateur.
 Des exportations (ou fileouts) répétées créent une nouvelle version du fichier
-mais les \changesets ne sont pas un outil de versionnage (gestion de
-versions) comme peut l'être Monticello:
-ils ne conservent pas les dépendances.
+mais les \changesets ne sont pas un outil de versionage (gestion de
+versions) comme peut l'être Monticello: ils ne conservent pas les dépendances.
 \index{fichier!filing-out}
 \index{fichier!exportation}
 
@@ -2049,7 +2049,7 @@ Quand un répertoire est sélectionné, les fichiers qu'ils contiennent (mais pa
 sont affichés sur la droite. Cette liste de fichiers peut être filtrée en entrant dans la petite boîte
 dans la zone supérieure gauche de la fenêtre un modèle de filtrage ou 
 \emph{pattern} dans le style Unix.
-Initialement, ce \emph{pattern} est \ct{*}, ce qui est égal à l'ensemble des fichiers, mais vous 
+Initialement, ce \emph{pattern} est \ct{*}, ce qui est équivalent à l'ensemble des fichiers, mais vous 
 pouvez entrer une chaîne de caractères différente et l'accepter pour changer ce filtre. 
 %ajout/sans les parentheses
 Notez qu'un \ct{*} est implicitement joint ou pré-joint au \emph{pattern}
@@ -2207,7 +2207,7 @@ et plusieurs sont spécialisés (comme le Hierarchy Browser) pour fournir diffé
 un navigateur en utilisant le raccourci-clavier \short{b}.
   \item Vous pouvez aussi naviguer dans le système \st de manière
 programmatique en envoyant des messages à \ct{SystemNavigation default}.
-  \item \emph{Monticello} est un outil d'import-export, de versionnage
+  \item \emph{Monticello} est un outil d'import-export, de versionage
     (organisation et maintien de versions, en anglais, \emph{versioning}) et de partage de \emph{paquetages} de classes et de méthodes nommés aussi \emph{packages}.
   Un paquetage Monticello comprend une catégorie, des sous-catégories et des protocoles de méthodes associés dans d'autres catégories. 
   \item L'\emph{Inspector} et l'\emph{Explorer} sont deux outils utiles
@@ -2256,3 +2256,4 @@ reprendre et les charger dans la copie la plus récente de votre image.
 
 %=========================================================
 %---------------------------------------------------------
+
