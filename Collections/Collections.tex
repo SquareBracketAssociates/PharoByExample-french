@@ -5,11 +5,11 @@
 % translated by Martial.Boniou@ifrance.com start: (Fri, 12 Oct 2007)
 % relecture : Rene Mages (9 jan 2008) de la version #14859
 % adaptation pour PBE: martial Tue Sep  8 19:56:33 CEST 2009 
-% relecture : Rene Mages (12 jan 2010) de la version #30229
-% relecture : Rene Mages ( 9 aug 2010) de la version #34381
-% relecture : Rene Mages ( 15 apr 2011) 
-% - oscar - 28661 - $Date: 2009-08-28 11:31:14 +0200 (Fri, 28 Aug
-% 2009) $
+% relecture : Rene Mages (12 jan 2010) 
+% relecture : Rene Mages ( 9 aug 2010) 
+% relecture : Rene Mages (15 apr 2011)
+% relecture : Rene Mages ( 4 may 2011)
+% - oscar - 28661 - $Date: 2009-08-28 11:31:14 +0200 (Fri, 28 Aug 2009)$
 % sync avec la revision: 33691
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -259,7 +259,7 @@ les listes à enjambements de classe \ct{SkipList} sont séquentielles mais non-
 	les instances du dictionnaire \clsind{Dictionary} et ses sous-classes
 sont accessibles via des clés plutôt que par des indices.
 
-  \item {\bf Les collections modifiables ou \emph{Mutable}:}
+  \item {\bf Les collections modifiables ou \emph{Mutables}:}
   	la plupart des collections sont dites \emph{mutables} \cad modifiables, mais les intervalles \ct{Interval} et les symboles \ct{Symbol} ne le sont pas.
 	Un \clsind{Interval} est une collection non-modifiable ou \emph{immutable} représentant une rangée d'entiers \ct{Integer}.  Par exemple, 
 \ct{5 to: 16 by: 2} est un intervalle \ct{Interval} qui contient les 
@@ -338,13 +338,13 @@ stockage.
 sont aussi référencés par un tableau de stockage subsidiaire
 mais ils utilisent ce tableau comme une table de hachage (ou \emph{hash table}). Les ensembles dits sacs ou \emph{bags} (de classe \ct{Bag}) utilisent
 un dictionnaire \ct{Dictionary} pour le stockage avec pour clés
-des éléments du \ct{Bag} et pour valeurs leur nombre d'occurences.
+des éléments du \ct{Bag} et pour valeurs leur nombre d'occurrences.
   \clsindex{Bag}
   \item Les listes chaînées LinkedList utilisent une
 représentation standard simplement chaînée.
   \clsindex{LinkedList}
   \item Les intervalles \ct{Interval} sont représentés 
-par trois entiers qui enregistrent les deux points extrêmes et la taille de pas.
+par trois entiers qui enregistrent les deux points extrêmes et la taille du pas.
   \clsindex{Interval}
 \end{enumerate}
 En plus de ces classes, il y a aussi les variantes de \mbox{\ct{Array},} de \ct{Set} et de plusieurs sortes de dictionnaires dites à liaisons faibles ou ``\subind{Collection}{weak}''. Ces collections maintiennent faiblement leurs éléments, \ie de manière à ce qu'elles n'empêchent pas ses éléments d'être
@@ -430,7 +430,7 @@ Dictionary newFrom: {1 -> 7. 2 -> 3. 3 -> 1. 4 -> 3} --> a Dictionary(1->7 2->3 
 \noindent
 Notez que ces méthodes ne sont pas identiques.
 En particulier, \cmind{Dictionary class}{withAll:} interprète 
-ses arguments comme un collection de valeurs alors que 
+ses arguments comme une collection de valeurs alors que 
 \cmind{Dictionary class}{newFrom:} s'attend à une collection
 d'associations.
 
@@ -603,15 +603,14 @@ un tableau \ct{Array} (ou n'importe quelle autre collection) en envoyant le mess
 %---------------------------------------------------------
 \subsection{L'intervalle Interval}
 La classe \clsindmain{Interval} représente une suite de nombres.
-Par exemple, l'intervalle compris entre 1 et 100 est défini comme
-suit:
+Par exemple, l'intervalle compris entre 1 et 100 est défini comme suit:
 \cmindex{Interval class}{from:to:}
 \begin{code}{@TEST}
 Interval from: 1 to: 100 --> (1 to: 100)
 \end{code}
 
 \noindent
-\arelire{La représentation textuelle (affiché grâce à la méthode \mthind{Interval class}{printString}) de cet intervalle} nous révèle que la classe nombre \ct{Number} (représentant les nombres) dispose d'une méthode de convenance appelée \mthind{Number}{to:} (dans le sens de l'expression ``jusqu'à'') pour générer les intervalles:
+La représentation (affiché grâce à la méthode \mthind{Interval class}{printString}) de cet intervalle nous révèle que la classe \ct{Number} (représentant les nombres) dispose d'une méthode de convenance appelée \mthind{Number}{to:} (dans le sens de l'expression ``jusqu'à'') pour générer les intervalles:
 
 \begin{code}{}
 (Interval from: 1 to: 100) = (1 to: 100) --> true
@@ -649,7 +648,7 @@ colors values       --> {Color blue . Color yellow . Color red}
 
 Les dictionnaires comparent les clés par égalité. Deux clés sont
 considérées comme étant la même si elles retournent \emph{true}
-lorsqu'elles sont comparées par \ct{=}. Une erreur commune et difficile à
+lorsqu'elles sont comparées par \ct{=}. Une erreur courante et difficile à
 identifier est d'utiliser un objet dont la méthode \ct{=} a été
 redéfinie mais pas sa méthode de hachage \ct{hash}. Ces deux
 méthodes sont utilisées dans l'implémentation du dictionnaire
@@ -1099,7 +1098,7 @@ String streamContents: [:stream | #('bob' 'joe' 'toto') asStringOn: stream delim
 
 
 \paragraph{Les dictionnaires.}
-Quand la méthode \mthind{Dictionary}{do:} est envoyée à un dictionnaire,
+Quand le message \mthind{Dictionary}{do:} est envoyé à un dictionnaire,
 les éléments pris en compte sont les valeurs et non pas les associations.
 Les méthodes appropriées sont \mthind{Dictionary}{keysDo:}, \mthind{Dictionary}{valuesDo:} et \mthind{Dictionary}{associationsDo:} pour itérer respectivement sur les clés, les valeurs ou les associations.
 
@@ -1120,7 +1119,7 @@ La plupart peuvent être trouvés dans le protocole \protind{enumerating}
 de la classe \ct{Collection} et de ses sous-classes.
 
 Imaginez que nous voulions qu'une collection contienne le double des éléments d'une autre collection. 
-En utilisant la méthode \ct{do:}, nous devons écrire le code suivant :
+En utilisant le message \ct{do:}, nous devons écrire le code suivant :
 
 \begin{code}{@TEST | double |}
 double := OrderedCollection new.
@@ -1129,7 +1128,7 @@ double --> an OrderedCollection(2 4 6 8 10 12)
 \end{code}
 
 \noindent
-La méthode \mthind{Collection}{collect:} exécute son bloc-argument
+Le message \mthind{Collection}{collect:} exécute son bloc-argument
 pour chaque élément et renvoie une collection contenant les résultats.
 En utilisant désormais \ct{collect:}, notre code se simplifie :
 \begin{code}{@TEST}
@@ -1200,7 +1199,7 @@ une condition particulière:
 %---------------------------------------------------------
 \subsection{Identifier un élément avec \ct{detect:}}
 
-La méthode \mthind{OrderedCollection}{detect:} renvoie le premier
+Le message \mthind{OrderedCollection}{detect:} renvoie le premier
 élément du receveur qui rend vrai le test passé en bloc-argument.
 %ajout
 \ct{isVowel} retourne vrai \cad \ct{true} si le receveur est une
@@ -1219,7 +1218,7 @@ Smalltalk allClasses detect: [:each | '*cobol*' match: each asString] ifNone: [ 
 %---------------------------------------------------------
 \subsection{Accumuler les résultats avec \ct{inject:into:}}
 Les langages de programmation fonctionnelle offrent souvent une fonction d'ordre
-supérieure appelée \emph{fold} ou \emph{reduce} pour accumuler un résultat
+supérieur appelée \emph{fold} ou \emph{reduce} pour accumuler un résultat
 en appliquant un opérateur binaire de manière itérative sur tous les
 éléments d'une collection.
 \pharo propose pour ce faire la méthode \cmind{Collection}{inject:into:}.
@@ -1280,7 +1279,7 @@ collection := OrderedCollection new add: 1; add: 2.
 collection --> 2
 \end{code}
 \noindent
-Ici la variable \ct{collection} ne contient pas la collection nouvellement créée mais par le dernier nombre ajouté.
+Ici la variable \ct{collection} ne contient pas la collection nouvellement créée mais le dernier nombre ajouté.
 En effet, la méthode \ct{add:} renvoie l'élément ajouté et non le receveur.
 
 Le code suivant donne le résultat attendu:
@@ -1344,7 +1343,8 @@ Ne le faites donc pas à moins que vous aimiez vraiment le débogage!
 %=========================================================
 \section{Résumé du chapitre}
 
-La hiérarchie des collections en \st offre un vocabulaire commun pour la manipulation uniforme d'une grande famille de collections.
+La hiérarchie des collections en \st offre un vocabulaire commun pour la manipulation 
+uniforme d'une grande famille de collections.
 
 \begin{itemize}
   \item Une distinction essentielle est faite entre les collections séquentielles ou 
