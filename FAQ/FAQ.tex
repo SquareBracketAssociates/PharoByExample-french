@@ -67,17 +67,10 @@ Où puis-je trouver la dernière version de Pharo?
 Quelle image de \pharo devrais-je utiliser avec ce livre?
 \end{faq}
 \answer
-<<<<<<< .mine
 \arelire{Vous pouvez utiliser n'importe quelle image \pharo mais nous vous
 recommandons d'utiliser l'image préparée sur le site web de \pharo Par
 l'Exemple: {\ppe}.
 Vous risquez d'avoir des comportements surprenants lors de la saisie
-=======
-Vous pouvez utiliser n'importe quelle image de \pharo mais nous vous
-recommandons d'utiliser l'image préparée sur le site web de \pharo par
-l'exemple: {\ppe}.
-Vous risqueriez d'avoir des comportements surprenants lors de la saisie
->>>>>>> .r34584
 des exercices en utilisant une autre image. % CHANGE
 }
 %=================================================================
@@ -113,7 +106,7 @@ String streamContents: [:str | str nextPutAll: 'hello' asSet] --> 'hleo'
 \section{Naviguer dans le système}
 
 % voir \faqref{packagebrowser}
-\begin{faq}
+\begin{faq}\faqlabel{packagebrowser}
 Le navigateur de classes ne ressemble pas à celui décrit dans le
 livre. Que se passe-t-il?
 \end{faq}
@@ -125,11 +118,11 @@ installé comme Browser par défaut.
 Dans ce livre, nous présumons que le navigateur Omnibrowser
 \emph{Package Browser} (navigateur par paquetages) est installé par
 défaut.
-Vous pouvez changer cela en \clickant sur la bulle grise (le bouton si vous voulez...)
+Vous pouvez changer cela en \clickant sur la bulle grise 
 à droite de la barre de titre du navigateur, puis en sélectionnant
 dans le menu du Browser ``Choose new default Browser'' (en français,
 \emph{choisissez le nouveau Browser par défaut}). Dans la liste des
-navigateurs proposés, \clickz sur O2PackageBrowserAdaptor. 
+navigateurs proposés, \clickz sur O2PackageBrowserAdaptor.
 Le prochain navigateur de classes que vous ouvrirez sera le Package Browser. %CHANGE
 
 \begin{figure}[tbh]
@@ -138,7 +131,7 @@ Le prochain navigateur de classes que vous ouvrirez sera le Package Browser. %CH
 		\includegraphics[width=0.45\linewidth]{chooseNewBrowser}}\hfill
 	\subfigure[Sélectionnez l'OB Package Browser]{\figlabel{O2PackageBrowserAdaptor}
 		\includegraphics[width=0.45\linewidth]{O2PackageBrowserAdaptor}}\hfill
-	\caption{Changer le navigateur de classes par défaut.}
+	\caption{Changer le navigateur par défaut.}
 \end{figure}
 \seeindex{halo}{Morphic} % \seeindex{morphic halo}{Morphic} dans PBE
 
@@ -148,18 +141,15 @@ Comment puis-je chercher une classe~?
 \end{faq}
 \answer
 %\short{b} (browse) on the class name, or \short{f} in the category pane of the class browser.
-\short{b} (pour \emph{browse} \cad parcourir à l'aide du navigateur
-de classes) sur le nom de la classe ou \short{f} dans le panneau des
-catégories du Browser. % REVOIR
+\short{b} (pour \emph{browse} \cad parcourir à l'aide du navigateur)
+sur le nom de la classe ou \short{f} (pour \emph{find} \cad trouver)
+dans le panneau des catégories du Browser. % REVOIR
 \index{raccourci-clavier!browse it}
 \index{raccourci-clavier!find...}
 
 \begin{faq}
 %How do I find/browse all sends to super?
-Comment puis-je trouver/naviguer dans tous les envois 
-%%de
-à
- super~?
+Comment puis-je trouver/naviguer dans tous les envois à \super~?
 \end{faq}
 \answer
 %The second solution is much faster:
@@ -169,13 +159,13 @@ SystemNavigation default browseMethodsWithSourceString: 'super'.
 SystemNavigation default browseAllSelect: [:method | method sendsToSuper ].
 \end{code}
 %\index{browsing programmatically}
-\index{naviguer de manière pragmatique}
+\index{naviguer de manière pragmatique} % REVOIR
 \clsindex{SystemNavigation}
 
 \begin{faq}
 %How do I browse all super \subind{super}{send}{}s within a hierarchy?
 Comment puis-je naviguer au travers de tous les 
-\subpvind{super}{envoi}{}s de messages à \ct{super} dans une hiérarchie~?
+\subpvind{super}{envoi}{}s de messages à \super dans une hiérarchie~?
 \end{faq}
 \answer
 \begin{code}{}
@@ -184,17 +174,17 @@ browseSuperSends:= [:aClass | SystemNavigation default
 		(each methodDict associations
 			select: [:assoc | assoc value sendsToSuper ])
 				collect: [:assoc | MethodReference class: each selector: assoc key ] ])
-	name: 'Supersends of ' , aClass name , ' and its subclasses'].
+	name: 'Les envois !à! super de ' , aClass name , ' et de ses sous-classes'].
 browseSuperSends value: OrderedCollection.
 \end{code}
 
 \begin{faq}
 %How do I find out which are the new methods implemented in a class?
-Comment puis-je découvrir quelles sont les nouvelles méthodes implémentées dans une classe?
+Comment puis-je découvrir quelles sont les nouvelles méthodes implémentées dans une classe? (autrement, dit comment obtenir la liste des méthodes non surchargées d'une classe~?) 
 \end{faq}
 \answer
 %Here we ask which new methods are introduced by \ct{True}:
-Dans le cas présent nous demandons quelles sont les nouvelles méthodes introduites par \ct{True}:
+Dans le cas présent nous demandons quelles sont les nouvelles méthodes introduites par la classe \ct{True}:
 \begin{code}{@TEST | newMethods |}
 newMethods:= [:aClass| aClass methodDict keys select:
 	[:aMethod | (aClass superclass canUnderstand: aMethod) not ]].
@@ -203,10 +193,7 @@ newMethods value: True --> an IdentitySet(#asBit)
 
 \begin{faq}
 %How do I tell which methods of a class are abstract?
-Comment puis-je 
-%rapporter
-trouver
-les méthodes d'une classe qui sont abstraites~?
+Comment puis-je trouver les méthodes d'une classe qui sont abstraites~?
 \end{faq}
 \answer
 \begin{code}{@TEST | abstractMethods |}
@@ -218,24 +205,21 @@ abstractMethods value: Collection --> an IdentitySet(#remove:ifAbsent: #add: #do
 
 \begin{faq}
 %How do I generate a view of the \ind{AST} of an expression?
-Comment puis-je créer une vue de 
-%% ajout
-l'arbre syntaxique abstrait ou 
+Comment puis-je créer une vue de l'arbre syntaxique abstrait ou 
 \ind{AST} d'une expression~?
 \end{faq}
 \answer
 %Load AST from squeaksource.com. Then evaluate:
-Charger le paquetage AST depuis \url{http://squeaksource.com}. Ensuite évaluer:
+Charger le paquetage AST depuis \url{http://squeaksource.com/AST}. Ensuite évaluer:
 \begin{code}{}
 (RBParser parseExpression: '3+4') explore
 \end{code}
 %(Alternatively \emph{explore it}.)
-(D'autre part \emph{explorer le}.)
 \clsindex{RBParser}
 
 \begin{faq}
 %How do I find all the Traits in the system?
-Comment puis-je trouver tout les \emph{traits} dans le système~?
+Comment puis-je trouver tout les \emph{Traits} dans le système~?
 \end{faq}
 \answer
 \begin{code}{}
@@ -244,11 +228,11 @@ Smalltalk allTraits
 
 \begin{faq}
 %How do I find which classes use traits?
-Comment puis-je trouver quelles classes utilisent les \emph{traits}~?
+Comment puis-je trouver quelles classes utilisent les \emph{Traits}~?
 \end{faq}
 \answer
 \begin{code}{}
-Smalltalk allClasses select: [:each | each hasTraitComposition ]
+Smalltalk allClasses select: [:each | each hasTraitComposition and: [each traitComposition notEmpty]]
 \end{code}
 
 %=================================================================
@@ -301,7 +285,7 @@ Comment puis-je créer un projet SqueakSource~?
 %  \item \menu{+Repository \go HTTP}
   \item \menu{+Repository \go HTTP}
 %  \item Paste and accept the Registration code snippet; enter your password
-  \item Collez et acceptez le code d'enregistrement ; entrez votre mot de passe
+  \item Collez et acceptez le code d'enregistrement; entrez votre mot de passe
 %  \item \menu{Save} to save the first version
   \item \menu{Save} pour enregistrer la première version
 \end{enumerate}
@@ -345,9 +329,9 @@ Où puis-je trouver le \ind{Refactoring Browser}~?
 %Load AST then Refactoring Engine from squeaksource.com:
 Chargez le paquetage AST puis le moteur de 
 %%plutot que refrabrication 
-refactorisation sur le site \url{http://squeaksource.com}:\\
+refactorisation sur le site \url{http://squeaksource.com/AST}:\\
 \url{http://www.squeaksource.com/AST}\\
-\url{http://www.squeaksource.com/RefactoringEngine}
+\url{http://www.squeaksource.com/RefactoringEngine} % REVOIR si AST OBSOLETE => squeaksource.com/RB
 
 \begin{faq}
 %How do I register the browser that I want to be the default?
@@ -398,9 +382,9 @@ Vous devrez installer au moins SmaCC-lr.13.
 Chargez-le depuis \url{http://www.squeaksource.com/SmaccDevelopment.html}.
 %There is a nice tutorial online:
 Il y a un bon tutoriel en ligne à l'adresse:
-\url{http://www.refactory.com/Software/SmaCC/Tutorial.html}
+\url{http://www.refactoryworkers.com/SmaCC/Tutorial.html} % martial 2011; CHANGE URL: http://www.refactory.com/Software/SmaCC/Tutorial.html}
 
-\begin{faq}
+\Begin{faq}
 %Which packages should I load from SqueakSource SmaccDevelopment to write parsers?
 Quels paquetages devrais-je charger depuis \emph{SqueakSource SmaccDevelopment} pour écrire un analyseur grammatical~?
 \end{faq}
