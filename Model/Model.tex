@@ -1,3 +1,4 @@
+
 % $Author: oscar $
 % $Translation: martial $
 % $Date: Wed Oct 10 17:20:28 CEST 2007 $
@@ -15,6 +16,7 @@
 % relecture par Rene Mages : Tue Jan 12 17:17:17 2010
 % relecture par Rene Mages : Tue Aug  8 17:17:17 2010
 % relecture par Rene Mages : Mon Apr 11 17:17:17 2011
+% relecture par Rene Mages : Wed May  4 17:17:17 2011
 % $Author: oscar $ $Date: 2009-08-28 11:02:05 +0200 (Fri, 28 Aug 2009) $ $Revision: 28659 $
 % sync avec la version: 29660
 %=================================================================
@@ -84,7 +86,7 @@ Prenons le temps d'étudier ces règles en détail.
 %\ruleref{everything}
 
 Le mantra ``\mantra'' est hautement contagieux.
-Après seulement peu de temps passé avec \st, vous serez progressivement surpris par la façon dont cette règle simplifie tout ce que vous faites.
+Après seulement quelques heures passées avec \st, vous serez progressivement surpris par la façon dont cette règle simplifie tout ce que vous faites.
 Par exemple, les entiers sont véritablement des objets (de classe Integer). Dès lors vous pouvez leur envoyer des messages, comme vous le feriez avec n'importe quel autre objet.
 
 \begin{code}{@TEST}
@@ -241,7 +243,7 @@ Une classe et sa \ind{méta-classe} sont deux classes distinctes, et ce, même s
 
 De ce fait, le navigateur de classes nommé \ind{Browser} vous
 aide à parcourir à la fois classes et méta-classes comme si elles
-n'étaient qu'une seule entité avec deux ``côtés'': le ``\subind{Browser}{côté instance}'' et le ``\subind{Browser}{côté classe}'', comme le montre la \figref{Buttons}. 
+n'étaient qu'une seule entité avec deux ``côtés'': le ``\subind{Browser}{côté instance}'' et le ``\subind{Browser}{côté classe}'', comme le montre \figref{Buttons}. 
 \damien{something wrong here. The text between quotes is not generated}
 % true: \ind should replace \index there! (martial)
 En \clickant{} sur le bouton \button{instance}, vous voyez la présentation de la classe \ct{Color} et vous donc pouvez naviguer dans les méthodes qui sont exécutées quand les messages de même nom sont envoyés à une instance de \ct{Color}, comme par exemple \lct{blue} (correspondant à la couleur bleu). En appuyant
@@ -576,7 +578,7 @@ BorderedMorph subclass: #LOGame
 	category: 'PBE-LightsOut'
 \end{classdef}
 
-Si nous instancions maintenant \ct{LOGame}, l'instance répondra comme prévu au message \ct{author}.
+Si nous instançions maintenant \ct{LOGame}, l'instance répondra comme prévu au message \ct{author}.
 
 \begin{code}{}
 LOGame new author --> 'on'
