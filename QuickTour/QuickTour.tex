@@ -412,42 +412,38 @@ répondre à votre message.
     la main''. Posez-la en \clickant.}}
 
 \begin{figure}[htb]
-\begin{minipage}[b]{0.48\textwidth}
- 	{\centerline{\includegraphics[width=0.7\textwidth]{atoms}}}
+%\begin{minipage}[b]{0.48\textwidth}
+ 	{\centerline{\includegraphics[width=0.35\textwidth]{atoms}}}
  	\caption{Une instance de \bam.\figlabel{atoms}}
-\end{minipage}
-\hfill
-\begin{minipage}[b]{0.48\textwidth}
-	{\centerline{\includegraphics[width=0.7\textwidth]{saveAs}}}
- 	\caption{La boîte de dialogue \menu{save as\ldots}.\figlabel{saveas}}
-\end{minipage}
+%\end{minipage}
+%\hfill
+%\begin{minipage}[b]{0.48\textwidth}
+%	{\centerline{\includegraphics[width=0.7\textwidth]{saveAs}}}
+% 	\caption{La boîte de dialogue \menu{save as\ldots}.\figlabel{saveas}}
+%\end{minipage}
 \end{figure}
 
-\dothis{Sélectionnez \menu{World\go{}Save as\ldots} et entrez le nom
-  ``myPharo'', puis \clickz sur le bouton \button{OK}.
-%ajout
-pour sauvegarder sous un nouveau nom d'image.
-Pour quitter, sélectionnez \menu{World\go{}Save and quit}.} % CHANGE
+\dothis{Sélectionnez \menu{World\go{}Save and quit} pour sauvegarder votre image et quitter \pharo{}.}
 
-Le dossier qui contenait les fichiers image et \emph{changes} lorsque
-vous avez lancé cette session de travail avec \pharo contient désormais
-deux nouveaux fichiers: ``myPharo.\ind{image}'' et ``myPharo.\ind{changes}''. 
-%image vivante = working state of the pharo image
-Ils représentent l'image ``vivante'' de votre session \pharo au moment qui précédait votre enregistrement avec \menu{Save and quit}.
+Les fichiers ``PBE.\ind{image}'' et ``PBE.\ind{changes}'' 
+contenus dans votre dossier \textsf{Contents/Resources} ont changé.
+Ces fichiers représentent l'image ``vivante'' de votre session \pharo au moment
+qui précédait votre enregistrement avec \menu{Save and quit}.
 Ces deux fichiers peuvent être copiés à votre convenance dans les
-dossiers  de votre disque pour y être utilisés plus tard. à vous de
-les invoquer en prenant soin (selon votre système de fichiers) de
-%note de martial: j'ai transforme pour plus de logique mais c'est lourd: a revoir
-déplacer, copier ou lier le fichier \emph{sources} correspondant,
-tout en veillant à exécuter la bonne machine virtuelle.
+dossiers de votre disque pour y être utilisés plus tard: il faudra veiller
+à ce que le fichier \emph{sources} soit présent et que l'exécutable de la machine
+virtuelle soit informée de la nouvelle localisation de notre image. Pour le cas du
+présent livre, il n'est pas souhaitable de toucher à ces fichiers mais si vous voulez
+en savoir plus sur la possibilité de préserver l'image actuelle et changer d'image en utilisant
+l'option \menu{Save as\ldots}{}, rendez-vous dans \faqref{saveas-oneclick}.
 
-\dothis{Lancez \pharo avec l'image que vous venez de créer \cad le
-  fichier ``myPharo.image''.}
+\dothis{%
+Relancer \pharo{} en cliquant sur l'icône de votre programme (en fonction de votre système d'exploitation).}
 
 Vous retrouvez l'état de votre session exactement tel qu'il était
 avant que vous quittiez \pharo. La démo des \bamfr{} est toujours sur votre
 fenêtre de travail et les atomes continuent de rebondir depuis la position
-qu'ils avaient lorsque vous avez quitté.
+qu'ils avaient lorsque vous avez quitté. 
 
 En lançant pour la première fois \pharo, la \ind{machine virtuelle}
 charge le fichier image que vous spécifiez. Ce fichier contient
@@ -459,9 +455,9 @@ certains seront supprimés et l'espace-mémoire utilisé sera récupéré
 (\ie passé au ramasse-miettes ou \emph{garbage collector}).
 
 En quittant \pharo vous sauvegardez un instantané de tous vos objets. 
-En sauvegardant (par ``Save''), vous remplacerez l'image courante par 
-l'instantané de votre session. Pour préserver l'image courante, vous 
-devez enregistrer sous un nouveau nom comme nous venons de le faire.
+En sauvegardant par \menu{World\go{}Save}, vous remplacerez l'image courante par 
+l'instantané de votre session comme nous l'avons fait via \menu{Save and quit} mais
+sans quitter le programme. % A REVOIR
 
 Chaque fichier \emph{.image} est accompagné d'un fichier \emph{.changes}.
 Ce fichier contient un journal de toutes les modifications que vous avez 

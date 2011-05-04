@@ -67,12 +67,61 @@ Où puis-je trouver la dernière version de Pharo?
 Quelle image de \pharo devrais-je utiliser avec ce livre?
 \end{faq}
 \answer
-\arelire{Vous pouvez utiliser n'importe quelle image \pharo mais nous vous
-recommandons d'utiliser l'image préparée sur le site web de \pharo Par
-l'Exemple: {\ppe}.
-Vous risquez d'avoir des comportements surprenants lors de la saisie
-des exercices en utilisant une autre image. % CHANGE
-}
+Vous pouvez utiliser n'importe quelle image \pharo 
+% ajout vf
+de version 1.0
+mais nous vous recommandons d'utiliser l'image préparée sur le site web de \pharo 
+Par l'Exemple: {\ppe}.
+% ajout one-click
+Celle-ci inclut une version de la machine virtuelle compilée pour votre système d'exploitation
+ainsi que des scripts pour lancer votre image en \emph{un clic}.
+Utiliser une autre image, c'est courir le risque d'avoir des comportements surprenants lors
+de la saisie des exercices proposés dans ce livre.
+
+\begin{faq} % ajout vf : special OneClick version 1.0
+Comment puis-je démarrer \pharo{} convenablement~?
+\end{faq}
+\answer
+Cela varie en fonction de votre système d'exploitation:
+\begin{itemize}
+\item sous Windows, double-cliquez sur l'icône \textsf{pharo.exe} à la racine du répertoire \textsf{\pharooneclick{}.app};
+\item sous \macosx{}, double-cliquez sur l'icône d'application \textsf{\pharooneclick} (ou \textsf{\pharooneclick{}.app});
+\item sous Linux, double-cliquez sur l'icône \textsf{pharo.sh} depuis le répertoire \textsf{\pharooneclick{}.app} ou, grâce à un terminal, naviguer jusqu'au répertoire \textsf{\pharooneclick{}.app} et lancer la commande:
+\begin{code}{}
+./pharo.sh
+\end{code}
+\end{itemize}
+\index{lancement de \pharo}
+
+\begin{faq}\faqlabel{saveas-oneclick} % ajout vf : special OneClick version 1.0 
+Comment puis-je changer d'image à la sauvegarde et être sûr de démarrer la bonne image lors
+du démarrage de \mbox{\pharo~?}
+\end{faq}
+\answer
+Lorsque que vous sauvegarder votre image sous un autre nom en \clickant sur \menu{World\go{}Save as\ldots}, vous créez deux nouveaux fichiers dans le même répertoire que votre image initiale. En appelant la nouvelle image ``myPharo'' comme sur \figref{saveas-oneclick}, vous pourriez donc sauvegarder dans l'état courant votre image dans deux fichiers à la racine du dossier \mbox{\textsf{Contents/Resources}:} ``myPharo.image'' contenant le \emph{byte-code} et ``myPharo.changes'' contenant les changements de code source. L'intégralité du code source de notre image ``myPharo.image'' est l'union de code de ``myPharo.changes'' avec le fichier ``PharoV10.sources''.
+En continuant de travailler dans \pharo{}, vous travaillez donc dans votre nouvelle image.
+\begin{figure}[htb]
+	{\centerline{\includegraphics[width=0.35\textwidth]{saveAsOneClick}}}
+ 	\caption{La boîte de dialogue \menu{save as\ldots}.\figlabel{saveas-oneclick}}
+\end{figure}
+Pour pouvoir lancer cette nouvelle image, la machine virtuelle a besoin de connaître le nouveau nom. Pour ce faire:
+\begin{itemize} % RELIRE
+\item sous Windows, éditez le fichier \textsf{pharo.ini} à la racine de \textsf{\pharooneclick{}.app} et remplacez le champ \textsf{ImageFile}. Dans notre cas, remplacez ``PBE.image'' par notre nouvelle image pour obtenir \mbox{\textsf{ImageFile=Contents\symbol{92}Resources\symbol{92}myPharo.image}.} Pensez aussi à changer le champ \textsf{WindowTitle} à loisir pour informer du changement d'image;
+\item sous \macosx{}, éditez le fichier \textsf{Info.plist} à la racine de \textsf{Contents} après avoir affiché le contenu du paquet en cliquant avec le bouton droit de la souris sur le programme \textsf{\pharooneclick}. Pour vous faciliter la navigation dans ce code \texttt{XML}, \macosx{} dispose de l'utilitaire \emph{Property List Editor}: trouver le champ \textsf{SqueakImageName} et renommez l'image du nouveau nom ``myPharo.image'';
+\item sous Linux, éditez le script \textsf{pharo.sh} à la racine de \textsf{\pharooneclick{}.app} de sorte que le nom de l'image lancée par votre machine virtuelle change; ainsi la dernière ligne de code s'écrira: 
+\begin{code}{}
+exec "$BASE/squeakvm" \
+	-plugins "$BASE" \
+	-encoding latin1 \
+	-vm-display-X11 \
+	"$ROOT/Contents/Resources/myPharo.image"
+\end{code}%$
+Notez que les antislashs \ct{\} indiquent au \emph{shell} Linux de passer une ligne sans exécuter le code immédiatement (comme cela se fait normalement après un retour-chariot).
+\end{itemize}
+\index{sauvegarde de \pharo}
+\index{fichier!image}
+\index{fichier!changes}
+
 %=================================================================
 \section{Collections}
 
@@ -384,7 +433,7 @@ Chargez-le depuis \url{http://www.squeaksource.com/SmaccDevelopment.html}.
 Il y a un bon tutoriel en ligne à l'adresse:
 \url{http://www.refactoryworkers.com/SmaCC/Tutorial.html} % martial 2011; CHANGE URL: http://www.refactory.com/Software/SmaCC/Tutorial.html}
 
-\Begin{faq}
+\begin{faq}
 %Which packages should I load from SqueakSource SmaccDevelopment to write parsers?
 Quels paquetages devrais-je charger depuis \emph{SqueakSource SmaccDevelopment} pour écrire un analyseur grammatical~?
 \end{faq}
@@ -447,3 +496,5 @@ Chargez la dernière version de \ind{SmaCCDev}{}\,---\,le lanceur de programme e
 % :set encoding=UTF-8
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+% LocalWords:  retour-chariot
