@@ -18,6 +18,7 @@
 %% Relecture pour PharoBook: Rene Mages - Mon Jan 18 11:45:22 2010
 %% Relecture pour PharoBook: Rene Mages - Mon Aug  9 11:45:22 2010
 %% Relecture pour PharoBook: Rene Mages - Sat Apr 16 11:45:22 2011
+%% Relecture pour PharoBook: Rene Mages - Wed May  4 11:45:22 2011
 %% Sync avec la version: 33691
 %% Keywords:
 %% Compatibility: 
@@ -61,7 +62,7 @@
 %% 
 %%% Change log: 
 %%             - Traduction et figures par Martial
-%%             - Premiere et deuxième relecture par Rene 
+%%             - Relectures par Rene 
 %% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %=================================================================
@@ -126,7 +127,7 @@ l'interface de ce langage basé sur le concept de prototypes (comme
 JavaScript) est apparue en 1993. Maloney réécrivit ensuite une nouvelle version de Morphic pour \squeak, l'ancêtre de \pharo tout en conservant de la version originale son aspect \emph{direct} et \emph{vivant}.
 %ajout
 Dans ce chapitre, nous ferons une immersion dans cet univers d'objets
-graphiques, les \emph{morphs} et nous apprendrons à les modeler (à la
+graphiques (les \emph{morphs}) et nous apprendrons à les modeler (à la
 souris ou en programmation), à leur ajouter des fonctionnalités (pour
 accroître leur capacité d'interaction) et enfin, en préambule
 d'un exemple complet, nous verrons comment ils s'intègrent non seulement
@@ -465,7 +466,7 @@ containsPoint: aPoint
 
 Cette méthode suit la même logique que la méthode \ct{drawOn:}, 
 nous sommes donc sûrs que les points pour lesquels
-\ct{containsPoint:} retourne \ct{true} sont les mêmes points qui
+\ct{containsPoint:} retourne \ct{true} sont les mêmes points que ceux qui
 seront colorés par \ct{drawOn:}.
 Notez qu'à 
 %ajout
@@ -648,13 +649,13 @@ verticalBar
 
 
 %=================================================================
-\section{Intéraction et animation}
+\section{Interaction et animation}
 
 Pour construire des interfaces utilisateur vivantes avec les morphs,
 nous avons besoin de pouvoir interagir avec elles en utilisant la
 souris et le clavier.
-En outre, les morphs doivent être capable de répondre aux
-intéractions de l'utilisateur en changeant leur apparence et leur
+En outre, les morphs doivent être capables de répondre aux
+interactions de l'utilisateur en changeant leur apparence et leur
 position, autrement dit, en s'animant eux-mêmes.
 
 \subsection{Les événements souris}
@@ -889,7 +890,7 @@ le stoppe.
 %ajout
 Morphic dispose de morphs commodes pour créer en quelques lignes de
 code des interactions avec l'utilisateur. Parmi eux, nous avons la
-classe \clsind{UIManager} offre un grand nombre de boîtes de
+classe \clsind{UIManager} qui offre un grand nombre de boîtes de
 dialogue % CHANGE - martial - FillInTheBank devient UIManager
 prêtes à l'emploi.
 La méthode \mthind{UIManager}{request:initialAnswer:} renvoie
