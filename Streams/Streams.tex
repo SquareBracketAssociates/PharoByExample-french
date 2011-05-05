@@ -482,7 +482,7 @@ Object subclass: #History
   poolDictionaries: ''
   category: 'PBE-Streams'
 
-History>>initialize
+History>>>initialize
     super initialize.
     stream := ReadWriteStream on: Array new.
 \end{code}
@@ -495,12 +495,12 @@ depuis un tableau.
 Nous avons besoin d'ajouter les méthodes \ct{goBackward} et \ct{goForward} pour aller respectivement en arrière (``Retour'') et en avant:
 
 \begin{code}{}
-History>>goBackward
+History>>>goBackward
   self canGoBackward ifFalse: [self error: '!\normcode{Déjà sur le premier élément}!'].
   stream skip: -2. 
   ^ stream next
 
-History>>goForward
+History>>>goForward
   self canGoForward ifFalse: [self error: '!\normcode{Déjà sur le dernier élément}!'].
   ^ stream next
 \end{code}
@@ -509,7 +509,7 @@ Jusqu'ici le code est assez simple. Maintenant, nous devons nous occuper
 de la méthode \ct{goTo:} (que nous pouvons traduire en français par ``aller à'') qui devrait être activée quand l'utilisateur clique sur un lien. Une solution possible est la suivante:
 
 \begin{code}{}
-History>>goTo: aPage
+History>>>goTo: aPage
     stream nextPut: aPage.
 \end{code}
 
@@ -518,7 +518,7 @@ Pour ce faire, la solution la plus simple est d'écrire \ct{nil}
 juste après la position courante pour indiquer la fin de l'historique:
 
 \begin{code}{}
-History>>goTo: anObject
+History>>>goTo: anObject
   stream nextPut: anObject.
   stream nextPut: nil.
   stream back.
@@ -531,16 +531,16 @@ Pour aller en arrière, il doit y avoir deux pages avant la position courante:
 une est la page actuelle et l'autre est la page que nous voulons atteindre.
 
 \begin{code}{}
-History>>canGoBackward
+History>>>canGoBackward
   ^ stream position > 1
 
-History>>canGoForward
+History>>>canGoForward
   ^ stream atEnd not and: [stream peek notNil]
 \end{code}
 
 Ajoutons pour finir une méthode pour accéder au contenu du \stream:
 \begin{code}{}
-History>>contents
+History>>>contents
   ^ stream contents
 \end{code}
 
