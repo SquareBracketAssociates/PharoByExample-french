@@ -85,9 +85,9 @@ Prenons le temps d'étudier ces règles en détail.
 
 %\ruleref{everything}
 
-Le mantra ``\mantra'' est hautement contagieux.
+Attention ! le mantra ``\mantra'' est très contagieux.
 Après seulement quelques heures passées avec \st, vous serez progressivement surpris par la façon dont cette règle simplifie tout ce que vous faites.
-Par exemple, les entiers sont véritablement des objets (de classe Integer). Dès lors vous pouvez leur envoyer des messages, comme vous le feriez avec n'importe quel autre objet.
+Par exemple, les entiers sont véritablement des objets (de la classe Integer). Dès lors vous pouvez leur envoyer des messages, comme vous le feriez avec n'importe quel autre objet.
 
 \begin{code}{@TEST}
 3 + 4            --> 7    "!envoie '+ 4' à 3, donnant 7!"
@@ -106,7 +106,7 @@ Plus encore, les classes ne sont pas des objets de seconde zone: elles sont vér
 Ainsi \pharo est vraiment un système réflexif offrant une grande expressivité
 aux développeurs.
 
-En regardant plus avant dans l'implémentation de \st, nous trouvons
+Si on regarde plus précisemment l'implémentation de \st, nous trouvons
 trois sortes différentes d'objets. Il y a (1) les objets ordinaires
 avec des variables d'instance passées par référence; il y a (2)
 \emph{les petits entiers}~\footnote{En anglais, \emph{small
@@ -140,11 +140,10 @@ Chaque méthode a un nom. C'est le \emphsubind{méthode}{sélecteur}. Il est uni
 
 Puisque \emph{les classes sont des objets} et que \emph{tout objet est une instance d'une classe}, nous en concluons que les classes doivent aussi être des instances de classes.
 Les classes dont les instances sont des classes sont nommées des \emph{méta-classes}.
-à chaque fois que vous créez une classe, le système crée pour vous une méta-classe
+À chaque fois que vous créez une classe, le système crée pour vous une méta-classe
 automatiquement.
-La méta-classe definit la structure et le comportement de la classe qui est son instance.
-\damien{Did any of you verify it is 99\%? Maybe 'Most' would have been better than '99\%'}
-99\% du temps vous n'aurez pas à penser aux méta-classes et vous pourrez joyeusement les ignorer.
+La méta-classe définit la structure et le comportement de la classe qui est son instance.
+La plupart du temps vous n'aurez pas à penser aux méta-classes et vous pourrez joyeusement les ignorer.
 (Nous porterons notre attention aux méta-classes dans \charef{metaclasses}.)
 
 %---------------------------------------------------------
@@ -152,7 +151,7 @@ La méta-classe definit la structure et le comportement de la classe qui est son
 
 Les variables d'instance en \st sont privées vis-à-vis de l'\emph{instance} elle-même.
 Ceci diffère de langages comme \ind{Java} et \ind{C++} qui permettent l'accès aux variables d'instance (aussi connues sous le nom d'``attributs'' ou ``variables membre'') depuis n'importe qu'elle autre instance de la même classe.
-Nous disons que l'\emphind{espace d'encapsulation}~\footnote{En anglais, encapsulation boundary.} des objets en Java et en C++ est la classe, là où, en \st, c'est l'instance.
+Nous disons que la \emphind{frontière d'encapsulation}~\footnote{En anglais, encapsulation boundary.} des objets en Java et en C++ est la classe, là où, en \st, c'est l'instance.
 \seeindex{variable!instance}{variable d'instance}
 \seeindex{attribut}{variable d'instance}
 %\seeindex{attribute}{instance variable}
@@ -164,7 +163,7 @@ En \st, deux instances d'une même classe ne peuvent pas accèder aux variables 
 Aucun élément de la syntaxe ne permet l'accès direct à la variable d'instances de n'importe quel autre objet.
 (En fait, un mécanisme appelé \ind{réflexivité}
 %, discussed in \charef{metaprog},
-offre une véritable possibilité d'interroger un autre objet sur la valeur de ses variables d'instance; la méta-programmation permet d'écrire des outils tel que l'\ind{inspecteur} d'objets (nous utiliserons aussi le terme \ind{Inspector}). La seule vocation de ce dernier est de regarder le contenu des autres objets.)
+offre une  possibilité d'interroger un autre objet sur la valeur de ses variables d'instance; ces facilités de méta-programmation permettent d'écrire des outils tel que l'\ind{inspecteur} d'objets (nous utiliserons aussi le terme \ind{Inspector}). La seule vocation de ce dernier est de regarder le contenu des autres objets.)
 
 Les variables d'instance peuvent être accédées par 
 nom dans toutes les méthodes d'instance de la classe qui les définit
@@ -1219,11 +1218,10 @@ Le modèle objet de \pharo est à la fois simple et uniforme.
 
 \begin{itemize}
 
-  \item \Mantra.
-  Les entités primitives telles que les entiers sont des objets, tout comme
-il est vrai que les classes soient des objets de premier ordre.
+\item \Mantra.
+  Les entités primitives telles que les entiers sont des objets, ainsi que les classes qui sont des objets comme les autres.
 
-  \item Tout objet est instance d'une classe.
+\item Tout objet est instance d'une classe.
 Les classes définissent la structure de leurs instances via des
 variables d'instance \emph{privées} et leur comportement 
 via des méthodes \emph{publiques}. Chaque classe est l'unique
