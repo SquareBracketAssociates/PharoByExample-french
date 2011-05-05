@@ -300,7 +300,7 @@ Rectangle unreferencedInstanceVariables            --> #()
 SystemNavigation default allClassesImplementing: #yourself --> {Object}
 \end{code}
 
-Les messages suivants devraient être également compréhensibles par eux-même :
+Les messages suivants devraient être également compréhensibles par eux-mêmes :
 
 \mthindex{SystemNavigation}{allSentMessages}
 \mthindex{SystemNavigation}{allUnsentMessages}
@@ -546,7 +546,7 @@ comment \mbox{\clsmthind{Object}{subclassResponsibility}} indique un message d'e
 En \st la façon de mettre des points d'arrêts dans un programme consiste à évaluer \ct{self halt} aux endroits correspondants. Ceci va provoquer la réification de \ct{thisContext} et une fenêtre de \ind{débogage} va s'ouvrir sur ce point d'arrêt.
 Malheureusement ceci peut poser des problèmes pour des méthodes qui sont utilisées partout dans le système.
 
-Supposons par exemple, que nous voulons explorer l'exécution de \ct{OrderedCollection>>>add:}.
+Supposons par exemple, que nous voulions explorer l'exécution de \ct{OrderedCollection>>>add:}.
 Mettre un point d'arrêt sur cette méthode est problématique.
 
 \dothis{Prendre une \emph{nouvelle} image et ajouter le point d'arrêt suivant :}
@@ -562,7 +562,7 @@ Le problème devient évident lorsque nous comprenons que (i) \ct{OrderedCollect
 Ce dont nous avons besoin est de pouvoir faire \emph{un point d'arrêt conditionnel} seulement lorsque nous sommes dans le contexte qui nous intéresse.
 C'est exactement ce qu'offre \clsmthind{Object}{haltIf:}.
 
-Supposons que nous voulons arrêter le programme seulement si le message \ct{add} est envoyé dans le contexte de \ct{OrderedCollectionTest>>>testAdd}.
+Supposons que nous voulions arrêter le programme seulement si le message \ct{add} est envoyé dans le contexte de \ct{OrderedCollectionTest>>>testAdd}.
 
 \dothis{Ouvrir une nouvelle image de nouveau et mettre le point d'arrêt ci-dessous :}
 \begin{code}{}
@@ -834,7 +834,7 @@ Regardons pas à pas ce qu'il se passe la première fois que le message
 	% \on{trust me, it is useful to see all the steps.}
 \end{figure}
 
-Nous envoyons (1) le message \ct{x} à \ct{myDA}; (2) le message est recherché dans la classe et (3) n'est pas trouvé non plus dans la hiérarchie de la classe. (4) Ceci entraîne en retour l'envoi du message \ct{self doesNotUnderstand: #x} à l'objet (5) déclenchant ainsi une nouvelle recherche. Cette fois, \ct{doesNotUnderstand:} est immédiatemment trouvé dans la classe \ct{DynamicAccessors} (6) qui demande à sa classe de compiler la chaîne de caractères \ct{'x ^ x'}. La méthode \ct{compile} est recherchée (7) jusqu'à être finalement trouvée (8) dans la classe \ct{Behavior} qui (9-10) ajoute la nouvelle méthode compilée au dictionnaire de méthodes de \ct{DynamicAccessors}. Finalement (11-13) le message est renvoyé au nouveau; cette fois, il est trouvé.
+Nous envoyons (1) le message \ct{x} à \ct{myDA}; (2) le message est recherché dans la classe et (3) n'est pas trouvé non plus dans la hiérarchie de la classe. (4) Ceci entraîne en retour l'envoi du message \ct{self doesNotUnderstand: #x} à l'objet (5) déclenchant ainsi une nouvelle recherche. Cette fois, \ct{doesNotUnderstand:} est immédiatemment trouvé dans la classe \ct{DynamicAccessors} (6) qui demande à sa classe de compiler la chaîne de caractères \ct{'x ^ x'}. La méthode \ct{compile} est recherchée (7) jusqu'à être finalement trouvée (8) dans la classe \ct{Behavior} qui (9-10) ajoute la nouvelle méthode compilée au dictionnaire de méthodes de \ct{DynamicAccessors}. Finalement (11-13) le message est renvoyé à nouveau; cette fois, il est trouvé.
 
 La même technique peut être utilisée pour générer des mutateurs pour les variables d'instance ou d'autres types de code réutilisable tels que les méthodes de visites d'une classe de conception de type \emph{Visitor}~\footnote{NdT: un des modèles de conception classiques connues sous l'appelation ``Design Patterns'' et faisant office de référence en matière de programmation objet.}.
 
