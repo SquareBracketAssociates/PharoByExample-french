@@ -95,8 +95,11 @@
 \newboolean{deployment} % version de déploiement
 \setboolean{deployment}{true}  % true pour enlever les couleurs et
                                 % annotations de traduction
+\newboolean{seaside-chapter}
+\setboolean{seaside-chapter}{false} % officially no seaside but regex in french edition of PBE-1.0
 \newcommand{\ifluluelse}[2]{\ifthenelse{\boolean{lulu}}{#1}{#2}}
 \newcommand{\ifdeploy}[1]{\ifthenelse{\boolean{deployment}}{#1}{}}      % vf only
+\newcommand{\ifseaside}[2]{\ifthenelse{\boolean{seaside-chapter}}{#1}{#2}}
 %=============================================================
 %:Names
 \newcommand{\SUnit}{SUnit\xspace}
@@ -126,6 +129,7 @@
 % changements d'url rencontres dans la VO:
 \newcommand{\squeakdev}{\url{http://www.squeaksource.com/ImageForDevelopers}\xspace} %ou
 %\newcommand{\squeakdev}{\url{squeak.ofset.org/squeak-dev}\xspace}
+\newcommand{\dwdseaside}{\url{http://book.seaside.st/book}\xspace}
 \newcommand{\bam}{\ct{BouncingAtomsMorph}\xspace}
 %=============================================================
 %:Markup macros for proof-reading

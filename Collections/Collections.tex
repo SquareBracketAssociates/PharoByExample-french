@@ -555,26 +555,49 @@ Les tableaux dynamiques n'ont pas ce problème.
 et auxquelles des éléments peuvent être adjoints séquentiellement.
 Elle offre une variété de méthodes telles que \mthind{OrderedCollection}{add:}, \mthind{OrderedCollection}{addFirst:}, \mthind{OrderedCollection}{addLast:} et \mthind{OrderedCollection}{addAll:}.
 
+\if\value{seaside-chapter}
 \begin{code}{@TEST | ordCol |}
 ordCol := OrderedCollection new.
 ordCol add: 'Seaside'; add: 'SqueakSource'; addFirst: 'Monticello'.
 ordCol --> an OrderedCollection('Monticello' 'Seaside' 'SqueakSource')
 \end{code}
+\else
+\begin{code}{@TEST | ordCol |}
+ordCol := OrderedCollection new.
+ordCol add: 'Regex'; add: 'SqueakSource'; addFirst: 'Monticello'.
+ordCol --> an OrderedCollection('Monticello' 'Regex' 'SqueakSource')
+\end{code}
+\fi
 
 \paragraph{Effacer des éléments.} La méthode \mthind{OrderedCollection}{remove:} \ct{anObject} efface la première occurence d'un objet dans la collection. Si la collection n'inclut pas l'objet, elle lève une erreur.
 
+\if\value{seaside-chapter}
 \begin{code}{@TEST | ordCol | ordCol := OrderedCollection with: 'Monticello' with: 'Seaside' with: 'SqueakSource'.}
 ordCol add: 'Monticello'.
 ordCol remove: 'Monticello'.
 ordCol --> an OrderedCollection('Seaside' 'SqueakSource' 'Monticello')
 \end{code}
+\else
+\begin{code}{@TEST | ordCol | ordCol := OrderedCollection with: 'Monticello' with: 'Regex' with: 'SqueakSource'.}
+ordCol add: 'Monticello'.
+ordCol remove: 'Monticello'.
+ordCol --> an OrderedCollection('Regex' 'SqueakSource' 'Monticello')
+\end{code}
+\fi
 
 Il y a une variante de \ct{remove:} nommée \mthind{OrderedCollection}{remove:ifAbsent:} qui permet de spécifier comme second argument un bloc exécuté dans le cas où l'élément à effacer n'est pas dans la collection. 
 
+\if\value{seaside-chapter}
 \begin{code}{@TEST | ordCol res | ordCol := OrderedCollection with: 'Seaside' with: 'SqueakSource' with: 'Monticello'.}
 res := ordCol remove: 'zork' ifAbsent: [33].
 res --> 33
 \end{code}
+\else
+\begin{code}{@TEST | ordCol res | ordCol := OrderedCollection with: 'Regex' with: 'SqueakSource' with: 'Monticello'.}
+res := ordCol remove: 'zork' ifAbsent: [33].
+res --> 33
+\end{code}
+\fi
 
 \paragraph{La conversion.}
 Il est possible d'obtenir une collection ordonnée \ct{OrderedCollection} depuis

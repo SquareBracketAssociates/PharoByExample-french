@@ -55,6 +55,7 @@
 	{Syntax/figures/}
    {Reflection/figures/}
    {Seaside/figures/}
+   {Regex/figures/}
    {FAQ/figures/}
 }
 %=================================================================
@@ -189,8 +190,10 @@ Paternit\'e Version 3.0 de la licence g\'en\'erique - Partage des Conditions Ini
 %:Morphic
 \input{Morphic/Morphic.tex}
 %:Seaside
+\ifseaside{%
 \import{Seaside/}{Seaside/Seaside.tex} % import b/c inner input in
                                 % French Edition
+}{\input{Regex/Regex.tex}}
 %=================================================================
 %:PART 3 -- Advanced Pharo
 \part{Pharo avanc\'e}
