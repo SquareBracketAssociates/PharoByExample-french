@@ -336,7 +336,7 @@ WebDir>>>webPages
 			forHome: homePath ]
 \end{code}
 
-Vous pouvez voir de la forme suivante:
+\noindent{} Vous pouvez voir de la forme suivante:
 
 \begin{code}{}
 (WebDir onPath: '...') webPages --> an Array(a WebPage a WebPage ...)
@@ -382,7 +382,7 @@ WebPage>>>fileName
 	^ path copyWithRegex: '.*/' matchesReplacedWith: ''
 \end{code}
 
-Now you should see something like this on your test web site:
+\noindent{} Vous devriez voir quelque chose comme ça sur votre site de test: 
 
 \begin{code}{}
 (WebDir onPath: '...') webPages collect: [:each | each fileName ]
@@ -418,7 +418,7 @@ WebPage>>>contents
 		contents
 \end{code}
 
-Vous devriez maintenant pouvoir voir quelque chose semblable à ceci:
+\noindent{} Vous devriez maintenant pouvoir voir quelque chose semblable à ceci:
 
 \begin{code}{}
 (WebDir onPath: '...') webPages first contents --> '<head>
@@ -503,7 +503,7 @@ Deux cas subtils sont à prendre en compte ici.
 Premièrement, le code HTML ne s'intéresse pas à savoir si les balises
 sont en miniscule ou en majuscule donc nous devons faire en sorte que
 notre \expreg soit insensible à la casse en l'instanciant avec le
-message \ct{asRegexIgnoringCase}.
+message \mbox{\ct{asRegexIgnoringCase}.}
 
 Deuxièmement, puisque le point correspond à n'importe quel caractère \arelire{%
 \emph{à l'exception des retours-chariot}}, l'\expreg 
@@ -728,7 +728,7 @@ Comme nous avons vu, les caractères \ct{*}, \ct{+}, \ct{?}, \ct{(},
 and \ct{)} ont un sens spécial dans les \expregs. Si nous avons besoin
 de faire correspondre n'importe lequel d'entre eux de manière
 littérale, il faudrait l'\emph{échapper} en précédant ce caractère par
-un \escchar \cad un \emph{antislash} (\ct{\}). L'\emph{antislash} est
+un \escchar \cad un \mbox{\emph{antislash} (\lct{\symbol{92}}).} L'\emph{antislash} est
   aussi un caractère spécial et a donc besoin d'être précédé par
   \escchar pour qu'il y ait concordance. Ceci est aussi valable pour
   tous les caractères spéciaux que nous pourrions voir plus loin.
@@ -821,8 +821,8 @@ Ci-dessous, nous avons \arelire{des exemples montrant comment les
 !début!"
 \end{code}
 
-\arevoir{Les classes vides et universelles ne peuvent pas être
-  définies.} 
+\noindent{} \arevoir{Les classes vides et universelles ne peuvent pas être
+  définies.}
 % Thus, empty and universal sets cannot be specified.
 
 %-----------------------------------------------------------------
@@ -890,6 +890,7 @@ doivent pas commencer par le chiffre 0:
 \tradalert{martial}{Better yet, we might want to specify that
   \textbf{non-zero numbers}}
 
+\needlines{4}
 \begin{code}{@TEST}
 '0' matchesRegex: '0|([1-9]\d*)'     --> true
 '1' matchesRegex: '0|([1-9]\d*)'     --> true
@@ -897,7 +898,7 @@ doivent pas commencer par le chiffre 0:
 '099' matchesRegex: '0|([1-9]\d*)' --> false    "!débute! par !zéro!"
 \end{code}
 
-Nous pouvons vérifier l'expression avec des nombres négatifs et positifs:
+\noindent{} Nous pouvons vérifier l'expression avec des nombres négatifs et positifs:
 
 \begin{code}{@TEST}
 '0' matchesRegex: '(0|((\+|-)?[1-9]\d*))'     --> true
@@ -1062,7 +1063,7 @@ La plupart de nos précédents exemples ont utilisé la méthode étendue
 
 Les chaînes de caractères comprennent aussi les messages suivants:
 \mthind{String}{prefixMatchesRegex:}, \mthind{String}{matchesRegexIgnoringCase:} et
-\mthind{String}{prefixMatchesRegexIgnoringCase:}.
+\mbox{\mthind{String}{prefixMatchesRegexIgnoringCase:}.}
 
 Le message \mthind{String}{prefixMatchesRegex:} se présente comme
 \mthind{String}{matchesRegex} à l'exception que le \arelire{receveur complet}
@@ -1363,10 +1364,11 @@ Comme exemple plus élaboré, le morceau de code suivant utilise un
 détecteur de format de date,
 % ajout - vf
 en notation anglo-saxonne,
-de la forme \ct{MMM DD, YYYY} pour convertir une date en un tableau à
+de la forme \mbox{\ct{MMM DD,}} \lct{YYYY} pour convertir une date en un tableau à
 trois éléments contenant les chaînes de caractères pour l'année
 (\ct{YYYY}), le mois (\ct{MMM}) et le jour (\ct{DD}):
 
+\needlines{7}
 \begin{code}{@TEST | date result |}
 date := '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d\d?)\s*,\s*19(\d\d)' asRegex.
 result := (date matches: 'Aug 6, 1996')
