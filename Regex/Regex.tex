@@ -270,9 +270,9 @@ voir quelque chose de la sorte:
 \subsection{Mettre en cache l'\expreg}
 %\subsection{Caching the regex}
 
-Si vous naviguez de la méthode \mthind{String}{matchesRegex:}, vous
-découvrirez que \arelire{c'est une extension de méthode de \ct{String}
-  qui crée une nouvelle instance de \clsind{RxParser} à chaque envoi.}
+Si vous naviguez dans la méthode \mthind{String}{matchesRegex:}, vous
+découvrirez que c'est une extension de méthode de \ct{String}
+qui crée une nouvelle instance de \clsind{RxParser} à chaque envoi.
 C'est correct pour des requêtes \emph{ad hoc} mais si nous appliquons
 la même \expreg pour chaque fichier du site web, créer une unique
 instance de \ct{RxParser} pour la réutiliser est plus judicieux.
@@ -363,13 +363,13 @@ nous:
 \end{code}
 
 \index{Regex!syntaxe!@\ct{+}}
-Dans cette exemple, l'\expreg \ct{[elo]} \arelire{correspond à un caractère
-pouvant être \ct{e}, \ct{l} or \ct{o}.} % CHANGE : ajout - vf : "à un"
+Dans cet exemple, l'\expreg \ct{[elo]} correspond à un caractère
+pouvant être \ct{e}, \ct{l} ou \ct{o}. % CHANGE : ajout - vf : "à un"
                                 % plutôt que "n'importe qu'"
 % matches any of the characters \ct{e}, \ct{l} or \ct{o}.
 L'opérateur \ct{+} est comme la \kleenestar, mis à part qu'il
 correspond exactement à \emph{une} ou plusieurs instances de l'\expreg
-qui le précède. Il correspondra ici à la sous-chaîne \ct{'ello} qui
+qui le précède. Il correspondra ici à la sous-chaîne \ct{'elo'} qui
 sera remplacée par la lettre \ct{i} pour générer une nouvelle chaîne de
 caractères.
 \index{Regex!syntaxe!@\ct{+}}
@@ -701,7 +701,7 @@ occurrences of \ct{ab}'':
 
 \indexmain{Regex!syntaxe!@\ct{()}}
 Pour obtenir une \expreg qui correspond à ``zéro ou plusieurs
-occurences de \ct{ab}'', nous devons inclure \ct{ab} entre
+occurrences de \ct{ab}'', nous devons inclure \ct{ab} entre
 parenthèses:
 \begin{code}{@TEST}
 'abab' matchesRegex: '(ab)*'   --> true
@@ -715,7 +715,7 @@ et \ct{?}. \ct{+} correspond à une ou plusieurs instances de l'\expreg
 qu'il modifie. \ct{?} assurera la concordance avec zéro ou une
 instance.
 % ajout - vf - CHANGE
-C'est trois opérateurs sont appelés \emph{quantificateurs}.
+Ces trois opérateurs sont appelés des \emph{quantificateurs}.
 \begin{code}{@TEST}
 'ac' matchesRegex: 'ab*c'	   --> true
 'ac' matchesRegex: 'ab+c'	  --> false    "besoin d'au moins un b"
@@ -740,8 +740,8 @@ un \escchar \cad un \emph{antislash} (\ct{\}). L'\emph{antislash} est
 
 \indexmain{Regex!syntaxe!@\ct{|}}
 Le dernier opérateur est \ct{|}; il exprime un choix entre deux
-sous-expressions. Il correspond à un chaîne de caractères si l'un des
-deux expressions concordent. Cet opérateur à la priorité la plus
+sous-expressions. Il correspond à une chaîne de caractères si l'une des
+deux expressions concorde. Cet opérateur à la priorité la plus
 basse\,---\,inférieure même au séquençage.
 %It has the lowest precedence\,---\,even lower than sequencing.
 Par exemple, \ct{ab*|ba*} signifie ``a suivi par un certain nombre de
@@ -765,7 +765,7 @@ historique\footnote{NdT: voir \url{http://fr.wikipedia.org/wiki/Lisp}.} du langa
 Il est possible d'écrire une expression qui correspond à une chaîne
 vide; par exemple, l'\expreg \ct{a|} correspond à une chaîne vide.
 Cependant, appliquer  \ct{*}, \ct{+} ou \ct{?} tel quel est une
-erreur: \ct{(a|)*}, par contre, est valide.
+erreur: \ct{(a|)*}, en revanche, est valide.
 
 %\indexmain{Regex!syntaxe!character set}
 \indexmain{Regex!syntaxe!classe de caractères}
@@ -809,7 +809,7 @@ Cet intervalle est équivalent à la liste complète de tous les
 caractères entre ces deux caractères:  \ct{'[0-9]'} est la même chose
 que  \ct{'[0123456789]'}.
 Les caractères spéciaux dans une classe de caractères sont 
-\ct{CARET}, \ct{-}, and \ct{]}; ce dernier clôt la classe. 
+\ct{CARET}, \ct{-}, et \ct{]}; ce dernier clôt la classe. 
 Ci-dessous, nous avons \arelire{des exemples montrant comment les
   utiliser dans une classe pour en faire la concordance}:
 % which closes the set. Below are examples how to literally match them
@@ -973,7 +973,7 @@ Les classes abrégées peuvent aussi inclure les éléments compatibles
 
 Notez que ces éléments font partie des classes abrégées; ils doivent
 être inclus dans un ensemble de crochets pour former une \expreg
-valide. Par exemple, un filtrage de chaîne de caractères non-vide composée
+valide. Par exemple, un filtrage de chaînes de caractères non-vide composées
 uniquement de chiffres devrait être représenté par \ct{[[:digit:]]+}.
 Les expressions et opérateurs primitifs précédemment vus sont communs
 à de nombreuses implémentations d'\expregs.
@@ -993,7 +993,7 @@ sélecteur unaire \arevoir{qui peut être compris par les caractères}.
 % A sequence of characters between colons is treated as a unary
 % selector which is supposed to be understood by characters
 Un caractère correspond à une telle expression s'il répond \ct{true}
-à un message \arelire{formé par ce sélecteur}.
+à un message formé par ce sélecteur.
 % A character matches such an expression if it answers true to a
 % message with that selector.
 Ceci offre une façon plus lisible et plus efficace de spécifier les
@@ -1003,7 +1003,7 @@ classes de caractères, les classes spéciales peuvent avoir un négatif:
 \ct{:CARETisDigit:} concorde avec un caractère qui répond \ct{false} à
  \ct{isDigit} et est ainsi équivalent à  \ct{[CARET0-9]}.
 
-Nous avons donc déjà vu des façons suivantes et équivalentes pour écrire une \expreg qui
+Nous avons donc déjà vu les façons suivantes (et touteséquivalentes) pour écrire une \expreg qui
 correspond à une chaîne de caractères non-vide de chiffres:
 \ct{[0-9]+}, \ct{\d+}, \ct{[\d]+}, \ct{[[:digit:]]+} et \ct{:isDigit:+}.
 
@@ -1056,7 +1056,7 @@ compris par les chaînes de caractères et les \expregs.
 %\subsection{Matching prefixes and ignoring case}
 \subsection{Concordance des préfixes et l'ignorance de la casse}
 
-La plupart de nos précédents exemples ont utilisés la méthode étendue
+La plupart de nos précédents exemples ont utilisé la méthode étendue
 \ct{matchesRegex:} de la classe \ct{String}.
 % So far most of our examples have used the \ct{String} extension method \ct{matchesRegex:}.
 
@@ -1128,7 +1128,7 @@ concordances (avec les sous-chaînes de la chaîne-receveur) de l'\expreg.
 % translation
 
 Il est possible de remplacer toutes les concordances d'une \expreg
-avec une certain chaîne de caractères en utilisant le message  \mthind{String}{copyWithRegex:matchesReplacedWith:}.
+avec une certaine chaîne de caractères en utilisant le message  \mthind{String}{copyWithRegex:matchesReplacedWith:}.
 
 \begin{code}{@TEST}
 'Pierre hait Jean' copyWithRegex: '\<[[:lower:]]+\>' matchesReplacedWith: 'aime' -->  'Pierre aime Jean'
@@ -1201,7 +1201,7 @@ class pour les mthind}
   \mthind{String}{asRegexIgnoringCase} à la chaîne de caractères;
 \item vous pouvez directement instancier la classe \ct{RxMatcher} via
   une de ses méthodes de classe \mthind{RxMatcher class}{forString:} ou
-  \mthind{RxMatcher class}{forString:ignoreCase:} (ce que méthodes
+  \mthind{RxMatcher class}{forString:ignoreCase:} (ce que les méthodes
   utilitaires ci-dessus font).
 % which is what the convenience methods above will do).
 
@@ -1315,7 +1315,7 @@ incluant l'expression entière elle-même.
 4:    \w+                     "la seconde branche"
 \end{code}
 
-L'indice valide le plus élevé est égale à 1 plus le nombre de
+L'indice valide le plus élevé est égal à 1 plus le nombre de
 parenthèses de filtres (ainsi, 1 est toujours un indice valide même
 s'il n'y a pas de sous-expressions parenthésées).
 %The highest valid index is equal to 1 plus the number of matching parentheses.  (So, 1 is always a valid index, even if there are no parenthesized subexpressions.)
@@ -1494,7 +1494,7 @@ l'esprit, mais \emph{pas} en \emph{design}
 %The matcher is similar in spirit, but \emph{not} in design
 à l'implémentation originale de \expreg par Henry Spencer en langage
 C. Le point important est la simplicité et non l'efficacité. Je n'ai
-rien optimisé ni \emph{profiler}.
+rien optimisé ni \emph{profilé}.
 % I didn't optimize or profile anything.
 Le \emph{matcher} passe la suite de tests de H.~Spencer (voir le
 protocole ``test suite'') et quelques tests additionnels, donc il y a
