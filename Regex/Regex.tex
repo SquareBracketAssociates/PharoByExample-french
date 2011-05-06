@@ -9,10 +9,9 @@
 % 2009-04-17 - Fabrizio Perin reviewed
 % 2009-04-18 - Jorge Ressia reviewed
 % 2009-07-15 - Oscar indexing
-
 % 2010-01-24 - traduit en français par Martial
-% 2010-01-25 - relectures par Rene
-
+% 2010-01-25 - relecture par Rene
+% 2011-05-05 - relecture par Rene
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -107,7 +106,7 @@ Bykov a inclus dans son paquetage\footnote{La documentation originale
 % All the code is in the package PBE-Regex in http://www.squeaksource.com/SqueakByExample
 
 Nous allons réaliser une application simple qui permet la génération
-d'un \sitemap pour une site web que nous aurions localement stocké sur
+d'un \sitemap pour un site web que nous aurions localement stocké sur
 notre disque dur. Le \sitemap contiendra les liens vers chaque fichier
 HTML sur le site web en utilisant le titre de la page comme texte du
 lien. Les liens devront en outre refléter la structure en répertoires
@@ -140,14 +139,14 @@ Définissez aussi les méthodes de classe pour afficher la localisation
 du site web sur votre machine comme suit:}
 
 \begin{code}{}
-WebDir>>setDir: dir home: path 
+WebDir>>>setDir: dir home: path 
 	webDir := dir.
 	homePath := path
 
-WebDir class>>onDir: dir
+WebDir class>>>onDir: dir
 	^ self new setDir: dir home: dir pathName
 
-WebDir class>>selectHome
+WebDir class>>>selectHome
 	^ self onDir: FileList modalFolderSelector
 \end{code}
 
@@ -174,11 +173,11 @@ programmatique: ajoutons donc une autre méthode de création.
   résultat de \mbox{\lct{WebDir onPath: '\emph{le chemin vers votre site web}'}}.}
 
 \begin{code}{}
-WebDir class>>onPath: homePath
-	^ self onPath: homePath home: homePath
-
-WebDir class>>onPath: path home: homePath
+WebDir class>>>onPath: path home: homePath
 	^ self new setDir: (FileDirectory on: path) home: homePath
+
+WebDir class>>>onPath: homePath
+	^ self onPath: homePath home: homePath
 \end{code}
 
 %-----------------------------------------------------------------
@@ -193,8 +192,8 @@ Si nous naviguons dans la classe \ct{FileDirectory}, nous trouvons la
 méthode \ct{fileNames} qui liste tous les fichiers dans un répertoire.
 Nous voulons choisir uniquement ceux dont l'extension de fichier est
 \ct{.html}. L'\expreg dont nous avons besoin est \ct{'.*\.html'}.
-Le premier point \arelire{correspond à n'importe quel caractère excepté le
-retour-chariot (désignant une nouvelle ligne):}
+Le premier point correspond à n'importe quel caractère excepté le
+retour-chariot (désignant une nouvelle ligne):
 %The first dot will match any character except a newline:
 
 \begin{code}{@TEST}
@@ -224,11 +223,11 @@ est une \expreg qui correspond à
 
 \index{Regex!syntaxe!@\ct{.}}
 Puisque le point est un caractère spécial dans les \expregs, 
-\arelire{nous devons le précéder d'un caractère d'échappement 
+nous devons le précéder d'un caractère d'échappement 
 % ajout - vf
 \lct{\symbol{92}} % backslash
 si nous voulons avoir une concordance avec un vrai point dans la
-chaîne de caractères.}
+chaîne de caractères.
 %if we want to literally match a dot, then we must escape it.
 
 \begin{code}{@TEST}
@@ -255,7 +254,7 @@ Cela semble bon! Nous pouvons l'essayer désormais dans notre application.
   essayez-la dans votre site web de test.}
 
 \begin{code}{}
-WebDir>>htmlFiles
+WebDir>>>htmlFiles
 	^ webDir fileNames select: [ :each | each matchesRegex: '.*\.html' ]
 \end{code}
 
@@ -283,14 +282,14 @@ C'est ce que nous allons faire.
 \dothis{Ajouter à la classe \ct{WebDir} une nouvelle variable
   d'instance \ct{htmlRegex} et initialisez-la en envoyant le message
   \ct{asRegex} à notre chaîne de caractères d'\expreg.
-Modifiez la méthode \ct{WebDir>>htmlFiles} pour utiliser la même
+Modifiez la méthode \ct{WebDir>>>htmlFiles} pour utiliser la même
 \expreg tout le temps:}
 
 \begin{code}{}
-WebDir>>initialize
+WebDir>>>initialize
 	htmlRegex := '.*\.html' asRegex
 
-WebDir>>htmlFiles
+WebDir>>>htmlFiles
 	^ webDir fileNames select: [ :each | htmlRegex matches: each ]
 \end{code}
 
@@ -315,11 +314,11 @@ sorte que la classe \ct{WebDir} crée des instances de cette classe.
 % IMPORTANT: martial - dans la VO c'est #initializePath:homePath: , je
 % préfère mettre comme dans le code source #setPath:homePath:
 \begin{code}{}
-WebPage>>setPath: filePath homePath: dirPath 
+WebPage>>>setPath: filePath homePath: dirPath 
 	path := filePath.
 	homePath := dirPath
 
-WebPage class>>on: filePath forHome: homePath
+WebPage class>>>on: filePath forHome: homePath
 	^ self new setPath: filePath homePath: homePath
 \end{code}
 
@@ -330,7 +329,7 @@ liste de toutes les pages web qu'elle contient.
   valeur de retour pour vérifier que ça fonctionne.}
 
 \begin{code}{}
-WebDir>>webPages
+WebDir>>>webPages
 	^ self htmlFiles collect: 
 		[ :each | WebPage 
 			on: webDir pathName, '/', each
@@ -379,7 +378,7 @@ caractères.
   comme attendu.}
 
 \begin{code}{}
-WebPage>>fileName
+WebPage>>>fileName
 	^ path copyWithRegex: '.*/' matchesReplacedWith: ''
 \end{code}
 
@@ -403,7 +402,7 @@ contenu de chaque page. Vous allez voir que c'est simple.
 
 \mthindex{FileStream}{oldFileOrNoneNamed:}
 \begin{code}{}
-WebPage>>contents
+WebPage>>>contents
 	^ (FileStream oldFileOrNoneNamed: path) contents
 \end{code}
 
@@ -413,7 +412,7 @@ d'écrire la méthode ainsi:
 
 \clsindex{Latin1TextConverter}
 \begin{code}{}
-WebPage>>contents
+WebPage>>>contents
 	^ (FileStream oldFileOrNoneNamed: path)
 		converter: Latin1TextConverter new;
 		contents
@@ -484,7 +483,7 @@ HTML.
 
 \mthindex{String}{asRegexIgnoringCase}
 \begin{code}{}
-WebPage>>title
+WebPage>>>title
 	| re |
 	re := '[\w\W]*<title>(.*)</title>' asRegexIgnoringCase.
 	^ (re matchesPrefix: self contents)
@@ -492,7 +491,7 @@ WebPage>>title
 		ifFalse: [ '(', self fileName, ' -- sans titre)' ]
 \end{code} % ajout vf - remplacement de 'untitled'
 % \begin{code}{}
-% WebPage>>title
+% WebPage>>>title
 % 	| re |
 % 	re := '[\w\W]*<title>(.*)</title>' asRegexIgnoringCase.
 % 	^ (re matchesPrefix: self contents)
@@ -561,12 +560,12 @@ nous voulons.
 \dothis{Définissez les méthodes suivantes:}
 
 \begin{code}{}
-WebPage>>relativePath
+WebPage>>>relativePath
 	^ path 
 		copyWithRegex: homePath , '/'
 		matchesReplacedWith: ''
 
-WebPage>>link
+WebPage>>>link
 	^ '<a href="', self relativePath, '">', self title, '</a>'
 \end{code}
 
@@ -596,7 +595,7 @@ Nous aurons besoin de quelques méthodes pour compléter l'application.
 Si votre site web contient des sous-répertoires, nous avons besoin
 d'une méthode pour y accéder:
 \begin{code}{}
-WebDir>>webDirs
+WebDir>>>webDirs
 	^ webDir directoryNames
 		collect: [ :each | WebDir onPath: webDir pathName , '/' , each home: homePath ]
 \end{code}
@@ -606,7 +605,7 @@ liens vers chaque page web d'un répertoire web.
 \arevoir{Les sous-répertoires devraient être indentés dans leur propre liste à puces.}
 % Subdirectories should be indented in their own bullet list.
 \begin{code}{}
-WebDir>>printTocOn: aStream 
+WebDir>>>printTocOn: aStream 
 	self htmlFiles
 		ifNotEmpty: [
 			aStream nextPutAll: '<ul>'; cr.
@@ -625,10 +624,10 @@ dans le répertoire racine du site web et nous y déposerons notre
 \sitemap.
 % We create a file called ``toc.html'' in the root web directory and dump the site map there.
 \begin{code}{}
-WebDir>>tocFileName
+WebDir>>>tocFileName
 	^ 'toc.html'
 
-WebDir>>makeToc
+WebDir>>>makeToc
 	| tocStream |
 	tocStream := webDir newFileNamed: self tocFileName.
 	self printTocOn: tocStream.
@@ -1081,10 +1080,10 @@ en argument; la concordance d'un préfixe du receveur est suffisant.
 % ajout vf - martial
 \tradalert{martial}{j'ai complété d'un paragraphe pour le cas
   ignoringcase}
-\arelire{Les messages de la forme \ct{*IgnoringCase} (en français,
+Les messages de la forme \ct{*IgnoringCase} (en français,
   ``ignorer la casse'') sont équivalents aux messages sans le suffixe
   à l'exception que les premiers ne respectent pas la casse (majuscule
-ou minuscule).}
+ou minuscule).
 
 %-----------------------------------------------------------------
 %\subsection{Enumeration interface}
@@ -1135,11 +1134,11 @@ avec une certain chaîne de caractères en utilisant le message  \mthind{String}
 'Pierre hait Jean' copyWithRegex: '\<[[:lower:]]+\>' matchesReplacedWith: 'aime' -->  'Pierre aime Jean'
 \end{code}
 
-\arelire{Une forme plus générale de substitution est la traduction de
+Une forme plus générale de substitution est la traduction de
 concordance (ou \emph{match translation}). Le message suivant évalue
 un bloc en lui passant chaque concordance de l'\expreg dans la
 chaîne-receveur et retourne une copie du receveur avec les résultats
-du bloc collé entre eux à la place des concordances respectives.}
+du bloc collé entre eux à la place des concordances respectives.
 % A more general substitution is match translation. This message evaluates a block passing it each match of the regular expression in the receiver string and answers a copy of the receiver with the block results spliced into it in place of the respective matches.
 
 \begin{code}{@TEST}
@@ -1178,7 +1177,7 @@ chaîne de caractères, les étapes suivantes se produisent:
 %\subsection{The Matcher}
 \subsection{La classe \ct{RxMatcher}}
 
-Si vous testez la concordance d'un certain nombre de chaîne de
+Si vous testez la concordance d'un certain nombre de chaînes de
 caractères plusieurs fois avec la même \expreg en utilisant un des
 messages définis dans \clsind{String}, la chaîne de caractères de
 l'\expreg est analysée syntaxiquement
@@ -1251,14 +1250,14 @@ nécessairement la chaîne complète).
 \end{code}
 
 \mthind{RxMatcher}{search:} \ct{aString} -- recherche dans la chaîne de
-caractères la première occurence d'une sous-chaîne
+caractères la première occurrence d'une sous-chaîne
 correspondante\footnote{Remarquez que les deux premières méthodes
   testent la concordance seulement depuis le début de la chaîne de caractères.}.
 % (Note that the first two methods only try matching from  the very
 beginning of the string).
-\arevoir{En utilisant l'exemple ci-dessus avec un \emph{matcher} pour \ct{a+},
+En utilisant l'exemple ci-dessus avec un \emph{matcher} pour \ct{a+},
 ce message pourrait répondre avec succès avec une chaîne comme
-\ct{'baaa'} alors que les deux précédents échoueraient.} % REVOIR -
+\ct{'baaa'} alors que les deux précédents échoueraient. % REVOIR -
                                 % martial - je fatigue, à reprendre
 % Using the above example with a  matcher for \ct{a+}, this method
 % would answer success given a string \ct{'baaa'}, while the previous two would fail.
@@ -1301,9 +1300,9 @@ Suite à une tentative de concordance réussie, vous pouvez demander
 quelle partie de la chaîne de caractères originale a correspondu à
 quelle partie de l'\expreg. Une sous-expression est une partie
 parenthésée d'une \expreg ou l'expression entière.
-Lorsqu'une \expreg est compilée, ses sous-expressions sont affectés à
-des \arevoir{indices comptant à partir de 1, par ordre de profondeur
-  vers le plus profond, et de gauche à droite}. 
+Lorsqu'une \expreg est compilée, ses sous-expressions sont affectées à
+des indices comptant à partir de 1, par ordre de profondeur
+  vers le plus profond, et de gauche à droite. 
 %When a regular expression is compiled, its subexpressions are assigned indices starting from 1, depth-first, left-to-right.
 
 \index{Regex!filtre de sous-expressions}
@@ -1332,14 +1331,14 @@ disponible dès l'initialisation et ne peut jamais changer.
 
 \mthind{RxMatcher}{subexpression:} prend une valeur d'indice valide
 comme argument et peut être envoyé seulement après une concordance
-réussie. \arelire{La méthode retourne une sous-chaîne de caractères de la
-chaîne originale avec laquelle la sous-expression a correspondu.}
+réussie. La méthode retourne une sous-chaîne de caractères de la
+chaîne originale avec laquelle la sous-expression a correspondu.
 % takes a valid index as its argument, and may be sent only after a successful match attempt. The method answers a substring of the original string the corresponding subexpression has matched to.
 
 \mthind{RxMatcher}{subBeginning:} et \mthind{RxMatcher}{subEnd:}
-répondent les positions \arelire{dans l'argument-chaîne de caractères ou dans
+répondent les positions dans l'argument-chaîne de caractères ou dans
 l'argument-flux de données où la concordance avec la sous-expression
-donnée a débuté et fini, respectivement.}
+donnée a débuté et fini, respectivement.
 % where the given subexpression match has started and ended,
 % respectively.
 Ce service offre un bon moyen d'extraire des parties d'une chaîne de
@@ -1466,8 +1465,8 @@ en \st pour les capturer et gérer.
 
 \index{Bykov, Vassili}
 \paragraph{Où regarder pour commencer.}
-Dans 90\% des cas, la méthode \cmind{String}{matchesRegex:} est \arelire{tout
-ce dont vous aurez besoin pour accéder au paquetage.}
+Dans 90\% des cas, la méthode \cmind{String}{matchesRegex:} est tout
+ce dont vous aurez besoin pour accéder au paquetage.
 % is all you need to access the package.
 
 \clsind{RxParser} accepte une chaîne de caractères ou un flux de
@@ -1485,7 +1484,7 @@ de caractères concorde avec l'\expreg originale. Elle peut aussi
 rechercher une chaîne ou un flux pour une sous-chaîne concordant avec
 l'expression. Après qu'une concordance soit trouvée, le \emph{matcher}
 peut rapporter une chaîne spécifique correspondant à l'expression
-complète ou à n'importe quelle de ses sous-expressions parenthésées.
+complète ou à n'importe laquelle de ses sous-expressions parenthésées.
 Toutes les autres classes supportent la même fonctionalité et sont
 utilisées par \clsind{RxParser}, \clsind{RxMatcher} ou les deux.
 %  All other classes support the same functionality and are used by \clsind{RxParser}, \clsind{RxMatcher}, or both.
@@ -1562,3 +1561,4 @@ principaux abordés dans ce chapitre sont:
 %%% TeX-master: t
 %%% TeX-PDF-mode: t
 %%% End:
+
