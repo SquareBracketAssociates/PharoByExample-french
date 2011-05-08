@@ -575,9 +575,9 @@ OrderedCollection>>>add: newObject
 	^ self addLast: newObject
 \end{code}
 
-Cette fois ci, l'image ne se fige pas. Essayer d'exécuter \ct{OrderedCollectionTest}\,--\,que vous pouvez trouver dans la catégorie \mbox{\scat{CollectionsTests-Sequenceable}.}
+Cette fois ci, l'image ne se fige pas. Essayez d'exécuter \mbox{\ct{OrderedCollectionTest}{},} que vous pouvez trouver dans la catégorie \mbox{\scat{CollectionsTests-Sequenceable}.}
 
-Comment cela fonctionne-t-il? Regardons le code de \mbox{\clsmthind{Object}{haltIf:}:}
+\noindent{} Comment cela fonctionne-t-il? Regardons le code de \mbox{\clsmthind{Object}{haltIf:}:}
 \begin{code}{}
 Object>>>haltIf: condition
 	| cntxt |
@@ -687,7 +687,8 @@ point + (3@4)             --> 4@6
 point invocationCount --> 1
 \end{code}
 
-Ceci fonctionne dans la plupart des cas mais il y a des insuffisances:
+\noindent{} Ceci fonctionne dans la plupart des cas mais il y a des insuffisances:
+
 \begin{code}{}
 point class --> LoggingProxy
 \end{code}
@@ -774,7 +775,7 @@ point rect: (3@4)        --> 1@2 corner: 3@4
 point invocationCount --> 1
 \end{code}
 
-Notre \emph{proxy} a été privé de deux envois à \self dans la méthode \mbox{\ct{rect:}:} 
+\noindent{} Notre \emph{proxy} a été privé de deux envois à \self dans la méthode \mbox{\ct{rect:}:} 
 %% Our proxy has been cheated out of two \self-sends in the \ct{rect:} method:
 \begin{code}{}
 Point>>>rect: aPoint 
