@@ -12,7 +12,7 @@
 % 2010-01-24 - traduit en français par Martial
 % 2010-01-25 - relecture par Rene
 % 2011-05-05 - relecture par Rene
-
+% 2011-05-08 - relecture par Rene
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -501,7 +501,7 @@ WebPage>>>title
 
 Deux cas subtils sont à prendre en compte ici.
 Premièrement, le code HTML ne s'intéresse pas à savoir si les balises
-sont en miniscule ou en majuscule donc nous devons faire en sorte que
+sont en minuscule ou en majuscule donc nous devons faire en sorte que
 notre \expreg soit insensible à la casse en l'instanciant avec le
 message \mbox{\ct{asRegexIgnoringCase}.}
 
@@ -544,7 +544,7 @@ racine du site web.
 
 Nous devons tout de même faire attention à une chose. Comme la
 variable \ct{homePath} ne se termine pas par un \ct{/}, nous devrons
-veuiller à l'ajouter, sinon le chemin relatif des liens commencera par
+veiller à l'ajouter, sinon le chemin relatif des liens commencera par
 un \ct{/}.
 Notez la différence entre les deux résultats suivants:
 
@@ -724,8 +724,8 @@ Ces trois opérateurs sont appelés des \emph{quantificateurs}.
 \end{code}
 
 \indexmain{Regex!syntaxe!\escchar}
-Comme nous avons vu, les caractères \ct{*}, \ct{+}, \ct{?}, \ct{(},
-and \ct{)} ont un sens spécial dans les \expregs. Si nous avons besoin
+Comme nous l'avons vu, les caractères \ct{*}, \ct{+}, \ct{?}, \ct{(},
+et \ct{)} ont un sens spécial dans les \expregs. Si nous avons besoin
 de faire correspondre n'importe lequel d'entre eux de manière
 littérale, il faudrait l'\emph{échapper} en précédant ce caractère par
 un \escchar \cad un \mbox{\emph{antislash} (\lct{\symbol{92}}).} L'\emph{antislash} est
@@ -754,7 +754,7 @@ b \emph{ou} b suivi par un certain nombre de a'':
 
 Voici un exemple un peu plus compliqué. L'expression \ct{c(a|d)+r}
 correspond au nom de n'importe quelle fonction
-historique\footnote{NdT: voir \url{http://fr.wikipedia.org/wiki/Lisp}.} du langage de programmation Lisp: 
+historique\footnote{NdT: voir \url{http://fr.wikipedia.org/wiki/Lisp}} du langage de programmation Lisp: 
  \ct{car}, \ct{cdr}, \ct{caar}, \ct{cadr}\ldots:
 \begin{code}{@TEST}
 'car' matchesRegex: 'c(a|d)+r'   --> true
@@ -855,7 +855,7 @@ Nous pouvons voir un résumé de la syntaxe \pkgregex dans
 		\midrule
 		\lct{*}				&	\kleenestar\,---\,concorde avec zéro ou plusieurs \expregs précédentes \\
 		\lct{+}				&	concorde avec une ou plusieurs \expregs précédentes \\
-		\lct{?}				&	concorde avec zéro ou une \expregs précédentes \\
+		\lct{?}				&	concorde avec zéro ou une \expreg précédente \\
 		\lct{|}				&	concorde avec l'\expreg de droite ou de gauche \\
 		\midrule
 		\lct{[abcd]}		&	concorde avec un caractère de la liste \lct{abcd} \\ %match choice of characters \lct{abcd} \\
@@ -961,7 +961,7 @@ Les classes abrégées peuvent aussi inclure les éléments compatibles
 \lct{[:cntrl:]} & caractère Control (code ASCII \lct{< 32})\\
 \lct{[:digit:]} & chiffre décimal\\
 \lct{[:graph:]} & caractère graphique (code ASCII \lct{>= 32})\\
-\lct{[:lower:]} & caractère en miniscule\\
+\lct{[:lower:]} & caractère en minuscule\\
 \lct{[:print:]} & caractère imprimable (ici, le même que \lct{[:graph:]})\\
 \lct{[:punct:]} & caractère de ponctuation\\
 \lct{[:space:]} & caractère espace\\
@@ -974,7 +974,7 @@ Les classes abrégées peuvent aussi inclure les éléments compatibles
 
 Notez que ces éléments font partie des classes abrégées; ils doivent
 être inclus dans un ensemble de crochets pour former une \expreg
-valide. Par exemple, un filtrage de chaînes de caractères non-vide composées
+valide. Par exemple, un filtrage de chaînes de caractères non-vides composées
 uniquement de chiffres devrait être représenté par \ct{[[:digit:]]+}.
 Les expressions et opérateurs primitifs précédemment vus sont communs
 à de nombreuses implémentations d'\expregs.
@@ -1004,7 +1004,7 @@ classes de caractères, les classes spéciales peuvent avoir un négatif:
 \ct{:CARETisDigit:} concorde avec un caractère qui répond \ct{false} à
  \ct{isDigit} et est ainsi équivalent à  \ct{[CARET0-9]}.
 
-Nous avons donc déjà vu les façons suivantes (et touteséquivalentes) pour écrire une \expreg qui
+Nous avons donc déjà vu les façons suivantes (toutes équivalentes) pour écrire une \expreg qui
 correspond à une chaîne de caractères non-vide de chiffres:
 \ct{[0-9]+}, \ct{\d+}, \ct{[\d]+}, \ct{[[:digit:]]+} et \ct{:isDigit:+}.
 
@@ -1299,7 +1299,7 @@ names matchesStreamPrefix: pauline --> true
 
 Suite à une tentative de concordance réussie, vous pouvez demander
 quelle partie de la chaîne de caractères originale a correspondu à
-quelle partie de l'\expreg. Une sous-expression est une partie
+telle partie de l'\expreg. Une sous-expression est une partie
 parenthésée d'une \expreg ou l'expression entière.
 Lorsqu'une \expreg est compilée, ses sous-expressions sont affectées à
 des indices comptant à partir de 1, par ordre de profondeur
