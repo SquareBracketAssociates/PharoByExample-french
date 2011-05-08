@@ -73,7 +73,7 @@ Nous illustrerons avec plusieurs exemples pratiques comment \st supporte l'intro
 
 En utilisant un inspecteur, il est possible d'examiner un objet, de changer les valeurs de ses variables d'instances et même de lui envoyer un message.
 
-\dothis{Évaluer le code qui suit dans un Workspace:}
+\dothis{Évaluez le code qui suit dans un Workspace:}
 \begin{code}{| w |}
 w := Workspace new.
 w openLabel: 'My Workspace'.
@@ -101,7 +101,7 @@ En \st, toutes les variables d'instances sont protégées.
 En théorie, il est impossible d'y accéder depuis un autre objet si la classe ne définit pas d'accesseur.
 En pratique, l'inspecteur peut accéder aux variables sans avoir besoin d'accesseurs, parce qu'il utilise les capacités réflexives de \st.
 En \st, les classes définissent les variables d'instances soit par nom soit au moyen d'indices numériques.
-L'inspecteur utilise des méthodes définies dans la classe \ct!Object! afin d'y accéder :  \lct{instVarAt: \emph{index}} et \lct{instVarNamed: \emph{aString}} peuvent être utilisées pour obtenir respectivement la valeur de la variable d'instance à la position \lct{\emph{index}} ou celle de la variable identifiée par \lct{\emph{aString}}; pour associer de nouvelles valeurs à ces variables d'instances, on utilise \ct!instVarAt:put:! et \ct!instVarNamed:put:!.
+L'inspecteur utilise des méthodes définies dans la classe \ct!Object! afin d'y accéder :  \lct{instVarAt: \emph{index}} et \lct{instVarNamed: \emph{aString}} peuvent être utilisées pour obtenir respectivement la valeur de la variable d'instance à la position \lct{\emph{index}} ou celle de la variable identifiée par \lct{\emph{aString}}; pour associer de nouvelles valeurs à ces variables d'instances, nous utilisons \ct!instVarAt:put:! et \ct!instVarNamed:put:!.
 \mthindex{Object}{instVarAt:}
 \mthindex{Object}{instVarNamed:}
 \mthindex{Object}{instVarAt:put:}
@@ -132,7 +132,7 @@ Object>>>instVarAt: index
 	^ self basicAt: index - self class instSize		
 \end{code}
 
-Généralement le code après l'invocation de la primitive n'est pas exécuté. Il est exécuté seulement si la primitive échoue. Dans le cas qui nous intéresse, si on essaie d'accéder à une variable qui n'existe pas, alors le code qui suit la primitive sera essayé. Ceci permet aussi d'utiliser le débogueur sur des méthodes primitives.
+Généralement le code après l'invocation de la primitive n'est pas exécuté. Il est exécuté seulement si la primitive échoue. Dans le cas qui nous intéresse, si nous essayons d'accéder à une variable qui n'existe pas, alors le code qui suit la primitive sera essayé. Ceci permet aussi d'utiliser le débogueur sur des méthodes primitives.
 Bien qu'il soit possible de modifier le code des méthodes primitives, ceci est risqué pour la stabilité de votre image \pharo.
 
 \begin{figure}[ht]\centering
@@ -159,7 +159,7 @@ Par exemple :
 (1@2) instanceVariableValues --> an OrderedCollection(1 2)
 \end{code}
 
-La méthode est implémentée dans \ct{Object} de la manière suivante :
+\noindent{} La méthode est implémentée dans \ct{Object} de la manière suivante :
 \needlines{9}
 \begin{code}{}
 Object>>>instanceVariableValues
@@ -355,17 +355,17 @@ SystemNavigation default browseAllSelect: [:method | method sendsToSuper ].
 Comme les classes sont des objets, il est possible de les inspecter ou de les explorer de la même manière que les objets.
 
 \mthindex{Object}{explore}
-\dothis{\'Evaluer \ct{Point explore}.}
+\dothis{Évaluez \ct{Point explore}.}
 
 Dans \figref{CompiledMethod}, l'\ind{explorateur} montre la structure de la classe \clsind{Point}.
+Vous pouvez remarquer que la classe stocke ses méthodes dans un dictionnaire, indexées par leur sélecteur.
+Le sélecteur \ct{#*} pointe vers le \emphind{bytecode} décompilé de \ct!Point>>>*!.
+
 \begin{figure}[ht]\centering    % figure déplacée pour plus de
                                 % lisibilité 
 	\includegraphics[width=.5\linewidth]{CompiledMethod}
 	\caption{L'explorateur de la classe \ct!Point! et le \emph{bytecode} de sa méthode \ct!\#*!.\figlabel{CompiledMethod}}
 \end{figure}
-
-Vous pouvez remarquer que la classe stocke ses méthodes dans un dictionnaire, indexées par leur sélecteur.
-Le sélecteur \ct{#*} pointe vers le \emphind{bytecode} décompilé de \ct!Point>>>*!.
 
 Examinons la relation entre classes et méthodes.
 Dans \figref{MethodsAsObjects}, nous voyons que classes et méta-classes ont en commun la super-classe \ct{Behavior}. C'est dans cette super-classe que la méthode \mthind{Behavior}{new} est définie, parmi d'autres méthodes-clés pour ces classes. 
@@ -433,7 +433,7 @@ Supposons que nous voulions découvrir quelle méthode dans la hiérarchie \lct{
 
 Le Refactoring Browser nous permet de manière élégante de restreindre nos interrogations uniquement aux classes et méthodes qui nous intéressent. 
 
-\dothis{Ouvrir un Browser sur la classe \ct{Collection}.
+\dothis{Ouvrez un Browser sur la classe \ct{Collection}.
 \Actclick sur le nom de la classe et sélectionner \mbox{\menu{refactoring scope>subclasses with}.}
 Ceci ouvrira un nouveau BrowserEnvironnement sur la hiérarchie \mbox{\ct{Collection}.}
 Dans ce champ restreint, sélectionner \menu{refactoring scope>super-sends} pour ouvrir un nouvel environnement avec toutes les méthodes qui font des envois à \super dans la hiérarchie \ct{Collection}. Maintenant \click sur n'importe quelle méthode et sélectionner \menu{refactor>code critics}.
@@ -485,14 +485,14 @@ Nous avons vu comment les capacités réflexives de \st, nous permettent d'inter
 %-----------------------------------------------------------------
 \subsection{Contextes des méthodes}
 
-En fait, le contexte d'exécution d'une méthode se trouve dans la machine virtuelle et pas dans l'image. Mais visiblement, le \ind{débogueur} a accès à cette information et on peut explorer le contexte d'exécution, comme n'importe quel autre objet? Comment cela est possible?
+En fait, le contexte d'exécution d'une méthode se trouve dans la machine virtuelle et pas dans l'image. Mais visiblement, le \ind{débogueur} a accès à cette information et nous pouvons explorer le contexte d'exécution, comme n'importe quel autre objet? Comment cela est possible?
 
 En fait, il n'y a rien de magique avec le débogueur.
 Le secret réside dans la pseudo-variable \pvind{thisContext}, que nous avons brièvement rencontré précédemment.
 Lorsque l'on accède à \ct{thisContext} dans une méthode qui s'exécute, tout le contexte d'exécution de cette méthode est réifié et rendu disponible dans l'image comme une liste chainée d'objets \clsind{MethodContext}.
 Nous pouvons facilement expérimenter ce mécanisme par nous-même.
 
-\dothis{Changer la définition de \ct{Integer>>>factorial} en insérant l'expression soulignée ci-dessous:}
+\dothis{Changez la définition de \ct{Integer>>>factorial} en insérant l'expression soulignée ci-dessous:}
 \mthindex{Object}{halt}
 \begin{code}{}
 Integer>>>factorial
@@ -502,7 +502,7 @@ Integer>>>factorial
 	self error: 'Not valid for negative integers'
 \end{code}
 
-\dothis{Maintenant évaluons \ct{3 factorial} dans un espace de travail. Nous devons normalement obtenir une fenêtre de débogage et un explorateur comme on peut le voir dans \figref{exploringThisContext}.}
+\dothis{Maintenant évaluez \ct{3 factorial} dans un espace de travail. Vous devez normalement obtenir une fenêtre de débogage et un explorateur comme nous pouvons le voir dans \figref{exploringThisContext}.}
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{exploringThisContext}
@@ -520,7 +520,7 @@ Nous pouvons évaluer l'expression suivante pour découvrir quelles méthodes ut
 SystemNavigation default browseMethodsWithSourceString: 'thisContext'
 \end{code}
 
-Comme on pourrait s'en douter, une des applications les plus répandues est de découvrir le \sender d'un message.
+Comme nous pouvions nous en douter, une des applications les plus répandues est de découvrir le \sender d'un message.
 Voici une application courante :
 \begin{code}{}
 Object>>>subclassResponsibility
@@ -549,7 +549,10 @@ Malheureusement ceci peut poser des problèmes pour des méthodes qui sont utili
 Supposons par exemple, que nous voulions explorer l'exécution de \ct{OrderedCollection>>>add:}.
 Mettre un point d'arrêt sur cette méthode est problématique.
 
-\dothis{Prendre une \emph{nouvelle} image et ajouter le point d'arrêt suivant :}
+\dothis{%
+\arevoir{Sauvegardez votre session en l'état via \menu{World\go{}Save}. Ajoutez le point d'arrêt suivant:} % prendre une nouvelle image est FAUX désormais (vf OneClick / martial)
+} % RELIRE car ajout important
+
 \needlines{3}
 \begin{code}{}
 OrderedCollection>>>add: newObject
@@ -557,14 +560,15 @@ OrderedCollection>>>add: newObject
 	^ self addLast: newObject
 \end{code}
 
-Nous remarquons que notre image se fige instantanément ! Nous n'avons même pas eu de fenêtre de débogage.
+Nous remarquons que notre image se fige instantanément! Nous n'avons même pas eu de fenêtre de débogage.
 Le problème devient évident lorsque nous comprenons que (i) \ct{OrderedCollection>>>add:} est utilisé en de nombreux endroits du système, de telle sorte que le point d'arrêt est déclenché peut après que nous ayons accepté cette modification et (ii) que le \emph{débogueur lui-même} envoie le message \ct{add:} à une instance de \ct{OrderedCollection}, l'empéchant d'ouvrir la fenêtre de débogage!
 Ce dont nous avons besoin est de pouvoir faire \emph{un point d'arrêt conditionnel} seulement lorsque nous sommes dans le contexte qui nous intéresse.
 C'est exactement ce qu'offre \clsmthind{Object}{haltIf:}.
 
 Supposons que nous voulions arrêter le programme seulement si le message \ct{add} est envoyé dans le contexte de \ct{OrderedCollectionTest>>>testAdd}.
 
-\dothis{Ouvrir une nouvelle image de nouveau et mettre le point d'arrêt ci-dessous :}
+\dothis{\arevoir{Après avoir quitté l'image gelé (en détruisant le processus de la machine virtuelle), relancez \pharo{} et mettez le point d'arrêt ci-dessous:}} % RELIRE car ajout important
+
 \begin{code}{}
 OrderedCollection>>>add: newObject
 	!\underline{self haltIf: \#testAdd.}!

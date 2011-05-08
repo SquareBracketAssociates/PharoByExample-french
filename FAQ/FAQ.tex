@@ -94,8 +94,7 @@ Cela varie en fonction de votre système d'exploitation:
 \index{lancement de \pharo}
 
 \begin{faq}\faqlabel{saveas-oneclick} % ajout vf : special OneClick version 1.0 
-Comment puis-je changer d'image à la sauvegarde et être sûr de démarrer la bonne image lors
-du démarrage de \mbox{\pharo~?}
+Comment puis-je changer d'image à la sauvegarde et être sûr de démarrer la bonne image lors du démarrage de \mbox{\pharo~?}
 \end{faq}
 \answer
 Lorsque que vous sauvegarder votre image sous un autre nom en \clickant sur \menu{World\go{}Save as\ldots}, vous créez deux nouveaux fichiers dans le même répertoire que votre image initiale. En appelant la nouvelle image ``myPharo'' comme sur \figref{saveas-oneclick}, vous pourriez donc sauvegarder dans l'état courant votre image dans deux fichiers à la racine du dossier \mbox{\textsf{Contents/Resources}:} ``myPharo.image'' contenant le \emph{byte-code} et ``myPharo.changes'' contenant les changements de code source. L'intégralité du code source de notre image ``myPharo.image'' est l'union de code de ``myPharo.changes'' avec le fichier ``PharoV10.sources''.
@@ -106,7 +105,7 @@ En continuant de travailler dans \pharo{}, vous travaillez donc dans votre nouve
 \end{figure}
 Pour pouvoir lancer cette nouvelle image, la machine virtuelle a besoin de connaître le nouveau nom. Pour ce faire:
 \begin{itemize} % RELIRE
-\item sous Windows, éditez le fichier \textsf{pharo.ini} à la racine de \textsf{\pharooneclick{}.app} et remplacez le champ \textsf{ImageFile}. Dans notre cas, remplacez ``PBE.image'' par notre nouvelle image pour obtenir \mbox{\textsf{ImageFile=Contents\symbol{92}Resources\symbol{92}myPharo.image}.} Pensez aussi à changer le champ \textsf{WindowTitle} à loisir pour informer du changement d'image;
+\item sous Windows, éditez le fichier \textsf{pharo.ini} à la racine de \textsf{\pharooneclick{}.app} et remplacez le champ \textsf{ImageFile}. Dans notre cas, remplacez ``PBE.image'' par notre nouvelle image pour obtenir \mbox{\textsf{ImageFile=Contents\symbol{92}Resources\symbol{92}myPharo.image};}
 \item sous \macosx{}, éditez le fichier \textsf{Info.plist} à la racine de \textsf{Contents} après avoir affiché le contenu du paquet en cliquant avec le bouton droit de la souris sur le programme \textsf{\pharooneclick}. Pour vous faciliter la navigation dans ce code \texttt{XML}, \macosx{} dispose de l'utilitaire \emph{Property List Editor}: trouver le champ \textsf{SqueakImageName} et renommez l'image du nouveau nom ``myPharo.image'';
 \item sous Linux, éditez le script \textsf{pharo.sh} à la racine de \textsf{\pharooneclick{}.app} de sorte que le nom de l'image lancée par votre machine virtuelle change; ainsi la dernière ligne de code s'écrira: 
 \begin{code}{}
