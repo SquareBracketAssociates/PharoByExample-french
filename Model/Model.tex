@@ -159,7 +159,7 @@ Nous disons que la \emphind{frontière d'encapsulation}~\footnote{En anglais, en
 %\index{variable instance}
 \index{variable d'instance}
 
-En \st, deux instances d'une même classe ne peuvent pas accèder aux variables d'instance l'une de l'autre à moins que la classe ne définisse des ``méthodes d'\ind{accès}'' (en anglais, accessor methods).
+En \st, deux instances d'une même classe ne peuvent pas accèder aux variables d'instance l'une de l'autre à moins que la classe ne définisse des ``méthodes d'\subind{méthode}{accès}'' (en anglais, \emph{accessor methods}).
 Aucun élément de la syntaxe ne permet l'accès direct à la variable d'instances de n'importe quel autre objet.
 (En fait, un mécanisme appelé \ind{réflexivité}
 %, discussed in \charef{metaprog},
@@ -206,7 +206,9 @@ la chaîne de caractères \ct{pvt} sont privées: un message \ct{pvt}
 ne peut être envoyé qu'à \self \emph{uniquement}.  N'importe comment, les méthodes \ct{pvt} sont très peu utilisées.}.
 Les méthodes sont regroupées en protocoles qui indiquent leur objectif.
 Certains noms de protocoles courants ont été attribués par convention,
-par exemple, \protind{accessing} pour les méthodes d'accès, et \protind{initialization} pour construire un état initial stable pour l'objet.
+par exemple, \protind{accessing} pour les méthodes d'\subind{méthode}{accès}, 
+et \protind{initialization} pour construire un état initial stable pour l'objet.
+\index{initialisation}
 Le protocole \protind{private} est parfois utilisé pour réunir les
 méthodes qui ne devraient pas être visibles depuis l'extérieur.
 Rien ne vous empêche cependant d'envoyer un message qui est implémenté
@@ -370,7 +372,7 @@ il en résulte que:
 C'est pour cette raison que les méthodes d'initialisation d'instance doivent 
 toujours être définies dans le \subind{Browser}{côté instance}\,---\,le \subind{Browser}{côté classe} n'ayant pas accès aux variables d'instance, il ne pourrait y avoir initiali\-sation!  
 % 2007-11-05 correction errata SBE
-Tout ce que peut faire la classe, c'est d'envoyer des messages d'\ind{initialisation} à des instances nouvellement créées; ces messages pouvant bien sûr utiliser les méthodes d'accès.
+Tout ce que peut faire la classe, c'est d'envoyer des messages d'\ind{initialisation} à des instances nouvellement créées; ces messages pouvant bien sûr utiliser les méthodes d'\subind{méthode}{accès}.
 
 De même, les instances ne peuvent accéder aux variables d'instance de classe
 que de manière indirecte en envoyant les messages d'accès à leur classe.
@@ -671,7 +673,7 @@ des messages, puisque les classes sont aussi des objets. % REVOIR 'by sending me
 
 à quelques autres exceptions près, presque tout le reste se déroule véritablement par l'envoi de messages. 
 En particulier, la seule façon de mettre à jour une \ind{variable d'instance} d'un autre objet est de lui envoyer un message réclamant le changement de son propre attribut (ou champ) car ces derniers ne sont pas des ``attributs publics'' en \st.
-Bien entendu, offrir des méthodes d'accès dites accesseurs (\emph{getter}, en anglais, retournant l'état de la variable) et mutateurs (\emph{setter} en anglais, changeant la variable) pour chaque variable d'instance d'un objet n'est pas une bonne méthodologie orientée objet.
+Bien entendu, offrir des méthodes d'\subind{méthode}{accès en lecture} dites accesseurs (\emph{getter}, en anglais, retournant l'état de la variable) et mutateurs ou méthodes d'\subind{méthode}{accès en écriture} (\emph{setter} en anglais, changeant la variable) pour chaque variable d'instance d'un objet n'est pas une bonne méthodologie orientée objet.
 Joseph Pelrine annonce aussi à juste titre:
 \important{Ne laissez jamais personne d'autre jouer avec vos données~\traduit{Don't let anyone else play with your data.}.}
 
@@ -1132,7 +1134,7 @@ Il semble en effet inopportun d'ajouter une variable d'instance \ct{name}
 La présence de variables de classe soulève une question: comment les initialiser?
 
 Une solution est l'\subind{classe}{initialisation} dite paresseuse (ou \emph{lazy initialization} en anglais).
-Cela est possible avec l'introduction d'un message d'accès qui
+Cela est possible avec l'introduction d'une méthode d'\subind{méthode}{accès} qui
 initialise la variable, durant l'exécution, si celle-ci n'a pas été
 encore initialisée.
 Ceci nous oblige à utiliser la méthode d'accès tout le temps et à ne jamais
@@ -1231,7 +1233,7 @@ et toutes les instances de la classe.
 Les classes ne peuvent pas accéder directement aux variables d'instance de
 leurs instances et les instances ne peuvent pas accéder aux variables de
 classe de leur classe.
-Les méthodes d'accès (accesseurs et mutateurs) doivent être
+Les méthodes d'\subind{méthode}{accès} (accesseurs et mutateurs) doivent être
 définies au besoin.  
 
   \item Toute classe a une super-classe.

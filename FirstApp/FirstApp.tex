@@ -697,25 +697,24 @@ La seule action de \tmthref{mouseAction:} consiste à donner comme
 valeur à la variable \ct{mouseAction} celle de l'argument puis, à en
 retourner la nouvelle valeur. Toute méthode qui \emph{change} la
 valeur d'une variable d'instance de cette façon est appelée une
-\emph{méthode d'accès en écriture} ou \emph{mutateur} (vous pourrez
+\emph{méthode d'}\emphsubind{méthode}{accès en écriture}
+ou \emph{mutateur} (vous pourrez
 trouver dans la littérature le terme anglais \emph{setter}); une
 méthode qui \emph{retourne} la valeur courante d'une variable
-d'instance est appelée une \emph{méthode d'accès en lecture} ou
+d'instance est appelée une \emph{méthode d'}\emphsubind{méthode}{accès en lecture} ou
 \emph{accesseur} (le mot anglais équivalent est \emph{getter}).
-%\seeindex{setter method}{accessor}
-%\seeindex{getter method}{accessor}
-\seeindex{méthode d'accès en lecture}{méthode d'accès}
-\seeindex{méthode d'accès en écriture}{méthode d'accès}
-\seeindex{accesseur}{méthode d'accès}
-\seeindex{mutateur}{méthode d'accès}
-\seeindex{méthode!accès}{méthode d'accès}
-\seeindex{méthode!getter}{méthode d'accès}
-\seeindex{méthode!setter}{méthode d'accès}
+\seeindex{méthode d'accès}{méthode, accès}
+\seeindex{accesseur}{méthode, accès en lecture}
+\seeindex{mutateur}{méthode, accès en écriture}
+\seeindex{méthode!getter}{méthode, accès en lecture}
+\seeindex{méthode!setter}{méthode, accès en écriture}
 
 Si vous êtes habitués aux méthodes d'accès en lecture (\emph{getter})
 et écriture (\emph{setter}) dans d'autres langages de programmation,
 vous vous attendez à avoir deux méthodes nommées \ct{getMouseAction}
 et \ct{setMouseAction}.
+\subind{méthode}{accès en lecture}
+\subind{méthode}{accès en écriture}
 La convention en \st est différente.
 Une méthode d'accès en lecture a toujours le même nom que la variable
 correspondante et la méthode d'accès en écriture est nommée de la même
@@ -727,7 +726,7 @@ manière avec un ``\ct{:}'' à la fin; ici nous avons donc
 %equivalents de l'anglais 'accessors' d'apres toutes mes docs
 %j'ai reformule 
 %%Les méthodes d'accès en lecture et écriture sont appelés des méthodes \emphind{accesseurs} et par convention elles doivent être placées dans le protocole \protind{accessing}.
-Une méthode d'accès (en lecture ou en écriture) est appelée
+Une méthode d'\subind{méthode}{accès} (en lecture ou en écriture) est appelée
 en anglais \emphind{accessor} et par convention, elle doit être
 placée dans le protocole \mbox{\protind{accessing}{}.}
 En \st, \emph{toutes} les variables d'instances sont privées à
