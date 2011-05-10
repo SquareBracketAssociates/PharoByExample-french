@@ -24,9 +24,14 @@
 \input{common.tex}
 \setboolean{lulu}{true}
 % TODO
-\newcommand{\pbecopydates}{2007, 2008, 2009\xspace} % dates de copyright
-\newcommand{\pbecopypublish}{Décembre 2009\xspace} % date de parution de l'édition
-\newcommand{\pbecopyidx}{Première\xspace} % indice de l'édition: première, ...
+\newcommand{\pbeoriginalcopydates}{2007, 2008, 2009\xspace} % dates de copyright
+\newcommand{\pbeoriginalcopypublish}{Octobre 2009\xspace} % date de parution de l'édition
+\newcommand{\pbeoriginalcopyidx}{Première\xspace} % indice de l'édition: première, ...
+\newcommand{\isbnoriginallulu}{978-3-9523341-4-0\xspace}
+\newcommand{\pbecopydates}{2010, 2011\xspace} % dates de copyright français
+\newcommand{\pbecopypublish}{Mai 2011\xspace} % date de parution de l'édition française
+\newcommand{\pbecopyidx}{Première\xspace} % indice de l'édition française: première, ...
+\newcommand{\isbnlulu}{978-3-9523341-5-7\xspace}
 % \TODO
 %=================================================================
 % A4
@@ -108,19 +113,11 @@ Serge Stinckwich\\
 \begin{footnotesize}
 \setlength{\parindent}{0pt}
 Ce livre est disponible en libre t\'el\'echargement depuis
-\ppe sous le titre
-\emph{Pharo par l'exemple}, \arelire{ISBN XXX-X-XXXXXXX-X-X. La première édition
-a été publié en \pbecopypublish. Couverture par Samuel Morello.} % REVOIR
-                                % ou bien Nierstrasz selon la version
-                                % final ( % ATTENDRE )
-%par \emph{Square Bracket Associates}, Suisse
-% (\sba).
-Vous pouvez vous procurer une
-copie à l'adresse: \mbox{\ppe.}
-\\[1cm]
+\ppe. L'édition originale de ce livre a été publiée par Square Bracket Associates, Suisse, sous le titre \emph{Pharo by Example}, \lowercase{\pbeoriginalcopyidx} édition, ISBN \isbnoriginallulu\\[1cm]
 
-Copyright \copyright~\pbecopydates{} by Andrew P.~Black, St\'ephane
-Ducasse, Oscar Nierstrasz and Damien Pollet.\\[1cm] % REVOIR
+Copyright \copyright~\pbeoriginalcopydates{} \emph{by} Andrew P.~Black, St\'ephane
+Ducasse, Oscar Nierstrasz et Damien Pollet.\\[1cm] % REVOIR
+% Copyright français
 
 Le contenu de ce livre est prot\'eg\'e par la licence Creative Commons
 Paternit\'e Version 3.0 de la licence g\'en\'erique - Partage des Conditions Initiales \`a l'Identique.
@@ -145,7 +142,12 @@ Paternit\'e Version 3.0 de la licence g\'en\'erique - Partage des Conditions Ini
 \parbox{\textwidth-2cm-1em}{
 	Ce qui pr\'ec\`ede n'affecte en rien vos droits en tant qu'utilisateur (exceptions au droit d'auteur: copies r\'eserv\'ees \`a l'usage priv\'e du copiste, courtes citations, parodie, \ldots).
 	Ceci est le R\'esum\'e Explicatif du Code Juridique (la version int\'egrale du contrat):\\
-\url{http://creativecommons.org/licenses/by-sa/3.0/legalcode}}
+\url{http://creativecommons.org/licenses/by-sa/3.0/legalcode}}\\[1cm]
+Publié par Square Bracket Associates, Suisse, \sba\\
+ISBN \isbnlulu\\
+\pbecopyidx édition, \pbecopypublish. Couverture par Samuel Morello.\\[1cm]
+\emph{Historique}\\
+\pbeoriginalcopyidx édition: \pbeoriginalcopypublish, publiée sous le titre \emph{Pharo by Example}
 \end{footnotesize}
 \vfill
 %=================================================================
