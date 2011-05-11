@@ -475,7 +475,7 @@ du nombre
 \ct{'lulu'}.
 
 \begin{code}{@TEST | anArray |}
-Array with: 4 with: 3/2 with: 'lulu' -->  {4 . (3/2) . 'lulu'}
+Array with: 4 with: 3/2 with: 'lulu' -->  {4. (3/2). 'lulu'}
 \end{code}
 
 \paragraph{Création littéral avec \ct|\#()|.}
@@ -523,7 +523,7 @@ entre \ct|{| et \ct|}| sont exécutées. Chaque expression est séparée de la p
 \begin{code}{@TEST | anArray |}
 { 1 + 2 } --> #(3)
 {(1/2) asFloat} at: 1 --> 0.5
-{10 atRandom . 1/3} at: 2 --> (1/3)
+{10 atRandom. 1/3} at: 2 --> (1/3)
 \end{code}
 
 \paragraph{L'accès aux éléments.}
@@ -666,7 +666,7 @@ colors at: #blue put: Color blue.
 colors at: #red put: Color red.
 colors at: #yellow --> Color yellow
 colors keys          --> a Set(#blue #yellow #red)
-colors values       --> {Color blue . Color yellow . Color red}
+colors values       --> {Color blue. Color yellow. Color red}
 \end{code}
 
 Les dictionnaires comparent les clés par égalité. Deux clés sont
@@ -693,9 +693,9 @@ pouvons aussi convertir un dictionnaire en tableau d'associations.
 
 \needlines{5}
 \begin{code}{@TEST | colors |}
-colors := Dictionary newFrom: { #blue->Color blue . #red->Color red . #yellow->Color yellow }.
+colors := Dictionary newFrom: { #blue->Color blue. #red->Color red. #yellow->Color yellow }.
 colors removeKey: #blue.
-colors associations --> {#yellow->Color yellow . #red->Color red}
+colors associations --> {#yellow->Color yellow. #red->Color red}
 \end{code}
 
 \paragraph{IdentityDictionary.}
@@ -1275,7 +1275,7 @@ factorial value: 10 --> 3628800
 \paragraph{\mthind{Collection}{count:}} le message \ct{count:} (pour compter) renvoie le nombre d'éléments satisfaisant le bloc-argument: %appariés à un bloc.
 
 \begin{code}{@TEST}
-Smalltalk allClasses count: [:each | '*Collection*' match: each asString ] --> 3
+Smalltalk allClasses count: [:each | '*Collection*' match: each asString ] --> 30
 \end{code} %CHANGE
 
 \paragraph{\mthind{Collection}{includes:}} le message \ct{includes:} vérifie si l'argument est contenu dans la collection.

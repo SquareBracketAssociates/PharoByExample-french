@@ -1039,8 +1039,7 @@ En annotant une méthode par un \pragma \ct!<ignoreForCoverage>!, il est possibl
 Instances de la classe \clsind{Pragma}, les \pragmas sont donc de véritables objets. Une méthode compilée peut retourner une réponse au message \mthind{CompiledMethod}{pragmas}. Cette méthode retourne un tableau de \pragmas.
 
 \begin{code}{@TEST}
-(SplitJoinTest class >> #showDocumentation) pragmas
-  --> an Array(<ignoreForCoverage>)
+(SplitJoinTest class >> #showDocumentation) pragmas. --> an Array(<ignoreForCoverage>)
 (Float>>#+) pragmas --> an Array(<primitive: 41>)
 \end{code}
 

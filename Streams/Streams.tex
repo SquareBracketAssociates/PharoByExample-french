@@ -623,7 +623,7 @@ stream
 stream close.
 
 stream := FileStream readOnlyFileNamed: 'test.txt'.
-stream contents. --> '!\normcode{Ce fichier est écrit dans un fichier nommé}! ''test.txt'''
+stream contents. --> '!\normcode{Ce texte est écrit dans un fichier nommé}! ''test.txt'''
 stream close.
 \end{code}
 
@@ -654,7 +654,7 @@ FileStream
 string := FileStream
             readOnlyFileNamed: 'test.txt'
             do: [:stream | stream contents].
-string --> '!\normcode{Ce fichier est écrit dans un fichier nommé}! ''test.txt'''
+string --> '!\normcode{Ce texte est écrit dans un fichier nommé}! ''test.txt'''
 \end{code}
 
 Les méthodes de création de flux de données prenant un bloc comme

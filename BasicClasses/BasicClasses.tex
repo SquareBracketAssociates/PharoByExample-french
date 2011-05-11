@@ -223,7 +223,7 @@ Interval>>>printOn: aStream
 \end{method}
 
 \begin{code}{@TEST}
-1 to: 10 --> (1 to: 10)    "!les intervalles sont auto-évalués!"
+1 to: 10 --> (1 to: 10)    "les intervalles sont !auto-évalués!"
 \end{code}
 
 %-----------------------------------------------------------------
@@ -249,8 +249,8 @@ C'est une méthode que vous voudrez souvent surcharger. Considérez le cas de la
 des nombres complexes \ct{Complex}:
 
 \begin{code}{@TEST}
-(1 + 2 i) = (1 + 2 i)   --> true     !"même valeur"!
-(1 + 2 i) == (1 + 2 i)  --> false    !"mais objets différents"!
+(1 + 2 i) = (1 + 2 i)   --> true     "!même! valeur"
+(1 + 2 i) == (1 + 2 i)  --> false    "mais objets !différents!"
 \end{code}
 
 Ceci fonctionne parce que \ct{Complex} surcharge \ct{=} comme suit:
@@ -322,7 +322,7 @@ Inversement, vous pouvez demander si un objet est une instance
 d'une classe spécifique:
 \cmindex{Object}{isMemberOf:}
 \begin{code}{@TEST}
-1 isMemberOf: SmallInteger --> true    "doit !être précisément cette classe!"
+1 isMemberOf: SmallInteger --> true    "doit !être! !précisément! cette classe"
 1 isMemberOf: Integer      --> false
 1 isMemberOf: Number       --> false
 1 isMemberOf: Object       --> false
@@ -377,7 +377,7 @@ a2 := a1 shallowCopy.
 a2 --> #(#('harry'))
 (a1 at: 1) at: 1 put: 'sally'.
 a1 --> #(#('sally'))
-a2 --> #(#('sally'))    "!le tableau contenu est partagé!"
+a2 --> #(#('sally'))    "le tableau contenu est !partagé!"
 \end{code}
 
 \cmind{Object}{shallowCopy} est une méthode primitive qui crée une copie superficielle d'un objet. Puisque \ct{a2} est seulement une copie superficielle de \ct{a1}, les deux tableaux partagent une référence au tableau (\ct{Array}) qu'ils contiennent.
@@ -392,7 +392,7 @@ a1 := { { 'harry' } } .
 a2 := a1 copyTwoLevel.
 (a1 at: 1) at: 1 put: 'sally'.
 a1 --> #(#('sally'))
-a2 --> #(#('harry'))    "!état complètement indépendant!"
+a2 --> #(#('harry'))    "!état! !complètement! !indépendant!"
 \end{code}
 
 \cmind{Object}{deepCopy} effectue une copie profonde et arbitraire d'un objet.
@@ -703,12 +703,12 @@ Les méthodes de \emph{troncature} incluent entre autres,
 3.4 * 5      --> 17.0           "Multiplication de deux nombres"
 8 / 2         --> 4                 "Division de deux nombres"
 10 - 8.3   --> 1.7             "Soustraction de deux nombres"
-12 = 11    --> false           !"Égalité entre deux nombres"!
-12 ~= 11 --> true            !"Teste si deux nombres sont différents"!
+12 = 11    --> false           "!Égalité! entre deux nombres"
+12 ~= 11 --> true            "Teste si deux nombres sont !différents!"
 12 > 9      --> true            "Plus grand que"
-12 >= 10  --> true            !"Plus grand ou égal à"!
+12 >= 10  --> true            "Plus grand ou !égal! !à!"
 12 < 10    --> false           "Plus petit que"
-100@10   --> 100@10    !"Création d'un point"!
+100@10   --> 100@10    "!Création! d'un point"
 \end{code}
 \on{Should check how tabbing works in the listings package ...}
 

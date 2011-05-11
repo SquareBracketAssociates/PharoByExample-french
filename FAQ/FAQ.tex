@@ -236,7 +236,7 @@ Dans le cas présent nous demandons quelles sont les nouvelles méthodes introdu
 \begin{code}{@TEST | newMethods |}
 newMethods:= [:aClass| aClass methodDict keys select:
 	[:aMethod | (aClass superclass canUnderstand: aMethod) not ]].
-newMethods value: True --> an IdentitySet(#asBit)
+newMethods value: True --> an IdentitySet(#asBit #xor:)
 \end{code}
 
 \begin{faq}

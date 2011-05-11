@@ -97,29 +97,29 @@ Via le module d'expressions régulières `Regex`, PBE1.tex (ou PBE2.tex) sera *p
 
 Un test-échantillon dans le chapitre `BasicClasses` ressemble à cela:
 
-    =\begin{code}{@TEST}
-    =a1 := { { 'harry' } } .
-    =a2 := a1 shallowCopy.
-    =(a1 at: 1) at: 1 put: 'sally'.
-    =(a2 at: 1) at: 1 --> 'sally'
-    =\end{code}
+    \begin{code}{@TEST}
+    a1 := { { 'harry' } } .
+    a2 := a1 shallowCopy.
+    (a1 at: 1) at: 1 put: 'sally'.
+    (a2 at: 1) at: 1 --> 'sally'
+    \end{code}
 
 L'invocation `print it` `(-->)` générera une assertion.
 
 Le code généré ressemblera à ceci:
 
-    =test204
-    =       a1 := { { 'harry' } } .
-    =       a2 := a1 shallowCopy.
-    =       (a1 at: 1) at: 1 put: 'sally'.
-    =       self assert: [ (a2 at: 1) at: 1  ] value printString = '''sally'''
+    test204
+           a1 := { { 'harry' } } .
+           a2 := a1 shallowCopy.
+           (a1 at: 1) at: 1 put: 'sally'.
+           self assert: [ (a2 at: 1) at: 1  ] value printString = '''sally'''
 
 Vous pouvez aussi faire des déclarations et/ou initialisations de variables discrétement en ajoutant le code après `@TEST` et vous pouvez mettre des commentaires après la chaîne de caractères du test:
 
-    =\begin{code}{@TEST |a b|}
-    =a := b := 'salut'.
-    =a == b --> true "deux variables mais un objet"
-    =\end{code}
+    \begin{code}{@TEST |a b|}
+    a := b := 'salut'.
+    a == b --> true "deux variables mais un objet"
+    \end{code}
 
 La sous-classe générée est PBEBasicClassesTestCase.
 

@@ -126,7 +126,7 @@ d'objet.
 Tout objet a une classe; pour vous en assurer, vous pouvez envoyer à un objet le message \ct{class} (classe en anglais).
 
 \begin{code}{@TEST}
-1 class                 --> SmallInteger 
+1 class                 --> SmallInteger
 20 factorial class --> LargePositiveInteger
 'hello' class          --> ByteString
 #(1 2 3) class       --> Array
@@ -846,11 +846,12 @@ Nous allons voir précisemment comment cela marche avec l'exemple suivant.
 Considérons le message \ct{constructorString}, que nous pouvons envoyer à 
 n'importe quel morph:
 \begin{code}{@TEST | anEllipse | anEllipse := EllipseMorph new.}
-anEllipse constructorString --> '((EllipseMorph newBounds: (0@0 corner: 50@40) color: Color yellow) setBorderWidth: 1 borderColor: Color black)'
+anEllipse constructorString --> '(EllipseMorph newBounds: (0@0 corner: 50@40) color: Color yellow)'
 \end{code}
 La valeur de retour est une chaîne de caractères qui peut être évaluée pour recréer un morph.
 
-Comment ce résultat est-il exactement obtenu grâce à l'association de \self et de \super?
+Comment ce résultat est-il exactement obtenu grâce à l'association de \self et de \mbox
+{\super{}?}
 Pour commencer, 
 \ct{anEllipse constructorString} trouvera la méthode \ct{constructorString} dans la 
 classe \ct{Morph},

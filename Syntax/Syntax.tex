@@ -634,9 +634,9 @@ voyelle~\footnote{Note du traducteur: les voyelles accentuées ne sont
 %chapitre Collections.tex
 
 \begin{code}{@TEST}
-'bonjour Squeak' select: [ :char | char isVowel ] --> 'oouuea'
-'bonjour Squeak' reject: [ :char | char isVowel ] --> 'bnjr Sqk'
-'bonjour Squeak' detect: [ :char | char isVowel ] --> $o 
+'Bonjour Pharo' select: [ :char | char isVowel ] --> 'oouao'
+'Bonjour Pharo' reject: [ :char | char isVowel ] --> 'Bnjr Phr'
+'Bonjour Pharo' detect: [ :char | char isVowel ] --> $o
 \end{code}
 %%%$
 
