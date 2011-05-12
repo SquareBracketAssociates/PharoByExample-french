@@ -1349,7 +1349,7 @@ caractères dans un format complexe.
 
 \begin{code}{@TEST | items |}
 items := '((\d+)\s*(\w+))' asRegex.
-items search: 'Ignatz throws 1 brick at Krazy'.
+items search: 'Pauline lance 1 ballon !\normcode{à}! Pierre'.
 items subexpressionCount --> 4
 items subexpression: 1      --> '1 ballon'    "expression !complète!"
 items subexpression: 2      --> '1 ballon'    "sous-expression racine"
@@ -1391,10 +1391,11 @@ dans cette section sont en fait implémentés par le \emph{matcher}.
 concordances dans les chaînes de caractères:
 %iterating over matches within strings:
 \mthind{RxMatcher}{matchesIn:},
-\mthind{RxMatcher}{matchesIn:do:},
+\mbox{\mthind{RxMatcher}{matchesIn:do:},}
 \mthind{RxMatcher}{matchesIn:collect:},
 \mthind{RxMatcher}{copy:replacingMatchesWith:} et
-\mthind{RxMatcher}{copy:translatingMatchesUsing:}.
+\mbox{\mthind{RxMatcher}{copy:translatingMatchesUsing:}.}
+Le texte de l'exemple suivant est issu de livre du docteur Seuss, ``Le Chat chapeauté''~\footnote{NdT: voir \url{http://fr.wikipedia.org/wiki/Le_Chat_chapeauté_(livre)}}.
 
 \begin{code}{@TEST | seuss aWords |}
 seuss := 'The cat in the hat is back'.
@@ -1416,7 +1417,10 @@ itérer sur les concordances dans les flux de données:
 \mthind{RxMatcher}{matchesOnStream:collect:},
 \mthind{RxMatcher}{copyStream:to:replacingMatchesWith:} et
 \mthind{RxMatcher}{copyStream:to:translatingMatchesUsing:}.
+La phrase de l'exemple suivant s'inspire de la contine
+``Douze tambours battant''~\footnote{NdT: voir \url{http://fr.wikipedia.org/wiki/Twelve_Days_Of_Christmas}}, bien connue des anglophones.
 
+\needlines{8}
 \begin{code}{@TEST | in out numMatch |}
 in := ReadStream on: '12 drummers, 11 pipers, 10 lords, 9 ladies, etc.'.
 out := WriteStream on: ''.

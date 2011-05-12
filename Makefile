@@ -5,9 +5,11 @@ export TEXINPUTS:=./local//:../local//:
 
 EG1 = Preface QuickTour FirstApp Syntax Messages \
 	Model Environment SUnit BasicClasses Collections Streams Morphic \
-	Metaclasses Seaside Reflection
+	Metaclasses Regex Reflection
+# replace Regex by Seaside if needed
 
-EG2 = Seaside
+EG2 = 
+
 
 PDFLATEX = pdflatex -file-line-error
 
