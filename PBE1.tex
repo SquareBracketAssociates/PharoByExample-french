@@ -58,10 +58,10 @@
 	{SUnit/figures/}
 	{Streams/figures/}
 	{Syntax/figures/}
-   {Reflection/figures/}
-   {Seaside/figures/}
-   {Regex/figures/}
-   {FAQ/figures/}
+    {Reflection/figures/}
+    {Seaside/figures/}
+    {Regex/figures/}
+    {FAQ/figures/}
 }
 %=================================================================
 \let\wholebook=\relax
@@ -158,6 +158,7 @@ ISBN \isbnlulu\\
 % \listoftables
 % \lstlistoflistings
 \sloppy % To avoid LaTeX's annoying habit of letting lines stick over the margins!
+% IMPORTANT \input or \import in the beginning of the line to be reached by PBE-Testing
 %=================================================================
 %:Preface
 \input{Preface/Preface.tex}
@@ -195,7 +196,9 @@ ISBN \isbnlulu\\
 \ifseaside{%
 \import{Seaside/}{Seaside/Seaside.tex} % import b/c inner input in
                                 % French Edition
-}{\input{Regex/Regex.tex}}
+}{%
+\input{Regex/Regex.tex}
+}
 %=================================================================
 %:PART 3 -- Advanced Pharo
 \part{Pharo avanc\'e}

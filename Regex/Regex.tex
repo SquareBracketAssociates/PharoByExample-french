@@ -197,11 +197,13 @@ Le premier point correspond à n'importe quel caractère excepté le
 retour-chariot (désignant une nouvelle ligne):
 %The first dot will match any character except a newline:
 
+% BUG HERE last should be false
 \begin{code}{@TEST}
 'x' matchesRegex: '.' --> true
 ' ' matchesRegex: '.'  --> true
 Character cr asString matchesRegex: '.' --> false
 \end{code}
+%Character cr asString matchesRegex: '.' --> true
 
 %\index{Regex syntax!@\ct{*}}
 \index{Regex!syntaxe!@\ct{*}}
@@ -818,8 +820,7 @@ Ci-dessous, nous avons \arelire{des exemples montrant comment les
 \begin{code}{@TEST}
 'CARET' matchesRegex: '[01CARET]'   --> true    "mettre l'accent partout sauf au !début!"
 '-' matchesRegex: '[01-]' --> true    "mettre le tiret !à! la fin"
-']' matchesRegex: '[]01]'   --> true    "mettre le crochet fermant au
-!début!"
+']' matchesRegex: '[]01]'   --> true    "mettre le crochet fermant au !début!"
 \end{code}
 
 \noindent{} \arevoir{Les classes vides et universelles ne peuvent pas être
@@ -1115,7 +1116,7 @@ collecte ensuite les résultats et les retourne sous la forme d'une
  \clsind{SequenceableCollection}.
 
 \begin{code}{@TEST}
-'Pierre voit Pauline' regex: '\w+' matchesCollect: [:word | word size]                          --> An OrderedCollection(6 4 7)
+'Pierre voit Pauline' regex: '\w+' matchesCollect: [:word | word size]                          --> an OrderedCollection(6 4 7)
 \end{code}
 
 \mthind{String}{allRegexMatches:} renvoie une collection de toutes les
@@ -1144,8 +1145,7 @@ du bloc collé entre eux à la place des concordances respectives.
 % A more general substitution is match translation. This message evaluates a block passing it each match of the regular expression in the receiver string and answers a copy of the receiver with the block results spliced into it in place of the respective matches.
 
 \begin{code}{@TEST}
-'Pierre aime Jean' copyWithRegex: '\b[a-z]+\b' matchesTranslatedUsing:
-[:each | each asUppercase] --> 'Pierre AIME Jean'
+'Pierre aime Jean' copyWithRegex: '\b[a-z]+\b' matchesTranslatedUsing: [:each | each asUppercase] --> 'Pierre AIME Jean'
 \end{code}
 
 Tous les messages des protocoles d'énumération et de remplacement font
@@ -1347,6 +1347,7 @@ Ce service offre un bon moyen d'extraire des parties d'une chaîne de
 caractères dans un format complexe.
 % This facility provides a convenient way of extracting parts of input strings of complex format.
 
+% BUG here
 \begin{code}{@TEST | items |}
 items := '((\d+)\s*(\w+))' asRegex.
 items search: 'Pauline lance 1 ballon !\normcode{à}! Pierre'.
@@ -1360,6 +1361,10 @@ items subEnd: 3                 --> 15
 items subBeginning: 4       --> 16
 items subEnd: 4                 --> 22
 \end{code}
+%items subBeginning: 3       --> an OrderedCollection(14)
+%items subEnd: 3                 --> an OrderedCollection(15)
+%items subBeginning: 4       --> an OrderedCollection(16)
+%items subEnd: 4                 --> an OrderedCollection(22)
 
 Comme exemple plus élaboré, le morceau de code suivant utilise un
 détecteur de format de date,
@@ -1400,14 +1405,10 @@ Le texte de l'exemple suivant est issu de livre du docteur Seuss, ``Le Chat chap
 \begin{code}{@TEST | seuss aWords |}
 seuss := 'The cat in the hat is back'.
 aWords := '\<([^aeiou]|[a])+\>' asRegex.    "concorde avec des mots avec un 'a' dedans"
-aWords matchesIn: seuss
-    --> an OrderedCollection('cat' 'hat' 'back')
-aWords matchesIn: seuss collect: [:each | each asUppercase ]
-    --> an OrderedCollection('CAT' 'HAT' 'BACK')
-aWords copy: seuss replacingMatchesWith: 'grinch'
-    --> 'The grinch in the grinch is grinch'
-aWords copy: seuss translatingMatchesUsing: [ :each | each asUppercase ]
-    --> 'The CAT in the HAT is BACK'
+aWords matchesIn: seuss                                                                         --> an OrderedCollection('cat' 'hat' 'back')
+aWords matchesIn: seuss collect: [:each | each asUppercase ]                                    --> an OrderedCollection('CAT' 'HAT' 'BACK')
+aWords copy: seuss replacingMatchesWith: 'grinch'                                               --> 'The grinch in the grinch is grinch'
+aWords copy: seuss translatingMatchesUsing: [ :each | each asUppercase ]                        --> 'The CAT in the HAT is BACK'
 \end{code} % REVOIR à franciser peut-être - martial
 
 Nous avons aussi à notre disposition les méthodes suivantes pour
