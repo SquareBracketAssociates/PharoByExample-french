@@ -9,6 +9,7 @@
 % $Author: oscar $ % $Date: 2009-09-09 09:57:42 +0200 (Wed, 09 Sep 2009) $ % $Revision: 29006 $
 % martial: remplacement de la faq:omnibrowser en faq:packagebrowser pour la selection via "choose new default browser"
 % Relecture: Rene Mages     - Thu Aug  12 22:23:44 CET 2010
+% Relecture: Rene Mages     - Sun May  15 22:23:44 CET 2011
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -64,7 +65,7 @@ Où puis-je trouver la dernière version de Pharo?
 
 \begin{faq}
 %Which \pharo image should I use with this book?
-Quelle image de \pharo devrais-je utiliser avec ce livre?
+Quelle image de \pharo devrai-je utiliser avec ce livre?
 \end{faq}
 \answer
 Vous pouvez utiliser n'importe quelle image \pharo 
@@ -97,7 +98,7 @@ Cela varie en fonction de votre système d'exploitation:
 Comment puis-je changer d'image à la sauvegarde et être sûr de démarrer la bonne image lors du démarrage de \mbox{\pharo~?}
 \end{faq}
 \answer
-Lorsque que vous sauvegarder votre image sous un autre nom en \clickant sur \menu{World\go{}Save as\ldots}, vous créez deux nouveaux fichiers dans le même répertoire que votre image initiale. En appelant la nouvelle image ``myPharo'' comme sur \figref{saveas-oneclick}, vous pourriez donc sauvegarder dans l'état courant votre image dans deux fichiers à la racine du dossier \mbox{\textsf{Contents/Resources}:} ``myPharo.image'' contenant le \emph{byte-code} et ``myPharo.changes'' contenant les changements de code source. L'intégralité du code source de notre image ``myPharo.image'' est l'union de code de ``myPharo.changes'' avec le fichier ``PharoV10.sources''.
+Lorsque que vous sauvegardez votre image sous un autre nom en \clickant sur \menu{World\go{}Save as\ldots}, vous créez deux nouveaux fichiers dans le même répertoire que votre image initiale. En appelant la nouvelle image ``myPharo'' comme sur \figref{saveas-oneclick}, vous pourriez donc sauvegarder dans l'état courant votre image dans deux fichiers à la racine du dossier \mbox{\textsf{Contents/Resources}:} ``myPharo.image'' contenant le \emph{byte-code} et ``myPharo.changes'' contenant les changements de code source. L'intégralité du code source de notre image ``myPharo.image'' est l'union de code de ``myPharo.changes'' avec le fichier ``PharoV10.sources''.
 En continuant de travailler dans \pharo{}, vous travaillez donc dans votre nouvelle image.
 \begin{figure}[htb]
 	{\centerline{\includegraphics[width=0.35\textwidth]{saveAsOneClick}}}
@@ -155,8 +156,7 @@ String streamContents: [:str | str nextPutAll: 'hello' asSet] --> 'hleo'
 
 % voir \faqref{packagebrowser}
 \begin{faq}\faqlabel{packagebrowser}
-Le navigateur de classes ne ressemble pas à celui décrit dans le
-livre. Que se passe-t-il?
+Le navigateur de classes ne ressemble pas à celui décrit dans le livre. Que se passe-t-il?
 \end{faq}
 \answer
 Vous utilisez probablement une image disposant d'une version
@@ -419,7 +419,7 @@ Regardez dans le protocole \menu{DOCUMENTATION} de \ct{RxParser class} situé da
 
 \begin{faq}
 %Are there tools for writing parsers?
-Y a-t'il des outils pour l'écriture d'un outil d'analyse grammaticale~?
+Y a-t-il des outils pour l'écriture d'un outil d'analyse grammaticale~?
 \end{faq}
 \answer
 %Use \ind{SmaCC}\,---\,the Smalltalk Compiler Compiler.
@@ -434,7 +434,7 @@ Il y a un bon tutoriel en ligne à l'adresse:
 
 \begin{faq}
 %Which packages should I load from SqueakSource SmaccDevelopment to write parsers?
-Quels paquetages devrais-je charger depuis \emph{SqueakSource SmaccDevelopment} pour écrire un analyseur grammatical~?
+Quels paquetages dois-je charger depuis \emph{SqueakSource SmaccDevelopment} pour écrire un analyseur grammatical~?
 \end{faq}
 \answer
 %Load the latest version of \ind{SmaCCDev}{}\,---\,the runtime is already there.
