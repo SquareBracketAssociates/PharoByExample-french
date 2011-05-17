@@ -245,7 +245,7 @@ Ils suivent le moule syntaxique: \lct{receveur \textbf{sélecteur} argument}}
 Les messages à mots-clés sont des messages qui nécessitent un ou plusieurs arguments et 
 dont le sélecteur consiste en un ou plusieurs mots-clés se finissant par deux points \ct{:}.  
 Les messages à mots-clés suivent le moule syntaxique: 
-\lct{receveur \textbf{selecteurUn:} argument\-Un \textbf{selecteurDeux:} argumentDeux}
+\lct{receveur \textbf{selecteurUn:} argumentUn \textbf{selecteurDeux:} argumentDeux}
 
 Chaque mot-clé utilise un argument. Ainsi \ct{r:g:b:} est une
 méthode avec 3 arguments, \ct{playFileNamed:} et \ct{at:} sont des
@@ -748,7 +748,8 @@ Ils sont de la forme: \lct{receveur \textbf{sélecteur} argument}.
 
 \item Les messages à mots-clés sont des messages qui concernent plus d'un objet et qui contiennent au moins un caractère deux points (\ct{:}).\\
 Ils sont de la forme: 
-\lct{receveur \textbf{sélecteurMotUn:} argumentUn \textbf{motDeux:} argumentDeux}.
+\lct{receveur \textbf{selecteurUn:} argumentUn \textbf{selecteurDeux:} argumentDeux}
+
 
 \item \textbf{Règle un.} Les messages unaires sont d'abord envoyés, puis les messages binaires et finalement les messages à mots-clés.
 
