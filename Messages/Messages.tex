@@ -9,7 +9,7 @@
 % adaptation pour PBE - martial - Fri Sep 11 17:52:08 CEST 2009 
 % relecture par Rene Mages : Sun Jan 10 12:11:33 2010
 % relecture par Rene Mages : Mon Apr 11 12:11:33 2011
-% relecture par Rene Mages : Tue May  3 12:11:33 2011
+% relecture par Rene Mages : Sat May 28 12:11:33 2011
 % $Author: oscar $ % $Date: 2009-08-27 12:59:05 +0200 (Thu, 27 Aug 2009) $ 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -42,7 +42,7 @@
 
 Bien que la syntaxe des messages \st soit extrêmement simple, elle n'est pas 
 habituelle pour un développeur qui viendrait du monde C/Java. Un certain temps d'adaptation peut être nécessaire. L'objectif de ce chapitre est de donner quelques conseils pour vous aider à mieux appréhender la syntaxe particulière  des envois de messages.
-Si vous vous sentez suffisament en confiance avec la syntaxe, vous pouvez choisir de sauter 
+Si vous vous sentez suffisamment en confiance avec la syntaxe, vous pouvez choisir de sauter 
 ce chapitre ou bien d'y revenir un peu plus tard.
 
 %=============================================================
@@ -286,7 +286,7 @@ que vous souhaitez, vous pouvez toujours mettre des parenthèses
 supplémentaires comme dans \figref{uKeyUn}. Dans cet exemple, le
 message \ct{yellow} est un message unaire et le message \ct{color:}
 est un message à mots-clés; ainsi l'expression \ct{Color yellow}
-est envoyé en premier. Néanmoins comme les expressions entre
+est envoyée en premier. Néanmoins comme les expressions entre
 parenthèses sont envoyées en premier, mettre des parenthèses
 (normalement inutiles) autour de \ct{Color yellow} permet d'accentuer
 le fait qu'elle
@@ -612,7 +612,7 @@ Souvent les débutants ont des problèmes pour comprendre quand ils doivent ajou
 %-------------------------------------------------------------
 \subsection{Des parenthèses ou pas ?}
 Les caractères \ct{[}, \ct{]}, and \ct{(}, \ct{)} 
-délimitent des zones distinctes. Dans ces zones, un message à mots-clés est la plus longue séquence de mots terminés par (\ct{:}) qui n'est pas coupé par les caractères (\ct{.}), ou (\ct{;}). 
+délimitent des zones distinctes. Dans ces zones, un message à mots-clés est la plus longue séquence de mots terminés par (\ct{:}) qui n'est pas coupée par les caractères (\ct{.}), ou (\ct{;}). 
 Lorsque les caractères \ct{[}, \ct{]}, et \ct{(}, \ct{)} entourent des mots avec des deux points, ces mots participent au message à mots-clés \emph{local} à la zone définie.
 
 Dans cet exemple, il y a deux mots-clés distincts: \ct{rotatedBy:magnify:smoothing:} et \ct{at:put:}.
