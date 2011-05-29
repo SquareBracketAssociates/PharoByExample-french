@@ -16,7 +16,7 @@
 % relecture par Rene Mages : Tue Jan 12 17:17:17 2010
 % relecture par Rene Mages : Tue Aug  8 17:17:17 2010
 % relecture par Rene Mages : Mon Apr 11 17:17:17 2011
-% relecture par Rene Mages : Wed May  4 17:17:17 2011
+% relecture par Rene Mages : Sun May 29 17:17:17 2011
 % $Author: oscar $ $Date: 2009-08-28 11:02:05 +0200 (Fri, 28 Aug 2009) $ $Revision: 28659 $
 % sync avec la version: 29660
 %=================================================================
@@ -527,7 +527,7 @@ A contrario, la méthode \mthind{Magnitude}{>=} est concrète; elle est définie
 \end{method}
 Il en va de même des autres méthodes de comparaison.
 
-\clsind{Character} est une sous-classe de \ct{Magnitude}; elle surcharge la méthode \mthind{Object}{subclassResponsibility} de \ct{<} avec sa propre version de \ct{<} (voir \mthref{CharacterLessThan}).  \ct{Character} définit aussi les méthodes \ct{=} et \ct{hash}; elles héritent entre autre des méthodes \mbox{\ct{>=},} \ct{<=} et \ct{~=} de la classe \ct{Magnitude}.
+\clsind{Character} est une sous-classe de \ct{Magnitude}; elle surcharge la méthode \mthind{Object}{subclassResponsibility} de \ct{<} avec sa propre version de \ct{<} (voir \mthref{CharacterLessThan}).  \ct{Character} définit aussi les méthodes \ct{=} et \ct{hash}; elles héritent entre autres des méthodes \mbox{\ct{>=},} \ct{<=} et \ct{~=} de la classe \ct{Magnitude}.
 
 \begin{method}[CharacterLessThan]{\ct{Character>>><}. Le commentaire dit: ``répond vrai si la valeur du receveur est inférieure à la valeur du l'argument''}
 Character>>>< aCharacter 
@@ -657,16 +657,16 @@ opérations statiques sur les classes, nous leur envoyons simplement
 des messages, puisque les classes sont aussi des objets. % REVOIR 'by sending messages'
 
 \emph{Pratiquement} tout en \st se passe par envoi de messages. % REVOIR 'by sending messages'
-à certains stades, le pragmatisme doit prendre le relais:
+À certains stades, le pragmatisme doit prendre le relais:
 \begin{itemize}
   \item Les \emph{déclarations de variable} ne reposent pas sur l'envoi de messages.
   		En fait, les \subind{variable}{déclaration}{}s de variable ne sont même pas exécutables.
   		Déclarer une variable produit simplement l'allocation d'un espace pour la référence de l'objet.
   \item Les \emph{affectations} (ou assignations) ne reposent pas sur l'envoi de messages.
   		L'\ind{affectation} d'une variable produit une liaison de nom de variable dans le cadre de sa définition.
-  \item Les \emph{retours} (ou renvois) ne reposent pas sur l'envoi de message.
+  \item Les \emph{retours} (ou renvois) ne reposent pas sur l'envoi de messages.
   		Un \ind{retour} ne produit que le retour à l'envoyeur du résultat calculé.
-  \item Les \emph{primitives} ne reposent pas sur l'envoi de message.
+  \item Les \emph{primitives} ne reposent pas sur l'envoi de messages.
   		Elles sont codées au niveau de la \ind{machine virtuelle}.
 		\index{primitive}
 \end{itemize}
@@ -1234,8 +1234,8 @@ et toutes les instances de la classe.
 Les classes ne peuvent pas accéder directement aux variables d'instance de
 leurs instances et les instances ne peuvent pas accéder aux variables de
 classe de leur classe.
-Les méthodes d'\subind{méthode}{accès} (accesseurs et mutateurs) doivent être
-définies au besoin.  
+Des méthodes d'\subind{méthode}{accès} (accesseurs et mutateurs) doivent être
+définies si besoin.  
 
   \item Toute classe a une super-classe.
   La racine de la hiérarchie basée sur l'héritage simple est \ct{ProtoObject}.
