@@ -8,7 +8,7 @@
 % relecture : Rene Mages (12 jan 2010) 
 % relecture : Rene Mages ( 9 aug 2010) 
 % relecture : Rene Mages (15 apr 2011)
-% relecture : Rene Mages ( 4 may 2011)
+% relecture : Rene Mages (12 jun 2011)
 % - oscar - 28661 - $Date: 2009-08-28 11:31:14 +0200 (Fri, 28 Aug 2009)$
 % sync avec la revision: 33691
 \ifx\wholebook\relax\else
@@ -111,7 +111,7 @@ Les flux de données ou \emph{streams} seront abordés séparément dans
 \ifluluelse
 	{\includegraphics[width=\textwidth]{CollectionHierarchy}}
 	{\includegraphics[width=0.8\textwidth]{CollectionHierarchy}}
-\caption{Certaines des classes majeures de collection de \pharo.}
+\caption{Certaines des classes majeures de collections de \pharo.}
 \figlabel{CollClassesTree}
 \end{center}
 \end{figure}
@@ -543,7 +543,7 @@ anArray at: 3 --> 33
 \noindent
 Soyez attentif au fait que le code modifie les tableaux littéraux!
 Le compilateur essaie d'allouer l'espace nécessaire aux tableaux littéraux.
-à moins que vous ne copiez le tableau, la seconde fois que vous évaluez
+À moins que vous ne copiez le tableau, la seconde fois que vous évaluez
 le code, votre tableau ``littéral'' pourrait ne pas avoir la valeur que vous
 attendez
 (sans clonage, la seconde fois, le tableau littéral \ct{#(1 2 3 4 5 6)} sera en fait \ct{#(1 2 33 4 5 6)}).
@@ -855,7 +855,7 @@ la méthode \ct{<=} ou que vous vouliez trier selon un critère bien spécifique
 Vous pouvez le faire en spécifiant un bloc à deux arguments.
 Par exemple, la classe de couleur \ct{Color} n'est pas une \ct{Magnitude} et
 ainsi il n'implémente pas \ct{<=} mais nous pouvons établir un bloc
-signalant que les couleurs devrait être triées selon leur
+signalant que les couleurs devraient être triées selon leur
 luminance (une mesure de la brillance).
 
 \begin{code}{@TEST | col |}
