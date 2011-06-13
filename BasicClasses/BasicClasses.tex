@@ -9,7 +9,7 @@
 % relecture : Rene Mages (mon, 11 jan 2010) 
 % relecture : Rene Mages (mon,  9 aug 2010) 
 % relecture : Rene Mages (fri,  15 apr 2011) 
-% relecture : Rene Mages (wed,   4 may 2011) 
+% relecture : Rene Mages (mon,  13 june 2011) 
 % 2009-08-28 11:31:14 +0200 (Fri, 28 Aug 2009) $
 %=================================================================
 \ifx\wholebook\relax\else
@@ -103,7 +103,7 @@ Tout objet en \st peut renvoyer une représentation textuelle de lui-même. Vous
 n'importe quelle expression dans un Workspace et sélectionner le menu \menu{print it}: 
 ceci exécute l'expression et demande à l'objet renvoyé de s'imprimer. En réalité le 
 message \ct{printString} est envoyé à l'objet retourné. La méthode \mthind{Object}{printString}, 
-qui est une \subind{méthode}{générique}, envoie le message \mthind{Object}{printOn:} à son receveur. 
+qui est une méthode \subind{méthode}{générique}, envoie le message \mthind{Object}{printOn:} à son receveur. 
 Le message \ct{printOn:} est un point d'entrée qui peut être spécialisé. 
 
 %martial: il faudra peut-etre ajouter une remarque et un lien pour
@@ -331,7 +331,7 @@ d'une classe spécifique:
 Puisque \st est écrit en lui-même, vous pouvez vraiment naviguer au travers de sa structure en utilisant la bonne combinaison de messages \ct{superclass} et \ct{class} (voir \charef{metaclasses}). 
 
 \paragraph{\ct{isKindOf:}}
-\cmind{Object}{isKindOf:} répond \ct{true} si la classe du receveur est la même ou une des sous-classes de la classe de l'argument.
+\cmind{Object}{isKindOf:} répond \ct{true} si la classe du receveur est la même que la classe de l'argument ou de l'une de ses sous-classes.
 
 \begin{code}{@TEST}
 1 isKindOf: SmallInteger --> true
@@ -590,8 +590,7 @@ ProtoObject>>>initialize
 
 Ceci est important parce que, dans \pharo, 
  la méthode \mthind{Behavior}{new}, définie pour chaque classe du
-système, envoie \ct{initialize} aux instances nouvellement
-créées.
+système, envoie \ct{initialize} aux instances nouvellement créées.
 
 \begin{method}{Modèle pour la méthode de classe \ct{new}. Le commentaire dit: ``Répond une nouvelle instance initialisée du receveur (qui est une classe) sans aucune variables indexées. Échoue si la classe est indexée''}
 Behavior>>>new
@@ -802,7 +801,7 @@ Quand un \ct{SmallInteger} dépasse cette plage de valeurs, il est automatiqueme
 Les grands entiers sont de la même manière convertis en petits entiers quand il le faut.
 
 Comme dans la plupart des langages de programmation, les entiers peuvent être utiles pour spécifier une itération.  Il existe une méthode dédiée \mthind{Integer}{timesRepeat:} pour l'évaluation répétitive d'un bloc.
-Nous avons déjà vu des exemples similaires dans le chapitre \charef{syntax}:
+Nous avons déjà vu des exemples similaires dans le \charef{syntax}:
 \begin{code}{@TEST | n |}
 n := 2.
 3 timesRepeat: [ n := n*n ].
@@ -902,8 +901,7 @@ Character characterTable size                               --> 256
 La classe \clsindmain{String} est également définie dans la catégorie \scatind{Collections-Strings}.  Une chaîne de caractères est une collection indexée contenant uniquement des caractères.
 
 \begin{figure}[ht]
-\ifluluelse
-	{\centerline {\includegraphics[width=0.4\textwidth]{StringHierarchy}}}
+\centerline {\includegraphics[width=0.4\textwidth]{StringHierarchy}}
 \caption{La hiérarchie de \ct{String}.\figlabel{strings}}
 \end{figure}
 
@@ -916,7 +914,7 @@ En fait, \ct{String} est une classe abstraite et les chaînes de caractères de 
 Une autre sous-classe importante de \ct{String} est
 \clsindmain{Symbol}.  La différence fondamentale est qu'il n'y a
 toujours qu'une instance unique de \ct{Symbol} pour une valeur
-donnée  (ceci est quelques fois appelé ``la propriété de
+donnée  (ceci est quelquefois appelé ``la propriété de
 l'instance unique''). À l'opposé, deux chaînes construites
 séparément  et contenant la même séquence de caractères
 seront souvent des objets différents.
@@ -1086,15 +1084,15 @@ Nous avons vu que:
   \item si vous surchargez \ct{=} alors vous devez également
     surcharger la méthode de hachage, \ct{hash};
 
-  \item surchargez \ct{postCopy} pour implémenter correctement la copie de vos objets;
+  \item il faut surcharger \ct{postCopy} pour implémenter correctement la copie de vos objets;
 
-  \item envoyez \ct{self halt} pour créer un point d'arrêt;
+  \item il faut envoye \ct{self halt} pour créer un point d'arrêt;
 
-  \item renvoyez \ct{self subclassResponsibility} pour faire une méthode abstraite;
+  \item il faut renvoyer \ct{self subclassResponsibility} pour faire une méthode abstraite;
 
   \item pour donner la représentation en chaîne de caractères d'un objet \ct{String}, vous devez surcharger \ct{printOn:};
 
-  \item surchargez la méthode générique \ct{initialize} pour instancier correctement vos objets;
+  \item il faut surcharger la méthode générique \ct{initialize} pour instancier correctement vos objets;
 
 
 % proposition de Rene:
@@ -1110,7 +1108,7 @@ Nous avons vu que:
   \item les chaînes de caractères sont modifiables (mutables) mais les symboles ne le sont pas;
   cependant faites attention à ne pas modifier les chaînes de caractères littérales!
 
-  \item ces symboles sont uniques mais les chaînes de caractères ne le sont pas;
+  \item ces symboles sont uniques mais que les chaînes de caractères ne le sont pas;
 
   \item les chaînes de caractères et les symboles sont des collections et donc, supportent les méthodes usuelles de la classe \ct{Collection}.
 
