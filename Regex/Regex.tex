@@ -13,6 +13,7 @@
 % 2010-01-25 - relecture par Rene
 % 2011-05-05 - relecture par Rene
 % 2011-05-08 - relecture par Rene
+% 2011-06-14 - relecture par Rene
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -124,7 +125,7 @@ Nous développerons deux classes, \ct{WebDir} et \ct{WebPage}, pour
 représenter les répertoires et les pages web respectivement. L'idée
 est de créer une instance de \ct{WebDir} qui pointera sur le
 répertoire racine contenant notre site web. Lorsque nous enverrons à
-cet objet le message \ct{makeToc}, il parcourira les fichiers et
+cet objet le message \ct{makeToc}, il parcourra les fichiers et
 sous-répertoires pour construire le \sitemap et enfin, il créera un
 nouveau fichier appelé \ct{toc.html} et contenant les liens vers
 toutes les pages du site.
@@ -409,7 +410,7 @@ WebPage>>>contents
 \end{code}
 
 En fait, vous pourriez avoir des problèmes si vos pages web
-contiennent des caractères non-ascii. Dans ce cas, il serait plus sûr
+contiennent des caractères non-ASCII. Dans ce cas, il serait plus sûr
 d'écrire la méthode ainsi:
 
 \clsindex{Latin1TextConverter}
@@ -420,7 +421,7 @@ WebPage>>>contents
 		contents
 \end{code}
 
-\noindent{} Vous devriez maintenant pouvoir voir quelque chose semblable à ceci:
+\noindent{} Vous devriez pouvoir maintenant voir quelque chose semblable à ceci:
 
 \begin{code}{}
 (WebDir onPath: '...') webPages first contents --> '<head>
@@ -446,7 +447,7 @@ complémentaire~\footnote{NB: Dans \pharo,
   l'accent circonflexe (appelé aussi \emph{caret}) correspond aussi au
   mot-clé de \emph{retour} que nous écrivons \ct{^}. Pour éviter toute
   confusion, nous écrirons \ct{CARET} lorsque nous utiliserons
-  l'accent circonflexe dans les expressions régulières pour les
+  l'accent circonflexe dans les \expregs pour les
   ensembles complémentaires mais vous devez vous souvenir que ces
   symboles sont en réalité les mêmes.}.}
   %  To avoid
@@ -655,7 +656,7 @@ WebDir selectHome makeToc
 \index{expression!syntaxe des \expregs}
 %\section{Regex syntax}\indexmain{Regex syntax}
 
-Nous allons voir plus en détail la syntaxe des \expreg telle qu'elle
+Nous allons voir plus en détail la syntaxe des expressions régulières telle qu'elle
 est supportée par le paquetage \pkgregex.
 
 L'\expreg la plus simple est un caractère unique. Elle correspond
@@ -736,10 +737,8 @@ un \escchar \cad un \mbox{\emph{antislash} (\lct{\symbol{92}}).} L'\emph{antisla
   \escchar pour qu'il y ait concordance. Ceci est aussi valable pour
   tous les caractères spéciaux que nous pourrions voir plus loin.
 \begin{code}{@TEST}
-'ab*' matchesRegex: 'ab*'  --> false    "l'!astérisque! est !spécial!"
-'ab*' matchesRegex: 'ab\*' --> true
-'a\c' matchesRegex: 'a\\c'  --> true
-\end{code}
+
+
 
 \indexmain{Regex!syntaxe!@\ct{|}}
 Le dernier opérateur est \ct{|}; il exprime un choix entre deux
@@ -823,8 +822,7 @@ Ci-dessous, nous avons \arelire{des exemples montrant comment les
 ']' matchesRegex: '[]01]'   --> true    "mettre le crochet fermant au !début!"
 \end{code}
 
-\noindent{} \arevoir{Les classes vides et universelles ne peuvent pas être
-  définies.}
+\noindent{} \arevoir{Les classes vides et universelles ne peuvent pas être définies.}
 % Thus, empty and universal sets cannot be specified.
 
 %-----------------------------------------------------------------
@@ -858,7 +856,7 @@ Nous pouvons voir un résumé de la syntaxe \pkgregex dans
 		\lct{*}				&	\kleenestar\,---\,concorde avec zéro ou plusieurs \expregs précédentes \\
 		\lct{+}				&	concorde avec une ou plusieurs \expregs précédentes \\
 		\lct{?}				&	concorde avec zéro ou une \expreg précédente \\
-		\lct{|}				&	concorde avec l'\expreg de droite ou de gauche \\
+		\lct{|}				&	concorde avec l'\expreg de droite ou (exclusif) de gauche \\
 		\midrule
 		\lct{[abcd]}		&	concorde avec un caractère de la liste \lct{abcd} \\ %match choice of characters \lct{abcd} \\
 		\lct{[{\caret}abcd]}	&	concorde avec un caractère de la liste complémentaire \\%match negated choice of characters \\
@@ -1418,7 +1416,7 @@ itérer sur les concordances dans les flux de données:
 \mthind{RxMatcher}{matchesOnStream:collect:},
 \mthind{RxMatcher}{copyStream:to:replacingMatchesWith:} et
 \mthind{RxMatcher}{copyStream:to:translatingMatchesUsing:}.
-La phrase de l'exemple suivant s'inspire de la contine
+La phrase de l'exemple suivant s'inspire de la comptine
 ``Douze tambours battant''~\footnote{NdT: voir \url{http://fr.wikipedia.org/wiki/Twelve_Days_Of_Christmas}}, bien connue des anglophones.
 
 \needlines{8}
