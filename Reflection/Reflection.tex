@@ -15,6 +15,7 @@
 % 2009-06-19 - Lukas comments
 % 2009-07-07 - Oscar migrated to Pharo; fixed broken tests
 % 2009-08-16 - Oscar indexing and cleaning up loose ends
+% 2011-06-15 - Rene re-read french translation
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -603,7 +604,7 @@ Il est également possible de fournir une valeur booléenne ou un bloc qui retou
 
 Pour l'instant, nous avons utilisé les capacités réflexives de \st principalement pour interroger et explorer les objets, les classes, les méthodes et la pile d'exécution du système. Nous allons maintenant voir comment utiliser notre connaissance de \st pour intercepter des messages et modifier le comportement du système à l'exécution.
 
-Lorsque un objet reçoit un message, il regarde d'abord dans son dictionnaire de méthodes pour la méthode correspondante pour répondre au message.
+Lorsque un objet reçoit un message, il cherche d'abord dans son dictionnaire de méthodes la méthode correspondante pour répondre au message.
 Si aucune méthode correspondante n'existe, il va continuer son exploration en remontant dans la hiérarchie de classe, jusqu'à atteindre la classe \ct{Object}.
 Si toujours aucune méthode n'est trouvée pour ce message, l'objet \emph{s'enverra à lui-même} %send itself
 le message \ct{doesNotUnderstand:} avec le selecteur du message comme argument.
@@ -627,7 +628,7 @@ Puisque le \emph{proxy} n'implémentera virtuellement aucune méthode de lui-mê
  \ct{doesNotUnderstand:}. En implémentant cette dernière, le \emph{proxy} peut alors prendre des mesures spéciales avant de déléguer le message à l'objet réel que cache ce \emph{proxy}.
 %By implementing this message, the proxy can then take special action before delegating the message to the real subject it is the proxy for.
 
-Jetons un \oe il sur une solution proposée pour programmer ceci~\footnote{Vous pouvez télécharger le paquetage \pkg{PBE-Reflection} sur \url{http://www.squeaksource.com/PharoByExample/}}.
+Jetons un coup d'\oe il sur une solution proposée pour programmer ceci~\footnote{Vous pouvez télécharger le paquetage \pkg{PBE-Reflection} sur \url{http://www.squeaksource.com/PharoByExample/}}.
 Nous définissons un \emph{proxy} de journalisation ou \ct{LoggingProxy} ainsi:
 
 \begin{code}{}
@@ -985,7 +986,7 @@ run: aSelector with: anArray in: aReceiver
 mark
 	hasRun := true
 \end{code}
-En apparté, vous pouvez jeter un \oe il à la méthode de classe
+En aparté, vous pouvez jeter un coup d'\oe il à la méthode de classe
 \clsmthind{ProtoObject}{withArgs:executeMethod:} pour voir comment
 une méthode hors du dictionnaire de méthode peut être appelée.
 %% to see how a method displaced from its method dictionary can be invoked.
