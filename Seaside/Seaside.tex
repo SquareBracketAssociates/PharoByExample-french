@@ -17,7 +17,8 @@
 % 2010-06-22 - Martial update
 % 2010-08-10 - Rene Mages finished the second rereading
 % 2011-04-17 - Rene mages finished the third rereading
-% 2011-05-04 - Rene mages finished the last rereading
+% 2011-05-04 - Rene mages finished the fourth rereading
+% 2011-06-15 - Rene mages finished the last rereading
 % sync avec la version: 33691
 %
 %=================================================================
@@ -72,7 +73,7 @@ objets. Quelle merveilleuse idée!
 
 \section{Pourquoi avons-nous besoin de Seaside?}
 
-Les applications web modernes essayent d'intéragir avec l'utilisateur
+Les applications web modernes essaient d'interagir avec l'utilisateur
 de la même façon que les applications de bureau: elles interrogent
 l'utilisateur et celui-ci leur répond, habituellement en remplissant
 un formulaire ou en cliquant sur un bouton.
@@ -274,7 +275,7 @@ Le dernier, sous la forme de cercles colorés, affiche la feuille de
 style \ind{CSS} de ce composant.
 Dans le coin supérieur droit, le 
  \link{R} et le  \link{S} vous laissent basculer entre la vue du
- code rendue et celle du code source.
+ code rendu et celle du code source.
 Essayez donc en cliquant sur ces différents liens.
 Remarquez que les liens \link{++} et \link{{-}{-}} sont aussi actifs dans
 la vue du code source.
@@ -464,7 +465,7 @@ Nous avons fini!
 
 \dothis{Pointez votre navigateur web
   \url{http://localhost:8080/seaside/config}, ajoutez une nouvelle
-  entrée qui vous appelerez ``hello'' et choisissez \ct{WAHelloWorld}
+  entrée qui vous appellerez ``hello'' et choisissez \ct{WAHelloWorld}
   comme composant racine.}
 Pointez maintenant votre navigateur 
 à l'URL \url{http://localhost:8080/seaside/hello}.
@@ -613,7 +614,7 @@ De plus, c'est un composant \emph{composite}. Seaside a besoin d'une
 déclaration de ses composants enfants faite via la méthode
 \ct{children} qui retourne un tableau de tous les composants que
 l'application contient.
-Le rendu de ce composant s'effectue en faisant le rendu de ces
+Le rendu de ce composant s'effectue en faisant le rendu de ses
 sous-composants séparés par une barre horizontale.
 En dehors des méthodes d'instance et de classe destinées à
 l'initialisation, il n'y a rien d'autre pour faire l'application
@@ -873,7 +874,7 @@ Notez que tous les changements d'état se produisent dans les
 
 Le message \mthind{WAAnchorTag}{on:of:} est une particularité Seaside
 qui mérite une explication.
-Dans l'exemple, ce message est utilisé pour attacher un zone de saisie
+Dans l'exemple, ce message est utilisé pour attacher une zone de saisie
 de texte à la variable \ct{heading}.
 Les ancres (\ie{} les liens) et les boutons prennent en charge, eux
 aussi, ce message.
@@ -963,7 +964,7 @@ que d'écrire ces propriétés directement sous forme d'attributs de ces
 éléments.
 Les entités-paragraphes sont appelées \emph{div}s et les
 entités-textes sont appelées \emph{span}s.
-Vous devriez définir alors définir des noms symboliques pour ces
+Vous devriez alors définir des noms symboliques pour ces
 classes, tels que ``highlight'' (\emph{surbrillance} en français) pour
 le texte à mettre en surbrillance, et préciser dans votre feuille de
 style comment le texte en surbrillance doit être affiché.
@@ -971,7 +972,7 @@ Une feuille de style comprend simplement un ensemble de règles qui
 décrivent le format des éléments XHTML donnés. 
 Chaque règle se scinde en deux parties: un \emph{sélecteur} qui
 précise sur quels éléments XHTML la règle s'applique et une
-\emph{déclaration} qui liste un certain nombre d'attributs pour ce ou
+\emph{déclaration} qui liste un certain nombre d'attributs pour cet ou
 ces éléments.
 
 \begin{figure}[tb]
@@ -1832,7 +1833,7 @@ l'addition de ces deux valeurs.}
 Vous remarquerez que la saisie des chiffres ne se passent pas comme
 prévu.
 En fait, la calculatrice devrait savoir si vous saisissez un
-\emph{nouveau} nombre ou que vous complétez une nombre existant.
+\emph{nouveau} nombre ou que vous complétez un nombre existant.
 
 \dothis{%
 Adaptez la méthode \ct{MyKeypad>>>type:} pour se comporter
@@ -2097,7 +2098,7 @@ aucune nouvelle URL n'est générée lors du clic.}
 Vous devez vous demander: ``oui mais, comment ça marche?''.
 %You may well ask, \emph{yes, but how does this work?}
 \Figref{ajax-processing} montre comment les deux versions\,---\,avec et
-sans AJAX\,---\,de l'application RPN (avec et sans AJAX) fonctionnent.
+sans AJAX\,---\,de l'application RPN fonctionnent.
 AJAX court-circuite simplement le rendu de façon à mettre à jour le
 composant \ct{display} \emph{uniquement}. 
 \jscript est responsable à la fois du déclenchement de la requête et
@@ -2154,7 +2155,7 @@ méthode de classe \ct{initialize} en envoyant
 \ct{self registerAsApplication:} \emph{chemin de l'application}.
 \aretirer{%
 Si vous surchargez description, il est possible de retourner un
-nom descriptif pour l'application qui sera affiché dans l'éditeur de
+nom descriptif pour l'application qui sera affichée dans l'éditeur de
 configuration}; % ATTENDRE - martial: pas vu du tout, ça!
   \item Pour gérer le chaînage arrière ou \backtracking, un composant
     devrait disposer d'une méthode \ct{states} renvoyant un tableau des
@@ -2172,7 +2173,7 @@ configuration}; % ATTENDRE - martial: pas vu du tout, ça!
   \item Si vous envoyez des messages en cascade à un \brush qui
     contient le message \ct{with:}, ce \ct{with:} devra être le
     dernier message envoyé.
-  \arevoir{Le message \ct{with:} envoie le contenu \emph{et} le fait le rendu du résultat;}
+  \arevoir{Le message \ct{with:} envoie le contenu \emph{et} retourne le rendu du résultat;}
   \item Les actions devrait apparaître uniquement dans des \callbacks
     (ou fonctions de rappel).
 Vous ne devez jamais changer l'état de l'application durant la phase de rendu;
@@ -2205,7 +2206,7 @@ devrait implémenter la méthode \ct{go} pour appeler avec le message
     \ct{WAComponent} telles que \ct{request}, \ct{inform:},
     \ct{confirm:} et \ct{chooseFrom:caption:};
   \item Pour interdire à l'utilisateur de se servir du bouton \backbtn
-    de son navigateur web pour accéder un état d'exécution passé de
+    de son navigateur web pour accéder à un état d'exécution passé de
     l'application web, vous pouvez isoler des parties de la séquence
     des tâches dans des \transactions en les incluant dans un
     bloc-argument du message \ct{isolate:}.
