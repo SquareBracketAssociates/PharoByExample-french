@@ -340,7 +340,7 @@ TestCase subclass: #ExampleSetTest
 	instanceVariableNames: 'full empty'
 	classVariableNames: ''
   poolDictionaries: ''
-	category: 'MySetTest'
+	category: 'PBE-SUnit'
 \end{classdef}
 % \dothis{First you should create a new subclass of \clsind{TestCase} called
 % \ct{ExampleSetTest}.   Add two instance variables so that your new
@@ -504,8 +504,8 @@ résultats en lançant  l'\emphind{exécuteur de tests}  \emphind{Test
 L'exécuteur de tests, montré dans \figref{test-runner}, est conçu pour faciliter 
 l'exécution de groupes de tests.
 Le panneau le plus à gauche présente toutes les catégories qui
-contiennent des classes de test (\ie  sous-classes de
-\ct{TestCase}). Lorsque certaines de ces catégories sont
+contiennent des classes de test (\ie  sous-classes \mbox{de
+\lct{TestCase}{})}. Lorsque certaines de ces catégories sont
 sélectionnées, les classes de test qu'elles contiennent apparaissent
 dans le panneau de droite.
 Les classes abstraites sont en italique et la hiérarchie des classes de test est visible par l'indentation, ainsi les sous-classes de  \ct{ClassTestCase} sont plus indentées que les sous-classes de \ct{TestCase}.
@@ -519,7 +519,7 @@ Les classes abstraites sont en italique et la hiérarchie des classes de test es
 \end{figure}
 
 
-\dothis{Ouvrez le Test Runner, sélectionnez la catégorie \menu{MySetTest} et cliquez le bouton \button{Run Selected}.}
+\dothis{Ouvrez le Test Runner, sélectionnez la catégorie \menu{PBE-SUnit} et cliquez le bouton \button{Run Selected}.}
 
 % ON: With OB, you don't need this.
 %Vous pouvez aussi exécuter votre test en évaluant un \menu{print it} sur le code suivant~: \ct{(ExampleSetTest selector: #testRemove) run}. L'expression suivante est équivalente mais plus concise~: \ct{ExampleSetTest run: #testRemove}. Il nous est habituel d'inclure un commentaire exécutable à notre méthode de test ce qui nous permet de les exécuter avec un \menu{do it} depuis le \ct{System Browser}, comme il est montré dans \mthref{ExampleSetTestTestRemoveii}.
