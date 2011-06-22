@@ -53,7 +53,7 @@ La \ind{syntaxe} est conçue de telle sorte que le texte d'un
 programme lu à haute voix ressemble à de l'\emph{English pidgin} ou ``anglais simplifié'':
 
 \begin{code}{}
-(Smalltalk includes: Class) ifTrue: [ Transcript show: Class superclass ]
+(Smalltalk hasClassNamed: 'Class') ifTrue:  [ 'classe' ] ifFalse: [ 'pas classe']
 \end{code}
 
 \noindent
