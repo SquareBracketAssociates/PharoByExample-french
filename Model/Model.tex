@@ -1,3 +1,4 @@
+
 % $Author: oscar $
 % $Translation: martial $
 % $Date: Wed Oct 10 17:20:28 CEST 2007 $
@@ -14,6 +15,8 @@
 % adaptation pour PBE - martial - Thu Sep 10 20:18:24 CEST 2009 
 % relecture par Rene Mages : Tue Jan 12 17:17:17 2010
 % relecture par Rene Mages : Tue Aug  8 17:17:17 2010
+% relecture par Rene Mages : Mon Apr 11 17:17:17 2011
+% relecture par Rene Mages : Sun May 29 17:17:17 2011
 % $Author: oscar $ $Date: 2009-08-28 11:02:05 +0200 (Fri, 28 Aug 2009) $ $Revision: 28659 $
 % sync avec la version: 29660
 %=================================================================
@@ -45,8 +48,8 @@
 \chapter{Le modèle objet de \st}
 \chalabel{model}
 
-Le modèle de programmation de \st est simple et homogène: \mantra et les objets communiquent les uns avec les autres uniquement via l'envoi de messages.
-Cependant, ces caractéristiques de simplicité et d'homogénéité peuvent être source de quelques difficultés pour le programmeur habitué à d'autres langages. Dans ce chapitre nous présenterons les concepts de base du modèle objet de \st; en particulier nous discuterons des conséquences de représenter les classes comme des objets.
+Le modèle de programmation de \st est simple et homogène: \mantra et les objets communiquent les uns avec les autres uniquement par envoi de messages.
+Cependant, ces caractéristiques de simplicité et d'homogénéité peuvent être source de quelques difficultés pour le développeur habitué à d'autres langages de programmation. Dans ce chapitre nous présenterons les concepts de base du modèle objet de \st; en particulier nous discuterons des conséquences de la représentation des classes comme des objets.
 
 %=========================================================
 \section{Les règles du modèle}
@@ -82,9 +85,9 @@ Prenons le temps d'étudier ces règles en détail.
 
 %\ruleref{everything}
 
-Le mantra ``\mantra'' est hautement contagieux.
-Après seulement peu de temps passé avec \st, vous serez progressivement surpris par la façon dont cette règle simplifie tout ce que vous faites.
-Par exemple, les entiers sont véritablement des objets (de classe Integer). Dès lors vous pouvez leur envoyer des messages, comme vous le feriez avec n'importe quel autre objet.
+Attention ! le mantra ``\mantra'' est très contagieux.
+Après seulement quelques heures passées avec \st, vous serez progressivement surpris par la façon dont cette règle simplifie tout ce que vous faites.
+Par exemple, les entiers sont véritablement des objets (de la classe Integer). Dès lors vous pouvez leur envoyer des messages, comme vous le feriez avec n'importe quel autre objet.
 
 \begin{code}{@TEST}
 3 + 4            --> 7    "!envoie '+ 4' à 3, donnant 7!"
@@ -92,7 +95,7 @@ Par exemple, les entiers sont véritablement des objets (de classe Integer). Dè
 \end{code}
 
 La représentation de \ct{20 factorial} est certainement différente de la représentation de \ct{7}, mais aucune partie du code\,---\,pas même l'implémentation de 
-\ct{factorial}~\footnote{En anglais, factorielle.}
+\ct{factorial}~\footnote{En français, factorielle.}
 \,---\,n'a besoin de le savoir puisque ce sont des objets tous deux.
 
 \needlines{3}
@@ -103,14 +106,14 @@ Plus encore, les classes ne sont pas des objets de seconde zone: elles sont vér
 Ainsi \pharo est vraiment un système réflexif offrant une grande expressivité
 aux développeurs.
 
-En regardant plus avant dans l'implémentation de \st, nous trouvons
+Si on regarde plus précisemment l'implémentation de \st, nous trouvons
 trois sortes différentes d'objets. Il y a (1) les objets ordinaires
 avec des variables d'instance passées par référence; il y a (2)
 \emph{les petits entiers}~\footnote{En anglais, \emph{small
     integers}.} qui sont passés par valeur, et enfin, il y a (3) les
 objets 
 %martial: remplacement de 'indexables' (Tue Dec 25 11:37:17 CET 2007)
-indexés comme les Array (tableaux) qui ont une portion contig\"ue de mémoire. La beauté de \st réside 
+indexés comme les Array (tableaux) qui occupent une portion contig\"ue de mémoire. La beauté de \st réside 
 dans le fait que vous n'avez aucunement à vous soucier des différences entre ces trois types
 d'objet.
 
@@ -123,7 +126,7 @@ d'objet.
 Tout objet a une classe; pour vous en assurer, vous pouvez envoyer à un objet le message \ct{class} (classe en anglais).
 
 \begin{code}{@TEST}
-1 class                 --> SmallInteger 
+1 class                 --> SmallInteger
 20 factorial class --> LargePositiveInteger
 'hello' class          --> ByteString
 #(1 2 3) class       --> Array
@@ -137,11 +140,10 @@ Chaque méthode a un nom. C'est le \emphsubind{méthode}{sélecteur}. Il est uni
 
 Puisque \emph{les classes sont des objets} et que \emph{tout objet est une instance d'une classe}, nous en concluons que les classes doivent aussi être des instances de classes.
 Les classes dont les instances sont des classes sont nommées des \emph{méta-classes}.
-à chaque fois que vous créez une classe, le système crée pour vous une méta-classe
+À chaque fois que vous créez une classe, le système crée pour vous une méta-classe
 automatiquement.
-La méta-classe definit la structure et le comportement de la classe qui est son instance.
-\damien{Did any of you verify it is 99\%? Maybe 'Most' would have been better than '99\%'}
-99\% du temps vous n'aurez pas à penser aux méta-classes et vous pourrez joyeusement les ignorer.
+La méta-classe définit la structure et le comportement de la classe qui est son instance.
+La plupart du temps vous n'aurez pas à penser aux méta-classes et vous pourrez joyeusement les ignorer.
 (Nous porterons notre attention aux méta-classes dans \charef{metaclasses}.)
 
 %---------------------------------------------------------
@@ -149,7 +151,7 @@ La méta-classe definit la structure et le comportement de la classe qui est son
 
 Les variables d'instance en \st sont privées vis-à-vis de l'\emph{instance} elle-même.
 Ceci diffère de langages comme \ind{Java} et \ind{C++} qui permettent l'accès aux variables d'instance (aussi connues sous le nom d'``attributs'' ou ``variables membre'') depuis n'importe qu'elle autre instance de la même classe.
-Nous disons que l'\emphind{espace d'encapsulation}~\footnote{En anglais, encapsulation boundary.} des objets en Java et en C++ est la classe, là où, en \st, c'est l'instance.
+Nous disons que la \emphind{frontière d'encapsulation}~\footnote{En anglais, encapsulation boundary.} des objets en Java et en C++ est la classe, là où, en \st, c'est l'instance.
 \seeindex{variable!instance}{variable d'instance}
 \seeindex{attribut}{variable d'instance}
 %\seeindex{attribute}{instance variable}
@@ -157,24 +159,24 @@ Nous disons que l'\emphind{espace d'encapsulation}~\footnote{En anglais, encapsu
 %\index{variable instance}
 \index{variable d'instance}
 
-En \st, deux instances d'une même classe ne peuvent pas accèder aux variables d'instance l'une de l'autre à moins que la classe ne définisse des ``méthodes d'\ind{accès}'' (en anglais, accessor methods).
+En \st, deux instances d'une même classe ne peuvent pas accèder aux variables d'instance l'une de l'autre à moins que la classe ne définisse des ``méthodes d'\subind{méthode}{accès}'' (en anglais, \emph{accessor methods}).
 Aucun élément de la syntaxe ne permet l'accès direct à la variable d'instances de n'importe quel autre objet.
 (En fait, un mécanisme appelé \ind{réflexivité}
 %, discussed in \charef{metaprog},
-offre une véritable possibilité d'interroger un autre objet sur la valeur de ses variables d'instance; la méta-programmation permet d'écrire des outils tel que l'\ind{inspecteur} d'objets (nous utiliserons aussi le terme \ind{Inspector}). La seule vocation de ce dernier est de regarder le contenu des autres objets.)
+offre une  possibilité d'interroger un autre objet sur la valeur de ses variables d'instance; ces facilités de méta-programmation permettent d'écrire des outils tel que l'\ind{inspecteur} d'objets (nous utiliserons aussi le terme \ind{Inspector}). La seule vocation de ce dernier est de regarder le contenu des autres objets.)
 
 Les variables d'instance peuvent être accédées par 
 nom dans toutes les méthodes d'instance de la classe qui les définit
 ainsi que dans les méthodes définies dans les sous-classes de cette classe.
 Cela signifie que les variables d'instance en \st sont semblables aux
-variables \emph{protégées} (protected) en C++ et en Java. Cependant,
+variables \emph{protégées} \mbox{(\texttt{protected})} en C++ et en Java. Cependant,
 nous préférons dire qu'elles sont privées parce qu'il n'est pas d'usage en \st d'accéder à une variable d'instance directement depuis une sous-classe. 
 \subsubsection{Exemple}
 La méthode \cmind{Point}{dist:} (\mthref{dist:}) calcule la distance entre le receveur et un autre point. Les variables d'instance \ct{x} et \ct{y} du receveur sont accédées directement par le corps de la méthode. Cependant, les variables d'instance de l'autre point doivent être accédées en lui envoyant les messages \ct{x} et \ct{y}.
 % rene : s/messasges/messages/ ligne 172
 
 \needlines{7}
-\begin{method}[dist:]{la distance entre deux points. le nom arbitraire aPoint est utilisé dans le sens de \emph{a point} qui, en anglais, signifie un point}
+\begin{method}[dist:]{La distance entre deux points. le nom arbitraire \ct{aPoint} est utilisé dans le sens de \emph{a point} qui, en anglais, signifie ``un point''}
 Point>>>dist: aPoint 
 	"Retourne la distance entre aPoint et le receveur."
 	| dx dy |
@@ -204,7 +206,9 @@ la chaîne de caractères \ct{pvt} sont privées: un message \ct{pvt}
 ne peut être envoyé qu'à \self \emph{uniquement}.  N'importe comment, les méthodes \ct{pvt} sont très peu utilisées.}.
 Les méthodes sont regroupées en protocoles qui indiquent leur objectif.
 Certains noms de protocoles courants ont été attribués par convention,
-par exemple, \protind{accessing} pour les méthodes d'accès, et \protind{initialization} pour construire un état initial stable pour l'objet.
+par exemple, \protind{accessing} pour les méthodes d'\subind{méthode}{accès}, 
+et \protind{initialization} pour construire un état initial stable pour l'objet.
+\index{initialisation}
 Le protocole \protind{private} est parfois utilisé pour réunir les
 méthodes qui ne devraient pas être visibles depuis l'extérieur.
 Rien ne vous empêche cependant d'envoyer un message qui est implémenté
@@ -240,12 +244,10 @@ Une classe et sa \ind{méta-classe} sont deux classes distinctes, et ce, même s
 
 De ce fait, le navigateur de classes nommé \ind{Browser} vous
 aide à parcourir à la fois classes et méta-classes comme si elles
-n'étaient qu'une seule entité avec deux ``côtés'': le ``\subind{Browser}{côté instance}'' et le ``\subind{Browser}{côté classe}'', comme le montre la \figref{Buttons}. 
+n'étaient qu'une seule entité avec deux ``côtés'': le ``\subind{Browser}{côté instance}'' et le ``\subind{Browser}{côté classe}'', comme le montre \figref{Buttons}. 
 \damien{something wrong here. The text between quotes is not generated}
 % true: \ind should replace \index there! (martial)
-En cliquant sur le 
-bouton \button{instance}, vous voyez la présentation de la classe \ct{Color}, \ie vous pouvez naviguer dans les méthodes qui sont exécutées quand les messages sont envoyés à une instance de
-\ct{Color}, comme la couleur blue (correspondant au bleu). En appuyant
+En \clickant{} sur le bouton \button{instance}, vous voyez la présentation de la classe \ct{Color} et vous donc pouvez naviguer dans les méthodes qui sont exécutées quand les messages de même nom sont envoyés à une instance de \ct{Color}, comme par exemple \lct{blue} (correspondant à la couleur bleu). En appuyant
 sur le bouton \button{class} (pour classe), vous naviguez dans la classe \ct{Color class}, autrement dit vous voyez les méthodes qui seront exécutées en envoyant les messages directement à la classe \ct{Color} elle-même.
 Par exemple, \ct{Color blue} envoie le message \ct{blue} (pour \emph{bleu}) à la classe \clsind{Color}.
 Vous trouverez donc la méthode \ct{blue} définie côté classe de la classe \ct{Color} et non du côté instance.
@@ -267,11 +269,11 @@ Vous définissez une classe en remplissant le patron (ou \emph{template} en angl
 dans le \subind{Browser}{côté instance}.
 Quand vous acceptez ce patron, le système crée non seulement la classe
 que vous définissez mais aussi la méta-classe correspondante.
-Vous pouvez naviguer dans la méta-classe en cliquant sur le bouton \button{class}.
+Vous pouvez naviguer dans la méta-classe en \clickant{} sur le bouton \button{class}.
 Du patron employé pour la création de la méta-classe, seule la
 liste des noms des variables d'instance vous est proposée pour une édition directe.  
 
-Une fois que vous avez créé une classe, cliquer sur
+Une fois que vous avez créé une classe, \click{} sur
 le bouton \button{instance} vous permet d'éditer et de parcourir les
 méthodes qui seront possédées par les instances de cette classe (et de ses sous-classes). Par exemple, nous pouvons voir dans \figref{Buttons} que 
 la méthode \ct{hue} est définie pour les instances de la classe \ct{Color}.
@@ -292,7 +294,7 @@ sans avoir à créer un objet additionnel dans un premier temps.
 % coutumier -> commun
 En fait, beaucoup d'entre elles contiennent un commentaire pour les rendre plus compréhensibles pour l'utilisateur qui les exécute.
 
-\dothis{Naviguez dans la méthode \ct{Color class>>>showColorCube}, double-cliquez à l'intérieur des guillements englobant le commentaire \ct{"Color showColorCube"} et tape au clavier \short{d}.}
+\dothis{Naviguez dans la méthode \ct{Color class>>>showColorCube}, double-cliquez à l'intérieur des guillemets englobant le commentaire \ct{"Color showColorCube"} et tape au clavier \short{d}.}
 Vous verrez l'effet de l'exécution de cette méthode.  (Sélectionnez \menu{World \go \ind{restore display}~(r)} pour annuler les effets.)
 
 Pour les familiers de \ind{Java} et \ind{C++},  les méthodes de classe peuvent être assimilées aux méthodes statiques. 
@@ -333,7 +335,7 @@ Dog subclass: #Hyena
 \end{classdef}
 
 Supposons que nous ayons des méthodes de classe de \ct{Dog} pour initialiser sa variable \ct{count} à \ct{0} et pour incrémenter cette dernière quand de nouvelles instances sont créées:
-\begin{method}[dogcount]{Comptabiliser les nouvelles instances de Dog via count}
+\begin{method}[dogcount]{Comptabiliser les nouvelles instances de \ct{Dog} via \ct{Dog class>>>count}}
 Dog class>>>initialize
 	super initialize.
 	count := 0.
@@ -370,7 +372,7 @@ il en résulte que:
 C'est pour cette raison que les méthodes d'initialisation d'instance doivent 
 toujours être définies dans le \subind{Browser}{côté instance}\,---\,le \subind{Browser}{côté classe} n'ayant pas accès aux variables d'instance, il ne pourrait y avoir initiali\-sation!  
 % 2007-11-05 correction errata SBE
-Tout ce que peut faire la classe, c'est d'envoyer des messages d'\ind{initialisation} à des instances nouvellement créées; ces messages pouvant bien sûr utiliser les méthodes d'accès.
+Tout ce que peut faire la classe, c'est d'envoyer des messages d'\ind{initialisation} à des instances nouvellement créées; ces messages pouvant bien sûr utiliser les méthodes d'\subind{méthode}{accès}.
 
 De même, les instances ne peuvent accéder aux variables d'instance de classe
 que de manière indirecte en envoyant les messages d'accès à leur classe.
@@ -383,9 +385,9 @@ avec les variables de classe de \st dont nous parlerons dans \secref{classVars}:
 Le patron de conception~\footnote{En anglais, nous parlons de \emph{Design Patterns}.} nommé \ind{Singleton}~\cite{Alpe98a} offre un exemple-type de l'usage de variables d'instance de classe et de méthodes de classe.
 Imaginez que nous souhaitions d'une part, créer une classe \ct{WebServer} et d'autre part, s'assurer qu'il n'a qu'une et une seule instance en faisant appel au patron Singleton.
 
-En cliquant sur le bouton \button{instance} dans le navigateur de classe, nous définissons la classe \clsind{WebServer} comme suit (\clsref{singleton}).
+En \clickant{} sur le bouton \button{instance} dans le navigateur de classe, nous définissons la classe \clsind{WebServer} comme suit (\clsref{singleton}).
 
-\begin{classdef}[singleton]{Un classe Singleton}
+\begin{classdef}[singleton]{Une classe Singleton}
 Object subclass: #WebServer
 	instanceVariableNames: 'sessions' 	
 	classVariableNames: '' 	
@@ -393,22 +395,23 @@ Object subclass: #WebServer
 	category: 'Web'
 \end{classdef}
 
-Ensuite, en cliquant sur le bouton \button{class}, nous pouvons ajouter une variable d'instance \ct{uniqueInstance} au \subind{Browser}{côté classe}.
+Ensuite, en \clickant{} sur le bouton \button{class}, nous pouvons ajouter une variable d'instance \ct{uniqueInstance} au \subind{Browser}{côté classe}.
 
 \begin{classdef}[webserver]{Le côté classe de la classe Singleton}
 WebServer class 	
 	instanceVariableNames: 'uniqueInstance'
 \end{classdef}
 
-Par conséquence, la classe \ct{WebServer} a désormais un autre variable d'instance, en plus des variables héritées telles que \ct{superclass} et \ct{methodDict}.
+Par conséquence, la classe \ct{WebServer} a désormais une autre variable d'instance, en plus des variables héritées telles que \ct{superclass} et \ct{methodDict}.
 
 Nous pouvons maintenant définir une \subind{classe}{méthode} de classe que nous appellerons \ct{uniqueInstance} comme dans \tmthref{uniqueInstance}. 
 Pour commencer, cette méthode vérifie si \ct{uniqueInstance} a été initialisée ou non: dans ce dernier cas,
 la méthode crée une instance et l'assigne à la variable d'instance de classe \ct{uniqueInstance}.  
 \emph{In fine}, la valeur de \ct{uniqueInstance} est retournée.
 Puisque \ct{uniqueInstance} est une variable d'instance de classe, cette méthode peut directement y accéder.
-    
-\begin{method}[uniqueInstance]{uniqueInstance (côté classe)}
+
+\needlines{4}
+\begin{method}[uniqueInstance]{\ct{WebServer class>>>uniqueInstance} (côté classe)}
 WebServer class>>>uniqueInstance
      uniqueInstance ifNil: [uniqueInstance := self new].
      ^ uniqueInstance
@@ -420,7 +423,7 @@ La seconde fois, l'instance précédemment créée sera retournée au lieu d'y a
 Remarquons que la clause conditionnelle à l'intérieur du code de création
 de \tmthref{uniqueInstance} est écrite \ct{self new} et non 
 \mbox{\ct{WebServer new}.}
-Quelle en est la différence?   Comme la méthode \ct{uniqueInstance} est définie dans \ct{WebServer class}, vous pouvez penser qu'elles sont identiques.    En fait, tant que personne ne crée une sous-classe de \ct{WebServer}, elles sont pareilles. Mais en supposant que \ct{ReliableWebServer} est une sous-classe de \ct{WebServer} et qu'elle hérite de la méthode \ct{uniqueInstance},
+Quelle en est la différence?   Comme la méthode \ct{uniqueInstance} est définie dans \mbox{\ct{WebServer class},} vous pouvez penser qu'elles sont identiques.    En fait, tant que personne ne crée une sous-classe de \ct{WebServer}, elles sont pareilles. Mais en supposant que \ct{ReliableWebServer} est une sous-classe de \ct{WebServer} et qu'elle hérite de la méthode \ct{uniqueInstance},
 nous devrions nous attendre à ce que \ct{ReliableWebServer uniqueInstance} réponde un \ct{ReliableWebServer}. L'utilisation de \self assure que cela arrivera car il sera lié à la classe correspondante.
 Du reste, notez que \ct{WebServer} et \ct{ReliableWebServer} ont chacune
 leur propre variable d'instance de classe nommée \ct{uniqueInstance}.  
@@ -451,9 +454,9 @@ ProtoObject superclass  --> nil
 Traditionnellement, la racine de la hiérarchie d'héritage en \st est la classe \clsind{Object} (``Objet'' en anglais; puisque \mantra).
 En \pharo, la racine est en fait une classe nommée \clsind{ProtoObject}, mais
 normalement, vous n'aurez aucune attention à accorder à cette classe.
-\ct{ProtoObject} encapsule le jeu de messages restreint que tout objet \emph{doit} avoir.  
+\ct{ProtoObject} encapsule le jeu de méthodes restreint que tout objet \emph{doit} avoir.  
 N'importe comment, la plupart des classes héritent de \ct{Object} qui, pour
-sa part, définit beaucoup de messages supplémentaires que presque tous les
+sa part, définit beaucoup de méthodes supplémentaires que presque tous les
 objets devraient comprendre et auquels ils devraient pouvoir répondre.
 à moins que vous ayez une autre raison de faire autrement, vous devriez
 normalement générer des classes d'application par l'héritage
@@ -502,7 +505,7 @@ des objets pouvant être comparables les uns avec les autres. Les
 sous-classes de \ct{Magnitude} devraient implémenter les méthodes
 \ct{<}, \ct{=} et \ct{hash}~\footnote{Relatif au code de hachage.}.
 Grâce à ces messages, \ct{Magnitude} définit d'autres méthodes telles que
-\ct{>}, \ct{>=}, \ct{<=}, \ct{max:}, \ct{min:} \ct{between:and:} et
+\mbox{\ct{>},} \mbox{\ct{>=},} \mbox{\ct{<=},} \mbox{\ct{max:},} \mbox{\ct{min:},} \ct{between:and:} et
 d'autres encore pour comparer des objets.
 Ces méthodes sont héritées par les sous-classes.
 La méthode \mthind{Magnitude}{<} est abstraite et est définie comme
@@ -511,7 +514,7 @@ dans \tmthref{MagnitudeLessThan}.
 \begin{method}[MagnitudeLessThan]{\ct{Magnitude>>><}. Le commentaire dit: ``répond si le receveur est inférieur à l'argument''}
 Magnitude>>>< aMagnitude 
 	"Answer whether the receiver is less than the argument."
-	^self subclassResponsibility
+	^ self subclassResponsibility
 \end{method}
 
 \noindent
@@ -520,16 +523,16 @@ A contrario, la méthode \mthind{Magnitude}{>=} est concrète; elle est définie
 \begin{method}[Magnitude>=]{\ct{Magnitude>>>>=}. Le commentaire dit: ``répond si le receveur est plus grand ou égal à l'argument''}
 >= aMagnitude 
 	"Answer whether the receiver is greater than or equal to the argument."
-	^(self < aMagnitude) not
+	^ (self < aMagnitude) not
 \end{method}
 Il en va de même des autres méthodes de comparaison.
 
-\clsind{Character} est une sous-classe de \ct{Magnitude}; elle surcharge la méthode \mthind{Object}{subclassResponsibility} de \ct{<} avec sa propre version de \ct{<} (voir \mthref{CharacterLessThan}).  \ct{Character} définit aussi les méthodes \ct{=} et \ct{hash}; elles héritent les méthodes \ct{>=}, \ct{<=}, \ct{~=} et autres de la classe \ct{Magnitude}.
+\clsind{Character} est une sous-classe de \ct{Magnitude}; elle surcharge la méthode \mthind{Object}{subclassResponsibility} de \ct{<} avec sa propre version de \ct{<} (voir \mthref{CharacterLessThan}).  \ct{Character} définit aussi les méthodes \ct{=} et \ct{hash}; elles héritent entre autres des méthodes \mbox{\ct{>=},} \ct{<=} et \ct{~=} de la classe \ct{Magnitude}.
 
 \begin{method}[CharacterLessThan]{\ct{Character>>><}. Le commentaire dit: ``répond vrai si la valeur du receveur est inférieure à la valeur du l'argument''}
 Character>>>< aCharacter 
 	"Answer true if the receiver's value < aCharacter's value."
-	^self asciiValue < aCharacter asciiValue
+	^ self asciiValue < aCharacter asciiValue
 \end{method}
 
 %---------------------------------------------------------
@@ -557,7 +560,7 @@ Les \emph{traits} peuvent contenir des méthodes, mais aucune variable d'instanc
 Supposons que nous voulons ajouter une méthode \ct{author} (auteur en anglais) à différentes classes sans lien hiérarchique;
 nous le ferions ainsi:
 
-\begin{method}[author]{Définir la méthode author}
+\begin{method}[author]{Définir la méthode \ct{TAuthor>>>author}}
 TAuthor>>>author
     "Returns author initials"
 	^ 'on'    "oscar nierstrasz"
@@ -576,7 +579,7 @@ BorderedMorph subclass: #LOGame
 	category: 'PBE-LightsOut'
 \end{classdef}
 
-Si nous instancions maintenant \ct{LOGame}, l'instance répondra comme prévu au message \ct{author}.
+Si nous instançions maintenant \ct{LOGame}, l'instance répondra comme prévu au message \ct{author}.
 
 \begin{code}{}
 LOGame new author --> 'on'
@@ -654,23 +657,23 @@ opérations statiques sur les classes, nous leur envoyons simplement
 des messages, puisque les classes sont aussi des objets. % REVOIR 'by sending messages'
 
 \emph{Pratiquement} tout en \st se passe par envoi de messages. % REVOIR 'by sending messages'
-à certains stades, le pragmatisme doit prendre le relais:
+À certains stades, le pragmatisme doit prendre le relais:
 \begin{itemize}
   \item Les \emph{déclarations de variable} ne reposent pas sur l'envoi de messages.
   		En fait, les \subind{variable}{déclaration}{}s de variable ne sont même pas exécutables.
   		Déclarer une variable produit simplement l'allocation d'un espace pour la référence de l'objet.
   \item Les \emph{affectations} (ou assignations) ne reposent pas sur l'envoi de messages.
   		L'\ind{affectation} d'une variable produit une liaison de nom de variable dans le cadre de sa définition.
-  \item Les \emph{retours} (ou renvois) ne reposent pas sur l'envoi de message.
+  \item Les \emph{retours} (ou renvois) ne reposent pas sur l'envoi de messages.
   		Un \ind{retour} ne produit que le retour à l'envoyeur du résultat calculé.
-  \item Les \emph{primitives} ne reposent pas sur l'envoi de message.
+  \item Les \emph{primitives} ne reposent pas sur l'envoi de messages.
   		Elles sont codées au niveau de la \ind{machine virtuelle}.
 		\index{primitive}
 \end{itemize}
 
 à quelques autres exceptions près, presque tout le reste se déroule véritablement par l'envoi de messages. 
 En particulier, la seule façon de mettre à jour une \ind{variable d'instance} d'un autre objet est de lui envoyer un message réclamant le changement de son propre attribut (ou champ) car ces derniers ne sont pas des ``attributs publics'' en \st.
-Bien entendu, offrir des méthodes d'accès dites accesseurs (\emph{getter}, en anglais, retournant l'état de la variable) et mutateurs (\emph{setter} en anglais, changeant la variable) pour chaque variable d'instance d'un objet n'est pas une bonne méthodologie orientée objet.
+Bien entendu, offrir des méthodes d'\subind{méthode}{accès en lecture} dites accesseurs (\emph{getter}, en anglais, retournant l'état de la variable) et mutateurs ou méthodes d'\subind{méthode}{accès en écriture} (\emph{setter} en anglais, changeant la variable) pour chaque variable d'instance d'un objet n'est pas une bonne méthodologie orientée objet.
 Joseph Pelrine annonce aussi à juste titre:
 \important{Ne laissez jamais personne d'autre jouer avec vos données~\traduit{Don't let anyone else play with your data.}.}
 
@@ -718,6 +721,7 @@ anEllipse defaultColor --> Color yellow
 \noindent
 La classe \ct{EllipseMorph} implémente \ct{defaultColor}, donc la méthode adéquate est trouvée immédiatement.
 
+\needlines{5}
 \begin{method}[defaultColor]{Une méthode implémentée localement. Le commentaire dit: ``retourne la couleur par défaut; le style de remplissage pour le receveur''}
 EllipseMorph>>>defaultColor
 	"answer the default color/fill style for the receiver"
@@ -733,7 +737,7 @@ Morph>>>openInWorld
 	"Add this morph to the world."
 
   self openInWorld: self currentWorld
-\end{method} % REVOIR CHANGE (allusion à MVC retirée)
+\end{method}
 \cmindex{Morph}{openInWorld}
 
 \begin{figure}[htb]
@@ -783,7 +787,7 @@ C'est une convention en \st, ainsi résumé par Kent Beck se référant à la \e
 \subsection{Surcharge et extension.}
 
 Si nous revenons à la hiérarchie de classe \ct{EllipseMorph} dans \figref{openInWorldLookup}, nous voyons que les classes \ct{Morph} et \mbox{\ct{EllipseMorph}} implémentent toutes deux \ct{defaultColor}.
-En fait, si nous ouvrons un nouvel élément graphique \emph{Morph} (\ct{Morph new openInWorld}), nous constatons que nous obtenons un morph bleu, là où l'ellipse (\ct{EllipseMorph}) est jaune (yellow) par défaut.
+En fait, si nous ouvrons un nouvel élément graphique \emph{Morph} (\ct{Morph new openInWorld}), nous constatons que nous obtenons un morph bleu, là où l'ellipse (\ct{EllipseMorph}) est jaune \mbox{(\lct{yellow})} par défaut.
 \index{méthode!surcharge}
 \index{méthode!extension}
 \seeindex{surcharge}{méthode, surcharge}
@@ -802,12 +806,12 @@ Cependant, les méthodes \ct{initialize} de chacune des super-classes
 de la chaîne d'héritage fournissent déjà la connaissance nécessaire. 
 La sous-classe n'a pas à s'occuper d'initialiser les variables d'instance héritées!
 
-C'est une bonne pratique d'envoyer \ct{super initialize} avant tout autre considération lorsque nous créons une méthode d'\ind{initialisation}:
+Envoyer \ct{super initialize} avant tout autre considération lors de la création d'une méthode d'\ind{initialisation} est une bonne pratique:
 \arevoir{}% subpvindex
 \subpvindex{super}{\ct{initialize}}
 
 \needlines{6}
-\begin{method}[morphinit]{Super initialize. Le commentaire dit: ``initialise l'état du receveur''}
+\begin{method}[morphinit]{Initialisation de la super-classe. Le commentaire dit: ``initialise l'état du receveur''}
 BorderedMorph>>>initialize
 	"initialize the state of the receiver"
 	super initialize.
@@ -817,7 +821,7 @@ BorderedMorph>>>initialize
 \important{Une méthode \ct{initialize} devrait toujours commencer par la ligne \ct{super initialize}.}
 
 %---------------------------------------------------------
-\subsection{Self et super}
+\subsection{Envois à self et à super}
 
 Nous avons besoin des \subpvind{super}{envoi}{}s sur \super pour 
 réutiliser le comportement hérité qui pourrait sinon être
@@ -826,7 +830,7 @@ Cependant, la technique habituelle de composition de méthodes,
 héritées ou non, est basée sur l'\subpvind{self}{envoi} à
 \self.
 
-Comment l'envoi à \self diffère de celle avec \super?
+Comment l'envoi à \self diffère de celui à \super?
 Comme \self, \super représente le receveur du message.
 La seule différence est dans la méthode de \subind{méthode}{recherche}.
 Au lieu de faire partir la recherche depuis la classe du receveur,
@@ -842,11 +846,12 @@ Nous allons voir précisemment comment cela marche avec l'exemple suivant.
 Considérons le message \ct{constructorString}, que nous pouvons envoyer à 
 n'importe quel morph:
 \begin{code}{@TEST | anEllipse | anEllipse := EllipseMorph new.}
-anEllipse constructorString --> '((EllipseMorph newBounds: (0@0 corner: 50@40) color: Color yellow) setBorderWidth: 1 borderColor: Color black)'
+anEllipse constructorString --> '(EllipseMorph newBounds: (0@0 corner: 50@40) color: Color yellow)'
 \end{code}
 La valeur de retour est une chaîne de caractères qui peut être évaluée pour recréer un morph.
 
-Comment ce résultat est-il exactement obtenu grâce à l'association de \self et de \super?
+Comment ce résultat est-il exactement obtenu grâce à l'association de \self et de \mbox
+{\super{}?}
 Pour commencer, 
 \ct{anEllipse constructorString} trouvera la méthode \ct{constructorString} dans la 
 classe \ct{Morph},
@@ -867,22 +872,32 @@ Morph>>>constructorString
 	^ String streamContents: [:s | self printConstructorOn: s indent: 0]
 \end{method}
 
-\arelire{La méthode \cmind{Morph}{constructorString} envoie
-  \ct{printConstructorOn:indent:} à \self.
-Ce message est \arevoir{recherché} dans la hiérarchie en commençant dans la classe
-\lct{EllipseMorph} et finalement trouvé dans \ct{Morph}.}
-%This message is also looked up, starting in the class \lct{EllipseMorph}, and found in \ct{Morph}.
-\arelire{Cette méthode en retour envoie à \self le message
+% \arelire{La méthode \cmind{Morph}{constructorString} envoie
+%  \ct{printConstructorOn:indent:} à \self.
+% Ce message est \arevoir{recherché} dans la hiérarchie en commençant dans la classe
+% \lct{EllipseMorph} et finalement trouvé dans \ct{Morph}.}
+% This message is also looked up, starting in the class \lct{EllipseMorph}, and found in \ct{Morph}.
+% \arelire{Cette méthode en retour envoie à \self le message
+% \lct{printConstructorOn:indent:nodeDict:}, qui, à son tour, envoie
+% \ct{fullPrintOn:} à \self.
+% Encore une fois, \ct{fullPrintOn:} est \arevoir{recherché} depuis la classe
+% \ct{EllipseMorph} et \mthind{BorderedMorph}{fullPrintOn:} 
+% est trouvé dans \ct{BorderedMorph} 
+% (revoir\figref{constructorStringLookup})} % CHANGE
+
+La méthode \cmind{Morph}{constructorString} envoie le message
+\ct{printConstructorOn:indent:} à \self. La méthode correspondante à ce
+message est alors recherchée dans la hiérarchie de classes d'abord en
+en commençant dans la classe \lct{EllipseMorph} et finalement trouvé dans \ct{Morph}.
+Cette méthode en retour envoie à \self le message
 \lct{printConstructorOn:indent:nodeDict:}, qui, à son tour, envoie
-\ct{fullPrintOn:} à \self.
-Encore une fois, \ct{fullPrintOn:} est \arevoir{recherché}
-depuis la classe
-\ct{EllipseMorph} et \mthind{BorderedMorph}{fullPrintOn:} est
-trouvé dans \ct{BorderedMorph} (revoir
-\figref{constructorStringLookup})} % CHANGE
-% rene : il manque la traduction de :
-% What is critical to notice is that the self send causes the method lookup to start 
-% again in the class of the receiver, namely the class of anEllipse.
+\ct{fullPrintOn:} à \self. Encore une fois, \ct{fullPrintOn:} est recherché
+depuis la classe \ct{EllipseMorph} et \mthind{BorderedMorph}{fullPrintOn:} 
+est trouvé dans \ct{BorderedMorph} 
+(revoir\figref{constructorStringLookup}) % CHANGE
+Ce qui est crucial à observer est le fait qu'un envoi à self provoque une recherche de méthode
+qui débute dans la classe du receveur, à savoir la classe de anEllipse.
+
 \important{Un envoi à \self déclenche le départ de la recherche \emph{dynamique} de méthode dans la classe du receveur.}
 
 \needlines{4}
@@ -939,8 +954,8 @@ Comme cette méthode n'est pas trouvée, la \ind{machine virtuelle} veillera
 
 Ceci est un envoi dynamique de message tout à fait normal. Ainsi
 la recherche recommence depuis la classe \ct{EllipseMorph}, mais
-cette fois-ci en cherchant la méthode \ct{doesNotUnderstand:}~\footnote{Le nom du message peut se traduire par: \emph{ne comprend pas}.}.
-Il apparaît que \ct{Object} implémente \ct{doesNotUnderstand:}.
+cette fois-ci en cherchant la méthode \ct{doesNotUnderstand:}~\footnote{Le nom du message peut se traduire par: \emph{``ne comprend pas''}.}.
+Il apparaît que \lct{Object} implémente \ct{doesNotUnderstand:}.
 Cette méthode créera un nouvel objet \ct{MessageNotUnderstood} (en français: Message incompréhensible) capable de démarrer Debugger, le débogueur, dans le contexte actuel de l'exécution.
 
 Pourquoi prenons-nous ce chemin sinueux pour gérer une erreur si évidente?
@@ -1120,7 +1135,7 @@ Il semble en effet inopportun d'ajouter une variable d'instance \ct{name}
 La présence de variables de classe soulève une question: comment les initialiser?
 
 Une solution est l'\subind{classe}{initialisation} dite paresseuse (ou \emph{lazy initialization} en anglais).
-Cela est possible avec l'introduction d'un message d'accès qui
+Cela est possible avec l'introduction d'une méthode d'\subind{méthode}{accès} qui
 initialise la variable, durant l'exécution, si celle-ci n'a pas été
 encore initialisée.
 Ceci nous oblige à utiliser la méthode d'accès tout le temps et à ne jamais
@@ -1128,7 +1143,7 @@ faire appel à la variable de classe directement.
 De plus, notons que le coût de l'envoi d'un accesseur et le test d'initialisation sont à prendre en compte.
 Ceci va à l'encontre de notre motivation à utiliser une variable de classe, parce qu'en réalité elle n'est plus partagée.
 
-\begin{method}[colorclasscolornames]{Color class>>colorNames}
+\begin{method}[colorclasscolornames]{\ct{Color class>>>colorNames}}
 Color class>>>colorNames	
 	ColorNames ifNil: [self initializeNames].
 	^ ColorNames
@@ -1138,7 +1153,7 @@ Color class>>>colorNames
 Une autre solution consiste à surcharger la méthode \ct{initialize}.
 
 \needlines{3}
-\begin{method}[colorclassinit]{Color class>>initialize}
+\begin{method}[colorclassinit]{\ct{Color class>>>initialize}}
 Color class>>>initialize	
 	!\ldots!
 	self initializeNames
@@ -1187,8 +1202,9 @@ du dictionnaire \emph{directement} dans le corps de la méthode, \ie
 en utilisant la syntaxe de variable plutôt qu'une recherche explicite
 dans le dictionnaire.
 Par exemple, nous pouvons écrire la méthode suivante.
-  
-\begin{method}[texttestcr]{Text>>testCR}
+
+\needlines{3}
+\begin{method}[texttestcr]{\ct{Text>>>testCR}}
 Text>>>testCR 	
       ^ CR == Character cr
 \end{method}
@@ -1205,11 +1221,10 @@ Le modèle objet de \pharo est à la fois simple et uniforme.
 
 \begin{itemize}
 
-  \item \Mantra.
-  Les entités primitives telles que les entiers sont des objets, tout comme
-il est vrai que les classes soient des objets de premier ordre.
+\item \Mantra.
+  Les entités primitives telles que les entiers sont des objets, ainsi que les classes qui sont des objets comme les autres.
 
-  \item Tout objet est instance d'une classe.
+\item Tout objet est instance d'une classe.
 Les classes définissent la structure de leurs instances via des
 variables d'instance \emph{privées} et leur comportement 
 via des méthodes \emph{publiques}. Chaque classe est l'unique
@@ -1219,8 +1234,8 @@ et toutes les instances de la classe.
 Les classes ne peuvent pas accéder directement aux variables d'instance de
 leurs instances et les instances ne peuvent pas accéder aux variables de
 classe de leur classe.
-Les méthodes d'accès (accesseurs et mutateurs) doivent être
-définies au besoin.  
+Des méthodes d'\subind{méthode}{accès} (accesseurs et mutateurs) doivent être
+définies si besoin.  
 
   \item Toute classe a une super-classe.
   La racine de la hiérarchie basée sur l'héritage simple est \ct{ProtoObject}.
@@ -1267,7 +1282,6 @@ en regroupant ces dernières en \emph{traits}.
 %%% mode: latex
 %%% TeX-master: t
 %%% TeX-PDF-mode: t
-%%% ispell-local-dictionary: "english"
 %%% End:
 
 %---------------------------------------------------------

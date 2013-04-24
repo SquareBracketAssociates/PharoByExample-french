@@ -14,6 +14,8 @@
 % mise à jour: Martial (Tue Jun 22 11:51:51 CEST 2010)
 % sync avec la version: 33691
 % relecture: Rene Mages  (Thu Jun 24 13:22:22 CEST 2010)
+% relecture: Rene Mages  (Sun Apr 10 13:22:22 CEST 2011)
+% relecture: Rene Mages  (Fri May 27 13:22:22 CEST 2011)
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -58,44 +60,47 @@ La création des méthodes, des objets et les envois de messages seront égaleme
 
 %=================================================================
 \section{Premiers pas}
+\tradalert{martial}{nouvelle section}
+\pharo est librement disponible au \ind{téléchargement} depuis la page \mbox{\pharowebdownload} du site web de \pharo.
+Pour bien démarrer, il vous faudra trois archives: une archive \emph{image} (contenant deux fichiers, l'image proprement dite et le fichier de \emphind{changes}) disponible dans le paragraphe \emph{Pharo 1.* image}, 
+un fichier nommé \emphind{source}{}\emph{s} disponible dans le paragraphe \emph{Sources file} et enfin, un programme exécutable appelé machine virtuelle selon votre système d'exploitation dans le paragraphe \emph{Virtual Machines}.
 
-\pharo est librement disponible au \ind{téléchargement} depuis le site
-web: \pharoweb. % CHANGE
-Vous devez y télécharger 3 archives (pour 4 fichiers principaux qui
-constituent une installation courante de \pharo; voir \figref{download}) 
+Dans le cas du présent livre, nous aurons seulement besoin de télécharger une archive unique contenant tout le nécessaire.
+Sachez que si vous avez déjà une autre version de \pharo qui fonctionne sur votre
+machine, la plupart des exemples d'introduction de ce livre
+fonctionneront mais, en raison de subtils changements dans l'interface et les outils proposées dans une version actuelle de \pharo, nous vous recommandons le téléchargement du fichier \mbox{``\pharooneclick''}~\footnote{``PBE'' est l'acronyme de \emph{``Pharo by Example''}, titre original de ``Pharo par l'Exemple''.} disponible sur le site \ppe: vous aurez alors une image en parfait accord avec le livre.
 
-\begin{figure}[htb]
-\centerline {\includegraphics[width=\textwidth]{annotatedDownload-flat}}
-\caption{Les fichiers à télécharger de \pharo \arelire{pour une des
-    plateformes supportées}. \figlabel{download}}
-\end{figure}
+\index{téléchargement}
+\seclabel{sbeImage}             % OBSOLETE
+\dothis{Depuis le site \ppe{}, téléchargez et décompressez l'archive \pharo nommé \pharooneclick{} sur votre ordinateur.} % CHANGE pour ppe dès que possible
+
+Le dossier résultant de la décompression de l'archive contient quatre fichiers importants: la machine virtuelle selon votre système d'exploitation, l'image, le fichier \emph{sources} et le fichier \emph{changes}. Si vous êtes utilisateur de \macosx, nous vous inquiétez pas de ne voir qu'un seul fichier; il s'agit d'un exécutable en \emph{bundle} que vous pouvez explorer en cliquant dessus avec le bouton droit et en choisissant l'option du menu contextuel dite ``Afficher le contenu du paquet''.
+
+Avec la machine virtuelle, vous devriez donc avoir quatre fichiers tels que nous pouvons le voir sur \figref{download}. Ainsi \pharo{} se compose:
 
 \begin{enumerate}
-
-\item La \emphind{machine virtuelle} (abrégée en VM pour
-  \emph{virtual machine}) est la seule partie de l'environnement qui
+\item d'une \emphind{machine virtuelle} (abrégée en VM pour
+  \emph{virtual machine}): c'est la seule partie de l'environnement qui
   est particulière à chaque \arelire{couple système d'exploitation et
     processeur}. Des machines virtuelles pré-compilées sont disponibles pour la plupart des
-  systèmes (Linux, \macosx, Win32). Dans \figref{download}, \arelire{vous
-pouvez voir que la machine virtuelle pour la plateforme choisie est
-appelée \textit{Pharo.exe}.} % CHANGE 29247
+  systèmes (Linux, \macosx, Win32). Dans \figref{download}, vous
+pouvez voir que la machine virtuelle pour la plateforme Windows est
+appelée \textit{pharo.exe}. En naviguant dans le répertoires \textsf{Contents/Linux}, les utilisateurs
+trouveront un fichier binaire nommé \textit{squeakvm}~\footnote{Basé sur \squeak{}3.9, \pharo utilise par défault une machine virtuelle similaire.}: il s'agit de la machine virtuelle qui est appelée via le script \emph{shell} \textit{pharo.sh}.
 %martial: ajout des index dans la vf
 \index{machine virtuelle}
 \seeindex{VM}{machine virtuelle}
 
-  \item Le fichier \emphind{source} contient le code source du système
+  \item du fichier \emphind{source}: il contient le code source du système
     \pharo. Ce fichier ne change pas très fréquement. Dans \figref{download}, il
     correspond au fichier
-    \emph{SqueakV39.sources}\footnote{\arelire{\pharo est
-dérivé de \squeak{} 3.9 et partage actuellement la machine virtuelle
-avec \squeak.}}
-.
+    \emph{PharoV10.sources}.
 %ajout fr index
 \index{fichier!source}
 \seeindex{fichier-source}{fichier, source}
-\seeindex{SqueakV39.sources}{fichier, source}
+\seeindex{PharoV10.sources}{fichier, source}
 
-\item L'\emphind{image} \emph{système}  est un cliché d'un système
+\item de l'\emphind{image} \emph{système}: il s'agit d'un cliché d'un système
   \pharo{} en fonctionnement, figé à un instant donné. 
 Il est composé de deux fichiers: le premier nommé avec l'extension
 \emph{.}\emphind{image} contient l'état de tous les objets du système
@@ -103,64 +108,51 @@ dont les classes et les méthodes (qui sont aussi des objets).
 Le second avec l'extension \emph{.}\emphind{changes} contient
 le journal de toutes les modifications apportées au code source du
 système (contenu dans le fichier source).
-\arelire{Dans \figref{download}, ces fichiers sont appelés
-  \emph{pharo.image} et \emph{pharo.changes}.}
+Dans \figref{download}, ces fichiers sont appelés
+  \emph{PBE.image} et \emph{PBE.changes}.
 %ajout fr index
 \index{fichier!image}
 \index{fichier!changes}
 \end{enumerate}
 
-\dothis{Téléchargez et installez \pharo sur votre ordinateur.}
-\arelire{Nous vous recommandons d'utiliser l'image fournie sur la page web du
-livre\footnote{\ppe}.}
-\index{téléchargement}
-\seclabel{sbeImage} %????
+\begin{figure}[htb]
+\centerline {\includegraphics[width=\textwidth]{annotatedDownload-flat-oneclick}}
+\caption{Fichiers de \pharo dans l'archive \pharooneclick{} vus par les systèmes Windows, \macosx et Linux. Les fichiers \emph{PBE.image} et \emph{PBE.changes} doivent être modifiables en écriture.}\figlabel{download}
+\end{figure}
 
-
-Sachez que si vous avez déjà une autre version de \pharo qui fonctionne sur votre
-machine, la plupart des exemples d'introduction de ce livre
-fonctionneront. Il n'est donc pas nécessaire de mettre à jour \pharo.
-Dès lors, ne soyez pas surpris de constater parfois des différences dans l'apparence ou le comportement que nous décrirons.
-% D'un autre côté, si vous téléchargez \pharo pour la première fois,
-% vous devriez rapatrier et utiliser l'image \emph{\pharo par l'Exemple}.
-
-Pendant que vous travaillez avec \pharo les fichiers \emph{.image} et \emph{.changes} sont modifiés, vous devez vous assurer qu'ils sont accessibles en écriture.
-Conservez toujours ces deux fichiers ensemble, \cad dans le même dossier.
-Et surtout, ne tentez pas de les modifier avec un éditeur de texte, \pharo les utilise pour stocker vos objets de travail et vos changements dans le code source.
+Ces trois derniers fichiers résident discrètement dans le répertoire \textsf{Contents/Resources}.
+Pendant que vous travaillez avec \pharo, les fichiers \emph{.image} et \emph{.changes} sont modifiés; si vous êtes amenés à utiliser d'autres images, vous devez donc vous assurer qu'ils sont accessibles en écriture et qu'ils sont toujours ensemble, \cad dans le même dossier.
+Ne tentez pas de les modifier avec un éditeur de texte, \pharo les utilise pour stocker vos objets de travail et vos changements dans le code source.
 Faire une copie de sauvegarde de vos images téléchargées et de vos
 fichiers \emph{changes} est une bonne idée; vous pourrez ainsi
 toujours démarrer à partir d'une image propre et y recharger votre code.
-
 Les fichiers \emphind{source}{}\emph{s} et l'exécutable de la VM peuvent être
 en lecture seule\,---\,il est donc possible de les partager entre plusieurs utilisateurs.
-Ces quatre fichiers peuvent résider dans le même dossier, mais vous pouvez également placer la machine virtuelle et les fichiers sources dans un dossier partagé distinct.
-Vous pouvez adapter l'installation de \pharo à vos habitudes de travail
-et à votre système d'exploitation.
 
 %-----------------------------------------------------------------
 \begin{figure}[htb]
 %\centerline {\includegraphics[width=0.6\textwidth]{download}}
 \centerline {\includegraphics[width=0.95\textwidth]{startup}}
-\caption{Une image \arevoir{\ppe} fraîchement démarrée.\figlabel{startup}}
+\caption{Une image PBE fraîchement démarrée.\figlabel{startup}}
 \end{figure}
 
 \index{lancement de \pharo}
 
-\paragraph{Lancement.} Pour lancer \pharo, selon votre système: glissez
-le fichier \emph{.}\emphind{image} sur l'icône de l'exécutable de la
-machine virtuelle, ou double-cliquez sur le fichier
-\emph{.}\emphind{image}, ou encore, depuis une ligne de commande,
-tapez le nom du fichier binaire correspondant à la machine virtuelle
-suivi du chemin d'accès au fichier \emph{.}\emphind{image} (si vous
-avez installé plusieurs machines virtuelles, le système ne choisira
-pas forcément celle qui convient, il sera préférable de
-glisser-déposer l'image sur la VM ou d'utiliser la ligne de commande).
+\paragraph{Lancement.} Pour lancer \pharo:
 
-Une fois lancé, \pharo vous présente une large fenêtre qui contient des
+\begin{itemize}
+\item si vous êtes sous Windows, cliquez sur \textit{pharo.exe} à la racine du répertoire \textsf{\pharooneclick{}.app}.
+Le fichier \textit{pharo.ini} contient diverses options de lancement tels que \textit{ImageFile} permettant de pointer vers une image particulière. Veillez à ne pas toucher ou déplacer ce fichier.
+\item  si vous êtes sous Linux, vous pouvez au choix cliquez sur \textit{pharo.sh} ou lancer depuis votre terminal la commande \textsf{.\/pharo.sh} depuis la racine du répertoire \textsf{\pharooneclick{}.app}. Si vous ouvrez le script \emph{shell} avec un éditeur, vous verrez que la commande exécute la machine virtuelle avec l'image \emph{PBE.image} du répertoire \textsf{Contents/Resources}.
+\item si vous êtes sous \macosx, cliquez sur le fichier \textit{\pharooneclick} (ou \textit{\pharooneclick{}.app} suivant votre configuration). En affichant le contenu de paquet, vous avez du voir le fichier de propriétés \emph{Info.plist} à la racine du répertoire \textsf{Contents}. C'est là que la magie opère. Si vous ouvrez ce dernier fichier avec le programme \emph{Property List Editor}, vous verrez que notre application \textit{\pharooneclick} cache le lancement d'une machine nommée \emph{Squeak VM Opt} sur le fichier \emph{PBE.image}.
+\end{itemize}
+
+Ainsi cette archive dite ``\emph{OneClick}'' (\ie{} un \emph{\clickbtn{}}) nous évite de faire un \emph{glissé-déposé} de notre image \emph{PBE.image} sur le programme exécutable de notre machine virtuelle ou d'écrire notre propre script de lancement: tout ce passe en un \clickbtn de souris.
+
+Une fois lancé, \pharo vous présente une large fenêtre qui peut contenir des
 espaces de travail nommés \emphind{Workspace} (voir \figref{startup}).
-\arelire{Vous pourriez remarquer un barre de menus mais \pharo{}
+\arelire{Vous pourriez remarquer une barre de menus mais \pharo{}
   emploie principalement des menus contextuels.}
-
 
 \dothis{Lancez \pharo. Vous pouvez fermer les fenêtres déjà
   ouvertes en \clickant sur \arevoir{la bulle rouge dans le coin
@@ -195,8 +187,7 @@ Les options du menu World (``Monde'' en anglais) présentées dans
         souris), un menu contextuel (affiché en \actclickant{}) et un
       \subind{Morphic}{halo} Morphic (affiché en \metaclickant).}\figlabel{threeButtons}}
 \end{figure} % CHANGE
-%\seeindex{morphic halo}{Morphic}
-\seeindex{halo}{Morphic} % REVOIR
+\seeindex{halo}{Morphic, halo}
 
 % ON: I had to shrink this and move it up to avoid
 % it running over the end of the page.
@@ -234,7 +225,7 @@ différents boutons de souris~\footnote{Les couleurs de boutons sont
 nous utiliserons le terme \emph{\click} pour définir cette action;} % vf-only
 \item[\actclickbtn:] \arelire{c'est le second bouton le plus utilisé; il est
   utilisé pour afficher un menu contextuel \ie{} un menu qui fournit
-  différentes actions dépendant de où se trouve la souris comme le
+  différentes actions dépendant de la position de la souris comme le
   montre \figref{threeButtons:actclick}. Si vous n'avez pas de souris
   à multiples boutons, vous configurerez normalement la touche de
   modifications \emph{Ctrl} pour effectuer cette même action avec
@@ -274,7 +265,7 @@ Soit vous devez maintenir {\sc Shift} \emph{Ctrl} ou {\sc Shift}
 % \end{wrapfigure}
 % \newpage
 
-\dothis{Saisissez \ct{Time now}
+\dothis{Saisissez \ct{Time now}{}
 %ajout 
 (expression retournant l'heure actuelle) dans le Workspace.
 Puis \actclickz{} dans le Workspace et sélectionnez
@@ -381,21 +372,21 @@ gauche de votre image \pharo.
 
 Vous venez tout simplement d'évaluer votre première expression \st. 
 %You have just evaluated your first \st expression!
-Vous avez juste envoyé le message \ct{new} à la classe \bam 
+Vous avez juste envoyé le message \ct{new}{} à la classe \bam 
 ce qui résulte de la création d'une nouvelle instance qui à 
 son tour \arevoir{reçoit le message}
-\ct{openInWorld}. % REVOIR dans le texte orig. pas de notion de
+\mbox{\ct{openInWorld}{}.} % REVOIR dans le texte orig. pas de notion de
 % receveur mais on parle uniquement d'envoyer (dur à reformuler) - martial
 % You just sent the message \ct{new} to the \bam class, resulting in a new \bam instance, followed by the message \ct{openInWorld} to this instance.
 La classe \bam{} a décidé de ce qu'il fallait faire avec le message
-\ct{new}: elle recherche dans ses \emph{méthodes} pour répondre de
-façon appropriée au message \ct{new}
+\ct{new}{}: elle recherche dans ses \emph{méthodes} pour répondre de
+façon appropriée au message \ct{new}{}
 % vf
 \arevoir{(\ie{} ``nouveau'' en français; ce que nous traduirons par
   \emph{nouvelle instance})}.
 % The \bam class decided what to do with the \ct{new} message, that is, it looked up its \emph{methods} for handling \ct{new} message and reacted appropriately.
 De même, l'instance \bam recherchera dans ses méthodes comment
-répondre à \ct{openInWorld}.
+répondre à \mbox{\ct{openInWorld}{}.}
 % Similarly the \bam instance looked up its method for responding to \ct{openInWorld} and took appropriate action.
 
 Si vous discutez avec des habitués de \st, vous constaterez rapidement
@@ -420,42 +411,38 @@ répondre à votre message.
     la main''. Posez-la en \clickant.}}
 
 \begin{figure}[htb]
-\begin{minipage}[b]{0.48\textwidth}
-	{\centerline{\includegraphics[width=0.7\textwidth]{atoms}}}
-	\caption{Une instance de \bam.\figlabel{atoms}}
-\end{minipage}
-\hfill
-\begin{minipage}[b]{0.48\textwidth}
-	{\centerline{\includegraphics[width=0.7\textwidth]{saveAs}}}
-	\caption{La boîte de dialogue \menu{save as\ldots}.\figlabel{saveas}}
-\end{minipage}
+%\begin{minipage}[b]{0.48\textwidth}
+ 	{\centerline{\includegraphics[width=0.35\textwidth]{atoms}}}
+ 	\caption{Une instance de \bam.\figlabel{atoms}}
+%\end{minipage}
+%\hfill
+%\begin{minipage}[b]{0.48\textwidth}
+%	{\centerline{\includegraphics[width=0.7\textwidth]{saveAs}}}
+% 	\caption{La boîte de dialogue \menu{save as\ldots}.\figlabel{saveas}}
+%\end{minipage}
 \end{figure}
 
-\dothis{Sélectionnez \menu{World\go{}Save as\ldots} et entrez le nom
-  ``myPharo'', puis \clickz sur le bouton \button{OK}.
-%ajout
-pour sauvegarder sous un nouveau nom d'image.
-Pour quitter, sélectionnez \menu{World\go{}Save and quit}.} % CHANGE
+\dothis{Sélectionnez \menu{World\go{}Save and quit} pour sauvegarder votre image et quitter \pharo{}.}
 
-Le dossier qui contenait les fichiers image et \emph{changes} lorsque
-vous avez lancé cette session de travail avec \pharo contient désormais
-deux nouveaux fichiers: ``myPharo.\ind{image}'' et ``myPharo.\ind{changes}''. 
-%image vivante = working state of the pharo image
-Ils représentent l'image ``vivante'' de votre session \pharo au moment qui précédait votre enregistrement avec \menu{Save and quit}.
+Les fichiers ``PBE.\ind{image}'' et ``PBE.\ind{changes}'' 
+contenus dans votre dossier \textsf{Contents/Resources} ont changé.
+Ces fichiers représentent l'image ``vivante'' de votre session \pharo au moment
+qui précédait votre enregistrement avec \menu{Save and quit}.
 Ces deux fichiers peuvent être copiés à votre convenance dans les
-dossiers  de votre disque pour y être utilisés plus tard. à vous de
-les invoquer en prenant soin (selon votre système de fichiers) de
-%note de martial: j'ai transforme pour plus de logique mais c'est lourd: a revoir
-déplacer, copier ou lier le fichier \emph{sources} correspondant,
-tout en veillant à exécuter la bonne machine virtuelle.
+dossiers de votre disque pour y être utilisés plus tard: il faudra veiller
+à ce que le fichier \emph{sources} soit présent et que l'exécutable de la machine
+virtuelle soit informé de la nouvelle localisation de notre image. Pour le cas du
+présent livre, il n'est pas souhaitable de toucher à ces fichiers mais si vous voulez
+en savoir plus sur la possibilité de préserver l'image actuelle et changer d'image en utilisant
+l'option \menu{Save as\ldots}{}, rendez-vous dans \faqref{saveas-oneclick}.
 
-\dothis{Lancez \pharo avec l'image que vous venez de créer \cad le
-  fichier ``myPharo.image''.}
+\dothis{%
+Relancer \pharo{} en cliquant sur l'icône de votre programme (en fonction de votre système d'exploitation).}
 
 Vous retrouvez l'état de votre session exactement tel qu'il était
 avant que vous quittiez \pharo. La démo des \bamfr{} est toujours sur votre
 fenêtre de travail et les atomes continuent de rebondir depuis la position
-qu'ils avaient lorsque vous avez quitté.
+qu'ils avaient lorsque vous avez quitté. 
 
 En lançant pour la première fois \pharo, la \ind{machine virtuelle}
 charge le fichier image que vous spécifiez. Ce fichier contient
@@ -467,9 +454,9 @@ certains seront supprimés et l'espace-mémoire utilisé sera récupéré
 (\ie passé au ramasse-miettes ou \emph{garbage collector}).
 
 En quittant \pharo vous sauvegardez un instantané de tous vos objets. 
-En sauvegardant (par ``Save''), vous remplacerez l'image courante par 
-l'instantané de votre session. Pour préserver l'image courante, vous 
-devez enregistrer sous un nouveau nom comme nous venons de le faire.
+En sauvegardant par \menu{World\go{}Save}, vous remplacerez l'image courante par 
+l'instantané de votre session comme nous l'avons fait via \menu{Save and quit} mais
+sans quitter le programme. % A REVOIR
 
 Chaque fichier \emph{.image} est accompagné d'un fichier \emph{.changes}.
 Ce fichier contient un journal de toutes les modifications que vous avez 
@@ -493,23 +480,19 @@ suivre les évolutions du code et de le partager entre plusieurs développeurs.
 \dothis{\arelire{\Metaclickz{} (en utilisant les touches de
     modifications appropriées conjointement avec votre souris) sur la fenêtre
   d'\bamfr\footnote{Souvenez-vous que vous pourriez avoir besoin
-    d'activer l'option \ct{halosEnabled} dans le Preference
+    d'activer l'option \ct{halosEnabled}{} dans le Preference
     Browser.}.}} % CHANGE 29247
 
 %martial: le choix des noms 'poignee' 'icone' ... pourra etre change
 Vous verrez tout autour une collection d'icônes \arelire{circulaires} colorées
 nommée % CHANGE 29247
-\subind{Morphic}{halo} de \bam; l'icône
-% \emphsubind{halo}{icône}
-\subind{Morphic}{halo} est aussi appelée \emphsubind{halo}{poignée}.
+\subind{Morphic}{halo} de \bam; l'\emphsubind{Morphic}{icône}
+\subind{Morphic}{halo} est aussi appelée \emphsubind{Morphic}{poignée}.
 Cliquez sur la poignée rose pâle qui contient une croix; la fenêtre
 de démo disparaît. % CHANGE
 %(index Morphic vs halo) a revoir?
-\seeindex{poignée}{halo, poignée}
-\seeindex{Morphic!poignée}{halo, poignée}
-\seeindex{icône}{halo, icône}
-\seeindex{halo!icône}{halo, poignée}
-\seeindex{Morphic!icône}{halo, icône}
+\seeindex{poignée}{Morphic, poignée}
+\seeindex{icône}{Morphic, poignée}
 \seeindex{halo}{Morphic, halo}
 
 %=================================================================
@@ -628,21 +611,21 @@ En plus de \menu{do it}, vous aurez noté la présence de \menu{print it}
 de \menu{inspect it} (pour inspecter) et de \menu{explore it} (pour
 explorer). Jetons un coup d'\oe il à ceux-ci.
 
-\dothis{Entrez l'expression \ct{3 + 4} dans le Workspace. Maintenant
+\dothis{Entrez l'expression \ct{3 + 4}{} dans le Workspace. Maintenant
   évaluez en faisant un \menu{do it} avec le raccourci-clavier.}
 
 Ne soyez pas surpris que rien ne se passe!
-Ce que vous venez de faire, c'est d'envoyer le message \ct{+} avec
-l'argument \ct{4} au nombre \ct{3}. Le résultat \ct{7} aura
-normalement été calculé et retourné, mais puisque votre espace de
+Ce que vous venez de faire, c'est d'envoyer le message \ct{+}{} avec
+l'argument \ct{4}{} au nombre \mbox{\ct{3}{}.}
+Le résultat \lct{7} aura normalement été calculé et retourné, mais puisque votre espace de
 travail Workspace ne savait que faire de ce résultat, la réponse a
 simplement été jetée dans le vide. Si vous voulez voir le
 résultat, vous devriez faire \menu{print it} au lieu
 de \menu{do it}. En fait, \menu{print it} compile l'expression,
-l'exécute et envoie le message \ct{printString} au résultat puis
+l'exécute et envoie le message \ct{printString}{} au résultat puis
 affiche la chaîne de caractère résultante.
 
-\dothis{Sélectionnez \ct{3+4} et faites \menu{print it} (\short{p}).}
+\dothis{Sélectionnez \ct{3 + 4}{} et faites \menu{print it} (\short{p}).}
 Cette fois, nous pouvons lire le résultat que nous attendions (voir
 \figref{printit}).
 \index{raccourci-clavier!print it}
@@ -660,14 +643,14 @@ Cette fois, nous pouvons lire le résultat que nous attendions (voir
 3 + 4 --> 7
 \end{code}
 \noindent
-Nous utilisons la notation \ct{-->} comme convention dans tout le
+Nous utilisons la notation \ct{-->}{} comme convention dans tout le
 livre pour indiquer qu'une expression particulière donne un certain
 résultat quand vous l'évaluez avec \menu{print it}.
 
-\dothis{Effacez le texte surligné ``\ct{7}''; comme \pharo devrait l'avoir
+\dothis{Effacez le texte surligné \mbox{``\ct{7}{}'';} comme \pharo devrait l'avoir
   sélectionné pour vous, vous n'avez qu'à presser sur la touche
   de suppression (suivant votre type de clavier \texttt{Suppr.} ou
-  \texttt{Del.}). Sélectionnez \ct{3+4} à nouveau et, cette fois,
+  \texttt{Del.}). Sélectionnez \ct{3 + 4}{} à nouveau et, cette fois,
   faites une inspection avec \menu{inspect it} (\short{i}).}
 %ajout
 \index{raccourci-clavier!inspect it}
@@ -677,11 +660,11 @@ résultat quand vous l'évaluez avec \menu{print it}.
 \noindent
 Vous devriez maintenant voir une nouvelle fenêtre appelée
 \emphind{inspecteur} avec pour titre 
- \ct{SmallInteger: 7} (voir \figref{inspectit}).
+ \ct{SmallInteger: 7}{} (voir \figref{inspectit}).
 L'inspecteur ou (sous son nom de classe) Inspector est un outil
 extrêmement utile: il vous permet de naviguer et d'interagir avec
 n'importe quel objet du système.
-Le titre nous dit que \ct{7} est une instance de la classe
+Le titre nous dit que \ct{7}{} est une instance de la classe
 \clsind{SmallInteger} 
 %ajout
 (classe des entiers sur 31 bits).
@@ -696,32 +679,32 @@ expressions envoyant des messages à l'objet.
 \caption{Inspecter un objet.\figlabel{inspectit}}
 \end{figure}
 
-\dothis{Saisissez \ct{self squared} dans le panneau inférieur de
-  l'inspecteur que vous aviez ouvert sur l'entier \ct{7} et faites un
+\dothis{Saisissez \ct{self squared}{} dans le panneau inférieur de
+  l'inspecteur que vous aviez ouvert sur l'entier \ct{7}{} et faites un
   \menu{print it}.
 %ajout
-Le message \ct{squared} (carré) va élever le nombre \ct{7} lui-même (\ct{self}).}
+Le message \ct{squared}{} (carré) va élever le nombre \ct{7}{} lui-même \mbox{(\ct{self}{}).}}
 
 \needlines{2}
 \dothis{Fermez l'inspecteur. Saisissez dans un Workspace le
-  mot-expression \ct{Object} et explorez-le via \menu{explore it}
+  mot-expression \ct{Object}{} et explorez-le via \menu{explore it}
   (\short{I}, i majuscule).}
 \index{raccourci-clavier!explore it}
 \index{explorateur}
 \seeindex{Explorer}{explorateur}
 
 Vous devriez voir maintenant une fenêtre intitulée \clsind{Object}
-contenant le texte \mbox{$\triangleright$ \ct{root: Object}}.
+contenant le texte \mbox{$\triangleright$ \mbox{\ct{root: Object}}{}.}
 Cliquez sur le triangle pour l'ouvrir (voir \figref{exploreit}).
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=0.7\textwidth]{ExploreIt}}
-\caption{Explorer \ct{Object}.\figlabel{exploreit}}
+\caption{Explorer \mbox{\ct{Object}{}.}\figlabel{exploreit}}
 \end{figure}
 
 Cet explorateur (ou Explorer) est similaire à l'inspecteur mais il
 offre une vue arborescente d'un objet complexe.
-Dans notre cas, l'objet que nous observons est la classe \ct{Object}.
+Dans notre cas, l'objet que nous observons est la classe \mbox{\ct{Object}{}.}
 Nous pouvons voir directement toutes les informations stockées dans
 cette classe et naviguer facilement dans toutes ses parties.
 
@@ -813,13 +796,14 @@ nous allons utiliser ici. % REVOIR (toujours vrai?)
       ressemble pas à celui visible sur \figref{classBrowser}, vous
       pourriez avoir besoin de changer le navigateur par défaut. Voyez
     \faqref{packagebrowser}}}.} 
+% rene : \faqref{packagebrowser} ne donne pas la reference dans la FAQ
 
 \begin{figure}[htb]
 \ifluluelse
 	{\centerline {\includegraphics[width=\textwidth]{ClassBrowser1}}}
 	{\centerline {\includegraphics[width=0.7\textwidth]{ClassBrowser1}}}
 \caption{Le navigateur de classes (ou Browser) affichant la
-  méthode \ct{printString} de la classe Object.
+  méthode \ct{printString}{} de la classe Object.
 \figlabel{classBrowser}}
 \end{figure}
 
@@ -827,7 +811,7 @@ Nous pouvons voir un navigateur de classes sur \figref{classBrowser}.
 La barre de titre indique que nous sommes en train de parcourir la
 classe \clsind{Object}.
 
-à l'ouverture du Browser, tous les panneaux sont vides excepté le premier à gauche.
+À l'ouverture du Browser, tous les panneaux sont vides excepté le premier à gauche.
 Ce premier panneau liste tous les \emph{paquetages} 
 % vf
 (en anglais, \emph{packages}) connus; 
@@ -858,7 +842,7 @@ l'affichage.
 
 \dothis{Sélectionnez la méthode \mthind{Object}{printString}.}
 Dès lors, vous voyez dans la partie inférieure du Browser
-le code source de la méthode \ct{printString} partagé par tous
+le code source de la méthode \ct{printString}{} partagé par tous
 les objets 
 %ajout
 (tous dérivés de la classe Object, exception faite de ceux qui la surchargent).
@@ -875,7 +859,7 @@ jusqu'à elle via le navigateur de classes.
 \index{classe!recherche}
 \seeindex{classe!trouver}{classe, recherche}
 
-Une seconde technique consiste à envoyer le message \ct{browse}
+Une seconde technique consiste à envoyer le message \ct{browse}{}
 (ce mot a le sens de ``naviguer'') à la classe, ce qui a pour effet
 d'ouvrir un navigateur de classes sur celle-ci
 %ajout
@@ -883,27 +867,27 @@ d'ouvrir un navigateur de classes sur celle-ci
 Supposons que nous voulions naviguer dans la classe \clsind{Boolean}
 (la classe des booléens).
 
-\dothis{Saisissez \ct{Boolean browse} dans un Workspace et faites un \menu{do it}.}
-Un navigateur s'ouvrira sur la classe \ct{Boolean} (voir \figref{browseBoolean}).
+\dothis{Saisissez \ct{Boolean browse}{} dans un Workspace et faites un \menu{do it}.}
+Un navigateur s'ouvrira sur la classe \ct{Boolean}{} (voir \figref{browseBoolean}).
 Il existe aussi un \ind{raccourci-clavier} \short{b} (browse) que vous
 pouvez utiliser dans n'importe quel outil où vous trouvez un nom de
 classe;
 \index{raccourci-clavier!browse it}
 sélectionnez le nom de la classe 
 %ajout
-(\parex \ct{Boolean})
+(\parex \mbox{\ct{Boolean}{})}
 puis tapez \short{b}.
 
-\dothis{Utilisez le raccourci-clavier pour naviguer dans la classe \ct{Boolean}.}
+\dothis{Utilisez le raccourci-clavier pour naviguer dans la classe \mbox{\ct{Boolean}{}.}}
 
 \begin{figure}[hbt]
 	{\centerline {\includegraphics[width=\textwidth]{Kernel-objects-boolean}}}
 \caption{Le navigateur de classes affichant la définition de la
-  classe \ct{Boolean}.\figlabel{browseBoolean}}
+  classe \mbox{\ct{Boolean}{}.}\figlabel{browseBoolean}}
 \end{figure}
 
 Remarquez que nous voyons une \emph{définition de classe}
-quand la classe \ct{Boolean} est sélectionnée mais sans qu'aucun
+quand la classe \mbox{\ct{Boolean}{}} est sélectionnée mais sans qu'aucun
 protocole ni aucune méthode ne le soit
 % martial: on utilise le PLURIEL lorsque l’action ou l’état peut être
 % rapporté aux deux sujets ; et le SINGULIER, lorsqu’il ne peut être
@@ -911,10 +895,10 @@ protocole ni aucune méthode ne le soit
 (voir \figref{browseBoolean}).
 Ce n'est rien de plus qu'un message \st ordinaire qui est envoyé à
 la classe parente lui réclamant de créer une sous-classe.
-Ici nous voyons qu'il est demandé à la classe \ct{Object} de
-créer une sous-classe nommée \ct{Boolean} sans aucune variables
+Ici nous voyons qu'il est demandé à la classe \ct{Object}{} de
+créer une sous-classe nommée \ct{Boolean}{} sans aucune variables
 d'instance, ni variables de classe ou ``pool dictionaries'' et de 
-mettre la classe \ct{Boolean} dans la catégorie \scatind{Kernel-Objects}.
+mettre la classe \ct{Boolean}{} dans la catégorie \scatind{Kernel-Objects}.
 % The lower pane shows the \emph{class comment} --- a piece of plain text describing the class.
 Si vous \clickz{} sur le bouton \button{?} en bas du panneau
 de classes, vous verrez le \subind{classe}{commentaire} de classe
@@ -950,11 +934,11 @@ dans un panneau dédié comme le montre \figref{classComment}. % CHANGE
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{classComment}}
-\caption{Le commentaire de classe de \ct{Boolean}.
+\caption{Le commentaire de classe de \mbox{\ct{Boolean}{}.}
 \figlabel{classComment}}
 \end{figure}
 
-Souvent, la méthode la plus rapide de trouver une classe consiste
+Souvent, la méthode la plus rapide pour trouver une classe consiste
 à la rechercher par son nom. Par exemple, supposons que vous êtes
 à la recherche d'une classe inconnue qui représente les jours et
 les heures.% dates and times.
@@ -970,7 +954,7 @@ dans la boîte de dialogue et acceptez cette entrée.}
 \noindent
 Une liste de classes dont le nom contient ``time'' vous sera
 présentée (voir \figref{findit}). Choisissez-en une, disons,
-\ct{Time}; 
+\mbox{\ct{Time}{};} 
 %martial: ca fait longtemps qu'il n'y a plus ce comportement
 un navigateur l'affichera avec un commentaire de classe
 suggérant d'autres classes pouvant être utiles. Si vous voulez
@@ -1019,7 +1003,7 @@ Saisissez ``now'' dans le panneau supérieur gauche et cliquez sur
 Le chercheur de méthodes Method Finder affichera une liste de tous
 les noms de méthodes contenant la sous-chaîne de caractères ``now''.  
 
-Pour défiler jusqu'à \ct{now} lui-même, tapez ``\ct{n}''; cette
+Pour défiler jusqu'à \ct{now}{} lui-même, tapez \mbox{``\ct{n}{}'';} cette
 astuce fonctionne sur toutes les zones à défilement de n'importe
 quelle fenêtre. En sélectionnant ``now'', le panneau de droite
 vous présentera les classes qui définissent une méthode
@@ -1030,18 +1014,18 @@ celle-ci.
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=0.7\textwidth]{methodFinder-now}}
 \caption{Le Method Finder affichant toutes les classes qui
-  définissent une méthode appelée \ct{now}.
+  définissent une méthode appelée \mbox{\ct{now}{}.}
 \figlabel{MethodFinder}}
 \end{figure}
 
-à d'autres moments, vous pourriez avoir en tête qu'une méthode
+À d'autres moments, vous pourriez avoir en tête qu'une méthode
 existe bien sans savoir comment elle s'appelle.
 Le Method Finder peut encore vous aider! Par exemple, partons de la
 situation suivante: vous voulez trouvez une méthode qui transforme
 une chaîne de caractères en sa version majuscule, \cad qui
-transforme \ct{'eureka'} en \ct{'EUREKA'}.
+transforme \ct{'eureka'}{} en \mbox{\ct{'EUREKA'}{}.}
 
-\dothis{Saisissez \ct{'eureka' . 'EUREKA'} dans le Method Finder,
+\dothis{Saisissez \ct{'eureka' . 'EUREKA'}{} dans le Method Finder,
   comme le montre \figref{methodFinder-example1}.}
 \noindent
 Le Method Finder vous suggère une méthode qui fait ce
@@ -1055,7 +1039,7 @@ alors sur le bouton~\button{Proceed}.}}.
 Un astérisque au début d'une ligne dans le panneau de droite du
 Method Finder vous indique que cette méthode est celle qui a été
 effectivement utilisée pour obtenir le résultat requis.
-Ainsi, l'astérisque devant \ct{String asUppercase} vous fait savoir
+Ainsi, l'astérisque devant \ct{String asUppercase}{} vous fait savoir
 que la méthode \mthind{String}{asUppercase} 
 %ajout
 (traduisible par ``en tant que majuscule'')
@@ -1066,7 +1050,7 @@ a été exécutée et a renvoyé le résultat voulu.
 Les méthodes qui n'ont pas d'astérisque ne sont que d'autres
 méthodes que celles qui retournent le résultat attendu.
 \cmind{Character}{asUppercase} n'a pas été exécutée dans notre
-exemple, parce que \ct{'eureka'} n'est pas un caractère de classe \clsind{Character}.
+exemple, parce que \ct{'eureka'}{} n'est pas un caractère de classe \clsind{Character}.
 
 \begin{figure}[hbt]
 	{\centerline {\includegraphics[width=\textwidth]{MethodFinder-example1}}}
@@ -1077,10 +1061,10 @@ exemple, parce que \ct{'eureka'} n'est pas un caractère de classe \clsind{Chara
 Vous pouvez aussi utiliser le Method Finder pour trouver des
 méthodes avec plusieurs arguments; par exemple, si vous recherchez
 une méthode qui trouve le plus grand commun diviseur de deux
-entiers, vous pouvez essayer de saisir \ct{25. 35. 5} comme exemple.
+entiers, vous pouvez essayer de saisir \ct{25. 35. 5}{} comme exemple.
 Vous pouvez aussi donner au Method Finder de multiples exemples pour
 restreindre le champ des recherches; le texte d'aide situé dans le
-panneau inférieure vous apprendra \arelire{comment faire}. % CHANGE
+panneau inférieure vous apprendra comment faire. % CHANGE
 
 %=================================================================
 \section{Définir une nouvelle méthode}
@@ -1109,7 +1093,7 @@ l'exemple suivant:
 %martial: j'ai change figures/testShoutConfirm.png et j'ai remplace
 %"Don't panic" par "Pas de panique"
 \begin{quote}
-Quand nous envoyons le message \ct{shout} (qui veut dire ``crier'' en anglais)
+Quand nous envoyons le message \ct{shout}{} (qui veut dire ``crier'' en anglais)
 à la chaîne de caractères ``Pas de panique'', le résultat
 devrait être ``PAS DE PANIQUE!''.
 \end{quote}
@@ -1122,14 +1106,14 @@ utiliser, nous le transformons en méthode de test:
 \index{SUnit}
 
 \needlines{3}
-\begin{method}[testShout]{Un test pour la méthode shout}
+\begin{method}[testShout]{Un test pour la méthode \ct{shout}{}}
 testShout
 	self assert: ('Pas de panique' shout = 'PAS DE PANIQUEBANG')
 \end{method} % BANG is the escape for !
 
 Comment créons-nous une nouvelle méthode dans \pharo? Premièrement,
 nous devons décider quelle classe va accueillir la méthode.
-Dans ce cas, la méthode \ct{shout} que nous testons ira dans la
+Dans ce cas, la méthode \ct{shout}{} que nous testons ira dans la
 classe \clsind{String}
 %ajout
 car c'est la classe des chaînes de caractères et ``Pas de panique'' en est une.
@@ -1138,12 +1122,12 @@ nommée \clsind{StringTest}.
 
 \begin{figure}[hbt]
 	{\centerline {\includegraphics[width=\textwidth]{StringTest-newMethodTemplate}}}
-\caption{Le patron de la nouvelle méthode dans la classe \ct{StringTest}.
+\caption{Le patron de la nouvelle méthode dans la classe \mbox{\ct{StringTest}{}.}
 \figlabel{newMethodTemplate}}
 \end{figure}
 
 \dothis{Ouvrez un navigateur de classes sur la classe
-  \ct{StringTest}. Sélectionnez un protocole approprié pour notre
+  \mbox{\ct{StringTest}{}.} Sélectionnez un protocole approprié pour notre
   méthode; dans notre cas, \menu{tests - converting} 
 %ajout
 (signifiant tests de conversion, puisque notre méthode modifiera le texte en retour),
@@ -1178,13 +1162,13 @@ votre nom sans espaces ni point de séparation.
 %\figlabel{initials}}
 %\end{figure}
 
-Puisqu'il n'y a pas encore de méthode nommée \ct{shout}, le 
+Puisqu'il n'y a pas encore de méthode nommée \mbox{\ct{shout}{},} le 
 Browser vous demandera confirmation que c'est bien le nom que vous
 désirez\,---\,il vous suggèrera d'ailleurs d'autres noms de
 méthodes existantes dans le système (voir \figref{testShoutConfirm}).
 Ce comportement du navigateur est utile si vous aviez effectivement
 fait une erreur de frappe. Mais ici, nous voulons \emph{vraiment}
-écrire \ct{shout} puisque c'est la méthode que nous voulons
+écrire \mbox{\ct{shout}{}} puisque c'est la méthode que nous voulons
 créer. Dès lors, nous n'avons qu'à confirmer cela en
 sélectionnant la première option parmi celles du menu, comme vous
 le voyez sur \figref{testShoutConfirm}. 
@@ -1210,7 +1194,7 @@ le voyez sur \figref{testShoutConfirm}.
 
 \begin{figure}[htb]
  	{\centerline {\includegraphics[width=\textwidth]{testShoutConfirm}}}
- \caption{Accepter la méthode \ct{testShout} dans la classe \ct{StringTest}.
+ \caption{Accepter la méthode \ct{testShout}{} dans la classe \mbox{\ct{StringTest}{}.}
  \figlabel{testShoutConfirm}}
  \end{figure}
 
@@ -1224,13 +1208,13 @@ le voyez sur \figref{testShoutConfirm}.
 
 \dothis{Sélectionnez \scat{CollectionsTests-Text} et
 le panneau juste à droite vous affichera alors toutes les classes de test
-de cette catégorie dont la classe \ct{StringTest}.
+de cette catégorie dont la classe \mbox{\ct{StringTest}{}.}
 Les classes sont déjà sélectionnées dans cette catégorie; \clickz{}
 alors sur \menu{Run Selected} pour lancer tous ces tests.} % CHANGE
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{testRunnerOnStringTest}}
-\caption{Lancer les tests de \ct{String}.
+\caption{Lancer les tests de \mbox{\ct{String}{}.}
 \figlabel{testRunnerTestShout}}
 \end{figure}
 
@@ -1239,13 +1223,13 @@ Vous devriez voir un message comme celui de
 lors de l'exécution des tests. La liste des tests qui donne
 naissance à une erreur est affichée dans le panneau inférieur de
 droite; comme vous pouvez le voir, c'est bien
-\ct{StringTest>>>#testShout} le coupable
-(remarquez que la notation \ct{StringTest>>>#testShout} est la 
-convention \st pour identifier la méthode de la classe \ct{StringTest}).
+\ct{StringTest>>>#testShout}{} le coupable
+(remarquez que la notation \ct{StringTest>>>#testShout}{} est la 
+convention \st pour identifier la méthode de la classe \mbox{\ct{StringTest}{}).}
 Si vous \clickz{} sur cette ligne de texte, le test erroné sera
 lancé à nouveau mais, cette fois-ci, de telle façon que vous
 voyez l'erreur surgir:
-``\ct{MessageNotUnderstood: ByteString>>>shout}''.
+\mbox{``\ct{MessageNotUnderstood: ByteString>>>shout}{}''.}
 \seeindex{\ct{>>}}{Behavior, \ct{>>}}
 \cmindex{Behavior}{>>}
 
@@ -1265,7 +1249,7 @@ L'erreur était bien sûr attendue; lancer le test génère une
 erreur parce que nous n'avons pas encore écrit la méthode qui dit
 aux chaînes de caractères comment hurler 
 %ajout pour le francais
-\cad comment répondre au message \ct{shout}.
+\cad comment répondre au message \mbox{\ct{shout}{}.}
 De toutes façons, c'est une bonne pratique de s'assurer que le test
 échoue; cela confirme que nous avons correctement
 configuré notre machine à tests % testing machinery
@@ -1288,8 +1272,8 @@ Définissons maintenant la méthode qui fera du test un succès!
 déjà existant des méthodes de conversion et appelé
 \menu{converting}. à la place du patron de création de méthode,
 saisissez le texte de \tmthref{shout} et faites \menu{accept}
-(saisissez \caret pour obtenir un \mbox{\ct{^}})}
-\begin{method}[shout]{La méthode shout}
+(saisissez \caret pour obtenir un \mbox{\ct{^}{})}}
+\begin{method}[shout]{La méthode \ct{shout}{}}
 shout
 	^ self asUppercase, 'BANG'
 \end{method}
@@ -1299,7 +1283,7 @@ caractères, donc, le corps de cette méthode ajoute un point
 d'exclamation à la version majuscule
 %martial: ajout pour rappeler au francais que uppercase eleve au majuscule
 (obtenue avec la méthode \mthind{String}{asUppercase})
-de l'objet \ct{String} auquel le message \ct{shout} a été
+de l'objet \ct{String}{} auquel le message \ct{shout}{} a été
 envoyé.
 Le $\uparrow$ dit à \pharo que l'expression qui suit est la réponse
 que la méthode doit retourner; dans notre cas, il s'agit de la
@@ -1327,7 +1311,7 @@ Vous l'avez bien mérité.
 
 \begin{figure}[hbt]
 	{\centerline{\includegraphics[width=0.7\textwidth]{String-Shout}}}
-\caption{La méthode \ct{shout} dans la classe \ct{String}.\figlabel{String-shout}}
+\caption{La méthode \ct{shout}{} dans la classe \mbox{\ct{String}{}.}\figlabel{String-shout}}
 \end{figure}
 
 %=================================================================
@@ -1351,7 +1335,7 @@ syntaxe sans que vous puissiez encore la comprendre suffisamment à ce stade.
     lancés\,---\,que lorsque vous l'avez laissée au moment de votre dernière
     sauvegarde de cette image.
   \item \pharo est destiné à fonctionner avec une souris à trois
-    boutons \arelire{pour \click, \actclick ou \metaclick}.
+    boutons pour \click, \actclick ou \metaclick.
  Si vous n'avez pas de souris à trois boutons, vous pouvez utiliser
  des touches de modifications au clavier pour obtenir le même effet.
   \item Vous \clickz sur l'arrière-plan de
@@ -1390,6 +1374,7 @@ syntaxe sans que vous puissiez encore la comprendre suffisamment à ce stade.
 %%% mode: latex
 %%% TeX-master: t
 %%% TeX-PDF-mode: t
-%%% ispell-local-dictionary: "english"
 %%% End:
 
+
+% LocalWords:  cliquant télécharger Téléchargez

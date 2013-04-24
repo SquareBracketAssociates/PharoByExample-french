@@ -10,6 +10,7 @@
 % adaptation pour Pharo: martial - Thu Sep 10 23:36:52 CEST 2009 
 % relecture: rene mages : Sat Jan 9 18:18:18 CET 2010
 % relecture: rene mages : Thu Jun 24 18:18:18 CET 2010
+% relecture: rene mages : Sun Apr 10 18:18:18 CET 2011
 % $Author: mars $ $Date: 2009-09-09 12:48:45 +0200 (Wed, 09 Sep 2009)
 % $ $Revision: 29014 $
 % sync: 29170
@@ -49,16 +50,17 @@
 
 \pharo est une implémentation moderne, libre et complète du
 langage de programmation \st et de son environnement. \pharo est
-un \emph{fork}\footnote{\arelire{Projet dérivé d'une version d'un logiciel pré-existant.}} de \squeak\cite{Inga97a}, 
-une réécriture du classique système \st-80. 
+un \emph{fork}\footnote{Un fork, ou embranchement, est un nouveau logiciel créé à partir du code source d'un logiciel existant. Cela suppose que les droits accordés par les auteurs le permettent : ils doivent autoriser l'utilisation, la modification et la redistribution du code source. C'est pour cette raison que les forks se produisent facilement dans le domaine des logiciels libres. (Extrait de Wikipedia)} de \squeak \cite{Inga97a}, 
+une réécriture de l'environnement \st-80 original. 
 Alors que \squeak fut développé principalement en tant que
 plateforme pour le développement de logiciels éducatifs
 expérimentaux, \pharo tend à offrir une plateforme,
 à la fois, \emph{open-source} et épurée pour le développement de
 logiciels professionnels et aussi, stable et robuste pour la recherche 
 et le développement dans le domaine des langages et environnement dynamiques. 
-\pharo est le système de référence de \arelire{Seaside: le \framework 
-destiné au développement web.} % CHANGE
+\pharo est l'implémentation Smalltalk de référence de Seaside: le \framework 
+destiné au développement web% if no seaside chapter => book ad
+\ifseaside{.}{ et qui fait l'objet d'un livre disponible en version anglaise sur \dwdseaside.}
 
 \pharo résout les problèmes de licence inhérent à \squeak. 
 Contrairement aux versions précédentes de \squeak, le noyau
@@ -68,7 +70,7 @@ a débuté en mars 2008 depuis un \emph{fork} de la version 3.9 de \squeak et la
 
 Bien que dépourvu de nombreux paquetages présents dans \squeak, \pharo
 est fourni avec beaucoup de fonctionalités optionnelles dans \squeak.
-Par exemple, les fontes \truetype sont inclus dans \pharo. \pharo
+Par exemple, les fontes \truetype sont inclues dans \pharo. \pharo
 dispose aussi du support pour de véritables fermetures lexicales ou
 \emph{block closures}. Les élements d'interface utilisateurs ont été
 revus et simplifiés. % CHANGE
@@ -81,14 +83,10 @@ un ensemble de projets innovants, des applications multimédias et
 % There is an important aspect behind \pharo: \pharo should not just be a copy of the past but really \emph{reinvent} Smalltalk. Big-bang approaches rarely succeed. \pharo will really favor evolutionary and incremental changes. We want to be able to experiment with important new features or libraries. Evolution means that \pharo accepts mistakes and is not not aiming for the next perfect solution in one big step\,---\,even if we would love it. \pharo will favor small incremental changes but a multitude of them. The success of \pharo depends on the contributions of its community.
 Il est important de préciser le fait suivant concernant \pharo: 
 \pharo ne devrait pas être qu'une simple copie du passé mais véritablement
-une \emph{réinvention} de Smalltalk. 
-\arelire{Pour autant, les approches en \emph{tabula rasa} fonctionnent rarement.}
-%\arevoir{Les approches en \emph{big bang} fonctionnent rarement.} 
-% Rene : au lieu de big bang nous pourrions peut-être employer l'expression "tabula rasa" ou "table rase" 
-\pharo encourage les changements évolutifs et
-incrémentaux. Nous voulons être capable d'expérimenter via les
-nouvelles fonctionalités et autre bibliothèques. Par \emph{évolution},
-nous disons que \pharo tolèrent les erreurs et n'a pas pour objectif
+une \emph{réinvention} de Smalltalk. Pour autant, les approches où l'on fait table rase du passé fonctionnent rarement.
+Au contraire, \pharo encourage les changements évolutifs et
+incrémentaux. Nous voulons qu'il soit possible d'expérimenter via de nouvelles fonctionalités et bibliothèques. Par \emph{évolution},
+nous disons que \pharo tolère les erreurs et n'a pas pour objectif
 de devenir la prochaine solution de rêve d'un bond\,---\,même si nous
 le désirons.
 \pharo favorisera toutes les évolutions à caractère incrémental. 
@@ -100,10 +98,10 @@ Le succès de \pharo dépend des contributions de sa communauté.
 %This book is based on \emph{Squeak by Example}\footnote{\sbe}, an open-source introduction to \squeak.
 %The book has been liberally adapted and revised to reflect the differences between \pharo and \squeak.
 %This book presents the various aspects of \pharo, starting with the basics, and proceeding to more advanced topics.
-Ce livre est fondé sur \emph{Squeak Par l'Exemple}\footnote{\spe;
-  traduction française de Squeak By Example (\sbe).}, une introduction
-à \squeak éditée en \emph{open-source}. Il a néanmoins été librement
-adapté pour refléter les différences entre \pharo et \squeak. Ce livre 
+Ce livre est dérivé du livre \emph{Squeak Par l'Exemple}\footnote{\spe;
+  traduction française de Squeak By Example \mbox{(\sbe).}}, une introduction
+à \squeak éditée sous \emph{licence libre}. Il a néanmoins été librement
+adapté pour refléter les différences qui existent entre \pharo et \squeak. Ce livre 
 présente différents aspects de \pharo, en commençant par les concepts 
 de base et en poursuivant vers des sujets plus avancés.
 
@@ -115,8 +113,7 @@ Ce livre introduit l'environnement de programmation, le langage et
 les outils de \pharo. Vous serez confronté à de nombreuses bonnes
 pratiques de Smalltalk, mais l'accent sera mis plus particulièrement
 sur les aspects techniques et non sur la conception orientée
-objet. Nous vous présenterons, autant que possible, une foule 
-d'exemples (nous avons été inspiré par l'excellent livre de Alec
+objet. Nous vous présenterons, autant que possible, un grand nombre d'exemples (nous avons été inspiré par l'excellent livre de Alec
 Sharp sur Smalltalk\cite{Shar97a}).
 \index{Sharp, Alex}
 
@@ -161,7 +158,7 @@ Ce livre est ouvert dans plusieurs sens:
 		Si vous voulez participer à ce travail, merci de nous contacter. Nous voulons voir ce livre se développer!
 \end{itemize}
 
-Plus de détails concernant ce livre sont disponibles sur le site web \ppe.
+Plus de détails concernant ce livre sont disponibles sur le site web \mbox{\ppe.}
 %\spe, hébergé par l'\emph{Institute of Computer Science and Applied Mathematics} de l'Université de Berne en Suisse.
 
 %=================================================================
@@ -174,6 +171,8 @@ Voici une courte liste de ressources que vous pourrez trouver utiles:
 \item \url{http://www.pharo-project.org} est le site web principal de \pharo.
 \item \url{http://www.squeaksource.com}: \squeaksource est l'équivalent de
   \sourceforge pour les projets \pharo. De nombreux paquetages optionnels se trouvent ici.
+\item \url{https://groups.google.com/group/smalltalk-fr?hl=fr} est un groupe de discussions francophone généraliste sur \st{}. En raison de la présence de programmeurs \pharo{} (dont l'équipe de traducteurs), vous pouvez poster des messages relatifs à \pharo{} ou à l'édition française du livre ``Pharo par l'Exemple''.
+\item \arelire{\url{http://www.pharocasts.com} est un \emph{blog} \emph{en anglais} dirigé par Laurent Laffont et diffusant des vidéos démonstratives de \pharo{}. Un bon moyen d'apprendre autrement! Une vidéo dédiée au jeu Lights Out est aussi disponible. Vous pourrez vous y référer lorsque vous aborderez \charef{firstApp}.}
 \end{itemize}
 
 % REVOIR : listes de diffusion parties peut être attendre la version
@@ -266,13 +265,14 @@ les facilités d'hébergement web de ce livre.
 
 Nous remercions aussi la communauté \squeak pour son soutien et son
 enthousiasme sur ce projet et pour sa communication quant à l'aide à
-la correction de la première édition de la version originale %ajout
-de ce livre. % REVOIR
+la correction de la première édition de la version originale 
+de ce livre.
 
 \section*{Remerciements pour l'édition française}
 
-L'édition française de ce livre a été réalisée par
-l'équipe de traducteurs et de relecteurs suivantes: \arelire{A VENIR.}
+L'édition française de ce livre a été réalisée par l'équipe de traducteurs: 
+Martial Boniou, René Mages et Serge Stinckwich. Nous remercions également Karine Mordal-Manet pour sa relecture de certaines parties du livre et Mathieu Chappuis, Luc Fabresse, Nicolas Petton, Alain Plantec et Benoît Tuduri pour leur participation à la traduction de la version \squeak de cet ouvrage.
+
 %% REVOIR
 %Martial Boniou,  Mathieu Chappuis, Luc Fabresse, René Mages, Nicolas Petton, Alain Plantec, Serge Stinckwich et Benoît Tuduri.
 %Cette équipe remercie l'association OFSET\footnote{OFSET est une organisation française à but non lucratif de type association loi 1901. Elle a été créée pour répondre à la faiblesse du développement de logiciels libres éducatifs pour le système GNU. Elle fait la promotion de toutes les sortes de développements et de localisations nécessaires aux systèmes éducatifs à travers le monde.} (\url{www.ofset.org}) qui héberge notamment le Wiki de la communauté francophone de Squeak, ainsi que le magazine Gnu/Linux Magazine France (\url{www.gnulinuxmag.com}) qui nous a autorisé en reprendre en partie certains articles sur Smalltalk parus dans ses colonnes.

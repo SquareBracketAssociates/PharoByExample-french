@@ -5,9 +5,11 @@ export TEXINPUTS:=./local//:../local//:
 
 EG1 = Preface QuickTour FirstApp Syntax Messages \
 	Model Environment SUnit BasicClasses Collections Streams Morphic \
-	Metaclasses Seaside Reflection
+	Metaclasses Regex Reflection
+# replace Regex by Seaside if needed
 
-EG2 = Seaside
+EG2 = 
+
 
 PDFLATEX = pdflatex -file-line-error
 
@@ -18,8 +20,8 @@ BOOK2=PBE2
 OMNIBUS=PBE-Omnibus
 
 # --------------------------------------------------------------------------------
-all : omnibus
-	${PDFVIEW} ${OMNIBUS}.pdf
+all : pbe1
+	${PDFVIEW} ${BOOK1}.pdf
 
 # NB: be sure to use texlive and to set the TEXINPUTS variable accordingly
 # See README.txt

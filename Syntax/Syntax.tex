@@ -3,12 +3,14 @@
 % $Revision: 14633$
 % $Id$
 % %=================================================================
-% translated by Rene Mages squeak@rmages.com start: (Fri, 5 Oct 2007)
+% translated by Rene Mages pharo@rmages.com start: (Fri, 5 Oct 2007)
 % relecture par Rene Mages et Martial Boniou: (Fri, 20 Dec 2007)
 % relecture par Rene Mages : (Sun, 13 Jan 2008) de la version #14938
 % adaptation pour PBE - martial - Thu Sep 10 22:45:08 CEST 2009 
 % relecture par Rene Mages (Fri, 8 Jan 2010) de la version #30178
 % relecture par Rene Mages (Sat, 26 Jun 2010) de la version #33750
+% relecture par Rene Mages (Mon, 11 Apr 2011) 
+% relecture par Rene Mages (Sat, 28 May 2011)
 % $Id: Syntax.tex 28624 2009-08-27 10:59:05Z oscar $
 % sync: 29170
 %=================================================================
@@ -51,11 +53,11 @@ La \ind{syntaxe} est conçue de telle sorte que le texte d'un
 programme lu à haute voix ressemble à de l'\emph{English pidgin} ou ``anglais simplifié'':
 
 \begin{code}{}
-(Smalltalk includes: Class) ifTrue: [ Transcript show: Class superclass ]
+(Smalltalk hasClassNamed: 'Class') ifTrue:  [ 'classe' ] ifFalse: [ 'pas classe']
 \end{code}
 
 \noindent
-La syntaxe de \pharo (\ie les expressions) est minimaliste; pour l'essentiel, conçue uniquement pour \emph{envoyer des messages}.
+La syntaxe de \pharo (\ie les expressions) est minimaliste; pour l'essentiel conçue uniquement pour \emph{envoyer des messages}.
 %% et  \emph{des déclarations de méthodes}.
 Les expressions sont construites à partir d'un nombre très réduit de primitives.
 \st dispose seulement de 6 mots-clés et d'aucune syntaxe pour les structures de contrôle, ni pour les déclarations de nouvelles classes.
@@ -80,7 +82,8 @@ Les expressions sont composées des blocs constructeurs suivants:
 \seeindex{pseudo-variable}{variable, pseudo}
 \seeindex{objet!littéral}{littéral, objet}
 
-% martial: affichage du table forcé
+% martial: footnote in tabular suppported in common.tex
+\zero
 \begin{table}[h]\centering
 	\begin{tabular}{ll}
 		\toprule
@@ -105,7 +108,7 @@ Les expressions sont composées des blocs constructeurs suivants:
 		\lct{| x y |}				&	une déclaration de 2 variables \lct{x} et \lct{y}	\\
 		\lct{x := 1}				&	affectation de 1 à \lct{x} \\
 		\lct{[ x + y ]}			&	un bloc qui évalue \lct{x+y} \\
-		\lct{<primitive: 1>}		&	une primitive de la VM~\footnote{Machine Virtuelle.} ou annotation\\
+		\lct{<primitive: 1>}		&	une primitive de la VM~\ntm\xspace ou annotation\\
 		\midrule
 		\lct{3 factorial}			&	un message unaire \\
 		\lct{3 + 4}					&	un message binaire \\
@@ -120,13 +123,15 @@ Les expressions sont composées des blocs constructeurs suivants:
 	\end{tabular}
 \caption{Résumé de la syntaxe de \pharo \tablabel{syntax}}
 \end{table}
+\initnt
+\ntt{VM est l'abrégé de \emph{``Virtual Machine''} \ie{} ``Machine Virtuelle''.} % footnote for tabular protected context
 
 Dans \tabref{syntax}, nous pouvons voir des exemples divers d'éléments syntaxiques.
 
 \begin{description}
 \item[Les variables locales.] \ct{startPoint} est un nom de variable ou identifiant.
 Par convention, les identifiants sont composés de mots au format
-d'écriture \emph{casse chameau} (``\ind{camelCase}''): chaque mot
+d'écriture dit \emph{casse de chameau} (``\ind{camelCase}''): chaque mot
 excepté le premier débute par une lettre majuscule.
 La première lettre d'une variable d'instance, d'une méthode ou d'un bloc argument 
 ou d'une variable temporaire doit être en minuscule.
@@ -184,7 +189,7 @@ booléens et le symbole \ct{#abc}.
   définissent un tableau (\subind{tableau}{dynamique}) à l'exécution.
 Ses éléments sont des expressions séparées par des points.
 Ainsi \ct|{ 1. 2. 1+2 }| définit un tableau dont les éléments sont 1, 2 et le résultat de l'évaluation de 1+2
-(\arelire{dans le monde de \st, la notation entre accolades est particulière aux dialectes \pharo et \squeak}. % martial: '...aux dialectes \pharo et à \squeak de \st', c'était lourd
+(Dans le monde de \st, la notation entre accolades est particulière aux dialectes \pharo et \squeak.
 Dans d'autres \st{}s vous devez explicitement construire des tableaux dynamiques).
 % CHANGE
 
@@ -276,8 +281,7 @@ Les classes \ct{Number}, \ct{Character}, \ct{String} et \ct{Boolean} sont décri
 \section{Les pseudo-variables}
 
 Dans \st, il y a 6 mots-clés réservés ou  \emph{pseudo-variables}:
-\pvind{nil}, \pvind{true},  \pvind{false},  \pvind{self},
-\pvind{super} et \pvind{thisContext}.
+\mbox{\pvind{nil},} \mbox{\pvind{true},}  \mbox{\pvind{false},}  \mbox{\pvind{self},} \mbox{\pvind{super}} et \mbox{\pvind{thisContext}}.
 Ils sont appelés \subind{variable}{pseudo-variable}{s} car ils sont prédéfinis et ne peuvent pas être l'objet d'une affectation.
 \ct{true}, \ct{false} et \ct{nil} sont des constantes tandis que les valeurs de \ct{self}, \ct{super} et de \ct{thisContext} varient de façon dynamique lorsque le code est exécuté. 
 
@@ -328,7 +332,7 @@ Les sélecteurs des messages binaires sont constitués par un ou plusieurs carac
 \ab{Bon; $-$ est étrange .}
 
 Les sélecteurs des messages à mots-clés sont formés d'une suite de mots-clés alphanumériques 
-qui commencent par une lettre minuscule et se terminent par \lct{:}.
+qui commencent par une lettre minuscule et se terminent par \mbox{\lct{:}~.}
 \index{message!à mots-clés}
 
 Les messages unaires ont la plus haute priorité, puis viennent les messages binaires et, 
@@ -420,7 +424,7 @@ Sur le plan de la syntaxe, une méthode comporte:
     où, mais conventionnellement, un commentaire doit être placé au début afin d'expliquer le but de la méthode);
   \item les déclarations des variables locales (\ie \ct{cr} et
     \ct{count}); 
-  \item un nombre quelconque d'expressions séparées par des points; dans notre exemple, il y en a \aretirer{quatre}.
+  \item un nombre quelconque d'expressions séparées par des points; dans notre exemple, il y en a trois \aretirer{quatre}.
 % Rene : en fait ce n'est pas quatre mais trois ( l'erreur est presente dans l'edition anglaise ); Martial: bien vu! Je passe \arevoir à \aretirer parce que l'erreur est critique.
 \end{enumerate}
 
@@ -489,7 +493,7 @@ immédiat. Le bloc suivant fait référence à la variable \ct{x} voisine:
 %qu'ils peuvent se référer à des variables de
 %l'environnement qui l'entoure.
 %Le bloc suivant concerne la variable \ct{x} de son environnement englobant:
-\newpage
+
 \begin{code}{@TEST}
 | x |
 x := 1.
@@ -513,9 +517,9 @@ variables et être passés comme arguments à l'instar de tout autre objet.
 %TwoLevelSet>>detect: aBlock
 
 %   firstLevel keysAndValuesDo: [ :x :v |
-%      v do: [ :y | (aBlock value: x@y) ifTrue: [^x@y]]
+%      v do: [ :y | (aBlock value: x@y) ifTrue: [^ x@y]]
 %   ].
-%   ^nil
+%   ^ nil
 %\end{script}
 
 
@@ -630,9 +634,9 @@ voyelle~\footnote{Note du traducteur: les voyelles accentuées ne sont
 %chapitre Collections.tex
 
 \begin{code}{@TEST}
-'bonjour Squeak' select: [ :char | char isVowel ] --> 'oouuea'
-'bonjour Squeak' reject: [ :char | char isVowel ] --> 'bnjr Sqk'
-'bonjour Squeak' detect: [ :char | char isVowel ] --> $o 
+'Bonjour Pharo' select: [ :char | char isVowel ] --> 'oouao'
+'Bonjour Pharo' reject: [ :char | char isVowel ] --> 'Bnjr Phr'
+'Bonjour Pharo' detect: [ :char | char isVowel ] --> $o
 \end{code}
 %%%$
 
@@ -665,7 +669,7 @@ Néanmoins, à certains niveaux, ce modèle a ses limites;
 le fonctionnement de certains objets ne peut être achevé qu'en
 invoquant la \ind{machine virtuelle} et les \ind{primitive}{}s.
 
-Par exemple, les comportements suivantes sont tous implémentés 
+Par exemple, les comportements suivants sont tous implémentés 
 sous la forme de primitives:
 l'allocation de la mémoire (\mthind{Behavior}{new} et \mthind{Behavior}{new:}),
 la manipulation de bits (\mthind{Integer}{bitAnd:},
@@ -708,7 +712,7 @@ Si la primitive échoue, l'expression \ct{super + aNumber} sera
 %   whatIsAPrimitive."
 
 %   <primitive: 18>
-%   ^Point x: self y: y
+%   ^ Point x: self y: y
 %\end{method}
 
 
@@ -784,7 +788,6 @@ les chaînes (\ct{'bonjour'}), les symboles (\ct{#bonjour}) et les tableaux (\ct
 %%% mode: latex
 %%% TeX-master: t
 %%% TeX-PDF-mode: t
-%%% ispell-local-dictionary: "english"
 %%% End:
 
 

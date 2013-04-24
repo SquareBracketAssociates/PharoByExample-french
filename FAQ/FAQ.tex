@@ -9,6 +9,8 @@
 % $Author: oscar $ % $Date: 2009-09-09 09:57:42 +0200 (Wed, 09 Sep 2009) $ % $Revision: 29006 $
 % martial: remplacement de la faq:omnibrowser en faq:packagebrowser pour la selection via "choose new default browser"
 % Relecture: Rene Mages     - Thu Aug  12 22:23:44 CET 2010
+% Relecture: Rene Mages     - Sun May  15 22:23:44 CET 2011
+% Relecture: Rene Mages     - Wed Jun  15 22:23:44 CET 2011
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -64,22 +66,63 @@ Où puis-je trouver la dernière version de Pharo?
 
 \begin{faq}
 %Which \pharo image should I use with this book?
-Quelle image de \pharo devrais-je utiliser avec ce livre?
+Quelle image de \pharo devrai-je utiliser avec ce livre?
 \end{faq}
 \answer
-<<<<<<< .mine
-\arelire{Vous pouvez utiliser n'importe quelle image \pharo mais nous vous
-recommandons d'utiliser l'image préparée sur le site web de \pharo Par
-l'Exemple: {\ppe}.
-Vous risquez d'avoir des comportements surprenants lors de la saisie
-=======
-Vous pouvez utiliser n'importe quelle image de \pharo mais nous vous
-recommandons d'utiliser l'image préparée sur le site web de \pharo par
-l'exemple: {\ppe}.
-Vous risqueriez d'avoir des comportements surprenants lors de la saisie
->>>>>>> .r34584
-des exercices en utilisant une autre image. % CHANGE
-}
+Vous pouvez utiliser n'importe quelle image \pharo 
+% ajout vf
+de version 1.0
+mais nous vous recommandons d'utiliser l'image préparée sur le site web de \pharo 
+Par l'Exemple: {\ppe}.
+% ajout one-click
+Celle-ci inclut une version de la machine virtuelle compilée pour votre système d'exploitation
+ainsi que des scripts pour lancer votre image en \emph{un clic}.
+Utiliser une autre image, c'est courir le risque d'avoir des comportements surprenants lors
+de la saisie des exercices proposés dans ce livre.
+
+\begin{faq} % ajout vf : special OneClick version 1.0
+Comment puis-je démarrer \pharo{} convenablement~?
+\end{faq}
+\answer
+Cela varie en fonction de votre système d'exploitation:
+\begin{itemize}
+\item sous Windows, double-cliquez sur l'icône \textsf{pharo.exe} à la racine du répertoire \textsf{\pharooneclick{}.app};
+\item sous \macosx{}, double-cliquez sur l'icône d'application \textsf{\pharooneclick} (ou \textsf{\pharooneclick{}.app});
+\item sous Linux, double-cliquez sur l'icône \textsf{pharo.sh} depuis le répertoire \textsf{\pharooneclick{}.app} ou, grâce à un terminal, naviguer jusqu'au répertoire \textsf{\pharooneclick{}.app} et lancer la commande:
+\begin{code}{}
+./pharo.sh
+\end{code}
+\end{itemize}
+\index{lancement de \pharo}
+
+\begin{faq}\faqlabel{saveas-oneclick} % ajout vf : special OneClick version 1.0 
+Comment puis-je changer d'image à la sauvegarde et être sûr de démarrer la bonne image lors du démarrage de \mbox{\pharo~?}
+\end{faq}
+\answer
+Lorsque que vous sauvegardez votre image sous un autre nom en \clickant sur \menu{World\go{}Save as\ldots}, vous créez deux nouveaux fichiers dans le même répertoire que votre image initiale. En appelant la nouvelle image ``myPharo'' comme sur \figref{saveas-oneclick}, vous pourriez donc sauvegarder dans l'état courant votre image dans deux fichiers à la racine du dossier \mbox{\textsf{Contents/Resources}:} ``myPharo.image'' contenant le \emph{byte-code} et ``myPharo.changes'' contenant les changements de code source. L'intégralité du code source de notre image ``myPharo.image'' est l'union de code de ``myPharo.changes'' avec le fichier ``PharoV10.sources''.
+En continuant de travailler dans \pharo{}, vous travaillez donc dans votre nouvelle image.
+\begin{figure}[htb]
+	{\centerline{\includegraphics[width=0.35\textwidth]{saveAsOneClick}}}
+ 	\caption{La boîte de dialogue \menu{save as\ldots}.\figlabel{saveas-oneclick}}
+\end{figure}
+Pour pouvoir lancer cette nouvelle image, la machine virtuelle a besoin de connaître le nouveau nom. Pour ce faire:
+\begin{itemize} % RELIRE
+\item sous Windows, éditez le fichier \textsf{pharo.ini} à la racine de \textsf{\pharooneclick{}.app} et remplacez le champ \textsf{ImageFile}. Dans notre cas, remplacez ``PBE.image'' par notre nouvelle image pour obtenir \mbox{\textsf{ImageFile=Contents\symbol{92}Resources\symbol{92}myPharo.image};}
+\item sous \macosx{}, éditez le fichier \textsf{Info.plist} à la racine de \textsf{Contents} après avoir affiché le contenu du paquet en cliquant avec le bouton droit de la souris sur le programme \textsf{\pharooneclick}. Pour vous faciliter la navigation dans ce code \texttt{XML}, \macosx{} dispose de l'utilitaire \emph{Property List Editor}: trouver le champ \textsf{SqueakImageName} et renommez l'image du nouveau nom ``myPharo.image'';
+\item sous Linux, éditez le script \textsf{pharo.sh} à la racine de \textsf{\pharooneclick{}.app} de sorte que le nom de l'image lancée par votre machine virtuelle change; ainsi la dernière ligne de code s'écrira: 
+\begin{code}{}
+exec "$BASE/squeakvm" \
+	-plugins "$BASE" \
+	-encoding latin1 \
+	-vm-display-X11 \
+	"$ROOT/Contents/Resources/myPharo.image"
+\end{code}%$
+Notez que les antislashs \ct{\} indiquent au \emph{shell} Linux de passer une ligne sans exécuter le code immédiatement (comme cela se fait normalement après un retour-chariot).
+\end{itemize}
+\index{sauvegarde de \pharo}
+\index{fichier!image}
+\index{fichier!changes}
+
 %=================================================================
 \section{Collections}
 
@@ -113,9 +156,8 @@ String streamContents: [:str | str nextPutAll: 'hello' asSet] --> 'hleo'
 \section{Naviguer dans le système}
 
 % voir \faqref{packagebrowser}
-\begin{faq}
-Le navigateur de classes ne ressemble pas à celui décrit dans le
-livre. Que se passe-t-il?
+\begin{faq}\faqlabel{packagebrowser}
+Le navigateur de classes ne ressemble pas à celui décrit dans le livre. Que se passe-t-il?
 \end{faq}
 \answer
 Vous utilisez probablement une image disposant d'une version
@@ -125,11 +167,11 @@ installé comme Browser par défaut.
 Dans ce livre, nous présumons que le navigateur Omnibrowser
 \emph{Package Browser} (navigateur par paquetages) est installé par
 défaut.
-Vous pouvez changer cela en \clickant sur la bulle grise (le bouton si vous voulez...)
+Vous pouvez changer cela en \clickant sur la bulle grise 
 à droite de la barre de titre du navigateur, puis en sélectionnant
 dans le menu du Browser ``Choose new default Browser'' (en français,
 \emph{choisissez le nouveau Browser par défaut}). Dans la liste des
-navigateurs proposés, \clickz sur O2PackageBrowserAdaptor. 
+navigateurs proposés, \clickz sur O2PackageBrowserAdaptor.
 Le prochain navigateur de classes que vous ouvrirez sera le Package Browser. %CHANGE
 
 \begin{figure}[tbh]
@@ -138,9 +180,9 @@ Le prochain navigateur de classes que vous ouvrirez sera le Package Browser. %CH
 		\includegraphics[width=0.45\linewidth]{chooseNewBrowser}}\hfill
 	\subfigure[Sélectionnez l'OB Package Browser]{\figlabel{O2PackageBrowserAdaptor}
 		\includegraphics[width=0.45\linewidth]{O2PackageBrowserAdaptor}}\hfill
-	\caption{Changer le navigateur de classes par défaut.}
+	\caption{Changer le navigateur par défaut.}
 \end{figure}
-\seeindex{halo}{Morphic} % \seeindex{morphic halo}{Morphic} dans PBE
+\seeindex{halo}{Morphic, halo}
 
 \begin{faq}
 %How to I search for a class?
@@ -148,18 +190,15 @@ Comment puis-je chercher une classe~?
 \end{faq}
 \answer
 %\short{b} (browse) on the class name, or \short{f} in the category pane of the class browser.
-\short{b} (pour \emph{browse} \cad parcourir à l'aide du navigateur
-de classes) sur le nom de la classe ou \short{f} dans le panneau des
-catégories du Browser. % REVOIR
+\short{b} (pour \emph{browse} \cad parcourir à l'aide du navigateur)
+sur le nom de la classe ou \short{f} (pour \emph{find} \cad trouver)
+dans le panneau des catégories du Browser. % REVOIR
 \index{raccourci-clavier!browse it}
 \index{raccourci-clavier!find...}
 
-\begin{faq}
+\begin{faq}\faqlabel{navigatesupersends}
 %How do I find/browse all sends to super?
-Comment puis-je trouver/naviguer dans tous les envois 
-%%de
-à
- super~?
+Comment puis-je trouver/naviguer dans tous les envois à \super~?
 \end{faq}
 \answer
 %The second solution is much faster:
@@ -169,13 +208,13 @@ SystemNavigation default browseMethodsWithSourceString: 'super'.
 SystemNavigation default browseAllSelect: [:method | method sendsToSuper ].
 \end{code}
 %\index{browsing programmatically}
-\index{naviguer de manière pragmatique}
+\index{naviguer de manière pragmatique} % REVOIR
 \clsindex{SystemNavigation}
 
 \begin{faq}
 %How do I browse all super \subind{super}{send}{}s within a hierarchy?
 Comment puis-je naviguer au travers de tous les 
-\subpvind{super}{envoi}{}s de messages à \ct{super} dans une hiérarchie~?
+\subpvind{super}{envoi}{}s de messages à \super dans une hiérarchie~?
 \end{faq}
 \answer
 \begin{code}{}
@@ -184,29 +223,26 @@ browseSuperSends:= [:aClass | SystemNavigation default
 		(each methodDict associations
 			select: [:assoc | assoc value sendsToSuper ])
 				collect: [:assoc | MethodReference class: each selector: assoc key ] ])
-	name: 'Supersends of ' , aClass name , ' and its subclasses'].
+	name: 'Les envois !à! super de ' , aClass name , ' et de ses sous-classes'].
 browseSuperSends value: OrderedCollection.
 \end{code}
 
 \begin{faq}
 %How do I find out which are the new methods implemented in a class?
-Comment puis-je découvrir quelles sont les nouvelles méthodes implémentées dans une classe?
+Comment puis-je découvrir quelles sont les nouvelles méthodes implémentées dans une classe? (autrement, dit comment obtenir la liste des méthodes non surchargées d'une classe~?) 
 \end{faq}
 \answer
 %Here we ask which new methods are introduced by \ct{True}:
-Dans le cas présent nous demandons quelles sont les nouvelles méthodes introduites par \ct{True}:
+Dans le cas présent nous demandons quelles sont les nouvelles méthodes introduites par la classe \ct{True}:
 \begin{code}{@TEST | newMethods |}
 newMethods:= [:aClass| aClass methodDict keys select:
 	[:aMethod | (aClass superclass canUnderstand: aMethod) not ]].
-newMethods value: True --> an IdentitySet(#asBit)
+newMethods value: True --> an IdentitySet(#asBit #xor:)
 \end{code}
 
 \begin{faq}
 %How do I tell which methods of a class are abstract?
-Comment puis-je 
-%rapporter
-trouver
-les méthodes d'une classe qui sont abstraites~?
+Comment puis-je trouver les méthodes d'une classe qui sont abstraites~?
 \end{faq}
 \answer
 \begin{code}{@TEST | abstractMethods |}
@@ -218,24 +254,21 @@ abstractMethods value: Collection --> an IdentitySet(#remove:ifAbsent: #add: #do
 
 \begin{faq}
 %How do I generate a view of the \ind{AST} of an expression?
-Comment puis-je créer une vue de 
-%% ajout
-l'arbre syntaxique abstrait ou 
+Comment puis-je créer une vue de l'arbre syntaxique abstrait ou 
 \ind{AST} d'une expression~?
 \end{faq}
 \answer
 %Load AST from squeaksource.com. Then evaluate:
-Charger le paquetage AST depuis \url{http://squeaksource.com}. Ensuite évaluer:
+Charger le paquetage AST depuis \url{http://squeaksource.com/AST}. Ensuite évaluer:
 \begin{code}{}
 (RBParser parseExpression: '3+4') explore
 \end{code}
 %(Alternatively \emph{explore it}.)
-(D'autre part \emph{explorer le}.)
 \clsindex{RBParser}
 
 \begin{faq}
 %How do I find all the Traits in the system?
-Comment puis-je trouver tout les \emph{traits} dans le système~?
+Comment puis-je trouver tout les \emph{Traits} dans le système~?
 \end{faq}
 \answer
 \begin{code}{}
@@ -244,11 +277,11 @@ Smalltalk allTraits
 
 \begin{faq}
 %How do I find which classes use traits?
-Comment puis-je trouver quelles classes utilisent les \emph{traits}~?
+Comment puis-je trouver quelles classes utilisent les \emph{Traits}~?
 \end{faq}
 \answer
 \begin{code}{}
-Smalltalk allClasses select: [:each | each hasTraitComposition ]
+Smalltalk allClasses select: [:each | each hasTraitComposition and: [each traitComposition notEmpty]]
 \end{code}
 
 %=================================================================
@@ -301,7 +334,7 @@ Comment puis-je créer un projet SqueakSource~?
 %  \item \menu{+Repository \go HTTP}
   \item \menu{+Repository \go HTTP}
 %  \item Paste and accept the Registration code snippet; enter your password
-  \item Collez et acceptez le code d'enregistrement ; entrez votre mot de passe
+  \item Collez et acceptez le code d'enregistrement; entrez votre mot de passe
 %  \item \menu{Save} to save the first version
   \item \menu{Save} pour enregistrer la première version
 \end{enumerate}
@@ -347,7 +380,7 @@ Chargez le paquetage AST puis le moteur de
 %%plutot que refrabrication 
 refactorisation sur le site \url{http://squeaksource.com}:\\
 \url{http://www.squeaksource.com/AST}\\
-\url{http://www.squeaksource.com/RefactoringEngine}
+\url{http://www.squeaksource.com/RefactoringEngine} % pas de problème avec Stef de laisser AST bien qu'OBSOLETE
 
 \begin{faq}
 %How do I register the browser that I want to be the default?
@@ -387,7 +420,7 @@ Regardez dans le protocole \menu{DOCUMENTATION} de \ct{RxParser class} situé da
 
 \begin{faq}
 %Are there tools for writing parsers?
-Y a-t'il des outils pour l'écriture d'un outil d'analyse grammaticale~?
+Y a-t-il des outils pour l'écriture d'un outil d'analyse grammaticale~?
 \end{faq}
 \answer
 %Use \ind{SmaCC}\,---\,the Smalltalk Compiler Compiler.
@@ -398,17 +431,27 @@ Vous devrez installer au moins SmaCC-lr.13.
 Chargez-le depuis \url{http://www.squeaksource.com/SmaccDevelopment.html}.
 %There is a nice tutorial online:
 Il y a un bon tutoriel en ligne à l'adresse:
-\url{http://www.refactory.com/Software/SmaCC/Tutorial.html}
+\url{http://www.refactoryworkers.com/SmaCC/Tutorial.html} % martial 2011; CHANGE URL: http://www.refactory.com/Software/SmaCC/Tutorial.html}
 
 \begin{faq}
 %Which packages should I load from SqueakSource SmaccDevelopment to write parsers?
-Quels paquetages devrais-je charger depuis \emph{SqueakSource SmaccDevelopment} pour écrire un analyseur grammatical~?
+Quels paquetages dois-je charger depuis \emph{SqueakSource SmaccDevelopment} pour écrire un analyseur grammatical~?
 \end{faq}
 \answer
 %Load the latest version of \ind{SmaCCDev}{}\,---\,the runtime is already there.
 Chargez la dernière version de \ind{SmaCCDev}{}\,---\,le lanceur de programme est déjà actif.
 (Attention: SmaCC-Development est destiné à la version 3.8 de \squeak)
 
+\ifseaside{}{%
+% \section{Pharo for web developers}
+\section{Pharo pour les développeurs web}
+\begin{faq}\faqlabel{seaside}
+\pharo{} dispose-t-il d'un environnement pour développer des sites web~?
+\end{faq}
+\answer
+Oui. Et mieux que ça: \pharo{} propose Seaside, un \emph{framework} dont l'architecture orientée composants et la gestion totale du bouton de \emph{retour} du navigateur permettent de développer de formidables applications web modernes et dynamiques. Cette bibliothèque est portée sur d'autres \st{}s: \pharo{} est la plateforme de développement choisie par son équipe de programmeurs.\\
+Un livre dédié à cet environnement est disponible pour l'heure en anglais sur: \dwdseaside{}. Nous vous encourageons à acquérir une version imprimable auprès de notre éditeur: \sba{}.% 
+}
 %=================================================================
 \ifx\wholebook\relax\else\end{document}\fi
 %=================================================================
@@ -463,3 +506,5 @@ Chargez la dernière version de \ind{SmaCCDev}{}\,---\,le lanceur de programme e
 % :set encoding=UTF-8
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+% LocalWords:  retour-chariot

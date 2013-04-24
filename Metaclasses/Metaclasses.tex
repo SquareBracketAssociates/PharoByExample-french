@@ -20,6 +20,8 @@
 % adaptation pour PBE - martial - Thu Sep 10 19:46:40 CEST 2009 
 % relecture : Rene Mages 12-01-2010
 % relecture : Rene Mages 12-08-2010
+% relecture : Rene Mages 17-04-2011
+% relecture : Rene Mages 15-06-2011
 % $Author: oscar $ $Date: 2009-08-17 12:10:55 +0200 (Mon, 17 Aug 2009) $ $Revision: 28502 $
 
 \ifx\wholebook\relax\else
@@ -98,7 +100,7 @@ Pour expliquer correctement les classes et les méta-classes, nous devons étend
 \begin{enumerate}[label={\textbf{Règle \arabic{*}}.}, ref={Règle \arabic{*}}, leftmargin=*, widest=10]
 \setcounter{enumi}{5}
 \item{} \rulelabel{metaclass}
-	Toute classe est une instance d'une méta-classe.
+	Toute classe est l'instance d'une méta-classe.
 
 \item{} \rulelabel{parallelhierarchy}
 	La \subind{méta-classe}{hiérarchie} des méta-classes est parallèle à celle des classes.
@@ -148,7 +150,7 @@ Nous pouvons créer un morph et fixer sa couleur à cette couleur translucide:
 EllipseMorph new color: (Color blue alpha: 0.4); openInWorld
 \end{code}
 \noindent
-Vous pouvez voir l'effet produit dans la \figref{translucentEllipse}.
+Vous pouvez voir l'effet produit dans \figref{translucentEllipse}.
 
 \begin{center}
 \begin{figure}[!ht]
@@ -165,7 +167,7 @@ toute classe possède une super-classe.
 La super-classe de \clsind{TranslucentColor} est \clsind{Color} et la super-classe de \ct{Color} est \clsind{Object}:
 \begin{code}{@TEST}
 TranslucentColor superclass --> Color
-Color superclass                   --> Object
+Color superclass                          --> Object
 \end{code}
 
 Comme tout se produit par \subind{message}{envoi} de messages
@@ -246,8 +248,7 @@ TranslucentColor subclasses         --> #()
 TranslucentColor allSuperclasses  --> an OrderedCollection(Color Object ProtoObject)
 TranslucentColor instVarNames     --> #('alpha')
 TranslucentColor allInstVarNames --> #('rgb' 'cachedDepth' 'cachedBitPattern' 'alpha')
-TranslucentColor selectors             -->  an IdentitySet(#pixelValueForDepth: #pixelWord32
-#convertToCurrentVersion:refStream: #isTransparent #scaledPixelValue32 #bitPatternForDepth: #storeArrayValuesOn: #setRgb:alpha: #alpha #isOpaque #pixelWordForDepth: #isTranslucentColor #hash #isTranslucent #alpha: #storeOn: #asNontranslucentColor #privateAlpha #balancedPatternForDepth:)
+TranslucentColor selectors             -->  an IdentitySet(#pixelWord32 #asNontranslucentColor #privateAlpha #pixelValueForDepth: #isOpaque #isTranslucentColor #storeOn: #pixelWordForDepth: #scaledPixelValue32 #alpha #bitPatternForDepth: #hash #isTransparent #isTranslucent #balancedPatternForDepth: #setRgb:alpha: #alpha: #storeArrayValuesOn:)
 \end{code}
 \cmindex{Class}{subclasses}
 \cmindex{Behavior}{allSuperclasses}
@@ -326,7 +327,7 @@ dans l'autre cas, la classe \ct{Color} elle-même.
 Cela peut prêter à confusion parce que la barre de titre de l'inspecteur contient le nom de la \emph{classe} de l'objet en cours d'inspection.
 L'inspecteur sur \ct{Color} vous permet de voir 
 %% ajout
-entre autre la super-classe, les variables d'instances, le \subind{méthode}{dictionnaire} des méthodes 
+entre autres la super-classe, les variables d'instances, le \subind{méthode}{dictionnaire} des méthodes 
 %% etc.
 de  la classe \ct{Color}, comme indiqué dans \figref{inspectingColor}.
 
@@ -442,7 +443,7 @@ Les instances de la classe \ct{Metaclass} sont les méta-classes anonymes; chacu
 
 
 \ct{Metaclass} représente le comportement commun des méta-classes.
-Elle fournit des méthodes pour la création d'instances (\ct{sub\-class\-Of:}) permettant de créer des instances initialisées de l'unique instance \ct{Metaclass} pour l'initialisation des variables de classe, la compilation de méthodes et l'obtention d'informations à propos des classes (liens d'héritage, variables d'instance, \etc).
+Elle fournit des méthodes pour la création d'instances (\ct{subclassOf:}) permettant de créer des instances initialisées de l'unique instance \ct{Metaclass} pour l'initialisation des variables de classe, la compilation de méthodes et l'obtention d'informations à propos des classes (liens d'héritage, variables d'instance, \etc).
 
 % It provides methods for instance creation (\ct{sub\-class\-Of:})
 % creating initialized instances of the metaclass's sole instance,
@@ -477,7 +478,7 @@ Si vous comparez les figures \ref{fig:metaclassclass} et \ref{fig:metaclassclass
 
 Les exemples suivants montrent comment il est possible d'interroger la hiérarchie de classes afin de démontrer que \figref{metaclassclassclass} est correcte.
 %martial: j'ai enleve les parentheses
-En réalité, vous verrez que nous avons dit un pieux mensonge\,---\,\ct{Object class superclass -->} {\clsind{ProtoObject class}, et non \ct{Class}. En \pharo, il faut aller une super-classe plus haut dans la hiérarchie pour atteindre \ct{Class}.
+En réalité, vous verrez que nous avons dit un pieux mensonge\,---\,\lct{Object class superclass}{}\mbox{\ct{-->}~\clsind{ProtoObject class},} et non \ct{Class}. En \pharo, il faut aller une super-classe plus haut dans la hiérarchie pour atteindre \ct{Class}.
 
 \needlines{2}
 \begin{example}{La hiérarchie des classes}{@TEST}
@@ -490,7 +491,7 @@ Color superclass			        --> Object
 \begin{example}{La hi{é}rarchie parall{è}le des méta-classes}{@TEST}
 TranslucentColor class superclass          --> Color class
 Color class superclass                     --> Object class
-Object class superclass superclass         --> Class    "!Attention: saute ProtoObject class!"
+Object class superclass superclass         --> Class    "Attention: saute ProtoObject class"
 Class superclass                           --> ClassDescription
 ClassDescription superclass                --> Behavior
 Behavior superclass                        --> Object
@@ -538,7 +539,7 @@ Puisque les méta-classes sont aussi des classes, elles doivent hériter de  \ct
 	
 
 \item La méta-classe de \ct{Metaclass} est une instance de \ct{Metaclass}.
-	La relation \emph{instance-de} forme une boucle fermée, donc \ct{Metaclass class class --> Metaclass}.
+	La relation \emph{instance-de} forme une boucle fermée, donc \lct{Metaclass class class}{}\mbox{\ct{--> Metaclass}.}
 \end{enumerate}
 
 %=================================================================

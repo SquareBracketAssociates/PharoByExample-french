@@ -6,6 +6,8 @@
 % relecture par Rene (Sun, 13 Jan 2008)
 % relecture par Rene (Fri,  8 Jan 2010)
 % relecture par Rene (Mon,  9 Aug 2010)
+% relecture par Rene (Sat, 16 Apr 2011)
+% relecture par Rene (Tue, 14 Jun 2011)
 % update: Tue Dec 25 12:52:59 CET 2007
 % adaptation pour PBE: martial - Wed Sep  9 22:33:36 CEST 2009 from
 % $Author: oscar $ % $Date: 2009-08-16 16:37:09 +0200 (Sun, 16 Aug
@@ -52,7 +54,7 @@ une séquence d'éléments comme des
 % sequenced
 collections, des fichiers ou des flux réseau.
 Les \streams peuvent être en lecture ou en écriture ou les deux.
-La lecture et l'écriture est toujours relative à la position actuelle
+La lecture et l'écriture est toujours relative à la position courante
 dans le \stream. Les \streams peuvent être facilement convertis en
 collections 
 %ajout d'apres la remarque de lukas
@@ -86,7 +88,7 @@ dans le passé. Vous pouvez revenir à cette position en envoyant le message
 
 Lire un élément revient conceptuellement à effacer le premier élément de la séquence 
 d'éléments future et le mettre après le dernier élément dans la séquence d'éléments passée.
-Aprés avoir lu un élément avec le message \ct{next}, l'état de votre \stream est celui de \figref{a_bcde}.
+Après avoir lu un élément avec le message \ct{next}, l'état de votre \stream est celui de \figref{a_bcde}.
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{a_bcdeStef}}
@@ -159,7 +161,7 @@ w nextPut: 12. -->  !\normcomment{lève une erreur}!
 
 Les \streams ne sont pas seulement destinés aux collections mais
 aussi aux fichiers et aux \emph{sockets}.
-L'exemple suivant crée un fichier appelé \ct{test.txt}, 
+L'exemple suivant crée un fichier appelé \mbox{\ct{test.txt},} 
 y écrit deux chaînes de caractères, séparées par un retour-chariot et enfin ferme le fichier.
 
 \needlines{3}
@@ -222,10 +224,10 @@ negative. --> true
 negative ifTrue: [stream next].       "ignore le !caractère! moins"
 number := stream upToEnd.
 number. --> '143'
-\end{code}
+\end{code}%$
 \noindent
 Ce code affecte la variable booléenne \ct{negative} en fonction du signe du nombre dans le \stream et \ct{number} est assigné à sa valeur absolue. 
-La méthode \mthind{ReadStream}{upToEnd} (qui en français se traduirait par ``jusqu'à la fin'') renvoie tout depuis la position courante jusqu'à
+La méthode \mbox{\mthind{ReadStream}{upToEnd}} (qui en français se traduirait par ``jusqu'à la fin'') renvoie tout depuis la position courante jusqu'à
 la fin du flux de données et positionne ce dernier à sa fin.
 Ce code peut être simplifié grâce à \mthind{PositionableStream}{peekFor:} qui déplace le pointeur si et seulement si l'élément est égal au paramètre passé en argument.
 
@@ -233,7 +235,7 @@ Ce code peut être simplifié grâce à \mthind{PositionableStream}{peekFor:} qu
 stream := '-143' readStream.
 (stream peekFor: $-) --> true
 stream upToEnd         --> '143'
-\end{code}
+\end{code}%$
 \noindent
 \ct{peekFor:} retourne aussi un booléen indiquant si le paramètre est égal à l'élément courant.
 
@@ -280,14 +282,14 @@ stream position.  --> 0
 stream skipTo: $e.                        "le flux est !après! e"
 stream next.        --> $f
 stream contents. --> 'abcdef'
-\end{code}
+\end{code}%$
 
 Comme vous pouvez le voir, la lettre \ct{e} a été sautée.
 
 La méthode \mthind{PositionableStream}{contents} retourne toujours une copie de l'intégralité du flux de données.
 
 \paragraph{Tester.} Certaines méthodes vous permettent de tester l'état d'un \stream courant: 
-la méthode \mthind{PositionableStream}{atEnd} renvoie \emph{true} si et seulement si aucun élément ne peut être trouvé aprés la position actuelle alors que \mthind{PositionableStream}{isEmpty} renvoie \emph{true} si et seulement si aucun élément ne se trouve dans la collection.
+la méthode \mthind{PositionableStream}{atEnd} renvoie \emph{true} si et seulement si aucun élément ne peut être trouvé après la position actuelle alors que \mthind{PositionableStream}{isEmpty} renvoie \emph{true} si et seulement si aucun élément ne se trouve dans la collection.
 
 Voici une implémentation possible d'un algorithme utilisant \ct{atEnd} et prenant deux collections triées comme paramètres puis les fusionnant dans une autre collection triée:
 
@@ -480,7 +482,7 @@ Object subclass: #History
   poolDictionaries: ''
   category: 'PBE-Streams'
 
-History>>initialize
+History>>>initialize
     super initialize.
     stream := ReadWriteStream on: Array new.
 \end{code}
@@ -493,12 +495,12 @@ depuis un tableau.
 Nous avons besoin d'ajouter les méthodes \ct{goBackward} et \ct{goForward} pour aller respectivement en arrière (``Retour'') et en avant:
 
 \begin{code}{}
-History>>goBackward
+History>>>goBackward
   self canGoBackward ifFalse: [self error: '!\normcode{Déjà sur le premier élément}!'].
   stream skip: -2. 
   ^ stream next
 
-History>>goForward
+History>>>goForward
   self canGoForward ifFalse: [self error: '!\normcode{Déjà sur le dernier élément}!'].
   ^ stream next
 \end{code}
@@ -507,7 +509,7 @@ Jusqu'ici le code est assez simple. Maintenant, nous devons nous occuper
 de la méthode \ct{goTo:} (que nous pouvons traduire en français par ``aller à'') qui devrait être activée quand l'utilisateur clique sur un lien. Une solution possible est la suivante:
 
 \begin{code}{}
-History>>goTo: aPage
+History>>>goTo: aPage
     stream nextPut: aPage.
 \end{code}
 
@@ -516,7 +518,7 @@ Pour ce faire, la solution la plus simple est d'écrire \ct{nil}
 juste après la position courante pour indiquer la fin de l'historique:
 
 \begin{code}{}
-History>>goTo: anObject
+History>>>goTo: anObject
   stream nextPut: anObject.
   stream nextPut: nil.
   stream back.
@@ -529,16 +531,16 @@ Pour aller en arrière, il doit y avoir deux pages avant la position courante:
 une est la page actuelle et l'autre est la page que nous voulons atteindre.
 
 \begin{code}{}
-History>>canGoBackward
+History>>>canGoBackward
   ^ stream position > 1
 
-History>>canGoForward
+History>>>canGoForward
   ^ stream atEnd not and: [stream peek notNil]
 \end{code}
 
 Ajoutons pour finir une méthode pour accéder au contenu du \stream:
 \begin{code}{}
-History>>contents
+History>>>contents
   ^ stream contents
 \end{code}
 
@@ -621,7 +623,7 @@ stream
 stream close.
 
 stream := FileStream readOnlyFileNamed: 'test.txt'.
-stream contents. --> '!\normcode{Ce fichier est écrit dans un fichier nommé}! ''test.txt'''
+stream contents. --> '!\normcode{Ce texte est écrit dans un fichier nommé}! ''test.txt'''
 stream close.
 \end{code}
 
@@ -652,7 +654,7 @@ FileStream
 string := FileStream
             readOnlyFileNamed: 'test.txt'
             do: [:stream | stream contents].
-string --> '!\normcode{Ce fichier est écrit dans un fichier nommé}! ''test.txt'''
+string --> '!\normcode{Ce texte est écrit dans un fichier nommé}! ''test.txt'''
 \end{code}
 
 Les méthodes de création de flux de données prenant un bloc comme
@@ -697,8 +699,8 @@ FileStream
 \end{code}
 
 Voici un autre exemple créant une image dans un fichier nommé
-``test.pgm''. Vous pouvez ouvrir ce fichier avec votre programme de
-dessin préféré.
+``test.pgm'' que vous pourrez ouvrir avec votre outil graphique
+préféré.
 
 % The following does not assert anything, but @TEST is used to ensure
 % that no error is thrown.
@@ -738,7 +740,7 @@ Il est très facile de passer par conversion de \streams à collections et vice-
 \begin{itemize}
   \item Les flux peuvent être soit en lecture, soit en écriture, soit à la fois en lecture-écriture.
   \item Pour convertir une collection en un \stream, définissez un \stream
-sur une collection grâce au message \ct{on:}, \eg \ct{ReadStream on: (1 to: 1000)}, ou via les messages \ct{readStream}, \etc sur la collection.
+sur une collection grâce au message \ct{on:}, \eg \ct{ReadStream on: (1 to: 1000)}, ou via les messages \ct{readStream}, \etc ... sur la collection.
   \item Pour convertir un \stream en collection, envoyer le message \ct{contents}.
   \item Pour concaténer des grandes collections, il est plus efficace d'abandonner l'emploi de l'opérateur virgule \ct{,} et de créer un \stream et y adjoindre les collections avec le message \ct{nextPutAll:} puis extraire enfin le résultat en lui envoyant \ct{contents}.
   \item Par défaut, les \streams de fichiers sont à base de caractères.
@@ -756,5 +758,4 @@ Envoyer le message \ct{binary} en fait explicitement des \streams binaires.
 %%% mode: latex
 %%% TeX-master: t
 %%% TeX-PDF-mode: t
-%%% ispell-local-dictionary: "english"
 %%% End:

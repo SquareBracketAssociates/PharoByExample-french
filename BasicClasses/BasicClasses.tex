@@ -6,8 +6,10 @@
 % relecture: Martial Boniou (sun, 23 dec 2007) de la version #14626 
 % relecture : Rene Mages (sat, 9 jan 2008) de la version #14856
 % export Pharo : Martial Boniou à partir de la revision 28661 - oscar
-% relecture : Rene Mages (mon, 11 jan 2010) de la version #30227
-% relecture : Rene Mages (mon,  9 aug 2010) de la version #34378
+% relecture : Rene Mages (mon, 11 jan 2010) 
+% relecture : Rene Mages (mon,  9 aug 2010) 
+% relecture : Rene Mages (fri,  15 apr 2011) 
+% relecture : Rene Mages (mon,  13 june 2011) 
 % 2009-08-28 11:31:14 +0200 (Fri, 28 Aug 2009) $
 %=================================================================
 \ifx\wholebook\relax\else
@@ -60,7 +62,7 @@ et ses sous-classes, \ct{Character}, \ct{String}, \ct{Symbol} et \ct{Boolean}.
 %=================================================================
 \section{Object}
 
-Dans tous les cas, \clsindmain{Object} est la racine de la hiérarchie d'héritage. En réalité, dans \pharo , la vraie racine de la hiérarchie est \clsind{ProtoObject} qui est utilisée pour définir les entités minimales qui se font passer pour des objets, mais nous pouvons ignorer ce point pour l'instant.
+Dans tous les cas, \clsindmain{Object} est la racine de la hiérarchie d'héritage. En réalité, dans \pharo , la véritable racine de la hiérarchie est \clsind{ProtoObject} qui est utilisée pour définir les entités minimales qui se font passer pour des objets, mais nous pouvons ignorer ce point pour l'instant.
 % (more on this later in the chapter on reflection).
 
 La classe \ct{Object} peut être trouvée dans la catégorie
@@ -97,11 +99,11 @@ Si nous naviguons dans les catégories des méthodes d'instance de \ct{Object}, 
 %-----------------------------------------------------------------
 %titre de sous-section = mot-cle sans article
 \subsection{Impression}
-Tout objet en \st peut renvoyer une forme imprimée de lui-même. Vous pouvez sélectionner 
+Tout objet en \st peut renvoyer une représentation textuelle de lui-même. Vous pouvez sélectionner 
 n'importe quelle expression dans un Workspace et sélectionner le menu \menu{print it}: 
 ceci exécute l'expression et demande à l'objet renvoyé de s'imprimer. En réalité le 
 message \ct{printString} est envoyé à l'objet retourné. La méthode \mthind{Object}{printString}, 
-qui est une \ind{méthode générique}, envoie le message \mthind{Object}{printOn:} à son receveur. 
+qui est une méthode \subind{méthode}{générique}, envoie le message \mthind{Object}{printOn:} à son receveur. 
 Le message \ct{printOn:} est un point d'entrée qui peut être spécialisé. 
 
 %martial: il faudra peut-etre ajouter une remarque et un lien pour
@@ -120,7 +122,7 @@ Par exemple, la classe \clsind{Browser} ne redéfinit pas la
 méthode \ct{printOn:} et, envoyer le message \ct{printString} à
 une %
 %ajout
-de ces instances %
+de ses instances %
 exécute les méthodes définies dans \ct{Object}. 
 \begin{code}{@TEST}
 Browser new printString --> 'a Browser'
@@ -132,9 +134,8 @@ le nom de la méthode de classe utilisée pour générer cette couleur,
 comme le montre le code ci-dessous qui imprime une instance de cette
 classe. % CHANGE
 
-% \needlines{7}
-%martial: caption plus coherent que 'printOn: redefinition.'
-\begin{method}[zork]{Redéfinir printOn:}
+\needlines{8}
+\begin{method}[zork]{Redéfinir \ct{printOn:}}
 Color>>>printOn: aStream
 	| name |
 	(name := self name) ifNotNil: 
@@ -163,7 +164,7 @@ sympathique d'être eux-mêmes leur propre valeur. Par exemple, la
 valeur de l'objet \ct{true} est lui-même, \ie l'objet
 \ct{true}. Nous appelons de tels objets des \emph{objets}
 \emphsubind{objet}{auto-évalué}{}\emph{s}. 
-Vous pouvez voir une version  \emph{imprimée} de la valeur d'un objet 
+Vous pouvez voir une représentation textuelle de la valeur d'un objet 
 quand vous imprimez l'objet dans un \ct{Workspace}. Voici quelques exemples 
 de telles expressions auto-évaluées. 
 
@@ -197,7 +198,7 @@ Rappelez-vous que les tableaux littéraux ne peuvent contenir que des littéraux
 #(10@10 100@100) --> #(10 #@ 10 100 #@ 100)
 \end{code}
 
-Beaucoup de spécialisations de la méthode \ct{printOn:} implémentent le comportement d'auto-évaluation. Les implémentations de \cmind{Point}{printOn:} et \cmind{Interval}{printOn:} sont auto-évaluées.
+Beaucoup de spécialisations de la méthode \ct{printOn:} implémentent le comportement d'auto-évaluation. Les implémentations de \cmind{Point}{printOn:} et \mbox{\cmind{Interval}{printOn:}} sont auto-évaluées.
 
 \begin{method}[Self-evaluating points]{Auto-évaluation de \ct{Point}}
 Point>>>printOn: aStream 
@@ -222,7 +223,7 @@ Interval>>>printOn: aStream
 \end{method}
 
 \begin{code}{@TEST}
-1 to: 10 --> (1 to: 10)    "!les intervalles sont auto-évalués!"
+1 to: 10 --> (1 to: 10)    "les intervalles sont !auto-évalués!"
 \end{code}
 
 %-----------------------------------------------------------------
@@ -248,8 +249,8 @@ C'est une méthode que vous voudrez souvent surcharger. Considérez le cas de la
 des nombres complexes \ct{Complex}:
 
 \begin{code}{@TEST}
-(1 + 2 i) = (1 + 2 i)   --> true     !"même valeur"!
-(1 + 2 i) == (1 + 2 i)  --> false    !"mais objets différents"!
+(1 + 2 i) = (1 + 2 i)   --> true     "!même! valeur"
+(1 + 2 i) == (1 + 2 i)  --> false    "mais objets !différents!"
 \end{code}
 
 Ceci fonctionne parce que \ct{Complex} surcharge \ct{=} comme suit:
@@ -321,7 +322,7 @@ Inversement, vous pouvez demander si un objet est une instance
 d'une classe spécifique:
 \cmindex{Object}{isMemberOf:}
 \begin{code}{@TEST}
-1 isMemberOf: SmallInteger --> true    "doit !être précisément cette classe!"
+1 isMemberOf: SmallInteger --> true    "doit !être! !précisément! cette classe"
 1 isMemberOf: Integer      --> false
 1 isMemberOf: Number       --> false
 1 isMemberOf: Object       --> false
@@ -330,7 +331,7 @@ d'une classe spécifique:
 Puisque \st est écrit en lui-même, vous pouvez vraiment naviguer au travers de sa structure en utilisant la bonne combinaison de messages \ct{superclass} et \ct{class} (voir \charef{metaclasses}). 
 
 \paragraph{\ct{isKindOf:}}
-\cmind{Object}{isKindOf:} répond \ct{true} si la classe du receveur est la même ou une des sous-classes de la classe de l'argument.
+\cmind{Object}{isKindOf:} répond \ct{true} si la classe du receveur est la même que la classe de l'argument ou de l'une de ses sous-classes.
 
 \begin{code}{@TEST}
 1 isKindOf: SmallInteger --> true
@@ -376,7 +377,7 @@ a2 := a1 shallowCopy.
 a2 --> #(#('harry'))
 (a1 at: 1) at: 1 put: 'sally'.
 a1 --> #(#('sally'))
-a2 --> #(#('sally'))    "!le tableau contenu est partagé!"
+a2 --> #(#('sally'))    "le tableau contenu est !partagé!"
 \end{code}
 
 \cmind{Object}{shallowCopy} est une méthode primitive qui crée une copie superficielle d'un objet. Puisque \ct{a2} est seulement une copie superficielle de \ct{a1}, les deux tableaux partagent une référence au tableau (\ct{Array}) qu'ils contiennent.
@@ -391,7 +392,7 @@ a1 := { { 'harry' } } .
 a2 := a1 copyTwoLevel.
 (a1 at: 1) at: 1 put: 'sally'.
 a1 --> #(#('sally'))
-a2 --> #(#('harry'))    "!état complètement indépendant!"
+a2 --> #(#('harry'))    "!état! !complètement! !indépendant!"
 \end{code}
 
 \cmind{Object}{deepCopy} effectue une copie profonde et arbitraire d'un objet.
@@ -423,7 +424,7 @@ Object>>>copy
     "Answer another instance just like the receiver.
     Subclasses typically override postCopy;
     they typically do not override shallowCopy."
-    ^self shallowCopy postCopy
+    ^ self shallowCopy postCopy
 \end{method}
 
 %ajout
@@ -463,7 +464,7 @@ l'enlève de la pile''):
 Stack>>>pop
     "Return the first element and remove it from the stack."
     self assert: [ self isEmpty not ].
-    ^self linkedList removeFirst element
+    ^ self linkedList removeFirst element
 \end{method}
 
 Il ne faut pas confondre \ct{Object>>>assert:} avec \cmind{TestCase}{assert:}, 
@@ -582,17 +583,16 @@ devront redéfinir cette méthode pour faire des initialisations
 dans la phase de création d'instance.
 
 %FIXME ``as an empty hook method``
-\begin{method}{La méthode générique \lct{initialize}}
+\begin{method}{La méthode générique \ct{initialize}}
 ProtoObject>>>initialize
    "Subclasses should redefine this method to perform initializations on instance creation"
 \end{method}
 
 Ceci est important parce que, dans \pharo, 
  la méthode \mthind{Behavior}{new}, définie pour chaque classe du
-système, envoie \ct{initialize} aux instances nouvellement
-créées.
+système, envoie \ct{initialize} aux instances nouvellement créées.
 
-\begin{method}{Modèle pour la méthode de classe \lct{new}. Le commentaire dit: ``Répond une nouvelle instance initialisée du receveur (qui est une classe) sans aucune variables indexées. Échoue si la classe est indexée''}
+\begin{method}{Modèle pour la méthode de classe \ct{new}. Le commentaire dit: ``Répond une nouvelle instance initialisée du receveur (qui est une classe) sans aucune variables indexées. Échoue si la classe est indexée''}
 Behavior>>>new
     "Answer a new initialized instance of the receiver (which is a class) with no indexable variables. Fail if the class is indexable."
     ^ self basicNew initialize
@@ -625,11 +625,11 @@ Les méthodes \mthind{Magnitude}{<} et \mthind{Magnitude}{=} sont abstraites. Le
 \begin{method}{Méthodes de comparaison abstraites}
 Magnitude>>> < aMagnitude 
     "Answer whether the receiver is less than the argument."
-    ^self subclassResponsibility
+    ^ self subclassResponsibility
 
 Magnitude>>> > aMagnitude 
     "Answer whether the receiver is greater than the argument."
-    ^aMagnitude < self
+    ^ aMagnitude < self
 \end{method}
 \cmindex{Magnitude}{>}
 
@@ -701,13 +701,13 @@ Les méthodes de \emph{troncature} incluent entre autres,
 1 + 2.5     --> 3.5             "Addition de deux nombres"
 3.4 * 5      --> 17.0           "Multiplication de deux nombres"
 8 / 2         --> 4                 "Division de deux nombres"
-10 - 8.3   --> 1.7              "Soustraction de deux nombres"
-12 = 11    --> false           !"Égalité entre deux nombres"!
-12 ~= 11 --> true            !"Teste si deux nombres sont différents"!
+10 - 8.3   --> 1.7             "Soustraction de deux nombres"
+12 = 11    --> false           "!Égalité! entre deux nombres"
+12 ~= 11 --> true            "Teste si deux nombres sont !différents!"
 12 > 9      --> true            "Plus grand que"
-12 >= 10  --> true            !"Plus grand ou égal à"!
+12 >= 10  --> true            "Plus grand ou !égal! !à!"
 12 < 10    --> false           "Plus petit que"
-100@10   --> 100@10    !"Création d'un point"!
+100@10   --> 100@10    "!Création! d'un point"
 \end{code}
 \on{Should check how tabbing works in the listings package ...}
 
@@ -746,7 +746,7 @@ Float infinity isInfinite --> true
 %-----------------------------------------------------------------
 \subsection{Fraction}
 
-Les \clsind{fractions} sont représentées par des variables d'instance pour le numérateur et le dénominateur, qui devraient être des entiers. Les \ct{fractions} sont normalement créées par division d'entiers (plutôt qu'en utilisant le constructeur \cmind{Fraction}{numerator:denominator:}):
+Les \clsind{fractions} sont représentées par des variables d'instance pour le numérateur et le dénominateur, qui doivent être des entiers. Les \ct{fractions} sont normalement créées par division d'entiers (plutôt qu'en utilisant le constructeur \cmind{Fraction}{numerator:denominator:}):
 
 \begin{code}{@TEST}
 6/8             --> (3/4)
@@ -770,13 +770,13 @@ concrète de beaucoup de méthodes abstraites de la classe
 \ct{Number}, il ajoute également quelques méthodes spécifiques
 aux entiers, telles que \mthind{Integer}{factorial}
 %ajout
-(fractionnelle),
+(factorielle),
 \mthind{Integer}{atRandom}
 %ajout
 (nombre aléatoire entre 1 et le receveur),
 \mthind{Integer}{isPrime}
 %ajout
-(test de nombre premier), 
+(test de primalité), 
 \mthind{Integer}{gcd:} 
 %ajout
 (le plus grand dénominateur commun)
@@ -784,7 +784,7 @@ et beaucoup d'autres.
 
 La classe \clsindmain{SmallInteger} est particulière dans le sens que ses instances sont représentées de manière compacte --- au lieu d'être stockées comme référence, une instance de \ct{SmallInteger} est directement représentée en utilisant les bits qui seraient normalement utilisés pour contenir la référence.  Le premier bit de la référence à un objet indique si l'objet est une instance de SmallInteger ou non.
 
-Les méthodes de classe \mthind{SmallInteger}{minVal} et \mthind{SmallInteger}{maxVal} nous donne la plage de valeurs d'une instance de \ct{SmallInteger}:
+Les méthodes de classe \mthind{SmallInteger}{minVal} et \mthind{SmallInteger}{maxVal} nous donnent la plage de valeurs d'une instance de \ct{SmallInteger}:
 
 \begin{code}{@TEST}
 SmallInteger maxVal = ((2 raisedTo: 30) - 1)      --> true
@@ -801,7 +801,7 @@ Quand un \ct{SmallInteger} dépasse cette plage de valeurs, il est automatiqueme
 Les grands entiers sont de la même manière convertis en petits entiers quand il le faut.
 
 Comme dans la plupart des langages de programmation, les entiers peuvent être utiles pour spécifier une itération.  Il existe une méthode dédiée \mthind{Integer}{timesRepeat:} pour l'évaluation répétitive d'un bloc.
-Nous avons déjà vu des exemples similaires dans le chapitre \charef{syntax}:
+Nous avons déjà vu des exemples similaires dans le \charef{syntax}:
 \begin{code}{@TEST | n |}
 n := 2.
 3 timesRepeat: [ n := n*n ].
@@ -901,8 +901,7 @@ Character characterTable size                               --> 256
 La classe \clsindmain{String} est également définie dans la catégorie \scatind{Collections-Strings}.  Une chaîne de caractères est une collection indexée contenant uniquement des caractères.
 
 \begin{figure}[ht]
-\ifluluelse
-	{\centerline {\includegraphics[width=0.4\textwidth]{StringHierarchy}}}
+\centerline {\includegraphics[width=0.4\textwidth]{StringHierarchy}}
 \caption{La hiérarchie de \ct{String}.\figlabel{strings}}
 \end{figure}
 
@@ -915,8 +914,8 @@ En fait, \ct{String} est une classe abstraite et les chaînes de caractères de 
 Une autre sous-classe importante de \ct{String} est
 \clsindmain{Symbol}.  La différence fondamentale est qu'il n'y a
 toujours qu'une instance unique de \ct{Symbol} pour une valeur
-donnée  (ceci est quelques fois appelé ``la propriété de
-l'instance unique'').  à l'opposé, deux chaînes construites
+donnée  (ceci est quelquefois appelé ``la propriété de
+l'instance unique''). À l'opposé, deux chaînes construites
 séparément  et contenant la même séquence de caractères
 seront souvent des objets différents.
 
@@ -985,7 +984,7 @@ et \mthind{String}{translateToLowercase}
 %ajout
 (pour mettre en minuscule).
 %martial: peut-etre a redefinir \ind{shortcut constructor methods}
-\seeindex{shortcut constructor method}{constructeur-raccourci}
+% \seeindex{shortcut constructor method}{constructeur-raccourci}
 
 Pour plus d'informations sur les chaînes de caractères et les
 collections, rendez-vous au chapitre \ref{cha:collections}.
@@ -1019,12 +1018,12 @@ comme arguments.
 La méthode est abstraite dans \ct{Boolean}.
 Les implémentations dans les sous-classes concrètes sont toutes les deux triviales:
 
-\begin{method}{Implémentations de \lct{ifTrue:ifFalse:}}
+\begin{method}{Implémentations de \ct{ifTrue:ifFalse:}}
 True>>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock 
-    ^trueAlternativeBlock value
+    ^ trueAlternativeBlock value
 
 False>>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock 
-    ^falseAlternativeBlock value
+    ^ falseAlternativeBlock value
 \end{method}
 \cmindex{True}{ifTrue:}
 \cmindex{False}{ifTrue:}
@@ -1041,7 +1040,7 @@ manière pour \ct{True} et \ct{False}. Par exemple:
 \begin{method}{Implémenter la négation}
 True>>>not
     "Negation--answer false since the receiver is true."
-    ^false
+    ^ false
 \end{method}
 \cmindex{True}{not}
 
@@ -1053,9 +1052,9 @@ vrai (\ct{true}, instance de \ct{True}).
 La classe \ct{Boolean} offre plusieurs méthodes utiles, comme \mthind{Boolean}{ifTrue:}, \mthind{Boolean}{ifFalse:}, \mthind{Boolean}{ifFalse:ifTrue}. Vous avez également le choix entre les conjonctions et disjonctions optimisées ou paresseuses.
 
 \begin{code}{@TEST}
-(1>2) & (3<4)              --> false    !"doit évaluer les deux cotés"!
-(1>2) and: [ 3<4 ]        --> false    !"évalue seulement le receveur"!
-(1>2) and: [ (1/0) > 0 ] --> false    !"le bloc passé en argument n'est jamais évalué, ainsi, pas d'exception"!
+(1>2) & (3<4)              --> false     "doit !évaluer! les deux !côtés!"
+(1>2) and: [ 3<4 ]        --> false     "!évalue! seulement le receveur"
+(1>2) and: [ (1/0) > 0 ] --> false    "le bloc !passé! en argument n'est jamais !évalué!, ainsi, pas d'exception"
 \end{code}
 
 Dans le premier exemple, les deux sous-expressions booléennes sont
@@ -1085,15 +1084,15 @@ Nous avons vu que:
   \item si vous surchargez \ct{=} alors vous devez également
     surcharger la méthode de hachage, \ct{hash};
 
-  \item surchargez \ct{postCopy} pour implémenter correctement la copie de vos objets;
+  \item il faut surcharger \ct{postCopy} pour implémenter correctement la copie de vos objets;
 
-  \item envoyez \ct{self halt} pour créer un point d'arrêt;
+  \item il faut envoye \ct{self halt} pour créer un point d'arrêt;
 
-  \item renvoyez \ct{self subclassResponsibility} pour faire une méthode abstraite;
+  \item il faut renvoyer \ct{self subclassResponsibility} pour faire une méthode abstraite;
 
   \item pour donner la représentation en chaîne de caractères d'un objet \ct{String}, vous devez surcharger \ct{printOn:};
 
-  \item surchargez la méthode générique \ct{initialize} pour instancier correctement vos objets;
+  \item il faut surcharger la méthode générique \ct{initialize} pour instancier correctement vos objets;
 
 
 % proposition de Rene:
@@ -1109,7 +1108,7 @@ Nous avons vu que:
   \item les chaînes de caractères sont modifiables (mutables) mais les symboles ne le sont pas;
   cependant faites attention à ne pas modifier les chaînes de caractères littérales!
 
-  \item ces symboles sont uniques mais les chaînes de caractères ne le sont pas;
+  \item ces symboles sont uniques mais que les chaînes de caractères ne le sont pas;
 
   \item les chaînes de caractères et les symboles sont des collections et donc, supportent les méthodes usuelles de la classe \ct{Collection}.
 
@@ -1130,6 +1129,5 @@ Nous avons vu que:
 %%% mode: latex
 %%% TeX-master: t
 %%% TeX-PDF-mode: t
-%%% ispell-local-dictionary: "english"
 %%% End:
 %%% End:

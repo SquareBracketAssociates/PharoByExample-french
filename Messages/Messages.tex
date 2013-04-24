@@ -5,12 +5,12 @@
 % Une instance de Pen est appele 'crayon' (et non plus, crayon ou
 % stylo...)
 % relecture par Rene Mages : Thu Dec 20 12:13:40 2007
-% relecture par Rene Mages : Thr Jan 10 12:11:33 2008
+% relecture par Rene Mages : Thu Jan 10 12:11:33 2008
 % adaptation pour PBE - martial - Fri Sep 11 17:52:08 CEST 2009 
 % relecture par Rene Mages : Sun Jan 10 12:11:33 2010
+% relecture par Rene Mages : Mon Apr 11 12:11:33 2011
+% relecture par Rene Mages : Sat May 28 12:11:33 2011
 % $Author: oscar $ % $Date: 2009-08-27 12:59:05 +0200 (Thu, 27 Aug 2009) $ 
-% $Revision: 28624 $
-% synchro avec: 31695
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -41,19 +41,14 @@
 \chalabel{understanding}
 
 Bien que la syntaxe des messages \st soit extrêmement simple, elle n'est pas 
-habituelle et cela peut prendre un certain temps pour s'y habituer. Ce chapitre 
-offre quelques conseils pour vous aider à mieux appréhender la syntaxe spéciale 
-des envois de messages.
-Si vous vous sentez en confiance avec la syntaxe, vous pouvez choisir de sauter 
+habituelle pour un développeur qui viendrait du monde C/Java. Un certain temps d'adaptation peut être nécessaire. L'objectif de ce chapitre est de donner quelques conseils pour vous aider à mieux appréhender la syntaxe particulière  des envois de messages.
+Si vous vous sentez suffisamment en confiance avec la syntaxe, vous pouvez choisir de sauter 
 ce chapitre ou bien d'y revenir un peu plus tard.
-
-\on{I still feel this chapter contains too much repetition.
-I would like to get feedback from students.}
 
 %=============================================================
 \section{Identifier les messages}
 
-En \st, exception faite des éléments syntaxiques rencontrés dans
+Avec \st, exception faite des éléments syntaxiques rencontrés dans
 \charef{syntax} (\ct+:= ^ . ; # () {} [ : | ]+), tout se passe par envoi de messages.
 Comme en \ind{C++}, vous pouvez définir vos opérateurs comme \ct{+} pour vos propres 
 classes, mais tous les opérateurs ont la même précédence.
@@ -63,7 +58,7 @@ d'avoir une forme unaire avec une surcharge différente.
 
 Avec \st, l'ordre dans lequel les messages sont envoyés est
 déterminé par le type de message. Il n'y a que trois formes de
-messages: les messages \emphsubind{message}{unaire},
+messages : les messages \emphsubind{message}{unaire},
 \emphsubind{message}{binaire} et \emphsubind{message}{à mots-clés}.
  Les messages unaires sont toujours envoyés en premier, puis
 les messages binaires et enfin ceux à mots-clés. Comme dans la
@@ -74,11 +69,11 @@ nécessaire de réfléchir à ces règles.
 
 Comme la plupart des calculs en \st sont effectués par des envois de 
 messages, identifier correctement les messages est crucial. La terminologie 
-suivante va nous être utile:
+suivante va nous être utile :
 
 \begin{itemize}
-  \item Un message est composé d'un \emphsubind{message}{sélecteur} et d'arguments optionnels.
-  \item Un message est envoyé au \emphsubind{message}{receveur}.
+  \item Un message est composé d'un \emphsubind{message}{sélecteur} et d'arguments optionnels,
+  \item Un message est envoyé au \emphsubind{message}{receveur},
   \item La combinaison d'un message et de son receveur est appelé un \emphsubind{message}{envoi} \emph{de message}  comme il est montré dans \figref{firstScriptMessage}.
 \end{itemize}
 
@@ -115,8 +110,9 @@ première à être évaluée afin de voir l'ordre d'envoi des messages.
 %\caption{\ct{aMorph color: Color yellow} is composed of two expressions: \ct{Color yellow} and \ct{aMorph color: Color yellow}.\figlabel{ellipse}}
 %\end{figure}
 
-\Figref{ellipse} représente deux envois de messages, \ct{Color yellow} et \ct{aMorph color: Color yellow}, de telle sorte qu'il y a
-deux ellipses. L'expression \ct{Color yellow} est d'abord évalué
+\Figref{ellipse} représente deux envois de messages, \ct{Color yellow} et \ct{aMorph color: Color yellow}, 
+de telle sorte qu'il y a deux ellipses. 
+L'expression \ct{Color yellow} est d'abord évaluée
 en premier, ainsi son ellipse est numérotée à \ct{1}. Il y a
 deux receveurs: \ct{aMorph} qui reçoit le message \ct{color: ...}
 et \ct{Color} qui reçoit le message \ct{yellow} 
@@ -190,7 +186,7 @@ objet. Dans \ct{Pen new go: 100}, le message \ct{go: 100} est envoyé
 %=============================================================
 \section{Trois sortes de messages}
 
-\st définit quelques règles simples pour déterminer l'ordre dans lequel 
+\st utilise quelques règles simples pour déterminer l'ordre dans lequel 
 les messages sont envoyés. Ces règles sont basées sur la distinction établie 
 entre les 3 formes d'envoi de messages: 
 \begin{itemize}
@@ -224,7 +220,7 @@ Object class --> Object class  "La classe de Object est Object class (BANG)"
 \end{code}
 % ON: I changed the examples to things we can test
 
-\important{Les messages unaires sont des messages qui ne nécessitent pas d'argument.\\
+\important{Les messages unaires sont des messages qui ne nécessitent pas d'argument.
 Ils suivent le moule syntaxique: \lct{receveur \textbf{sélecteur}}}
 
 %-------------------------------------------------------------
@@ -249,7 +245,7 @@ Ils suivent le moule syntaxique: \lct{receveur \textbf{sélecteur} argument}}
 Les messages à mots-clés sont des messages qui nécessitent un ou plusieurs arguments et 
 dont le sélecteur consiste en un ou plusieurs mots-clés se finissant par deux points \ct{:}.  
 Les messages à mots-clés suivent le moule syntaxique: 
-\lct{receveur \textbf{selecteurMotUn:} argument\-Un \textbf{motDeux:} argumentDeux}
+\lct{receveur \textbf{motUnDuSelecteur:} argumentUn \textbf{motDeuxDuSelecteur:} argumentDeux}
 
 Chaque mot-clé utilise un argument. Ainsi \ct{r:g:b:} est une
 méthode avec 3 arguments, \ct{playFileNamed:} et \ct{at:} sont des
@@ -262,8 +258,7 @@ créant ainsi la couleur rouge. Notez que les deux points ne font pas partie du 
 
 \begin{code}{@TEST | nums |}
 1 to: 10                        --> (1 to: 10)  "!création! d'un intervalle"
-Color r: 1 g: 0 b: 0       --> Color red  "!création! d'une nouvelle
-couleur (rouge)"
+Color r: 1 g: 0 b: 0       --> Color red  "!création! d'une nouvelle couleur (rouge)"
 12 between: 8 and: 15 --> true
 
 nums := Array newFrom: (1 to: 5).
@@ -273,8 +268,7 @@ nums --> #(6 2 3 4 5)
 % ON: Changed to real examples that we can test
 
 \important{Les messages basés sur les mots-clés sont des messages qui nécessitent un ou plusieurs arguments. Leurs sélecteurs consistent en un ou plusieurs mots-clés chacun se terminant par deux points (\ct{\:}). Ils suivent le moule syntaxique:\\
-\lct{receveur \textbf{selecteurMotUn:} argumentUn \textbf{motDeux:} argumentDeux}}
-
+\lct{receveur \textbf{motUnDuSelecteur:} argumentUn \textbf{motDeuxDuSelecteur:} argumentDeux}}
 %=============================================================
 \section{Composition de messages}
 Les trois formes d'envoi de messages ont chacune des priorités différentes, ce qui permet de les composer de manière élégante.
@@ -292,7 +286,7 @@ que vous souhaitez, vous pouvez toujours mettre des parenthèses
 supplémentaires comme dans \figref{uKeyUn}. Dans cet exemple, le
 message \ct{yellow} est un message unaire et le message \ct{color:}
 est un message à mots-clés; ainsi l'expression \ct{Color yellow}
-est envoyé en premier. Néanmoins comme les expressions entre
+est envoyée en premier. Néanmoins comme les expressions entre
 parenthèses sont envoyées en premier, mettre des parenthèses
 (normalement inutiles) autour de \ct{Color yellow} permet d'accentuer
 le fait qu'elle
@@ -562,7 +556,7 @@ comme nous le voyons dans l'\egref{mathcorrect}.
 \end{center}
 \end{figure}
 
-\important{En \st, les opérateurs arithmétiques comme + et * n'ont
+\important{En \st, les opérateurs arithmétiques comme \ct{+} et \ct{*} n'ont
   pas des priorités différentes. \ct{+} et \ct{*} ne sont que des
   messages binaires; donc \ct{*} n'a pas priorité sur
   \ct{+}. Utiliser des parenthèses pour obtenir le résultat désiré.}
@@ -618,7 +612,7 @@ Souvent les débutants ont des problèmes pour comprendre quand ils doivent ajou
 %-------------------------------------------------------------
 \subsection{Des parenthèses ou pas ?}
 Les caractères \ct{[}, \ct{]}, and \ct{(}, \ct{)} 
-délimitent des zones distinctes. Dans ces zones, un message à mots-clés est la plus longue séquence de mots terminés par (\ct{:}) qui n'est pas coupé par les caractères (\ct{.}), ou (\ct{;}). 
+délimitent des zones distinctes. Dans ces zones, un message à mots-clés est la plus longue séquence de mots terminés par (\ct{:}) qui n'est pas coupée par les caractères (\ct{.}), ou (\ct{;}). 
 Lorsque les caractères \ct{[}, \ct{]}, et \ct{(}, \ct{)} entourent des mots avec des deux points, ces mots participent au message à mots-clés \emph{local} à la zone définie.
 
 Dans cet exemple, il y a deux mots-clés distincts: \ct{rotatedBy:magnify:smoothing:} et \ct{at:put:}.
@@ -633,7 +627,7 @@ aDict
 \end{code}
 
 \important{
-Les caractères \ct{[}, \ct{]}, et \ct{(}, \ct{)} délimitent des zones distinctes. Dans ces zones, un message à mots-clés est la plus longue séquence de mots qui se termine par (\ct{\:}) qui n'est pas coupé par les caracères (\ct{.}),  ou \ct{\;}. 
+Les caractères \ct{[}, \ct{]}, et \ct{(}, \ct{)} délimitent des zones distinctes. Dans ces zones, un message à mots-clés est la plus longue séquence de mots qui se termine par (\ct{\:}) qui n'est pas coupé par les caractères (\ct{.}),  ou \ct{\;}. 
 Lorsque les caractères \ct{[}, \ct{]}, et \ct{(}, \ct{)} entourent des mots avec des deux points, ces mots participent au message à mots-clés local à cette zone.}
 
 \on{Sounds terribly complicated.} %martial: d'accord
@@ -657,7 +651,7 @@ ord := OrderedCollection new.
 Sans les parenthèses le message inconnu \ct{includes:ifTrue:} serait envoyé à la collection!
 
 %-------------------------------------------------------------
-\subsection{Quand utiliser les \lct{[ ]} ou les \lct{( )} ?}
+\subsection{Quand utiliser les \ct{[ ]} ou les \ct{( )} ?}
 
 Vous pouvez avoir des difficultés à comprendre quand utiliser des crochets plutôt que des parenthèses.
 Le principe de base est que vous devez utiliser des \ct{[ ]} lorsque vous ne savez pas combien de fois une expression peut être évaluée (peut-être même jamais).
@@ -686,7 +680,7 @@ fois).
 
 %=============================================================
 \section{Séquences d'expression}
-Les expressions (\ie envois de message, affectations\ldots) séparées par des points sont évaluées en séquence.
+Les expressions (\ie envois de message, affectations, \ldots) séparées par des points sont évaluées en séquence.
 Notez qu'il n'y a pas de point entre la définition d'un variable et l'expression qui suit.
 La valeur d'une séquence est la valeur de la dernière
 expression. Les valeurs retournées par toutes les expressions
@@ -740,22 +734,21 @@ envoyé au même receveur.
 \begin{code}{}
 Point new setX: 25 setY: 35; isZero --> false
 \end{code}
-
 %=============================================================
 \section{Résumé du chapitre}
 
 \begin{itemize}
 \item Un message est toujours envoyé à un objet nommé le \emph{receveur} qui peut être le résultat d'autres envois de messages.
 
-\item Les messages unaires sont des messages qui ne nécessitent pas d'arguments.\\
-Ils sont de la forme \lct{receveur \textbf{sélecteur}}.
+\item Les messages unaires sont des messages qui ne nécessitent pas d'arguments. Ils sont de la forme \lct{receveur \textbf{sélecteur}}.
 
 \item Les messages binaires sont des messages qui concernent deux objets, le receveur et un autre objet \emph{et} dont le sélecteur est composé de un ou deux caractères de la liste suivante: \ct{+}, \ct{-}, \ct{*}, \ct{/}, \ct{|}, \texttt{\&}, \ct{=}, \ct{>}, \ct{<}, \texttt{\~}, et \ct{@}.\\
 Ils sont de la forme: \lct{receveur \textbf{sélecteur} argument}.
 
 \item Les messages à mots-clés sont des messages qui concernent plus d'un objet et qui contiennent au moins un caractère deux points (\ct{:}).\\
 Ils sont de la forme: 
-\lct{receveur \textbf{sélecteurMotUn:} argumentUn \textbf{motDeux:} argumentDeux}.
+\lct{receveur \textbf{motUnDuSelecteur:} argumentUn \textbf{motDeuxDuSelecteur:} argumentDeux}
+
 
 \item \textbf{Règle un.} Les messages unaires sont d'abord envoyés, puis les messages binaires et finalement les messages à mots-clés.
 
@@ -763,8 +756,8 @@ Ils sont de la forme:
 
 \item \textbf{Règle trois.} Lorsque les messages sont de même nature, l'ordre d'évaluation est de gauche à droite.
 
-\item En \st, les opérateurs arithmétiques traditionnels comme +
-  ou * ont la même priorité. \ct{+} et \ct{*} ne sont que des
+\item En \st, les opérateurs arithmétiques traditionnels comme \ct{+}
+  ou \ct{*} ont la même priorité. \ct{+} et \ct{*} ne sont que des
   messages binaires; donc \ct{*} n'a aucune priorité sur
   \ct{+}. Vous devez utiliser les parenthèses pour obtenir un
   résultat différent.

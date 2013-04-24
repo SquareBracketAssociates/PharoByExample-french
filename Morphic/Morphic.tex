@@ -7,9 +7,9 @@
 %% Maintainer: Martial Boniou
 %% Created: 2007-11-09 08:07:45 +0100 (Fri, 09 Nov 2007)
 %% Version: 13642
-%% Last-Updated: Tue Nov 17 17:25:24 2009 (+0100)
+%% Last-Updated: Tue May  3 15:04:43 2011 (+0200)
 %%           By: Martial Boniou
-%%     Update #: 847
+%%     Update #: 871
 %% URL:
 %% https://www.iam.unibe.ch/scg/svn_repos/SqueakByExample/FrenchBook/Morphic/Morphic.tex
 %% Review: Rene Mages - Fri Dec 21 22:18:36 2007 (3600 CET)
@@ -17,6 +17,8 @@
 %% Adaptation pour PharoBook: Martial Boniou - Tue Nov 17 11:45:22 2009
 %% Relecture pour PharoBook: Rene Mages - Mon Jan 18 11:45:22 2010
 %% Relecture pour PharoBook: Rene Mages - Mon Aug  9 11:45:22 2010
+%% Relecture pour PharoBook: Rene Mages - Sat Apr 16 11:45:22 2011
+%% Relecture pour PharoBook: Rene Mages - Tue Jun 14 11:45:22 2011
 %% Sync avec la version: 33691
 %% Keywords:
 %% Compatibility: 
@@ -60,7 +62,7 @@
 %% 
 %%% Change log: 
 %%             - Traduction et figures par Martial
-%%             - Premiere et deuxième relecture par Rene 
+%%             - Relectures par Rene 
 %% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %=================================================================
@@ -85,7 +87,7 @@
 % --------------------------------------------
     \graphicspath{{figures/} {../figures/}}
 	\begin{document}
-	% \renewcommand{\nnbb}[2]{} % Disable editorial comments
+	 \renewcommand{\nnbb}[2]{} % Disable editorial comments
 	\sloppy
 \fi
 %=================================================================
@@ -122,16 +124,10 @@ le langage de programmation orienté objet \ind{Self} développé
 chez Sun Microsystems:
 %ajout
 l'interface de ce langage basé sur le concept de prototypes (comme
-JavaScript) est apparue en 1993.
-Maloney réécrivit ensuite une nouvelle version de Morphic pour
-\pharo tout en conservant de la version originale son aspect 
-%directness = franchise
-\emph{direct} et 
-%live(li)ness = vivacite
-\emph{vivant}.
+JavaScript) est apparue en 1993. Maloney réécrivit ensuite une nouvelle version de Morphic pour \squeak, l'ancêtre de \pharo tout en conservant de la version originale son aspect \emph{direct} et \emph{vivant}.
 %ajout
 Dans ce chapitre, nous ferons une immersion dans cet univers d'objets
-graphiques, les \emph{morphs} et nous apprendrons à les modeler (à la
+graphiques (les \emph{morphs}) et nous apprendrons à les modeler (à la
 souris ou en programmation), à leur ajouter des fonctionnalités (pour
 accroître leur capacité d'interaction) et enfin, en préambule
 d'un exemple complet, nous verrons comment ils s'intègrent non seulement
@@ -207,7 +203,7 @@ Vous pouvez manipuler cet objet graphique en \metaclickant{}.
 
 \subsection{Personnaliser sa représentation}
 
-Revenons maintenant au code qui a créé ce morph.% 
+Revenons maintenant au code qui a créé ce morph. 
 % martial - 'orange' remplace 'tan' dans la VO de PBE/SBE
 Tout repose sur la méthode qui fabrique un morph à partir d'une
 chaîne de caractères:
@@ -252,7 +248,7 @@ de nouvelles sous-classes de \ct{Morph}.
 
 Qu'il soit affiché à l'écran ou non, tout morph a une position
 et une taille. Tous les morphs sont inclus, par commodité, dans une
-boîte englobante, \cad une région rectangulaire occupant un
+boîte englobante, \mbox{\cad} une région rectangulaire occupant un
 certain espace de l'écran. Dans le cas des formes irrégulières,
 leur position et leur taille correspondent à celles du plus petit
 rectangle qui englobe la forme. Cette boîte englobante définit
@@ -392,7 +388,7 @@ lui-même sur ce canevas dans ses limites. %
 Utilisons cette connaissance pour créer un morph en forme de croix.
 \index{morph!sous-classer}
 
-\dothis{Définissez \arelire{via le Browser } une nouvelle
+\dothis{Définissez via le Browser une nouvelle
   classe \clsind{CrossMorph} héritée de \ct{Morph}:}
 \begin{classdef}{Définir la classe \ct{CrossMorph}}
 Morph subclass: #CrossMorph
@@ -446,10 +442,8 @@ surface de la croix sensible à la souris.
 %However, you will notice that the sensitive zone\,---\,where you can click to grab the morph\,---\,is still the whole bounding box.  Let's fix this.
 
 Lorsque la librairie Morphic a besoin de trouver quels morphs se
-% Rene propose le framework Morphic 
 trouvent sous le curseur, elle envoie le message \ct{containsPoint:}
- à tous les morphs qui ont leur boîte englobante sous le
-pointeur de la souris. 
+ à tous les morphs qui ont leur boîte englobante sous le pointeur de la souris. 
 %ajout
 Cette méthode répond vrai lorsque le point-argument est contenu dans la
 forme définie.
@@ -472,7 +466,7 @@ containsPoint: aPoint
 
 Cette méthode suit la même logique que la méthode \ct{drawOn:}, 
 nous sommes donc sûrs que les points pour lesquels
-\ct{containsPoint:} retourne \ct{true} sont les mêmes points qui
+\ct{containsPoint:} retourne \ct{true} sont les mêmes points que ceux qui
 seront colorés par \ct{drawOn:}.
 Notez qu'à 
 %ajout
@@ -655,13 +649,13 @@ verticalBar
 
 
 %=================================================================
-\section{Intéraction et animation}
+\section{Interaction et animation}
 
 Pour construire des interfaces utilisateur vivantes avec les morphs,
 nous avons besoin de pouvoir interagir avec elles en utilisant la
 souris et le clavier.
-En outre, les morphs doivent être capable de répondre aux
-intéractions de l'utilisateur en changeant leur apparence et leur
+En outre, les morphs doivent être capables de répondre aux
+interactions de l'utilisateur en changeant leur apparence et leur
 position, autrement dit, en s'animant eux-mêmes.
 
 \subsection{Les événements souris}
@@ -669,13 +663,12 @@ position, autrement dit, en s'animant eux-mêmes.
 Quand un bouton de la souris est pressé, Morphic envoie à chaque
 morph sous le pointeur de la souris le message
 \ct{handlesMouseDown:}. Si un morph répond \ct{true}, Morphic lui
-envoie immédiatemment le message \mthind{Morph}{mouseDown:}. Lorsque
+envoie immédiatemment le message \mbox{\mthind{Morph}{mouseDown:}.} Lorsque
 le bouton de la souris est relâché, Morphic envoie
 \mthind{Morph}{mouseUp:}  à ces mêmes morphs qui avaient répondu
 positivement. Si tous les morphs retournent \ct{false}, Morphic entame
 une opération de
-%saisissement dans la version d'Hilaire (c'est en fait une emotion
-%vive et soudaine
+%saisissement dans la version d'Hilaire (c'est en fait une emotion vive et soudaine)
 saisie en prévision du glisser-déposer.
 Comme nous allons le voir, les messages \ct{mouseDown:} et \ct{mouseUp}
 sont envoyés avec un argument\,---\,un objet de classe
@@ -689,19 +682,18 @@ croix répondent \ct{true} au message \mthind{Morph}{handlesMouseDown:}.
 \dothis{Ajoutez la méthode suivante à la classe \ct{CrossMorph}:}
 \begin{method}{Déclarer que \ct{CrossMorph} réagit aux clics de souris}
 CrossMorph>>>handlesMouseDown: anEvent
-	^true
+	^ true
 \end{method}
 
 Supposons que vous vouliez que la couleur de la croix passe au rouge
 (\ct{Color red})
 à chaque fois que vous \clickz et qu'elle passe au jaune
-(\ct{Color yellow})
+\mbox{(\ct{Color yellow})}
 lorsque vous \actclickz sur celle-ci. 
 Nous devons créer la \mthref{mouseDown}.
 
 %% REVOIR IMPORTANT
-\tradalert{martial}{Faudrait-il mettre des méthodes \#clickButtonPressed
-  et \#actClickButtonPressed dans Pharo?!}
+\tradalert{martial}{Faudrait-il mettre des méthodes \#clickButtonPressed et \#actClickButtonPressed dans Pharo?!}
 \begin{method}[mouseDown]{Réagir aux clics de la souris en changeant la couleur de la croix}
 CrossMorph>>>mouseDown: anEvent
 	anEvent redButtonPressed "click"
@@ -721,19 +713,19 @@ de façon assez rapide.
 \ab{However, the \ct{self changed} message seems to be entirely unnecessary; the colour changes instantly without it.}
 
 Notez aussi qu'une fois qu'un morph gère les événements \subind{événement}{souris}, vous ne pouvez plus l'attraper avec la souris pour le déplacer.
-Dès lors, vous devez utiliser le halo Morphic en \arelire{\metaclickant}: les poignées \arelire{supérieures noire \grabHandle{} et marron \moveHandle{}}
-vous permettent respectivement de prendre et déplacer ce morph.
+Dès lors, vous devez utiliser le halo Morphic en \metaclickant: les poignées supérieures noire \grabHandle{} et marron \moveHandle{} vous permettent respectivement de prendre et déplacer ce morph.
 \seeindex{souris!événement}{événement, souris}
 
-\arevoir{L'argument \ct{anEvent} de \ct{mouseDown:} est une instance de
+L'argument \ct{anEvent} de \ct{mouseDown:} est une instance de
 \mbox{\clsind{MouseEvent},} sous-classe de \ct{MorphicEvent}.
 %\lct{Mor\-phic\-Event}{.} 
 \ct{MouseEvent} définit les méthodes
 \mthind{MouseEvent}{redButtonPressed} pour la gestion du \arelire{\clickbtn} 
 et \mthind{MouseEvent}{yellowButtonPressed} \arelire{pour celle du
-  \actclickbtn}.
+  \actclickbtn}~\footnote{NdT: Les termes \emph{``redButton''} et \emph{``yellowButton''} sont associés au code de couleurs utilisé historiquement dans \squeak pour décrire respectivement les commandes de \clickbtn{} et de \actclickbtn{} de la souris.}. % REVOIR martial: encore des vestiges de Squeak
  Parcourez cette classe pour en savoir plus sur les autres méthodes disponibles pour la gestion
-des événements souris.} % ATTENDRE - martial - je n'aime pas trop l'abandon des conventions de couleurs de la souris dans le livre si le système les garde CONFUS! 
+des événements souris. 
+% ATTENDRE - martial - je n'aime pas trop l'abandon des conventions de couleurs de la souris dans le livre si le système les garde CONFUS! 
 %The anEvent argument of mouseDown: is an instance of MouseEvent, which
 %is a subclass of MorphicEvent. MouseEvent defines the redButtonPressed and
 %yellowButtonPressed methods. Browse this class to see what other methods
@@ -771,7 +763,7 @@ dans ce cas, le morph doit répondre \ct{true} au message
 
 \begin{method}{Gérer les événements souris ``mouse over''} 
 CrossMorph>>>handlesMouseOver: anEvent
-	^true
+	^ true
 \end{method}
 
 \noindent
@@ -785,6 +777,8 @@ pointeur de la souris entre dans l'espace du morph ou sort de celui-ci.
   \ct{CrossMorph} peut activer et libérer la mise au point sur le
   clavier. Créez ensuite une troisième méthode pour gérer
   l'interaction via la saisie des touches.}
+
+\needlines{3}
 \begin{method}{Activer la mise au point sur le clavier lorsque la souris entre dans l'espace du morph}
 CrossMorph>>>mouseEnter: anEvent
 	anEvent hand newKeyboardFocus: self
@@ -866,7 +860,7 @@ CrossMorph>>>step
 Pour démarrer l'animation, vous pouvez ouvrir un inspecteur sur
 votre objet \ct{CrossMorph}: cliquez sur la poignée de débogage 
 \debugHandle{} du halo Morphic de votre croix 
-\arelire{(en \metaclickant{})} puis choisissez \menu{inspect morph} dans le
+(en \metaclickant{}) puis choisissez \menu{inspect morph} dans le
 menu flottant. Entrez l'expression \ct{self startStepping} dans le
 mini-espace de travail situé dans le bas de l'inspecteur et faites
 un \menu{do it}.
@@ -896,7 +890,7 @@ le stoppe.
 %ajout
 Morphic dispose de morphs commodes pour créer en quelques lignes de
 code des interactions avec l'utilisateur. Parmi eux, nous avons la
-classe \clsind{UIManager} offre un grand nombre de boîtes de
+classe \clsind{UIManager} qui offre un grand nombre de boîtes de
 dialogue % CHANGE - martial - FillInTheBank devient UIManager
 prêtes à l'emploi.
 La méthode \mthind{UIManager}{request:initialAnswer:} renvoie
@@ -924,8 +918,8 @@ UIManager default request: 'Quel est votre nom?' initialAnswer: 'sans nom'
 \end{figure}
 
 Pour afficher le menu flottant (en anglais, \emph{pop-up menu}), 
-\arelire{utilisez une des méthodes \ct{chooseFrom:} (voir
-  \figref{popup}):}
+utilisez une des méthodes \ct{chooseFrom:} (voir
+  \figref{popup}):
 \begin{code}{}
 UIManager default
 	chooseFrom: #('cercle' 'ovale' '!\normcode{carré}!' 'rectangle' 'triangle')
@@ -953,6 +947,7 @@ Morph subclass: #ReceiverMorph
 \end{classdef}
 
 %\dothis{Now define the initialization method in the usual way:}
+\needlines{4}
 \begin{method}{Initialiser un objet \ct{ReceiverMorph}}
 ReceiverMorph>>>initialize
 	super initialize.
@@ -1047,6 +1042,7 @@ DroppedMorph>>>initialize
 Nous voulons que le morph déposé ait un nouveau comportement 
 lorsqu'il est rejeté par le receveur; cette fois-ci, il restera
 attaché au pointeur de la souris:
+\needlines{7}
 \begin{method}{Réagir lorsque le morph est rejeté lors du dépôt}
 DroppedMorph>>>rejectDropMorphEvent: anEvent
 	| h |
@@ -1112,12 +1108,13 @@ BorderedMorph subclass: #DieMorph
 La variable d'instance \ct{faces} stocke le nombre de faces de notre
 dé; nous nous autorisons à avoir des dés jusqu'à neuf faces!
 \ct{dieValue} contient la valeur de la face affichée en ce moment et
-\ct{isStopped} est un booléen que est \ct{true} si et seulement si
+\ct{isStopped} est un booléen qui est \ct{true} si et seulement si
 l'animation est à l'arrêt.
 Nous allons définir la \emph{méthode de classe} \ct{faces: n} dans
 le côté classe de \clsind{DieMorph} pour pouvoir créer un
 nouveau dé à \ct{n} faces.
 
+\needlines{3}
 \begin{method}{Créer un nouveau dé avec un nombre de faces déterminé}
 DieMorph class>>>faces: aNumber
 	^ self new faces: aNumber
@@ -1149,7 +1146,7 @@ Nous définissons ensuite la méthode d'instance \ct{faces:} pour
 affecter la variable d'instance\,---\,il s'agit d'une méthode
 d'accès de type mutateur\,---\, en vérifiant que le paramètre est
 bien valide:
-\begin{method}{Affecter le nombre correspondant à la face visible de dé}
+\begin{method}{Affecter le nombre correspondant à la face visible du dé}
 DieMorph>>>faces: aNumber
 	"Affecter le !numéro! de la face"
 	(aNumber isInteger
@@ -1182,23 +1179,23 @@ besoin de définir autant de méthodes qu'il y a de faces possibles:
 
 \begin{methods}{Neuf méthodes pour placer les points noirs sur la face visible du dé}
 DieMorph>>>face1
-	^{0.5@0.5}
+	^ {0.5@0.5}
 DieMorph>>>face2
-	^{0.25@0.25 . 0.75@0.75}
+	^ {0.25@0.25 . 0.75@0.75}
 DieMorph>>>face3
-	^{0.25@0.25 . 0.75@0.75 . 0.5@0.5}
+	^ {0.25@0.25 . 0.75@0.75 . 0.5@0.5}
 DieMorph>>>face4
-	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75}
+	^ {0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75}
 DieMorph>>>face5
-	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.5@0.5}
+	^ {0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.5@0.5}
 DieMorph>>>face6
-	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5}
+	^ {0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5}
 DieMorph>>>face7
-	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5}
+	^ {0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5}
 DieMorph >>>face8
-	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5 . 0.5@0.25}
+	^ {0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5 . 0.5@0.25}
 DieMorph >>>face9
-	^{0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5 . 0.5@0.25 . 0.5@0.75}
+	^ {0.25@0.25 . 0.75@0.25 . 0.75@0.75 . 0.25@0.75 . 0.25@0.5 . 0.75@0.5 . 0.5@0.5 . 0.5@0.25 . 0.5@0.75}
 \end{methods}
 \on{kind of ugly boilerplate code -- should be a nice way to map these more elegantly to coordinates.}
 
@@ -1305,7 +1302,7 @@ DieMorph>>>mouseDown: anEvent
 \end{methods}
 
 %ajout
-Maintenant notre dé ``roule'' ou se fige quand nous cliquons dessus.
+\noindent{} Maintenant notre dé ``roule'' ou se fige quand nous cliquons dessus.
 
 % That's all for the essentials of Morphic!
 
@@ -1357,9 +1354,8 @@ DieMorph>>>drawOn: aCanvas
 	(self perform: ('face' , dieValue asString) asSymbol)
 		do: [:aPoint | self drawDotOn: theCanvas at: aPoint]
 \end{method}
-\noindent
 
-C'est tout ce dont nous avons besoin! 
+\noindent C'est tout ce dont nous avons besoin! 
 
 \begin{figure}[ht]
 	\centerline{\includegraphics[scale=0.7]{multiMorphs}}
@@ -1402,14 +1398,14 @@ Vous pouvez:
   \item convertir un objet en \emph{morph} et l'afficher
     sur l'écran de \pharo, le \emph{world}, en lui envoyant le message
     \ct{asMorph openInWorld};
-  \item faire apparaître le halo Morphic en \arelire{\metaclickant}
+  \item faire apparaître le halo Morphic en \metaclickant
   sur un morph et manipuler ce morph
     grâce aux poignées du halo. Ces poignées ont des ballons
     d'aide (ou \emph{help balloons}) qui détaillent leur action;
   \item composer des morphs en les emboîtant les uns dans les autres,
     soit par glisser-déposer, soit par envoi du message \ct{addMorph:};
   \item dériver la classe d'un morph et redéfinir ses
-    méthodes-clés telles que \ct{initialize} et \ct{drawOn:};
+    méthodes-clé telles que \ct{initialize} et \ct{drawOn:};
   \item contrôler la façon dont réagit un morph avec les
     événements issus de la souris et du clavier en redéfinissant les
     méthodes comme, par exemple, \ct{handlesMouseDown:} et

@@ -13,7 +13,8 @@
 % adaptation pour PBE - martial - (09/20/2009) version 29552
 % relecture: Rene Mages (10/01/2010) version 30222
 % relecture: Rene Mages  (25/06/2010) version 33735
-
+% relecture: Rene Mages  (11/04/2011) 
+% relecture: Rene Mages  (01/05/2011)
 \ifx\wholebook\relax\else
 % --------------------------------------------
 % Lulu:
@@ -47,7 +48,7 @@ réflexion, le jeu \ind{Lights Out}~\footnote{En anglais,
   \url{http://en.wikipedia.org/wiki/Lights_Out_(game)}.
 % martial - TODO ajouter une définition en français
 }. 
-En cours de route, nous allons faire la démonstration de la plupart des outils que \arelire{les développeurs \pharo utilisent pour}
+En cours de route, nous allons faire la démonstration de la plupart des outils que les développeurs \pharo utilisent pour
 % Rene propose de supprimer pharo à la ligne précedente.
 % Martial: comme tu veux, ça ne me dérange pas; ça rappelle que les méthodologies et les outils sont associés aux dév. Pharo et pas au dév. Haskell.
 construire et déboguer leurs programmes et comment les programmes sont échangés entre les développeurs. Nous verrons notamment le navigateur de classes, l'inspecteur d'objet, le débogueur et le navigateur de \ind{paquetage}{}s \ind{Monticello}. 
@@ -81,17 +82,19 @@ Nous allons voir maintenant comment définir ces deux classes en utilisant les o
 
 Nous avons déjà vu le \ind{Browser}
 dans \charef{quick}, où nous avons appris à naviguer dans les classes
-et méthodes, et à définir de nouvelles méthodes.
+et les méthodes, et à définir de nouvelles méthodes.
 Nous allons maintenant voir comment créer des paquetages (ou \emph{packages}), des catégories et des classes.
 \index{catégorie!création}
 \index{package!création}
 
 \dothis{Ouvrez un Browser et \actclickz{} sur le panneau des paquetages.
 Sélectionnez \menu{create package}\footnote{Nous supposons que le 
-\aretirer{Package} Browser est installé en tant que navigateur de classes par défaut. 
+Browser est installé en tant que navigateur de classes par défaut. 
 Si le Browser ne ressemble pas à celui de la
 \figref{addPackage}, vous aurez besoin de changer le navigateur par
-défaut. Voyez \faqref{packageBrowser}.}.}
+défaut. Voyez \faqref{packagebrowser}.}.}
+% rene : Voyez la FAQ ??, p. ??.  donc probleme avec \faqref
+
 
 \begin{figure}[htb]
 \begin{minipage}[b]{0.48\textwidth}
@@ -130,7 +133,7 @@ classe appelée \ct{Object}, lui demandant de créer une sous-classe
 appelée \ct{NameOfSubClass}.  La nouvelle classe n'a pas de variables
 et devrait appartenir à la catégorie \scat{PBE-LightsOut}.
 
-\subsection{\arelire{À propos des catégories et des paquetages}}
+\subsection{À propos des catégories et des paquetages}
 \seclabel{categoriesPackages}
 
 Historiquement, \st{} ne connaît que les \emph{catégories}. Vous
@@ -143,8 +146,8 @@ est une collection de classes apparentées \emph{et de méthodes
 Monticello.
 Par convention, les noms de paquetages et les noms de catégories sont
 les mêmes.
-La plupart du temps, nous n'accordons pas de différence mais, dans ce
-livre, nous serons attentifs à utiliser la terminologie exacte car il
+D'ordinaire nous ne faisons pas de différence mais dans ce
+livre nous serons attentifs à utiliser la terminologie exacte car il
 y a des cas où la différence est cruciale.
 Vous en apprendrez plus lorsque nous aborderons le travail avec
 Monticello.
@@ -194,7 +197,7 @@ Cette nouvelle définition consiste en une expression \st qui envoie un message 
 Nous indiquons également que les instances de cette nouvelle classe doivent avoir une variable d'instance \ct{mouseAction}, que nous utiliserons pour définir l'action que la cellule doit effectuer lorsque l'utilisateur clique dessus avec la souris.
 
 \emph{À ce point, nous n'avons encore rien construit.}
-Notez que le bord du panneau du modèle de la classe est passé en rouge
+Notez que le bord du panneau du modèle de la classe est passé au rouge
 (voir \figref{acceptClassDef}).
 Cela signifie qu'il y a des \emph{modifications non sauvegardées}.
 Pour effectivement envoyer ce message, vous devez faire \menu{accept}.
@@ -240,9 +243,9 @@ passer un peu de temps sur votre classe.
   acceptez-le; vous aurez tout le loisir de l'améliorer par la suite.}
 
 \begin{figure}[h!t]
-%\ifluluelse
-%	{\centerline {\includegraphics[width=\textwidth]{LOCell}}}
-%	{\centerline {\includegraphics[scale=0.7]{LOCell}}}
+\ifluluelse
+	{\centerline {\includegraphics[width=\textwidth]{LOCell}}}
+	{\centerline {\includegraphics[scale=0.7]{LOCell}}}
 %martial: description de la frame de commentaire ajoute pour les non-anglophones
 \caption{La classe nouvellement créée \ct{LOCell}. Le panneau
   inférieur est le panneau de commentaires; par défaut, il dit:
@@ -265,7 +268,7 @@ Sélectionnez-le et remplacez-le par le texte de \tmthref{scbecellinitialize}.
 \index{Browser!définir une méthode}
 
 \needlines{10}
-\begin{numMethod}[scbecellinitialize]{Initialiser les instances de \ct{LOCell}.}
+\begin{numMethod}[scbecellinitialize]{Initialiser les instances de \ct{LOCell}}
 initialize
    super initialize.
    self label: ''.
@@ -343,7 +346,7 @@ noms de méthodes de telle sorte que le code \st peut être lu comme
 de l'anglais simplifié (\emph{English pidgin}).  
 % Rene prefere ne plus utiliser : (ou parler \textit{petit-nègre}).
 Vous devriez être capable d'imaginer l'objet se parlant à lui-même et
-dire:  ``Utilise des bords carrés!'' (d'où \ct{useSquareCorners}),
+dire:  ``Utilise des bords carrés!'' (d'où \mbox{\ct{useSquareCorners}),}
 ``Éteins les cellules!'' (en anglais, \ct{turnOff}).
 % martial: note provisoire pour Serge: les phrases entre guillemets
 % etaient ecrites avec des \ct{} or ces balises sont pour le
@@ -354,13 +357,13 @@ dire:  ``Utilise des bords carrés!'' (d'où \ct{useSquareCorners}),
 \section{Inspecter un objet}
 
 Vous pouvez tester l'effet du code que vous avez écrit en créant un
-nouvel objet \ct{LOCell} et en l'inspectant avec l'inspecteur nommé \arelire{Inspector}.
+nouvel objet \ct{LOCell} et en l'inspectant avec l'inspecteur nommé Inspector.
 % ajout -vf avec l'inspecteur nomme Inspector
 \dothis{Ouvrez un espace de travail (Workspace). Tapez l'expression \ct{LOCell new} et choisissez \menu{inspect it}.}
 
 \begin{figure}[htbp]
    \centering
-%   \includegraphics[width=\textwidth]{LOCellInspector} 
+   \includegraphics[width=\textwidth]{LOCellInspector} 
    \caption{L'inspecteur utilisé pour examiner l'objet LOCell.\figlabel{LOCellInspector}}
 \end{figure}
 
@@ -404,9 +407,9 @@ conséquence (il faudra peut-être \actclick{} sur \menu{refresh} pour voir les 
 
 \begin{figure}[htbp]
 \centering
-%\ifluluelse
-%	{\includegraphics[width=\textwidth]{LOCellResize} }
-%	{\includegraphics[scale=0.7]{LOCellResize} }
+\ifluluelse
+	{\includegraphics[width=\textwidth]{LOCellResize} }
+	{\includegraphics[scale=0.7]{LOCellResize} }
 \caption{Redimensionner la cellule.\figlabel{cellresize}}
 \end{figure}
 
@@ -594,7 +597,7 @@ C'est pour cela que le navigateur offre un protocole virtuel
      non catégorisées.\figlabel{categorize}}
 \end{figure}
 
-Si vous avez suivi l'exemple jusqu'à présent, le troisième panneau doit contenir le protocole \protind{as yet unclassified}~\footnote{NdT: non encore classifié.}.
+Si vous avez suivi l'exemple jusqu'à présent, le troisième panneau doit contenir le protocole \protind{as yet unclassified}~\footnote{NdT: pas encore classées.}. % ie méthodes pas encore classées
 
 \dothis{\Actclickz{} dans le panneau des protocoles et sélectionnez
   \menu{various \go{} categorize automatically} afin de régler ce
@@ -632,7 +635,7 @@ si le programme évolue de telle sorte que la constante dépende d'autres
 propriétés, la méthode peut être modifiée pour calculer la valeur.
 
 \needlines{10}
-\begin{method}[newCellAt:at:]{Une méthode d'aide à l'initialisation}
+\begin{method}[newCellAt:at:]{Une méthode auxiliaire pour l'initialisation}
 LOGame>>>newCellAt: i at: j
    "!Crée! une cellule !à! la position (i,j) et l'ajoute dans ma !représentation! graphique !à! la position correcte. Retourne une nouvelle cellule"
    | c origin |
@@ -650,7 +653,7 @@ LOGame>>>newCellAt: i at: j
 \dothis{Ajoutez les méthodes \ct{LOGame>>>cellsPerSide} et \ct{LOGame>>>newCellAt:at:}.}
 Confirmez que les sélecteurs \ct{toggleNeighboursOfCellAt:at:} et \ct{mouseAction:} s'épellent correctement.
 
-\Tmthref{newCellAt:at:} retourne une nouvelle cellule \ct{LOCell} à la position \ct{(i,j)} dans la matrice (\clsind{Matrix}) de cellules.
+\Tmthref{newCellAt:at:} retourne une nouvelle cellule \ct{LOCell} à la position \mbox{\ct{(i,j)}{}} dans la matrice (\clsind{Matrix}) de cellules.
 La dernière ligne définit l'action de la souris (\ct{mouseAction}) associée à la cellule comme le \emph{bloc}
 \mbox{\ct{[self toggleNeighboursOfCellAt:i at:j]}.}
 %martial: callback = fonction de rappel ? (plus francais)
@@ -694,25 +697,24 @@ La seule action de \tmthref{mouseAction:} consiste à donner comme
 valeur à la variable \ct{mouseAction} celle de l'argument puis, à en
 retourner la nouvelle valeur. Toute méthode qui \emph{change} la
 valeur d'une variable d'instance de cette façon est appelée une
-\emph{méthode d'accès en écriture} ou \emph{mutateur} (vous pourrez
+\emph{méthode d'}\emphsubind{méthode}{accès en écriture}
+ou \emph{mutateur} (vous pourrez
 trouver dans la littérature le terme anglais \emph{setter}); une
 méthode qui \emph{retourne} la valeur courante d'une variable
-d'instance est appelée une \emph{méthode d'accès en lecture} ou
+d'instance est appelée une \emph{méthode d'}\emphsubind{méthode}{accès en lecture} ou
 \emph{accesseur} (le mot anglais équivalent est \emph{getter}).
-%\seeindex{setter method}{accessor}
-%\seeindex{getter method}{accessor}
-\seeindex{méthode d'accès en lecture}{méthode d'accès}
-\seeindex{méthode d'accès en écriture}{méthode d'accès}
-\seeindex{accesseur}{méthode d'accès}
-\seeindex{mutateur}{méthode d'accès}
-\seeindex{méthode!accès}{méthode d'accès}
-\seeindex{méthode!getter}{méthode d'accès}
-\seeindex{méthode!setter}{méthode d'accès}
+\seeindex{méthode d'accès}{méthode, accès}
+\seeindex{accesseur}{méthode, accès en lecture}
+\seeindex{mutateur}{méthode, accès en écriture}
+\seeindex{méthode!getter}{méthode, accès en lecture}
+\seeindex{méthode!setter}{méthode, accès en écriture}
 
 Si vous êtes habitués aux méthodes d'accès en lecture (\emph{getter})
 et écriture (\emph{setter}) dans d'autres langages de programmation,
 vous vous attendez à avoir deux méthodes nommées \ct{getMouseAction}
 et \ct{setMouseAction}.
+\subind{méthode}{accès en lecture}
+\subind{méthode}{accès en écriture}
 La convention en \st est différente.
 Une méthode d'accès en lecture a toujours le même nom que la variable
 correspondante et la méthode d'accès en écriture est nommée de la même
@@ -724,9 +726,9 @@ manière avec un ``\ct{:}'' à la fin; ici nous avons donc
 %equivalents de l'anglais 'accessors' d'apres toutes mes docs
 %j'ai reformule 
 %%Les méthodes d'accès en lecture et écriture sont appelés des méthodes \emphind{accesseurs} et par convention elles doivent être placées dans le protocole \protind{accessing}.
-Une méthode d'accès (en lecture ou en écriture) est appelée
+Une méthode d'\subind{méthode}{accès} (en lecture ou en écriture) est appelée
 en anglais \emphind{accessor} et par convention, elle doit être
-placée dans le protocole \protind{accessing}.
+placée dans le protocole \mbox{\protind{accessing}{}.}
 En \st, \emph{toutes} les variables d'instances sont privées à
 l'objet qui les possède, ainsi la seule façon pour un autre objet de
 lire ou de modifier ces variables en \st se fait au travers de
@@ -740,7 +742,8 @@ sera appelée automatiquement par l'infrastructure (ou \emph{framework})
 graphique si le bouton de la souris est pressé lorsque le pointeur de
 celle-ci est au-dessus d'une cellule sur l'écran.
 
-\begin{method}[sbecellmouseup]{Un gestionnaire d'événement}
+\needlines{5}
+\begin{method}[sbecellmouseup]{Un gestionnaire d'événements}
 LOCell>>>mouseUp: anEvent
    mouseAction value
 \end{method}
@@ -801,7 +804,7 @@ Dans la partie supérieure de la fenêtre du débogueur, nous pouvons
 voir la pile d'exécution, affichant toutes les méthodes actives; en
 sélectionnant l'une d'entre elles, nous voyons dans le panneau du
 milieu le code \st en cours d'exécution dans cette méthode, avec
-la partie qui a déclenchée l'erreur en caractère gras.
+la partie qui a déclenché l'erreur en caractère gras.
 
 \dothis{Cliquez sur la ligne nommée
 \ct{LOGame>>>toggleNeighboursOfCellAt:at:} (près du haut).}
@@ -828,7 +831,7 @@ En utilisant le débogueur, vous pouvez exécuter du code pas à pas,
 inspecter les objets dans les paramètres et les variables locales,
 évaluer du code comme vous le faites dans le Workspace et, de manière
 surprenante pour ceux qui sont déjà habitués à d'autres débogueurs, il
-est possible de modifier le code en cours de déboguage! 
+est possible de modifier le code en cours de débogage! 
 Certains Smalltalkiens programment la plupart du temps dans le
 débogueur, plutôt que dans le navigateur de classes.
 %martial: Tue Dec 25 10:30:52 CET 2007 modif' car trop lourd
@@ -903,12 +906,12 @@ Le jeu doit maintenant se dérouler sans problèmes
   \ct{SimpleSwitchMorph}. Nous pouvons simplement corriger celà en
   surchargeant \ct{mouseMove:} pour lui dire de ne rien faire: % CHANGE
 
-% \needlines{6}
+\needlines{2}
 \begin{method}[mouseMove:]{Surcharger les actions associées aux déplacements de la souris}
 LOGame>>>mouseMove: anEvent
 \end{method}
 
-Et voilà! % CHANGE
+\noindent{} Et voilà! % CHANGE
 
 %\sd{It would be good to have a word about the debugger buttons into, step.... Or to have a separate chapter, we would use the material I wrote for my turtle book, please check it.}
 %\on{I think that is too much for this chapter. It will come soon enough.}
@@ -955,7 +958,7 @@ Jetez un coup d'\oe il à ce fichier avec un éditeur de texte.
 
 \dothis{Ouvrez une nouvelle image \pharo et utilisez l'outil File
   Browser (\menu{Tools \go{} File Browser}) pour faire une importation
-  de fichier via l'option de menu  \menu{file in} dans le fichier
+  de fichier via l'option de menu  \menu{file in} du fichier
   PBE-LightsOut.st. Vérifiez que le jeu fonctionne maintenant dans une
   nouvelle image.}
 
@@ -1175,5 +1178,4 @@ et le navigateur Monticello.
 %%% mode: latex
 %%% TeX-master: t
 %%% TeX-PDF-mode: t
-%%% ispell-local-dictionary: "english"
 %%% End:

@@ -8,8 +8,10 @@
 % relu par Rene Mages (Sun Jan 13 11:22:33 CET 2008)
 % relu par Martial Boniou (Mon Feb  4 17:35:46 CET 2008)
 % adaptation pour Pharo : martial - Fri Sep 11 13:23:52 CEST 2009 
-% relu par Rene Mages (Sat Jan 9 8:57:55 CET 2010)
-% relu par Rene Mages (Mon Aug 9 8:57:55 CET 2010)
+% relu par Rene Mages (Sat Jan  9 8:57:55 CET 2010)
+% relu par Rene Mages (Mon Aug  9 8:57:55 CET 2010)
+% relu par Rene Mages (Thu Apr 14 8:57:55 CET 2011)
+% relu par Rene Mages (Wed May  4 8:57:55 CET 2011)
 % $Author: oscar $ % $Date: 2009-08-28 10:41:41 +0200 (Fri, 28 Aug
 % 2009) $ % $Revision: 28654 $
 % sync avec la revision: 33691
@@ -242,7 +244,7 @@ de les exécuter pendant la nuit.
 
 \item Les tests doivent vous raconter une histoire.  Chaque test doit couvrir un aspect d'une partie 
 de code. Un test doit agir comme un scénario que vous ou quelqu'un d'autre peut lire de façon à comprendre 
-une partie de fonctionnalité.\label{prop:oneAspect} 
+partiellement une fonctionnalité.\label{prop:oneAspect} 
 
 % \item Tests should tell a story.  Each test should cover one aspect of a 
 %   piece of code.  A test should act as a scenario that you or some else can
@@ -338,7 +340,7 @@ TestCase subclass: #ExampleSetTest
 	instanceVariableNames: 'full empty'
 	classVariableNames: ''
   poolDictionaries: ''
-	category: 'MySetTest'
+	category: 'PBE-SUnit'
 \end{classdef}
 % \dothis{First you should create a new subclass of \clsind{TestCase} called
 % \ct{ExampleSetTest}.   Add two instance variables so that your new
@@ -374,7 +376,7 @@ Il est indispensable que votre classe soit une sous-classe de \ct{TestCase}.
 \subsection{Étape 2: initialiser le contexte du test}
 
 La méthode \mthind{TestCase}{setUp} (en anglais, \emph{configurer}) définit le contexte dans lequel les tests vont s'exécuter, un peu comme la méthode \ct{initialize}. \ct{setUp} est invoquée avant l'exécution de chaque méthode de test définie dans la classe de test.
-\index{SUnit!set up method}
+\index{SUnit!méthode \ct{setUp}}
 \seeindex{test!SUnit}{SUnit}
 
 %martial: phrase a revoir
@@ -437,13 +439,13 @@ s'est déjà exécutée.
 % that the \ct{setUp} method has already run.
 
 %\begin{method}[testIncludes]{Testing set membership}
-\begin{method}[testIncludes]{Tester l'appartenance à un Set}
+\begin{method}[testIncludes]{Tester l'appartenance à un \ct{Set}}
 ExampleSetTest>>>testIncludes
 	self assert: (full includes: 5).
 	self assert: (full includes: 6)
 \end{method}
 
-Le second test nommé \ct{testOccurrences} vérifie que le nombre d'occurences de~5 dans 
+Le second test nommé \ct{testOccurrences} vérifie que le nombre d'occurrences de~5 dans 
 le \ct{Set} \ct{full} est égal à un, même si nous ajoutons un autre élément~5 au \ct{Set}.
 % The second test, named \ct{testOccurrences}, verifies that the
 % number of occurrences of~5 in \ct{full} set is equal to one, even if we
@@ -502,8 +504,8 @@ résultats en lançant  l'\emphind{exécuteur de tests}  \emphind{Test
 L'exécuteur de tests, montré dans \figref{test-runner}, est conçu pour faciliter 
 l'exécution de groupes de tests.
 Le panneau le plus à gauche présente toutes les catégories qui
-contiennent des classes de test (\ie  sous-classes de
-\ct{TestCase}). Lorsque certaines de ces catégories sont
+contiennent des classes de test (\ie  sous-classes \mbox{de
+\lct{TestCase}{})}. Lorsque certaines de ces catégories sont
 sélectionnées, les classes de test qu'elles contiennent apparaissent
 dans le panneau de droite.
 Les classes abstraites sont en italique et la hiérarchie des classes de test est visible par l'indentation, ainsi les sous-classes de  \ct{ClassTestCase} sont plus indentées que les sous-classes de \ct{TestCase}.
@@ -517,7 +519,7 @@ Les classes abstraites sont en italique et la hiérarchie des classes de test es
 \end{figure}
 
 
-\dothis{Ouvrez le Test Runner, sélectionnez la catégorie \menu{MySetTest} et cliquez le bouton \button{Run Selected}.}
+\dothis{Ouvrez le Test Runner, sélectionnez la catégorie \menu{PBE-SUnit} et cliquez le bouton \button{Run Selected}.}
 
 % ON: With OB, you don't need this.
 %Vous pouvez aussi exécuter votre test en évaluant un \menu{print it} sur le code suivant~: \ct{(ExampleSetTest selector: #testRemove) run}. L'expression suivante est équivalente mais plus concise~: \ct{ExampleSetTest run: #testRemove}. Il nous est habituel d'inclure un commentaire exécutable à notre méthode de test ce qui nous permet de les exécuter avec un \menu{do it} depuis le \ct{System Browser}, comme il est montré dans \mthref{ExampleSetTestTestRemoveii}.
@@ -783,9 +785,9 @@ pas non plus importer.
 % Performing \ct{setUp} before each test and \ct{tearDown} afterwards helps to reinforce this independence. 
 
 Malgré tout, il y a certains cas pour lesquels la préparation du contexte nécessaire est simplement 
-trop lent pour qu'il soit réalisable
+trop lente pour qu'elle soit réalisable
 % plutôt que praticable 
-de le faire avant l'exécution de chaque test. De plus, si nous savons que les tests n'altèrent pas 
+à faire avant l'exécution de chaque test. De plus, si nous savons que les tests n'altèrent pas 
 les ressources qu'ils utilisent, alors il est prohibitif de les initialiser pour chaque test; il est 
 suffisant de les initialiser une seule fois pour chaque suite de tests. Supposez, par exemple, 
 qu'une suite de tests ait besoin d'interroger une base de données ou d'effectuer certaines analyses 
@@ -797,7 +799,7 @@ ou compiler du code source avant l'exécution des tests.
 % Suppose, for example, that a suite of tests need to query a database, or do some analysis on some compiled code.
 % In such cases, it may make sense to set up the database and open a connection to it, or to compile some source code, before any of the tests start to run.
 
-Où pourrions nous conserver ces ressources de façon à ce qu'elles puissent être partagées par 
+Où pourrions-nous conserver ces ressources de façon à ce qu'elles puissent être partagées par 
 les tests d'une suite~?
 Les variables d'instance d'une sous-classe de \ct{TestCase} particulière ne le pourraient pas 
 parce que ses instances ne subsistent que pendant la durée d'un seul test.
@@ -836,7 +838,7 @@ des \ct{TestCase}s qu'il contient.
 
 Voici un exemple. Nous définissons une sous-classe de \ct{TestResource} nommée \ct{MyTestResource} et nous 
 l'associons à  \ct{MyTestCase} en spécialisant la méthode de classe \ct{resources} de sorte qu'elle retourne 
-un tableau contenant \aconfirmer{les classes de test qu'il utilisera}.
+un tableau contenant \aconfirmer{les classes de test qu'elle utilisera}.
 
 % Here is an example. 
 % We define a subclass of \ct{TestResource} called
@@ -851,7 +853,7 @@ TestResource subclass: #MyTestResource
 
 MyTestCase class>>>resources
 	"associe la ressource avec cette classe de test"
-	^{ MyTestResource }
+	^ { MyTestResource }
 \end{classdef}
 % \begin{classdef}[mytestresource]{An example of a TestResource subclass}
 % TestResource subclass: #MyTestResource
@@ -859,7 +861,7 @@ MyTestCase class>>>resources
 % 
 % MyTestCase class>>>resources
 % 	"associate the resource with this class of test cases"
-% 	^{ MyTestResource }
+% 	^ { MyTestResource }
 % \end{classdef}
 
 %\needlines{10}
@@ -875,7 +877,7 @@ MyTestCase class>>>resources
 
 %MyTestCase class>>>resources
 %	"associate the resource with this class of test cases"
-%	^{ MyTestResource }
+%	^ { MyTestResource }
 %\end{classdef}
 
 % \on{Do we really need the empty setUp and tearDown methods here?}
@@ -1025,12 +1027,12 @@ La méthode \cmind{TestCase}{run} crée une instance de \clsind{TestResult} qui 
 % (See \figref{sunit-scenario}.)
 
 \needlines{6}
-\begin{method}[tastecaserun]{Exécuter un cas de test}
+\begin{method}[testcaserun]{Exécuter un cas de test}
 TestCase>>>run
 	| result |
 	result := TestResult new.
 	self run: result.
-	^result
+	^ result
 \end{method}
 
 % Note that in a future release, the class of the \ct{TestResult} to
@@ -1039,7 +1041,7 @@ TestCase>>>run
 
 La méthode \cmind{TestCase}{run:} envoie le message \mthind{TestResult}{runCase:} au résultat de test de classe \clsind{TestResult}~:
 
-\begin{method}[testcaserun:]{Passage du cas de test au TestResult}
+\begin{method}[testcaserun:]{Passage du cas de test au \ct{TestResult}}
 TestCase>>>run: aResult
 	aResult runCase: self
 \end{method}
@@ -1088,7 +1090,7 @@ contenant tous les tests définis dans la classe {\ct{MyTestCase}. Le c{\oe}ur d
 
 \begin{method}[testcasetestselectors]{Auto-construction de la suite de test}
 TestCase>>>testSelectors 
-	^self selectors asSortedCollection asOrderedCollection select: [:each | 
+	^ self selectors asSortedCollection asOrderedCollection select: [:each | 
 		('test*' match: each) and: [each numArgs isZero]]
 \end{method}
 \cmindex{MyTestCase class}{buildSuiteFromSelectors}
@@ -1098,13 +1100,14 @@ ressources sont disponibles avec \ct{areAllResourcesAvailable} puis envoie elle-
 message \mthind{TestSuite}{run:} qui exécute tous les tests de la suite. 
 Toutes les ressources sont alors libérées.
 
+\needlines{7}
 \begin{method}[testsuiterun]{Exécuter une suite de tests}
 TestSuite>>>run
 	| result |
   self resources do: [ :res |
-		res isAvailable ifFalse: [^res signalInitializationError]].
+		res isAvailable ifFalse: [^ res signalInitializationError]].
 	[self run: result] ensure: [self resources do: [:each | each reset]].
-	^result
+	^ result
 \end{method}
 
 \lr{Methods 7.15 and 7.17: use \#ensure: instead of \#sunitEnsure:, this has been changed in 3.9}
@@ -1131,12 +1134,12 @@ initialisée et la méthode \mthind{TestResource}{setUp} est invoquée.
 \needlines{4}
 \begin{method}[testresourceisavailable]{Disponibilité de la ressource de test}
 TestResource class>>>isAvailable
-	^self current notNil and: [self current isAvailable]
+	^ self current notNil and: [self current isAvailable]
 \end{method}
 \begin{method}[testresourcecurrent]{Création de la ressource de test}
 TestResource class>>>current
 	current isNil ifTrue: [current := self new].
-	^current
+	^ current
 \end{method}
 \begin{method}[restresourceinitialize]{Initialisation de la ressource de test}
 TestResource>>>initialize
@@ -1247,7 +1250,9 @@ ainsi ils doivent être séparés des vrais tests unitaires.
 \item[Les règles de Black.]
 Pour tous les tests du système, vous devriez être en mesure d'identifier une propriété 
 pour laquelle le test renforce votre confiance. Il est évident qu'il ne devrait pas y avoir de 
-propriété importante que vous ne testez pas. Cette règle établit le fait moins évident qu'il ne 
+propriété importante que vous ne testiez pas. 
+% rene : testiez (et non testez) puisqu'il s'agit du subjonctif présent
+Cette règle établit le fait moins évident qu'il ne 
 devrait pas y avoir de tests sans valeur ajoutée de nature à accroître votre confiance envers 
 une propriété utile.
 Par exemple, il n'est pas bon d'avoir plusieurs tests pour la même propriété.
@@ -1324,7 +1329,7 @@ Ainsi, ne pensez qu'à une seule propriété quand vous écrivez un test.
 %suite that is running.
 %\begin{method}[xxx]{xxx}
 %SharedSetUpTestCase class>>>suiteClass
-%	^SharedSetUpTestSuite
+%	^ SharedSetUpTestSuite
 %\end{method}
 %\begin{method}[xxx]{xxx}
 %SharedSetUpTestCase class>>>sharedSetUp
@@ -1398,7 +1403,7 @@ Ainsi, ne pensez qu'à une seule propriété quand vous écrivez un test.
 %follows.
 %\begin{method}[xxx]{xxx}
 %runIndividually
-%	^runIndividually
+%	^ runIndividually
 %\end{method}
 %\begin{method}[xxx]{xxx}
 %SharedSetUpTestCase>>>armTearDownCounter
@@ -1496,12 +1501,12 @@ Ainsi, ne pensez qu'à une seule propriété quand vous écrivez un test.
 %\begin{method}[xxx]{xxx}
 %SharedSetUpTestSuite>>>run: aResult
 %	self checkAndArmSharedSetUp.
-%	^super run: aResult
+%	^ super run: aResult
 %\end{method}
 %\begin{method}[xxx]{xxx}
 %SharedSetUpTestSuite>>>run
 %	self checkAndArmSharedSetUp.
-%	^super run
+%	^ super run
 %\end{method}
 %Finally the method \ct{addTest:} is specialized so that it marks
 %all its tests with the fact that they are executed in a
@@ -1532,7 +1537,7 @@ Ainsi, ne pensez qu'à une seule propriété quand vous écrivez un test.
 %\begin{method}[xxx]{xxx}
 %TestCase class>>>buildSuite
 %	| suite |
-%	^self isAbstract
+%	^ self isAbstract
 %		ifTrue:
 %			[suite := self suiteClass new.
 %			suite name: self name asString.
@@ -1546,7 +1551,7 @@ Ainsi, ne pensez qu'à une seule propriété quand vous écrivez un test.
 %\end{method}
 %\begin{method}[xxx]{xxx}
 %TestCase class>>>buildSuiteFromMethods: testMethods
-%	^testMethods
+%	^ testMethods
 %		inject: ((self suiteClass new)
 %				name: self name asString;
 %				yourself)
@@ -1605,7 +1610,7 @@ Ainsi, ne pensez qu'à une seule propriété quand vous écrivez un test.
 %%		 cr
 
 %% MyTestCase class>>>resources
-%%	 ^Array with: MyTestResource
+%%	 ^ Array with: MyTestResource
 
 %% MyTestResource>>>setUp
 %%	 Transcript
@@ -1660,5 +1665,4 @@ détaillé \sunit en suivant l'exécution d'un test et d'une suite de tests.
 %%% mode: latex
 %%% TeX-master: t
 %%% TeX-PDF-mode: t
-%%% ispell-local-dictionary: "english"
 %%% End:

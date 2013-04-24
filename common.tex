@@ -91,12 +91,15 @@
 %=============================================================
 %:Booleans
 \newboolean{lulu} % version lulu
-\setboolean{lulu}{false}
+\setboolean{lulu}{true}
 \newboolean{deployment} % version de déploiement
-\setboolean{deployment}{false}  % true pour enlever les couleurs et
+\setboolean{deployment}{true}  % true pour enlever les couleurs et
                                 % annotations de traduction
+\newboolean{seaside-chapter}
+\setboolean{seaside-chapter}{true} % officially no seaside but regex in french edition of PBE-1.0
 \newcommand{\ifluluelse}[2]{\ifthenelse{\boolean{lulu}}{#1}{#2}}
 \newcommand{\ifdeploy}[1]{\ifthenelse{\boolean{deployment}}{#1}{}}      % vf only
+\newcommand{\ifseaside}[2]{\ifthenelse{\boolean{seaside-chapter}}{#1}{#2}}
 %=============================================================
 %:Names
 \newcommand{\SUnit}{SUnit\xspace}
@@ -114,9 +117,11 @@
 \newcommand{\sbe}{\url{http://SqueakByExample.org}\xspace}
 % pharo
 \newcommand{\pharoweb}{\url{http://pharo-project.org}\xspace}
+\newcommand{\pharowebdownload}{\url{http://pharo-project.org/pharo-download}\xspace}
 \newcommand{\pbe}{\url{http://PharoByExample.org}\xspace}
 % pharo-french
-\newcommand{\ppe}{\url{http://PharoByExample.org/fr}\xspace} % ATTENDRE - à définir
+\newcommand{\ppe}{\url{http://PharoByExample.org/fr}\xspace} % FINAL
+\newcommand{\pharooneclick}{PBE-1.0-OneClick\xspace}         % FINAL
 % squeak-fr: adresse de la version francaise
 \newcommand{\spe}{\url{http://SqueakByExample.org/fr}\xspace}
 \newcommand{\sba}{\url{http://SquareBracketAssociates.org}\xspace}
@@ -124,7 +129,8 @@
 % changements d'url rencontres dans la VO:
 \newcommand{\squeakdev}{\url{http://www.squeaksource.com/ImageForDevelopers}\xspace} %ou
 %\newcommand{\squeakdev}{\url{squeak.ofset.org/squeak-dev}\xspace}
-\newcommand{\bam}{\lct{Bounc\-ing\-Atoms\-Morph}\xspace} % REVOIR
+\newcommand{\dwdseaside}{\url{http://book.seaside.st/book}\xspace}
+\newcommand{\bam}{\ct{BouncingAtomsMorph}\xspace}
 %=============================================================
 %:Markup macros for proof-reading
 \usepackage[normalem]{ulem} % for \sout
@@ -166,8 +172,8 @@
 \newcommand{\hw}[1]{\nnbb{Hernan}{#1}} % Wilkinson
 %=============================================================
 %:Abbreviation macros
-\newcommand{\ie}{\emph{c-\`a-d.}\xspace}
-\newcommand{\cad}{\emph{c-\`a-d.}\xspace}
+\newcommand{\ie}{\mbox{\emph{c-\`a-d.}}\xspace}
+\newcommand{\cad}{\mbox{\emph{c-\`a-d.}}\xspace}
 %\newcommand{\eg}{\emph{e.g.},\xspace}
 \newcommand{\eg}{\emph{par ex.},\xspace}
 \newcommand{\parex}{\emph{par ex.},\xspace}
@@ -462,10 +468,9 @@ pdfsubject={Informatique, Computer Science}
 }[keywords,comments,strings]
 % ajout pour les échappements dans les codes
 % indispensable pour mettre le code en emphase (cf. Model.tex) 
-\newcommand{\codeify}[1]{\NoAutoSpaceBeforeFDP#1\AutoSpaceBeforeFDP}
-%\renewcommand{\codeify}[1]{#1} % TEST
+\newcommand{\nospace}[1]{{\NoAutoSpaceBeforeFDP{}#1}}
 \newcommand{\normcomment}[1]{\emph{#1}} %cf. Streams
-\newcommand{\normcode}[1]{\emph{\codeify{#1}}} %cf. Streams
+\newcommand{\normcode}[1]{\emph{\nospace{#1}}} %cf. Streams
 \newcommand{\emcode}[1]{\textbf{\normcode{#1}}} % Martial 11/2007
 \lstset{language=Smalltalk,
 	basicstyle=\sffamily,
@@ -486,10 +491,9 @@ pdfsubject={Informatique, Computer Science}
 % apb 2007.8.28 added the \upshape declaration to avoid getting italicized code in \dothis{ } sections.
 % In-line code (latex enabled)
 % Use this only in special situations where \ct does not work
-% (within section headings ...):
+% (within section headings, captions (figures, method environment) ...):
 
-% [squeak-fr] Modification de \lct suivant les indications de Martial Boniou
-\newcommand{\lct}[1]{\textsf{\textup{#1}}}
+\newcommand{\lct}[1]{\textsf{\textup{\nospace{#1}}}} % nospace => remove spaces added by babel-french before :, ? etc.. IMPORTANT: should not be used neither in sections nor in captions (as used in method environment ...); in this case: use \ct
 % Use these for system categories and protocols:
 \newcommand{\scat}[1]{\emph{\textsf{#1}}\xspace}
 \newcommand{\pkg}[1]{\emph{\textsf{#1}}\xspace}
@@ -675,6 +679,13 @@ framerule=0pt,
 \setcounter{totalnumber}{20}
 \setcounter{dbltopnumber}{9}
 %=============================================================
+%:Footnotes in tabular environment (spécificité française)
+\newcounter{notetab}            % cf. www.trustonme.net/didactels/248.html
+\newcommand{\zero}{\setcounter{notetab}{0}}
+\newcommand{\ntm}{\footnotemark\addtocounter{notetab}{1}}
+\newcommand{\initnt}{\addtocounter{footnote}{-\value{notetab}}}
+\newcommand{\ntt}[1]{\addtocounter{footnote}{1}\footnotetext{#1}}
+%=============================================================
 %% [Squeak-fr]
 % pour identifier les zones de texte à corriger d'urgence!
 \newcommand{\arevoir}[1]{\ugh{#1}} % peut ne pas être correct ou trop approximatif
@@ -682,7 +693,7 @@ framerule=0pt,
                                 % incertitude mineure
 \newcommand{\aretirer}[1]{\del{#1}} % à enlever ou remplacer
 % ALERTE traducteurs
-\newcommand{\tradalert}[2]{\fix~\uppercase{#1:~\emph{#2}}} % affiche
+\newcommand{\tradalert}[2]{\fix~\uppercase{#1:~\emph{#2}}\\} % affiche
                                 % une balise avec le nom de traducteur
                                 % signalant un message d'alerte
 \ifdeploy{%
@@ -708,8 +719,7 @@ framerule=0pt,
 % Mac OS X
 \newcommand{\macosx}{\mbox{Mac OS X}\xspace}
 % code en francais (uniquement dans le chapitre BasicClasses)
-\newcommand{\codefrench}[1]{\NoAutoSpaceBeforeFDP\texttt{#1}\AutoSpaceBeforeFDP\xspace}
-%\renewcommand{\codefrench}[1]{\texttt{#1}} % TEST
+\newcommand{\codefrench}[1]{\texttt{\nospace{#1}}\xspace}
 % mantra du modele objet
 \newcommand{\Mantra}{Tout est objet\xspace}
 \newcommand{\mantra}{\MakeLowercase{\Mantra}\xspace}
@@ -721,9 +731,11 @@ bibliothèques, d'outils et de conventions permettant le développement
 d'applications.} (dit aussi ``cadre d'applications'')}[\frmwk]
 \newcommand{\frameworks}{\emph{frameworks}\xspace}
 \newcommand{\senders}{\emph{senders}\xspace}
+\newcommand{\sennders}{\emph{se\underline{n}ders}\xspace}
 \newcommand{\Senders}{\emph{Senders}\xspace} % dans Environment
 \newcommand{\sender}{\emph{sender}\xspace}
 \newcommand{\implementors}{\emph{implementors}\xspace}
+\newcommand{\immplementors}{\emph{i\underline{m}plementors}\xspace}
 \newcommand{\implementor}{\emph{implementor}\xspace}
 \newcommand{\truetype}{\textsf{TrueType}\xspace}
 \newcommand{\bamfr}{atomes rebondissants\xspace} % pour le \bam dans QuickTour
@@ -732,7 +744,7 @@ d'applications.} (dit aussi ``cadre d'applications'')}[\frmwk]
 \newcommand{\brushes}{\emph{brushes}\xspace}
 \newcommand{\backbtn}{``retour arrière''\xspace}
 \newcommand{\toolbar}{barre d'outils\xspace}
-\newcommand{\task}{\emph{task}\xspace}
+\newcommand{\task}{\emph{task}\xspace} % les WATasks en Seaside
 \newcommand{\tasks}{\emph{tasks}\xspace}
 \newcommand{\transaction}{\emph{transaction}\xspace}
 \newcommand{\transactions}{\emph{transactions}\xspace}
@@ -744,18 +756,22 @@ d'applications.} (dit aussi ``cadre d'applications'')}[\frmwk]
 \newcommand{\expregs}{expressions régulières\xspace}
 \newcommand{\pattern}{\emph{pattern}\xspace}
 %\newcommand{\patterns}{\emph{patterns}\xspace}
-\newcommand{\pkgregex}{\pkg{Regex}\xspace}
+\newcommand{\pkgregex}{\pkg{Regex}}
 \newcommand{\sitemap}{\emph{site map}\xspace}
 \newcommand{\patmatch}{\emph{pattern matching}\xspace}
 \newcommand{\regexmatch}{\emph{regex match}\xspace}
 \newcommand{\regexmatches}{\emph{regex matches}\xspace}
 \newcommand{\kleenestar}{fermeture de Kleene\xspace}
 \newcommand{\escchar}{caractère d'échappement\xspace}
+\newcommand{\pragma}{\emph{pragma}\xspace}
+\newcommand{\pragmas}{\emph{pragmas}\xspace}
+\newcommand{\Pragma}{\emph{Pragma}\xspace}
+\newcommand{\Pragmas}{\emph{Pragmas}\xspace}
 %% TITRES de chapitres nommés dans Monticello (PBE2->PBE1)
 \newcommand{\titreFirstapp}{Une première application\xspace}
 \newcommand{\titreEnvironment}{L'environnement de programmation de \pharo\xspace}
 %% UNITÉS VARIABLES (nombres de classe...)
-\newcommand{\drawOnImplNumber}{59\xspace} % nombre de méthodes
+\newcommand{\drawOnImplNumber}{77\xspace} % nombre de méthodes
                                 % #drawOn: (ne rien mettre si incertain)
 %% spécial Seaside *IMPORTANT*
 \def\fr{french}
@@ -782,6 +798,7 @@ d'applications.} (dit aussi ``cadre d'applications'')}[\frmwk]
 \hyphenation{vi-si-bles}
 \hyphenation{cor-res-pon-dan-te}
 \hyphenation{Work-space}
+\hyphenation{Bounc-ing-Atoms-Morph}
 %=============================================================
 % apb doesn't like paragraphs to run in to each other without a break
 \parskip 1ex
