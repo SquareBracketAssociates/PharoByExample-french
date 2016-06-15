@@ -604,7 +604,7 @@ Il est également possible de fournir une valeur booléenne ou un bloc qui retou
 
 Pour l'instant, nous avons utilisé les capacités réflexives de \st principalement pour interroger et explorer les objets, les classes, les méthodes et la pile d'exécution du système. Nous allons maintenant voir comment utiliser notre connaissance de \st pour intercepter des messages et modifier le comportement du système à l'exécution.
 
-Lorsque un objet reçoit un message, il cherche d'abord dans son dictionnaire de méthodes la méthode correspondante pour répondre au message.
+Lorsqu'un objet reçoit un message, il cherche d'abord dans son dictionnaire de méthodes la méthode correspondante pour répondre au message.
 Si aucune méthode correspondante n'existe, il va continuer son exploration en remontant dans la hiérarchie de classe, jusqu'à atteindre la classe \ct{Object}.
 Si toujours aucune méthode n'est trouvée pour ce message, l'objet \emph{s'enverra à lui-même} %send itself
 le message \ct{doesNotUnderstand:} avec le selecteur du message comme argument.
