@@ -695,7 +695,7 @@ point class --> LoggingProxy
 \end{code}
 Curieusement, la méthode \ct{class} n'est pas implémentée dans 
 \ct{ProtoObject} mais dans \ct{Object} dont \ct{LoggingProxy} n'hérite pas!
-La réponse à cette énigme est que \ct{class} n'est jamais envoyé comme message mais est directement géré par la machine virtuelle~\footnote{\ct{yourself} aussi n'est jamais vraiment envoyé.
+La réponse à cette énigme est que \ct{class} n'est jamais envoyée comme message mais est directement géré par la machine virtuelle~\footnote{\ct{yourself} aussi n'est jamais vraiment envoyé.
 Les autres messages qui peuvent être interprétés par la machine virtuelle selon le receveur sont:
 \mbox{\ct{+},}
 \mbox{\ct{-},}
