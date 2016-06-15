@@ -790,8 +790,9 @@ Bien que les messages puissent être interceptés par des \emph{proxies} basés 
 
 Charger ou générer dynamiquement des méthodes manquantes est 
 l'autre application la plus courante de l'interception des messages non-compris.
-Considérons une grande bibliothèque de classes disposant du grand nombre de méthodes. Plutôt que de charger la bibliothèque dans son entier, nous pouvons charger
-des morceaux pour chaque classe de la bibliothèque;
+Considérons une grande bibliothèque de classes disposant d'un grand nombre de méthodes. 
+Plutôt que de charger la bibliothèque dans son entier, nous pouvons charger des morceaux 
+pour chaque classe de la bibliothèque;
 %ajout vf
 en informatique des réseaux, nous parlons de \emph{stub}.
 Ces \emph{stubs} savent où trouver le code source de toutes leurs méthodes Ils piègent simplement tous les messages non-compris et chargent dynamiquement les méthodes manquantes à la demande.  
